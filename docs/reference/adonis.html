@@ -85,7 +85,9 @@
     have interactions as in a typical <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>.</p></dd>
 
   <dt>data</dt>
-<dd><p>the data frame for the independent variables.</p></dd>
+<dd><p>the data frame for the independent variables, with rows
+    in the same order as the community data matrix or dissimilarity
+    matrix named on the LHS of <code>formula</code>.</p></dd>
 
   <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
@@ -238,9 +240,9 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management * A1, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Df SumOfSqs      R2      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management     3   1.4686 0.34161 3.2629  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.025 * </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.208   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management     3   1.4686 0.34161 3.2629  0.003 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.015 * </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.217   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual      12   1.8004 0.41878                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         19   4.2990 1.00000                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
@@ -299,10 +301,12 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.026628 0.15058 1.7728  0.175</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.150208 0.84942              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.176836 1.00000              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.059197 0.27315 3.7581   0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.157520 0.72685                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.216718 1.00000                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span><span class="co">## Correct with strata</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu">adonis2</span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">NO3</span>, data <span class="op">=</span> <span class="va">dat</span>, permutations <span class="op">=</span> <span class="fl">199</span>, strata <span class="op">=</span> <span class="va">field</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for adonis under reduced model</span>
@@ -313,9 +317,9 @@ Ecology and Evolution</em>, 3, 89--101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.026628 0.15058 1.7728  0.045 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.150208 0.84942                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.176836 1.00000                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NO3       1 0.059197 0.27315 3.7581   0.02 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.157520 0.72685                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.216718 1.00000                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
