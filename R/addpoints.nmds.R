@@ -65,7 +65,7 @@
 
 ## decompose disimilarity object to isolate new values
 
-    diss <- as.matrix(dis)[1:oldn,(oldn+1):totn]
+    diss <- as.matrix(dis)[1:oldn,(oldn+1):totn, drop = FALSE]
 
 ## set up initial conditions
 
@@ -141,7 +141,7 @@
            iters=as.integer(iters),
            cause=as.integer(icause))
     res <- list(points=matrix(out$points,ncol=ndim),
-                newpoints=matrix(out$points,ncol=ndim)[(oldn+1):totn,],
+                newpoints=matrix(out$points,ncol=ndim)[(oldn+1):totn,, drop=FALSE],
                 stress=out$stress,iters=out$iters,cause=out$cause,
                 seeds=tmp)
     dimnames(res$points)[[1]] <- attr(dis,'Labels')
