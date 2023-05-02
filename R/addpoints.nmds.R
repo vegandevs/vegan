@@ -88,24 +88,21 @@
     jidx <- NULL
     for (i in (oldn+1):totn) jidx <- c(jidx,rep(i,oldn))
 
-## set up ordination parameters. FIXME: the following are set to
-## arbitrary values that differ from current metaMDS defaults (and at
-## least some of these parameters could be read from the input
-## ordination object).
+## set up ordination parameters.
     nfix <- oldn
     ngrp <-
     istart <- 1
-    isform <- 2
-    ities <- 1
+    isform <- nmds$isform
+    ities <- nmds$ities
     iregn <- 1
-    iscal <- 0
-    sratmx <- 0.99999
-    strmin <- 1e-07
-    sfgrmn <- 1e-05
+    iscal <- 0L # with NFIX iscal should be 0
+    sratmx <- nmds$sratmx
+    strmin <- nmds$strmin
+    sfgrmn <- nmds$sfgrmn
     dist <- rep(0,ndis)
     dhat <- rep(0,ndis)
     x <- matrix(0,nrow=totn,ncol=ndim)
-    stress <- 1
+    stress <- 1.0
     strs <- ngrp
     iters <- 1
     icause <- 1
