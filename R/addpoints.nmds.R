@@ -137,12 +137,11 @@
            strs=as.double(strs),
            iters=as.integer(iters),
            cause=as.integer(icause))
-    res <- list(points=matrix(out$points,ncol=ndim),
-                newpoints=matrix(out$points,ncol=ndim)[(oldn+1):totn,, drop=FALSE],
-                stress=out$stress,iters=out$iters,cause=out$cause,
-                seeds=tmp)
-    dimnames(res$points)[[1]] <- attr(dis,'Labels')
-    dimnames(res$newpoints)[[1]] <- attr(dis,'Labels')[(oldn+1):totn]
-    class(res) <- 'nmds'
-    res
+    dim(out$points) <- c(totn, ndim)
+    out$newpoints <- out$points[(oldn+1):totn,, drop=FALSE]
+    out$seeds <- tmp
+    dimnames(out$points)[[1]] <- attr(dis,'Labels')
+    dimnames(out$newpoints)[[1]] <- attr(dis,'Labels')[(oldn+1):totn]
+    class(out) <- 'nmds'
+    out
 }
