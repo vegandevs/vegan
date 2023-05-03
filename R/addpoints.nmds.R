@@ -82,19 +82,26 @@
     xinit <- rbind(points,tmp)
     dimnames(xinit)[[1]] <- attr(dis,'Labels')
 
-## set up indices
+    ## set up indices
 
     iidx <- rep((1:oldn),newn)
     jidx <- NULL
     for (i in (oldn+1):totn) jidx <- c(jidx,rep(i,oldn))
 
-## set up ordination parameters.
+    ## combine with old data
+
+    diss <- c(nmds$diss, diss)
+    ndis <- length(diss)
+    iidx <- c(nmds$iidx, iidx)
+    jidx <- c(nmds$jidx, jidx)
+
+    ## set up ordination parameters.
     nfix <- oldn
     ngrp <-
     istart <- 1
     isform <- nmds$isform
     ities <- nmds$ities
-    iregn <- 1
+    iregn <- nmds$iregn
     iscal <- 0L # with NFIX iscal should be 0
     sratmx <- nmds$sratmx
     strmin <- nmds$strmin
