@@ -113,7 +113,7 @@
     strs <- ngrp
     iters <- 1
     icause <- 1
-    maxits <- maxits
+    maxits <- maxit
     iwork <- rep(0,ndis)
     grad <- matrix(0,nrow=totn,ncol=ndim)
     grlast <- matrix(0,nrow=totn,ncol=ndim)
