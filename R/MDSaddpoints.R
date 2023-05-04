@@ -10,7 +10,7 @@
 #'     \code{dis}.
 #' @param neighbors Number of nearest points used to get the starting
 #'     locations for new points.
-#' @param maxits Maximum number of iterations.
+#' @param maxit Maximum number of iterations.
 #'
 #' @details
 #'
@@ -44,8 +44,8 @@
 ## - Function needs different name!
 
 #' @export
-`addpoints.nmds` <-
-    function (nmds, dis, neighbors=5, maxits=200)
+`MDSaddpoints` <-
+    function (nmds, dis, neighbors=5, maxit=200)
 {
 ## bring list component to local matrix
 
