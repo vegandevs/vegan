@@ -45,6 +45,13 @@
   error when non-existing axes were requested. Now ignores requests to
   axes numbers that are higher than in the result object.
 
+* Over-fitted models with high number of aliased variables caused a
+  rare failure in `adonis2` and permutation tests of constrained
+  ordination methods (`cca`, `rda`, `dbrda`) with arguments `by =
+  "margin"` or `by = "axis"`. Typically this occurs with high-order
+  interactions of factor variables. See issue
+  [#452](https://github.com/vegandevs/vegan/issues/452)
+
 #### DEPRECATED AND DEFUNCT
 
 * `adonis` is deprecated: use `adonis2`. There are several CRAN
