@@ -38,8 +38,9 @@
 
 #### BUG FIXES
 
-* `anova.cca` with parallel processing could slow down in parallel
-  processing, and actually be slower than non-parallel analysis.
+* Parallel processing was inefficiently implemented and could be
+  slower than non-parallel in permutation tests for constrained
+  ordination and `adonis2`.
 
 * `plot` and `scores` for `cca` and `rda` family of methods gave an
   error when non-existing axes were requested. Now ignores requests to
