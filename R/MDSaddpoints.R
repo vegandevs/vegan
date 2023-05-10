@@ -50,47 +50,41 @@
 ## bring list component to local matrix
 
     points <- nmds$points
-
-## get sizes
-
     oldn <- nrow(points)
     ndim <- ncol(points)
-    totn <- attr(dis,'Size')
-    newn <- totn - oldn
 
-## test correspondence
+    ## use dist2xy to handle input 'dis'
+    if (inherits(dis, "dist")) {
+        totn <- attr(dis, "Size")
+        if (totn <= oldn)
+            stop("input dissimilarities should have more observations than 'nmds'")
+        dis <- dist2xy(dis, pick = seq(oldn + 1, totn))
+    }
+    newn <- nrow(dis)
 
-    if (!identical(dimnames(points)[[1]],attr(dis,'Labels')[1:oldn]))
-         stop('ordination and dissimilarity matrix do not match')
 
-## decompose disimilarity object to isolate new values
+    ## set up initial coordinates as weighted average of nearest
+    ## neighbours to old points using 1-diss as weights
 
-    diss <- as.matrix(dis)[1:oldn,(oldn+1):totn, drop = FALSE]
-
-## set up initial conditions
-
-    ndis <- oldn * newn
-    tmp <- matrix(rep(0,newn*ndim),ncol=ndim)
+    tmp <- matrix(0, newn, ndim)
     for (i in 1:newn) {
-        pnt <- seq(1,oldn)[order(diss[,i])][1:neighbors]
-        weight <- 1-diss[pnt,i]
+        pnt <- order(dis[i,])[seq_len(neighbors)]
+        weight <- 1-dis[i,pnt]
         for (j in 1:ncol(points)) {
-            tmp[i,j] <- weighted.mean(points[pnt,j],w=weight)
+            tmp[i,j] <- weighted.mean(points[pnt,j], w=weight)
         }
     }
 
     xinit <- rbind(points,tmp)
-    dimnames(xinit)[[1]] <- attr(dis,'Labels')
 
     ## set up indices
 
-    iidx <- rep((1:oldn),newn)
-    jidx <- NULL
-    for (i in (oldn+1):totn) jidx <- c(jidx,rep(i,oldn))
+    iidx <- as.vector(row(dis)) + oldn
+    jidx <- as.vector(col(dis))
 
     ## combine with old data
 
-    diss <- c(nmds$diss, diss)
+    diss <- c(nmds$diss, dis)
     ndis <- length(diss)
     iidx <- c(nmds$iidx, iidx)
     jidx <- c(nmds$jidx, jidx)
