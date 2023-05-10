@@ -42,12 +42,13 @@
 #' @param type \code{"xy"} returns rectangular data of not picked
 #'     against picked observations, and \code{"xx"} a subset of
 #'     symmetric dissimilarities.
-#' @param reverse Revert \code{pick}, or drop elements listed.
+#' @param invert Invert \code{pick}, or drop elements listed.
 #'
 #' @export
 `dist2xy` <-
-    function(dist, pick, type = c("xy", "xx"), reverse = FALSE)
+    function(dist, pick, type = c("xy", "xx"), invert = FALSE)
 {
+    type <- match.arg(type)
     if (!inherits(dist, "dist"))
         stop("'dist' must be a dissimilarity object of class 'dist'")
     dist <- as.matrix(dist)
@@ -55,7 +56,7 @@
     ## make up the selection vector
     k <- logical(n)
     k[pick] <- TRUE
-    if (reverse)
+    if (invert)
         k <- !k
     ## make compartments
     if (type == "xy")
