@@ -289,13 +289,7 @@ static double veg_clark(double *x, int nr, int nc, int i1, int i2)
     return sqrt(dist);
 }
 
-/*  Bray-Curtis and Jaccard indices:
- *
- * Jaccard = (2 * Bray)/(1 + Bray). If Jaccard is requested, Bray is
- * calculated in this function and it is left as the task of the
- * caller to translate this into Jaccard. Actually, Jaccard is
- * redundant, but since people ask for Jaccard, they get it.
- */
+/*  Bray-Curtis and Jaccard indices: */
 
 static double veg_bray(double *x, int nr, int nc, int i1, int i2)
 {
@@ -316,6 +310,16 @@ static double veg_bray(double *x, int nr, int nc, int i1, int i2)
      }
      if (count==0) return NA_REAL;
      dist /= total;
+     return dist;
+}
+
+/* Jaccard = 2 * Bray/(1 + Bray) */
+
+static double veg_jaccard(double *x, int nr, int nc, int i1, int i2)
+{
+     double bray, dist;
+     bray = veg_bray(x, nr, nc, i1, i2);
+     dist = 2 * bray / (1 + bray);
      return dist;
 }
 
@@ -454,7 +458,7 @@ static double veg_mountford(double *x, int nr, int nc, int i1, int i2)
 		    t2++;
 	       count++;
 	  }
-	  i1 += nr;
+ 	  i1 += nr;
 	  i2 += nr;
      }
      if (count == 0) return NA_REAL;
@@ -760,8 +764,10 @@ static void veg_distance(double *x, int *nr, int *nc, double *d, int *diag,
 	distfun = veg_canberra;
 	break;
     case BRAY:
-    case JACCARD:
 	distfun = veg_bray;
+	break;
+    case JACCARD:
+	distfun = veg_jaccard;
 	break;
     case KULCZYNSKI:
 	distfun = veg_kulczynski;

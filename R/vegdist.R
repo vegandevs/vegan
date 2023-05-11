@@ -56,8 +56,6 @@
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
     d <- .Call(do_vegdist, x, as.integer(method))
-    if (method == 10)
-        d <- 2 * d/(1 + d)
     d[d < ZAP] <- 0
     if (any(is.na(d)))
         warning("missing values in results")
