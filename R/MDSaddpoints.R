@@ -61,14 +61,14 @@
         dis <- dist2xy(dis, pick = seq(oldn + 1, totn))
     }
     newn <- nrow(dis)
-
+    totn <- oldn + newn
 
     ## set up initial coordinates as weighted average of nearest
     ## neighbours to old points using 1-diss as weights
 
     tmp <- matrix(0, newn, ndim)
     for (i in 1:newn) {
-        pnt <- order(dis[i,])[seq_len(neighbors)]
+        pnt <- order(dis[i,seq_len(oldn)])[seq_len(neighbors)]
         weight <- 1-dis[i,pnt]
         for (j in 1:ncol(points)) {
             tmp[i,j] <- weighted.mean(points[pnt,j], w=weight)
