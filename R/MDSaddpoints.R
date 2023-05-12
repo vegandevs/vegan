@@ -93,13 +93,6 @@
     nfix <- oldn
     ngrp <-
     istart <- 1
-    isform <- nmds$isform
-    ities <- nmds$ities
-    iregn <- nmds$iregn
-    iscal <- 0L # with NFIX iscal should be 0
-    sratmx <- nmds$sratmx
-    strmin <- nmds$strmin
-    sfgrmn <- nmds$sfgrmn
     dist <- rep(0,ndis)
     dhat <- rep(0,ndis)
     x <- matrix(0,nrow=totn,ncol=ndim)
@@ -114,28 +107,28 @@
 
     out <- .Fortran('monoMDS',
            nobj=as.integer(totn),
-           nfix=as.integer(nfix),
+           nfix=as.integer(oldn),
            ndim=as.integer(ndim),
            ndis=as.integer(ndis),
-           ngrp=as.integer(ngrp),
+           ngrp=as.integer(1),
            diss=as.double(diss),
            iidx=as.integer(iidx),
            jidx=as.integer(jidx),
            xinit=as.double(xinit),
-           istart=as.integer(istart),
-           isform=as.integer(isform),
-           ities=as.integer(ities),
-           iregn=as.integer(iregn),
-           iscal=as.integer(iscal),
+           istart=as.integer(1),
+           isform=as.integer(nmds$isform),
+           ities=as.integer(nmds$ities),
+           iregn=as.integer(nmds$iregn),
+           iscal=as.integer(0), # should be 0 with nfix
            maxits=as.integer(maxits),
-           sratmx=as.double(sratmx),
-           strmin=as.double(strmin),
-           sfgrmn=as.double(sfgrmn),
+           sratmx=as.double(nmds$sratmx),
+           strmin=as.double(nmds$strmin),
+           sfgrmn=as.double(nmds$sfgrmn),
            dist=as.double(dist),
            dhat=as.double(dhat),
            points=as.double(x),
            stress=as.double(stress),
-           strs=as.double(strs),
+           strs=as.double(1),
            iters=as.integer(iters),
            cause=as.integer(icause))
     dim(out$points) <- c(totn, ndim)
