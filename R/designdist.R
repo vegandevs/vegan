@@ -63,8 +63,6 @@
               abcd = FALSE, alphagamma = FALSE, name, maxdist)
 {
     terms <- match.arg(terms)
-    if (terms == "minimum")
-        .NotYetUsed("terms = 'minimum'")
     if ((abcd || alphagamma) && terms != "binary")
         warning("perhaps terms should be 'binary' with 'abcd' or 'alphagamma'?")
     x <- as.matrix(x)
@@ -81,13 +79,21 @@
         x <- ifelse(x > 0, 1, 0)
         y <- ifelse(y > 0, 1, 0)
     }
-    if (terms == "binary" || terms == "quadratic")
+    if (terms == "binary" || terms == "quadratic") {
         J <- tcrossprod(y, x)
-    ## terms = "minimum" not yet implemented
-    if (terms == "minimum")
-        x <- .Call(do_minterms, as.matrix(x))
-    A <- diag(tcrossprod(x))[col(J)]
-    B <- diag(tcrossprod(y))[row(J)]
+        A <- diag(tcrossprod(x))[col(J)]
+        B <- diag(tcrossprod(y))[row(J)]
+    }
+    ## terms = "minimum" should be written in C like in designdist
+    if (terms == "minimum") {
+        J <- matrix(0, Ny, Nx)
+        for (j in seq_len(Nx))
+            for (i in seq_len(Ny))
+                J[i,j] <- sum(pmin.int(y[i,], x[j,]))
+        dimnames(J) <- list(rownames(y), rownames(x))
+        A <- rowSums(x)[col(J)]
+        B <- rowSums(y)[row(J)]
+    }
     Jattr <- attributes(J)
     J <- as.vector(J)
     ## 2x2 contingency table notation
