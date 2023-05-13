@@ -81,8 +81,8 @@
     }
     if (terms == "binary" || terms == "quadratic") {
         J <- tcrossprod(y, x)
-        A <- diag(tcrossprod(x))[col(J)]
-        B <- diag(tcrossprod(y))[row(J)]
+        A <- rowSums(x^2)[col(J)]
+        B <- rowSums(y^2)[row(J)]
     }
     ## terms = "minimum" should be written in C like in designdist
     if (terms == "minimum") {
