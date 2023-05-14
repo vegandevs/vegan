@@ -11,7 +11,7 @@
     c <- beta$c
     diffbc <- sum(abs(b-c))
     sumbc <- sum(b+c)
-    bmin <- sum(pmin(b, c))
+    bmin <- sum(pmin.int(b, c))
     a <- sum(comm > 0) - sum(colSums(comm) > 0)
     simpson <- bmin/(bmin + a)
     nest <- a/(bmin + a) * diffbc/(2*a + sumbc)
@@ -27,7 +27,7 @@
     c <- beta$c
     diffbc <- sum(abs(b-c))
     sumbc <- sum(b+c)
-    bmin <- sum(pmin(b, c))
+    bmin <- sum(pmin.int(b, c))
     a <- sum(comm > 0) - sum(colSums(comm) > 0)
     simpson <- 2*bmin/(2*bmin + a)
     nest <- a/(2*bmin + a) * diffbc/(a + sumbc)

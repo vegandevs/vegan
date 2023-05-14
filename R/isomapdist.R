@@ -19,7 +19,7 @@
         diag(dist) <- NA
         is.na(dist) <- apply(dist, 2, function(x)
                              x > x[order(x, na.last=TRUE)[k]])
-        dist <- pmax(as.dist(dist), as.dist(t(dist)), na.rm = TRUE)
+        dist <- pmax.int(as.dist(dist), as.dist(t(dist)), na.rm = TRUE)
     }
     fragm <- distconnected(dist, toolong=0,  trace=FALSE)
     take <- NULL

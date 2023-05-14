@@ -74,10 +74,10 @@
     p <- rep(NA, length(object$statistic))
     for(i in seq_along(p))
         p[i] <- switch(alt[i],
-                       two.sided = 2*pmin(pless[i], pmore[i]),
+                       two.sided = 2*pmin.int(pless[i], pmore[i]),
                        greater = pmore[i],
                        less = pless[i])
-    object$p <- pmin(1, (p + 1)/(nsimul + 1))
+    object$p <- pmin.int(1, (p + 1)/(nsimul + 1))
     ## out
     class(object) <- "summary.permustats"
     object

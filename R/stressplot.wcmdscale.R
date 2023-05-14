@@ -154,7 +154,7 @@
     if (!is.null(object$CA$imaginary.u.eig)) {
         dis <- dis^2 - dist(object$CA$imaginary.u.eig)^2
         if (all(dis > -sqrt(.Machine$double.eps)))
-            dis <- sqrt(pmax(dis, 0))
+            dis <- sqrt(pmax.int(dis, 0))
         else # neg dis will be NaN with a warning
             dis <- sqrt(dis)
     }

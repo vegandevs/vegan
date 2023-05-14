@@ -56,7 +56,7 @@
         y <- (y / rowSums(y))^2
         N2 <- 1 / rowSums(y, na.rm = TRUE) # 1/H
         N2[abs(N2 - 1) < EPS] <- 1
-        res <- res / sqrt(pmax(1 - 1/N2, 0))
+        res <- res / sqrt(pmax.int(1 - 1/N2, 0))
     }
     res <- res[,choices, drop=FALSE]
     res[!is.finite(res) | res < EPS] <- 0

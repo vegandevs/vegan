@@ -15,8 +15,8 @@
         ## get different results.
         if (object$method %in% c("exact", "rarefaction")) {
             lg <- function(n, k) {
-                ifelse(k <= n, lgamma(pmax(n, 0) + 1) - lgamma(k+1) -
-                    lgamma(pmax(n-k, 0) + 1), -Inf)
+                ifelse(k <= n, lgamma(pmax.int(n, 0) + 1) - lgamma(k+1) -
+                    lgamma(pmax.int(n-k, 0) + 1), -Inf)
             }
             if (object$method == "exact")
                 n <- length(object$sites)

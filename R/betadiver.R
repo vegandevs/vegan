@@ -8,13 +8,13 @@
                  "t"="(b+c)/(2*a+b+c)", "me"="(b+c)/(2*a+b+c)",
                  "j"="a/(a+b+c)", "sor"="2*a/(2*a+b+c)",
                  "m"="(2*a+b+c)*(b+c)/(a+b+c)",
-                 "-2"="pmin(b,c)/(pmax(b,c)+a)",
+                 "-2"="pmin.int(b,c)/(pmax.int(b,c)+a)",
                  "co"="(a*c+a*b+2*b*c)/(2*(a+b)*(a+c))",
                  "cc"="(b+c)/(a+b+c)", "g"="(b+c)/(a+b+c)",
-                 "-3"="pmin(b,c)/(a+b+c)", "l"="(b+c)/2",
+                 "-3"="pmin.int(b,c)/(a+b+c)", "l"="(b+c)/2",
                  "19"="2*(b*c+1)/(a+b+c)/(a+b+c-1)",
                  "hk"="(b+c)/(2*a+b+c)", "rlb"="a/(a+c)",
-                 "sim"="pmin(b,c)/(pmin(b,c)+a)",
+                 "sim"="pmin.int(b,c)/(pmin.int(b,c)+a)",
                  "gl"="2*abs(b-c)/(2*a+b+c)",
                  "z"="(log(2)-log(2*a+b+c)+log(a+b+c))/log(2)"
                  )
