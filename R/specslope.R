@@ -37,9 +37,9 @@
     n <- length(object$sites)
     switch(object$method,
            exact = {
-               d <- digamma(pmax(n-at+1, 1)) - digamma(pmax(n-f-at+1, 1))
-               g <- lgamma(pmax(n-f+1,1)) + lgamma(pmax(n-at+1,1)) -
-                   lgamma(pmax(n-f-at+1, 1)) - lgamma(n+1)
+               d <- digamma(pmax.int(n-at+1, 1)) - digamma(pmax.int(n-f-at+1, 1))
+               g <- lgamma(pmax.int(n-f+1,1)) + lgamma(pmax.int(n-at+1,1)) -
+                   lgamma(pmax.int(n-f-at+1, 1)) - lgamma(n+1)
                d <- d*exp(g)
                sum(d[is.finite(d)])
            },

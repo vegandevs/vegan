@@ -24,9 +24,10 @@
         ## Replace Hurlbert's factorials with gamma() functions and do
         ## some algebra for derivatives. NB., rarefy() does not use
         ## factorials but lchoose directly.
-        d <- digamma(pmax(J-sample+1, 1)) - digamma(pmax(J-x-sample+1, 1))
-        g <- lgamma(pmax(J-x+1, 1)) + lgamma(pmax(J-sample+1, 1)) -
-            lgamma(pmax(J-x-sample+1, 1)) - lgamma(J+1)
+        d <- digamma(pmax.int(J-sample+1, 1)) -
+            digamma(pmax.int(J-x-sample+1, 1))
+        g <- lgamma(pmax.int(J-x+1, 1)) + lgamma(pmax.int(J-sample+1, 1)) -
+            lgamma(pmax.int(J-x-sample+1, 1)) - lgamma(J+1)
         d <- d*exp(g)
         sum(d[is.finite(d)])
     }

@@ -95,7 +95,7 @@
     type <- match.arg(type)
     np <- df.residual(model)
     res <- rstandard(model, type = type)
-    res <- res / sqrt(pmax(np-res^2, 0)/(np-1))
+    res <- res / sqrt(pmax.int(np-res^2, 0)/(np-1))
     res[is.infinite(res)] <- NaN
     res
 }

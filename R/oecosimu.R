@@ -163,10 +163,10 @@
         nsimul <- nsimul - rowSums(is.na(simind))
     }
     p <- switch(alternative,
-                two.sided = 2*pmin(pless, pmore),
+                two.sided = 2*pmin.int(pless, pmore),
                 less = pless,
                 greater = pmore)
-    p <- pmin(1, (p + 1)/(nsimul + 1))
+    p <- pmin.int(1, (p + 1)/(nsimul + 1))
 
     ## ADDITION: if z is NA then it is not correct to calculate p values
     ## try e.g. oecosimu(dune, sum, "permat")
