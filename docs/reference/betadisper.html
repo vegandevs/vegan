@@ -457,7 +457,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.04 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.02 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.37801 0.017182                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -465,7 +465,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pairwise comparisons:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Observed p-value below diagonal, permuted p-value above diagonal)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           grazed ungrazed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> grazed               0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> grazed               0.07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed 0.04295         </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Tukey's Honest Significant Differences</span></span></span>
@@ -510,27 +510,27 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-in"><span><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">scrs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sites    : num [1:24, 1:2] 0.0946 -0.3125 -0.3511 -0.3291 -0.1926 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sites    : num [1:24, 1:2] -0.0946 0.3125 0.3511 0.3291 0.1926 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:24] "18" "15" "24" "27" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "PCoA1" "PCoA2"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ centroids: num [1:2, 1:2] -0.1455 0.2786 0.0758 -0.2111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ centroids: num [1:2, 1:2] 0.1455 -0.2786 0.0758 -0.2111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "grazed" "ungrazed"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "PCoA1" "PCoA2"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          PCoA1       PCoA2        PCoA3        PCoA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  0.09459373  0.15914576  0.074400844 -0.202466025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -0.31248809  0.10032751 -0.062243360  0.110844864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 -0.35106507 -0.05954096 -0.038079447  0.095060928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 -0.32914546 -0.17019348  0.231623720  0.019110623</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 -0.19259443 -0.01459250 -0.005679372 -0.209718312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 -0.06794575 -0.14501690 -0.085645653  0.002431355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -0.09459373  0.15914576  0.074400844 -0.202466025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  0.31248809  0.10032751 -0.062243360  0.110844864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  0.35106507 -0.05954096 -0.038079447  0.095060928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  0.32914546 -0.17019348  0.231623720  0.019110623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  0.19259443 -0.01459250 -0.005679372 -0.209718312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  0.06794575 -0.14501690 -0.085645653  0.002431355</span>
 <span class="r-in"><span><span class="co"># group centroids/medians </span></span></span>
 <span class="r-in"><span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"centroids"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               PCoA1       PCoA2       PCoA3      PCoA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> grazed   -0.1455200  0.07584572 -0.01366220 -0.0178990</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed  0.2786095 -0.21114993 -0.03475586  0.0220129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> grazed    0.1455200  0.07584572 -0.01366220 -0.0178990</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed -0.2786095 -0.21114993 -0.03475586  0.0220129</span>
 <span class="r-in"><span><span class="co"># eigenvalues from the underlying principal coordinates analysis</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eigenvals.html">eigenvals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      PCoA1      PCoA2      PCoA3      PCoA4      PCoA5      PCoA6      PCoA7 </span>
@@ -577,11 +577,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99   0.06 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.41834 0.019015                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99    0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.41834 0.019015                     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## should always work for a single group</span></span></span>
 <span class="r-in"><span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"grazed"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -652,7 +650,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99    0.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495                     </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
@@ -696,11 +694,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.033468 0.033468 3.1749     99   0.09 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.189749 0.010542                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.033468 0.033468 3.1749     99   0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.189749 0.010542                     </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
