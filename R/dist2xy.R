@@ -31,8 +31,7 @@
 #' ## remove point 3 from ordination
 #' mod3 <- metaMDS(dist2xy(d, 3, "xx", reverse = TRUE))
 #' ## add point 3 to the result
-#' ## --- Does not work yet: MDSaddpoint must be adapted to dist2xy
-#' # MDSaddpoints(mod3, dist2xy(d, 3))
+#' MDSaddpoints(mod3, dist2xy(d, 3))
 #'
 #'
 #' @param dist Input dissimilarities.
@@ -44,6 +43,7 @@
 #'     symmetric dissimilarities.
 #' @param invert Invert \code{pick}, or drop elements listed.
 #'
+#' @rdname MDSaddpoints
 #' @export
 `dist2xy` <-
     function(dist, pick, type = c("xy", "xx"), invert = FALSE)

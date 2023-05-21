@@ -39,9 +39,6 @@
 ##
 ## - Tested only for metaMDS, should be tested also with monoMDS to see
 ##   if it works there as well.
-## - Should accept dis as a symmetric square matrix, and, ultimately, a
-##   rectangular matrix of dissimilarities between new and fixed points.
-## - Function needs different name!
 
 #' @export
 `MDSaddpoints` <-
