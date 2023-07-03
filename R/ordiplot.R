@@ -64,10 +64,22 @@
                 localPoints(Y, pch = "+", col = "red", cex = cex, ...)
         }
         if (type == "text") {
-            if (!is.null(X))
-                localText(X, labels = rownames(X), col = 1, cex = cex, ...)
-            if (!is.null(Y))
-                localText(Y, labels = rownames(Y), col = "red", cex = cex, ...)
+            if (!is.null(X)) {
+                labs <- rownames(X)
+                if (is.null(labs)) {
+                    warning("type='t', but no names available: using x1...")
+                    labs <- paste0("x", as.character(seq_len(nrow(X))))
+                }
+                localText(X, labels = labs, col = 1, cex = cex, ...)
+            }
+            if (!is.null(Y)) {
+                labs <- rownames(Y)
+                if (is.null(labs)) {
+                    warning("type='t', but no names available: using y1...")
+                    labs <- paste0("y", as.character(seq_len(nrow(Y))))
+                }
+                localText(Y, labels = labs, col = "red", cex = cex, ...)
+            }
         }
         out <- list(sites = X, species = Y)
     }

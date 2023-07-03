@@ -55,6 +55,8 @@
             choices <- choices[choices <= NCOL(x$points)]
             x$points[, choices, drop = FALSE]
         }
+    if (is.null(rownames(p)))
+        rownames(p) <- as.character(seq_len(nrow(p)))
     if (tidy) {
         p <- data.frame(p, "scores" = "sites", "label" = rownames(p),
                         "weight" = weights(x))
