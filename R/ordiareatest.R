@@ -6,7 +6,7 @@
 #' @param ord 2-d ordination
 #' @param factor defining groups
 #' @param are of convex hull of or an ellipse
-#' @param permutations: number, permutation matrix or a
+#' @param permutations number, permutation matrix or a
 #' \code{\link[permute]{how}} definition.
 #' @param parallel parallel processing
 #' @param \dots other parameters passed to area functions
