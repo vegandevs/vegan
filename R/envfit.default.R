@@ -2,8 +2,6 @@
     function (ord, env, permutations = 999, strata = NULL, choices = c(1, 2),
              display = "sites", w = weights(ord, display), na.rm = FALSE, ...)
 {
-    weights.default <- function(object, ...) NULL
-    w < eval(w)
     vectors <- NULL
     factors <- NULL
     X <- scores(ord, display = display, choices = choices, ...)
