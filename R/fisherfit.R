@@ -12,11 +12,15 @@
 
     ## Function will give extremely high values when all species occur
     ## only once or S==N, starting from fisherfit(1) which is ca. 1e8,
-    ## and it can make sense to have special treatment of S==N. With S
-    ## == 0, we force alpha 0 whereas the function would give
-    ## fisherfit(0) as 1 (which hardly makes sense).
+    ## and it can make sense to have special treatment of S==N. With
+    ## S==0, we force alpha 0 whereas the function would give
+    ## fisherfit(0) as 1 (which hardly makes sense). The uniroot
+    ## bracket c(0.1, 50) should work with extreme communities of S=1
+    ## at N=10^10 (one species with 10,000,000,000 individuals) or
+    ## with S=10^10 and N=10^10 or huge samples of only singletons (or
+    ## even more extreme, but the numeric diversities will be fictituous).
     if (S > 0) {
-        sol <- uniroot(d1fun, c(1,50), extendInt = "upX", S = S, N = N, ...)
+        sol <- uniroot(d1fun, c(0.1,50), extendInt = "upX", S = S, N = N, ...)
         if (S == N)
             warning("all species singletons: alpha arbitrarily high")
     } else {
