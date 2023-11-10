@@ -53,6 +53,18 @@
   interactions of factor variables. See issue
   [#452](https://github.com/vegandevs/vegan/issues/452)
 
+#### DATA SETS
+
+* Extended the description of the BCI data sets to avoid
+  confusion. The complete BCI survey includes all stems of down to
+  1$~$cm DBH, but the BCI data set in **vegan** is a subset of stems of
+  DBH 10$~$cm that was published in [Science 295, 666--669, 2002]
+  (https://www.science.org/doi/10.1126/science.1066854). The data set
+  is intended only to demonstrate methods in **vegan** and for
+  ecological research we suggest contacting the BCI team and usin the
+  complete surveys made available in
+  [Dryad](https://doi.org/10.15146/5xcp-0d46).
+
 #### DEPRECATED AND DEFUNCT
 
 * `adonis` is deprecated: use `adonis2`. There are several CRAN
