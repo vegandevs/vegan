@@ -53,17 +53,17 @@ data(BCI.env)
 \details{
 
   Data give the numbers of trees at least 10 cm in diameter at breast
-  height (DBH) in each one hectare plot in the 1982 survey. Within
-  each plot, all individuals were tallied and are recorded in this
-  table. The full survey included smaller trees with DBH 1 cm or
-  larger, but the \code{BCI} dataset is a subset of larger trees as
-  compiled by Condit et al. (2002). The full data with thinner trees
-  has densities above 4000 stems per hectare, or about ten times more
-  stems than these data. The dataset \code{BCI} was provided (in 2003)
-  to illustrate analysis methods in \pkg{vegan}. For scientific
-  research on ecological issues we strongly recommend to access
-  complete and more modern data (Condit et al. 2019) with updated
-  taxonomy (Condit et al. 2020).
+  height (DBH) in each one hectare quadrat in the 1982 BCI
+  plot. Within each plot, all individuals were tallied and are
+  recorded in this table. The full survey included smaller trees with
+  DBH 1 cm or larger, but the \code{BCI} dataset is a subset of larger
+  trees as compiled by Condit et al. (2002). The full data with
+  thinner trees has densities above 4000 stems per hectare, or about
+  ten times more stems than these data. The dataset \code{BCI} was
+  provided (in 2003) to illustrate analysis methods in
+  \pkg{vegan}. For scientific research on ecological issues we
+  strongly recommend to access complete and more modern data (Condit
+  et al. 2019) with updated taxonomy (Condit et al. 2020).
 
   The data frame contains only the Barro Colorado Island subset of the
   full data table of Condit et al. (2002).
