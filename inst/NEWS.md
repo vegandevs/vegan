@@ -57,8 +57,8 @@
 
 * Extended the description of the BCI data sets to avoid
   confusion. The complete BCI survey includes all stems of down to
-  1$~$cm DBH, but the BCI data set in **vegan** is a subset of stems of
-  DBH 10$~$cm that was published in [Science 295, 666--669, 2002]
+  1&nbsp;cm DBH, but the BCI data set in **vegan** is a subset of stems of
+  DBH 10&nbsp;cm that was published in [Science 295, 666--669, 2002]
   (https://www.science.org/doi/10.1126/science.1066854). The data set
   is intended only to demonstrate methods in **vegan** and for
   ecological research we suggest contacting the BCI team and usin the
