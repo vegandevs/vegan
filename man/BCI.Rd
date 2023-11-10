@@ -51,13 +51,22 @@ data(BCI.env)
 
  }
 \details{
-  Data give the numbers of trees at least 10 cm in
-  diameter at breast height (1.3 m above the ground) in each one hectare
-  square of forest. Within each one hectare square, all individuals of
-  all species were tallied and are recorded in this table.
+
+  Data give the numbers of trees at least 10 cm in diameter at breast
+  height (DBH) in each one hectare quadrat in the 1982 BCI
+  plot. Within each plot, all individuals were tallied and are
+  recorded in this table. The full survey included smaller trees with
+  DBH 1 cm or larger, but the \code{BCI} dataset is a subset of larger
+  trees as compiled by Condit et al. (2002). The full data with
+  thinner trees has densities above 4000 stems per hectare, or about
+  ten times more stems than these data. The dataset \code{BCI} was
+  provided (in 2003) to illustrate analysis methods in
+  \pkg{vegan}. For scientific research on ecological issues we
+  strongly recommend to access complete and more modern data (Condit
+  et al. 2019) with updated taxonomy (Condit et al. 2020).
 
   The data frame contains only the Barro Colorado Island subset of the
-  original data.
+  full data table of Condit et al. (2002).
 
   The quadrats are located in a regular grid. See \code{BCI.env} for the
   coordinates.
@@ -69,8 +78,12 @@ data(BCI.env)
 
 }
 \source{
-  \url{https://www.science.org/doi/10.1126/science.1066854}
-  for community data and References for environmental data.
+
+  \url{https://www.science.org/doi/10.1126/science.1066854} for
+  community data and References for environmental data. For updated
+  complete data (incl. thinner trees down to 1 cm), see Condit et
+  al. (2019).
+
 }
 
 \seealso{
@@ -91,6 +104,15 @@ data(BCI.env)
   Beta-diversity in tropical forest trees. \emph{Science} 295,
   666--669.
 
+  Condit R., Pérez, R., Aguilar, S., Lao, S., Foster, R. & Hubbell,
+  S. (2019). Complete data from the Barro Colorado 50-ha plot: 423617
+  trees, 35 years [Dataset].  \emph{Dryad}.
+  \doi{https://doi.org/10.15146/5xcp-0d46}
+
+  Condit, R., Aguilar, S., Lao, S., Foster, R., Hubbell,
+  S. (2020). BCI 50-ha Plot Taxonomy [Dataset].  \emph{Dryad}.
+  \doi{https://doi.org/10.15146/R3FH61}
+
   Harms K.E., Condit R., Hubbell S.P. & Foster R.B. (2001) Habitat
   associations of trees and shrubs in a 50-ha neotropical forest
   plot. \emph{J. Ecol.} 89, 947--959.
@@ -99,6 +121,11 @@ data(BCI.env)
   O. & Bermingham E. (2009) Plant DNA barcodes and a community
   phylogeny of a tropical forest dynamics plot in Panama. \emph{PNAS}
   106, 18621--18626.
+
+  Pyke, C. R., Condit, R., Aguilar, S., & Lao, S. (2001). Floristic
+  composition across a climatic gradient in a neotropical lowland
+  forest. \emph{Journal of Vegetation Science} 12, 553--566.
+  \doi{10.2307/3237007}
 
   Zanne A.E., Tank D.C., Cornwell, W.K., Eastman J.M., Smith, S.A.,
   FitzJohn, R.G., McGlinn, D.J., O’Meara, B.C., Moles, A.T., Reich,
@@ -109,12 +136,8 @@ data(BCI.env)
   of angiosperms into freezing environments. \emph{Nature} 506,
   89--92.  \doi{10.1038/nature12872} (published online Dec 22, 2013).
 
-  Pyke, C. R., Condit, R., Aguilar, S., & Lao, S. (2001). Floristic
-  composition across a climatic gradient in a neotropical lowland
-  forest. \emph{Journal of Vegetation Science} 12, 553--566.
-  \doi{10.2307/3237007} 
-
 }
+
 \examples{
 data(BCI, BCI.env)
 head(BCI.env)
