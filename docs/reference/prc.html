@@ -6,7 +6,7 @@
   traditional constrained ordination. They can also be used to study how
   the effects of a factor A depend on the levels of a factor
   B, that is A + A:B, in a multivariate response
-  experiment."><title>Principal Response Curves for Treatments with Repeated Observations — prc • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Principal Response Curves for Treatments with Repeated Observations — prc"><meta property="og:description" content="Principal Response Curves (PRC) are a special case of
+  experiment."><title>Principal Response Curves for Treatments with Repeated Observations — prc • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Principal Response Curves for Treatments with Repeated Observations — prc"><meta property="og:description" content="Principal Response Curves (PRC) are a special case of
   Redundancy Analysis (rda) for multivariate responses in
   repeated observation design. They were originally suggested for
   ecological communities. They should be easier to interpret than
@@ -277,65 +277,65 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> prc(response = pyrifos, treatment = dose, time = week) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species scores:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Simve     Daplo     Cerpu     Alogu     Aloco     Alore     Aloaf     Copsp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.461934 -0.796510 -0.295171 -0.152301 -0.096273 -0.171335 -0.231967 -0.635966 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.461934  0.796510  0.295171  0.152301  0.096273  0.171335  0.231967  0.635966 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Ostsp     Slyla     Acrha     Aloex     Chysp     Alona     Plead     Oxyte </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.257492  0.302872 -0.057396 -0.124049 -0.051689 -0.034638 -0.075268 -0.013815 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.257492 -0.302872  0.057396  0.124049  0.051689  0.034638  0.075268  0.013815 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Grate     Copdi     NauLa     CilHa     Strvi     amosp     Ascmo     Synsp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.052667 -0.777088 -2.636100 -0.486881 -1.669474  0.738371 -0.037926  0.014409 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.052667  0.777088  2.636100  0.486881  1.669474 -0.738371  0.037926 -0.014409 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Squro     Squmu     Polar     Kerqu     Anufi     Mytve     Mytvi     Mytmu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.143790  0.246185 -0.251255 -0.269397 -0.235362 -0.040448 -0.049452 -0.057589 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.143790 -0.246185  0.251255  0.269397  0.235362  0.040448  0.049452  0.057589 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Lepsp     Leppa     Colob     Colbi     Colun     Lecsp     Lecqu     Lecco </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.542922 -0.046123  0.393234  0.075905  0.450495 -0.257170  0.048327  0.158007 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.542922  0.046123 -0.393234 -0.075905 -0.450495  0.257170 -0.048327 -0.158007 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Leclu     Lecfl     Tripo     Cepsp     Monlo     Monae     Scalo     Trilo </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.027077  0.221912 -0.117056  0.440303  0.287108  0.048918  0.041981  0.021257 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.027077 -0.221912  0.117056 -0.440303 -0.287108 -0.048918 -0.041981 -0.021257 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Tripo.1     Tricy     Trisp     Tepat     Rotne     Notla     Filsp     Lopox </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.134025 -0.182409 -0.042651 -0.004198 -0.078168  0.062163  0.091561  0.016854 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.134025  0.182409  0.042651  0.004198  0.078168 -0.062163 -0.091561 -0.016854 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  hydrspec  bothrosp  olchaeta  erpoocto  glsicomp  alglhete  hebdstag   sphidae </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.026485 -0.216815  0.633674  0.490029  0.078527  0.039728 -0.490678 -0.796015 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.026485  0.216815 -0.633674 -0.490029 -0.078527 -0.039728  0.490678  0.796015 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ansuvote  armicris  bathcont  binitent  gyraalbu  hippcomp  lymnstag  lymnaes7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.076512 -0.913681 -0.039855  1.060788 -0.017975 -0.219974  0.143403 -0.073502 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.076512  0.913681  0.039855 -1.060788  0.017975  0.219974 -0.143403  0.073502 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  physfont  plbacorn  popyanti  radiovat  radipere  valvcris  valvpisc  hycarina </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.014349 -0.046098 -0.691904  0.010777  0.340163 -0.005753  0.145523 -0.567803 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.014349  0.046098  0.691904 -0.010777 -0.340163  0.005753 -0.145523  0.567803 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  gammpule  aselaqua  proameri  collembo  caenhora  caenluct  caenrobu  cloedipt </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.830166 -0.858606 -0.063401 -0.016264 -3.136867 -1.292300 -0.068624 -2.574625 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.830166  0.858606  0.063401  0.016264  3.136867  1.292300  0.068624  2.574625 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  cloesimi  aeshniae  libellae  conagrae  corident  coripanz  coripunc  cymabons </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.675580 -0.115677  0.044524 -0.886795 -0.007484 -0.065501  0.096124 -0.025213 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.675580  0.115677 -0.044524  0.886795  0.007484  0.065501 -0.096124  0.025213 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  hesplinn  hespsahl  notoglau  notomacu  notoobli  notoviri  pacoconc  pleaminu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.037779 -0.018078 -0.301948 -0.027226 -0.044790 -0.117398 -0.009087 -0.038705 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.037779  0.018078  0.301948  0.027226  0.044790  0.117398  0.009087  0.038705 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  sigadist  sigafall  sigastri  sigarasp  colyfusc  donacis6  gyrimari  haliconf </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.041594  0.009987 -0.032743  0.150817 -0.019847  0.042751 -0.005753 -0.243054 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.041594 -0.009987  0.032743 -0.150817  0.019847 -0.042751  0.005753  0.243054 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  haliflav  haligruf  haliobli  herubrev  hya_herm  hyglpusi  hyhyovat  hypoplan </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.024222 -0.244814 -0.071501  0.069877  0.175327  0.006404 -0.013159 -0.008145 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.024222  0.244814  0.071501 -0.069877 -0.175327 -0.006404  0.013159  0.008145 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  hyporusp  hytuinae  hytuvers  laphminu  noteclav  rhantusp  sialluta  ablalong </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.126197 -1.259664 -0.963901 -0.344204 -0.004303 -0.036774 -0.603320 -0.008145 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.126197  1.259664  0.963901  0.344204  0.004303  0.036774  0.603320  0.008145 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ablaphmo  cltanerv  malopisp  mopetenu  prdiussp  pstavari  chironsp  crchirsp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.627590 -0.041132 -0.025919 -0.004740 -0.301790 -0.045054 -1.027839 -0.009087 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.627590  0.041132  0.025919  0.004740  0.301790  0.045054  1.027839  0.009087 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  crclglat  ditendsp  mitegchl  pachgarc  pachgvit  popegnub  popedisp  acriluce </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.015746 -0.045402 -0.125429  0.006628  0.016265 -0.121971  0.037879  0.004324 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.015746  0.045402  0.125429 -0.006628 -0.016265  0.121971 -0.037879 -0.004324 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  chclpige  conescut  cricotsp  liesspec  psclbarb  psclgsli  psclobvi  psclplat </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.004756 -0.446524 -0.066095 -0.058403  0.015576 -0.327165  0.197081  0.028310 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.004756  0.446524  0.066095  0.058403 -0.015576  0.327165 -0.197081 -0.028310 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  psclpsil  pscladsp  cladotsp  laa_spec  patanysp  tatarssp  zaa_spec  anopmacu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.003991 -0.003086 -0.293623 -0.018548 -0.079841 -0.364072 -0.027165  0.089046 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.003991  0.003086  0.293623  0.018548  0.079841  0.364072  0.027165 -0.089046 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  cepogoae  chaoobsc  cucidae4  tabanusp  agdasphr  athrater  cyrncren  holodubi </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.389767 -1.328261 -0.018078  0.006309 -0.147828 -0.036774 -0.038705 -0.051532 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.389767  1.328261  0.018078 -0.006309  0.147828  0.036774  0.038705  0.051532 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  holopici  leceriae  lilurhom  monaangu  mystazur  mystloni  oecefurv  oecelacu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.332631 -0.162413 -0.004929 -0.350402 -0.018078 -1.630725 -0.291847 -0.140893 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.332631  0.162413  0.004929  0.350402  0.018078  1.630725  0.291847  0.140893 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  triabico  paponysp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.048357 -0.053182 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.048357  0.053182 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients for dose + week:dose interaction</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> which are contrasts to dose 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rows are dose, columns are week</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         -4     -1    0.1       1      2      4      8     12     15     19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.1327 0.2527 0.1875 0.07479 0.3863 0.2509 0.1485 0.2824 0.2064 0.3977</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 0.1490 0.3558 0.3560 0.87706 0.9151 0.7918 0.2488 0.6523 0.4428 0.3229</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.3055 0.2266 0.8346 2.12626 1.9923 2.1165 1.0317 0.8638 0.5660 0.6054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  0.2570 0.3601 1.3438 2.31842 2.3862 2.6894 2.3745 1.8536 1.4377 1.0607</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.1441</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 0.2839</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.3352</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  0.5704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          -4      -1     0.1        1       2       4       8      12      15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 -0.1327 -0.2527 -0.1875 -0.07479 -0.3863 -0.2509 -0.1485 -0.2824 -0.2064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 -0.1490 -0.3558 -0.3560 -0.87706 -0.9151 -0.7918 -0.2488 -0.6523 -0.4428</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   -0.3055 -0.2266 -0.8346 -2.12626 -1.9923 -2.1165 -1.0317 -0.8638 -0.5660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -0.2570 -0.3601 -1.3438 -2.31842 -2.3862 -2.6894 -2.3745 -1.8536 -1.4377</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          19      24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 -0.3977 -0.1441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 -0.3229 -0.2839</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   -0.6054 -0.3352</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -1.0607 -0.5704</span>
 <span class="r-in"><span><span class="va">logabu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, select <span class="op">=</span> <span class="va">logabu</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="prc-1.png" alt="" width="700" height="1133"></span>
