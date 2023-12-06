@@ -41,7 +41,9 @@
     function (x, permutations = 1000, ...)
 {
     r2 <- x$CCA$tot.chi / x$tot.chi
-    if (is.null(x$pCCA)) {
+    if (df.residual(x) == 0) {
+        radj <- NA
+    } else if (is.null(x$pCCA)) {
         p <- permutest(x, permutations, ...)
         radj <- 1 - ((1 - r2) / (1 - mean(p$num / x$tot.chi)))
     } else {
