@@ -416,6 +416,9 @@
     }
     ## Residuals
     resid <- ordResid(Y)
+    if (resid$rank < 1)
+        warning("overfitted model with no unconstrained component",
+                call. = FALSE)
     ## return a CCA object
     out <- c(head,
              call = match.call(),
