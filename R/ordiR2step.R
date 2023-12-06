@@ -34,7 +34,7 @@
         R2.all <- list(adj.r.squared = NA)
     ## Check that the full model can be evaluated
     if (is.na(R2.all$adj.r.squared) && R2scope)
-        stop("the upper scope cannot be fitted (too many terms?)")
+        stop("R2 cannot be adjusted in upper scope (too many terms?)")
     R2.all <- R2.all$adj.r.squared
     ## Collect data to anotab returned as the 'anova' object
     anotab <-  list()
