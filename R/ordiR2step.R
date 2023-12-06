@@ -58,7 +58,7 @@
             fla <- paste(". ~ .", names(R2.adds[trm]))
             R2.tmp <- RsquareAdj(update(object, fla),
                                  permutations = R2permutations, ...)$adj.r.squared
-            if (!length(R2.tmp))
+            if (!length(R2.tmp) || is.na(R2.tmp))
                 R2.tmp <- 0
             R2.adds[trm] <- R2.tmp
         }
