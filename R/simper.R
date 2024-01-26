@@ -67,6 +67,8 @@
                     Pval <- Pval + ((colMeans(spcontr[take,,drop = FALSE]) - EPS) >= average)
                 }
                 Pval <- Pval/(nperm+1)
+                if (anyNA(ratio))
+                    Pval[is.na(ratio)] <- NA
             } else {
                 Pval <- NULL
             }
