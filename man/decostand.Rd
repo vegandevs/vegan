@@ -108,19 +108,23 @@ decobackstand(x, zap = TRUE)
      pseudocount will inevitably introduce some bias; see
      the \code{rclr} method for one available solution.
 
-     \item \code{rclr}: robust clr ("rclr") is similar to regular clr
+   \item \code{rclr}: robust clr ("rclr") is similar to regular clr
      (see above) but allows data that contains zeroes. This method
      does not use pseudocounts, unlike the standard clr.
      The robust clr (rclr) divides the values by geometric mean
-     of the observed features; zero values are kept as zeroes, and not
-     taken into account. In high dimensional data,
+     of the observed features and then performs matrix completion for the zero entries.
+     In high dimensional data,
      the geometric mean of rclr approximates the true
      geometric mean; see e.g. Martino et al. (2019)
      The \code{rclr} transformation is defined formally as follows:
      \deqn{rclr = log\frac{x}{g(x > 0)}}{%
      rclr = log(x/g(x > 0))}
      where \eqn{x} is a single value, and \eqn{g(x > 0)} is the geometric 
-     mean of sample-wide values \eqn{x} that are positive (> 0).
+     mean of sample-wide values \eqn{x} that are positive (> 0). The OptSpace algorithm us
+     used for matrix completion for the missing values that result from log transformation of
+     the zero entries in the original input data. The vegan implementation in vegan is
+     modified from the original implementation ROptSpace::OptSpace version 0.2.3 following
+     Keshavan et al. (2010).
   }
   
   Standardization, as contrasted to transformation, means that the
@@ -179,6 +183,10 @@ decobackstand(x, zap = TRUE)
   Microbiome Datasets Are Compositional: And This Is Not Optional.
   \emph{Frontiers in Microbiology} \strong{8}, 2224. 
 
+  Keshavan, R. H., Montanari, A., Oh, S. (2010).
+  Matrix Completion From a Few Entries.
+  \emph{IEEE Transactions on Information Theory} \strong{56}, 2980--2998.
+
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
   \strong{129}, 271--280.
@@ -202,6 +210,9 @@ sptrans <- wisconsin(varespec)
 # CLR transformation for rows, with pseudocount
 varespec.clr <- decostand(varespec, "clr", pseudocount=1)
 
+# Robust CLR transformation for rows, no pseudocount necessary
+varespec.rclr <- decostand(varespec, "rclr")
+
 # ALR transformation for rows, with pseudocount and reference sample
 varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
 
@@ -209,6 +220,7 @@ varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
 ## Use wcmdscale for weighted analysis and identical results.
 sptrans <- decostand(varespec, "chi.square")
 plot(procrustes(rda(sptrans), cca(varespec)))
+
 }
 \keyword{ multivariate}
 \keyword{ manip }

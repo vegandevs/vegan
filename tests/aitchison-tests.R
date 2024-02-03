@@ -1,5 +1,6 @@
 # Test data
 # data(varespec)
+set.seed(252)
 testdata <- matrix(round(runif(1000, 0, 100)), nrow=20)
 testdata <- testdata - 50
 testdata[testdata < 0] <- 0
@@ -34,6 +35,10 @@ a1 <- vegan::vegdist(testdata, method = "aitchison", pseudocount=1)
 a2 <- vegan::vegdist(testdata+1, method = "aitchison")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
+# Robust rclr+Euclid should give same result than robust.aitchison
+d1 <- vegan::vegdist(vegan::decostand(testdata, "rclr"), "euclidean")
+d2 <- vegan::vegdist(testdata, "robust.aitchison")
+max(abs(d1-d2))<1e-6 # Tolerance
 
 # Compare the outcomes with an external package that also provides compositional transformations
 # Adding these would demand adding Suggested packages in DESCRIPTION; skipped for now but can be
