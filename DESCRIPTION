@@ -37,7 +37,12 @@ Authors@R: c(person("Jari", "Oksanen", role=c("aut","cre"),
 	   person("Cajo J.F.", "Ter Braak", role="aut"),
 	   person("James", "Weedon", role="aut"))
 Depends: permute (>= 0.9-0), lattice, R (>= 3.6.0)
-Suggests: parallel, tcltk, knitr, markdown
+Suggests: 
+    parallel,
+    tcltk,
+    knitr,
+    markdown,
+    testthat (>= 3.0.0)
 Imports: MASS, cluster, mgcv
 VignetteBuilder: utils, knitr
 Description: Ordination methods, diversity analysis and other
@@ -45,3 +50,4 @@ Description: Ordination methods, diversity analysis and other
 License: GPL-2
 BugReports: https://github.com/vegandevs/vegan/issues
 URL: https://github.com/vegandevs/vegan
+Config/testthat/edition: 3

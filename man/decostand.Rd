@@ -109,24 +109,26 @@ decobackstand(x, zap = TRUE)
      the \code{rclr} method for one available solution.
 
    \item \code{rclr}: robust clr ("rclr") is similar to regular clr
-     (see above) but allows data that contains zeroes. This method
-     does not use pseudocounts, unlike the standard clr.
-     The robust clr (rclr) divides the values by geometric mean
+     (see above) but allows data with zeroes. This method can avoid the use of pseudocounts,
+     unlike the standard clr. The robust clr (rclr) divides the values by geometric mean
      of the observed features and then performs matrix completion for the zero entries.
-     In high dimensional data,
-     the geometric mean of rclr approximates the true
+     In high dimensional data the geometric mean of rclr approximates the true
      geometric mean; see e.g. Martino et al. (2019)
      The \code{rclr} transformation is defined formally as follows:
      \deqn{rclr = log\frac{x}{g(x > 0)}}{%
      rclr = log(x/g(x > 0))}
      where \eqn{x} is a single value, and \eqn{g(x > 0)} is the geometric 
-     mean of sample-wide values \eqn{x} that are positive (> 0). The OptSpace algorithm us
-     used for matrix completion for the missing values that result from log transformation of
-     the zero entries in the original input data. The vegan implementation in vegan is
-     modified from the original implementation ROptSpace::OptSpace version 0.2.3 following
-     Keshavan et al. (2010).
+     mean of sample-wide values \eqn{x} that are positive (> 0). The OptSpace algorithm is
+     used for matrix completion of the missing values that result from log transformation of
+     the zero entries in the original input data. The vegan  implementation has been
+     modified from the original implementation ROptSpace::OptSpace (version 0.2.3) following
+     Keshavan et al. (2010). The following parameters can be passed to OptSpace through decostand:
+     "ropt" NA to guess the rank, or a positive integer as a pre-defined rank (default: NA);
+     "niter" maximum number of iterations allowed (default: 50);
+     "tol" stopping criterion for reconstruction in Frobenius norm (default: 1e-6);
+     "showprogress" a logical value; TRUE to show progress, FALSE otherwise (default: FALSE).
   }
-  
+
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.
 

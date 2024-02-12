@@ -188,10 +188,10 @@
      stop("Some samples do not contain observations and rclr cannot be calculated.")
    }
 
-   ## Divide all values by their sample-wide geometric means
+   ## Divide (or in log-space, reduce) all values by their sample-wide geometric means
    xx <- clog - means
 
-   ## If there were zeros, there are infinite values after logarithmic transform.
+   ## zeros become infinite after log transform.
    ## Convert those to NA
    xx[is.infinite(xx)] <- NA
    attr(xx, "parameters") <- list("means" = means)
@@ -282,33 +282,36 @@
 
 
 
-#' .OptSpace : an algorithm for matrix reconstruction from a partially revealed set
-#' See the ROptSpace::OptSpace version 0.2.3 for detailed manpage.
-#' Let's assume an ideal matrix \eqn{M} with \eqn{(m\times n)} entries with rank \eqn{r} and
-#' we are given a partially observed matrix \eqn{M\_E} which contains many missing entries.
-#' Matrix reconstruction - or completion - is the task of filling in such entries.
-#' OptSpace is an efficient algorithm that reconstructs \eqn{M} from \eqn{|E|=O(rn)}
-#' observed elements with relative root mean square error (RMSE)
-#' \deqn{RMSE \le C(\alpha)\sqrt{nr/|E|}}
-#'
-#' @param A an \eqn{(n\times m)} matrix whose missing entries should be flaged as NA.
-#' @param ropt \code{NA} to guess the rank, or a positive integer as a pre-defined rank.
-#' @param niter maximum number of iterations allowed.
-#' @param tol stopping criterion for reconstruction in Frobenius norm.
-#' @param showprogress a logical value; \code{TRUE} to show progress, \code{FALSE} otherwise.
-#'
-#' @return a named list containing
-#' \describe{
-#' \item{X}{an \eqn{(n \times r)} matrix as left singular vectors.}
-#' \item{S}{an \eqn{(r \times r)} matrix as singular values.}
-#' \item{Y}{an \eqn{(m \times r)} matrix as right singular vectors.}
-#' \item{dist}{a vector containing reconstruction errors at each successive iteration.}
-#' }
-#' @references
-#' Raghunandan H. Keshavan, Andrea Montanari, Sewoong Oh (2010).
-#' Matrix Completion From a Few Entries.
-#' IEEE Transactions on Information Theory 56(6):2980--2998.
-#'
+# .OptSpace : an algorithm for matrix reconstruction from a partially revealed set
+# This function has been adapted from the original source code in the ROptSpace R package
+# (version 0.2.3) by
+# Raghunandan H. Keshavan, Andrea Montanari, Sewoong Oh (2010).
+# See the ROptSpace::OptSpace for more information.
+# Let's assume an ideal matrix \eqn{M} with \eqn{(m\times n)} entries with rank \eqn{r} and
+# we are given a partially observed matrix \eqn{M\_E} which contains many missing entries.
+# Matrix reconstruction - or completion - is the task of filling in such entries.
+# OptSpace is an efficient algorithm that reconstructs \eqn{M} from \eqn{|E|=O(rn)}
+# observed elements with relative root mean square error (RMSE)
+# \deqn{RMSE \le C(\alpha)\sqrt{nr/|E|}}
+#
+# @param A an \eqn{(n\times m)} matrix whose missing entries should be flaged as NA.
+# @param ropt \code{NA} to guess the rank, or a positive integer as a pre-defined rank.
+# @param niter maximum number of iterations allowed.
+# @param tol stopping criterion for reconstruction in Frobenius norm.
+# @param showprogress a logical value; \code{TRUE} to show progress, \code{FALSE} otherwise.
+#
+# @return a named list containing
+# \describe{
+# \item{X}{an \eqn{(n \times r)} matrix as left singular vectors.}
+# \item{S}{an \eqn{(r \times r)} matrix as singular values.}
+# \item{Y}{an \eqn{(m \times r)} matrix as right singular vectors.}
+# \item{dist}{a vector containing reconstruction errors at each successive iteration.}
+# }
+# @references
+# Raghunandan H. Keshavan, Andrea Montanari, Sewoong Oh (2010).
+# Matrix Completion From a Few Entries.
+# IEEE Transactions on Information Theory 56(6):2980--2998.
+#
 .OptSpace <- function(A, ropt=NA, niter=50, tol=1e-6, showprogress=FALSE){
   ## Preprocessing : A     : partially revelaed matrix
   if (!is.matrix(A)){
@@ -428,9 +431,6 @@
     
     # compute the distortion
     dist[i+1] = norm(((M_E - X%*%S%*%t(Y))*E),'f')/sqrt(nnZ.E)
-    #if (showprogress){
-    #  pmsg=sprintf('* .OptSpace: Step 4: Iteration %d: distortion: %e',i,dist[i+1])
-    #}
     
     if (dist[i+1]<tol){
       dist = dist[1:(i+1)]
@@ -453,7 +453,7 @@
 }
 
 
-#' @keywords internal
+# @keywords internal
 .guess_rank <- function(X,nnz){
   maxiter = 10000
   n = nrow(X)
@@ -519,7 +519,7 @@
 
 
 # Aux 2 : compute the distortion ------------------------------------------
-#' @keywords internal
+# @keywords internal
 .aux_G <- function(X,m0,r){
   z = rowSums(X^2)/(2*m0*r)
   y = exp((z-1)^2) - 1
@@ -528,7 +528,7 @@
   out = sum(y)
   return(out)
 }
-#' @keywords internal
+# @keywords internal
 .aux_F_t <- function(X,Y,S,M_E,E,m0,rho){
   n = nrow(X)
   r = ncol(X)
@@ -542,7 +542,7 @@
 
 
 # Aux 3 : compute the gradient --------------------------------------------
-#' @keywords internal
+# @keywords internal
 .aux_Gp <- function(X,m0,r){
   z = rowSums(X^2)/(2*m0*r)
   z = 2*exp((z-1)^2)/(z-1)
@@ -551,7 +551,7 @@
   
   out = (X*matrix(z,nrow=nrow(X),ncol=ncol(X),byrow=FALSE))/(m0*r)
 }
-#' @keywords internal
+# @keywords internal
 .aux_gradF_t <- function(X,Y,S,M_E,E,m0,rho){
   n = nrow(X)
   r = ncol(X)
@@ -578,7 +578,7 @@
 
 
 # Aux 4 : Sopt given X and Y ----------------------------------------------
-#' @keywords internal
+# @keywords internal
 .aux_getoptS <- function(X,Y,M_E,E){
   n = nrow(X)
   r = ncol(X)
@@ -604,7 +604,7 @@
 }
 
 # Aux 5 : optimal line search ---------------------------------------------
-#' @keywords internal
+# @keywords internal
 .aux_getoptT <- function(X,W,Y,Z,S,M_E,E,m0,rho){
   norm2WZ = (norm(W,'f')^2)+(norm(Z,'f')^2)
   f = array(0,c(1,21))
