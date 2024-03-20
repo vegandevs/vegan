@@ -33,7 +33,7 @@
             commname <- attr(X, "commname")
             comm <- eval.parent(parse(text=commname))
         } else {
-            X <- dfun(X, distance)
+            X <- dfun(X, distance, ...)
         }
     } else { # vdata name
         if (missing(comm))

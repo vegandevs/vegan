@@ -32,7 +32,7 @@
             commname <- attr(X, "commname")
             comm <- eval.parent(parse(text=commname))
         } else {
-            X <- dfun(X, distance)
+            X <- dfun(X, distance, ...)
         }
     }
     ## get the name of the inertia
