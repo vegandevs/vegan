@@ -10,14 +10,14 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
     if (any(sapply(env, is.factor)) && metric != "gower")
         stop("you have factors in 'env': only 'metric = \"gower\"' is allowed")
     if (is.null(partial)) {
-        corfun <- function(dx, dy, dz, method, ...) {
-            cor(dx, dy, method=method, ...)
+        corfun <- function(dx, dy, dz, method) {
+            cor(dx, dy, method=method)
         }
     } else {
-        corfun <- function(dx, dy, dz, method, ...) {
-            rxy <- cor(dx, dy, method=method, ...)
-            rxz <- cor(dx, dz, method=method, ...)
-            ryz <- cor(dy, dz, method=method, ...)
+        corfun <- function(dx, dy, dz, method) {
+            rxy <- cor(dx, dy, method=method)
+            rxz <- cor(dx, dz, method=method)
+            ryz <- cor(dy, dz, method=method)
             (rxy - rxz*ryz)/sqrt(1-rxz*rxz)/sqrt(1-ryz*ryz)
         }
     }
@@ -77,7 +77,7 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         comdis <- as.dist(comm)
         index <- "supplied square matrix"
     } else {
-        comdis <- vegdist(comm, method = index)
+        comdis <- vegdist(comm, method = index, ...)
     }
     ## Prepare for parallel processing
     if (is.null(parallel))
@@ -111,17 +111,17 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
                 est <- unlist(mclapply(1:nrow(sets), function(j)
                                        corfun(comdis,
                                               distfun(x[,sets[j,],drop = FALSE]),
-                                              partial, method = method, ...),
+                                              partial, method = method),
                                        mc.cores = parallel))
             } else {
                 est <- parSapply(parallel, 1:nrow(sets), function(j)
                                   corfun(comdis, distfun(x[,sets[j,],drop = FALSE]),
-                                         partial, method = method, ...))
+                                         partial, method = method))
             }
         } else {
             est <- sapply(1:nrow(sets), function(j)
                           corfun(comdis, distfun(x[,sets[j,], drop=FALSE ]),
-                                 partial, method = method, ...))
+                                 partial, method = method))
         }
         best[[i]] <- list(best = sets[which.max(est), ], est = max(est))
         if (trace) {
