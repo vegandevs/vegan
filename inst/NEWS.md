@@ -24,7 +24,7 @@
   predictors is necessary with strongly varying weights. See
   discussion in
   [issue #542](https://github.com/vegandevs/vegan/issues/542).
-  The new scheme only concern CCA which is a weighted method, and RDA
+  The new scheme only concerns CCA which is a weighted method, and RDA
   and dbRDA permutation is unchanged.
 
 * Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
@@ -65,7 +65,8 @@
 * Some methods accept rectangular raw data input as alternative to
   distances, but did not pass all arguments to distance
   functions. These arguments in `vegdist` could be `binary = TRUE` or
-  `pseudocount` with Aitchison distance. See issue
+  `pseudocount` with Aitchison distance. This concerns `dbrda`,
+  `capscale` and `bioenv`. See issue
   [#631](https://github.com/vegandevs/vegan/issues/631)
   
 * `simper` gave arbitrary *p*-values for species that did not occur in
@@ -74,10 +75,10 @@
   
 * `Rsquare.adj` gave arbitrary *p*-values for over-fitted models with
   no residual variation. Now returns `NA` when _R_<sup>2</sup> cannot
-  be adjusted. Automatic model building could proceed for such cases,
+  be adjusted. Automatic model building could proceed to such cases,
   and this was fixed in `ordiR2step` which returns _R_<sup>2</sup> = 0
-  for these cases. The constrained ordination methods issue a warning
-  if the model has no residual component. See issue
+  for overfitted cases. The constrained ordination methods issue a
+  warning if the model has no residual component. See issue
   [#610](https://github.com/vegandevs/vegan/issues/610)
   
 
