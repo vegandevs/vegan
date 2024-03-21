@@ -13,7 +13,7 @@
 ### orditkplot was moved to vegan3d and is in CRAN since vegan3d_1.3-0
 ### (2024-03-19)
 
-    tkmessageBox(message = "orditkplot is deprecated",
+    tcltk::tkmessageBox(message = "orditkplot is deprecated",
                  detail = "function was moved to CRAN package vegan3d",
                  icon = "warning",
                  type = "ok")
