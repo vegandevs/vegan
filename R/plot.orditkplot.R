@@ -1,6 +1,7 @@
 `plot.orditkplot` <-
     function(x, ...)
 {
+    .Deprecated(msg = "function was moved to CRAN package vegan3d")
     op <- par(x$par)
     on.exit(par(op))
     plot(x$points, pch = x$args$pch, cex = x$args$pcex, col = x$args$pcol,

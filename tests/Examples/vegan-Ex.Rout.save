@@ -1,6 +1,6 @@
 
-R version 4.2.2 (2022-10-31) -- "Innocent and Trusting"
-Copyright (C) 2022 The R Foundation for Statistical Computing
+R version 4.3.3 (2024-02-29) -- "Angel Food Cake"
+Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -302,7 +302,7 @@ $r.squared
 [1] 0.4471676
 
 $adj.r.squared
-[1] 0.3449254
+[1] 0.3449495
 
 > ## default method
 > RsquareAdj(0.8, 20, 5)
@@ -423,11 +423,11 @@ dune ~ 1
 
              Df    AIC      F Pr(>F)   
 + Moisture    3 86.608 2.2536  0.005 **
-+ Management  3 86.935 2.1307  0.005 **
-+ A1          1 87.411 2.1400  0.020 * 
++ Management  3 86.935 2.1307  0.010 **
++ A1          1 87.411 2.1400  0.025 * 
 <none>          87.657                 
 + Manure      4 88.832 1.5251  0.035 * 
-+ Use         2 89.134 1.1431  0.175   
++ Use         2 89.134 1.1431  0.180   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -850,7 +850,7 @@ Number of permutations: 999
 Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
            Df ChiSquare      F Pr(>F)    
 Moisture    3   0.62831 2.4465  0.001 ***
-Management  3   0.37407 1.4565  0.054 .  
+Management  3   0.37407 1.4565  0.045 *  
 Residual   13   1.11289                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -862,8 +862,8 @@ Number of permutations: 999
 
 Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
            Df ChiSquare      F Pr(>F)  
-Moisture    3   0.39854 1.5518  0.025 *
-Management  3   0.37407 1.4565  0.059 .
+Moisture    3   0.39854 1.5518  0.030 *
+Management  3   0.37407 1.4565  0.052 .
 Residual   13   1.11289                
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -877,11 +877,11 @@ Number of permutations: 999
 Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
              Df ChiSquare      F Pr(>F)    
 Moisture.L    1   0.41081 4.7988  0.001 ***
-Moisture.Q    1   0.11261 1.3154  0.175    
-Moisture.C    1   0.10489 1.2253  0.226    
-ManagementHF  1   0.08849 1.0337  0.379    
-ManagementNM  1   0.20326 2.3744  0.012 *  
-ManagementSF  1   0.08231 0.9615  0.429    
+Moisture.Q    1   0.11261 1.3154  0.168    
+Moisture.C    1   0.10489 1.2253  0.224    
+ManagementHF  1   0.08849 1.0337  0.382    
+ManagementNM  1   0.20326 2.3744  0.010 ** 
+ManagementSF  1   0.08231 0.9615  0.406    
 Residual     13   1.11289                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -895,7 +895,7 @@ Model 1: dune ~ Moisture + Management
 Model 2: dune ~ A1 + Moisture + Management + Use + Manure
   ResDf ResChiSquare Df ChiSquare      F Pr(>F)
 1    13       1.1129                           
-2     7       0.6121  6   0.50079 0.9545  0.489
+2     7       0.6121  6   0.50079 0.9545  0.514
 > 
 > 
 > 
@@ -1565,16 +1565,16 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 10 "j" = a/(a+b+c)
 11 "sor" = 2*a/(2*a+b+c)
 12 "m" = (2*a+b+c)*(b+c)/(a+b+c)
-13 "-2" = pmin(b,c)/(pmax(b,c)+a)
+13 "-2" = pmin.int(b,c)/(pmax.int(b,c)+a)
 14 "co" = (a*c+a*b+2*b*c)/(2*(a+b)*(a+c))
 15 "cc" = (b+c)/(a+b+c)
 16 "g" = (b+c)/(a+b+c)
-17 "-3" = pmin(b,c)/(a+b+c)
+17 "-3" = pmin.int(b,c)/(a+b+c)
 18 "l" = (b+c)/2
 19 "19" = 2*(b*c+1)/(a+b+c)/(a+b+c-1)
 20 "hk" = (b+c)/(2*a+b+c)
 21 "rlb" = a/(a+c)
-22 "sim" = pmin(b,c)/(pmin(b,c)+a)
+22 "sim" = pmin.int(b,c)/(pmin.int(b,c)+a)
 23 "gl" = 2*abs(b-c)/(2*a+b+c)
 24 "z" = (log(2)-log(2*a+b+c)+log(a+b+c))/log(2)
 > ## The basic Whittaker index
@@ -3334,47 +3334,47 @@ Management 0 1 2 3 4
 0.8748741 0.6087512 0.6633248 0.7581210 
 > intersetcor(mod)
                    CCA1        CCA2        CCA3         CCA4        CCA5
-A1           -0.5332506 -0.13691202 -0.47996401 -0.259859587  0.09894964
-Moisture.L   -0.8785505 -0.17867589  0.03714134  0.181952935  0.09826534
-Moisture.Q   -0.1956664  0.33044917 -0.27321286 -0.180333890 -0.26609291
-Moisture.C   -0.2023782  0.09698397  0.28596824 -0.261712720  0.49103002
-ManagementHF  0.3473460 -0.01680324 -0.51205769  0.194144965 -0.30752664
-ManagementNM -0.5699549  0.61111645  0.14751127 -0.013777789 -0.04571982
-ManagementSF -0.1197499 -0.64084416  0.19780650  0.134892908  0.09679992
-Use.L        -0.1871999 -0.32990444 -0.30941161 -0.372747011 -0.09586963
-Use.Q        -0.1820298  0.48874152 -0.01997442 -0.009812946 -0.04812588
-Manure.L      0.3175126 -0.65945634  0.03724864 -0.025383543  0.04077470
-Manure.Q     -0.4075615  0.21149073  0.49297244 -0.176686201 -0.11973190
-Manure.C      0.4676279 -0.11376054  0.29132473 -0.173382982 -0.14219924
-Manure^4      0.2222349  0.12789494 -0.12921227  0.108367170  0.02559567
+A1           -0.5332506  0.13691202 -0.47996401 -0.259859587 -0.09894964
+Moisture.L   -0.8785505  0.17867589  0.03714134  0.181952935 -0.09826534
+Moisture.Q   -0.1956664 -0.33044917 -0.27321286 -0.180333890  0.26609291
+Moisture.C   -0.2023782 -0.09698397  0.28596824 -0.261712720 -0.49103002
+ManagementHF  0.3473460  0.01680324 -0.51205769  0.194144965  0.30752664
+ManagementNM -0.5699549 -0.61111645  0.14751127 -0.013777789  0.04571982
+ManagementSF -0.1197499  0.64084416  0.19780650  0.134892908 -0.09679992
+Use.L        -0.1871999  0.32990444 -0.30941161 -0.372747011  0.09586963
+Use.Q        -0.1820298 -0.48874152 -0.01997442 -0.009812946  0.04812588
+Manure.L      0.3175126  0.65945634  0.03724864 -0.025383543 -0.04077470
+Manure.Q     -0.4075615 -0.21149073  0.49297244 -0.176686201  0.11973190
+Manure.C      0.4676279  0.11376054  0.29132473 -0.173382982  0.14219924
+Manure^4      0.2222349 -0.12789494 -0.12921227  0.108367170 -0.02559567
                     CCA6        CCA7        CCA8        CCA9         CCA10
-A1           -0.15225816 -0.25788462 -0.19247720  0.27694466 -0.1158449480
-Moisture.L   -0.02923342 -0.07858647  0.10772510 -0.07101300  0.0952517164
-Moisture.Q   -0.11211675 -0.05062810  0.48302647 -0.06138704 -0.2053304965
-Moisture.C   -0.23581275  0.38693407  0.10144580  0.21907160  0.1875632770
-ManagementHF -0.24278705 -0.16364055  0.14053438 -0.31066725  0.1310215145
-ManagementNM -0.06430101 -0.23917584 -0.14375754  0.27103732  0.0002768613
-ManagementSF -0.01611984  0.49726250 -0.08073472  0.30235728 -0.1381281272
-Use.L         0.19127262  0.44624831  0.18450714 -0.12950951  0.0452826749
-Use.Q         0.13485545 -0.10367354  0.11020112 -0.41245485 -0.0766932005
-Manure.L     -0.22265819  0.49627772  0.16971786  0.03943343 -0.0045229147
-Manure.Q     -0.19402211  0.11937394 -0.17611673  0.44002593  0.0903998202
-Manure.C      0.14760330 -0.07842345 -0.37774417 -0.10181374  0.1055057288
-Manure^4     -0.36683782 -0.05953330 -0.40927409  0.06054381 -0.1500198368
+A1           -0.15225816  0.25788462  0.19247720 -0.27694466 -0.1158449480
+Moisture.L   -0.02923342  0.07858647 -0.10772510  0.07101300  0.0952517164
+Moisture.Q   -0.11211675  0.05062810 -0.48302647  0.06138704 -0.2053304965
+Moisture.C   -0.23581275 -0.38693407 -0.10144580 -0.21907160  0.1875632770
+ManagementHF -0.24278705  0.16364055 -0.14053438  0.31066725  0.1310215145
+ManagementNM -0.06430101  0.23917584  0.14375754 -0.27103732  0.0002768613
+ManagementSF -0.01611984 -0.49726250  0.08073472 -0.30235728 -0.1381281272
+Use.L         0.19127262 -0.44624831 -0.18450714  0.12950951  0.0452826749
+Use.Q         0.13485545  0.10367354 -0.11020112  0.41245485 -0.0766932005
+Manure.L     -0.22265819 -0.49627772 -0.16971786 -0.03943343 -0.0045229147
+Manure.Q     -0.19402211 -0.11937394  0.17611673 -0.44002593  0.0903998202
+Manure.C      0.14760330  0.07842345  0.37774417  0.10181374  0.1055057288
+Manure^4     -0.36683782  0.05953330  0.40927409 -0.06054381 -0.1500198368
                    CCA11       CCA12
-A1            0.03550223  0.08881387
-Moisture.L   -0.06404776  0.08587882
-Moisture.Q    0.21810558 -0.16917878
-Moisture.C   -0.13701079  0.14260914
-ManagementHF -0.17283125 -0.13296499
-ManagementNM  0.01358436 -0.09533598
-ManagementSF  0.01468592  0.06614834
-Use.L         0.08584883 -0.32559307
-Use.Q        -0.41893616 -0.04881247
-Manure.L     -0.02396993 -0.13049087
-Manure.Q     -0.12987366 -0.07137031
-Manure.C     -0.05176927  0.41550238
-Manure^4      0.41603287 -0.01661279
+A1           -0.03550223 -0.08881387
+Moisture.L    0.06404776 -0.08587882
+Moisture.Q   -0.21810558  0.16917878
+Moisture.C    0.13701079 -0.14260914
+ManagementHF  0.17283125  0.13296499
+ManagementNM -0.01358436  0.09533598
+ManagementSF -0.01468592 -0.06614834
+Use.L        -0.08584883  0.32559307
+Use.Q         0.41893616  0.04881247
+Manure.L      0.02396993  0.13049087
+Manure.Q      0.12987366  0.07137031
+Manure.C      0.05176927 -0.41550238
+Manure^4     -0.41603287  0.01661279
 > ## IGNORE_RDIFF_END
 > 
 > 
@@ -4074,10 +4074,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Run 0 stress 0.1192678 
 Run 1 stress 0.1886532 
 Run 2 stress 0.1192678 
-... Procrustes: rmse 5.822835e-06  max resid 1.845818e-05 
+... Procrustes: rmse 5.822838e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
-... Procrustes: rmse 6.697234e-06  max resid 2.061976e-05 
+... Procrustes: rmse 6.697236e-06  max resid 2.061976e-05 
 ... Similar to previous best
 Run 4 stress 0.1183186 
 ... New best solution
@@ -4087,11 +4087,11 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651369e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651365e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505928e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505921e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
@@ -4101,7 +4101,7 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 5.869596e-06  max resid 1.970358e-05 
+... Procrustes: rmse 5.869597e-06  max resid 1.970358e-05 
 ... Similar to previous best
 Run 17 stress 0.2075713 
 Run 18 stress 0.1192678 
@@ -4135,11 +4135,11 @@ Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 6.592553e-06  max resid 2.026403e-05 
+... Procrustes: rmse 6.592555e-06  max resid 2.026403e-05 
 ... Similar to previous best
 Run 2 stress 0.1812935 
 Run 3 stress 0.1183186 
-... Procrustes: rmse 4.27681e-06  max resid 1.352647e-05 
+... Procrustes: rmse 4.276812e-06  max resid 1.352647e-05 
 ... Similar to previous best
 Run 4 stress 0.1192678 
 Run 5 stress 0.1192678 
@@ -4152,13 +4152,13 @@ Run 7 stress 0.1183186
 ... Similar to previous best
 Run 8 stress 0.1192678 
 Run 9 stress 0.1183186 
-... Procrustes: rmse 8.198219e-06  max resid 2.150265e-05 
+... Procrustes: rmse 8.198218e-06  max resid 2.150265e-05 
 ... Similar to previous best
 Run 10 stress 0.1183186 
 ... Procrustes: rmse 3.222973e-05  max resid 9.837238e-05 
 ... Similar to previous best
 Run 11 stress 0.1183186 
-... Procrustes: rmse 9.836666e-06  max resid 3.27482e-05 
+... Procrustes: rmse 9.836664e-06  max resid 3.27482e-05 
 ... Similar to previous best
 Run 12 stress 0.1183186 
 ... Procrustes: rmse 2.659083e-05  max resid 8.216893e-05 
@@ -4278,12 +4278,12 @@ Run 5 stress 0.1073148
 Run 6 stress 0.1653484 
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
-... Procrustes: rmse 5.848227e-06  max resid 1.923197e-05 
+... Procrustes: rmse 5.848229e-06  max resid 1.923197e-05 
 ... Similar to previous best
 Run 9 stress 0.1073148 
 Run 10 stress 0.1073148 
 Run 11 stress 0.1067169 
-... Procrustes: rmse 3.364993e-06  max resid 7.105337e-06 
+... Procrustes: rmse 3.364989e-06  max resid 7.105337e-06 
 ... Similar to previous best
 Run 12 stress 0.107471 
 Run 13 stress 0.107471 
@@ -4294,13 +4294,13 @@ Run 17 stress 0.1069786
 ... Procrustes: rmse 0.006774349  max resid 0.02387355 
 Run 18 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 3.536972e-06  max resid 1.241593e-05 
+... Procrustes: rmse 3.536974e-06  max resid 1.241593e-05 
 ... Similar to previous best
 Run 19 stress 0.1067169 
-... Procrustes: rmse 2.356116e-06  max resid 5.608413e-06 
+... Procrustes: rmse 2.356111e-06  max resid 5.608413e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175633e-07  max resid 1.839172e-06 
+... Procrustes: rmse 8.175769e-07  max resid 1.839172e-06 
 ... Similar to previous best
 *** Best solution repeated 3 times
 > sol
@@ -5264,8 +5264,7 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > points(pl, "sites", pch=21, col="red", bg="yellow")
 > text(pl, "species", col="blue", cex=0.9)
 > ## Not run: 
-> ##D ## same plot using pipes (pipes |> are available from R version 4.1.0)
-> ##D if (getRversion() >= "4.1") {
+> ##D ## same plot using pipes (|>)
 > ##D ordiplot(dune.mds, type="n") |>
 > ##D   points("sites", pch=21, col="red", bg="yellow") |>
 > ##D   text("species", col="blue", cex=0.9)
@@ -5276,7 +5275,6 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > ##D plot(mod, type="n") |>
 > ##D   points("sites", pch=16, col="red") |>
 > ##D   text("species", arrows = TRUE, length=0.05, col="blue")
-> ##D }
 > ## End(Not run)
 > ## Default plot of the previous using identify to label selected points
 > ## Not run: 
@@ -5624,7 +5622,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-42. For overview type 'help("mgcv-package")'.
+This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5698,35 +5696,6 @@ REML score: 39.52198
 
 detaching ‘package:mgcv’, ‘package:nlme’
 
-> nameEx("orditkplot")
-> ### * orditkplot
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: orditkplot
-> ### Title: Ordination Plot with Movable Labels
-> ### Aliases: orditkplot plot.orditkplot scores.orditkplot points.orditkplot
-> ###   text.orditkplot
-> ### Keywords: iplot dynamic
-> 
-> ### ** Examples
-> 
-> ## The example needs user interaction and is not executed directly.
-> ## It should work when pasted to the window.
-> ## Not run: 
-> ##D data(varespec)
-> ##D ord <- cca(varespec)
-> ##D ## Do something with the graph and end by clicking "Dismiss"
-> ##D orditkplot(ord, mar = c(4,4,1,1)+.1, font=3)
-> ##D ## Use ordipointlabel to produce a plot that has both species and site
-> ##D ## scores in different colors and plotting symbols
-> ##D pl <- ordipointlabel(ord)
-> ##D orditkplot(pl)
-> ## End(Not run)
-> 
-> 
-> 
-> cleanEx()
 > nameEx("orditorp")
 > ### * orditorp
 > 
@@ -6293,68 +6262,68 @@ Scaling 2 for species and site scores
 Species scores
 
             CCA1    CCA2     CCA3     CCA4      CCA5     CCA6
-Achimill  0.8150  0.4375 -0.11236  0.35595 -0.114763 -0.01972
-Agrostol -0.7488 -0.4783  0.03561  0.17039  0.187389  0.23471
-Airaprae -0.8186  1.7469  1.04506 -0.28593  0.191836  0.73077
-Alopgeni -0.3442 -1.0216  0.37620  0.02296 -0.004041  0.04789
-Anthodor  0.3367  0.7694 -0.07602 -0.05421  0.136354  0.42463
-Bellpere  0.6535  0.2200  0.03438  0.60436 -0.090469  0.28138
+Achimill  0.8150 -0.4375 -0.11236  0.35595 -0.114763 -0.01972
+Agrostol -0.7488  0.4783  0.03561  0.17039  0.187389  0.23471
+Airaprae -0.8186 -1.7469  1.04506 -0.28593  0.191836  0.73077
+Alopgeni -0.3442  1.0216  0.37620  0.02296 -0.004041  0.04789
+Anthodor  0.3367 -0.7694 -0.07602 -0.05421  0.136354  0.42463
+Bellpere  0.6535 -0.2200  0.03438  0.60436 -0.090469  0.28138
 ....                                                         
-Bracruta -0.1309  0.2009 -0.03708 -0.17421 -0.109657  0.04381
-Callcusp -1.5181  0.3834 -0.23255  0.15246  0.104239 -0.11424
+Bracruta -0.1309 -0.2009 -0.03708 -0.17421 -0.109657  0.04381
+Callcusp -1.5181 -0.3834 -0.23255  0.15246  0.104239 -0.11424
 
 
 Site scores (weighted averages of species scores)
 
         CCA1    CCA2     CCA3    CCA4    CCA5    CCA6
-1     1.2468 -0.4017  0.91955  0.7292  1.5785 -1.0196
-2     0.8622 -0.1641  0.25789  1.7240 -0.7592 -0.6479
-3     0.3165 -0.9785  0.82952  0.7451  0.6556  0.3256
-4     0.2405 -0.8699  1.07861  1.4103  1.1164  2.4714
-5     1.1362  0.2621 -1.10847 -0.9417  0.5630  1.1495
-6     1.0575  0.4041 -1.65035 -1.8483  1.0287 -0.1690
+1     1.2468  0.4017  0.91955  0.7292  1.5785 -1.0196
+2     0.8622  0.1641  0.25789  1.7240 -0.7592 -0.6479
+3     0.3165  0.9785  0.82952  0.7451  0.6556  0.3256
+4     0.2405  0.8699  1.07861  1.4103  1.1164  2.4714
+5     1.1362 -0.2621 -1.10847 -0.9417  0.5630  1.1495
+6     1.0575 -0.4041 -1.65035 -1.8483  1.0287 -0.1690
 ....                                                 
-19   -0.7913  2.7451  2.93017 -1.3851 -0.3932  1.7277
-20   -2.0770  1.0113 -0.02581 -0.8949  1.6406 -1.7917
+19   -0.7913 -2.7451  2.93017 -1.3851 -0.3932  1.7277
+20   -2.0770 -1.0113 -0.02581 -0.8949  1.6406 -1.7917
 
 
 Site constraints (linear combinations of constraining variables)
 
         CCA1    CCA2     CCA3    CCA4    CCA5     CCA6
-1     0.7245 -0.3695  1.25652 -0.3678  0.9827 -0.60590
-2     0.9033  0.4250  0.03901  1.0557 -1.0860 -1.61234
-3     0.4493 -0.6694  0.67765  0.8695  0.9609  1.52307
-4     0.4550 -0.6532  0.72768  0.8529  0.9795  1.50218
-5     0.9671 -0.2010 -1.93972 -0.5807  0.2582  0.31905
-6     1.0805  0.1235 -0.93911 -0.9126  0.6307 -0.09863
+1     0.7245  0.3695  1.25652 -0.3678  0.9827 -0.60590
+2     0.9033 -0.4250  0.03901  1.0557 -1.0860 -1.61234
+3     0.4493  0.6694  0.67765  0.8695  0.9609  1.52307
+4     0.4550  0.6532  0.72768  0.8529  0.9795  1.50218
+5     0.9671  0.2010 -1.93972 -0.5807  0.2582  0.31905
+6     1.0805 -0.1235 -0.93911 -0.9126  0.6307 -0.09863
 ....                                                  
-19   -1.4581  1.6074  1.16812 -0.5305  0.3178 -0.40336
-20   -1.4468  1.6399  1.26818 -0.5637  0.3551 -0.44513
+19   -1.4581 -1.6074  1.16812 -0.5305  0.3178 -0.40336
+20   -1.4468 -1.6399  1.26818 -0.5637  0.3551 -0.44513
 
 
 Biplot scores for constraining variables
 
                 CCA1    CCA2     CCA3     CCA4     CCA5     CCA6
-A1           -0.5554 -0.1617 -0.67982  0.10708 -0.17998  0.30507
-Moisture.L   -0.9437 -0.1638  0.07974 -0.02238  0.03067 -0.02368
-Moisture.Q   -0.1876  0.3571 -0.45352 -0.17237  0.28350 -0.63025
-Moisture.C   -0.2069  0.1732  0.10635  0.68203  0.50123  0.35887
-ManagementHF  0.3645 -0.1171 -0.42202 -0.67746  0.17212 -0.12317
-ManagementNM -0.5855  0.7267 -0.01115 -0.09642 -0.11445  0.27037
-ManagementSF -0.1511 -0.6957  0.38543  0.24770  0.29469  0.23829
+A1           -0.5554  0.1617 -0.67982  0.10708 -0.17998  0.30507
+Moisture.L   -0.9437  0.1638  0.07974 -0.02238  0.03067 -0.02368
+Moisture.Q   -0.1876 -0.3571 -0.45352 -0.17237  0.28350 -0.63025
+Moisture.C   -0.2069 -0.1732  0.10635  0.68203  0.50123  0.35887
+ManagementHF  0.3645  0.1171 -0.42202 -0.67746  0.17212 -0.12317
+ManagementNM -0.5855 -0.7267 -0.01115 -0.09642 -0.11445  0.27037
+ManagementSF -0.1511  0.6957  0.38543  0.24770  0.29469  0.23829
 
 
 Centroids for factor constraints
 
                 CCA1     CCA2     CCA3     CCA4     CCA5    CCA6
-Moisture1     0.9119  0.35388 -0.40013 -0.26218  0.02084 -0.4708
-Moisture2     0.5015 -0.06706  0.60222  1.12478  0.33942  1.2024
-Moisture4    -0.1522 -1.35873  0.76544 -1.37289 -1.80794  0.3849
-Moisture5    -1.3394  0.11972 -0.20942  0.04843  0.39751 -0.3902
-ManagementBF  0.8376  0.41614  0.13885  1.40679 -0.97766 -0.9604
-ManagementHF  0.5426 -0.17426 -0.62822 -1.00848  0.25622 -0.1834
-ManagementNM -1.1010  1.36665 -0.02097 -0.18131 -0.21523  0.5084
-ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
+Moisture1     0.9119 -0.35388 -0.40013 -0.26218  0.02084 -0.4708
+Moisture2     0.5015  0.06706  0.60222  1.12478  0.33942  1.2024
+Moisture4    -0.1522  1.35873  0.76544 -1.37289 -1.80794  0.3849
+Moisture5    -1.3394 -0.11972 -0.20942  0.04843  0.39751 -0.3902
+ManagementBF  0.8376 -0.41614  0.13885  1.40679 -0.97766 -0.9604
+ManagementHF  0.5426  0.17426 -0.62822 -1.00848  0.25622 -0.1834
+ManagementNM -1.1010 -1.36665 -0.02097 -0.18131 -0.21523  0.5084
+ManagementSF -0.2320  1.06831  0.59183  0.38035  0.45250  0.3659
 
 > ## IGNORE_RDIFF_END
 > ## Scaling can be numeric or more user-friendly names
@@ -6422,65 +6391,65 @@ Call:
 prc(response = pyrifos, treatment = dose, time = week) 
 Species scores:
     Simve     Daplo     Cerpu     Alogu     Aloco     Alore     Aloaf     Copsp 
--1.461934 -0.796510 -0.295171 -0.152301 -0.096273 -0.171335 -0.231967 -0.635966 
+ 1.461934  0.796510  0.295171  0.152301  0.096273  0.171335  0.231967  0.635966 
     Ostsp     Slyla     Acrha     Aloex     Chysp     Alona     Plead     Oxyte 
--1.257492  0.302872 -0.057396 -0.124049 -0.051689 -0.034638 -0.075268 -0.013815 
+ 1.257492 -0.302872  0.057396  0.124049  0.051689  0.034638  0.075268  0.013815 
     Grate     Copdi     NauLa     CilHa     Strvi     amosp     Ascmo     Synsp 
--0.052667 -0.777088 -2.636100 -0.486881 -1.669474  0.738371 -0.037926  0.014409 
+ 0.052667  0.777088  2.636100  0.486881  1.669474 -0.738371  0.037926 -0.014409 
     Squro     Squmu     Polar     Kerqu     Anufi     Mytve     Mytvi     Mytmu 
--0.143790  0.246185 -0.251255 -0.269397 -0.235362 -0.040448 -0.049452 -0.057589 
+ 0.143790 -0.246185  0.251255  0.269397  0.235362  0.040448  0.049452  0.057589 
     Lepsp     Leppa     Colob     Colbi     Colun     Lecsp     Lecqu     Lecco 
--0.542922 -0.046123  0.393234  0.075905  0.450495 -0.257170  0.048327  0.158007 
+ 0.542922  0.046123 -0.393234 -0.075905 -0.450495  0.257170 -0.048327 -0.158007 
     Leclu     Lecfl     Tripo     Cepsp     Monlo     Monae     Scalo     Trilo 
--0.027077  0.221912 -0.117056  0.440303  0.287108  0.048918  0.041981  0.021257 
+ 0.027077 -0.221912  0.117056 -0.440303 -0.287108 -0.048918 -0.041981 -0.021257 
   Tripo.1     Tricy     Trisp     Tepat     Rotne     Notla     Filsp     Lopox 
--0.134025 -0.182409 -0.042651 -0.004198 -0.078168  0.062163  0.091561  0.016854 
+ 0.134025  0.182409  0.042651  0.004198  0.078168 -0.062163 -0.091561 -0.016854 
  hydrspec  bothrosp  olchaeta  erpoocto  glsicomp  alglhete  hebdstag   sphidae 
- 0.026485 -0.216815  0.633674  0.490029  0.078527  0.039728 -0.490678 -0.796015 
+-0.026485  0.216815 -0.633674 -0.490029 -0.078527 -0.039728  0.490678  0.796015 
  ansuvote  armicris  bathcont  binitent  gyraalbu  hippcomp  lymnstag  lymnaes7 
--0.076512 -0.913681 -0.039855  1.060788 -0.017975 -0.219974  0.143403 -0.073502 
+ 0.076512  0.913681  0.039855 -1.060788  0.017975  0.219974 -0.143403  0.073502 
  physfont  plbacorn  popyanti  radiovat  radipere  valvcris  valvpisc  hycarina 
- 0.014349 -0.046098 -0.691904  0.010777  0.340163 -0.005753  0.145523 -0.567803 
+-0.014349  0.046098  0.691904 -0.010777 -0.340163  0.005753 -0.145523  0.567803 
  gammpule  aselaqua  proameri  collembo  caenhora  caenluct  caenrobu  cloedipt 
--0.830166 -0.858606 -0.063401 -0.016264 -3.136867 -1.292300 -0.068624 -2.574625 
+ 0.830166  0.858606  0.063401  0.016264  3.136867  1.292300  0.068624  2.574625 
  cloesimi  aeshniae  libellae  conagrae  corident  coripanz  coripunc  cymabons 
--0.675580 -0.115677  0.044524 -0.886795 -0.007484 -0.065501  0.096124 -0.025213 
+ 0.675580  0.115677 -0.044524  0.886795  0.007484  0.065501 -0.096124  0.025213 
  hesplinn  hespsahl  notoglau  notomacu  notoobli  notoviri  pacoconc  pleaminu 
- 0.037779 -0.018078 -0.301948 -0.027226 -0.044790 -0.117398 -0.009087 -0.038705 
+-0.037779  0.018078  0.301948  0.027226  0.044790  0.117398  0.009087  0.038705 
  sigadist  sigafall  sigastri  sigarasp  colyfusc  donacis6  gyrimari  haliconf 
--0.041594  0.009987 -0.032743  0.150817 -0.019847  0.042751 -0.005753 -0.243054 
+ 0.041594 -0.009987  0.032743 -0.150817  0.019847 -0.042751  0.005753  0.243054 
  haliflav  haligruf  haliobli  herubrev  hya_herm  hyglpusi  hyhyovat  hypoplan 
--0.024222 -0.244814 -0.071501  0.069877  0.175327  0.006404 -0.013159 -0.008145 
+ 0.024222  0.244814  0.071501 -0.069877 -0.175327 -0.006404  0.013159  0.008145 
  hyporusp  hytuinae  hytuvers  laphminu  noteclav  rhantusp  sialluta  ablalong 
--0.126197 -1.259664 -0.963901 -0.344204 -0.004303 -0.036774 -0.603320 -0.008145 
+ 0.126197  1.259664  0.963901  0.344204  0.004303  0.036774  0.603320  0.008145 
  ablaphmo  cltanerv  malopisp  mopetenu  prdiussp  pstavari  chironsp  crchirsp 
--1.627590 -0.041132 -0.025919 -0.004740 -0.301790 -0.045054 -1.027839 -0.009087 
+ 1.627590  0.041132  0.025919  0.004740  0.301790  0.045054  1.027839  0.009087 
  crclglat  ditendsp  mitegchl  pachgarc  pachgvit  popegnub  popedisp  acriluce 
--0.015746 -0.045402 -0.125429  0.006628  0.016265 -0.121971  0.037879  0.004324 
+ 0.015746  0.045402  0.125429 -0.006628 -0.016265  0.121971 -0.037879 -0.004324 
  chclpige  conescut  cricotsp  liesspec  psclbarb  psclgsli  psclobvi  psclplat 
- 0.004756 -0.446524 -0.066095 -0.058403  0.015576 -0.327165  0.197081  0.028310 
+-0.004756  0.446524  0.066095  0.058403 -0.015576  0.327165 -0.197081 -0.028310 
  psclpsil  pscladsp  cladotsp  laa_spec  patanysp  tatarssp  zaa_spec  anopmacu 
--0.003991 -0.003086 -0.293623 -0.018548 -0.079841 -0.364072 -0.027165  0.089046 
+ 0.003991  0.003086  0.293623  0.018548  0.079841  0.364072  0.027165 -0.089046 
  cepogoae  chaoobsc  cucidae4  tabanusp  agdasphr  athrater  cyrncren  holodubi 
--1.389767 -1.328261 -0.018078  0.006309 -0.147828 -0.036774 -0.038705 -0.051532 
+ 1.389767  1.328261  0.018078 -0.006309  0.147828  0.036774  0.038705  0.051532 
  holopici  leceriae  lilurhom  monaangu  mystazur  mystloni  oecefurv  oecelacu 
--0.332631 -0.162413 -0.004929 -0.350402 -0.018078 -1.630725 -0.291847 -0.140893 
+ 0.332631  0.162413  0.004929  0.350402  0.018078  1.630725  0.291847  0.140893 
  triabico  paponysp 
--0.048357 -0.053182 
+ 0.048357  0.053182 
 
 Coefficients for dose + week:dose interaction
 which are contrasts to dose 0 
 rows are dose, columns are week
-        -4     -1    0.1       1      2      4      8     12     15     19
-0.1 0.1327 0.2527 0.1875 0.07479 0.3863 0.2509 0.1485 0.2824 0.2064 0.3977
-0.9 0.1490 0.3558 0.3560 0.87706 0.9151 0.7918 0.2488 0.6523 0.4428 0.3229
-6   0.3055 0.2266 0.8346 2.12626 1.9923 2.1165 1.0317 0.8638 0.5660 0.6054
-44  0.2570 0.3601 1.3438 2.31842 2.3862 2.6894 2.3745 1.8536 1.4377 1.0607
-        24
-0.1 0.1441
-0.9 0.2839
-6   0.3352
-44  0.5704
+         -4      -1     0.1        1       2       4       8      12      15
+0.1 -0.1327 -0.2527 -0.1875 -0.07479 -0.3863 -0.2509 -0.1485 -0.2824 -0.2064
+0.9 -0.1490 -0.3558 -0.3560 -0.87706 -0.9151 -0.7918 -0.2488 -0.6523 -0.4428
+6   -0.3055 -0.2266 -0.8346 -2.12626 -1.9923 -2.1165 -1.0317 -0.8638 -0.5660
+44  -0.2570 -0.3601 -1.3438 -2.31842 -2.3862 -2.6894 -2.3745 -1.8536 -1.4377
+         19      24
+0.1 -0.3977 -0.1441
+0.9 -0.3229 -0.2839
+6   -0.6054 -0.3352
+44  -1.0607 -0.5704
 > logabu <- colSums(pyrifos)
 > plot(mod, select = logabu > 100)
 > ## IGNORE_RDIFF_END
@@ -6585,14 +6554,14 @@ Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp
 > mod <- cca(dune[, freq>1] ~ A1 + Management + Condition(Moisture), dune.env)
 > ## IGNORE_RDIFF_BEGIN
 > predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
-               CCA1       CCA2       CCA3       CCA4
-Chenalbu  1.5737337 -0.7842538  0.5503660 0.35108333
-Cirsarve  0.5945146 -0.3714228 -0.2862647 0.88373727
-Empenigr -1.8771953 -0.9904299 -0.2446222 0.04858656
+               CCA1      CCA2       CCA3        CCA4
+Chenalbu  1.5737337 0.7842538  0.5503660 -0.35108333
+Cirsarve  0.5945146 0.3714228 -0.2862647 -0.88373727
+Empenigr -1.8771953 0.9904299 -0.2446222 -0.04858656
 > # New sites
 > predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), scal=2)
-      CCA1      CCA2       CCA3       CCA4
-1 -2.38829 -1.230652 -0.2363485 -0.3338258
+      CCA1     CCA2       CCA3      CCA4
+1 -2.38829 1.230652 -0.2363485 0.3338258
 > # Calibration and residual plot
 > mod <- cca(dune ~ A1 + Moisture, dune.env)
 > pred <- calibrate(mod)
@@ -6675,7 +6644,7 @@ Rotation matrix:
 
 Translation of averages:
               [,1]          [,2]
-[1,] -4.387224e-17 -1.687662e-17
+[1,] -5.862033e-17 -1.474651e-17
 
 Scaling of target:
 [1] 0.6725743
@@ -7096,11 +7065,11 @@ Callcusp 0.00698 0.01611 0.43330 0.50000 0.00000  0.983 0.85
 Rumeacet 0.00453 0.01044 0.43330 0.33300 0.00000  0.990 0.96   
 Cirsarve 0.00398 0.00918 0.43360 0.33300 0.00000  0.996 0.41   
 Chenalbu 0.00233 0.00537 0.43330 0.16700 0.00000  1.000 0.40   
-Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.73   
-Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.68   
-Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.46   
-Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.85   
-Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.85   
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7131,12 +7100,12 @@ Bellpere 0.00999 0.01257 0.79480 0.66700 0.40000  0.978 0.92
 Callcusp 0.00662 0.01508 0.43930 0.50000 0.00000  0.989 0.94   
 Cirsarve 0.00381 0.00867 0.43940 0.33300 0.00000  0.996 0.61   
 Chenalbu 0.00221 0.00503 0.43930 0.16700 0.00000  1.000 0.58   
-Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.75   
-Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.83   
-Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.52   
-Hyporadi 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.92   
-Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.91   
-Vicilath 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.92   
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Hyporadi 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Vicilath 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7172,7 +7141,7 @@ Empenigr 0.00523 0.01200 0.43540 0.00000 0.33300  0.986 0.28
 Cirsarve 0.00478 0.01089 0.43910 0.33300 0.00000  0.993 0.01 **
 Chenalbu 0.00289 0.00660 0.43820 0.16700 0.00000  0.996 0.01 **
 Vicilath 0.00279 0.00642 0.43450 0.00000 0.16700  1.000 0.72   
-Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.97   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7202,13 +7171,13 @@ Eleopalu 0.01017 0.02111 0.48170 0.00000 0.80000  0.955 0.97
 Hyporadi 0.00895 0.01312 0.68240 0.66700 0.00000  0.974 0.54  
 Poaprat  0.00720 0.01010 0.71330 4.00000 3.40000  0.989 1.00  
 Ranuflam 0.00508 0.01055 0.48170 0.00000 0.40000  1.000 0.99  
-Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.54  
-Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.37  
-Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.44  
-Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.74  
-Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.33  
-Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.80  
-Callcusp 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.77  
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Callcusp 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7240,11 +7209,11 @@ Airaprae 0.01341 0.01969 0.68100 0.00000 0.83300  0.965 0.34
 Comapalu 0.01074 0.01571 0.68400 0.00000 0.66700  0.980 0.46   
 Alopgeni 0.01000 0.01463 0.68300 0.66700 0.00000  0.993 0.99   
 Empenigr 0.00479 0.01105 0.43300 0.00000 0.33300  1.000 0.37   
-Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.38   
-Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.49   
-Juncbufo 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.95   
-Rumeacet 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.94   
-Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.83   
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Juncbufo 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Rumeacet 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7279,8 +7248,8 @@ Comapalu 0.01011 0.01456 0.69400 0.00000 0.66700  0.978 0.26
 Bellpere 0.00880 0.01373 0.64100 0.40000 0.33300  0.990 0.93   
 Empenigr 0.00454 0.01033 0.43900 0.00000 0.33300  0.997 0.59   
 Vicilath 0.00240 0.00546 0.43900 0.00000 0.16700  1.000 0.85   
-Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.54   
-Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.53   
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -7345,7 +7314,7 @@ Number of permuted matrices = 99
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: sipoo
-> ### Title: Birds in the Archipelago of Sipoo (Sibbo and Borg<c3><a5>)
+> ### Title: Birds in the Archipelago of Sipoo (Sibbo and Borgå)
 > ### Aliases: sipoo sipoo.map
 > ### Keywords: datasets
 > 
@@ -9158,13 +9127,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--4.440892e-16  6.661338e-16 -2.775558e-16  5.551115e-17  2.775558e-17 
+-2.220446e-16 -4.440892e-16  5.551115e-17  1.110223e-16  1.387779e-16 
           CA6           CA7           CA8           CA9          CA10 
- 2.775558e-16 -2.359224e-16 -8.326673e-17  1.387779e-17  6.245005e-17 
+-8.326673e-17 -2.775558e-17 -9.714451e-17  1.804112e-16  1.387779e-16 
          CA11          CA12          CA13          CA14          CA15 
- 1.318390e-16  9.714451e-17  6.245005e-17  1.734723e-17  1.908196e-17 
+ 1.249001e-16  1.665335e-16  1.665335e-16  3.469447e-17  2.602085e-17 
          CA16          CA17          CA18          CA19 
- 6.938894e-18  1.214306e-17 -3.122502e-17 -1.734723e-18 
+-2.255141e-17  6.938894e-18 -8.673617e-19  2.818926e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9173,7 +9142,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
-1.421e-14 
+    0 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9195,7 +9164,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.996 0.284 9.293 0 0 
+Time elapsed:  9.76 0.251 10.036 0 0 
 > grDevices::dev.off()
 null device 
           1 

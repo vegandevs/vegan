@@ -10,6 +10,14 @@
         stop("your R has no capability for Tcl/Tk")
     requireNamespace("tcltk") || stop("requires package tcltk")
 
+### orditkplot was moved to vegan3d and is in CRAN since vegan3d_1.3-0
+### (2024-03-19)
+
+    tcltk::tkmessageBox(message = "orditkplot is deprecated",
+                 detail = "function was moved to CRAN package vegan3d",
+                 icon = "warning",
+                 type = "ok")
+
 ############################
 ### Check and sanitize input
 ###########################

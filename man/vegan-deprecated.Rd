@@ -1,6 +1,11 @@
 \name{vegan-deprecated}
 
 \alias{adonis}
+\alias{orditkplot}
+\alias{plot.orditkplot}
+\alias{scores.orditkplot}
+\alias{points.orditkplot}
+\alias{text.orditkplot}
 \alias{as.mcmc.oecosimu}
 \alias{as.mcmc.permat}
 \alias{vegan-deprecated}
@@ -19,6 +24,17 @@
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
+    orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim, 
+   tcex = 0.8, tcol, pch = 1,  pcol, pbg, pcex = 0.7, labels,  ...)
+## moved to vegan3d package: install from CRAN
+orditkplot(x, display = "species", choices = 1:2, width, xlim, ylim, 
+   tcex = 0.8, tcol, pch = 1,  pcol, pbg, pcex = 0.7, labels,  ...)
+\method{plot}{orditkplot}(x, ...)
+\method{points}{orditkplot}(x, pch = x$args$pch, cex = x$args$pcex,
+       col = x$args$pcol, bg = x$args$pbg, ...)
+\method{text}{orditkplot}(x, cex = x$args$tcex, col = x$args$tcol,
+     font = attr(x$labels, "font"), ...)
+\method{scores}{orditkplot}(x, display, ...)
 ## use toCoda instead
 as.mcmc.oecosimu(x)
 as.mcmc.permat(x)
@@ -29,7 +45,16 @@ as.mcmc.permat(x)
     \code{\link{adonis2}}.}
   \item{strata}{groups (strata) within which to constrain permutations.}
   \item{contr.unordered, contr.ordered}{contrasts used for design matrix.}
-  \item{x}{object to be tranformed.}
+  \item{x}{ordination result \code{orditkplot} or object to be
+     tranformed \code{as.mcmc}.}
+  \item{display, choices}{kind of scores and number of axes.}
+  \item{width}{size of Tcl/Tk window in inches.}
+
+  \item{xlim, ylim, tcex, tcol, pch, pcol, pbg, pcex, labels, cex,
+     col, bg, font}{graphical parameters similar to standard
+     \code{plot} functions; those applied only to points preceded with
+     \code{p}, and those to text with \code{t}.}
+
 }
 
 \details{
@@ -39,6 +64,9 @@ as.mcmc.permat(x)
   of \code{adonis} are similar as in \code{\link{adonis2}}, but
   arguments \code{contr.unordered} and \code{contr.ordered} can set the
   contrasts within \code{adonis}.
+
+  \code{orditkplot} was moved to \CRANpkg{vegan3d} (version
+  1.3-0). Install that package from CRAN and use in the old way.
 
 }
 

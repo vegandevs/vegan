@@ -674,10 +674,10 @@ into ordination diagrams. Normally you must set both `xlim` and `ylim`
 because ordination plots will keep the equal aspect ratio of axes, and
 they will fill the graph so that the longer axis will fit.
 
-Dynamic zooming can be done with function `orditkplot`. You can directly
-save the edited `orditkplot` graph in various graphic formats, or you
-can export the graph object back to R and use `plot` to display the
-results.
+Dynamic zooming can be done with function `orditkplot` in CRAN package
+**vegan3d**. You can directly save the edited `orditkplot` graph in
+various graphic formats, or you can export the graph object back to R
+session and use `plot` to display the results.
 
 ------------------------------------------------------------------------
 
