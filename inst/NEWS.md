@@ -103,7 +103,10 @@
   [issue #523](https://github.com/vegandevs/vegan/issues/523).
   
 * `orditkplot` was moved to CRAN package **vegan3d** and is deprecated
-  in **vegan**.
+  in **vegan**. See issue
+  [#585](https://github.com/vegandevs/vegan/issues/585) and
+  announcement
+  [#632](https://github.com/vegandevs/vegan/discussions/632)
 
 * `as.mcmc.oecosimu` and `as.mcmc.permat` are defunct: use `toCoda`.
 
