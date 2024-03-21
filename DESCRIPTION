@@ -36,7 +36,7 @@ Authors@R: c(person("Jari", "Oksanen", role=c("aut","cre"),
 	   person("Adrian", "Stier", role="aut"),
 	   person("Cajo J.F.", "Ter Braak", role="aut"),
 	   person("James", "Weedon", role="aut"))
-Depends: permute (>= 0.9-0), lattice, R (>= 3.6.0)
+Depends: permute (>= 0.9-0), lattice, R (>= 4.1.0)
 Suggests: parallel, tcltk, knitr, markdown
 Imports: MASS, cluster, mgcv
 VignetteBuilder: utils, knitr

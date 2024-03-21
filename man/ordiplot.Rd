@@ -124,8 +124,7 @@ pl <- ordiplot(dune.mds, type = "none")
 points(pl, "sites", pch=21, col="red", bg="yellow")
 text(pl, "species", col="blue", cex=0.9)
 \dontrun{
-## same plot using pipes (pipes |> are available from R version 4.1.0)
-if (getRversion() >= "4.1") {
+## same plot using pipes (|>)
 ordiplot(dune.mds, type="n") |>
   points("sites", pch=21, col="red", bg="yellow") |>
   text("species", col="blue", cex=0.9)
@@ -136,7 +135,6 @@ mod <- rda(dune)
 plot(mod, type="n") |>
   points("sites", pch=16, col="red") |>
   text("species", arrows = TRUE, length=0.05, col="blue")
-}
 }
 ## Default plot of the previous using identify to label selected points
 \dontrun{

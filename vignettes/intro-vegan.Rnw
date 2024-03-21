@@ -101,7 +101,7 @@ stress solution.  Finally it scales and rotates the solution, and adds
 species scores to the configuration as weighted averages (function
 \code{wascores}):
 <<>>=
-ord <- metaMDS(dune)
+ord <- metaMDS(dune, trace = FALSE)
 ord
 @
 
@@ -136,7 +136,7 @@ sizes freely (Fig. \ref{fig:plot.args}):
 <<a>>=
 plot(ord, type = "n")
 points(ord, display = "sites", cex = 0.8, pch=21, col="red", bg="yellow")
-text(ord, display = "spec", cex=0.7, col="blue")
+text(ord, display = "species", cex=0.7, col="blue")
 @
 \begin{figure}
 <<fig=true,echo=false>>=
@@ -146,6 +146,13 @@ text(ord, display = "spec", cex=0.7, col="blue")
   species are text.}
 \label{fig:plot.args}
 \end{figure}
+The \code{plot} commands can be chained with pipe \code{|>}, and the previous
+can also be expressed as:
+<<<fig=false>>=
+plot(ord, type = "n") |>
+points("sites", cex = 0.8, pch=21, col="red", bg="yellow") |>
+text("species", cex=0.7, col="blue")
+@
 
 All \pkg{vegan} ordination methods have a specific \code{plot}
 function.  In addition, \pkg{vegan} has an alternative plotting
