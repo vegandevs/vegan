@@ -2,6 +2,13 @@
 
 ### Changes in version 2\.6-5
 
+#### INSTALLATION
+
+* **vegan** depends on **R** version 4.1.0.
+
+* It should be possible to build **vegan** with webR/wasm Fortran
+  compiler.
+
 #### NEW FEATURES
 
 * Permutation tests for CCA were completely redesigned to follow C.J.F
@@ -49,9 +56,30 @@
 * Over-fitted models with high number of aliased variables caused a
   rare failure in `adonis2` and permutation tests of constrained
   ordination methods (`cca`, `rda`, `dbrda`) with arguments `by =
-  "margin"` or `by = "axis"`. Typically this occurs with high-order
-  interactions of factor variables. See issue
-  [#452](https://github.com/vegandevs/vegan/issues/452)
+  "margin"` or `by = "axis"`. This also concerned `vif.cca` and
+  `intersetcor`. Typically this occurs with high-order interactions of
+  factor variables. See issues
+  [#452](https://github.com/vegandevs/vegan/issues/452) and
+  [#622](https://github.com/vegandevs/vegan/issues/622)
+  
+* Some methods accept rectangular raw data input as alternative to
+  distances, but did not pass all arguments to distance
+  functions. These arguments in `vegdist` could be `binary = TRUE` or
+  `pseudocount` with Aitchison distance. See issue
+  [#631](https://github.com/vegandevs/vegan/issues/631)
+  
+* `simper` gave arbitrary *p*-values for species that did not occur in
+  a subset. Now these are given as `NA`. See
+  https://stackoverflow.com/questions/77881877/
+  
+* `Rsquare.adj` gave arbitrary *p*-values for over-fitted models with
+  no residual variation. Now returns `NA` when _R_<sup>2</sup> cannot
+  be adjusted. Automatic model building could proceed for such cases,
+  and this was fixed in `ordiR2step` which returns _R_<sup>2</sup> = 0
+  for these cases. The constrained ordination methods issue a warning
+  if the model has no residual component. See issue
+  [#610](https://github.com/vegandevs/vegan/issues/610)
+  
 
 #### DATA SETS
 
@@ -72,6 +100,9 @@
   their authors in June 2022 and printed a message of forthcoming
   deprecation since **vegan** 2.6-2. See
   [issue #523](https://github.com/vegandevs/vegan/issues/523).
+  
+* `orditkplot` was moved to CRAN package **vegan3d** and is deprecated
+  in **vegan**.
 
 * `as.mcmc.oecosimu` and `as.mcmc.permat` are defunct: use `toCoda`.
 
