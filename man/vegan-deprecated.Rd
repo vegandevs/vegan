@@ -50,8 +50,8 @@ as.mcmc.permat(x)
   \item{display, choices}{kind of scores and number of axes.}
   \item{width}{size of Tcl/Tk window in inches.}
 
-  \item{xlim, ylim, tcex, tcol, pch, pcol, pbg, pcex, labels}
-     {graphical parameters similar to standard \code{plot} functions;
+  \item{xlim, ylim, tcex, tcol, pch, pcol, pbg, pcex, labels}{
+     graphical parameters similar to standard \code{plot} functions;
      those applied only to points preceded with \code{p}, and those to
      text with \code{t}.}
 
