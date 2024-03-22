@@ -6,8 +6,8 @@
 
 * **vegan** depends on **R** version 4.1.0.
 
-* It should be possible to build **vegan** with webR/wasm Fortran
-  compiler.
+* It is possible to build **vegan** with webR/wasm Fortran
+  compiler. Issue [623](https://github.com/vegandevs/vegan/issues/623).
 
 #### NEW FEATURES
 
