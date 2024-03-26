@@ -53,6 +53,8 @@
   error when non-existing axes were requested. Now ignores requests to
   axes numbers that are higher than in the result object.
 
+* `summary` of `prc` ignored extra parameters (such as `const`).
+
 * Over-fitted models with high number of aliased variables caused a
   rare failure in `adonis2` and permutation tests of constrained
   ordination methods (`cca`, `rda`, `dbrda`) with arguments `by =
