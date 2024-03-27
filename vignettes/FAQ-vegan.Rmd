@@ -354,6 +354,7 @@ on “Design decision and implementation details in vegan” that you can
 read with command `browseVignettes("vegan")`.
 
 ------------------------------------------------------------------------
+
 ### I cannot print and plot RDA results properly
 
 If the RDA ordination results have a weird format or you cannot plot
@@ -380,6 +381,7 @@ have similar name clashes with `cca`. The solution is to upgrade
 **ade4**.
 
 ------------------------------------------------------------------------
+
 ### Ordination fails with “Error in La.svd”
 
 Constrained ordination (`cca`, `rda`, `capscale`) will sometimes fail
