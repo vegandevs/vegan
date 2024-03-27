@@ -131,10 +131,9 @@ official part of the <a href="https://www.gnu.org/" class="external-link">GNU</a
 </h4>
 <p>Both R and latest release version of <strong>vegan</strong> can be
 obtained through <a href="https://cran.r-project.org" class="external-link">CRAN</a>. Unstable
-development version of <strong>vegan</strong> can be obtained through <a href="https://github.com/vegandevs/vegan" class="external-link">GitHub</a>. Formerly
-<strong>vegan</strong> was developed in <a href="https://r-forge.r-project.org/projects/vegan/" class="external-link">R-Forge</a>, but
-after moving to <a href="https://github.com/vegandevs/vegan" class="external-link">GitHub</a>
-the R-Forge repository is out of date.</p>
+development version of <strong>vegan</strong> can be obtained through <a href="https://github.com/vegandevs/vegan" class="external-link">GitHub</a>. The github page
+gives further instructions for obtaining and installing development
+versions of <strong>vegan</strong>.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -146,16 +145,18 @@ for <strong>vegan</strong>. The <strong>permute</strong> package is
 developed together with <strong>vegan</strong> in <a href="https://github.com/gavinsimpson/permute" class="external-link">GitHub</a>.</p>
 <p>Some individual <strong>vegan</strong> functions depend on packages
 <strong>MASS</strong>, <strong>mgcv</strong>, <strong>parallel</strong>,
-<strong>cluster</strong>, <strong>lattice</strong> and
-<strong>tcltk</strong>. These all are base or recommended R packages
-that should be available in every R installation. <strong>Vegan</strong>
-declares these as suggested or imported packages, and you can install
-<strong>vegan</strong> and use most of its functions without these
-packages.</p>
+<strong>cluster</strong> and <strong>lattice</strong>.
+<strong>Vegan</strong> dependence on <strong>tcltk</strong> is
+deprecated and will be removed in future releases. These all are base or
+recommended R packages that should be available in every R installation.
+<strong>Vegan</strong> declares these as suggested or imported packages,
+and you can install <strong>vegan</strong> and use most of its functions
+without these packages.</p>
 <p><strong>Vegan</strong> is accompanied with a supporting package
 <strong>vegan3d</strong> for three-dimensional and dynamic plotting. The
-<strong>vegan3d</strong> package needs non-standard packages
-<strong>rgl</strong> and <strong>scatterplot3d</strong>.</p>
+<strong>vegan3d</strong> package needs <strong>tcltk</strong> and
+non-standard packages <strong>rgl</strong> and
+<strong>scatterplot3d</strong>.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -182,8 +183,8 @@ package ships with other documents which can be read with
 the <strong>vegan</strong> package are</p>
 <ul>
 <li>
-<strong>Vegan</strong> <code>NEWS</code>
-</li>
+<strong>Vegan</strong> <code>NEWS</code> that can be accessed via
+<code><a href="https://rdrr.io/r/utils/news.html" class="external-link">news()</a></code> command.</li>
 <li>This document (<code>FAQ-vegan</code>).</li>
 <li>Short introduction to basic ordination methods in
 <strong>vegan</strong> (<code>intro-vegan</code>).</li>
@@ -197,7 +198,10 @@ the <strong>vegan</strong> package are</p>
 <p>Web documents outside the package include:</p>
 <ul>
 <li>
-<a href="https://github.com/vegandevs/vegan" class="external-link uri">https://github.com/vegandevs/vegan</a>:
+<a href="https://github.com/vegandevs/vegan" class="external-link uri">https://github.com/vegandevs/vegan</a>: development
+page.</li>
+<li>
+<a href="https://vegandevs.github.io/vegan/" class="uri">https://vegandevs.github.io/vegan/</a>:
 <strong>vegan</strong> homepage.</li>
 </ul>
 <hr>
@@ -239,10 +243,7 @@ compilers (which may need more work in Windows and MacOS X).</p>
 <div class="section level4">
 <h4 id="are-there-binaries-for-devel-versions">Are there binaries for devel versions?<a class="anchor" aria-label="anchor" href="#are-there-binaries-for-devel-versions"></a>
 </h4>
-<p>Not currently. You need tools to build C and Fortran programs to
-install <strong>vegan</strong>. If you have those, you can use
-<code>devtools::install_github("vegan")</code> to install the most
-recent devel version.</p>
+<p>Binaries can be available from R Universe: see <a href="https://github.com/vegandevs/vegan" class="external-link uri">https://github.com/vegandevs/vegan</a> for instructions.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -301,7 +302,7 @@ still complains<a class="anchor" aria-label="anchor" href="#i-have-only-numeric-
 </h4>
 <p>You are wrong! Computers are painfully pedantic, and if they find
 non-numeric or negative data entries, you really have them. Check your
-data. Most common reasons for non-numeric data are that row names were
+data! Most common reasons for non-numeric data are that row names were
 read as a non-numeric variable instead of being used as row names (check
 argument <code>row.names</code> in reading the data), or that the column
 names were interpreted as data (check argument
@@ -447,42 +448,55 @@ packages. The scaling of RDA is such a complicated issue that it cannot
 be explained in this FAQ, but it is explained in a separate pdf document
 on “Design decision and implementation details in vegan” that you can
 read with command <code>browseVignettes("vegan")</code>.</p>
-<table class="table">
-<colgroup><col width="100%"></colgroup>
-<thead><tr class="header">
-<th align="left">### I cannot print and plot RDA results properly</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">### Ordination fails with “Error in La.svd”</td>
-</tr>
-<tr class="even">
-<td align="left">Constrained ordination (<code>cca</code>,
-<code>rda</code>, <code>capscale</code>) will sometimes fail with error
-message
-<code>Error in La.svd(x, nu, nv): error code 1 from Lapack routine 'dgesdd'.</code>
-</td>
-</tr>
-<tr class="odd">
-<td align="left">It seems that the basic problem is in the
-<code>svd</code> function of <code>LAPACK</code> that is used for
-numerical analysis in R. <code>LAPACK</code> is an external library that
-is beyond the control of package developers and R core team so that
-these problems may be unsolvable. It seems that the problems with the
-<code>LAPACK</code> code are so common that even the help page of
-<code>svd</code> warns about them</td>
-</tr>
-<tr class="even">
-<td align="left">Reducing the range of constraints (environmental
-variables) helps sometimes. For instance, multiplying constraints by a
-constant &lt; 1. This rescaling does not influence the numerical results
-of constrained ordination, but it can complicate further analyses when
-values of constraints are needed, because the same scaling must be
-applied there. We can only hope that this problem is fixed in the future
-versions of R and <code>LAPACK</code>.</td>
-</tr>
-</tbody>
-</table>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="i-cannot-print-and-plot-rda-results-properly">I cannot print and plot RDA results properly<a class="anchor" aria-label="anchor" href="#i-cannot-print-and-plot-rda-results-properly"></a>
+</h4>
+<p>If the RDA ordination results have a weird format or you cannot plot
+them properly, you probably have a name clash with <strong>klaR</strong>
+package which also has function <code>rda</code>, and the
+<strong>klaR</strong> <code>print</code>, <code>plot</code> or
+<code>predict</code> functions are used for <strong>vegan</strong> RDA
+results. You can choose between <code>rda</code> functions using
+<code><a href="../reference/cca.html">vegan::rda()</a></code> or <code>klaR::rda()</code>: you will get
+obscure error messages if you use the wrong function. In general,
+<strong>vegan</strong> should be able to work normally if
+<strong>vegan</strong> was loaded after <strong>klaR</strong>, but if
+<strong>klaR</strong> was loaded later, its functions will take
+precedence over <strong>vegan</strong>. Sometimes <strong>vegan</strong>
+namespace is loaded automatically when restoring a previously stored
+workspace at the start-up, and then <strong>klaR</strong> methods will
+always take precedence over <strong>vegan</strong>. You should check
+your loaded packages. <strong>klaR</strong> may be also loaded
+indirectly via other packages (in the reported cases it was most often
+loaded via <strong>agricolae</strong> package). <strong>Vegan</strong>
+and <strong>klaR</strong> both have the same function name
+(<code>rda</code>), and it may not be possible to use these packages
+simultaneously, and the safest choice is to unload one of the packages
+if only possible. See discussion in <a href="https://github.com/vegandevs/vegan/issues/277" class="external-link">vegan github
+issues</a>.</p>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="ordination-fails-with-error-in-la-svd">Ordination fails with “Error in La.svd”<a class="anchor" aria-label="anchor" href="#ordination-fails-with-error-in-la-svd"></a>
+</h4>
+<p>Constrained ordination (<code>cca</code>, <code>rda</code>,
+<code>capscale</code>) will sometimes fail with error message
+<code>Error in La.svd(x, nu, nv): error code 1 from Lapack routine 'dgesdd'.</code></p>
+<p>It seems that the basic problem is in the <code>svd</code> function
+of <code>LAPACK</code> that is used for numerical analysis in R.
+<code>LAPACK</code> is an external library that is beyond the control of
+package developers and R core team so that these problems may be
+unsolvable.</p>
+<p>Reducing the range of constraints (environmental variables) helps
+sometimes. For instance, multiplying constraints by a constant &lt; 1.
+This rescaling does not influence the numerical results of constrained
+ordination, but it can complicate further analyses when values of
+constraints are needed, because the same scaling must be applied there.
+The reports on the problems are getting rare and it may that this
+problem is fixed in R and <code>LAPACK</code>.</p>
+<hr>
 </div>
 <div class="section level4">
 <h4 id="variance-explained-by-ordination-axes-">Variance explained by ordination axes.<a class="anchor" aria-label="anchor" href="#variance-explained-by-ordination-axes-"></a>
@@ -512,30 +526,26 @@ impossible to compare methods using “explanation of variation”.</p>
 editor requests that from you), it is possible to get this information
 for some methods:</p>
 <ul>
-<li>Eigenvector methods: Functions <code>rda</code>, <code>cca</code>
-and <code>capscale</code> give the variation of conditional
-(partialled), constrained (canonical) and residual components, but you
-must calculate the proportions by hand. Function <code>eigenvals</code>
-extracts the eigenvalues, and <code>summary(eigenvals(ord))</code>
-reports the proportions explained in the result object <code>ord</code>.
-Function <code>RsquareAdj</code> gives the R-squared and adjusted
-R-squared (if available) for constrained components. Function
-<code>goodness</code> gives the same statistics for individual species
-or sites (species are unavailable with <code>capscale</code>). In
-addition, there is a special function <code>varpart</code> for unbiased
-partitioning of variance between up to four separate components in
-redundancy analysis.</li>
-<li>Detrended correspondence analysis (function <code>decorana</code>).
-The total amount of variation is undefined in detrended correspondence
-analysis, and therefore proportions from total are unknown and
-undefined. DCA is not a method for decomposition of variation, and
-therefore these proportions would not make sense either.</li>
-<li>Nonmetric multidimensional scaling. NMDS is a method for nonlinear
-mapping, and the concept of of variation explained does not make sense.
-However, 1 - stress^2 transforms nonlinear stress into quantity
-analogous to squared correlation coefficient. Function
+<li><p>Eigenvector methods: Functions <code>rda</code>,
+<code>cca</code>, <code>dbrda</code> and <code>capscale</code> give the
+variation of conditional (partialled), constrained (canonical) and
+residual components, but you must calculate the proportions by hand.
+Function <code>eigenvals</code> extracts the eigenvalues, and
+<code>summary(eigenvals(ord))</code> reports the proportions explained
+in the result object <code>ord</code>, and also works with
+<code>decorana</code> and <code>wcmdscale</code>. Function
+<code>RsquareAdj</code> gives the R-squared and adjusted R-squared (if
+available) for constrained components. Function <code>goodness</code>
+gives the same statistics for individual species or sites (species are
+unavailable with <code>capscale</code>). In addition, there is a special
+function <code>varpart</code> for unbiased partitioning of variance
+between up to four separate components in redundancy analysis.</p></li>
+<li><p>Nonmetric multidimensional scaling. NMDS is a method for
+nonlinear mapping, and the concept of of variation explained does not
+make sense. However, 1 - stress^2 transforms nonlinear stress into
+quantity analogous to squared correlation coefficient. Function
 <code>stressplot</code> displays the nonlinear fit and gives this
-statistic.</li>
+statistic.</p></li>
 </ul>
 <hr>
 </div>
@@ -589,20 +599,14 @@ find scores for all points using your complete data as
 <code>newdata</code>. The <code>predict</code> functions are available
 for basic eigenvector methods in <strong>vegan</strong>
 (<code>cca</code>, <code>rda</code>, <code>decorana</code>, for an
-up-to-date list, use command <code>methods("predict")</code>). You also
-can simulate the passive points in R by using low weights to row and
-columns (this is the method used in software with passive points). For
-instance, the following command makes row 3 “passive”:
-<code>dune[3,] &lt;- 0.001*dune[3,]</code>.</p>
+up-to-date list, use command <code>methods("predict")</code>).</p>
 <hr>
 </div>
 <div class="section level4">
 <h4 id="class-variables-and-dummies">Class variables and dummies<a class="anchor" aria-label="anchor" href="#class-variables-and-dummies"></a>
 </h4>
 <p>You should define a class variable as an R <code>factor</code>, and
-<strong>vegan</strong> will automatically handle them with formula
-interface. You also can define constrained ordination without formula
-interface, but then you must code your class variables by hand.</p>
+<strong>vegan</strong> will automatically handle them.</p>
 <p>R (and <strong>vegan</strong>) knows both unordered and ordered
 factors. Unordered factors are internally coded as dummy variables, but
 one redundant level is removed or aliased. With default contrasts, the
@@ -740,9 +744,10 @@ blog</a>).</li>
 <li>Ordination <code>text</code> and <code>points</code> functions have
 argument <code>select</code> that can be used for full control of
 selecting items plotted as text or points.</li>
-<li>Use interactive <code>orditkplot</code> function that lets you drag
-labels of points to better positions if you need to see all labels. Only
-one set of points can be used (see <a href="https://fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/" class="external-link">Decluttering
+<li>Use interactive <code>orditkplot</code> function
+(<strong>vegan3d</strong> package) that lets you drag labels of points
+to better positions if you need to see all labels. Only one set of
+points can be used (see <a href="https://fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/" class="external-link">Decluttering
 blog</a>).</li>
 <li>Most <code>plot</code> functions allow you to zoom to a part of the
 graph using <code>xlim</code> and <code>ylim</code> arguments to reduce
@@ -782,11 +787,7 @@ display the results.</p>
 <div class="section level4">
 <h4 id="is-there-twinspan">Is there TWINSPAN?<a class="anchor" aria-label="anchor" href="#is-there-twinspan"></a>
 </h4>
-<p>No. It may be possible to port TWINSPAN to <strong>vegan</strong>,
-but it is not among the <strong>vegan</strong> top priorities. If
-anybody wants to try porting, I will be happy to help. TWINSPAN has a
-very permissive license, and it would be completely legal to port the
-function into R.</p>
+<p>TWINSPAN for R is available in <a href="https://github.com/jarioksa/twinspan" class="external-link">github</a>.</p>
 <hr>
 </div>
 <div class="section level4">
