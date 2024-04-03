@@ -55,15 +55,11 @@ void wcentre(double *x, double *retx, double *w, int *nr, int *nc)
      for (i = 0, sw = 0.0; i < (*nr); i++)
 	  sw += w[i];
 
-     /* weights to unit sum (usually they are already, but still...) */
-     for(i = 0; i < (*nr); i++)
-	 w[i] /= sw;
-
      for (j = 0; j < (*nc) ; j++) {
 	  for (i = 0, swx = 0.0, ij = (*nr)*j; i < (*nr); i++, ij++) {
 	       swx += w[i] * x[ij];
 	  }
-
+	  swx /= sw;
 	  for (i = 0,  ij = (*nr)*j; i < (*nr); i++, ij++) {
 	       retx[ij] = x[ij] - swx;
 	       retx[ij] *= sqrt(w[i]);
