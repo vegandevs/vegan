@@ -1749,12 +1749,12 @@ log(N) P K Ca pH Al    6      0.2822
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
 
-                Inertia Proportion Rank
-Total          4.792609   1.000000     
-Conditional    0.977190   0.203895    1
-Constrained    0.997170   0.208064    3
-Unconstrained  2.829038   0.590292   15
-Imaginary     -0.010790  -0.002251    8
+               Inertia Proportion Rank
+Total          4.54444    1.00000     
+Conditional    0.97719    0.21503    1
+Constrained    0.99717    0.21943    3
+Unconstrained  2.82904    0.62253   15
+Imaginary     -0.25896   -0.05698    8
 Inertia is squared Bray distance 
 Species scores projected from ‘varespec’ 
 
@@ -1835,10 +1835,10 @@ Wisconsin double standardization
 Call: capscale(formula = varespec ~ 1, distance = "bray", metaMDSdist =
 TRUE)
 
-                Inertia Rank
-Total          2.593021     
-Unconstrained  2.594999   19
-Imaginary     -0.001978    4
+               Inertia Rank
+Total          2.54753     
+Unconstrained  2.59500   19
+Imaginary     -0.04747    4
 Inertia is squared Bray distance 
 Species scores projected from ‘varespec’ 
 
@@ -5798,7 +5798,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 8.71  total = 9.71 
 
-REML score: 25.8026     
+REML score: -120.7705     
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
 
 Family: gaussian 
@@ -5810,7 +5810,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 7.18  total = 8.18 
 
-REML score: 43.10693     
+REML score: -103.4662     
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
 
 Family: gaussian 
@@ -5822,7 +5822,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 8.32  total = 9.32 
 
-REML score: 52.38255     
+REML score: -94.19053     
 > par(op)
 > ## Plot first PCNMs against each other
 > ordisplom(pcnm1, choices=1:4)
@@ -6391,65 +6391,65 @@ Call:
 prc(response = pyrifos, treatment = dose, time = week) 
 Species scores:
     Simve     Daplo     Cerpu     Alogu     Aloco     Alore     Aloaf     Copsp 
- 1.461934  0.796510  0.295171  0.152301  0.096273  0.171335  0.231967  0.635966 
+ 2.688099  1.464566  0.542739  0.280040  0.177019  0.315038  0.426524  1.169368 
     Ostsp     Slyla     Acrha     Aloex     Chysp     Alona     Plead     Oxyte 
- 1.257492 -0.302872  0.057396  0.124049  0.051689  0.034638  0.075268  0.013815 
+ 2.312186 -0.556899  0.105535  0.228092  0.095042  0.063689  0.138397  0.025401 
     Grate     Copdi     NauLa     CilHa     Strvi     amosp     Ascmo     Synsp 
- 0.052667  0.777088  2.636100  0.486881  1.669474 -0.738371  0.037926 -0.014409 
+ 0.096840  1.428854  4.847070  0.895241  3.069709 -1.357663  0.069736 -0.026494 
     Squro     Squmu     Polar     Kerqu     Anufi     Mytve     Mytvi     Mytmu 
- 0.143790 -0.246185  0.251255  0.269397  0.235362  0.040448  0.049452  0.057589 
+ 0.264390 -0.452667  0.461989  0.495348  0.432767  0.074372  0.090928  0.105891 
     Lepsp     Leppa     Colob     Colbi     Colun     Lecsp     Lecqu     Lecco 
- 0.542922  0.046123 -0.393234 -0.075905 -0.450495  0.257170 -0.048327 -0.158007 
+ 0.998286  0.084809 -0.723051 -0.139569 -0.828338  0.472866 -0.088860 -0.290531 
     Leclu     Lecfl     Tripo     Cepsp     Monlo     Monae     Scalo     Trilo 
- 0.027077 -0.221912  0.117056 -0.440303 -0.287108 -0.048918 -0.041981 -0.021257 
+ 0.049788 -0.408035  0.215234 -0.809597 -0.527913 -0.089948 -0.077192 -0.039086 
   Tripo.1     Tricy     Trisp     Tepat     Rotne     Notla     Filsp     Lopox 
- 0.134025  0.182409  0.042651  0.004198  0.078168 -0.062163 -0.091561 -0.016854 
+ 0.246435  0.335400  0.078423  0.007719  0.143730 -0.114301 -0.168356 -0.030990 
  hydrspec  bothrosp  olchaeta  erpoocto  glsicomp  alglhete  hebdstag   sphidae 
--0.026485  0.216815 -0.633674 -0.490029 -0.078527 -0.039728  0.490678  0.796015 
+-0.048698  0.398665 -1.165154 -0.901030 -0.144389 -0.073049  0.902223  1.463655 
  ansuvote  armicris  bathcont  binitent  gyraalbu  hippcomp  lymnstag  lymnaes7 
- 0.076512  0.913681  0.039855 -1.060788  0.017975  0.219974 -0.143403  0.073502 
+ 0.140685  1.680010  0.073282 -1.950500  0.033051  0.404473 -0.263679  0.135150 
  physfont  plbacorn  popyanti  radiovat  radipere  valvcris  valvpisc  hycarina 
--0.014349  0.046098  0.691904 -0.010777 -0.340163  0.005753 -0.145523  0.567803 
+-0.026383  0.084761  1.272223 -0.019815 -0.625468  0.010579 -0.267577  1.044034 
  gammpule  aselaqua  proameri  collembo  caenhora  caenluct  caenrobu  cloedipt 
- 0.830166  0.858606  0.063401  0.016264  3.136867  1.292300  0.068624  2.574625 
+ 1.526450  1.578743  0.116577  0.029906  5.767844  2.376188  0.126181  4.734035 
  cloesimi  aeshniae  libellae  conagrae  corident  coripanz  coripunc  cymabons 
- 0.675580  0.115677 -0.044524  0.886795  0.007484  0.065501 -0.096124  0.025213 
+ 1.242207  0.212699 -0.081867  1.630574  0.013761  0.120439 -0.176746  0.046360 
  hesplinn  hespsahl  notoglau  notomacu  notoobli  notoviri  pacoconc  pleaminu 
--0.037779  0.018078  0.301948  0.027226  0.044790  0.117398  0.009087  0.038705 
+-0.069465  0.033240  0.555201  0.050060  0.082356  0.215863  0.016709  0.071168 
  sigadist  sigafall  sigastri  sigarasp  colyfusc  donacis6  gyrimari  haliconf 
- 0.041594 -0.009987  0.032743 -0.150817  0.019847 -0.042751  0.005753  0.243054 
+ 0.076479 -0.018364  0.060206 -0.277312  0.036493 -0.078608  0.010579  0.446911 
  haliflav  haligruf  haliobli  herubrev  hya_herm  hyglpusi  hyhyovat  hypoplan 
- 0.024222  0.244814  0.071501 -0.069877 -0.175327 -0.006404  0.013159  0.008145 
+ 0.044538  0.450146  0.131472 -0.128486 -0.322379 -0.011775  0.024196  0.014976 
  hyporusp  hytuinae  hytuvers  laphminu  noteclav  rhantusp  sialluta  ablalong 
- 0.126197  1.259664  0.963901  0.344204  0.004303  0.036774  0.603320  0.008145 
+ 0.232042  2.316179  1.772351  0.632897  0.007912  0.067618  1.109341  0.014976 
  ablaphmo  cltanerv  malopisp  mopetenu  prdiussp  pstavari  chironsp  crchirsp 
- 1.627590  0.041132  0.025919  0.004740  0.301790  0.045054  1.027839  0.009087 
+ 2.992695  0.075631  0.047658  0.008716  0.554911  0.082842  1.889916  0.016709 
  crclglat  ditendsp  mitegchl  pachgarc  pachgvit  popegnub  popedisp  acriluce 
- 0.015746  0.045402  0.125429 -0.006628 -0.016265  0.121971 -0.037879 -0.004324 
+ 0.028953  0.083481  0.230629 -0.012187 -0.029907  0.224272 -0.069649 -0.007950 
  chclpige  conescut  cricotsp  liesspec  psclbarb  psclgsli  psclobvi  psclplat 
--0.004756  0.446524  0.066095  0.058403 -0.015576  0.327165 -0.197081 -0.028310 
+-0.008744  0.821036  0.121530  0.107387 -0.028639  0.601568 -0.362378 -0.052054 
  psclpsil  pscladsp  cladotsp  laa_spec  patanysp  tatarssp  zaa_spec  anopmacu 
- 0.003991  0.003086  0.293623  0.018548  0.079841  0.364072  0.027165 -0.089046 
+ 0.007339  0.005674  0.539894  0.034105  0.146807  0.669430  0.049949 -0.163731 
  cepogoae  chaoobsc  cucidae4  tabanusp  agdasphr  athrater  cyrncren  holodubi 
- 1.389767  1.328261  0.018078 -0.006309  0.147828  0.036774  0.038705  0.051532 
+ 2.555403  2.442310  0.033240 -0.011601  0.271815  0.067618  0.071168  0.094754 
  holopici  leceriae  lilurhom  monaangu  mystazur  mystloni  oecefurv  oecelacu 
- 0.332631  0.162413  0.004929  0.350402  0.018078  1.630725  0.291847  0.140893 
+ 0.611618  0.298633  0.009063  0.644295  0.033240  2.998460  0.536628  0.259064 
  triabico  paponysp 
- 0.048357  0.053182 
+ 0.088915  0.097788 
 
 Coefficients for dose + week:dose interaction
 which are contrasts to dose 0 
 rows are dose, columns are week
-         -4      -1     0.1        1       2       4       8      12      15
-0.1 -0.1327 -0.2527 -0.1875 -0.07479 -0.3863 -0.2509 -0.1485 -0.2824 -0.2064
-0.9 -0.1490 -0.3558 -0.3560 -0.87706 -0.9151 -0.7918 -0.2488 -0.6523 -0.4428
-6   -0.3055 -0.2266 -0.8346 -2.12626 -1.9923 -2.1165 -1.0317 -0.8638 -0.5660
-44  -0.2570 -0.3601 -1.3438 -2.31842 -2.3862 -2.6894 -2.3745 -1.8536 -1.4377
-         19      24
-0.1 -0.3977 -0.1441
-0.9 -0.3229 -0.2839
-6   -0.6054 -0.3352
-44  -1.0607 -0.5704
+          -4      -1     0.1        1       2       4        8      12      15
+0.1 -0.07218 -0.1375 -0.1020 -0.04068 -0.2101 -0.1364 -0.08077 -0.1536 -0.1123
+0.9 -0.08106 -0.1935 -0.1936 -0.47699 -0.4977 -0.4306 -0.13532 -0.3548 -0.2408
+6   -0.16616 -0.1232 -0.4539 -1.15638 -1.0835 -1.1511 -0.56112 -0.4698 -0.3078
+44  -0.13979 -0.1958 -0.7308 -1.26088 -1.2978 -1.4627 -1.29139 -1.0081 -0.7819
+         19       24
+0.1 -0.2163 -0.07835
+0.9 -0.1756 -0.15442
+6   -0.3293 -0.18227
+44  -0.5768 -0.31022
 > logabu <- colSums(pyrifos)
 > plot(mod, select = logabu > 100)
 > ## IGNORE_RDIFF_END
@@ -7989,10 +7989,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > capscale(dtree ~ 1, comm=dune)
 Call: capscale(formula = dtree ~ 1, comm = dune)
 
-                Inertia Rank
-Total          2.335836     
-Unconstrained  2.343860   10
-Imaginary     -0.008024    9
+              Inertia Rank
+Total          2.1834     
+Unconstrained  2.3439   10
+Imaginary     -0.1605    9
 Inertia is squared Treedist distance 
 Species scores projected from ‘dune’ 
 
@@ -9127,13 +9127,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--2.220446e-16 -4.440892e-16  5.551115e-17  1.110223e-16  1.387779e-16 
+-2.220446e-16 -3.330669e-16 -1.110223e-16  5.551115e-17  1.387779e-16 
           CA6           CA7           CA8           CA9          CA10 
--8.326673e-17 -2.775558e-17 -9.714451e-17  1.804112e-16  1.387779e-16 
+-9.714451e-17 -9.714451e-17 -1.110223e-16  1.804112e-16  8.326673e-17 
          CA11          CA12          CA13          CA14          CA15 
- 1.249001e-16  1.665335e-16  1.665335e-16  3.469447e-17  2.602085e-17 
+ 1.040834e-16  1.249001e-16  1.249001e-16  2.081668e-17  0.000000e+00 
          CA16          CA17          CA18          CA19 
--2.255141e-17  6.938894e-18 -8.673617e-19  2.818926e-17 
+-1.040834e-17  8.673617e-18 -3.209238e-17 -1.821460e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9142,7 +9142,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
-    0 
+2.842e-14 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9164,7 +9164,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.76 0.251 10.036 0 0 
+Time elapsed:  9.749 0.249 10.024 0 0 
 > grDevices::dev.off()
 null device 
           1 
