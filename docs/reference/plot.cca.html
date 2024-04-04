@@ -82,16 +82,7 @@
 <span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>,<span class="st">"wa"</span>,<span class="st">"bp"</span>,<span class="st">"cn"</span><span class="op">)</span>,</span>
 <span>       scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">const</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, scaling <span class="op">=</span> <span class="st">"species"</span>, axes <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>        display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>, <span class="st">"wa"</span>, <span class="st">"lc"</span>, <span class="st">"bp"</span>, <span class="st">"cn"</span><span class="op">)</span>,</span>
-<span>        digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>        correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="co"># S3 method for summary.cca</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">digits</span>, head <span class="op">=</span> <span class="cn">NA</span>, tail <span class="op">=</span> <span class="va">head</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="co"># S3 method for summary.cca</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">6</span>, tail <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="co"># S3 method for summary.cca</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="va">x</span>, n <span class="op">=</span> <span class="fl">6</span>, head <span class="op">=</span> <span class="fl">0</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">display</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -196,15 +187,8 @@
   <dt>axis.bp</dt>
 <dd><p>Draw <code><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></code> for biplot arrows.</p></dd>
 
-  <dt>axes</dt>
-<dd><p>Number of axes in summaries.</p></dd>
-
   <dt>digits</dt>
 <dd><p>Number of digits in output.</p></dd>
-
-  <dt>n, head, tail</dt>
-<dd><p>Number of rows printed from the head and tail of
-    species and site scores.  Default <code>NA</code> prints all.</p></dd>
 
   <dt>...</dt>
 <dd><p>Parameters passed to other functions.</p></dd>
@@ -323,18 +307,20 @@
 <span class="r-in"><span><span class="co">## when the command is run repeatedly).</span></span></span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_BEGIN</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>, tail<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $call</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> cca(formula = dune ~ A1 + Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> cca(formula = dune ~ A1 + Moisture + Management, data = dune.env) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $tot.chi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.115264</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Partitioning of scaled Chi-square:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.1153     1.0000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Constrained    1.1392     0.5385</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  0.9761     0.4615</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $constr.chi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.139167</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues, and their contribution to the scaled Chi-square </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $unconst.chi</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9760971</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $cont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $cont$importance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Importance of components:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         CCA1   CCA2    CCA3    CCA4    CCA5    CCA6    CCA7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalue            0.4483 0.3001 0.14995 0.10733 0.05668 0.04335 0.03345</span>
@@ -349,83 +335,15 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Proportion Explained  0.01777 0.01468 0.009939 0.005929 0.004386</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cumulative Proportion 0.96506 0.97975 0.989685 0.995614 1.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Accumulated constrained eigenvalues</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $concont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $concont$importance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Importance of components:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         CCA1   CCA2   CCA3    CCA4    CCA5    CCA6    CCA7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalue            0.4483 0.3001 0.1499 0.10733 0.05668 0.04335 0.03345</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Proportion Explained  0.3935 0.2635 0.1316 0.09422 0.04976 0.03806 0.02937</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cumulative Proportion 0.3935 0.6570 0.7886 0.88282 0.93258 0.97063 1.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Scaling 2 for species and site scores</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Species are scaled proportional to eigenvalues</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> * Sites are unscaled: weighted dispersion equal on all dimensions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Species scores</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             CCA1    CCA2     CCA3     CCA4      CCA5     CCA6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Achimill  0.8150 -0.4375 -0.11236  0.35595 -0.114763 -0.01972</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Agrostol -0.7488  0.4783  0.03561  0.17039  0.187389  0.23471</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Airaprae -0.8186 -1.7469  1.04506 -0.28593  0.191836  0.73077</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Alopgeni -0.3442  1.0216  0.37620  0.02296 -0.004041  0.04789</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Anthodor  0.3367 -0.7694 -0.07602 -0.05421  0.136354  0.42463</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bellpere  0.6535 -0.2200  0.03438  0.60436 -0.090469  0.28138</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ....                                                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bracruta -0.1309 -0.2009 -0.03708 -0.17421 -0.109657  0.04381</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Callcusp -1.5181 -0.3834 -0.23255  0.15246  0.104239 -0.11424</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Site scores (weighted averages of species scores)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         CCA1    CCA2     CCA3    CCA4    CCA5    CCA6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1.2468  0.4017  0.91955  0.7292  1.5785 -1.0196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     0.8622  0.1641  0.25789  1.7240 -0.7592 -0.6479</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     0.3165  0.9785  0.82952  0.7451  0.6556  0.3256</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     0.2405  0.8699  1.07861  1.4103  1.1164  2.4714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1.1362 -0.2621 -1.10847 -0.9417  0.5630  1.1495</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1.0575 -0.4041 -1.65035 -1.8483  1.0287 -0.1690</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ....                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   -0.7913 -2.7451  2.93017 -1.3851 -0.3932  1.7277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20   -2.0770 -1.0113 -0.02581 -0.8949  1.6406 -1.7917</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Site constraints (linear combinations of constraining variables)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         CCA1    CCA2     CCA3    CCA4    CCA5     CCA6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     0.7245  0.3695  1.25652 -0.3678  0.9827 -0.60590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     0.9033 -0.4250  0.03901  1.0557 -1.0860 -1.61234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     0.4493  0.6694  0.67765  0.8695  0.9609  1.52307</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     0.4550  0.6532  0.72768  0.8529  0.9795  1.50218</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     0.9671  0.2010 -1.93972 -0.5807  0.2582  0.31905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1.0805 -0.1235 -0.93911 -0.9126  0.6307 -0.09863</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ....                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19   -1.4581 -1.6074  1.16812 -0.5305  0.3178 -0.40336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20   -1.4468 -1.6399  1.26818 -0.5637  0.3551 -0.44513</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Biplot scores for constraining variables</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 CCA1    CCA2     CCA3     CCA4     CCA5     CCA6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1           -0.5554  0.1617 -0.67982  0.10708 -0.17998  0.30507</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.L   -0.9437  0.1638  0.07974 -0.02238  0.03067 -0.02368</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.Q   -0.1876 -0.3571 -0.45352 -0.17237  0.28350 -0.63025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.C   -0.2069 -0.1732  0.10635  0.68203  0.50123  0.35887</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementHF  0.3645  0.1171 -0.42202 -0.67746  0.17212 -0.12317</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM -0.5855 -0.7267 -0.01115 -0.09642 -0.11445  0.27037</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF -0.1511  0.6957  0.38543  0.24770  0.29469  0.23829</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Centroids for factor constraints</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 CCA1     CCA2     CCA3     CCA4     CCA5    CCA6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture1     0.9119 -0.35388 -0.40013 -0.26218  0.02084 -0.4708</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture2     0.5015  0.06706  0.60222  1.12478  0.33942  1.2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture4    -0.1522  1.35873  0.76544 -1.37289 -1.80794  0.3849</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture5    -1.3394 -0.11972 -0.20942  0.04843  0.39751 -0.3902</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementBF  0.8376 -0.41614  0.13885  1.40679 -0.97766 -0.9604</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementHF  0.5426  0.17426 -0.62822 -1.00848  0.25622 -0.1834</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM -1.1010 -1.36665 -0.02097 -0.18131 -0.21523  0.5084</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF -0.2320  1.06831  0.59183  0.38035  0.45250  0.3659</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
 <span class="r-in"><span><span class="co">## Scaling can be numeric or more user-friendly names</span></span></span>
