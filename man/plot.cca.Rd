@@ -31,11 +31,7 @@
        scaling = "species", hill = FALSE, tidy = FALSE, ...)
 \method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","bp","cn"),
        scaling = "species", const, correlation = FALSE, tidy = FALSE, ...)
-\method{summary}{cca}(object, scaling = "species", axes = 6,
-        display = c("sp", "wa", "lc", "bp", "cn"),
-        digits = max(3, getOption("digits") - 3),
-        correlation = FALSE, hill = FALSE, ...)
-\method{print}{summary.cca}(x, digits = x$digits, head = NA, tail = head, ...)
+\method{summary}{cca}(object, digits = max(3, getOption("digits") - 3), ...)
 \method{head}{summary.cca}(x, n = 6, tail = 0, ...)
 \method{tail}{summary.cca}(x, n = 6, head = 0, ...)
 \method{labels}{cca}(object, display, ...)
@@ -114,7 +110,6 @@
     items, the first is used for species, and the second item for site
     scores.}
   \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
-  \item{axes}{Number of axes in summaries.}
   \item{digits}{Number of digits in output.}
   \item{n, head, tail}{Number of rows printed from the head and tail of
     species and site scores.  Default \code{NA} prints all.}
