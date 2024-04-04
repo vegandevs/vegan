@@ -6,8 +6,6 @@
 \alias{scores.rda}
 \alias{summary.cca}
 \alias{print.summary.cca}
-\alias{head.summary.cca}
-\alias{tail.summary.cca}
 \alias{labels.cca}
 
 \title{Plot or Extract Results of Constrained Correspondence Analysis
@@ -32,8 +30,6 @@
 \method{scores}{rda}(x, choices = c(1,2), display = c("sp","wa","bp","cn"),
        scaling = "species", const, correlation = FALSE, tidy = FALSE, ...)
 \method{summary}{cca}(object, digits = max(3, getOption("digits") - 3), ...)
-\method{head}{summary.cca}(x, n = 6, tail = 0, ...)
-\method{tail}{summary.cca}(x, n = 6, head = 0, ...)
 \method{labels}{cca}(object, display, ...)
 }
 
@@ -111,8 +107,6 @@
     scores.}
   \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
   \item{digits}{Number of digits in output.}
-  \item{n, head, tail}{Number of rows printed from the head and tail of
-    species and site scores.  Default \code{NA} prints all.}
   \item{...}{Parameters passed to other functions.}
 }
 

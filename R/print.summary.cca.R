@@ -1,11 +1,6 @@
 `print.summary.cca` <-
     function (x, digits = x$digits, ...)
 {
-    hcat <- function(x, head=head, tail=tail, ...) {
-        if (!is.na(head) && !is.na(tail) && head+tail+4 < nrow(x))
-            x <- rbind(head(x, n=head), "...." = NA, tail(x, n=tail))
-        print(x, na.print = "", ...)
-    }
     cat("\nCall:\n")
     cat(deparse(x$call), "\n")
     statnam <- if (x$method == "cca")

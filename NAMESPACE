@@ -238,8 +238,6 @@ S3method(goodness, monoMDS)
 # hatvalues: stats
 S3method(hatvalues, cca)
 S3method(hatvalues, rda)
-# head: utils
-S3method(head, summary.cca)
 # hiersimu: vegan
 S3method(hiersimu, default)
 S3method(hiersimu, formula)
@@ -539,8 +537,6 @@ S3method(summary, simper)
 S3method(summary, specaccum)
 S3method(summary, taxondive)
 S3method(summary, varpart)
-# tail: utils
-S3method(tail, summary.cca)
 # text: graphics
 S3method(text, cca)
 S3method(text, decorana)
