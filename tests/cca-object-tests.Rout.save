@@ -1,6 +1,6 @@
 
-R version 4.2.2 (2022-10-31) -- "Innocent and Trusting"
-Copyright (C) 2022 The R Foundation for Statistical Computing
+R version 4.3.3 (2024-02-29) -- "Angel Food Cake"
+Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20 (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -84,12 +84,13 @@ Eigenvalues for unconstrained axes:
 Call: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "bray")
 
-               Inertia Proportion Rank
-Total          4.57920    1.00000     
-Conditional    1.50014    0.32760    3
-Constrained    1.07263    0.23424    4
-Unconstrained  2.02118    0.44138   12
-Imaginary     -0.01475   -0.00322    5
+              Inertia Proportion Rank
+Total           4.299                
+RealTotal       4.594      1.000     
+Conditional     1.500      0.327    3
+Constrained     1.073      0.233    4
+Unconstrained   2.021      0.440   12
+Imaginary      -0.295                
 Inertia is squared Bray distance 
 Species scores projected from 'dune' 
 Some constraints or conditions were aliased because they were redundant
@@ -128,12 +129,13 @@ Eigenvalues for unconstrained axes:
 Call: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "manhattan")
 
-                Inertia Proportion Rank
-Total          1.07e+03   1.00e+00     
-Conditional    4.12e+02   3.84e-01    3
-Constrained    2.13e+02   1.99e-01    4
-Unconstrained  4.52e+02   4.21e-01   12
-Imaginary     -4.18e+00  -3.89e-03    6
+               Inertia Proportion Rank
+Total          994.092                
+RealTotal     1077.648      1.000     
+Conditional    412.304      0.383    3
+Constrained    213.079      0.198    4
+Unconstrained  452.264      0.420   12
+Imaginary      -83.555                
 Inertia is mean squared Manhattan distance 
 Species scores projected from 'dune' 
 Some constraints or conditions were aliased because they were redundant
@@ -797,10 +799,10 @@ $adj.r.squared
 
 > RsquareAdj(mcap)
 $r.squared
-[1] 0.23424
+[1] 0.23349
 
 $adj.r.squared
-[1] 0.10472
+[1] 0.11198
 
 > RsquareAdj(mdb)
 $r.squared
@@ -2227,4 +2229,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  0.936   0.091   1.687 
+  0.921   0.068   1.614 

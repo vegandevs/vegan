@@ -368,10 +368,11 @@ Eigenvalues for unconstrained axes:
 Call: bar(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
-Total          3.7652     1.0000     
-Constrained    1.4456     0.3840    3
-Unconstrained  2.5037     0.6650   13
-Imaginary     -0.1841    -0.0489    4
+Total          3.7652                
+RealTotal      3.9493     1.0000     
+Constrained    1.4456     0.3660    3
+Unconstrained  2.5037     0.6340   13
+Imaginary     -0.1841                
 Inertia is squared Bray distance 
 2 observations deleted due to missingness 
 
@@ -1002,4 +1003,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.420   0.065   1.485 
+  1.418   0.063   1.482 

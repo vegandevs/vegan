@@ -1749,12 +1749,13 @@ log(N) P K Ca pH Al    6      0.2822
 Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
 
-               Inertia Proportion Rank
-Total          4.54444    1.00000     
-Conditional    0.97719    0.21503    1
-Constrained    0.99717    0.21943    3
-Unconstrained  2.82904    0.62253   15
-Imaginary     -0.25896   -0.05698    8
+              Inertia Proportion Rank
+Total          4.5444                
+RealTotal      4.8034     1.0000     
+Conditional    0.9772     0.2034    1
+Constrained    0.9972     0.2076    3
+Unconstrained  2.8290     0.5890   15
+Imaginary     -0.2590                
 Inertia is squared Bray distance 
 Species scores projected from ‘varespec’ 
 
@@ -1837,8 +1838,9 @@ TRUE)
 
                Inertia Rank
 Total          2.54753     
+RealTotal      2.59500     
 Unconstrained  2.59500   19
-Imaginary     -0.04747    4
+Imaginary     -0.04747     
 Inertia is squared Bray distance 
 Species scores projected from ‘varespec’ 
 
@@ -6197,7 +6199,7 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ### Title: Plot or Extract Results of Constrained Correspondence Analysis
 > ###   or Redundancy Analysis
 > ### Aliases: plot.cca text.cca points.cca scores.cca scores.rda summary.cca
-> ###   print.summary.cca head.summary.cca tail.summary.cca labels.cca
+> ###   print.summary.cca labels.cca
 > ### Keywords: hplot aplot
 > 
 > ### ** Examples
@@ -6221,18 +6223,20 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ## when the command is run repeatedly).
 > ## IGNORE_RDIFF_BEGIN
 > head(summary(mod), tail=2)
+$call
+cca(formula = dune ~ A1 + Moisture + Management, data = dune.env)
 
-Call:
-cca(formula = dune ~ A1 + Moisture + Management, data = dune.env) 
+$tot.chi
+[1] 2.115264
 
-Partitioning of scaled Chi-square:
-              Inertia Proportion
-Total          2.1153     1.0000
-Constrained    1.1392     0.5385
-Unconstrained  0.9761     0.4615
+$constr.chi
+[1] 1.139167
 
-Eigenvalues, and their contribution to the scaled Chi-square 
+$unconst.chi
+[1] 0.9760971
 
+$cont
+$cont$importance
 Importance of components:
                         CCA1   CCA2    CCA3    CCA4    CCA5    CCA6    CCA7
 Eigenvalue            0.4483 0.3001 0.14995 0.10733 0.05668 0.04335 0.03345
@@ -6247,83 +6251,15 @@ Eigenvalue            0.03758 0.03106 0.021024 0.012542 0.009277
 Proportion Explained  0.01777 0.01468 0.009939 0.005929 0.004386
 Cumulative Proportion 0.96506 0.97975 0.989685 0.995614 1.000000
 
-Accumulated constrained eigenvalues
+
+$concont
+$concont$importance
 Importance of components:
                         CCA1   CCA2   CCA3    CCA4    CCA5    CCA6    CCA7
 Eigenvalue            0.4483 0.3001 0.1499 0.10733 0.05668 0.04335 0.03345
 Proportion Explained  0.3935 0.2635 0.1316 0.09422 0.04976 0.03806 0.02937
 Cumulative Proportion 0.3935 0.6570 0.7886 0.88282 0.93258 0.97063 1.00000
 
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-
-
-Species scores
-
-            CCA1    CCA2     CCA3     CCA4      CCA5     CCA6
-Achimill  0.8150 -0.4375 -0.11236  0.35595 -0.114763 -0.01972
-Agrostol -0.7488  0.4783  0.03561  0.17039  0.187389  0.23471
-Airaprae -0.8186 -1.7469  1.04506 -0.28593  0.191836  0.73077
-Alopgeni -0.3442  1.0216  0.37620  0.02296 -0.004041  0.04789
-Anthodor  0.3367 -0.7694 -0.07602 -0.05421  0.136354  0.42463
-Bellpere  0.6535 -0.2200  0.03438  0.60436 -0.090469  0.28138
-....                                                         
-Bracruta -0.1309 -0.2009 -0.03708 -0.17421 -0.109657  0.04381
-Callcusp -1.5181 -0.3834 -0.23255  0.15246  0.104239 -0.11424
-
-
-Site scores (weighted averages of species scores)
-
-        CCA1    CCA2     CCA3    CCA4    CCA5    CCA6
-1     1.2468  0.4017  0.91955  0.7292  1.5785 -1.0196
-2     0.8622  0.1641  0.25789  1.7240 -0.7592 -0.6479
-3     0.3165  0.9785  0.82952  0.7451  0.6556  0.3256
-4     0.2405  0.8699  1.07861  1.4103  1.1164  2.4714
-5     1.1362 -0.2621 -1.10847 -0.9417  0.5630  1.1495
-6     1.0575 -0.4041 -1.65035 -1.8483  1.0287 -0.1690
-....                                                 
-19   -0.7913 -2.7451  2.93017 -1.3851 -0.3932  1.7277
-20   -2.0770 -1.0113 -0.02581 -0.8949  1.6406 -1.7917
-
-
-Site constraints (linear combinations of constraining variables)
-
-        CCA1    CCA2     CCA3    CCA4    CCA5     CCA6
-1     0.7245  0.3695  1.25652 -0.3678  0.9827 -0.60590
-2     0.9033 -0.4250  0.03901  1.0557 -1.0860 -1.61234
-3     0.4493  0.6694  0.67765  0.8695  0.9609  1.52307
-4     0.4550  0.6532  0.72768  0.8529  0.9795  1.50218
-5     0.9671  0.2010 -1.93972 -0.5807  0.2582  0.31905
-6     1.0805 -0.1235 -0.93911 -0.9126  0.6307 -0.09863
-....                                                  
-19   -1.4581 -1.6074  1.16812 -0.5305  0.3178 -0.40336
-20   -1.4468 -1.6399  1.26818 -0.5637  0.3551 -0.44513
-
-
-Biplot scores for constraining variables
-
-                CCA1    CCA2     CCA3     CCA4     CCA5     CCA6
-A1           -0.5554  0.1617 -0.67982  0.10708 -0.17998  0.30507
-Moisture.L   -0.9437  0.1638  0.07974 -0.02238  0.03067 -0.02368
-Moisture.Q   -0.1876 -0.3571 -0.45352 -0.17237  0.28350 -0.63025
-Moisture.C   -0.2069 -0.1732  0.10635  0.68203  0.50123  0.35887
-ManagementHF  0.3645  0.1171 -0.42202 -0.67746  0.17212 -0.12317
-ManagementNM -0.5855 -0.7267 -0.01115 -0.09642 -0.11445  0.27037
-ManagementSF -0.1511  0.6957  0.38543  0.24770  0.29469  0.23829
-
-
-Centroids for factor constraints
-
-                CCA1     CCA2     CCA3     CCA4     CCA5    CCA6
-Moisture1     0.9119 -0.35388 -0.40013 -0.26218  0.02084 -0.4708
-Moisture2     0.5015  0.06706  0.60222  1.12478  0.33942  1.2024
-Moisture4    -0.1522  1.35873  0.76544 -1.37289 -1.80794  0.3849
-Moisture5    -1.3394 -0.11972 -0.20942  0.04843  0.39751 -0.3902
-ManagementBF  0.8376 -0.41614  0.13885  1.40679 -0.97766 -0.9604
-ManagementHF  0.5426  0.17426 -0.62822 -1.00848  0.25622 -0.1834
-ManagementNM -1.1010 -1.36665 -0.02097 -0.18131 -0.21523  0.5084
-ManagementSF -0.2320  1.06831  0.59183  0.38035  0.45250  0.3659
 
 > ## IGNORE_RDIFF_END
 > ## Scaling can be numeric or more user-friendly names
@@ -7991,8 +7927,9 @@ Call: capscale(formula = dtree ~ 1, comm = dune)
 
               Inertia Rank
 Total          2.1834     
+RealTotal      2.3439     
 Unconstrained  2.3439   10
-Imaginary     -0.1605    9
+Imaginary     -0.1605     
 Inertia is squared Treedist distance 
 Species scores projected from ‘dune’ 
 
@@ -9164,7 +9101,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.749 0.249 10.024 0 0 
+Time elapsed:  9.78 0.272 10.083 0 0 
 > grDevices::dev.off()
 null device 
           1 
