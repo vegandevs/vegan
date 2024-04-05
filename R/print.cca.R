@@ -3,7 +3,11 @@
 {
     writeLines(strwrap(pasteCall(x$call)))
     cat("\n")
-    chi <- c(x$tot.chi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi)
+    if (!is.null(x$CA$imaginary.chi))
+        totchi <- x$tot.chi - x$CA$imaginary.chi
+    else
+        totchi <- x$tot.chi
+    chi <- c(totchi, x$pCCA$tot.chi, x$CCA$tot.chi, x$CA$tot.chi)
     props <- chi/chi[1]
     rnk <- c(NA, x$pCCA$rank, x$CCA$rank, x$CA$rank)
     ## report no. of real axes in dbrda if any negative eigenvalues
@@ -15,15 +19,18 @@
         poseig <- NULL
     tbl <- cbind(chi, props, rnk, poseig)
     if (!is.null(x$CA$imaginary.chi))
-        tbl <- rbind(tbl, c(x$CA$imaginary.chi,
-                            x$CA$imaginary.chi/x$tot.chi,
-                            x$CA$imaginary.rank, NULL))
+        tbl <- rbind(c(x$tot.chi, NA, NA),
+                     tbl,
+                     c(x$CA$imaginary.chi, NA, NA))
     colnames(tbl) <- c("Inertia", "Proportion", "Rank",
                        if (!is.null(poseig)) "RealDims")
-    rn <- c("Total", "Conditional", "Constrained", "Unconstrained",
+    rn <- c("Total", "RealTotal", "Conditional", "Constrained", "Unconstrained",
             "Imaginary")
-    rownames(tbl) <- rn[c(TRUE,!is.null(x$pCCA),
-                          !is.null(x$CCA),  !is.null(x$CA),
+    rownames(tbl) <- rn[c(TRUE,
+                          !is.null(x$CA$imaginary.chi),
+                          !is.null(x$pCCA),
+                          !is.null(x$CCA),
+                          !is.null(x$CA),
                           !is.null(x$CA$imaginary.chi))]
     ## Remove "Proportion" if only one component
     if (is.null(x$CCA) && is.null(x$pCCA))
