@@ -18,7 +18,10 @@
 `RsquareAdj.rda` <-
     function(x, ...)
 {
-    R2 <- x$CCA$tot.chi/x$tot.chi
+    if (!is.null(x$CA$imaginary.chi)) # capscale with neg. eigenvalues
+        R2 <- x$CCA$tot.chi/(x$tot.chi - x$CA$imaginary.chi)
+    else
+        R2 <- x$CCA$tot.chi/x$tot.chi
     m <- x$CCA$qrank
     n <- nrow(x$CCA$u)
     if (is.null(x$pCCA)) {
