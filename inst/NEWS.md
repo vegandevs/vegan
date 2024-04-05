@@ -27,6 +27,12 @@
   The new scheme only concerns CCA which is a weighted method, and RDA
   and dbRDA permutation is unchanged.
 
+* `summary` of constrained ordination methods (RDA, CCA, dbRDA) is
+  less verbose, and gives only summaries conditional, constrained and
+  residual compoents and of eigenvalues. Ordination scores are no
+  longer printed, but these can be extracted with `scores`
+  function. Issue [#203](https://github.com/vegandevs/vegan/issues/203).
+
 * Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
   without formula interface can have permutation tests (`anova`) by
   "axis" and by "onedf". Models by "terms" and "margin" are only
@@ -42,6 +48,11 @@
 * Coefficients of effects in `prc` models are scaled similarly as they
   were scaled in **vegan** pre 2\.5-1. The change was suggested by
   Cajo ter Braak.
+
+* Handling of negative eigenvalues was changed in the `summary` of
+  `eigenvals`. Negative eigenvalues are given as negative
+  "explanation", and the accumulated proportions add up over 1 for the
+  last non-negative eigenvalue, and 1 for the last negative eigenvalue.
 
 #### BUG FIXES
 
@@ -83,6 +94,8 @@
   warning if the model has no residual component. See issue
   [#610](https://github.com/vegandevs/vegan/issues/610)
   
+* `inertcomp(..., display = "sites", proportional = TRUE)` gave wrong
+  values.
 
 #### DATA SETS
 
