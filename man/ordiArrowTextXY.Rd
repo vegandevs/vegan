@@ -34,7 +34,7 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
     of its methods which indicates the type of scores to extract. In
     fitting functions these are ordinary site scores or linear
     combination scores (\code{"lc"}) in constrained ordination
-    (\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}). If
+    (\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}}). If
     \code{x} was created by \code{envfit} then \code{display} can not be
     set by the user and takes the value \code{"vectors"}. Ignored if
     \code{x} is a matrix.}

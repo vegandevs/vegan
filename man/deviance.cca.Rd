@@ -41,8 +41,8 @@
   The deviance of \code{\link{cca}} is equal to the Chi-square of
   the residual data matrix after fitting the constraints.  The deviance
   of  \code{\link{rda}} is defined as the residual sum of squares. The
-  deviance function of \code{rda} is also used for
-  \code{\link{capscale}}. Function \code{extractAIC} mimics
+  deviance function of \code{rda} is also used for distance-based RDA
+  \code{\link{dbrda}}. Function \code{extractAIC} mimics
   \code{extractAIC.lm} in translating deviance to AIC.
   
   There is little need to call these functions directly.  However, they

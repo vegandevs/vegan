@@ -103,7 +103,7 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   \item{display}{In fitting functions these are ordinary site scores or
     linear combination scores 
     (\code{"lc"}) in constrained ordination (\code{\link{cca}},
-    \code{\link{rda}}, \code{\link{capscale}}). In \code{scores}
+    \code{\link{rda}}, \code{\link{dbrda}}). In \code{scores}
     function they are either \code{"vectors"} or \code{"factors"}
     (with synonyms \code{"bp"} or \code{"cn"}, resp.).}
   \item{w}{Weights used in fitting (concerns mainly \code{\link{cca}}

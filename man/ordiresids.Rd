@@ -2,24 +2,27 @@
 \alias{ordiresids}
  
 \title{Plots of Residuals and Fitted Values for Constrained Ordination}
+
 \description{
-  The function provides \code{\link{plot.lm}} style diagnostic plots for
-  the results of constrained ordination from \code{\link{cca}},
-  \code{\link{rda}} and \code{\link{capscale}}. Normally you do not need
-  these plots, because ordination is descriptive and does not
-  make assumptions on the distribution of the residuals. However, if
-  you permute residuals in significance tests (\code{\link{anova.cca}}),
-  you may be interested in inspecting that the residuals really are
-  exchangeable and independent of fitted values.
+  The function provides \code{\link{plot.lm}} style diagnostic plots
+  for the results of constrained ordination from \code{\link{cca}},
+  \code{\link{rda}}, \code{\link{dbrda}} and
+  \code{\link{capscale}}. Normally you do not need these plots,
+  because ordination is descriptive and does not make assumptions on
+  the distribution of the residuals. However, if you permute residuals
+  in significance tests (\code{\link{anova.cca}}), you may be
+  interested in inspecting that the residuals really are exchangeable
+  and independent of fitted values.
 }
+
 \usage{
 ordiresids(x, kind = c("residuals", "scale", "qqmath"),
    residuals = "working", type = c("p", "smooth", "g"),
    formula, ...)
 }
 \arguments{
-  \item{x}{Ordination result from \code{\link{cca}}, \code{\link{rda}}
-    or \code{\link{capscale}}. }
+  \item{x}{Ordination result from \code{\link{cca}}, \code{\link{rda}},
+    \code{\link{dbrda}}, \code{\link{capscale}}. }
   \item{kind}{The type of plot: \code{"residuals"} plot residuals
     against fitted values, \code{"scale"} the square root of absolute
     residuals against fitted values, and \code{"qqmath"} the residuals

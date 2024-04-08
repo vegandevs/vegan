@@ -16,7 +16,8 @@ constrained ordination model.
 
 \arguments{
   \item{object}{ A constrained ordination object from
-  \code{\link{cca}}, \code{\link{rda}} or \code{\link{capscale}}. }
+  \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} or
+    \code{\link{capscale}}. }
   \item{scope}{ A formula giving the terms to be considered for adding
   or dropping; see \code{\link{add1}} for details.}
   \item{test}{ Should a permutation test be added using \code{\link{anova.cca}}. }
@@ -69,8 +70,7 @@ constrained ordination model.
   functions with \code{\link{step}} and \code{\link{ordistep}}. Functions
   \code{\link{deviance.cca}} and \code{\link{extractAIC.cca}} are used
   to produce the other arguments than test results in the
-  output. Functions \code{\link{cca}}, \code{\link{rda}} and
-  \code{\link{capscale}} produce result objects for these functions.}
+  output.}
 
 \examples{
 data(dune)

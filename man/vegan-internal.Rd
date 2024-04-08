@@ -110,9 +110,8 @@ addCailliez(d)
   \code{addLingoes} and \code{addCailliez} find the constant added to
   non-diagonal (squared) dissimilarities to make all eigenvalues
   non-negative in Principal Co-ordinates Analysis
-  (\code{\link{wcmdscale}}, \code{\link{capscale}}). Function
-  \code{\link{cmdscale}} implements the Cailliez method. The argument
-  is a matrix of dissimilarities.
-}
+  (\code{\link{wcmdscale}}, \code{\link{dbrda}},
+  \code{\link{capscale}}). Function \code{\link{cmdscale}} implements
+  the Cailliez method. The argument is a matrix of dissimilarities.  }
 
 \keyword{internal }
