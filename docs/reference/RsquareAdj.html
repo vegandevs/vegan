@@ -87,17 +87,18 @@
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The default method finds the adjusted \(R^2\)
-  from the unadjusted \(R^2\), number of observations, and
-  number of degrees of freedom in the fitted model. The specific methods
-  find this information from the fitted result object. There are
-  specific methods for <code><a href="cca.html">rda</a></code>, <code><a href="cca.html">cca</a></code>,
-  <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></code> and <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code>. Adjusted, or even unadjusted,
-  \(R^2\) may not be available in some cases, and then the
-  functions will return <code>NA</code>. There is no adjusted
-  \(R^2\) in partial ordination, and \(R^2\)
-  values are available only for <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></code> models in
-  <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code>.</p>
+    
+
+<p>The default method finds the adjusted \(R^2\) from the
+  unadjusted \(R^2\), number of observations, and number
+  of degrees of freedom in the fitted model. The specific methods find
+  this information from the fitted result object. There are specific
+  methods for <code><a href="cca.html">rda</a></code> (also used for distance-based RDA),
+  <code><a href="cca.html">cca</a></code>, <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></code> and <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code>. Adjusted,
+  or even unadjusted, \(R^2\) may not be available in
+  some cases, and then the functions will return <code>NA</code>.
+  \(R^2\) values are available only for
+  <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></code> models in <code><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></code>.</p>
 <p>The adjusted, \(R^2\) of <code>cca</code> is computed using a
   permutation approach developed by Peres-Neto et al. (2006). By
   default 1000 permutations are used.</p>

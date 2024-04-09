@@ -236,21 +236,19 @@
 <span class="r-in"><span><span class="va">dtree</span> <span class="op">&lt;-</span> <span class="fu">treedist</span><span class="op">(</span><span class="va">dune</span>, <span class="va">cl</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="vegemite.html">tabasco</a></span><span class="op">(</span><span class="va">dune</span>, <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="va">dtree</span><span class="op">)</span>, <span class="va">cl</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="treedive-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="co">## Use tree distances  in capscale</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="capscale.html">capscale</a></span><span class="op">(</span><span class="va">dtree</span> <span class="op">~</span> <span class="fl">1</span>, comm<span class="op">=</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: capscale(formula = dtree ~ 1, comm = dune)</span>
+<span class="r-in"><span><span class="co">## Use tree distances in distance-based RDA</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="dbrda.html">dbrda</a></span><span class="op">(</span><span class="va">dtree</span> <span class="op">~</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: dbrda(formula = dtree ~ 1)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.1834     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> RealTotal      2.3439     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  2.3439   10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Imaginary     -0.1605     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank RealDims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total           2.183              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained   2.183   19       10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is squared Treedist distance </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Species scores projected from ‘dune’ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1.1971 0.4546 0.2967 0.1346 0.1067 0.0912 0.0391 0.0190 0.0045 0.0004 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.1971 0.4546 0.2967 0.1346 0.1067 0.0912 0.0391 0.0190 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 19 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

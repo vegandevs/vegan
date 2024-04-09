@@ -110,22 +110,23 @@
   <code><a href="https://rdrr.io/r/base/svd.html" class="external-link">svd</a></code> contains singular values, but function
   <code>eigenvals</code> returns their squares. For constrained ordination
   methods <code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code> and
-  <code><a href="capscale.html">capscale</a></code> the function returns the both constrained and
+  <code><a href="dbrda.html">capscale</a></code> the function returns the both constrained and
   unconstrained eigenvalues concatenated in one vector, but the partial
   component will be ignored. However, with argument 
   <code>constrained = TRUE</code> only constrained eigenvalues are returned.</p>
 <p>The <code>summary</code> of <code>eigenvals</code> result returns eigenvalues,
   proportion explained and cumulative proportion explained. The result
   object can have some negative eigenvalues (<code><a href="wcmdscale.html">wcmdscale</a></code>,
-  <code><a href="capscale.html">capscale</a></code>, <code><a href="pcnm.html">pcnm</a></code>) which correspond to
+  <code><a href="dbrda.html">dbrda</a></code>, <code><a href="pcnm.html">pcnm</a></code>) which correspond to
   imaginary axes of Euclidean mapping of non-Euclidean distances
-  (Gower 1985). In these cases, the sum of absolute values of
-  eigenvalues is used in calculating the proportions explained, and
-  real axes (corresponding to positive eigenvalues) will only explain
-  a part of total variation (Mardia et al. 1979, Gower 1985). For
-  <code><a href="decorana.html">decorana</a></code> the importances and cumulative proportions are
-  only reported for <code>kind = "additive"</code>, because other alternatives
-  do not add up to total inertia of the input data.</p>
+  (Gower 1985). In these case real axes (corresponding to positive
+  eigenvalues) will "explain" proportion &gt;1 of total variation, and
+  negative eigenvalues bring the cumulative proportion to
+  1. <code><a href="dbrda.html">capscale</a></code> will only find the positive eigenvalues
+  and only these are used in finding proportions. For
+  <code><a href="decorana.html">decorana</a></code> the importances and cumulative proportions
+  are only reported for <code>kind = "additive"</code>, because other
+  alternatives do not add up to total inertia of the input data.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -148,14 +149,12 @@
     <p>Gower, J. C. (1985). Properties of Euclidean and non-Euclidean
   distance matrices. <em>Linear Algebra and its Applications</em> 67,
   81--97.</p>
-<p>Mardia, K. V., Kent, J. T. and Bibby, J. M. (1979).  Chapter 14 of
-  <em>Multivariate Analysis</em>, London: Academic Press.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/base/eigen.html" class="external-link">eigen</a></code>, <code><a href="https://rdrr.io/r/base/svd.html" class="external-link">svd</a></code>, <code><a href="https://rdrr.io/r/stats/prcomp.html" class="external-link">prcomp</a></code>,
  <code><a href="https://rdrr.io/r/stats/princomp.html" class="external-link">princomp</a></code>, <code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>,
- <code><a href="capscale.html">capscale</a></code>, <code><a href="wcmdscale.html">wcmdscale</a></code>,
+ <code><a href="dbrda.html">capscale</a></code>, <code><a href="wcmdscale.html">wcmdscale</a></code>,
  <code><a href="cca.object.html">cca.object</a></code>.</p></div>
     </div>
 

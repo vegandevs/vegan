@@ -62,7 +62,7 @@
     <p>Function simulates a response data frame so that it adds
  Gaussian error to the fitted responses of Redundancy Analysis
  (<code><a href="cca.html">rda</a></code>), Constrained Correspondence Analysis
- (<code><a href="cca.html">cca</a></code>) or distance-based RDA (<code><a href="capscale.html">capscale</a></code>).
+ (<code><a href="cca.html">cca</a></code>) or distance-based RDA (<code><a href="dbrda.html">capscale</a></code>).
  The function is a special case of generic <code><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></code>, and
  works similarly as <code>simulate.lm</code>.</p>
     </div>
@@ -78,12 +78,12 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
 <dd><p>an object representing a fitted <code><a href="cca.html">rda</a></code>,
-    <code><a href="cca.html">cca</a></code> or <code><a href="capscale.html">capscale</a></code> model.</p></dd>
+    <code><a href="cca.html">cca</a></code> or <code><a href="dbrda.html">capscale</a></code> model.</p></dd>
 
 
   <dt>nsim</dt>
 <dd><p>number of response matrices to be simulated. Only one
-    dissimilarity matrix is returned for <code><a href="capscale.html">capscale</a></code>, and
+    dissimilarity matrix is returned for <code><a href="dbrda.html">capscale</a></code>, and
     larger <code>nsim</code> is an error.</p></dd>
 
 
@@ -117,7 +117,7 @@
     <code>correlated = TRUE</code>, multivariate Gaussian random error is
     generated, and if <code>FALSE</code>, Gaussian random error is generated
     separately for each species. The argument has no effect in
-    <code><a href="capscale.html">capscale</a></code> which has no information on species.</p></dd>
+    <code><a href="dbrda.html">capscale</a></code> which has no information on species.</p></dd>
 
 
   <dt>...</dt>
@@ -139,7 +139,7 @@
   transformed data are used in <code><a href="cca.html">cca</a></code> within the function,
   but the returned matrix is similar to the original input data. The
   simulation is performed on internal metric scaling data in
-  <code><a href="capscale.html">capscale</a></code>, but the function returns the Euclidean
+  <code><a href="dbrda.html">capscale</a></code>, but the function returns the Euclidean
   distances calculated from the simulated data.  The simulation uses
   only the real components, and the imaginary dimensions are ignored.</p>
     </div>
@@ -147,7 +147,7 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>If <code>nsim = 1</code>, returns a matrix or dissimilarities (in</p>
 <p></p>
-<p><code><a href="capscale.html">capscale</a></code>) with similar additional arguments on random
+<p><code><a href="dbrda.html">capscale</a></code>) with similar additional arguments on random
   number seed as <code><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></code>. If <code>nsim &gt; 1</code>, returns a
   similar array as returned by <code><a href="nullmodel.html">simulate.nullmodel</a></code> with
   similar attributes.</p>

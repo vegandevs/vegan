@@ -482,7 +482,8 @@ issues</a>.</p>
 <h4 id="ordination-fails-with-error-in-la-svd">Ordination fails with “Error in La.svd”<a class="anchor" aria-label="anchor" href="#ordination-fails-with-error-in-la-svd"></a>
 </h4>
 <p>Constrained ordination (<code>cca</code>, <code>rda</code>,
-<code>capscale</code>) will sometimes fail with error message
+<code>dbrda</code>, <code>capscale</code>) will sometimes fail with
+error message
 <code>Error in La.svd(x, nu, nv): error code 1 from Lapack routine 'dgesdd'.</code></p>
 <p>It seems that the basic problem is in the <code>svd</code> function
 of <code>LAPACK</code> that is used for numerical analysis in R.
@@ -529,17 +530,16 @@ for some methods:</p>
 <li><p>Eigenvector methods: Functions <code>rda</code>,
 <code>cca</code>, <code>dbrda</code> and <code>capscale</code> give the
 variation of conditional (partialled), constrained (canonical) and
-residual components, but you must calculate the proportions by hand.
-Function <code>eigenvals</code> extracts the eigenvalues, and
-<code>summary(eigenvals(ord))</code> reports the proportions explained
-in the result object <code>ord</code>, and also works with
-<code>decorana</code> and <code>wcmdscale</code>. Function
+residual components. Function <code>eigenvals</code> extracts the
+eigenvalues, and <code>summary(eigenvals(ord))</code> reports the
+proportions explained in the result object <code>ord</code>, and also
+works with <code>decorana</code> and <code>wcmdscale</code>. Function
 <code>RsquareAdj</code> gives the R-squared and adjusted R-squared (if
 available) for constrained components. Function <code>goodness</code>
-gives the same statistics for individual species or sites (species are
-unavailable with <code>capscale</code>). In addition, there is a special
-function <code>varpart</code> for unbiased partitioning of variance
-between up to four separate components in redundancy analysis.</p></li>
+gives the same statistics for individual species or sites. In addition,
+there is a special function <code>varpart</code> for unbiased
+partitioning of variance between up to four separate components in
+redundancy analysis.</p></li>
 <li><p>Nonmetric multidimensional scaling. NMDS is a method for
 nonlinear mapping, and the concept of of variation explained does not
 make sense. However, 1 - stress^2 transforms nonlinear stress into
@@ -557,11 +557,11 @@ statistic.</p></li>
 models that respond to similar goals as random effects models, although
 they strictly speaking use only fixed effects.</p>
 <p>Constrained ordination functions <code>cca</code>, <code>rda</code>
-and <code>capscale</code> can have <code>Condition()</code> terms in
-their formula. The <code>Condition()</code> define partial terms that
-are fitted before other constraints and can be used to remove the
-effects of background variables, and their contribution to decomposing
-inertia (variance) is reported separately. These partial terms are often
+and <code>dbrda</code> can have <code>Condition()</code> terms in their
+formula. The <code>Condition()</code> define partial terms that are
+fitted before other constraints and can be used to remove the effects of
+background variables, and their contribution to decomposing inertia
+(variance) is reported separately. These partial terms are often
 regarded as similar to random effects, but they are still fitted in the
 same way as other terms and strictly speaking they are fixed terms.</p>
 <p>Function <code>adonis2</code> can evaluate terms sequentially. In a
@@ -625,11 +625,11 @@ You can see the scaled lengths of <code>envfit</code> arrows using
 command <code>scores</code>.</p>
 <p>The scaled environmental vectors from <code>envfit</code> and the
 arrows for continuous environmental variables in constrained ordination
-(<code>cca</code>, <code>rda</code>, <code>capscale</code>) are adjusted
-to fill the current graph. The lengths of arrows do not have fixed
-meaning with respect to the points (species, sites), but they can only
-compared against each other, and therefore only their relative lengths
-are important.</p>
+(<code>cca</code>, <code>rda</code>, <code>dbrda</code>) are adjusted to
+fill the current graph. The lengths of arrows do not have fixed meaning
+with respect to the points (species, sites), but they can only compared
+against each other, and therefore only their relative lengths are
+important.</p>
 <p>If you want change the scaling of the arrows, you can use
 <code>text</code> (plotting arrows and text) or <code>points</code>
 (plotting only arrows) functions for constrained ordination. These

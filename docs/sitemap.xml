@@ -73,9 +73,6 @@
     <loc>https://vegandevs.github.io/vegan/reference/biplot.rda.html</loc>
   </url>
   <url>
-    <loc>https://vegandevs.github.io/vegan/reference/capscale.html</loc>
-  </url>
-  <url>
     <loc>https://vegandevs.github.io/vegan/reference/cascadeKM.html</loc>
   </url>
   <url>
@@ -92,6 +89,9 @@
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/contribdiv.html</loc>
+  </url>
+  <url>
+    <loc>https://vegandevs.github.io/vegan/reference/dbrda.html</loc>
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/decorana.html</loc>

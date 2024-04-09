@@ -208,7 +208,7 @@ The function fits environmental vectors or factors onto an
 <dd><p>In fitting functions these are ordinary site scores or
     linear combination scores 
     (<code>"lc"</code>) in constrained ordination (<code><a href="cca.html">cca</a></code>,
-    <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">capscale</a></code>). In <code>scores</code>
+    <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code>). In <code>scores</code>
     function they are either <code>"vectors"</code> or <code>"factors"</code>
     (with synonyms <code>"bp"</code> or <code>"cn"</code>, resp.).</p></dd>
 
@@ -361,29 +361,28 @@ The function fits environmental vectors or factors onto an
 <span class="r-out co"><span class="r-pr">#&gt;</span> Square root transformation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wisconsin double standardization</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2169286 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.2109612 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2104991 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1962451 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.2126569 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.2114456 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.195049 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.2382234 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.2104573 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.2352374 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.195049 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.18458 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04934217  max resid 0.157446 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2101147 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.2166093 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1967393 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.2087945 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.1825658 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2418884 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1852397 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1974407 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.2676172 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.2426848 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.2093084 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.2021163 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.2356421 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2143616 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1955836 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2100656 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.2080743 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1976151 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1982376 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.2032569 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1825658 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04162955  max resid 0.1518218 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.2704958 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.2028828 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04161093  max resid 0.1517273 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution was not repeated -- monoMDS stopping criteria:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     18: stress ratio &gt; sratmax</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      2: scale factor of the gradient &lt; sfgrmin</span>
@@ -392,20 +391,20 @@ The function fits environmental vectors or factors onto an
 <span class="r-out co"><span class="r-pr">#&gt;</span> ***VECTORS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             NMDS1    NMDS2     r2 Pr(&gt;r)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.05728 -0.99836 0.2536  0.046 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.61969  0.78484 0.1938  0.092 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.76642  0.64234 0.1809  0.122    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.68516  0.72839 0.4119  0.007 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.63249  0.77457 0.4270  0.004 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.19135  0.98152 0.1752  0.126    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.87162  0.49019 0.5269  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.93604  0.35189 0.4450  0.002 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.79871 -0.60172 0.5231  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.61754  0.78654 0.1879  0.108    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.90307  0.42949 0.0609  0.540    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.92491 -0.38018 0.2508  0.041 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.93284 -0.36029 0.5200  0.002 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.64800  0.76164 0.2308  0.066 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.05736 -0.99835 0.2536  0.044 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.61976  0.78479 0.1939  0.098 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.76651  0.64224 0.1809  0.142    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.68525  0.72831 0.4119  0.004 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.63256  0.77451 0.4270  0.003 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.19143  0.98151 0.1752  0.126    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.87157  0.49027 0.5269  0.002 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.93597  0.35208 0.4450  0.003 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.79872 -0.60171 0.5231  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.61757  0.78652 0.1879  0.117    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.90311  0.42941 0.0610  0.515    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.92483 -0.38039 0.2508  0.042 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.93280 -0.36039 0.5201  0.002 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.64796  0.76167 0.2308  0.059 .  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
@@ -413,21 +412,21 @@ The function fits environmental vectors or factors onto an
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">fit</span>, <span class="st">"vectors"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               NMDS1      NMDS2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.0288474 -0.5028069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.2728265  0.3455353</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.3259990  0.2732195</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.4397127  0.4674522</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.4133202  0.5061613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.0800898  0.4108260</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.6327103  0.3558281</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.6244512  0.2347516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.5776554 -0.4351842</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.2677032  0.3409638</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.2229426  0.1060291</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.4631721 -0.1903835</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.6727071 -0.2598200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.3113030  0.3659007</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                NMDS1      NMDS2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.02888340 -0.5027571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.27287083  0.3455326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.32604436  0.2731835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.43976190  0.4673997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.41335295  0.5061084</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.08012242  0.4107965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.63267066  0.3558850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.62439304  0.2348732</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.57767049 -0.4351851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.26772176  0.3409643</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.22295976  0.1060142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.46312930 -0.1904887</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.67269514 -0.2598953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.31129203  0.3659231</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, p.max <span class="op">=</span> <span class="fl">0.05</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></span>

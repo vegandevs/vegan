@@ -98,14 +98,14 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object</dt>
 <dd><p>A result object from <code><a href="cca.html">cca</a></code>,
-    <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">dbrda</a></code>, <code><a href="capscale.html">capscale</a></code> or
+    <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code>, <code><a href="dbrda.html">capscale</a></code> or
     <code><a href="decorana.html">decorana</a></code>.</p></dd>
 
   
   <dt>model</dt>
 <dd><p>Show constrained (<code>"CCA"</code>), unconstrained
     (<code>"CA"</code>) or conditioned “partial” (<code>"pCCA"</code>)
-    results. For <code>fitted</code> method of <code><a href="capscale.html">capscale</a></code> this can
+    results. For <code>fitted</code> method of <code><a href="dbrda.html">capscale</a></code> this can
     also be <code>"Imaginary"</code> for imaginary components with negative
     eigenvalues</p></dd>
 
@@ -130,8 +130,8 @@
     the same results, and <code>"working"</code> gives the values used
     internally, that is after Chi-square standardization in
     <code><a href="cca.html">cca</a></code> and scaling and centring in
-    <code><a href="cca.html">rda</a></code>. In <code><a href="capscale.html">capscale</a></code> and
-    <code><a href="capscale.html">dbrda</a></code> the <code>"response"</code> gives the
+    <code><a href="cca.html">rda</a></code>. In <code><a href="dbrda.html">capscale</a></code> and
+    <code><a href="dbrda.html">dbrda</a></code> the <code>"response"</code> gives the
     dissimilarities, and <code>"working"</code> the internal data structure
     analysed in the ordination. Alternative <code>"wa"</code> gives the site
     scores as weighted averages of the community data, <code>"lc"</code> the
@@ -147,8 +147,8 @@
   <dt>scaling</dt>
 <dd><p>logical, character, or numeric; Scaling or predicted
     scores with the same meaning as in <code><a href="cca.html">cca</a></code>,
-    <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">dbrda</a></code>, and
-    <code><a href="capscale.html">capscale</a></code>. See <code>scores.cca</code> for further details
+    <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code>, and
+    <code><a href="dbrda.html">capscale</a></code>. See <code>scores.cca</code> for further details
     on acceptable values.</p></dd>
 
   <dt>correlation, hill</dt>
@@ -182,12 +182,12 @@
   "response"</code> the <code>fitted.cca</code> and <code>residuals.cca</code> function
   both give the same marginal totals as the original data matrix, and
   fitted and residuals do not add up to the original data.  Functions
-  <code>fitted</code> and <code>residuals</code> for <code><a href="capscale.html">dbrda</a></code> and
-  <code><a href="capscale.html">capscale</a></code> give the dissimilarities with <code>type =
+  <code>fitted</code> and <code>residuals</code> for <code><a href="dbrda.html">dbrda</a></code> and
+  <code><a href="dbrda.html">capscale</a></code> give the dissimilarities with <code>type =
   "response"</code>, but these are not additive.  However, the
-  <code>"working"</code> scores are additive for <code><a href="capscale.html">capscale</a></code> (but
-  not for <code><a href="capscale.html">dbrda</a></code>). The <code>fitted</code> and <code>residuals</code>
-  for <code><a href="capscale.html">capscale</a></code> and <code><a href="capscale.html">dbrda</a></code> will include the
+  <code>"working"</code> scores are additive for <code><a href="dbrda.html">capscale</a></code> (but
+  not for <code><a href="dbrda.html">dbrda</a></code>). The <code>fitted</code> and <code>residuals</code>
+  for <code><a href="dbrda.html">capscale</a></code> and <code><a href="dbrda.html">dbrda</a></code> will include the
   additive constant if that was requested in the function call.  All
   variants of <code>fitted</code> and <code>residuals</code> are defined so that for
   model <code>mod &lt;- cca(y ~ x)</code>, <code>cca(fitted(mod))</code> is equal to
@@ -230,7 +230,7 @@
   <code>newdata</code>.</p>
 <p>Function <code>calibrate.cca</code> finds estimates of constraints from
   community ordination or <code>"wa"</code> scores from <code><a href="cca.html">cca</a></code>,
-  <code><a href="cca.html">rda</a></code> and <code><a href="capscale.html">capscale</a></code>. This is often known as
+  <code><a href="cca.html">rda</a></code> and <code><a href="dbrda.html">capscale</a></code>. This is often known as
   calibration, bioindication or environmental reconstruction.
   Basically, the method is similar to projecting site scores onto
   biplot arrows, but it uses regression coefficients.  The function
@@ -238,8 +238,8 @@
   possible.  The <code>newdata</code> may contain new sites, but species
   must match in the original and new data.  The function does not work
   with ‘partial’ models with <code>Condition</code> term, and it
-  cannot be used with <code>newdata</code> for <code><a href="capscale.html">capscale</a></code> or
-  <code><a href="capscale.html">dbrda</a></code> results.  The results may only be interpretable
+  cannot be used with <code>newdata</code> for <code><a href="dbrda.html">capscale</a></code> or
+  <code><a href="dbrda.html">dbrda</a></code> results.  The results may only be interpretable
   for continuous variables.</p>  
 <p>Function <code>coef</code> will give the regression coefficients from centred
   environmental variables (constraints and conditions) to linear
@@ -270,8 +270,8 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">dbrda</a></code>,
-  <code><a href="capscale.html">capscale</a></code>, <code><a href="decorana.html">decorana</a></code>,
+    <div class="dont-index"><p><code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code>,
+  <code><a href="dbrda.html">capscale</a></code>, <code><a href="decorana.html">decorana</a></code>,
   <code><a href="goodness.cca.html">goodness.cca</a></code>.</p></div>
     </div>
 

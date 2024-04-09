@@ -102,7 +102,7 @@ Function ordConstrained returns the same result components
     
 
 <p>Ordination methods <code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>,
-  <code><a href="capscale.html">dbrda</a></code> and <code><a href="capscale.html">capscale</a></code> return similar result
+  <code><a href="dbrda.html">dbrda</a></code> and <code><a href="dbrda.html">capscale</a></code> return similar result
   objects. All these methods use the same internal function
   <code>ordConstrained</code>. They differ only in (1) initial
   transformation of the data and in defining inertia, (2) weighting,
@@ -111,8 +111,8 @@ Function ordConstrained returns the same result components
   <code><a href="cca.html">rda</a></code> initializes data to give variance or correlations
   as inertia, <code><a href="cca.html">cca</a></code> is based on double-standardized data
   to give Chi-square inertia and uses row and column weights,
-  <code><a href="capscale.html">capscale</a></code> maps the real part of dissimilarities to
-  rectangular data and performs RDA, and <code><a href="capscale.html">dbrda</a></code> performs
+  <code><a href="dbrda.html">capscale</a></code> maps the real part of dissimilarities to
+  rectangular data and performs RDA, and <code><a href="dbrda.html">dbrda</a></code> performs
   an RDA-like analysis directly on symmetric dissimilarities.</p>
 <p>Function <code>ordConstrained</code> returns the same result components
   for all these methods, and the calling function may add some more
@@ -142,8 +142,8 @@ Function ordConstrained returns the same result components
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>object, x, formula</dt>
 <dd><p>A result object from <code><a href="cca.html">cca</a></code>,
-    <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">dbrda</a></code>, or
-    <code><a href="capscale.html">capscale</a></code>.</p></dd>
+    <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code>, or
+    <code><a href="dbrda.html">capscale</a></code>.</p></dd>
 
 
   <dt>model</dt>
@@ -171,7 +171,7 @@ Function ordConstrained returns the same result components
   data can be accessed with function <code>ordiYbar</code>. The form depends
   on the ordination method: for instance, in <code><a href="cca.html">cca</a></code> the
   data are weighted and Chi-square transformed, and in
-  <code><a href="capscale.html">dbrda</a></code> they are Gower-centred dissimilarities. The
+  <code><a href="dbrda.html">dbrda</a></code> they are Gower-centred dissimilarities. The
   input data in the original (“response”) form can be accessed
   with <code><a href="predict.cca.html">fitted.cca</a></code> and <code><a href="predict.cca.html">residuals.cca</a></code>.
   Function <code><a href="predict.cca.html">predict.cca</a></code> can return either working or
@@ -240,12 +240,12 @@ Function ordConstrained returns the same result components
   the results. For instance, regression scores and model coefficients
   can be accessed with <code><a href="scores.html">scores</a></code> and <code><a href="https://rdrr.io/r/stats/coef.html" class="external-link">coef</a></code>
   functions. Partial component will have no scores.</p>
-<p>Distance-based methods (<code><a href="capscale.html">dbrda</a></code>, <code><a href="capscale.html">capscale</a></code>)
+<p>Distance-based methods (<code><a href="dbrda.html">dbrda</a></code>, <code><a href="dbrda.html">capscale</a></code>)
   can have negative eigenvalues and associated imaginary axis
   scores. There is no way of accessing these imaginary scores.  In
   addition, species scores are initially missing in
-  <code><a href="capscale.html">dbrda</a></code> and they are accessory and found after analysis
-  in <code><a href="capscale.html">capscale</a></code> (and may be misleading). Function
+  <code><a href="dbrda.html">dbrda</a></code> and they are accessory and found after analysis
+  in <code><a href="dbrda.html">capscale</a></code> (and may be misleading). Function
   <code><a href="sppscores.html">sppscores</a></code> can be used to add species scores or replace
   them with more meaningful ones.</p>
     </div>
@@ -254,8 +254,8 @@ Function ordConstrained returns the same result components
     <div class="dont-index">
 
 <p>The core function is <code>ordConstrained</code> which is called by
-  <code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>, <code><a href="capscale.html">dbrda</a></code> and
-  <code><a href="capscale.html">capscale</a></code>. The basic class is <code>"cca"</code> for all
+  <code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code> and
+  <code><a href="dbrda.html">capscale</a></code>. The basic class is <code>"cca"</code> for all
   methods, and the following functions are defined for this class:
   <code><a href="add1.cca.html">add1.cca</a></code>, <code><a href="goodness.cca.html">alias.cca</a></code>, <code><a href="anova.cca.html">anova.cca</a></code>, <code><a href="vegan-defunct.html">as.mlm.cca</a></code>, <code><a href="biplot.rda.html">biplot.cca</a></code>, <code><a href="screeplot.cca.html">bstick.cca</a></code>, <code><a href="predict.cca.html">calibrate.cca</a></code>, <code><a href="predict.cca.html">coef.cca</a></code>, <code><a href="influence.cca.html">cooks.distance.cca</a></code>, <code><a href="deviance.cca.html">deviance.cca</a></code>, <code><a href="influence.cca.html">df.residual.cca</a></code>, <code><a href="add1.cca.html">drop1.cca</a></code>, <code><a href="eigenvals.html">eigenvals.cca</a></code>, <code><a href="deviance.cca.html">extractAIC.cca</a></code>, <code><a href="predict.cca.html">fitted.cca</a></code>, <code><a href="goodness.cca.html">goodness.cca</a></code>, <code><a href="influence.cca.html">hatvalues.cca</a></code>, <code><a href="plot.cca.html">labels.cca</a></code>, <code>model.frame.cca</code>, <code>model.matrix.cca</code>, <code><a href="nobs.cca.html">nobs.cca</a></code>, <code><a href="anova.cca.html">permutest.cca</a></code>, <code><a href="plot.cca.html">plot.cca</a></code>, <code><a href="plot.cca.html">points.cca</a></code>, <code><a href="predict.cca.html">predict.cca</a></code>, <code>print.cca</code>, <code><a href="influence.cca.html">qr.cca</a></code>, <code><a href="predict.cca.html">residuals.cca</a></code>, <code><a href="RsquareAdj.html">RsquareAdj.cca</a></code>, <code><a href="influence.cca.html">rstandard.cca</a></code>, <code><a href="influence.cca.html">rstudent.cca</a></code>, <code><a href="plot.cca.html">scores.cca</a></code>, <code><a href="screeplot.cca.html">screeplot.cca</a></code>, <code><a href="influence.cca.html">sigma.cca</a></code>, <code><a href="simulate.rda.html">simulate.cca</a></code>, <code><a href="influence.cca.html">SSD.cca</a></code>, <code><a href="stressplot.wcmdscale.html">stressplot.cca</a></code>, <code><a href="plot.cca.html">summary.cca</a></code>, <code><a href="plot.cca.html">text.cca</a></code>, <code><a href="tolerance.html">tolerance.cca</a></code>, <code><a href="influence.cca.html">vcov.cca</a></code>, <code>weights.cca</code>
 .
