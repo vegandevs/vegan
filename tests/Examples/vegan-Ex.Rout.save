@@ -1728,177 +1728,6 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > 
 > cleanEx()
-> nameEx("capscale")
-> ### * capscale
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: capscale
-> ### Title: [Partial] Distance-based Redundancy Analysis
-> ### Aliases: capscale dbrda
-> ### Keywords: multivariate
-> 
-> ### ** Examples
-> 
-> data(varespec)
-> data(varechem)
-> ## Basic Analysis
-> vare.cap <- capscale(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="bray")
-> vare.cap
-Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray")
-
-              Inertia Proportion Rank
-Total          4.5444                
-RealTotal      4.8034     1.0000     
-Conditional    0.9772     0.2034    1
-Constrained    0.9972     0.2076    3
-Unconstrained  2.8290     0.5890   15
-Imaginary     -0.2590                
-Inertia is squared Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3 
-0.5413 0.3265 0.1293 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
-0.9065 0.5127 0.3379 0.2626 0.2032 0.1618 0.1242 0.0856 0.0689 0.0583 0.0501 
- MDS12  MDS13  MDS14  MDS15 
-0.0277 0.0208 0.0073 0.0013 
-
-> plot(vare.cap)
-> anova(vare.cap)
-Permutation test for capscale under reduced model
-Permutation: free
-Number of permutations: 999
-
-Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
-         Df SumOfSqs      F Pr(>F)   
-Model     3  0.99717 2.2324  0.004 **
-Residual 19  2.82904                 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> ## Avoid negative eigenvalues with additive constant
-> capscale(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="bray", add =TRUE)
-Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray", add = TRUE)
-
-              Inertia Proportion Rank
-Total          6.2496     1.0000     
-Conditional    1.0468     0.1675    1
-Constrained    1.1956     0.1913    3
-Unconstrained  4.0073     0.6412   19
-Inertia is Lingoes adjusted squared Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3 
-0.6103 0.3940 0.1913 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.9796 0.5811 0.4077 0.3322 0.2769 0.2346 0.1962 0.1566 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-Constant added to distances: 0.07413903 
-
-> ## Avoid negative eigenvalues by taking square roots of dissimilarities
-> capscale(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist = "bray", sqrt.dist= TRUE)
-Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray", sqrt.dist = TRUE)
-
-              Inertia Proportion Rank
-Total          6.9500     1.0000     
-Conditional    0.9535     0.1372    1
-Constrained    1.2267     0.1765    3
-Unconstrained  4.7698     0.6863   19
-Inertia is Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3 
-0.5817 0.4086 0.2365 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.9680 0.6100 0.4469 0.3837 0.3371 0.3012 0.2558 0.2010 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-> ## Principal coordinates analysis with extended dissimilarities
-> capscale(varespec ~ 1, dist="bray", metaMDS = TRUE)
-Square root transformation
-Wisconsin double standardization
-Call: capscale(formula = varespec ~ 1, distance = "bray", metaMDSdist =
-TRUE)
-
-               Inertia Rank
-Total          2.54753     
-RealTotal      2.59500     
-Unconstrained  2.59500   19
-Imaginary     -0.04747     
-Inertia is squared Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.6075 0.3820 0.3335 0.2046 0.1731 0.1684 0.1505 0.1163 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-metaMDSdist transformed data: wisconsin(sqrt(varespec)) 
-
-> ## dbrda
-> dbrda(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="bray")
-Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray")
-
-              Inertia Proportion Rank RealDims
-Total          4.5444     1.0000              
-Conditional    0.9726     0.2140    1         
-Constrained    0.9731     0.2141    3        3
-Unconstrained  2.5987     0.5718   19       13
-Inertia is squared Bray distance 
-
-Eigenvalues for constrained axes:
-dbRDA1 dbRDA2 dbRDA3 
-0.5362 0.3198 0.1171 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.9054 0.5070 0.3336 0.2581 0.2027 0.1605 0.1221 0.0825 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-> ## avoid negative eigenvalues also with Jaccard distances
-> dbrda(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="jaccard")
-Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "jaccard")
-
-              Inertia Proportion Rank
-Total          6.5044     1.0000     
-Conditional    1.0330     0.1588    1
-Constrained    1.2068     0.1855    3
-Unconstrained  4.2646     0.6557   19
-Inertia is squared Jaccard distance 
-
-Eigenvalues for constrained axes:
-dbRDA1 dbRDA2 dbRDA3 
-0.5992 0.3994 0.2082 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-1.0388 0.6441 0.4518 0.3759 0.3239 0.2785 0.2279 0.1644 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-> 
-> 
-> 
-> cleanEx()
 > nameEx("cascadeKM")
 > ### * cascadeKM
 > 
@@ -2259,6 +2088,89 @@ C     0  0.00000000  0.00000000
 > 
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("dbrda")
+> ### * dbrda
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dbrda
+> ### Title: [Partial] Distance-based Redundancy Analysis
+> ### Aliases: capscale dbrda
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> data(varespec, varechem)
+> ## dbrda
+> dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray")
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "bray")
+
+              Inertia Proportion Rank RealDims
+Total          4.5444     1.0000              
+Conditional    0.9726     0.2140    1         
+Constrained    0.9731     0.2141    3        3
+Unconstrained  2.5987     0.5718   19       13
+Inertia is squared Bray distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5362 0.3198 0.1171 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+0.9054 0.5070 0.3336 0.2581 0.2027 0.1605 0.1221 0.0825 
+(Showing 8 of 19 unconstrained eigenvalues)
+
+> ## avoid negative eigenvalues with sqrt distances
+> dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray",
++      sqrt.dist = TRUE)
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "bray", sqrt.dist = TRUE)
+
+              Inertia Proportion Rank
+Total          6.9500     1.0000     
+Conditional    0.9535     0.1372    1
+Constrained    1.2267     0.1765    3
+Unconstrained  4.7698     0.6863   19
+Inertia is Bray distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5817 0.4086 0.2365 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+0.9680 0.6100 0.4469 0.3837 0.3371 0.3012 0.2558 0.2010 
+(Showing 8 of 19 unconstrained eigenvalues)
+
+> ## avoid negative eigenvalues also with Jaccard distances
+> (m <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="jaccard"))
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "jaccard")
+
+              Inertia Proportion Rank
+Total          6.5044     1.0000     
+Conditional    1.0330     0.1588    1
+Constrained    1.2068     0.1855    3
+Unconstrained  4.2646     0.6557   19
+Inertia is squared Jaccard distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5992 0.3994 0.2082 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+1.0388 0.6441 0.4518 0.3759 0.3239 0.2785 0.2279 0.1644 
+(Showing 8 of 19 unconstrained eigenvalues)
+
+> ## add species scores
+> sppscores(m) <- wisconsin(varespec)
+> 
+> 
+> 
 > cleanEx()
 > nameEx("decorana")
 > ### * decorana
@@ -7921,21 +7833,19 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## Phylogenetically ordered community table
 > dtree <- treedist(dune, cl)
 > tabasco(dune, hclust(dtree), cl)
-> ## Use tree distances  in capscale
-> capscale(dtree ~ 1, comm=dune)
-Call: capscale(formula = dtree ~ 1, comm = dune)
+> ## Use tree distances in distance-based RDA
+> dbrda(dtree ~ 1)
+Call: dbrda(formula = dtree ~ 1)
 
-              Inertia Rank
-Total          2.1834     
-RealTotal      2.3439     
-Unconstrained  2.3439   10
-Imaginary     -0.1605     
+              Inertia Rank RealDims
+Total           2.183              
+Unconstrained   2.183   19       10
 Inertia is squared Treedist distance 
-Species scores projected from ‘dune’ 
 
 Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10 
-1.1971 0.4546 0.2967 0.1346 0.1067 0.0912 0.0391 0.0190 0.0045 0.0004 
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+1.1971 0.4546 0.2967 0.1346 0.1067 0.0912 0.0391 0.0190 
+(Showing 8 of 19 unconstrained eigenvalues)
 
 > 
 > 
@@ -9101,7 +9011,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.78 0.272 10.083 0 0 
+Time elapsed:  9.741 0.309 10.075 0 0 
 > grDevices::dev.off()
 null device 
           1 
