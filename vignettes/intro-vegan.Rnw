@@ -299,7 +299,7 @@ ordisurf(ord, A1, add=TRUE)
 \pkg{Vegan} has three methods of constrained ordination:
 constrained or ``canonical'' correspondence analysis (function
 \code{cca}), redundancy analysis (function \code{rda}) and
-distance-based redundancy analysis (function \code{capscale}).  All
+distance-based redundancy analysis (function \code{dbrda}).  All
 these functions can have a conditioning term that is ``partialled
 out''.  I only demonstrate \code{cca}, but all functions accept
 similar commands and can be used in the same way.
