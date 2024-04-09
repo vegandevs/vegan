@@ -78,15 +78,17 @@ eigenvals(x, ...)
   The \code{summary} of \code{eigenvals} result returns eigenvalues,
   proportion explained and cumulative proportion explained. The result
   object can have some negative eigenvalues (\code{\link{wcmdscale}},
-  \code{\link{capscale}}, \code{\link{pcnm}}) which correspond to
+  \code{\link{dbrda}}, \code{\link{pcnm}}) which correspond to
   imaginary axes of Euclidean mapping of non-Euclidean distances
-  (Gower 1985). In these cases, the sum of absolute values of
-  eigenvalues is used in calculating the proportions explained, and
-  real axes (corresponding to positive eigenvalues) will only explain
-  a part of total variation (Mardia et al. 1979, Gower 1985). For
-  \code{\link{decorana}} the importances and cumulative proportions are
-  only reported for \code{kind = "additive"}, because other alternatives
-  do not add up to total inertia of the input data.
+  (Gower 1985). In these case real axes (corresponding to positive
+  eigenvalues) will "explain" proportion >1 of total variation, and
+  negative eigenvalues bring the cumulative proportion to
+  1. \code{\link{capscale}} will only find the positive eigenvalues
+  and only these are used in finding proportions. For
+  \code{\link{decorana}} the importances and cumulative proportions
+  are only reported for \code{kind = "additive"}, because other
+  alternatives do not add up to total inertia of the input data.
+
 }
 
 \value{
@@ -100,13 +102,11 @@ eigenvals(x, ...)
 \author{
  Jari Oksanen.
 }
+
 \references{
   Gower, J. C. (1985). Properties of Euclidean and non-Euclidean
   distance matrices. \emph{Linear Algebra and its Applications} 67,
   81--97.
-
-  Mardia, K. V., Kent, J. T. and Bibby, J. M. (1979).  Chapter 14 of
-  \emph{Multivariate Analysis}, London: Academic Press.
 }
 
 \seealso{

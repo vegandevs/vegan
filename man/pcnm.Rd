@@ -41,7 +41,7 @@ pcnm(dis, threshold, w, dist.ret = FALSE)
   The PCNM functions are used to express distances in rectangular form
   that is similar to normal explanatory variables used in, e.g.,
   constrained ordination (\code{\link{rda}}, \code{\link{cca}} and
-  \code{\link{capscale}}) or univariate regression (\code{\link{lm}})
+  \code{\link{dbrda}}) or univariate regression (\code{\link{lm}})
   together with environmental variables (row weights should be supplied
   with \code{\link{cca}}; see Examples). This is regarded as a more
   powerful method than forcing rectangular environmental data into

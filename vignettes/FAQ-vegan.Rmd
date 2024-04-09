@@ -379,8 +379,8 @@ is to unload one of the packages if only possible. See discussion in
 
 ### Ordination fails with “Error in La.svd”
 
-Constrained ordination (`cca`, `rda`, `capscale`) will sometimes fail
-with error message
+Constrained ordination (`cca`, `rda`, `dbrda`, `capscale`) will
+sometimes fail with error message
 `Error in La.svd(x, nu, nv): error code 1 from Lapack routine 'dgesdd'.`
 
 It seems that the basic problem is in the `svd` function of `LAPACK`
@@ -428,16 +428,15 @@ for some methods:
 
 - Eigenvector methods: Functions `rda`, `cca`, `dbrda` and `capscale`
   give the variation of conditional (partialled), constrained
-  (canonical) and residual components, but you must calculate the
-  proportions by hand.  Function `eigenvals` extracts the eigenvalues,
-  and `summary(eigenvals(ord))` reports the proportions explained in
-  the result object `ord`, and also works with `decorana` and
-  `wcmdscale`. Function `RsquareAdj` gives the R-squared and adjusted
-  R-squared (if available) for constrained components.  Function
-  `goodness` gives the same statistics for individual species or sites
-  (species are unavailable with `capscale`). In addition, there is a
-  special function `varpart` for unbiased partitioning of variance
-  between up to four separate components in redundancy analysis.
+  (canonical) and residual components.  Function `eigenvals` extracts
+  the eigenvalues, and `summary(eigenvals(ord))` reports the
+  proportions explained in the result object `ord`, and also works
+  with `decorana` and `wcmdscale`. Function `RsquareAdj` gives the
+  R-squared and adjusted R-squared (if available) for constrained
+  components.  Function `goodness` gives the same statistics for
+  individual species or sites.  In addition, there is a special
+  function `varpart` for unbiased partitioning of variance between up
+  to four separate components in redundancy analysis.
 
 - Nonmetric multidimensional scaling. NMDS is a method for
   nonlinear mapping, and the concept of of variation explained does
@@ -453,7 +452,7 @@ No. Strictly speaking, this is impossible. However, you can define
 models that respond to similar goals as random effects models, although
 they strictly speaking use only fixed effects.
 
-Constrained ordination functions `cca`, `rda` and `capscale` can have
+Constrained ordination functions `cca`, `rda` and `dbrda` can have
 `Condition()` terms in their formula. The `Condition()` define partial
 terms that are fitted before other constraints and can be used to remove
 the effects of background variables, and their contribution to
@@ -520,7 +519,7 @@ lengths of `envfit` arrows using command `scores`.
 
 The scaled environmental vectors from `envfit` and the arrows for
 continuous environmental variables in constrained ordination (`cca`,
-`rda`, `capscale`) are adjusted to fill the current graph. The lengths
+`rda`, `dbrda`) are adjusted to fill the current graph. The lengths
 of arrows do not have fixed meaning with respect to the points (species,
 sites), but they can only compared against each other, and therefore
 only their relative lengths are important.
