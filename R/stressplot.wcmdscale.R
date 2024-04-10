@@ -225,7 +225,7 @@
 
     pCCA <- ordiYbar(object, "pCCA")
     if (k == 0)
-        Gk <- pCCA
+        Gk <- if(!is.null(pCCA)) pCCA else matrix(0, nobs(object), nobs(object))
     else if (k <= kcon) {
         U <- object$CCA$u
         eig <- object$CCA$eig
