@@ -212,22 +212,42 @@
     ## undo internal sqrt.dist
     if (object$sqrt.dist)
         dis <- dis^2
-    ## Approximate dissimilarities from real components. Can only be
-    ## used for one component.
-    if (is.null(object$CCA)) {
-        U <- object$CA$u
-        eig <- object$CA$eig
-    } else {
+    ## Approximate dissimilarities from real components. Previous
+    ## components are taken with imaginary dims
+    kcon <- if (!is.null(object$CCA))
+                ncol(object$CCA$u)
+            else
+                0
+    kres <- if(!is.null(object$CA))
+                ncol(object$CA$u)
+            else
+                0
+
+    pCCA <- ordiYbar(object, "pCCA")
+    if (k == 0)
+        Gk <- pCCA
+    else if (k <= kcon) {
         U <- object$CCA$u
         eig <- object$CCA$eig
+        Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
+                               sqrt(eig[seq_len(k)]), "*"))
+        if (!is.null(pCCA))
+            Gk <- pCCA + Gk
+    } else {
+        if (k > kcon + kres) {
+            warning(gettextf("max allowed rank is k = %d", kcon + kres))
+        }
+        k <- min(k - kcon, kres)
+        U <- object$CA$u
+        eig <- object$CA$eig
+        Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
+                               sqrt(eig[seq_len(k)]), "*"))
+        if (!is.null(pCCA))
+            Gk <- pCCA + Gk
+        if (kcon > 0)
+            Gk <- ordiYbar(object, "CCA") + Gk
     }
-    eig <- eig[eig > 0]
-    ## check that 'k' does not exceed real rank
-    if (k > ncol(U))
-        warning(gettextf("max allowed rank is k = %d", ncol(U)))
-    k <- min(k, ncol(U))
-    Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
-                  sqrt(eig[seq_len(k)]), "*"))
+    ## From "working" Gower double-centred to distance
     dia <- diag(Gk)
     odis <- -2 * Gk + outer(dia, dia, "+")
     odis[abs(odis) < ZAP] <- 0
