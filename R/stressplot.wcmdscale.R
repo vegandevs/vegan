@@ -186,11 +186,16 @@
 ### dbrda() returns only row scores 'u' (LC scores for constraints,
 ### site scores for unconstrained part), and these can be used to
 ### reconstitute dissimilarities only in unconstrained ordination or
-### for constrained component.
+### for constrained component. stressplot across component would need
+### reconstruction of data, but dbrda components are not additive, or
+### ordiYbar(x, "initial") is *not* ordiYbar(x, "pCCA") + ordiYbar(x,
+### "CCA") + ordiYbar(x, "CA").
 
 `stressplot.dbrda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
+    if (!is.null(object$pCCA))
+        stop("partial models cannot be analysed")
     ## Reconstructed zero distances can be tiny (negative) non-zero
     ## values, and we zap them to zero
     ZAP <- sqrt(.Machine$double.eps)
@@ -212,47 +217,37 @@
     ## undo internal sqrt.dist
     if (object$sqrt.dist)
         dis <- dis^2
-    ## Approximate dissimilarities from real components. Previous
-    ## components are taken with imaginary dims
-    kcon <- if (!is.null(object$CCA))
-                ncol(object$CCA$u)
-            else
-                0
-    kres <- if(!is.null(object$CA))
-                ncol(object$CA$u)
-            else
-                0
-
-    pCCA <- ordiYbar(object, "pCCA")
-    if (k == 0)
-        Gk <- if(!is.null(pCCA)) pCCA else matrix(0, nobs(object), nobs(object))
-    else if (k <= kcon) {
+    ## Approximate dissimilarities from real components with positive
+    ## eigenvalues.
+    if (!is.null(object$CCA)) {
         U <- object$CCA$u
-        eig <- object$CCA$eig
-        Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
-                               sqrt(eig[seq_len(k)]), "*"))
-        if (!is.null(pCCA))
-            Gk <- pCCA + Gk
+        kmax <- object$CCA$poseig
+        eig <- object$CCA$eig[seq_len(kmax)]
     } else {
-        if (k > kcon + kres) {
-            warning(gettextf("max allowed rank is k = %d", kcon + kres))
-        }
-        k <- min(k - kcon, kres)
         U <- object$CA$u
-        eig <- object$CA$eig
-        Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
-                               sqrt(eig[seq_len(k)]), "*"))
-        if (!is.null(pCCA))
-            Gk <- pCCA + Gk
-        if (kcon > 0)
-            Gk <- ordiYbar(object, "CCA") + Gk
+        kmax <- object$CA$poseig
+        eig <- object$CA$eig[seq_len(kmax)]
     }
-    ## From "working" Gower double-centred to distance
-    dia <- diag(Gk)
-    odis <- -2 * Gk + outer(dia, dia, "+")
-    odis[abs(odis) < ZAP] <- 0
-    odis <- sqrt(as.dist(odis)) * object$adjust
-    ## Plot
+    U <- U %*% diag(sqrt(eig), nrow = kmax)
+    if (k > kmax) {
+        warning("max allowed rank is k = %d", kmax)
+        k <- kmax
+    }
+    if (k > 0) {
+        odis <- dist(U[, seq_len(k), drop = FALSE]) * object$adjust
+    } else {
+        odis <- dist(matrix(0, nrow(U)))
+        if (!is.null(object$ac)) { # additive constant
+            if (object$add == "lingoes")
+                odis <- sqrt(odis^2 - 2 * object$ac)
+            else if (object$add == "cailliez")
+                odis <- odis - object$ac
+            else
+                stop("unknown Euclidifying adjustment: no idea what to do")
+        }
+        if (object$sqrt.dist)
+            odis <- sqrt(odis)
+    }
     if (missing(pch))
         if (length(dis) > 5000)
             pch <- "."
