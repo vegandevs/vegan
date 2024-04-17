@@ -30,19 +30,11 @@
     if (rank != "full")
         take <- min(take, rank)
     if (!inherits(object, "dbrda")) {
-        ## the ifs are only needed to cope with pre-2.5-0 vegan: now
-        ## we always have Ybar, but earlier we needed to check whether
-        ## we had CA or CCA Xbar
-        if (!is.null(object$Ybar)) {
-            cent <- attr(object$Ybar, "scaled:center")
-            scal <- attr(object$Ybar, "scaled:scale")
-        } else { # needed for vegan-2.4 compatibility
-            if (is.null(object$CCA))
-                tmp <- object$CA$Xbar
-            else tmp <- object$CCA$Xbar
-            cent <- attr(tmp, "scaled:center")
-            scal <- attr(tmp, "scaled:scale")
-        }
+        ## vegan < 2.5-0 (2016) had no object$Ybar
+        if (is.null(object$Ybar))
+            stop("update() your outdated result object")
+        cent <- attr(object$Ybar, "scaled:center")
+        scal <- attr(object$Ybar, "scaled:scale")
         scaled.PCA <- !is.null(scal)
     }
     nr <- nobs(object) - 1
