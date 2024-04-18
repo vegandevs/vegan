@@ -179,3 +179,57 @@
     }
     out
 }
+
+### distance-based RDA benefits from its own predict
+
+`predict.dbrda` <-
+    function(object, newdata, type = c("response", "lc", "working"),
+             rank = "full", model = c("CCA", "CA"), ...)
+{
+    type <- match.arg(type)
+    model <- match.arg(model)
+    ZAP <- sqrt(.Machine$double.eps)
+    if (!missing(newdata) && type != "lc")
+        stop(gettextf("'newdata' is not implemented for model '%s'", model))
+    if (rank != "full") {
+        k <- seq_len(min(rank, object[[model]]$rank))
+    }
+    if (type %in% c("response", "working")) {
+        if(rank == "full") {
+            out <- ordiYbar(object, model)
+        } else {
+            lambda <- object[[model]]$eig
+            u <- object[[model]]$u
+            if (!is.null(object[[model]]$imaginary.u))
+                u <- cbind(u, object[[model]]$imaginary.u)
+            out <- u[, k, drop=FALSE] %*% diag(lambda, nrow=rank) %*%
+                t(u[, k, drop=FALSE])
+        }
+        if(type == "response") {
+            dia <- diag(out)
+            out <- as.dist(-2*out + outer(dia, dia, "+"))
+            out[abs(out) < ZAP] <- 0
+            out <- sqrt(out)
+        }
+    } else if (type == "lc") {
+        if (model == "CA")
+            stop("'lc' scores not available for unconstrained ordination")
+        if (!missing(newdata)) {
+            if (is.null(object$terminfo))
+                E <- as.matrix(newdata)
+            else {
+                d <- ordiParseFormula(formula(object), newdata,
+                                      object$terminfo$xlev)
+                E <- cbind(d$Z, d$Y)
+            }
+            E <- sweep(E, 2,
+                       c(object$pCCA$envcentre, object$CCA$envcentre), "-")
+            out <- E %*% coef(object)
+        } else {
+            out <- object[[model]]$u
+        }
+        if (rank != "full")
+            out <- out[, k, drop=FALSE]
+    }
+    out
+}
