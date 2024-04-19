@@ -237,16 +237,6 @@
         odis <- dist(U[, seq_len(k), drop = FALSE]) * object$adjust
     } else {
         odis <- dist(matrix(0, nrow(U)))
-        if (!is.null(object$ac)) { # additive constant
-            if (object$add == "lingoes")
-                odis <- sqrt(odis^2 - 2 * object$ac)
-            else if (object$add == "cailliez")
-                odis <- odis - object$ac
-            else
-                stop("unknown Euclidifying adjustment: no idea what to do")
-        }
-        if (object$sqrt.dist)
-            odis <- sqrt(odis)
     }
     if (missing(pch))
         if (length(dis) > 5000)

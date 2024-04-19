@@ -65,16 +65,6 @@
                 out <- u %*% slam
                 if (type == "response") {
                     out <- dist(out)
-                    if (!is.null(object$ac)) {
-                        if (object$add == "lingoes")
-                            out <- sqrt(out^2 - 2 * object$ac)
-                        else if (object$add == "cailliez")
-                            out <- out - object$ac
-                        else
-                            stop("unknown euclidifying adjustment")
-                    }
-                    if (object$sqrt.dist)
-                        out <- out^2
                 }
             }
         } else {
