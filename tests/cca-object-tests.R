@@ -286,9 +286,9 @@ head(predict(mcca, newdata = dune.env))
 predict(mrda, newdata = dune.env[1:4,])
 predict(mrda1, newdata = dune.env[1:4,])
 predict(mcap, newdata = dune.env[1:4,])
-#predict(mdb, newdata = dune.env[1:4,]) # newdata not (yet) implemented
+predict(mdb, newdata = dune.env[1:4,])
 predict(mancap, newdata = dune.env[1:4,])
-#predict(mandb, newdata = dune.env[1:4,]) # newdata not (yet) implemented
+predict(mandb, newdata = dune.env[1:4,])
 predict(m1rda, newdata = dune.env[1:4,])
 
 ## the sign is arbitrary
@@ -308,6 +308,6 @@ abs(predict(mcap, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mdb, newdata = dune.env[1:4,], type="lc"))
 abs(predict(mancap, newdata = dune.env[1:4,], type="lc"))
 abs(predict(m1rda, newdata = dune.env[1:4,], type="lc"))
-abs(predict(mandb, newdata = dune.env[1:4,], type="lc"))
+abs(predict(mandb, newdata = dune.env[1:4,]))
 ## reset
 options(op)

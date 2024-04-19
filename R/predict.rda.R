@@ -189,23 +189,27 @@
     type <- match.arg(type)
     model <- match.arg(model)
     ZAP <- sqrt(.Machine$double.eps)
-    if (!missing(newdata) && type != "lc")
-        stop(gettextf("'newdata' is not implemented for model '%s'", model))
-    if (rank != "full") {
-        k <- seq_len(min(rank, object[[model]]$rank))
-    }
     if (type %in% c("response", "working")) {
-        if(rank == "full") {
+        if(rank == "full" && missing(newdata)) {
             out <- ordiYbar(object, model)
         } else {
             lambda <- object[[model]]$eig
-            u <- object[[model]]$u
-            if (!is.null(object[[model]]$imaginary.u))
-                u <- cbind(u, object[[model]]$imaginary.u)
-            out <- u[, k, drop=FALSE] %*% diag(lambda, nrow=rank) %*%
-                t(u[, k, drop=FALSE])
+            if (!missing(newdata)) {
+                u <- predict(object, newdata = newdata, type = "lc",
+                             rank = rank)
+            } else {
+                u <- object[[model]]$u
+                if (!is.null(object[[model]]$imaginary.u))
+                    u <- cbind(u, object[[model]]$imaginary.u)
+            }
+            if (rank != "full") {
+                k <- seq_len(min(rank, ncol(u)))
+                u <- u[, k, drop = FALSE]
+                lambda <- lambda[k]
+            }
+            out <- u %*% diag(lambda, nrow=length(lambda)) %*% t(u)
         }
-        if(type == "response") {
+        if (type == "response") {
             dia <- diag(out)
             out <- as.dist(-2*out + outer(dia, dia, "+"))
             out[abs(out) < ZAP] <- 0
@@ -224,12 +228,15 @@
             }
             E <- sweep(E, 2,
                        c(object$pCCA$envcentre, object$CCA$envcentre), "-")
-            out <- E %*% coef(object)
+            p1 <- object[[model]]$QR$pivot[seq_len(object[[model]]$QR$rank)]
+            out <- E[, p1, drop = FALSE] %*% coef(object)[p1, , drop =FALSE]
         } else {
             out <- object[[model]]$u
         }
-        if (rank != "full")
+        if (rank != "full") {
+            k <- seq_len(min(rank, ncol(out)))
             out <- out[, k, drop=FALSE]
+        }
     }
     out
 }
