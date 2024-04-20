@@ -174,7 +174,8 @@
 
 `predict.dbrda` <-
     function(object, newdata, type = c("response", "lc", "working"),
-             rank = "full", model = c("CCA", "CA"), ...)
+             rank = "full", model = c("CCA", "CA"), scaling = "none",
+             const, ...)
 {
     type <- match.arg(type)
     model <- match.arg(model)
@@ -226,6 +227,20 @@
         if (rank != "full") {
             k <- seq_len(min(rank, ncol(out)))
             out <- out[, k, drop=FALSE]
+        } else {
+            k <- seq_len(ncol(out))
+        }
+        scaling <- scalingType(scaling)
+        if (scaling) { # scaling="none" is 0 == FALSE
+            if (missing(const))
+                const <- sqrt(sqrt((nobs(object) - 1) * object$tot.chi))
+            slam <- diag(sqrt(object[[model]]$eig[k] / object$tot.chi),
+                         nrow = length(k))
+            out <- switch(scaling,
+                          const * out %*% slam,
+                          const * out,
+                          const * out %*% sqrt(slam)
+                          )
         }
     }
     out

@@ -35,7 +35,7 @@
         rank = "full", model = c("CCA", "CA"), scaling = "none",
         correlation = FALSE, const, ...)
 \method{predict}{dbrda}(object, newdata, type = c("response", "lc", "working"),
-        rank = "full", model = c("CCA", "CA"), ...)
+        rank = "full", model = c("CCA", "CA"), scaling = "none", const, ...)
 \method{calibrate}{cca}(object, newdata, rank = "full", ...)
 \method{coef}{cca}(object, norm = FALSE, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
