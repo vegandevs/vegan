@@ -21,30 +21,25 @@
     model <- match.arg(model)
     if (model == "CCA" && is.null(object$CCA))
         model <- "CA"
-    if (inherits(object, "dbrda"))
-        take <- object[[model]]$poseig
-    else
-        take <- object[[model]]$rank
+    take <- object[[model]]$rank
     if (take == 0)
         stop(gettextf("model '%s' has rank 0", model))
     if (rank != "full")
         take <- min(take, rank)
-    if (!inherits(object, "dbrda")) {
-        ## vegan < 2.5-0 (2016) had no object$Ybar
-        if (is.null(object$Ybar))
-            stop("update() your outdated result object")
-        cent <- attr(object$Ybar, "scaled:center")
-        scal <- attr(object$Ybar, "scaled:scale")
-        scaled.PCA <- !is.null(scal)
-    }
+
+    if (is.null(object$Ybar))
+        stop("update() your outdated result object")
+    cent <- attr(object$Ybar, "scaled:center")
+    scal <- attr(object$Ybar, "scaled:scale")
+    scaled.PCA <- !is.null(scal)
+
     nr <- nobs(object) - 1
     u <- object[[model]]$u[, 1:take, drop = FALSE]
     w <- object[[model]]$wa[, 1:take, drop = FALSE]
     if (is.null(w))
         w <- u
-    if (!inherits(object, "dbrda")) {
-        v <- object[[model]]$v[, 1:take, drop = FALSE]
-    }
+    v <- object[[model]]$v[, 1:take, drop = FALSE]
+
     ## process scaling arg, scaling used later so needs to be a numeric
     scaling <- scalingType(scaling = scaling, correlation = correlation)
     if (type %in% c("wa","sp","lc")) {
@@ -60,7 +55,7 @@
             u <- predict(object, type = if(model == "CCA") "lc" else "wa",
                          newdata = newdata, rank = take)
         }
-        if (inherits(object, c("capscale", "dbrda"))) {
+        if (inherits(object, "capscale")) {
             if (take > 0) {
                 out <- u %*% slam
                 if (type == "response") {
@@ -110,7 +105,7 @@
     }
     else if (type == "wa") {
         if (!missing(newdata)) {
-            if (inherits(object, c("capscale", "dbrda")))
+            if (inherits(object, "capscale"))
                 stop(gettextf("'wa' scores not available in %s with 'newdata'",
                      object$method))
             if (!is.null(object$pCCA))
@@ -140,8 +135,6 @@
     else if (type == "sp") {
         if (inherits(object, "capscale"))
             warning("'sp' scores may be meaningless in 'capscale'")
-        if (inherits(object, "dbrda"))
-            stop("'sp' scores are not available in 'dbrda'")
         if (!missing(newdata)) {
             nm <- rownames(u)
             if (!is.null(nm)) {
