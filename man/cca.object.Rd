@@ -153,11 +153,10 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   functions. Partial component will have no scores.
 
   Distance-based methods (\code{\link{dbrda}}, \code{\link{capscale}})
-  can have negative eigenvalues and associated imaginary axis
-  scores. There is no way of accessing these imaginary scores.  In
-  addition, species scores are initially missing in
-  \code{\link{dbrda}} and they are accessory and found after analysis
-  in \code{\link{capscale}} (and may be misleading). Function
+  can have negative eigenvalues and associated imaginary axis scores. In
+  addition, species scores are initially missing in \code{\link{dbrda}}
+  and they are accessory and found after analysis in
+  \code{\link{capscale}} (and may be misleading). Function
   \code{\link{sppscores}} can be used to add species scores or replace
   them with more meaningful ones.
 
@@ -177,18 +176,9 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 }
 
 \note{
-
-  Saving of \dQuote{working} dependent (community) data changed in
-  \pkg{vegan} version 2.5-0, and you should use \code{ordiYbar}
-  function instead of direct access, or your scripts and functions
-  will fail (\code{ordiYbar} has been available since \pkg{vegan}
-  version 2.4-3, and it works both with the old and current result
-  objects).
-
-  The \code{model.matrix} returns the unweighted model matrix also for
-  \code{\link{cca}}. Prior to \pkg{vegan} version 2.5-0 it returned
-  the weighted model matrix
-
+  The latest large change of result object was made in release 2.5-1 in
+  2016. You can modernize ancient stray results with
+  \code{modernobject <- update(ancientobject)}.
 }
 
 \references{

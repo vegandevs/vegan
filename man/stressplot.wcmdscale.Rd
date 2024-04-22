@@ -65,13 +65,14 @@
   \code{add} to avoid negative eigenvalues, the ordination distances
   will exceed the observed dissimilarities.
 
-  In partial ordination (\code{\link{cca}}, \code{\link{rda}},
-  \code{\link{dbrda}} and \code{\link{capscale}} with \code{Condition}
-  in the formula), the distances in the partial component are included
-  both in the observed distances and in ordination distances.  With
-  \code{k=0}, the ordination distances refer to the partial
-  ordination.
-
+  In partial ordination (\code{\link{cca}}, \code{\link{rda}}, and
+  \code{\link{capscale}} with \code{Condition} in the formula), the
+  distances in the partial component are included both in the observed
+  distances and in ordination distances.  With \code{k=0}, the
+  ordination distances refer to the partial ordination. The exception is
+  \code{\link{dbrda}} where the distances in partial, constrained and
+  residual components are not additive, and only the first of these
+  components can be shown, and partial models cannot be shown at all.
 }
 
 \value{

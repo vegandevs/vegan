@@ -373,6 +373,7 @@ S3method(points, radfit)
 # predict: stats
 S3method(predict, cca)
 S3method(predict, decorana)
+S3method(predict, dbrda)
 S3method(predict, fitspecaccum)
 S3method(predict, procrustes)
 S3method(predict, radline)
