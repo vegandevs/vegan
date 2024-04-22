@@ -6330,8 +6330,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Title: Prediction Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
 > ### Aliases: fitted.cca fitted.rda fitted.capscale fitted.dbrda
-> ###   residuals.cca predict.cca predict.rda predict.decorana coef.cca
-> ###   coef.rda calibrate.cca calibrate
+> ###   residuals.cca predict.cca predict.rda predict.dbrda predict.decorana
+> ###   coef.cca coef.rda calibrate.cca calibrate
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -9011,7 +9011,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.741 0.309 10.075 0 0 
+Time elapsed:  9.795 0.293 10.114 0 0 
 > grDevices::dev.off()
 null device 
           1 
