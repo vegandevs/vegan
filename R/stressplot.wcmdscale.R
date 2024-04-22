@@ -230,7 +230,7 @@
     }
     U <- U %*% diag(sqrt(eig), nrow = kmax)
     if (k > kmax) {
-        warning("max allowed rank is k = %d", kmax)
+        warning(gettextf("max allowed rank is k = %d", kmax))
         k <- kmax
     }
     if (k > 0) {
