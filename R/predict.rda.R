@@ -166,7 +166,7 @@
 ### distance-based RDA benefits from its own predict
 
 `predict.dbrda` <-
-    function(object, newdata, type = c("response", "lc", "working"),
+    function(object, newdata, type = c("response", "lc", "wa", "working"),
              rank = "full", model = c("CCA", "CA"), scaling = "none",
              const, ...)
 {
@@ -199,9 +199,11 @@
             out[abs(out) < ZAP] <- 0
             out <- sqrt(out)
         }
-    } else if (type == "lc") {
-        if (model == "CA")
-            stop("'lc' scores not available for unconstrained ordination")
+    } else if (type %in% c("lc", "wa")) {
+        if (model == "CA" && type == "lc")
+            stop("'lc' scores are not available for unconstrained ordination")
+        if (type == "wa" && !missing(newdata))
+            stop("'newdata' is not available for type='wa'")
         if (!missing(newdata)) {
             if (is.null(object$terminfo))
                 E <- as.matrix(newdata)
@@ -222,6 +224,14 @@
             out <- out[, k, drop=FALSE]
         } else {
             k <- seq_len(ncol(out))
+        }
+        ## wa can be estimated as ordiYbar(object, "initial") %*% u
+        ## %*% diag(1/lambda), but "initial" ordiYbar is not available
+        ## and cannot be found from constrained u with predict(...,
+        ## type="response", newdata=...) which gives ordYbar(...,
+        ## "CCA").
+        if (type == "wa" && model == "CCA") { # in model="CA" out has these
+            out <- object[[model]]$wa[, k, drop = FALSE]
         }
         scaling <- scalingType(scaling)
         if (scaling) { # scaling="none" is 0 == FALSE
