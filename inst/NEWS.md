@@ -7,7 +7,7 @@
 * **vegan** depends on **R** version 4.1.0.
 
 * It is possible to build **vegan** with webR/wasm Fortran
-  compiler. Issue [623](https://github.com/vegandevs/vegan/issues/623).
+  compiler. Issue [#623](https://github.com/vegandevs/vegan/issues/623).
 
 #### NEW FEATURES
 
@@ -22,16 +22,17 @@
   re-weighted but not residualized. Re-weighting was sufficient to
   remove bias with moderate variation of weights, but residualizing of
   predictors is necessary with strongly varying weights. See
-  discussion in
-  [issue #542](https://github.com/vegandevs/vegan/issues/542).
+  discussion in issue
+  [#542](https://github.com/vegandevs/vegan/issues/542).
   The new scheme only concerns CCA which is a weighted method, and RDA
   and dbRDA permutation is unchanged.
 
 * `summary` of constrained ordination methods (RDA, CCA, dbRDA) is
-  less verbose, and gives only summaries conditional, constrained and
-  residual compoents and of eigenvalues. Ordination scores are no
+  less verbose, and gives only summaries of conditional, constrained
+  and residual components and of eigenvalues. Ordination scores are no
   longer printed, but these can be extracted with `scores`
-  function. Issue [#203](https://github.com/vegandevs/vegan/issues/203).
+  function. Issue
+  [#203](https://github.com/vegandevs/vegan/issues/203).
 
 * Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
   without formula interface can have permutation tests (`anova`) by
@@ -77,10 +78,10 @@
 
 * Over-fitted models with high number of aliased variables caused a
   rare failure in `adonis2` and permutation tests of constrained
-  ordination methods (`cca`, `rda`, `dbrda`) with arguments `by =
-  "margin"` or `by = "axis"`. This also concerned `vif.cca` and
-  `intersetcor`. Typically this occurs with high-order interactions of
-  factor variables. See issues
+  ordination methods (`cca`, `rda`, `dbrda`, `capscale`) with
+  arguments `by = "margin"` or `by = "axis"`. This also concerned
+  `vif.cca` and `intersetcor`. Typically this occurred with high-order
+  interactions of factor variables. See issues
   [#452](https://github.com/vegandevs/vegan/issues/452) and
   [#622](https://github.com/vegandevs/vegan/issues/622)
   
@@ -122,9 +123,9 @@
 
 * `adonis` is deprecated: use `adonis2`. There are several CRAN
   packages that still use `adonis` although we have contacted all
-  their authors in June 2022 and printed a message of forthcoming
-  deprecation since **vegan** 2.6-2. See
-  [issue #523](https://github.com/vegandevs/vegan/issues/523).
+  their authors in June 2022 and again in April 2024, and printed a
+  message of forthcoming deprecation since **vegan** 2.6-2. See issue
+  [#523](https://github.com/vegandevs/vegan/issues/523).
   
 * `orditkplot` was moved to CRAN package **vegan3d** and is deprecated
   in **vegan**. See issue
