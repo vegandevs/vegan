@@ -53,7 +53,16 @@
 * Handling of negative eigenvalues was changed in the `summary` of
   `eigenvals`. Negative eigenvalues are given as negative
   "explanation", and the accumulated proportions add up over 1 for the
-  last non-negative eigenvalue, and 1 for the last negative eigenvalue.
+  last non-negative eigenvalue, and 1 for the last negative
+  eigenvalue.
+
+* The printed output of `capscale` shows proportions for real
+  components only and ignores imaginary dimensions. This is consistent
+  to `summary` and other support methods. Issue
+  [#636](https://github.com/vegandevs/vegan/issues/636).
+
+* `RsquareAdj` of `capscale` is based only on positive eigenvalues,
+  and imaginary components are ignored.
 
 * `stressplot.dbrda` refuses to handle partial models. Only the first
   component of variation can be displayed because `dbrda` internal
