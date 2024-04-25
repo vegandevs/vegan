@@ -54,6 +54,15 @@
   "explanation", and the accumulated proportions add up over 1 for the
   last non-negative eigenvalue, and 1 for the last negative eigenvalue.
 
+* `stressplot.dbrda` refuses to handle partial models. Only the first
+  component of variation can be displayed because `dbrda` internal
+  ("working") data structures are not additive. For unconstrained
+  model `"CA"`, for constrained `"CCA"` and for partial none.
+
+* `predict` for `dbrda` will return the actual
+  `type = "working"`. Earlier it returned `"lc"` scores weighted by
+  eigenvalues. Both generated same distances and eigenvalues, though.
+
 #### BUG FIXES
 
 * Parallel processing was inefficiently implemented and could be
@@ -122,6 +131,11 @@
   [#585](https://github.com/vegandevs/vegan/issues/585) and
   announcement
   [#632](https://github.com/vegandevs/vegan/discussions/632)
+
+* Support was removed from ancient `cca` objects (results of `cca`,
+  `rda`, `dbrda` or `capscale`) generated before CRAN release 2.5
+  (2016). If you still have such stray relics, use
+  `newobject <- update(ancientobject)` to modernize the result.
 
 * `as.mcmc.oecosimu` and `as.mcmc.permat` are defunct: use `toCoda`.
 
