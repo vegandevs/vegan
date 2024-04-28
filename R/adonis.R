@@ -13,7 +13,7 @@
         by <- match.arg(by, c("terms", "margin", "onedf"))
     ## evaluate lhs
     YVAR <- formula[[2]]
-    lhs <- eval(YVAR, environment(formula), globalenv())
+    lhs <- eval(YVAR, parent.frame(), environment(formula))
     environment(formula) <- environment()
     ## Take care that input lhs are dissimilarities
     if ((is.matrix(lhs) || is.data.frame(lhs)) &&
