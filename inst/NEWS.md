@@ -1,6 +1,6 @@
 ## vegan News
 
-### Changes in version 2\.6-5
+### Changes in version 2\.6-6
 
 #### INSTALLATION
 
@@ -36,7 +36,7 @@
 
 * Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
   without formula interface can have permutation tests (`anova`) by
-  "axis" and by "onedf". Models by "terms" and "margin" are only
+  `"axis"` and by `"onedf"`. Models by `"terms"` and `"margin"` are only
   possible with formula interface.
 
 * Permutation tests for constrained ordination objects (`cca`, `rda`,
