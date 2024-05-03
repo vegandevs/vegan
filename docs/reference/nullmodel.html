@@ -198,24 +198,51 @@ for sequential null models.</p>
     
 
 <p>The function <code>nullmodel</code> returns an object of class <code>nullmodel</code>.
-It is a set of objects sharing the same environment:</p><ul><li><p><code>data</code>: original matrix in integer mode.</p></li>
-<li><p><code>nrow</code>: number of rows.</p></li>
-<li><p><code>ncol</code>: number of columns.</p></li>
-<li><p><code>rowSums</code>: row sums.</p></li>
-<li><p><code>colSums</code>: column sums.</p></li>
-<li><p><code>rowFreq</code>: row frequencies (number of nonzero cells).</p></li>
-<li><p><code>colFreq</code>: column frequencies (number of nonzero cells).</p></li>
-<li><p><code>totalSum</code>: total sum.</p></li>
-<li><p><code>fill</code>: number of nonzero cells in the matrix.</p></li>
-<li><p><code>commsim</code>: the <code>commsim</code> object as a result
-    of the <code>method</code> argument.</p></li>
-<li><p><code>state</code>: current state of the permutations,
+It is a set of objects sharing the same environment:</p>
+<dl><dt><code>data</code>: </dt>
+<dd><p>original matrix in integer mode.</p></dd>
+
+  <dt><code>nrow</code>: </dt>
+<dd><p>number of rows.</p></dd>
+
+  <dt><code>ncol</code>: </dt>
+<dd><p>number of columns.</p></dd>
+
+  <dt><code>rowSums</code>: </dt>
+<dd><p>row sums.</p></dd>
+
+  <dt><code>colSums</code>: </dt>
+<dd><p>column sums.</p></dd>
+
+  <dt><code>rowFreq</code>: </dt>
+<dd><p>row frequencies (number of nonzero cells).</p></dd>
+
+  <dt><code>colFreq</code>: </dt>
+<dd><p>column frequencies (number of nonzero cells).</p></dd>
+
+  <dt><code>totalSum</code>: </dt>
+<dd><p>total sum.</p></dd>
+
+  <dt><code>fill</code>: </dt>
+<dd><p>number of nonzero cells in the matrix.</p></dd>
+
+  <dt><code>commsim</code>: </dt>
+<dd><p>the <code>commsim</code> object as a result
+    of the <code>method</code> argument.</p></dd>
+
+  <dt><code>state</code>: </dt>
+<dd><p>current state of the permutations,
     a matrix similar to the original.
-    It is <code>NULL</code> for non-sequential algorithms.</p></li>
-<li><p><code>iter</code>: current number of iterations
+    It is <code>NULL</code> for non-sequential algorithms.</p></dd>
+
+  <dt><code>iter</code>: </dt>
+<dd><p>current number of iterations
   for sequential algorithms.
-    It is <code>NULL</code> for non-sequential algorithms.</p></li>
-</ul><p>The <code>simulate</code> method returns an object of class <code>simmat</code>.
+    It is <code>NULL</code> for non-sequential algorithms.</p></dd>
+
+
+
+</dl><p>The <code>simulate</code> method returns an object of class <code>simmat</code>.
 It is an array of simulated matrices (third dimension
 corresponding to <code>nsim</code> argument).</p>
 
