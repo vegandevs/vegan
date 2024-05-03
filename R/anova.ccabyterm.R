@@ -7,7 +7,7 @@
 ### by = "terms" calls directly permutest.cca which decomposes the
 ### inertia between successive terms within compiled C code.
 
-`anova.ccabyterm` <-
+`anovaCCAbyterm` <-
     function(object, permutations, model, parallel)
 {
     ## The result
@@ -50,7 +50,7 @@
 ## functions. Instead, we call ordConstrained with method="pass" with
 ## modified constraint matrix.
 
-`anova.ccabymargin` <-
+`anovaCCAbymargin` <-
     function(object, permutations, scope, ...)
 {
     EPS <- sqrt(.Machine$double.eps)
@@ -145,7 +145,7 @@
 ### significance of axis k. My (J.Oksanen) simulations showed that
 ### this gave somewhat biased results.
 
-`anova.ccabyaxis` <-
+`anovaCCAbyaxis` <-
     function(object, permutations, model, parallel, cutoff = 1)
 {
     EPS <- sqrt(.Machine$double.eps)
@@ -227,7 +227,7 @@
 
 ### Wrap permutest.cca(..., by="onedf") in a anova.cca form
 
-`anova.ccaby1df` <-
+`anovaCCAby1df` <-
     function(object, permutations, model, parallel)
 {
     ## Compute
