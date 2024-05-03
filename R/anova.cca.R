@@ -40,18 +40,18 @@
         if (by %in% c("terms", "margin") && is.null(object$terms))
             stop("model must be fitted with formula interface")
         sol <- switch(by,
-                      "terms" = anova.ccabyterm(object,
+                      "terms" = anovaCCAbyterm(object,
                       permutations = permutations,
                       model = model, parallel = parallel),
-                      "margin" = anova.ccabymargin(object,
+                      "margin" = anovaCCAbymargin(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
                       scope = scope),
-                      "axis" = anova.ccabyaxis(object,
+                      "axis" = anovaCCAbyaxis(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
                       cutoff = cutoff),
-                      "onedf" = anova.ccaby1df(object,
+                      "onedf" = anovaCCAby1df(object,
                        permutations = permutations,
                        model = model, parallel = parallel)
                       )
