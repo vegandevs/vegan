@@ -13,7 +13,7 @@
     control <- attr(permutations, "control")
     ## see if this was a list of ordination objects
     dotargs <- list(...)
-    ## we do not want to give dotargs to anova.ccalist, but we
+    ## we do not want to give dotargs to anovaCCAlist, but we
     ## evaluate 'parallel' and 'model' here
     if (length(dotargs)) {
         isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
@@ -21,7 +21,7 @@
             dotargs <- dotargs[isCCA]
             object <- c(list(object), dotargs)
             sol <-
-                anova.ccalist(object,
+                anovaCCAlist(object,
                               permutations = permutations,
                               model = model,
                               parallel = parallel)
@@ -40,18 +40,18 @@
         if (by %in% c("terms", "margin") && is.null(object$terms))
             stop("model must be fitted with formula interface")
         sol <- switch(by,
-                      "terms" = anova.ccabyterm(object,
+                      "terms" = anovaCCAbyterm(object,
                       permutations = permutations,
                       model = model, parallel = parallel),
-                      "margin" = anova.ccabymargin(object,
+                      "margin" = anovaCCAbymargin(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
                       scope = scope),
-                      "axis" = anova.ccabyaxis(object,
+                      "axis" = anovaCCAbyaxis(object,
                       permutations = permutations,
                       model = model, parallel = parallel,
                       cutoff = cutoff),
-                      "onedf" = anova.ccaby1df(object,
+                      "onedf" = anovaCCAby1df(object,
                        permutations = permutations,
                        model = model, parallel = parallel)
                       )

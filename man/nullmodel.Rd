@@ -143,7 +143,7 @@ for sequential null models.
 \value{
 The function \code{nullmodel} returns an object of class \code{nullmodel}.
 It is a set of objects sharing the same environment:
-\itemize{
+
   \item{\code{data}: }{original matrix in integer mode.}
   \item{\code{nrow}: }{number of rows.}
   \item{\code{ncol}: }{number of columns.}
@@ -161,7 +161,7 @@ It is a set of objects sharing the same environment:
   \item{\code{iter}: }{current number of iterations
   for sequential algorithms.
     It is \code{NULL} for non-sequential algorithms.}
-}
+
 
 The \code{simulate} method returns an object of class \code{simmat}.
 It is an array of simulated matrices (third dimension

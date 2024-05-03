@@ -91,7 +91,7 @@ raupcrick(comm, null = "r1", nsimul = 999, chase = FALSE, ...)
   \code{chase = TRUE} and \code{chase = FALSE}).}
 
 \seealso{The function is based on \code{\link{oecosimu}}. Function
-  \code{\link{vegdist}} with {method = "raup"} implements a related
+  \code{\link{vegdist}} with \code{method = "raup"} implements a related
   index but with equal sampling densities of species, and
   \code{\link{designdist}} demonstrates its calculation.}
 
