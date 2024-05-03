@@ -87,14 +87,14 @@ Additional arguments passed to methods.
 
 \value{ A data frame (with class attribute \code{"clamtest"}),
   with columns: 
-  \itemize{ 
+
     \item{\code{Species}:}{ species name (column names from \code{comm}),} 
     \item{\code{Total_*A*}:}{ total count in habitat A,} 
     \item{\code{Total_*B*}:}{ total count in habitat B,} 
     \item{\code{Classes}:}{ species classification, a factor with
        levels \code{Generalist}, \code{Specialist_*A*},
        \code{Specialist_*B*}, and \code{Too_rare}.}  
-}
+
   \code{*A*} and \code{*B*} are placeholders for habitat names/labels found in the
   data.
 

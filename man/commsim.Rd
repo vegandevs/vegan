@@ -48,7 +48,7 @@ Additional arguments.
 \details{
 The function \code{fun} must return an array of \code{dim(nr, nc, n)},
 and must take some of the following arguments:
-\itemize{
+\describe{
   \item{\code{x}: }{input matrix,}
   \item{\code{n}: }{number of permuted matrices in output,}
   \item{\code{nr}: }{number of rows,}
@@ -97,7 +97,7 @@ and must take some of the following arguments:
   and produce independent matrices. Basic algorithms are reviewed by
   Wright et al. (1998).
 
-\itemize{
+\describe{
   \item{\code{"r00"}: }{non-sequential algorithm for binary matrices
     that only  preserves the number of presences (fill).}
 
@@ -183,7 +183,7 @@ and must take some of the following arguments:
   original fill. Typically this means increasing numbers of zero cells
   and the result is zero-inflated with respect to \code{r2dtable}.
 
-\itemize{
+\describe{
 
   \item{\code{"r2dtable"}: }{non-sequential algorithm for count
     matrices.  This algorithm keeps matrix sum and row/column sums
@@ -216,7 +216,7 @@ and must take some of the following arguments:
   null models can also be defined using \code{\link{permatswap}}
   function.
 
- \itemize{
+ \describe{
 
    \item{\code{"swap_count"}: }{sequential algorithm for count matrices.
     This algorithm find \eqn{2 \times 2}{2 x 2} submatrices that can be
@@ -258,7 +258,7 @@ and must take some of the following arguments:
   shuffling within a column preserves column sums. These models can
   also be defined with \code{\link{permatswap}}.
 
-\itemize{
+\describe{
 
   \item{\code{"swsh_samp"}: }{non-sequential algorithm for
     quantitative data (either integer counts or non-integer values).
@@ -299,7 +299,7 @@ and must take some of the following arguments:
   \code{r00_}, and within row in \code{r0_} and within column in
   \code{c0_} in all cases.
 
-\itemize{
+\describe{
   \item{\code{"r00_ind"}: }{non-sequential algorithm for count matrices.
     This algorithm preserves grand sum and
     individuals are shuffled among cells of the matrix.}
