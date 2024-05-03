@@ -13,7 +13,7 @@
     control <- attr(permutations, "control")
     ## see if this was a list of ordination objects
     dotargs <- list(...)
-    ## we do not want to give dotargs to anova.ccalist, but we
+    ## we do not want to give dotargs to anovaCCAlist, but we
     ## evaluate 'parallel' and 'model' here
     if (length(dotargs)) {
         isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
@@ -21,7 +21,7 @@
             dotargs <- dotargs[isCCA]
             object <- c(list(object), dotargs)
             sol <-
-                anova.ccalist(object,
+                anovaCCAlist(object,
                               permutations = permutations,
                               model = model,
                               parallel = parallel)
