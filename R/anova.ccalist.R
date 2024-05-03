@@ -1,4 +1,4 @@
-`anova.ccalist` <-
+`anovaCCAlist` <-
     function(object, permutations, model, parallel)
 {
     EPS <- sqrt(.Machine$double.eps)
