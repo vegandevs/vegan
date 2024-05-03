@@ -235,7 +235,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   Items \code{fract},
   \code{indfract}, \code{contr1} and \code{contr2} are all data frames with
   items:
-  \itemize{
+  \describe{
   \item{\code{Df}: }{Degrees of freedom of numerator of the \eqn{F}-statistic
     for the fraction.}
   \item{\code{R.square}: }{Raw \eqn{R^2}{R-squared}. This is calculated only for
