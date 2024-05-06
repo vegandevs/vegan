@@ -1,7 +1,7 @@
 ### anova.cca cannot be performed if residuals or constraints are
 ### NULL, and this function handles these cases (but it doesn't test
 ### that these are the cases).
-`anova.ccanull` <-
+`anovaCCAnull` <-
     function(object, ...)
 {
     table <- matrix(0, nrow = 2, ncol = 4)
