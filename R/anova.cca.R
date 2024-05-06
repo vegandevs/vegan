@@ -33,7 +33,7 @@
     ## We only have a single model: check if it is empty
     if (is.null(object$CA) || is.null(object$CCA) ||
         object$CCA$rank == 0 || object$CA$rank == 0)
-        return(anova.ccanull(object))
+        return(anovaCCAnull(object))
     ## by cases
     if (!is.null(by)) {
         by <- match.arg(by, c("terms", "margin", "axis", "onedf"))
