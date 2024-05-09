@@ -84,6 +84,15 @@ SEXP do_wcentre(SEXP x, SEXP w)
     w = PROTECT(duplicate(w));
     SEXP retx = PROTECT(allocMatrix(REALSXP, nr, nc));
     wcentre(REAL(rx), REAL(retx), REAL(w), &nr, &nc);
+    /* set dimnames */
+    SEXP dnames = getAttrib(x, R_DimNamesSymbol);
+    if (!isNull(dnames)) {
+        SEXP dimnames = PROTECT(allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(dimnames, 0, duplicate(VECTOR_ELT(dnames, 0)));
+        SET_VECTOR_ELT(dimnames, 1, duplicate(VECTOR_ELT(dnames, 1)));
+        setAttrib(retx, R_DimNamesSymbol, dimnames);
+        UNPROTECT(1);
+    }
     UNPROTECT(3);
     return retx;
 }
