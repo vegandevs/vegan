@@ -2,7 +2,22 @@
                            digits = max(3, getOption("digits") - 3),
                            ...)
 {
-    summ <- list()
+    ## From vegan 2.6-6 summary.cca no longer spits information on
+    ## scores, but many packages still use summary() to access
+    ## scores. This code tries to handle those functions so that the
+    ## package maintainers have time to switch from summary() to
+    ## scores() to get scores. This code will be missing in later
+    ## releases and then summary() will fail to get scores.
+    dots <- match.call(expand.dots = FALSE)$...
+    if (isTRUE(any(names(dots) %in%
+                   c("scaling", "axes", "display", "correlation", "hill"))))
+        warning("summary() to get scores is deprecated: use scores()")
+    if (isTRUE("axes" %in% names(dots)))
+        choices <- seq_len(dots$axes)
+    else
+        choices <- seq_len(6)
+    summ <- scores(object, choices = choices, ...)
+    ## mercy code of handling scores in summary ends.
     summ$call <- object$call
     summ$tot.chi <- object$tot.chi
     ## only the Real component for capscale() with negative eigenvalues
