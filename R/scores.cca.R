@@ -1,6 +1,6 @@
 `scores.cca` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "bp", "cn"),
-              scaling = "species", hill = FALSE, tidy = FALSE, ...)
+    function (x, choices = c(1, 2), display = "all", scaling = "species",
+              hill = FALSE, tidy = FALSE, droplist = TRUE, ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
     ## "exclude"
@@ -153,5 +153,8 @@
     }
     ## return NULL instead of list(), and matrix instead of a list of
     ## one matrix
-    switch(min(2, length(sol)), sol[[1]], sol)
+    if (droplist)
+        switch(min(2, length(sol)), sol[[1]], sol)
+    else
+        sol
 }

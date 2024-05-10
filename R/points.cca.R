@@ -6,14 +6,16 @@
     if (length(display) > 1)
         stop("only one 'display' item can be added in one command")
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
-                  const, correlation = correlation, hill = hill, tidy=FALSE)
+                  const, correlation = correlation, hill = hill, tidy=FALSE,
+                  droplist = TRUE)
     if (!missing(select))
         pts <- .checkSelect(select, pts)
     if (display == "cn") {
         cnam <- rownames(pts)
         points(pts, ...)
         pts <- scores(x, choices = choices, display = "bp", scaling = scaling,
-                      const, correlation = correlation, hill = hill)
+                      const, correlation = correlation, hill = hill,
+                      droplist = TRUE)
         bnam <- rownames(pts)
         pts <- pts[!(bnam %in% cnam), , drop = FALSE]
         if (nrow(pts) == 0)
