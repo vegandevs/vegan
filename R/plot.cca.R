@@ -6,7 +6,7 @@
     if (any(display %in% c("c","cn")))
         display <- c(display, "bp")
     g <- scores(x, choices, display, scaling, const, correlation = correlation,
-                hill = hill, tidy = FALSE)
+                hill = hill, tidy = FALSE, droplist = TRUE)
     if (length(g) == 0 || all(is.na(g)))
       stop("nothing to plot: requested scores do not exist")
     if (!is.list(g))
