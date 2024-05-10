@@ -73,11 +73,13 @@
 <span>       scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">arrow.mul</span>, head.arrow <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">select</span>, <span class="va">const</span>,</span>
 <span>       axis.bp <span class="op">=</span> <span class="cn">FALSE</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
-<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>,<span class="st">"wa"</span>,<span class="st">"bp"</span>,<span class="st">"cn"</span><span class="op">)</span>,</span>
-<span>       scaling <span class="op">=</span> <span class="st">"species"</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>       scaling <span class="op">=</span> <span class="st">"species"</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, droplist <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>       <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for rda</span></span>
-<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>,<span class="st">"wa"</span>,<span class="st">"bp"</span>,<span class="st">"cn"</span><span class="op">)</span>,</span>
-<span>       scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">const</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>       scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">const</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>       droplist <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
@@ -180,6 +182,10 @@
     for details and discussion). If <code>const</code> is a vector of two
     items, the first is used for species, and the second item for site
     scores.</p></dd>
+
+  <dt>droplist</dt>
+<dd><p>Return a matrix instead of a named list when only one
+    kind of scores were requested.</p></dd>
 
   <dt>axis.bp</dt>
 <dd><p>Draw <code><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></code> for biplot arrows.</p></dd>
