@@ -27,6 +27,7 @@ decorana(veg, iweigh=0, iresc=4, ira=0, mk=26, short=0,
 \method{points}{decorana}(x, display = c("sites", "species"),
        choices=1:2, origin = TRUE, select, ...)
 
+## deprecated: use 'scores' for scores, 'weights' for weights
 \method{summary}{decorana}(object, digits=3, origin=TRUE,
         display=c("both", "species","sites","none"), ...)
 
@@ -109,13 +110,10 @@ downweight(veg, fraction = 5)
   \code{\link{tolerance}} returns this internal criterion and can be
   used to assess the success of rescaling.
 
-  The \code{summary} method prints the ordination scores,
-  possible prior weights used in downweighting, and the marginal totals
-  after applying these weights. The \code{plot} method plots
-  species and site scores.  Classical \code{decorana} scaled the axes
-  so that smallest site score was 0 (and smallest species score was
-  negative), but \code{summary}, \code{plot} and
-  \code{scores} use the true origin, unless \code{origin = FALSE}.
+  The \code{plot} method plots species and site scores.  Classical
+  \code{decorana} scaled the axes so that smallest site score was 0 (and
+  smallest species score was negative), but \code{summary}, \code{plot}
+  and \code{scores} use the true origin, unless \code{origin = FALSE}.
 
   In addition to proper eigenvalues, the function reports
   \sQuote{decorana values} in detrended analysis. These \sQuote{decorana
@@ -196,7 +194,6 @@ downweight(veg, fraction = 5)
 data(varespec)
 vare.dca <- decorana(varespec)
 vare.dca
-summary(vare.dca)
 plot(vare.dca)
 
 ### the detrending rationale:
