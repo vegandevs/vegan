@@ -15,7 +15,7 @@
 \usage{
 isomap(dist, ndim=10, ...)
 isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
-\method{summary}{isomap}(object, axes = 4, ...)
+\method{summary}{isomap}(object, ...)
 \method{plot}{isomap}(x, net = TRUE, n.col = "gray", type = "points", ...)
 }
 
@@ -32,7 +32,6 @@ isomapdist(dist, epsilon, k, path = "shortest", fragmentedOK =FALSE, ...)
     fragmented. If \code{TRUE}, analyse the largest connected group,
     otherwise stop with error. }
   \item{x, object}{An \code{isomap} result object.}
-  \item{axes}{Number of axes displayed.}
   \item{net}{Draw the net of retained dissimilarities.}
   \item{n.col}{Colour of drawn net segments. This can also be a vector
     that is recycled for points, and the colour of the net segment is
