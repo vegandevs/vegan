@@ -1,13 +1,14 @@
 "summary.decorana" <-
-    function (object, digits = 3, origin = TRUE, display = c("both", 
-                                                 "species", "sites", "none"), ...) 
+    function (object, digits = 3, origin = TRUE, display = c("both",
+                                                 "species", "sites", "none"), ...)
 {
+    warning("'summary' is deprecated: use 'scores' for scores, 'weights' for weights")
     display <- match.arg(display)
     print(object)
     if (origin) {
-        object$cproj <- sweep(object$cproj, 2, object$origin, 
+        object$cproj <- sweep(object$cproj, 2, object$origin,
                               "-")
-        object$rproj <- sweep(object$rproj, 2, object$origin, 
+        object$rproj <- sweep(object$rproj, 2, object$origin,
                               "-")
     }
     tmp <- list()
