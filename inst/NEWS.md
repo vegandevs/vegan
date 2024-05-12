@@ -27,12 +27,20 @@
   The new scheme only concerns CCA which is a weighted method, and RDA
   and dbRDA permutation is unchanged.
 
-* `summary` of constrained ordination methods (RDA, CCA, dbRDA) is
-  less verbose, and gives only summaries of conditional, constrained
-  and residual components and of eigenvalues. Ordination scores are no
-  longer printed, but these can be extracted with `scores`
-  function. Issue
-  [#203](https://github.com/vegandevs/vegan/issues/203).
+* `summary` of ordination results no longer prints ordination scores
+  that often are so voluminous that they hide the real summary; see issue
+  [#203](https://github.com/vegandevs/vegan/issues/203). Ordination
+  scores should be extracted with `scores` function. This breaks some
+  CRAN packages that use `summary.cca` to extract scores. These should
+  switch to use `scores`. The maintainers have been contacted and
+  patch files are suggested to adapt to this change. See
+  [instructions](https://github.com/vegandevs/vegan/discussions/644)
+  to fix the packages.
+
+* `scores` function for constrained ordination (CCA, RDA,dbRDA)
+  default to return all types of scores (`display = "all"`). Function
+  can optionally return a single type of scores as a list of one matrix
+  instead of returning a matrix (new argument `droplist`).
 
 * Constrained ordination objects (`cca`, `rda`, `dbrda`) fitted
   without formula interface can have permutation tests (`anova`) by
@@ -134,13 +142,23 @@
   packages that still use `adonis` although we have contacted all
   their authors in June 2022 and again in April 2024, and printed a
   message of forthcoming deprecation since **vegan** 2.6-2. See issue
-  [#523](https://github.com/vegandevs/vegan/issues/523).
+  [#523](https://github.com/vegandevs/vegan/issues/523). See
+  [instructions](https://github.com/vegandevs/vegan/discussions/641)
+  to adapt your packages and functions to use `adonis2`.
   
 * `orditkplot` was moved to CRAN package **vegan3d** and is deprecated
   in **vegan**. See issue
   [#585](https://github.com/vegandevs/vegan/issues/585) and
   announcement
   [#632](https://github.com/vegandevs/vegan/discussions/632)
+
+* The use of `summary` to extract ordination scores is no longer
+  accepted: you should use `scores` to extract scores. `summary.cca`
+  has a kluge that allows the use of `summary` to extract scores, but
+  it does not work in all use cases, and will be removed in the next
+  release. For `summary.cca` see
+  [instructions](https://github.com/vegandevs/vegan/discussions/644)
+  to change your package. `summary.decorana` is deprecated.
 
 * Support was removed from ancient `cca` objects (results of `cca`,
   `rda`, `dbrda` or `capscale`) generated before CRAN release 2.5
