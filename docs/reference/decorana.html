@@ -73,6 +73,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>,</span>
 <span>       choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, origin <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co">## deprecated: use 'scores' for scores, 'weights' for weights</span></span>
 <span><span class="co"># S3 method for decorana</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits<span class="op">=</span><span class="fl">3</span>, origin<span class="op">=</span><span class="cn">TRUE</span>,</span>
 <span>        display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"species"</span>,<span class="st">"sites"</span>,<span class="st">"none"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -202,13 +203,10 @@
   <code>decorana</code> finds the segments internally). Function
   <code><a href="tolerance.html">tolerance</a></code> returns this internal criterion and can be
   used to assess the success of rescaling.</p>
-<p>The <code>summary</code> method prints the ordination scores,
-  possible prior weights used in downweighting, and the marginal totals
-  after applying these weights. The <code>plot</code> method plots
-  species and site scores.  Classical <code>decorana</code> scaled the axes
-  so that smallest site score was 0 (and smallest species score was
-  negative), but <code>summary</code>, <code>plot</code> and
-  <code>scores</code> use the true origin, unless <code>origin = FALSE</code>.</p>
+<p>The <code>plot</code> method plots species and site scores.  Classical
+  <code>decorana</code> scaled the axes so that smallest site score was 0 (and
+  smallest species score was negative), but <code>summary</code>, <code>plot</code>
+  and <code>scores</code> use the true origin, unless <code>origin = FALSE</code>.</p>
 <p>In addition to proper eigenvalues, the function reports
   ‘decorana values’ in detrended analysis. These ‘decorana
   values’ are the values that the legacy code of <code>decorana</code> returns
@@ -308,97 +306,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values      0.5249 0.1572 0.09669 0.06075</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths         2.8161 2.2054 1.54650 1.64864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vare.dca</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> decorana(veg = varespec) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Detrended correspondence analysis with 26 segments.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rescaling of axes with 4 iterations.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total inertia (scaled Chi-square): 2.0832 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        DCA1   DCA2    DCA3    DCA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues          0.5235 0.3253 0.20010 0.19176</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Decorana values      0.5249 0.1572 0.09669 0.06075</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Axis lengths         2.8161 2.2054 1.54650 1.64864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Species scores:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              DCA1     DCA2     DCA3     DCA4 Totals</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Callvulg  0.04119 -1.53268 -2.55101  1.32277  45.07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Empenigr  0.09019  0.82274  0.20569  0.30631 151.99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rhodtome  1.34533  2.47141 -0.34970 -1.13823   8.39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vaccmyrt  1.86298  1.71424 -0.60535 -0.40205  50.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vaccviti  0.16641  0.71095  0.00313 -0.55801 275.03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pinusylv -0.73490  1.62050 -1.60275 -2.10199   4.11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Descflex  1.97061  1.81651  1.74896 -0.91463   5.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Betupube  0.79745  3.36374 -0.94546 -1.01741   0.29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vacculig -0.08912 -1.17478  2.86624  0.87025  15.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Diphcomp -0.82669 -0.44195  2.58579 -0.38459   3.24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrsp    2.37743 -0.27373 -0.47099 -1.89036  40.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrfusc  1.58267 -1.33770 -1.33563  1.47417 113.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrpoly  0.86689  2.39519 -0.82064 -3.41534   6.06</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hylosple  2.66242  1.19669  1.48288 -0.69978  18.04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pleuschr  1.64098  0.15607  0.30044 -0.26717 377.97</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polypili -0.56213  0.14009  0.25198  0.49177   0.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polyjuni  1.22244 -0.89173  0.61287  3.60066  13.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polycomm  1.01545  2.08388  0.06402  0.84199   0.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pohlnuta -0.00712  1.09704 -0.82126 -1.59862   2.62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ptilcili  0.48093  2.86420 -0.71801 -1.02698  14.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Barbhatc  0.58303  3.71792 -0.84212 -1.88837   3.19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladarbu -0.18554 -1.18973  0.68113  0.55399 255.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladrang -0.83427 -0.78085  0.90603  0.70057 388.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladstel -1.67768  0.98907 -0.83789 -0.60206 486.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladunci  0.97686 -1.70859 -1.68281 -2.26756  56.28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcocc -0.27221 -0.76713 -0.63836  0.66927   2.79</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcorn  0.29068 -0.97039  0.50414  0.95738   6.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladgrac  0.21778 -0.41879  0.06530 -0.31472   5.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladfimb  0.00889 -0.23922 -0.26505  0.33123   3.96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcris  0.37774 -1.09161 -0.55627  0.23868   7.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladchlo -0.91983  1.54955 -0.58109 -1.48643   1.16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladbotr  0.66438  2.19584 -0.90331 -0.91391   0.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladamau -0.96418 -0.98992  2.71458  0.52352   0.14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladsp   -1.12318 -0.15330 -0.69833  0.44040   0.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cetreric  0.27163 -1.28867 -0.81682 -1.93935   3.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cetrisla -0.50158  2.22098 -1.16461 -1.89349   2.03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Flavniva -1.67937 -3.67985  4.15644  3.18919  11.85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nepharct  2.18561 -0.82837  0.71958  5.81930   5.26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Stersp   -0.78699 -2.01214  2.31212  2.03946  17.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Peltapht  0.45763 -0.34395  0.09916  1.34695   0.76</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Icmaeric  0.04950 -1.97605  1.41509  2.10154   0.22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcerv -1.21585 -2.30519  2.55186  3.41532   0.10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Claddefo  0.60517 -1.19771 -0.33388  0.22585  10.23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladphyl -1.53959  1.48574 -1.43209 -1.52387   0.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Site scores:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       DCA1    DCA2    DCA3    DCA4 Totals</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -0.1729 -0.2841  0.4775  0.2521   89.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  0.8539 -0.3360  0.0708  0.0924   89.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  1.2467 -0.1183 -0.1211 -0.8718   94.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  1.0675  0.4169  0.2897 -0.1758  125.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  0.4234  0.0112  0.2179  0.1265   90.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  0.0252  0.3600 -0.0263 -0.1168   81.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  1.0695 -0.3707 -0.4285  0.4145  109.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  0.7724 -0.5325 -0.2856  0.5269   88.5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  1.6189  0.5482  0.2342 -0.3333  110.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13 -0.2642 -0.6851 -0.3777  0.5003  101.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  0.6431 -0.9604 -0.6000 -0.2885   81.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  0.4504 -0.1666  0.1850 -0.1291   64.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  1.2501 -0.2248  0.0244  0.3741   94.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -0.3910 -0.7618  0.8640  0.5557  103.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  -0.6407 -0.9427  0.9465  0.7769   94.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  -0.4523 -0.5529  0.3988  0.2781  110.9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -1.1043  0.2106 -0.0653 -0.0539  106.7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  -0.9454 -0.5974  0.4639  0.4889   84.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -1.1971  0.5691 -0.3246 -0.2522  119.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -1.0983  0.7850 -0.5274 -0.4848  122.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12 -0.8673  0.5621 -0.3254 -0.3217  119.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 -1.1842  0.7442 -0.4995 -0.3917  122.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 -0.4134  0.0260  0.0107 -0.0682  112.8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  0.3210  1.2450 -0.2541 -0.5253   99.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.dca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="decorana-1.png" alt="" width="700" height="1133"></span>
