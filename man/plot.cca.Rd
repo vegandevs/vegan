@@ -31,7 +31,10 @@
 \method{scores}{rda}(x, choices = c(1,2), display = "all",
        scaling = "species", const, correlation = FALSE, tidy = FALSE,
        droplist = TRUE, ...)
-\method{summary}{cca}(object, digits = max(3, getOption("digits") - 3), ...)
+\method{summary}{cca}(object, scaling = "species", axes = 6,
+                      display=c("sp","wa","lc","bp","cn"),
+                      digits = max(3, getOption("digits") - 3),
+                      correlation = FALSE, hill = FALSE, ...)
 \method{labels}{cca}(object, display, ...)
 }
 
@@ -110,6 +113,7 @@
   \item{droplist}{Return a matrix instead of a named list when only one
     kind of scores were requested.}
   \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
+  \item{axes}{Number of axes in summaries.}
   \item{digits}{Number of digits in output.}
   \item{...}{Parameters passed to other functions.}
 }
