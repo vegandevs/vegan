@@ -12,7 +12,8 @@
   or Redundancy Analysis}
 \description{
   Functions to plot or extract results of constrained correspondence analysis
-  (\code{\link{cca}}), redundancy analysis (\code{\link{rda}}) or
+  (\code{\link{cca}}), redundancy analysis (\code{\link{rda}}), distance-based
+  redundancy analysis (\code{\link{dbrda}}) or
   constrained analysis of principal coordinates (\code{\link{capscale}}).
 }
 \usage{
@@ -173,12 +174,6 @@
   \code{\link{ordiplot}} will allow full graphical control (see
   section Examples). Utility function \code{labels} returns the default
   labels in the order they are applied in \code{text}.
-
-  Function \code{summary} lists all scores and the output can be very
-  long.  You can suppress scores by setting \code{axes = 0} or
-  \code{display = NA} or \code{display = NULL}. You can display some
-  first or last (or both) rows of scores by using \code{head} or
-  \code{tail} or explicit \code{print} command for the \code{summary}.
   
   Palmer (1993) suggested using linear constraints (\dQuote{LC scores})
   in ordination diagrams, because these gave better results in
@@ -218,11 +213,6 @@ pl <- plot(pca, type="n", scaling="sites", correlation=TRUE)
 with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
 with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
-## Limited output of 'summary' (NB. Signs of axes are arbitrary and can change
-## when the command is run repeatedly).
-## IGNORE_RDIFF_BEGIN
-head(summary(mod), tail=2)
-## IGNORE_RDIFF_END
 ## Scaling can be numeric or more user-friendly names
 ## e.g. Hill's scaling for (C)CA
 scrs <- scores(mod, scaling = "sites", hill = TRUE)
