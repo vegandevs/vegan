@@ -197,6 +197,14 @@
   and more support functions, and \code{\link{text}},
   \code{\link{points}} and \code{\link{arrows}} for the basic routines.  }
 
+\note{Up to \pkg{vegan} release 2.6-4 \code{summary} printed
+  ordination scores, and function was occasionally used to extract
+  scores. This is now deprecated and you should use
+  \code{scores}. This version of \pkg{vegan} still enables extracting
+  scores with \code{summary}, but you should change your code to use
+  \code{scores} before next \pkg{vegan} release. For instructions,
+  see \url{https://github.com/vegandevs/vegan/discussions/644}.  }
+
 \examples{
 data(dune)
 data(dune.env)
