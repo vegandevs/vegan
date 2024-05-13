@@ -152,13 +152,12 @@
   announcement
   [#632](https://github.com/vegandevs/vegan/discussions/632)
 
-* The use of `summary` to extract ordination scores is no longer
-  accepted: you should use `scores` to extract scores. `summary.cca`
-  has a kluge that allows the use of `summary` to extract scores, but
-  it does not work in all use cases, and will be removed in the next
-  release. For `summary.cca` see
+* The use of `summary` to extract ordination scores is deprecated: you
+  should use `scores` to extract scores. This version still allows
+  extracting scores with `summary`, but this will fail in next
+  versions. For `summary.cca` see
   [instructions](https://github.com/vegandevs/vegan/discussions/644)
-  to change your package. `summary.decorana` is deprecated.
+  to change your package.
 
 * Support was removed from ancient `cca` objects (results of `cca`,
   `rda`, `dbrda` or `capscale`) generated before CRAN release 2.5
