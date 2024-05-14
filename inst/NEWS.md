@@ -8,6 +8,9 @@
   For `summary.cca` see
   [#644](https://github.com/vegandevs/vegan/discussions/644).
 
+* `summary.decorana` is defunct. It did nothing useful, but you can
+  extract the same information with `scores` and `weights`.
+
 
 ### Changes in version 2\.6-6
 
