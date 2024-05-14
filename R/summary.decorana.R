@@ -2,7 +2,7 @@
     function (object, digits = 3, origin = TRUE, display = c("both",
                                                  "species", "sites", "none"), ...)
 {
-    warning("'summary' is deprecated: use 'scores' for scores, 'weights' for weights")
+    stop("'summary' is defunct: use 'scores' for scores, 'weights' for weights")
     display <- match.arg(display)
     print(object)
     if (origin) {
