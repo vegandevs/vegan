@@ -164,6 +164,10 @@ downweight(veg, fraction = 5)
   Github package \pkg{natto} has an \R{} implementation of
   \code{decorana} which allows easier inspection of the
   algorithm and also easier development of the function.
+
+  \pkg{vegan} 2.6-6 and earlier had a \code{summary} method, but it did
+  nothing useful and is now defunct. All its former information can be
+  extracted with \code{scores} or \code{\link{weights.decorana}}.
 }
 
 \seealso{
