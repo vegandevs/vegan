@@ -1,5 +1,14 @@
 ## vegan News
 
+### Changes in version 2\.6-7
+
+#### DEPRECATED AND DEFUNCT
+
+* Disabled use of `summary` to get ordination scores: use `scores`!
+  For `summary.cca` see
+  [#644](https://github.com/vegandevs/vegan/discussions/644).
+
+
 ### Changes in version 2\.6-6
 
 #### INSTALLATION
