@@ -1,3 +1,5 @@
+# vegan news
+
 # vegan 2.6-7
 
 ## DEPRECATED AND DEFUNCT
