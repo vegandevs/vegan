@@ -4,6 +4,8 @@
 
 #### DEPRECATED AND DEFUNCT
 
+* `adonis` is defunct: use `adonis2` with improved functionality.
+
 * Disabled use of `summary` to get ordination scores: use `scores`!
   For `summary.cca` see
   [#644](https://github.com/vegandevs/vegan/discussions/644).
