@@ -2,10 +2,13 @@
 ### Editable Tcl/Tk plot for ordination
 ###
 `orditkplot` <-
-    function(x, display = "species", choices = 1:2, width, xlim, ylim,
-             tcex=0.8, tcol, pch = 1, pcol, pbg, pcex = 0.7,
-             labels,  ...)
+    function(...)
 {
-    stop("orditkplot was moved to CRAN package vegan3d:
-          install vegan3d from CRAN and use vegan3d::orditkplot")
+    if (requireNamespace("vegan3d")) {
+        message("orditkplot was moved to vegan3d and is deprecated in vegan")
+        vegan3d::orditkplot(...)
+    } else {
+        stop("orditkplot was moved to CRAN package vegan3d:
+              install vegan3d from CRAN and use vegan3d::orditkplot")
+    }
 }
