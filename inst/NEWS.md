@@ -2,6 +2,11 @@
 
 ### Changes in version 2\.6-7
 
+#### INSTALLATION
+
+* **vegan** no longer suggests **tcltk**, but suggests
+  **vegan3d**. See `orditkplot` in section DEPRECATED AND DEFUNCT.
+
 #### DEPRECATED AND DEFUNCT
 
 * `adonis` is defunct: use `adonis2` with improved functionality.
@@ -12,6 +17,11 @@
 
 * `summary.decorana` is defunct. It did nothing useful, but you can
   extract the same information with `scores` and `weights`.
+
+* `orditkplot` code was removed, but we try to launch
+  `vegan3d::orditkplot` loudly (with a deprecation message to go to
+  **vegan3d**). _This is experimental, and we may go to direct error,
+  depending on user experience: please comment!_
 
 
 ### Changes in version 2\.6-6
