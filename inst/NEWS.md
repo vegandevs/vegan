@@ -7,6 +7,23 @@
 * **vegan** no longer suggests **tcltk**, but suggests
   **vegan3d**. See `orditkplot` in section DEPRECATED AND DEFUNCT.
 
+#### NEW FUNCTIONS
+
+* A set of functions to add new points to an existing NMDS ordination
+  from `metaMDS` or `monoMDS`. This serves the same purpose as adding
+  new points to an existing eigenvector ordination (for instance,
+  `predict.rda`). The main function is `MDSaddpoints`. This needs as
+  an input rectangular matrix of dissimilarities of all new points
+  (rows) to all old points (columns). Support function `dist2xy` can
+  extract needed matrices from dissimilarities of all (old and new)
+  points, and function `designdist2` can directly find the needed
+  dissimilarities between two data matrices. In addition, **analogue**
+  package can calculate such rectangular dissimilarities, including
+  many indices that cannot be defined with `designdist2`.
+  
+  The function is still experimental. In particular the user interface
+  may need development. Comments are welcome.
+
 #### DEPRECATED AND DEFUNCT
 
 * `adonis` is defunct: use `adonis2` with improved functionality.
