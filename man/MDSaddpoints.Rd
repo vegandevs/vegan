@@ -12,10 +12,10 @@ MDSaddpoints(nmds, dis, neighbors = 5, maxit = 200)
 dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
 }
 \arguments{
-  
+
 \item{nmds}{Result object from \code{\link{metaMDS}} or
-  \code{\link{monoMDS}}. The configuration of points will be kept fixed,
-  but new points will be added.}
+  \code{\link{monoMDS}}. The configuration of points is fixed,
+  but new points are added.}
 
 \item{dis}{Rectangular non-symmetric dissimilarity matrix among new
   points (rows) and old fixed points (columns). Such matrix can be
@@ -43,19 +43,19 @@ dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
 Function return a list of class \code{"nmds"} (there are no other
 objects of that type in \pkg{vegan}) with following elements
 
-  \item{points: }{Coordinates of all points, the first being fixed and the
+  \item{points}{Coordinates of all points, the first being fixed and the
     last the new points.}
-  \item{newpoints: }{Coordinates of added new points; the same as the last
+  \item{newpoints}{Coordinates of added new points; the same as the last
     ones in the previous item.}
-  \item{stress: }{Stress as estimated here (but needs checking).}
-  \item{iters: }{Number of iterations.}
-  \item{cause: }{Cause of termination of iterations (numeric).}
-  \item{seeds: }{Starting coordinates for new points.}
+  \item{stress}{Stress as estimated here (but needs checking).}
+  \item{iters}{Number of iterations.}
+  \item{cause}{Cause of termination of iterations (numeric).}
+  \item{seeds}{Starting coordinates for new points.}
 
 }
 
 \details{
-  
+
 Function provides an interface to \code{monoMDS} Fortran code to add new
 points to an existing ordination that will be regarded as fixed. The
 function has a similar role as \code{predict} functions with
@@ -70,9 +70,10 @@ function that can calculate dissimilarities among two matrices,
 including functions that cannot be specified in
 \code{\link{designdist2}}.
 
-Great care is needed in preparing the dissimilarities for the input. The
-dissimilarities must be exactly the same, columns must match old
-fixed points, and rows added new points.
+Great care is needed in preparing the dissimilarities for the
+input. The dissimilarity index must be exactly the same as in the
+fixed ordination, and columns must match old fixed points, and rows
+added new points.
 
 }
 \examples{

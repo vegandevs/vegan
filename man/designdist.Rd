@@ -33,7 +33,7 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
 
 \arguments{
   \item{x}{Input data.}
-  \item{y}{Another input data set: dissimilarities will we calculated
+  \item{y}{Another input data set: dissimilarities will be calculated
     among rows of \code{x} and rows of \code{y}.}
   \item{method}{Equation for your dissimilarities. This can use terms
     \code{J} for shared quantity, \code{A} and \code{B} for totals,
