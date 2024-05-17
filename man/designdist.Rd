@@ -1,6 +1,7 @@
 \encoding{UTF-8}
 \name{designdist}
 \alias{designdist}
+\alias{designdist2}
 \alias{chaodist}
 
 \title{Design your own Dissimilarities }
@@ -13,20 +14,27 @@
   shared species, and totals are numbers of species on sites. The
   quadratic terms are cross-products and sums of squares, and minimum
   terms are sums of parallel minima and row totals. Function
-  \code{chaodist} lets you define your own dissimilarities using terms
-  that are supposed to take into account the \dQuote{unseen species}
-  (see Chao et al., 2005 and Details in \code{\link{vegdist}}).
+  \code{designdist2} is similar, but finds dissimilarities among two
+  data sets. Function \code{chaodist} lets you define your own
+  dissimilarities using terms that are supposed to take into account the
+  \dQuote{unseen species} (see Chao et al., 2005 and Details in
+  \code{\link{vegdist}}).
 
 }
 \usage{
 designdist(x, method = "(A+B-2*J)/(A+B)",
            terms = c("binary", "quadratic", "minimum"), 
            abcd = FALSE, alphagamma = FALSE, name, maxdist)
+designdist2(x, y, method = "(A+B-2*J)/(A+B)",
+           terms = c("binary", "quadratic", "minimum"),
+           abcd = FALSE, alphagamma = FALSE, name, maxdist)
 chaodist(x, method = "1 - 2*U*V/(U+V)", name)
 }
 
 \arguments{
-  \item{x}{Input data. }
+  \item{x}{Input data.}
+  \item{y}{Another input data set: dissimilarities will be calculated
+    among rows of \code{x} and rows of \code{y}.}
   \item{method}{Equation for your dissimilarities. This can use terms
     \code{J} for shared quantity, \code{A} and \code{B} for totals,
     \code{N} for the number of rows (sites) and \code{P} for the
