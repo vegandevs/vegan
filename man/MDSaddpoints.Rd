@@ -42,7 +42,7 @@ dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
 \value{
 Function return a list of class \code{"nmds"} (there are no other
 objects of that type in \pkg{vegan}) with following elements
-\itemize{
+
   \item{points: }{Coordinates of all points, the first being fixed and the
     last the new points.}
   \item{newpoints: }{Coordinates of added new points; the same as the last
@@ -51,7 +51,7 @@ objects of that type in \pkg{vegan}) with following elements
   \item{iters: }{Number of iterations.}
   \item{cause: }{Cause of termination of iterations (numeric).}
   \item{seeds: }{Starting coordinates for new points.}
-}
+
 }
 
 \details{
