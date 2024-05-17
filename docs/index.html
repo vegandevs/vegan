@@ -89,13 +89,8 @@
 </h2>
 <p>If you just want to install a binary version of the packages, just as you would from CRAN, you can install from our R Universe repository. Run the following in your R session:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Enable repository from vegandevs</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  vegandevs <span class="op">=</span> <span class="st">'https://vegandevs.r-universe.dev'</span>,</span>
-<span>  CRAN <span class="op">=</span> <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Download and install vegan in R</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'vegan'</span><span class="op">)</span></span></code></pre></div>
-<p>To make this permanent, you’ll need to include the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> part of that in your person R settings file, typically a <code>.Rprofile</code> profile in your home drive. See <code><a href="https://rdrr.io/r/base/Startup.html" class="external-link">?Startup</a></code>.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'vegan'</span>,</span>
+<span>    repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://vegandevs.r-universe.dev'</span>,<span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 
