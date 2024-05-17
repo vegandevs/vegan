@@ -84,9 +84,9 @@ d <- vegdist(dune)
 ## remove point 3 from ordination
 mod3 <- metaMDS(dist2xy(d, 3, "xx", invert = TRUE), trace=0)
 ## add point 3 to the result
-MDSaddpoints(mod3, dist2xy(d, 3))
+str(MDSaddpoints(mod3, dist2xy(d, 3)))
 ## Use designdist2
 d15 <- designdist(dune[1:15,])
 m15 <- metaMDS(d15, trace=0)
-MDSaddpoints(m15, designdist2(dune[1:15,], dune[16:20,]))
+str(MDSaddpoints(m15, designdist2(dune[1:15,], dune[16:20,])))
 }
