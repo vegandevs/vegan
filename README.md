@@ -30,12 +30,7 @@ remotes::install_github("vegandevs/vegan")
 If you just want to install a binary version of the packages, just as you would from CRAN, you can install from our R Universe repository. Run the following in your R session:
 
 ```r
-# Enable repository from vegandevs
-options(repos = c(
-  vegandevs = 'https://vegandevs.r-universe.dev',
-  CRAN = 'https://cloud.r-project.org'))
-# Download and install vegan in R
-install.packages('vegan')
+install.packages('vegan',
+    repos = c('https://vegandevs.r-universe.dev','https://cloud.r-project.org'))
 ```
 
-To make this permanent, you'll need to include the `options()` part of that in your person R settings file, typically a `.Rprofile` profile in your home drive. See `?Startup`.

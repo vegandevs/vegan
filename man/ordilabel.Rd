@@ -48,7 +48,8 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
   particular together with argument \code{priority}. You will not see
   all text labels, but at least some are readable. Other alternatives to
   crowded plots are \code{\link{identify.ordiplot}},
-  \code{\link{orditorp}} and \code{\link{orditkplot}}.  }
+  \code{\link{orditorp}} and \code{\link[vegan3d]{orditkplot}} (in
+  \pkg{vegan3d} package).  }
 
 \author{ Jari Oksanen }
 
