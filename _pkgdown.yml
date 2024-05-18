@@ -1,11 +1,17 @@
 home:
   title: "vegan: an R package for community ecologists"
   description: "Ordination methods, diversity analysis and other functions for community and vegetation ecologists."
+  links:
+  - text: R-universe
+    href: https://vegandevs.r-universe.dev/vegan
 
 url: https://vegandevs.github.io/vegan/
 
 deploy:
   install_metadata: true
+
+development:
+  mode: auto
 
 template:
   bootstrap: 5

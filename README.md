@@ -4,13 +4,22 @@ Ordination methods, diversity analysis and other functions for community and
 vegetation ecologists.
 
 <!-- badges: start -->
-[![R build
-status](https://github.com/vegandevs/vegan/workflows/R-CMD-check/badge.svg)](https://github.com/vegandevs/vegan/actions)
+[![R-CMD-check](https://github.com/vegandevs/vegan/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vegandevs/vegan/actions/workflows/R-CMD-check.yaml)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/vegan)](https://cran.r-project.org/package=vegan)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/vegan)](http://cran.rstudio.com/web/packages/vegan/index.html)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/vegan)](http://cran.rstudio.com/web/packages/vegan/index.html)
+[![R-universe](https://vegandevs.r-universe.dev/badges/vegan)](https://vegandevs.r-universe.dev/vegan)
 <!-- badges: end -->
 
 Website for the development version of the **vegan** package.
+
+Vignettes are available on [R-universe](https://vegandevs.r-universe.dev/vegan)
+
+* [Introduction to ordination in vegan](https://vegandevs.r-universe.dev/vegan/doc/intro-vegan.pdf)
+* [Partition of Variation](https://vegandevs.r-universe.dev/vegan/doc/partitioning.pdf)
+* [Diversity analysis in vegan](https://vegandevs.r-universe.dev/vegan/doc/diversity-vegan.pdf)
+* [Design decisions and implementation](https://vegandevs.r-universe.dev/vegan/doc/decision-vegan.pdf)
+
+
 
 # Installation
 
