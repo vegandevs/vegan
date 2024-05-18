@@ -5,5 +5,5 @@
 *-Ex.R
 
 ## ignore backup files
-*~
 
+.Rproj.user
