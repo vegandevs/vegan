@@ -5,7 +5,7 @@ The make.commsim function returns various predefined algorithm types
 (see Details).
 These functions represent low level interface for community null model
 infrastructure in vegan with the intent of extensibility,
-and less emphasis on direct use by users."><title>Create an Object for Null Model Algorithms — commsim • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create an Object for Null Model Algorithms — commsim"><meta property="og:description" content="The commsim function can be used to feed Null Model algorithms into
+and less emphasis on direct use by users."><title>Create an Object for Null Model Algorithms — commsim • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Create an Object for Null Model Algorithms — commsim"><meta property="og:description" content="The commsim function can be used to feed Null Model algorithms into
 nullmodel analysis.
 The make.commsim function returns various predefined algorithm types
 (see Details).
@@ -18,11 +18,11 @@ and less emphasis on direct use by users."><!-- mathjax --><script src="https://
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +38,9 @@ and less emphasis on direct use by users."><!-- mathjax --><script src="https://
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -72,47 +75,79 @@ and less emphasis on direct use by users.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">commsim</span><span class="op">(</span><span class="va">method</span>, <span class="va">fun</span>, <span class="va">binary</span>, <span class="va">isSeq</span>, <span class="va">mode</span><span class="op">)</span>
-<span class="fu">make.commsim</span><span class="op">(</span><span class="va">method</span><span class="op">)</span>
-<span class="co"># S3 method for commsim</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">commsim</span><span class="op">(</span><span class="va">method</span>, <span class="va">fun</span>, <span class="va">binary</span>, <span class="va">isSeq</span>, <span class="va">mode</span><span class="op">)</span></span>
+<span><span class="fu">make.commsim</span><span class="op">(</span><span class="va">method</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for commsim</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>method</dt>
 <dd><p>Character, name of the algorithm.</p></dd>
-<dt>fun</dt>
+
+  <dt>fun</dt>
 <dd><p>A function. For possible formal arguments of this function
 see Details.</p></dd>
-<dt>binary</dt>
+
+  <dt>binary</dt>
 <dd><p>Logical, if the algorithm applies to presence-absence or count matrices.</p></dd>
-<dt>isSeq</dt>
+
+  <dt>isSeq</dt>
 <dd><p>Logical, if the algorithm is sequential (needs burnin and thinning) or not.</p></dd>
-<dt>mode</dt>
+
+  <dt>mode</dt>
 <dd><p>Character, storage mode of the community matrix, either
 <code>"integer"</code> or <code>"double"</code>.</p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>An object of class <code>commsim</code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Additional arguments.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The function <code>fun</code> must return an array of <code>dim(nr, nc, n)</code>,
-and must take some of the following arguments:</p><ul><li><p><code>x</code>: input matrix,</p></li>
-<li><p><code>n</code>: number of permuted matrices in output,</p></li>
-<li><p><code>nr</code>: number of rows,</p></li>
-<li><p><code>nc</code>: number of columns,</p></li>
-<li><p><code>rs</code>: vector of row sums,</p></li>
-<li><p><code>cs</code>: vector of column sums,</p></li>
-<li><p><code>rf</code>: vector of row frequencies (non-zero cells),</p></li>
-<li><p><code>cf</code>: vector of column frequencies (non-zero cells),</p></li>
-<li><p><code>s</code>: total sum of <code>x</code>,</p></li>
-<li><p><code>fill</code>: matrix fill (non-zero cells),</p></li>
-<li><p><code>thin</code>: thinning value for sequential algorithms,</p></li>
-<li><p><code>...</code>: additional arguments.</p></li>
-</ul><p>You can define your own null model, but
+and must take some of the following arguments:</p><dl><dt><code>x</code>: </dt>
+<dd><p>input matrix,</p></dd>
+
+  <dt><code>n</code>: </dt>
+<dd><p>number of permuted matrices in output,</p></dd>
+
+  <dt><code>nr</code>: </dt>
+<dd><p>number of rows,</p></dd>
+
+  <dt><code>nc</code>: </dt>
+<dd><p>number of columns,</p></dd>
+
+  <dt><code>rs</code>: </dt>
+<dd><p>vector of row sums,</p></dd>
+
+  <dt><code>cs</code>: </dt>
+<dd><p>vector of column sums,</p></dd>
+
+  <dt><code>rf</code>: </dt>
+<dd><p>vector of row frequencies (non-zero cells),</p></dd>
+
+  <dt><code>cf</code>: </dt>
+<dd><p>vector of column frequencies (non-zero cells),</p></dd>
+
+  <dt><code>s</code>: </dt>
+<dd><p>total sum of <code>x</code>,</p></dd>
+
+  <dt><code>fill</code>: </dt>
+<dd><p>matrix fill (non-zero cells),</p></dd>
+
+  <dt><code>thin</code>: </dt>
+<dd><p>thinning value for sequential algorithms,</p></dd>
+
+  <dt><code>...</code>: </dt>
+<dd><p>additional arguments.</p></dd>
+
+
+</dl><p>You can define your own null model, but
   several null model algorithm are pre-defined and can be called by
   their name. The predefined algorithms are described in detail in the
   following chapters. The binary null models produce matrices of zeros
@@ -143,37 +178,62 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
   first ones are sequential but the two latter are non-sequential
   and produce independent matrices. Basic algorithms are reviewed by
   Wright et al. (1998).</p>
-<ul><li><p><code>"r00"</code>: non-sequential algorithm for binary matrices
-    that only  preserves the number of presences (fill).</p></li>
-<li><p><code>"r0"</code>: non-sequential algorithm for binary
-    matrices that preserves the site (row) frequencies.</p></li>
-<li><p><code>"r1"</code>: non-sequential algorithm for binary matrices
+<dl><dt><code>"r00"</code>: </dt>
+<dd><p>non-sequential algorithm for binary matrices
+    that only  preserves the number of presences (fill).</p></dd>
+
+
+  <dt><code>"r0"</code>: </dt>
+<dd><p>non-sequential algorithm for binary
+    matrices that preserves the site (row) frequencies.</p></dd>
+
+
+  <dt><code>"r1"</code>: </dt>
+<dd><p>non-sequential algorithm for binary matrices
     that preserves the site (row) frequencies, but uses column marginal
-    frequencies as probabilities of selecting species.</p></li>
-<li><p><code>"r2"</code>: non-sequential algorithm for binary matrices
+    frequencies as probabilities of selecting species.</p></dd>
+
+
+  <dt><code>"r2"</code>: </dt>
+<dd><p>non-sequential algorithm for binary matrices
     that preserves the site (row) frequencies, and uses squared column
-    marginal frequencies as as probabilities of selecting species.</p></li>
-<li><p><code>"c0"</code>: non-sequential algorithm for binary matrices
-    that preserves species frequencies (Jonsson 2001).</p></li>
-<li><p><code>"swap"</code>: sequential algorithm for binary matrices that
+    marginal frequencies as as probabilities of selecting species.</p></dd>
+
+
+  <dt><code>"c0"</code>: </dt>
+<dd><p>non-sequential algorithm for binary matrices
+    that preserves species frequencies (Jonsson 2001).</p></dd>
+
+
+  <dt><code>"swap"</code>: </dt>
+<dd><p>sequential algorithm for binary matrices that
     changes the matrix structure, but does not influence marginal sums
-    (Gotelli &amp; Entsminger 2003).  This inspects \(2 \times 2\) submatrices so long that a swap can be done.</p></li>
-<li><p><code>"tswap"</code>: sequential algorithm for binary matrices.
+    (Gotelli &amp; Entsminger 2003).  This inspects \(2 \times 2\) submatrices so long that a swap can be done.</p></dd>
+
+
+  <dt><code>"tswap"</code>: </dt>
+<dd><p>sequential algorithm for binary matrices.
     Same as the <code>"swap"</code> algorithm, but it tries a fixed
     number of times and performs zero to many swaps at one step
     (according to the thin argument in the call). This
     approach was suggested by Miklós &amp; Podani (2004)
     because they found that ordinary swap may lead to biased
-    sequences, since some columns or rows are more easily swapped.</p></li>
-<li><p><code>"curveball"</code>: sequential method for binary matrices that
+    sequences, since some columns or rows are more easily swapped.</p></dd>
+
+
+  <dt><code>"curveball"</code>: </dt>
+<dd><p>sequential method for binary matrices that
     implements the ‘Curveball’ algorithm of Strona et
     al. (2014). The algorithm selects two random rows and finds the set
     of unique species that occur only in one of these rows. The
     algorithm distributes the set of unique species to rows preserving
     the original row frequencies.  Zero to several species are swapped
     in one step, and usually the matrix is perturbed more strongly than
-    in other sequential methods.</p></li>
-<li><p><code>"quasiswap"</code>: non-sequential algorithm for binary
+    in other sequential methods.</p></dd>
+
+
+  <dt><code>"quasiswap"</code>: </dt>
+<dd><p>non-sequential algorithm for binary
     matrices that implements a method where matrix is first filled
     honouring row and column totals, but with integers that may be
     larger than one.  Then the method inspects random
@@ -184,8 +244,11 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
     <code>thin</code> argument: the convergence is checked at every
     <code>thin</code> steps. This allows performing several ordinary swaps in
     addition to fill changing swaps which helps in reducing or removing
-    the bias.</p></li>
-<li><p><code>"greedyqswap"</code>: A greedy variant of quasiswap. In
+    the bias.</p></dd>
+
+
+  <dt><code>"greedyqswap"</code>: </dt>
+<dd><p>A greedy variant of quasiswap. In
     greedy step, one element of the \(2 \times 2\) matrix is
     taken from \(&gt; 1\) elements. The greedy steps are biased, but
     the method can be thinned, and only the first of <code>thin</code>
@@ -193,8 +256,11 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
     removes or reduces the bias, and <code>thin = 100</code> (1% greedy
     steps) looks completely safe and still speeds up simulation. The
     code is experimental and it is provided here for further scrutiny,
-    and should be tested for bias before use.</p></li>
-<li><p><code>"backtracking"</code>: non-sequential algorithm for binary
+    and should be tested for bias before use.</p></dd>
+
+
+  <dt><code>"backtracking"</code>: </dt>
+<dd><p>non-sequential algorithm for binary
     matrices that implements a filling method with constraints both for
     row and column frequencies (Gotelli &amp; Entsminger 2001).  The matrix
     is first filled randomly, but typically row and column sums are
@@ -202,8 +268,11 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
     "backtracking", where some of the incidences are removed, and
     filling is started again, and this backtracking is done so many
     times that all incidences will be filled into matrix.  The results
-    may be biased and should be inspected carefully before use.</p></li>
-</ul></div>
+    may be biased and should be inspected carefully before use.</p></dd>
+
+
+
+</dl></div>
     <div class="section level2">
     <h2 id="quantitative-models-for-counts-with-fixed-marginal-sums">Quantitative Models for Counts with Fixed Marginal Sums<a class="anchor" aria-label="anchor" href="#quantitative-models-for-counts-with-fixed-marginal-sums"></a></h2>
     
@@ -215,10 +284,14 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
   Algorithm <code>quasiswap_count</code> uses the same, but preserves the
   original fill. Typically this means increasing numbers of zero cells
   and the result is zero-inflated with respect to <code>r2dtable</code>.</p>
-<ul><li><p><code>"r2dtable"</code>: non-sequential algorithm for count
+<dl><dt><code>"r2dtable"</code>: </dt>
+<dd><p>non-sequential algorithm for count
     matrices.  This algorithm keeps matrix sum and row/column sums
-    constant. Based on <code><a href="https://rdrr.io/r/stats/r2dtable.html" class="external-link">r2dtable</a></code>.</p></li>
-<li><p><code>"quasiswap_count"</code>: non-sequential algorithm for count
+    constant. Based on <code><a href="https://rdrr.io/r/stats/r2dtable.html" class="external-link">r2dtable</a></code>.</p></dd>
+
+
+  <dt><code>"quasiswap_count"</code>: </dt>
+<dd><p>non-sequential algorithm for count
     matrices.  This algorithm is similar as Carsten Dormann's
     <code>swap.web</code> function in the package
     <span class="pkg">bipartite</span>. First, a random matrix is generated by the
@@ -227,8 +300,10 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
     increase or decrease matrix fill in the random matrix. These steps
     are based on swapping \(2 \times 2\) submatrices (see
     <code>"swap_count"</code> algorithm for details) to maintain row and
-    column totals.</p></li>
-</ul></div>
+    column totals.</p></dd>
+
+
+</dl></div>
     <div class="section level2">
     <h2 id="quantitative-swap-models">Quantitative Swap Models<a class="anchor" aria-label="anchor" href="#quantitative-swap-models"></a></h2>
     
@@ -244,28 +319,37 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
   used without inspecting their properties for the current data. These
   null models can also be defined using <code><a href="permatfull.html">permatswap</a></code>
   function.</p>
-<p></p><ul><li><p><code>"swap_count"</code>: sequential algorithm for count matrices.
+<p></p><dl><dt><code>"swap_count"</code>: </dt>
+<dd><p>sequential algorithm for count matrices.
     This algorithm find \(2 \times 2\) submatrices that can be
     swapped leaving column and row totals and fill unchanged. The
     algorithm finds the largest value in the submatrix that can be
     swapped (\(d\)). Swap means that the values in diagonal or
     antidiagonal positions are decreased by \(d\), while remaining
     cells are increased by \(d\). A swap is made only if fill does not
-    change.</p></li>
-<li><p><code>"abuswap_r"</code>: sequential algorithm for count or
+    change.</p></dd>
+
+
+   <dt><code>"abuswap_r"</code>: </dt>
+<dd><p>sequential algorithm for count or
     nonnegative real valued matrices with fixed row frequencies (see
     also <code><a href="permatfull.html">permatswap</a></code>).  The algorithm is similar to
     <code>swap_count</code>, but uses different swap value for each row of the
     \(2 \times 2\) submatrix. Each step changes the the
     corresponding column sums, but honours matrix fill, row sums, and
-    row/column frequencies (Hardy 2008; randomization scheme 2x).</p></li>
-<li><p><code>"abuswap_c"</code>: sequential algorithm for count or
+    row/column frequencies (Hardy 2008; randomization scheme 2x).</p></dd>
+
+
+  <dt><code>"abuswap_c"</code>: </dt>
+<dd><p>sequential algorithm for count or
     nonnegative real valued matrices with fixed column frequencies
     (see also <code><a href="permatfull.html">permatswap</a></code>).  The algorithm is similar as
     the previous one, but operates on columns.  Each step changes the
     the corresponding row sums, but honours matrix fill, column sums,
-    and row/column frequencies (Hardy 2008; randomization scheme 3x).</p></li>
-</ul><p></p>
+    and row/column frequencies (Hardy 2008; randomization scheme 3x).</p></dd>
+
+    
+</dl><p></p>
     </div>
     <div class="section level2">
     <h2 id="quantitative-swap-and-shuffle-models">Quantitative Swap and Shuffle Models<a class="anchor" aria-label="anchor" href="#quantitative-swap-and-shuffle-models"></a></h2>
@@ -283,22 +367,40 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
   (<code>c</code> methods). Shuffling within a row preserves row sums, and
   shuffling within a column preserves column sums. These models can
   also be defined with <code><a href="permatfull.html">permatswap</a></code>.</p>
-<ul><li><p><code>"swsh_samp"</code>: non-sequential algorithm for
+<dl><dt><code>"swsh_samp"</code>: </dt>
+<dd><p>non-sequential algorithm for
     quantitative data (either integer counts or non-integer values).
-    Original non-zero values values are shuffled.</p></li>
-<li><p><code>"swsh_both"</code>: non-sequential algorithm for count data.
-    Individuals are shuffled freely over non-zero cells.</p></li>
-<li><p><code>"swsh_samp_r"</code>: non-sequential algorithm for
+    Original non-zero values values are shuffled.</p></dd>
+
+
+  <dt><code>"swsh_both"</code>: </dt>
+<dd><p>non-sequential algorithm for count data.
+    Individuals are shuffled freely over non-zero cells.</p></dd>
+
+
+  <dt><code>"swsh_samp_r"</code>: </dt>
+<dd><p>non-sequential algorithm for
     quantitative data.  Non-zero values (samples) are shuffled
-    separately for each row.</p></li>
-<li><p><code>"swsh_samp_c"</code>: non-sequential algorithm for
+    separately for each row.</p></dd>
+
+
+  <dt><code>"swsh_samp_c"</code>: </dt>
+<dd><p>non-sequential algorithm for
     quantitative data.  Non-zero values (samples) are shuffled
-    separately for each column.</p></li>
-<li><p><code>"swsh_both_r"</code>: non-sequential algorithm for count matrices.
-    Individuals are shuffled freely for non-zero values within each row.</p></li>
-<li><p><code>"swsh_both_c"</code>: non-sequential algorithm for count matrices.
-    Individuals are shuffled freely for non-zero values with each column.</p></li>
-</ul></div>
+    separately for each column.</p></dd>
+
+
+  <dt><code>"swsh_both_r"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
+    Individuals are shuffled freely for non-zero values within each row.</p></dd>
+
+
+  <dt><code>"swsh_both_c"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
+    Individuals are shuffled freely for non-zero values with each column.</p></dd>
+
+
+</dl></div>
     <div class="section level2">
     <h2 id="quantitative-shuffle-methods">Quantitative Shuffle Methods<a class="anchor" aria-label="anchor" href="#quantitative-shuffle-methods"></a></h2>
     
@@ -316,43 +418,74 @@ and must take some of the following arguments:</p><ul><li><p><code>x</code>: inp
   non-zero values. The shuffling is over the whole matrix in
   <code>r00_</code>, and within row in <code>r0_</code> and within column in
   <code>c0_</code> in all cases.</p>
-<ul><li><p><code>"r00_ind"</code>: non-sequential algorithm for count matrices.
+<dl><dt><code>"r00_ind"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
     This algorithm preserves grand sum and
-    individuals are shuffled among cells of the matrix.</p></li>
-<li><p><code>"r0_ind"</code>: non-sequential algorithm for count matrices.
+    individuals are shuffled among cells of the matrix.</p></dd>
+
+
+  <dt><code>"r0_ind"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
     This algorithm preserves row sums and
-    individuals are shuffled among cells of each row of the matrix.</p></li>
-<li><p><code>"c0_ind"</code>: non-sequential algorithm for count matrices.
+    individuals are shuffled among cells of each row of the matrix.</p></dd>
+
+
+  <dt><code>"c0_ind"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
     This algorithm preserves column sums and
-    individuals are shuffled among cells of each column of the matrix.</p></li>
-<li><p><code>"r00_samp"</code>: non-sequential algorithm for count
+    individuals are shuffled among cells of each column of the matrix.</p></dd>
+
+
+  <dt><code>"r00_samp"</code>: </dt>
+<dd><p>non-sequential algorithm for count
     or nonnegative real valued (<code>mode = "double"</code>) matrices.
     This algorithm preserves grand sum and
-    cells of the matrix are shuffled.</p></li>
-<li><p><code>"r0_samp"</code>: non-sequential algorithm for count
+    cells of the matrix are shuffled.</p></dd>
+
+
+  <dt><code>"r0_samp"</code>: </dt>
+<dd><p>non-sequential algorithm for count
     or nonnegative real valued (<code>mode = "double"</code>) matrices.
     This algorithm preserves row sums and
-    cells within each row are shuffled.</p></li>
-<li><p><code>"c0_samp"</code>: non-sequential algorithm for count
+    cells within each row are shuffled.</p></dd>
+
+
+  <dt><code>"c0_samp"</code>: </dt>
+<dd><p>non-sequential algorithm for count
     or nonnegative real valued (<code>mode = "double"</code>) matrices.
     This algorithm preserves column sums constant and
-    cells within each column are shuffled.</p></li>
-<li><p><code>"r00_both"</code>: non-sequential algorithm for count matrices.
+    cells within each column are shuffled.</p></dd>
+
+
+  <dt><code>"r00_both"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
     This algorithm preserves grand sum and
-    cells and individuals among cells of the matrix are shuffled.</p></li>
-<li><p><code>"r0_both"</code>: non-sequential algorithm for count matrices.
+    cells and individuals among cells of the matrix are shuffled.</p></dd>
+
+
+  <dt><code>"r0_both"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
     This algorithm preserves grand sum and
-    cells and individuals among cells of each row are shuffled.</p></li>
-<li><p><code>"c0_both"</code>: non-sequential algorithm for count matrices.
+    cells and individuals among cells of each row are shuffled.</p></dd>
+
+
+  <dt><code>"c0_both"</code>: </dt>
+<dd><p>non-sequential algorithm for count matrices.
     This algorithm preserves grand sum and
-    cells and individuals among cells of each column are shuffled.</p></li>
-</ul></div>
+    cells and individuals among cells of each column are shuffled.</p></dd>
+
+
+</dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object of class <code>commsim</code> with elements
+    
+
+<p>An object of class <code>commsim</code> with elements
 corresponding to the arguments (<code>method</code>, <code>binary</code>,
-<code>isSeq</code>, <code>mode</code>, <code>fun</code>).
-If the input of <code>make.comsimm</code> is a <code>commsim</code> object,
+<code>isSeq</code>, <code>mode</code>, <code>fun</code>).</p>
+
+
+<p>If the input of <code>make.comsimm</code> is a <code>commsim</code> object,
 it is returned without further evaluation. If this is not the case,
 the character <code>method</code> argument is matched against
 predefined algorithm names. An error message is issued
@@ -383,7 +516,7 @@ null model algorithms as a character vector.</p>
   San-Miguel-Ayanz, J. (2014). A fast and unbiased procedure to
   randomize ecological binary matrices with fixed row and column
   totals. <em>Nature Communications</em> 5:4114
-  doi: <a href="https://doi.org/10.1038/ncomms5114" class="external-link">10.1038/ncomms5114</a>
+  <a href="https://doi.org/10.1038/ncomms5114" class="external-link">doi:10.1038/ncomms5114</a>
 .</p>
 <p>Wright, D.H., Patterson, B.D., Mikkelson, G.M., Cutler, A. &amp; Atmar,
   W. (1998). A comparative analysis of nested subset patterns of species
@@ -405,68 +538,68 @@ generate arrays of simulated null model matrices.</p></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## write the r00 algorithm</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu">commsim</span><span class="op">(</span><span class="st">"r00"</span>, fun<span class="op">=</span><span class="va">f</span>, binary<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span class="r-in">    isSeq<span class="op">=</span><span class="cn">FALSE</span>, mode<span class="op">=</span><span class="st">"integer"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## write the r00 algorithm</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">...</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="va">n</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu">commsim</span><span class="op">(</span><span class="st">"r00"</span>, fun<span class="op">=</span><span class="va">f</span>, binary<span class="op">=</span><span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>    isSeq<span class="op">=</span><span class="cn">FALSE</span>, mode<span class="op">=</span><span class="st">"integer"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “commsim” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘r00’ method (binary, non-sequential, integer mode)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## retrieving the sequential swap algorithm</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu">make.commsim</span><span class="op">(</span><span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## retrieving the sequential swap algorithm</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu">make.commsim</span><span class="op">(</span><span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “commsim” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential, integer mode)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## feeding a commsim object as argument</span></span>
-<span class="r-in"><span class="fu">make.commsim</span><span class="op">(</span><span class="va">cs</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## feeding a commsim object as argument</span></span></span>
+<span class="r-in"><span><span class="fu">make.commsim</span><span class="op">(</span><span class="va">cs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “commsim” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential, integer mode)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## making the missing c1 model using r1 as a template</span></span>
-<span class="r-in"><span class="co">##   non-sequential algorithm for binary matrices</span></span>
-<span class="r-in"><span class="co">##   that preserves the species (column) frequencies,</span></span>
-<span class="r-in"><span class="co">##   but uses row marginal frequencies</span></span>
-<span class="r-in"><span class="co">##   as probabilities of selecting sites</span></span>
-<span class="r-in"><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">nr</span>, <span class="va">nc</span>, <span class="va">rs</span>, <span class="va">cs</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">nr</span>, <span class="va">nc</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">J</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/mode.html" class="external-link">storage.mode</a></span><span class="op">(</span><span class="va">rs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"double"</span></span>
-<span class="r-in">    <span class="kw">for</span> <span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">        <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="va">J</span><span class="op">)</span></span>
-<span class="r-in">            <span class="va">out</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="va">nr</span>, <span class="va">cs</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, prob <span class="op">=</span> <span class="va">rs</span><span class="op">)</span>, <span class="va">j</span>, <span class="va">k</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span>
-<span class="r-in">    <span class="va">out</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu">make.commsim</span><span class="op">(</span><span class="st">"r1"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">cs</span><span class="op">$</span><span class="va">method</span> <span class="op">&lt;-</span> <span class="st">"c1"</span></span>
-<span class="r-in"><span class="va">cs</span><span class="op">$</span><span class="va">fun</span> <span class="op">&lt;-</span> <span class="va">f</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## structural constraints</span></span>
-<span class="r-in"><span class="va">diagfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span class="r-in">        fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>,</span>
-<span class="r-in">        rowSums <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">        colSums <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">        rowFreq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
-<span class="r-in">        colFreq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">evalfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">meth</span>, <span class="va">x</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="nullmodel.html">nullmodel</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">meth</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">m</span>, nsim<span class="op">=</span><span class="va">n</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
-<span class="r-in">        <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">diagfun</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"data"</span><span class="op">)</span>, <span class="va">y</span><span class="op">[</span>,,<span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"binary"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"isSeq"</span><span class="op">)</span>,</span>
-<span class="r-in">        <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"mode"</span><span class="op">)</span> <span class="op">==</span> <span class="st">"double"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>, <span class="st">"isSeq"</span>, <span class="st">"double"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">z</span>, <span class="va">out</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fl">10</span><span class="op">*</span><span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fl">10</span><span class="op">*</span><span class="fl">12</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">algos</span> <span class="op">&lt;-</span> <span class="fu">make.commsim</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">algos</span>, <span class="va">evalfun</span>, x<span class="op">=</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">a</span><span class="op">==</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>, zero.print <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## making the missing c1 model using r1 as a template</span></span></span>
+<span class="r-in"><span><span class="co">##   non-sequential algorithm for binary matrices</span></span></span>
+<span class="r-in"><span><span class="co">##   that preserves the species (column) frequencies,</span></span></span>
+<span class="r-in"><span><span class="co">##   but uses row marginal frequencies</span></span></span>
+<span class="r-in"><span><span class="co">##   as probabilities of selecting sites</span></span></span>
+<span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">nr</span>, <span class="va">nc</span>, <span class="va">rs</span>, <span class="va">cs</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fl">0L</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">nr</span>, <span class="va">nc</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">J</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">nc</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/mode.html" class="external-link">storage.mode</a></span><span class="op">(</span><span class="va">rs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"double"</span></span></span>
+<span class="r-in"><span>    <span class="kw">for</span> <span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="va">J</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="va">out</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample.int</a></span><span class="op">(</span><span class="va">nr</span>, <span class="va">cs</span><span class="op">[</span><span class="va">j</span><span class="op">]</span>, prob <span class="op">=</span> <span class="va">rs</span><span class="op">)</span>, <span class="va">j</span>, <span class="va">k</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1L</span></span></span>
+<span class="r-in"><span>    <span class="va">out</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">cs</span> <span class="op">&lt;-</span> <span class="fu">make.commsim</span><span class="op">(</span><span class="st">"r1"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cs</span><span class="op">$</span><span class="va">method</span> <span class="op">&lt;-</span> <span class="st">"c1"</span></span></span>
+<span class="r-in"><span><span class="va">cs</span><span class="op">$</span><span class="va">fun</span> <span class="op">&lt;-</span> <span class="va">f</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## structural constraints</span></span></span>
+<span class="r-in"><span><span class="va">diagfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>sum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        rowSums <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        colSums <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        rowFreq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        colFreq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html" class="external-link">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">evalfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">meth</span>, <span class="va">x</span>, <span class="va">n</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="nullmodel.html">nullmodel</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">meth</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">m</span>, nsim<span class="op">=</span><span class="va">n</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>        <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">diagfun</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"data"</span><span class="op">)</span>, <span class="va">y</span><span class="op">[</span>,,<span class="va">i</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"binary"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"isSeq"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">y</span>, <span class="st">"mode"</span><span class="op">)</span> <span class="op">==</span> <span class="st">"double"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>, <span class="st">"isSeq"</span>, <span class="st">"double"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">z</span>, <span class="va">out</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="fl">10</span><span class="op">*</span><span class="fl">12</span>, <span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html" class="external-link">rpois</a></span><span class="op">(</span><span class="fl">10</span><span class="op">*</span><span class="fl">12</span>, <span class="fl">3</span><span class="op">)</span>, <span class="fl">12</span>, <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">algos</span> <span class="op">&lt;-</span> <span class="fu">make.commsim</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">algos</span>, <span class="va">evalfun</span>, x<span class="op">=</span><span class="va">x</span>, n<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">a</span><span class="op">==</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>, zero.print <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 binary isSeq double sum fill rowSums colSums rowFreq colFreq</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> r00                  1     .      .   1    1       .       .       .       .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> c0                   1     .      .   1    1       .       1       .       1</span>
@@ -506,11 +639,11 @@ generate arrays of simulated null model matrices.</p></div>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

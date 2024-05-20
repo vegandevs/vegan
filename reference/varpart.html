@@ -7,7 +7,7 @@ The function partitions the variation in community data or community
   ordination (RDA) or distance-based redundancy analysis. If response
   is a single vector, partitioning is by partial regression. Collinear
   variables in the explanatory tables do NOT have to be removed prior
-  to partitioning."><title>Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices — varpart • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices — varpart"><meta property="og:description" content=" 
+  to partitioning."><title>Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices — varpart • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Partition the Variation of Community Matrix by 2, 3, or 4 Explanatory Matrices — varpart"><meta property="og:description" content=" 
 
 The function partitions the variation in community data or community
   dissimilarities with respect to two, three, or four explanatory
@@ -22,11 +22,11 @@ The function partitions the variation in community data or community
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,9 @@ The function partitions the variation in community data or community
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -78,12 +81,14 @@ The function partitions the variation in community data or community
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">varpart</span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, <span class="va">...</span>, <span class="va">data</span>, chisquare <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">transfo</span>, scale <span class="op">=</span> <span class="cn">FALSE</span>,
-    add <span class="op">=</span> <span class="cn">FALSE</span>, sqrt.dist <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">permutations</span><span class="op">)</span>
-<span class="fu">showvarparts</span><span class="op">(</span><span class="va">parts</span>, <span class="va">labels</span>, bg <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">63</span>, <span class="va">Xnames</span>,
-    id.size <span class="op">=</span> <span class="fl">1.2</span>,  <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for varpart234</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, cutoff <span class="op">=</span> <span class="fl">0</span>, digits <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">varpart</span><span class="op">(</span><span class="va">Y</span>, <span class="va">X</span>, <span class="va">...</span>, <span class="va">data</span>, chisquare <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">transfo</span>, scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    add <span class="op">=</span> <span class="cn">FALSE</span>, sqrt.dist <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">permutations</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for varpart</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">showvarparts</span><span class="op">(</span><span class="va">parts</span>, <span class="va">labels</span>, bg <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">63</span>, <span class="va">Xnames</span>,</span>
+<span>    id.size <span class="op">=</span> <span class="fl">1.2</span>,  <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for varpart234</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, cutoff <span class="op">=</span> <span class="fl">0</span>, digits <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -93,6 +98,8 @@ The function partitions the variation in community data or community
   dissimilarity structure inheriting from <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>. In
   community ecology, that table is often a site-by-species table or a
   dissimilarity object.</p></dd>
+
+
 <dt>X</dt>
 <dd><p>Two to four explanatory models, variables or tables.  These can
   be defined in three alternative ways: (1) one-sided model formulae
@@ -107,24 +114,36 @@ The function partitions the variation in community data or community
   (<code>data</code> or <code>transfo</code>) are interpreted as explanatory models,
   and the names of these extra arguments cannot be abbreviated nor
   omitted.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Other parameters passed to functions. NB, arguments after
   dots cannot be abbreviated but they must be spelt out completely.</p></dd>
+
+
 <dt>data</dt>
 <dd><p>The data frame with the variables used in the formulae in
   <code>X</code>.</p></dd>
+
+
 <dt>chisquare</dt>
 <dd><p>Partition Chi-square or the inertia of Correspondence
   Analysis (<code><a href="cca.html">cca</a></code>).</p></dd>
+
+
 <dt>transfo</dt>
 <dd><p>Transformation for <code>Y</code> (community data) using
   <code><a href="decostand.html">decostand</a></code>.  All alternatives in <code>decostand</code> can
   be used, and those preserving Euclidean metric include
   <code>"hellinger"</code>, <code>"chi.square"</code>, <code>"total"</code>,
   <code>"norm"</code>. Ignored if <code>Y</code> are dissimilarities.</p></dd>
+
+
 <dt>scale</dt>
 <dd><p>Should the columns of <code>Y</code> be standardized to unit
   variance. Ignored if <code>Y</code> are dissimilarities.</p></dd>
+
+
 <dt>add</dt>
 <dd><p>Add a constant to the non-diagonal values to euclidify
   dissimilarities (see <code><a href="wcmdscale.html">wcmdscale</a></code> for details). Choice
@@ -132,11 +151,15 @@ The function partitions the variation in community data or community
   Legendre &amp; Anderson (1999: “method 1”) and <code>"cailliez"</code>
   uses their “method 2”. The argument has an effect only when
   <code>Y</code> are dissimilarities.</p></dd>
+
+
 <dt>sqrt.dist</dt>
 <dd><p>Take square root of dissimilarities. This often
   euclidifies dissimilarities. NB., the argument name cannot be
   abbreviated. The argument has an effect only when <code>Y</code> are
   dissimilarities.</p></dd>
+
+
 <dt>permutations</dt>
 <dd><p>If <code>chisquare = TRUE</code>, the adjusted
     \(R^2\) is estimated by permutations, and this
@@ -144,34 +167,48 @@ The function partitions the variation in community data or community
     returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the number
     of permutations required, or a permutation matrix where each row
     gives the permuted indices.</p></dd>
+
+
 <dt>parts</dt>
 <dd><p>Number of explanatory tables (circles) displayed.</p></dd>
+
 <dt>labels</dt>
 <dd><p>Labels used for displayed fractions. Default is to use
   the same letters as in the printed output.</p></dd>
+
 <dt>bg</dt>
 <dd><p>Fill colours of circles or ellipses.</p></dd>
+
 <dt>alpha</dt>
 <dd><p>Transparency of the fill colour.  The argument takes
     precedence over possible transparency definitions of the
     colour. The value must be in range \(0...255\), and low values
     are more transparent.  Transparency is not available in all
     graphics devices or file formats.</p></dd>
+
+  
 <dt>Xnames</dt>
 <dd><p>Names for sources of variation. Default names are <code>X1</code>,
   <code>X2</code>, <code>X3</code> and <code>X4</code>. <code>Xnames=NA</code>,
   <code>Xnames=NULL</code> and <code>Xnames=""</code> produce no names. The names
   can be changed to other names. It is often best to use short names.</p></dd>
+
+
 <dt>id.size</dt>
 <dd><p>A numerical value giving the character expansion factor
   for the names of circles or ellipses.</p></dd>
-<dt>x</dt>
+
+
+<dt>x, object</dt>
 <dd><p>The <code>varpart</code> result.</p></dd>
+
 <dt>cutoff</dt>
 <dd><p>The values below <code>cutoff</code> will not be displayed.</p></dd>
+
 <dt>digits</dt>
 <dd><p>The number of significant digits; the number of decimal
   places is at least one higher.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -186,14 +223,12 @@ The function partitions the variation in community data or community
   is a single variable, the partitioning is based on linear
   regression.  If <code>Y</code> are dissimilarities, the decomposition is
   based on distance-based redundancy analysis (db-RDA, see
-  <code><a href="capscale.html">capscale</a></code>) following McArdle &amp; Anderson (2001). The
+  <code><a href="dbrda.html">dbrda</a></code>) following McArdle &amp; Anderson (2001). The
   input dissimilarities must be compatible to the results of
   <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>. <span class="pkg">Vegan</span> functions <code><a href="vegdist.html">vegdist</a></code>,
   <code><a href="designdist.html">designdist</a></code>, <code><a href="raupcrick.html">raupcrick</a></code> and
   <code><a href="betadiver.html">betadiver</a></code> produce such objects, as do many other
-  dissimilarity functions in <span style="R">R</span> packages. However, symmetric square
-  matrices are not recognized as dissimilarities but must be
-  transformed with <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></code>.  Partitioning will be made
+  dissimilarity functions in <span style="R">R</span> packages. Partitioning will be made
   to squared dissimilarities analogously to using variance with
   rectangular data -- unless <code>sqrt.dist = TRUE</code> was specified.</p>
 <p>The function primarily uses adjusted \(R^2\) to assess
@@ -226,8 +261,8 @@ The function partitions the variation in community data or community
   source code.</p>
 <p>With two explanatory tables, the fractions explained 
   uniquely by each of the two tables are <code>[a]</code> and
-  <code>[c]</code>, and their joint effect
-  is  <code>[b]</code> following Borcard et al. (1992).</p>
+  <code>[b]</code>, and their joint effect
+  is  <code>[c]</code>.</p>
 <p>With three explanatory tables, the fractions explained uniquely
   by each of the three tables are  
   <code>[a]</code> to <code>[c]</code>, joint fractions between two tables are
@@ -239,6 +274,15 @@ The function partitions the variation in community data or community
   <code>[j]</code>, joint fractions between three variables are <code>[k]</code> to
   <code>[n]</code>, and the joint fraction between all four tables is
   <code>[o]</code>.</p>
+<p><code>summary</code> will give an overview of unique and and overall
+  contribution of each group of variables. The overall contribution
+  (labelled as “Contributed”) consists of the unique contribution
+  of the variable and equal shares of each fraction where the variable
+  contributes. The summary tabulates how each fraction is divided
+  between the variables, and the contributed component is the sum of all
+  these divided fractions. The summary is based on the idea of Lai et
+  al. (2022), and is similar to the output of their <a href="https://CRAN.R-project.org/package=rdacca.hp" class="external-link"><span class="pkg">rdacca.hp</span></a>
+  package.</p>
 <p>There is a <code>plot</code> function that displays the Venn diagram and
   labels each intersection (individual fraction) with the adjusted R
   squared if this is higher than <code>cutoff</code>.  A helper function
@@ -253,49 +297,71 @@ The function partitions the variation in community data or community
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>varpart</code> returns an
-  object of class <code>"varpart"</code> with items <code>scale</code> and
-<code>transfo</code> (can be missing) which hold information on
+    
+
+<p>Function <code>varpart</code> returns an
+  object of class <code>"varpart"</code> with items <code>scale</code> and</p>
+<p></p>
+<p><code>transfo</code> (can be missing) which hold information on
   standardizations, <code>tables</code> which contains names of explanatory
   tables, and <code>call</code> with the function <code><a href="https://rdrr.io/r/base/call.html" class="external-link">call</a></code>. The
-  function <code>varpart</code> calls function <code>varpart2</code>,
-<code>varpart3</code> or <code>varpart4</code> which return an object of class
-<code>"varpart234"</code> and saves its result in the item <code>part</code>.
+  function <code>varpart</code> calls function <code>varpart2</code>,</p>
+<p></p>
+<p><code>varpart3</code> or <code>varpart4</code> which return an object of class</p>
+<p></p>
+<p><code>"varpart234"</code> and saves its result in the item <code>part</code>.
   The items in this object are:</p>
 <dl><dt>SS.Y</dt>
 <dd><p>Sum of squares of matrix <code>Y</code>.</p></dd>
-<dt>n</dt>
+
+  <dt>n</dt>
 <dd><p>Number of observations (rows).</p></dd>
-<dt>nsets</dt>
+
+  <dt>nsets</dt>
 <dd><p>Number of explanatory tables</p></dd>
-<dt>bigwarning</dt>
+
+  <dt>bigwarning</dt>
 <dd><p>Warnings on collinearity.</p></dd>
-<dt>fract</dt>
+
+  <dt>fract</dt>
 <dd><p>Basic fractions from all estimated constrained models.</p></dd>
-<dt>indfract</dt>
+
+  <dt>indfract</dt>
 <dd><p>Individual fractions or all possible subsections in
     the Venn diagram (see <code>showvarparts</code>).</p></dd>
-<dt>contr1</dt>
+
+  <dt>contr1</dt>
 <dd><p>Fractions that can be found after conditioning on single
     explanatory table in models with three or four explanatory tables.</p></dd>
-<dt>contr2</dt>
+
+  <dt>contr2</dt>
 <dd><p>Fractions that can be found after conditioning on two
     explanatory tables in models with four explanatory tables.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="fraction-data-frames">Fraction Data Frames<a class="anchor" aria-label="anchor" href="#fraction-data-frames"></a></h2>
     <p>Items <code>fract</code>,
   <code>indfract</code>, <code>contr1</code> and <code>contr2</code> are all data frames with
-  items:</p><ul><li><p><code>Df</code>: Degrees of freedom of numerator of the \(F\)-statistic
-    for the fraction.</p></li>
-<li><p><code>R.square</code>: Raw \(R^2\). This is calculated only for
-    <code>fract</code> and this is <code>NA</code> in other items.</p></li>
-<li><p><code>Adj.R.square</code>: Adjusted \(R^2\).</p></li>
-<li><p><code>Testable</code>: If the fraction can be expressed as a (partial) RDA
+  items:</p><dl><dt><code>Df</code>: </dt>
+<dd><p>Degrees of freedom of numerator of the \(F\)-statistic
+    for the fraction.</p></dd>
+
+  <dt><code>R.square</code>: </dt>
+<dd><p>Raw \(R^2\). This is calculated only for
+    <code>fract</code> and this is <code>NA</code> in other items.</p></dd>
+
+  <dt><code>Adj.R.square</code>: </dt>
+<dd><p>Adjusted \(R^2\).</p></dd>
+
+  <dt><code>Testable</code>: </dt>
+<dd><p>If the fraction can be expressed as a (partial) RDA
     model, it is directly <code>Testable</code>, and this field is
     <code>TRUE</code>.  In that case the fraction label also gives the
-    specification of the testable RDA model.</p></li>
-</ul></div>
+    specification of the testable RDA model.</p></dd>
+
+  
+</dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
      
@@ -303,6 +369,10 @@ The function partitions the variation in community data or community
 <p>(a) References on variation partitioning</p>
 <p>Borcard, D., P. Legendre &amp; P. Drapeau. 1992. Partialling out the spatial
 component of ecological variation. Ecology 73: 1045--1055.</p>
+<p>Lai J., Y. Zou, J. Zhang &amp; P. Peres-Neto. 2022. Generalizing
+hierarchical and variation partitioning in multiple regression and
+canonical analysis using the rdacca.hp R package. Methods in Ecology and
+Evolution, 13: 782--788.</p>
 <p>Legendre, P. &amp; L. Legendre. 2012. Numerical ecology, 3rd English edition.
 Elsevier Science BV, Amsterdam.</p>
 <p>(b) Reference on transformations for species data</p>
@@ -342,14 +412,14 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
   results can be negative.  The fractions are orthogonal, or linearly
   independent, but more complicated or nonlinear dependencies can
   cause negative non-testable fractions. Any fraction can be negative
-  for non-Euclidean dissimilarities because the underlying db-RDA model
-  can yield negative eigenvalues (see <code><a href="capscale.html">capscale</a></code>,
-  <code><a href="capscale.html">dbrda</a></code>). These negative eigenvalues in the underlying
-  analysis can be avoided with arguments <code>sqrt.dist</code> and <code>add</code>
-  which have a similar effect as in <code><a href="capscale.html">capscale</a></code>: the square
-  roots of several dissimilarities do not have negative eigenvalues, and
-  no negative eigenvalues are produced after Lingoes or Cailliez
-  adjustment, which in effect add random variation to the
+  for non-Euclidean dissimilarities because the underlying db-RDA
+  model can yield negative eigenvalues (see
+  <code><a href="dbrda.html">dbrda</a></code>). These negative eigenvalues in the underlying
+  analysis can be avoided with arguments <code>sqrt.dist</code> and
+  <code>add</code> which have a similar effect as in <code><a href="dbrda.html">dbrda</a></code>:
+  the square roots of several dissimilarities do not have negative
+  eigenvalues, and no negative eigenvalues are produced after Lingoes
+  or Cailliez adjustment, which in effect add random variation to the
   dissimilarities.</p>
 <p>A simplified, fast version of RDA, CCA adn dbRDA are used (functions
   <code>simpleRDA2</code>, <code>simpleCCA</code> and <code>simpleDBRDA</code>).  The
@@ -371,13 +441,13 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.pcnm</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Two explanatory data frames -- Hellinger-transform Y</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">varpart</span><span class="op">(</span><span class="va">mite</span>, <span class="va">mite.env</span>, <span class="va">mite.pcnm</span>, transfo<span class="op">=</span><span class="st">"hel"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.pcnm</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Two explanatory data frames -- Hellinger-transform Y</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">varpart</span><span class="op">(</span><span class="va">mite</span>, <span class="va">mite.env</span>, <span class="va">mite.pcnm</span>, transfo<span class="op">=</span><span class="st">"hel"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Partition of variance in RDA </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -394,26 +464,40 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Partition table:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Df R.squared Adj.R.squared Testable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [a+b] = X1           11   0.52650       0.43670     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [a+c] = X1           11   0.52650       0.43670     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [b+c] = X2           22   0.62300       0.44653     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [a+b+c] = X1+X2      33   0.75893       0.53794     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Individual fractions                                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [a] = X1|X2          11                 0.09141     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [b]                   0                 0.34530    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [c] = X2|X1          22                 0.10124     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [b] = X2|X1          22                 0.10124     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [c]                   0                 0.34530    FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [d] = Residuals                         0.46206    FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use function ‘rda’ to test significance of fractions of interest</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use fill colours</span></span>
-<span class="r-in"><span class="fu">showvarparts</span><span class="op">(</span><span class="fl">2</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hotpink"</span>,<span class="st">"skyblue"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unique fractions and total with shared fractions equally allocated:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unique Contributed Component</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 0.0914       0.264  mite.env</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.1012       0.274 mite.pcnm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Contributions of fractions to sets:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         X1     X2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [a] 0.0914       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [b]        0.1012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [c] 0.1726 0.1726</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Use fill colours</span></span></span>
+<span class="r-in"><span><span class="fu">showvarparts</span><span class="op">(</span><span class="fl">2</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hotpink"</span>,<span class="st">"skyblue"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="varpart-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hotpink"</span>,<span class="st">"skyblue"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hotpink"</span>,<span class="st">"skyblue"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="varpart-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Test fraction [a] using partial RDA, '~ .' in formula tells to use</span></span>
-<span class="r-in"><span class="co">## all variables of data mite.env.</span></span>
-<span class="r-in"><span class="va">aFrac</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hel"</span><span class="op">)</span>, <span class="va">mite.env</span>, <span class="va">mite.pcnm</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aFrac</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Test fraction [a] using partial RDA, '~ .' in formula tells to use</span></span></span>
+<span class="r-in"><span><span class="co">## all variables of data mite.env.</span></span></span>
+<span class="r-in"><span><span class="va">aFrac</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hel"</span><span class="op">)</span>, <span class="va">mite.env</span>, <span class="va">mite.pcnm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">aFrac</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for rda under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
@@ -424,17 +508,17 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual 36 0.095050                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="co">## RsquareAdj gives the same result as component [a] of varpart</span></span>
-<span class="r-in"><span class="fu"><a href="RsquareAdj.html">RsquareAdj</a></span><span class="op">(</span><span class="va">aFrac</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## RsquareAdj gives the same result as component [a] of varpart</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="RsquareAdj.html">RsquareAdj</a></span><span class="op">(</span><span class="va">aFrac</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $r.squared</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1359251</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $adj.r.squared</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09140797</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Partition Bray-Curtis dissimilarities</span></span>
-<span class="r-in"><span class="fu">varpart</span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>, <span class="va">mite.env</span>, <span class="va">mite.pcnm</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Partition Bray-Curtis dissimilarities</span></span></span>
+<span class="r-in"><span><span class="fu">varpart</span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>, <span class="va">mite.env</span>, <span class="va">mite.pcnm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Partition of squared Bray distance in dbRDA </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -450,20 +534,20 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Partition table:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Df R.squared Adj.R.squared Testable</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [a+b] = X1           11   0.50512       0.41127     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [a+c] = X1           11   0.50512       0.41127     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [b+c] = X2           22   0.60144       0.41489     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [a+b+c] = X1+X2      33   0.74631       0.51375     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Individual fractions                                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [a] = X1|X2          11                 0.09887     TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [b]                   0                 0.31240    FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [c] = X2|X1          22                 0.10249     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [b] = X2|X1          22                 0.10249     TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [c]                   0                 0.31240    FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [d] = Residuals                         0.48625    FALSE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use function ‘dbrda’ to test significance of fractions of interest</span>
-<span class="r-in"><span class="co">## Three explanatory tables with formula interface</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">varpart</span><span class="op">(</span><span class="va">mite</span>, <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span>, <span class="op">~</span> <span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>,</span>
-<span class="r-in">   <span class="va">mite.pcnm</span>, data<span class="op">=</span><span class="va">mite.env</span>, transfo<span class="op">=</span><span class="st">"hel"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+<span class="r-in"><span><span class="co">## Three explanatory tables with formula interface</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">varpart</span><span class="op">(</span><span class="va">mite</span>, <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span>, <span class="op">~</span> <span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>,</span></span>
+<span class="r-in"><span>   <span class="va">mite.pcnm</span>, data<span class="op">=</span><span class="va">mite.env</span>, transfo<span class="op">=</span><span class="st">"hel"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Partition of variance in RDA </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -507,17 +591,36 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [c+f] = X3 | X2       22               0.18429     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use function ‘rda’ to test significance of fractions of interest</span>
-<span class="r-in"><span class="fu">showvarparts</span><span class="op">(</span><span class="fl">3</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unique fractions and total with shared fractions equally allocated:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unique Contributed                 Component</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 0.0391       0.144      ~SubsDens + WatrCont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.0382       0.148 ~Substrate + Shrub + Topo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.1012       0.245                 mite.pcnm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Contributions of fractions to sets:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          X1      X2      X3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [a] 0.03910                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [b]         0.03824        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [c]                 0.10124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [d] 0.00703 0.00703        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [e]         0.04590 0.04590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [f] 0.04153         0.04153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [g] 0.05682 0.05682 0.05682</span>
+<span class="r-in"><span><span class="fu">showvarparts</span><span class="op">(</span><span class="fl">3</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="varpart-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="varpart-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Use RDA to test fraction [a]</span></span>
-<span class="r-in"><span class="co">## Matrix can be an argument in formula</span></span>
-<span class="r-in"><span class="va">rda.result</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hell"</span><span class="op">)</span> <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span> <span class="op">+</span></span>
-<span class="r-in">   <span class="fu">Condition</span><span class="op">(</span><span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">   <span class="fu">Condition</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite.pcnm</span><span class="op">)</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">rda.result</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Use RDA to test fraction [a]</span></span></span>
+<span class="r-in"><span><span class="co">## Matrix can be an argument in formula</span></span></span>
+<span class="r-in"><span><span class="va">rda.result</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">mite</span>, <span class="st">"hell"</span><span class="op">)</span> <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>   <span class="fu">Condition</span><span class="op">(</span><span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>   <span class="fu">Condition</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite.pcnm</span><span class="op">)</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">rda.result</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for rda under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
@@ -528,11 +631,11 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual 36 0.095050                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Four explanatory tables</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">varpart</span><span class="op">(</span><span class="va">mite</span>, <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span>, <span class="op">~</span><span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>,</span>
-<span class="r-in">  <span class="va">mite.pcnm</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span>, <span class="va">mite.pcnm</span><span class="op">[</span>,<span class="fl">12</span><span class="op">:</span><span class="fl">22</span><span class="op">]</span>, data<span class="op">=</span><span class="va">mite.env</span>, transfo<span class="op">=</span><span class="st">"hel"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Four explanatory tables</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">varpart</span><span class="op">(</span><span class="va">mite</span>, <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span>, <span class="op">~</span><span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>,</span></span>
+<span class="r-in"><span>  <span class="va">mite.pcnm</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">11</span><span class="op">]</span>, <span class="va">mite.pcnm</span><span class="op">[</span>,<span class="fl">12</span><span class="op">:</span><span class="fl">22</span><span class="op">]</span>, data<span class="op">=</span><span class="va">mite.env</span>, transfo<span class="op">=</span><span class="st">"hel"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Partition of variance in RDA </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -613,10 +716,38 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [dhik] = X4 | X3            11               0.00292     TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Use function ‘rda’ to test significance of fractions of interest</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unique fractions and total with shared fractions equally allocated:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unique Contributed                 Component</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 0.0391      0.1456      ~SubsDens + WatrCont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.0382      0.1594 ~Substrate + Shrub + Topo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.1024      0.2511         mite.pcnm[, 1:11]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X4 0.0085     -0.0181        mite.pcnm[, 12:22]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Contributions of fractions to sets:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           X1       X2       X3       X4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [a]  0.03910                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [b]           0.03824                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [c]                    0.10237         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [d]                             0.00850</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [e]  0.00703  0.00703                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [f]           0.06600  0.06600         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [g]  0.02678           0.02678         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [h]  0.00110                    0.00110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [i]          -0.00274          -0.00274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [j]                   -0.00482 -0.00482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [k] -0.00077 -0.00077          -0.00077</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [l]  0.08012  0.08012  0.08012         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [m]          -0.01158 -0.01158 -0.01158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [n]  0.00910           0.00910  0.00910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [o] -0.01690 -0.01690 -0.01690 -0.01690</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="varpart-5.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Show values for all partitions by putting 'cutoff' low enough:</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, cutoff <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Show values for all partitions by putting 'cutoff' low enough:</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, cutoff <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="varpart-6.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -625,11 +756,11 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

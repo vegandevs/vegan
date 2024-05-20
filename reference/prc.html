@@ -6,7 +6,7 @@
   traditional constrained ordination. They can also be used to study how
   the effects of a factor A depend on the levels of a factor
   B, that is A + A:B, in a multivariate response
-  experiment."><title>Principal Response Curves for Treatments with Repeated Observations — prc • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Principal Response Curves for Treatments with Repeated Observations — prc"><meta property="og:description" content="Principal Response Curves (PRC) are a special case of
+  experiment."><title>Principal Response Curves for Treatments with Repeated Observations — prc • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Principal Response Curves for Treatments with Repeated Observations — prc"><meta property="og:description" content="Principal Response Curves (PRC) are a special case of
   Redundancy Analysis (rda) for multivariate responses in
   repeated observation design. They were originally suggested for
   ecological communities. They should be easier to interpret than
@@ -20,11 +20,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,6 +40,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -75,14 +78,14 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">prc</span><span class="op">(</span><span class="va">response</span>, <span class="va">treatment</span>, <span class="va">time</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for prc</span>
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, axis <span class="op">=</span> <span class="fl">1</span>, scaling <span class="op">=</span> <span class="st">"symmetric"</span>, <span class="va">const</span>,
-        digits <span class="op">=</span> <span class="fl">4</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for prc</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, species <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, scaling <span class="op">=</span> <span class="st">"symmetric"</span>,
-     axis <span class="op">=</span> <span class="fl">1</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">const</span>, type <span class="op">=</span> <span class="st">"l"</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">ylim</span>,
-     lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">pch</span>, <span class="va">legpos</span>, cex <span class="op">=</span> <span class="fl">0.8</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">prc</span><span class="op">(</span><span class="va">response</span>, <span class="va">treatment</span>, <span class="va">time</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for prc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, axis <span class="op">=</span> <span class="fl">1</span>, scaling <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">const</span>,</span>
+<span>        digits <span class="op">=</span> <span class="fl">4</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for prc</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, species <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, scaling <span class="op">=</span> <span class="st">"symmetric"</span>,</span>
+<span>     axis <span class="op">=</span> <span class="fl">1</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">const</span>, type <span class="op">=</span> <span class="st">"l"</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">ylim</span>,</span>
+<span>     lty <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, <span class="va">pch</span>, <span class="va">legpos</span>, cex <span class="op">=</span> <span class="fl">0.8</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -91,16 +94,21 @@
 <dd><p>Multivariate response data. Typically these are
     community (species) data. If the data are counts, they probably
     should be log transformed prior to the analysis.</p></dd>
-<dt>treatment</dt>
+
+  <dt>treatment</dt>
 <dd><p>A factor for treatments.</p></dd>
-<dt>time</dt>
+
+  <dt>time</dt>
 <dd><p>An unordered factor defining the observations times in
     the repeated design.</p></dd>
-<dt>object, x</dt>
+
+  <dt>object, x</dt>
 <dd><p>An <code>prc</code> result object.</p></dd>
-<dt>axis</dt>
+
+  <dt>axis</dt>
 <dd><p>Axis shown (only one axis can be selected).</p></dd>
-<dt>scaling</dt>
+
+  <dt>scaling</dt>
 <dd><p>Scaling of species scores, identical to the
     <code>scaling</code> in <code><a href="plot.cca.html">scores.rda</a></code>.</p>
 <p>The type of scores can also be specified as one of <code>"none"</code>,
@@ -109,41 +117,54 @@
     respectively. Argument <code>correlation</code> can be used in combination
     with these character descriptions to get the corresponding negative
     value.</p></dd>
-<dt>const</dt>
+
+  <dt>const</dt>
 <dd><p>General scaling constant for species scores (see
     <code><a href="plot.cca.html">scores.rda</a></code> for details). Lower values will reduce the
     range of species scores, but will not influence the regression
     coefficients.</p></dd>
-<dt>digits</dt>
+
+  <dt>digits</dt>
 <dd><p>Number of significant digits displayed.</p></dd>
-<dt>correlation</dt>
+
+  <dt>correlation</dt>
 <dd><p>logical; if <code>scaling</code> is a character
     description of the scaling type, <code>correlation</code> can be used to
     select correlation-like scores for PCA. See argument <code>scaling</code>
     for details.</p></dd>
-<dt>species</dt>
+
+  <dt>species</dt>
 <dd><p>Display species scores.</p></dd>
-<dt>select</dt>
+
+  <dt>select</dt>
 <dd><p>Vector to select displayed species. This can be a vector
     of indices or a logical vector which is <code>TRUE</code> for the selected
     species</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>Type of plot: <code>"l"</code> for lines, <code>"p"</code> for points
     or <code>"b"</code> for both.</p></dd>
-<dt>xlab, ylab</dt>
+
+  <dt>xlab, ylab</dt>
 <dd><p>Text to replace default axis labels.</p></dd>
-<dt>ylim</dt>
+
+  <dt>ylim</dt>
 <dd><p>Limits for the vertical axis.</p></dd>
-<dt>lty, col, pch</dt>
+
+  <dt>lty, col, pch</dt>
 <dd><p>Line type, colour and plotting characters
     (defaults supplied).</p></dd>
-<dt>legpos</dt>
+
+  <dt>legpos</dt>
 <dd><p>The position of the <code><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></code>. A guess is
     made if this is not supplied, and <code>NA</code> will suppress legend.</p></dd>
-<dt>cex</dt>
+
+  <dt>cex</dt>
 <dd><p>Character expansion for symbols and species labels.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters passed to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -182,9 +203,12 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function is a special case of <code><a href="cca.html">rda</a></code> and returns its
-  result object (see <code><a href="cca.object.html">cca.object</a></code>). However, a special
-<code>summary</code> and <code>plot</code> methods display returns differently
+    
+
+<p>The function is a special case of <code><a href="cca.html">rda</a></code> and returns its
+  result object (see <code><a href="cca.object.html">cca.object</a></code>). However, a special</p>
+<p></p>
+<p><code>summary</code> and <code>plot</code> methods display returns differently
   than in <code><a href="cca.html">rda</a></code>.</p>
     </div>
     <div class="section level2">
@@ -214,16 +238,18 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Chlorpyrifos experiment and experimental design: Pesticide</span></span>
-<span class="r-in"><span class="co">## treatment in ditches (replicated) and followed over from 4 weeks</span></span>
-<span class="r-in"><span class="co">## before to 24 weeks after exposure </span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">12</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">15</span>, <span class="fl">19</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">44</span>, <span class="fl">6</span>, <span class="fl">0.1</span>, <span class="fl">44</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">ditch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">1</span>, length<span class="op">=</span><span class="fl">132</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># PRC</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">prc</span><span class="op">(</span><span class="va">pyrifos</span>, <span class="va">dose</span>, <span class="va">week</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span>            <span class="co"># RDA</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Chlorpyrifos experiment and experimental design: Pesticide</span></span></span>
+<span class="r-in"><span><span class="co">## treatment in ditches (replicated) and followed over from 4 weeks</span></span></span>
+<span class="r-in"><span><span class="co">## before to 24 weeks after exposure </span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">week</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">11</span>, <span class="fl">12</span>, labels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="op">-</span><span class="fl">1</span>, <span class="fl">0.1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">15</span>, <span class="fl">19</span>, <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dose</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">44</span>, <span class="fl">6</span>, <span class="fl">0.1</span>, <span class="fl">44</span>, <span class="fl">0.9</span>, <span class="fl">0</span>, <span class="fl">6</span><span class="op">)</span>, <span class="fl">11</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">ditch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">1</span>, length<span class="op">=</span><span class="fl">132</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## IGNORE_RDIFF_BEGIN</span></span></span>
+<span class="r-in"><span><span class="co">## PRC</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">prc</span><span class="op">(</span><span class="va">pyrifos</span>, <span class="va">dose</span>, <span class="va">week</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span>            <span class="co"># RDA</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: prc(response = pyrifos, treatment = dose, time = week)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                Inertia Proportion Rank</span>
@@ -248,79 +274,80 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17.156  9.189  7.585  6.064  5.730  4.843  4.518  4.105 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 77 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>   <span class="co"># PRC</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>   <span class="co"># PRC</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> prc(response = pyrifos, treatment = dose, time = week) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species scores:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Simve     Daplo     Cerpu     Alogu     Aloco     Alore     Aloaf     Copsp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.461934 -0.796510 -0.295171 -0.152301 -0.096273 -0.171335 -0.231967 -0.635966 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2.688099  1.464566  0.542739  0.280040  0.177019  0.315038  0.426524  1.169368 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Ostsp     Slyla     Acrha     Aloex     Chysp     Alona     Plead     Oxyte </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.257492  0.302872 -0.057396 -0.124049 -0.051689 -0.034638 -0.075268 -0.013815 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2.312186 -0.556899  0.105535  0.228092  0.095042  0.063689  0.138397  0.025401 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Grate     Copdi     NauLa     CilHa     Strvi     amosp     Ascmo     Synsp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.052667 -0.777088 -2.636100 -0.486881 -1.669474  0.738371 -0.037926  0.014409 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.096840  1.428854  4.847070  0.895241  3.069709 -1.357663  0.069736 -0.026494 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Squro     Squmu     Polar     Kerqu     Anufi     Mytve     Mytvi     Mytmu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.143790  0.246185 -0.251255 -0.269397 -0.235362 -0.040448 -0.049452 -0.057589 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.264390 -0.452667  0.461989  0.495348  0.432767  0.074372  0.090928  0.105891 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Lepsp     Leppa     Colob     Colbi     Colun     Lecsp     Lecqu     Lecco </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.542922 -0.046123  0.393234  0.075905  0.450495 -0.257170  0.048327  0.158007 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.998286  0.084809 -0.723051 -0.139569 -0.828338  0.472866 -0.088860 -0.290531 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     Leclu     Lecfl     Tripo     Cepsp     Monlo     Monae     Scalo     Trilo </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.027077  0.221912 -0.117056  0.440303  0.287108  0.048918  0.041981  0.021257 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.049788 -0.408035  0.215234 -0.809597 -0.527913 -0.089948 -0.077192 -0.039086 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Tripo.1     Tricy     Trisp     Tepat     Rotne     Notla     Filsp     Lopox </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.134025 -0.182409 -0.042651 -0.004198 -0.078168  0.062163  0.091561  0.016854 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.246435  0.335400  0.078423  0.007719  0.143730 -0.114301 -0.168356 -0.030990 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  hydrspec  bothrosp  olchaeta  erpoocto  glsicomp  alglhete  hebdstag   sphidae </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.026485 -0.216815  0.633674  0.490029  0.078527  0.039728 -0.490678 -0.796015 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.048698  0.398665 -1.165154 -0.901030 -0.144389 -0.073049  0.902223  1.463655 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ansuvote  armicris  bathcont  binitent  gyraalbu  hippcomp  lymnstag  lymnaes7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.076512 -0.913681 -0.039855  1.060788 -0.017975 -0.219974  0.143403 -0.073502 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.140685  1.680010  0.073282 -1.950500  0.033051  0.404473 -0.263679  0.135150 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  physfont  plbacorn  popyanti  radiovat  radipere  valvcris  valvpisc  hycarina </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.014349 -0.046098 -0.691904  0.010777  0.340163 -0.005753  0.145523 -0.567803 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.026383  0.084761  1.272223 -0.019815 -0.625468  0.010579 -0.267577  1.044034 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  gammpule  aselaqua  proameri  collembo  caenhora  caenluct  caenrobu  cloedipt </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.830166 -0.858606 -0.063401 -0.016264 -3.136867 -1.292300 -0.068624 -2.574625 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.526450  1.578743  0.116577  0.029906  5.767844  2.376188  0.126181  4.734035 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  cloesimi  aeshniae  libellae  conagrae  corident  coripanz  coripunc  cymabons </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.675580 -0.115677  0.044524 -0.886795 -0.007484 -0.065501  0.096124 -0.025213 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.242207  0.212699 -0.081867  1.630574  0.013761  0.120439 -0.176746  0.046360 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  hesplinn  hespsahl  notoglau  notomacu  notoobli  notoviri  pacoconc  pleaminu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.037779 -0.018078 -0.301948 -0.027226 -0.044790 -0.117398 -0.009087 -0.038705 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.069465  0.033240  0.555201  0.050060  0.082356  0.215863  0.016709  0.071168 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  sigadist  sigafall  sigastri  sigarasp  colyfusc  donacis6  gyrimari  haliconf </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.041594  0.009987 -0.032743  0.150817 -0.019847  0.042751 -0.005753 -0.243054 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.076479 -0.018364  0.060206 -0.277312  0.036493 -0.078608  0.010579  0.446911 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  haliflav  haligruf  haliobli  herubrev  hya_herm  hyglpusi  hyhyovat  hypoplan </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.024222 -0.244814 -0.071501  0.069877  0.175327  0.006404 -0.013159 -0.008145 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.044538  0.450146  0.131472 -0.128486 -0.322379 -0.011775  0.024196  0.014976 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  hyporusp  hytuinae  hytuvers  laphminu  noteclav  rhantusp  sialluta  ablalong </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.126197 -1.259664 -0.963901 -0.344204 -0.004303 -0.036774 -0.603320 -0.008145 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.232042  2.316179  1.772351  0.632897  0.007912  0.067618  1.109341  0.014976 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ablaphmo  cltanerv  malopisp  mopetenu  prdiussp  pstavari  chironsp  crchirsp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.627590 -0.041132 -0.025919 -0.004740 -0.301790 -0.045054 -1.027839 -0.009087 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2.992695  0.075631  0.047658  0.008716  0.554911  0.082842  1.889916  0.016709 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  crclglat  ditendsp  mitegchl  pachgarc  pachgvit  popegnub  popedisp  acriluce </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.015746 -0.045402 -0.125429  0.006628  0.016265 -0.121971  0.037879  0.004324 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.028953  0.083481  0.230629 -0.012187 -0.029907  0.224272 -0.069649 -0.007950 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  chclpige  conescut  cricotsp  liesspec  psclbarb  psclgsli  psclobvi  psclplat </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.004756 -0.446524 -0.066095 -0.058403  0.015576 -0.327165  0.197081  0.028310 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.008744  0.821036  0.121530  0.107387 -0.028639  0.601568 -0.362378 -0.052054 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  psclpsil  pscladsp  cladotsp  laa_spec  patanysp  tatarssp  zaa_spec  anopmacu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.003991 -0.003086 -0.293623 -0.018548 -0.079841 -0.364072 -0.027165  0.089046 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.007339  0.005674  0.539894  0.034105  0.146807  0.669430  0.049949 -0.163731 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  cepogoae  chaoobsc  cucidae4  tabanusp  agdasphr  athrater  cyrncren  holodubi </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -1.389767 -1.328261 -0.018078  0.006309 -0.147828 -0.036774 -0.038705 -0.051532 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2.555403  2.442310  0.033240 -0.011601  0.271815  0.067618  0.071168  0.094754 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  holopici  leceriae  lilurhom  monaangu  mystazur  mystloni  oecefurv  oecelacu </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.332631 -0.162413 -0.004929 -0.350402 -0.018078 -1.630725 -0.291847 -0.140893 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.611618  0.298633  0.009063  0.644295  0.033240  2.998460  0.536628  0.259064 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  triabico  paponysp </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -0.048357 -0.053182 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.088915  0.097788 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients for dose + week:dose interaction</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> which are contrasts to dose 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rows are dose, columns are week</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          -4      -1     0.1        1       2       4       8      12      15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.01335 0.02543 0.01887 0.007525 0.03886 0.02524 0.01494 0.02841 0.02077</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 0.01500 0.03580 0.03582 0.088245 0.09207 0.07966 0.02503 0.06563 0.04455</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.03074 0.02280 0.08397 0.213933 0.20045 0.21296 0.10381 0.08691 0.05695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  0.02586 0.03623 0.13520 0.233266 0.24009 0.27059 0.23891 0.18650 0.14465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          19      24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 0.04002 0.01449</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 0.03249 0.02857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.06091 0.03372</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  0.10672 0.05739</span>
-<span class="r-in"><span class="va">logabu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, select <span class="op">=</span> <span class="va">logabu</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           -4      -1     0.1        1       2       4        8      12      15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 -0.07218 -0.1375 -0.1020 -0.04068 -0.2101 -0.1364 -0.08077 -0.1536 -0.1123</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 -0.08106 -0.1935 -0.1936 -0.47699 -0.4977 -0.4306 -0.13532 -0.3548 -0.2408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   -0.16616 -0.1232 -0.4539 -1.15638 -1.0835 -1.1511 -0.56112 -0.4698 -0.3078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -0.13979 -0.1958 -0.7308 -1.26088 -1.2978 -1.4627 -1.29139 -1.0081 -0.7819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          19       24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.1 -0.2163 -0.07835</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.9 -0.1756 -0.15442</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   -0.3293 -0.18227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44  -0.5768 -0.31022</span>
+<span class="r-in"><span><span class="va">logabu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">pyrifos</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, select <span class="op">=</span> <span class="va">logabu</span> <span class="op">&gt;</span> <span class="fl">100</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="prc-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Ditches are randomized, we have a time series, and are only</span></span>
-<span class="r-in"><span class="co">## interested in the first axis</span></span>
-<span class="r-in"><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></span><span class="op">(</span>plots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Plots</a></span><span class="op">(</span>strata <span class="op">=</span> <span class="va">ditch</span>,type <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>,</span>
-<span class="r-in">    within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Within</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"series"</span><span class="op">)</span>, nperm <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, permutations <span class="op">=</span> <span class="va">ctrl</span>, first<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
+<span class="r-in"><span><span class="co">## Ditches are randomized, we have a time series, and are only</span></span></span>
+<span class="r-in"><span><span class="co">## interested in the first axis</span></span></span>
+<span class="r-in"><span><span class="va">ctrl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></span><span class="op">(</span>plots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Plots</a></span><span class="op">(</span>strata <span class="op">=</span> <span class="va">ditch</span>,type <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">Within</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"series"</span><span class="op">)</span>, nperm <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, permutations <span class="op">=</span> <span class="va">ctrl</span>, first<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for rda under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Plots: ditch, plot permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: series</span>
@@ -339,11 +366,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

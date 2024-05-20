@@ -4,7 +4,7 @@ which can serve as a basis for Null Model simulation
 via the simulate method.
 The update method updates the nullmodel
 object without sampling (effective for sequential algorithms).
-smbind binds together multiple simmat objects."><title>Null Model and Simulation — nullmodel • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Null Model and Simulation — nullmodel"><meta property="og:description" content="The nullmodel function creates an object,
+smbind binds together multiple simmat objects."><title>Null Model and Simulation — nullmodel • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Null Model and Simulation — nullmodel"><meta property="og:description" content="The nullmodel function creates an object,
 which can serve as a basis for Null Model simulation
 via the simulate method.
 The update method updates the nullmodel
@@ -16,11 +16,11 @@ smbind binds together multiple simmat objects."><!-- mathjax --><script src="htt
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,9 @@ smbind binds together multiple simmat objects."><!-- mathjax --><script src="htt
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -69,17 +72,17 @@ object without sampling (effective for sequential algorithms).
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="va">method</span><span class="op">)</span>
-<span class="co"># S3 method for nullmodel</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for nullmodel</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">object</span>, nsim <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="cn">NULL</span>,
-    burnin <span class="op">=</span> <span class="fl">0</span>, thin <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for nullmodel</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">object</span>, nsim <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for simmat</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">smbind</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span>, <span class="va">MARGIN</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="va">method</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for nullmodel</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for nullmodel</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">object</span>, nsim <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>    burnin <span class="op">=</span> <span class="fl">0</span>, thin <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for nullmodel</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">object</span>, nsim <span class="op">=</span> <span class="fl">1</span>, seed <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for simmat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">smbind</span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span>, <span class="va">MARGIN</span>, strict <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -87,21 +90,25 @@ object without sampling (effective for sequential algorithms).
     <dl><dt>x</dt>
 <dd><p>A community matrix.
 For the <code>print</code> method, it is an object to be printed.</p></dd>
-<dt>method</dt>
+
+  <dt>method</dt>
 <dd><p>Character, specifying one of the null model algorithms
 listed on the help page of <code><a href="commsim.html">commsim</a></code>.
 It can be a user supplied object of class <code>commsim</code>.</p></dd>
-<dt>object</dt>
+
+  <dt>object</dt>
 <dd><p>An object of class <code>nullmodel</code> returned by
 the function <code>nullmodel</code>.
 In case of <code>smbind</code> it is a <code>simmat</code> object
 as returned by the <code>update</code> or <code>simulate</code> methods.</p></dd>
-<dt>nsim</dt>
+
+  <dt>nsim</dt>
 <dd><p>Positive integer, the number of simulated matrices to return.
 For the <code>update</code> method, it is the number of
 burnin steps made for sequential algorithms
 to update the status of the input model <code>object</code>.</p></dd>
-<dt>seed</dt>
+
+  <dt>seed</dt>
 <dd><p>An object specifying if and how the random number
 generator should be initialized ("seeded").
 Either <code>NULL</code> or an integer that will be
@@ -113,32 +120,38 @@ The default, <code>NULL</code> will not change the
 random generator state, and return
 <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">.Random.seed</a></code> as the <code>"seed"</code>
  attribute, see Value.</p></dd>
-<dt>burnin</dt>
+
+  <dt>burnin</dt>
 <dd><p>Nonnegative integer, specifying the number of steps
 discarded before starting simulation.
 Active only for sequential null model algorithms.
 Ignored for non-sequential null model algorithms.</p></dd>
-<dt>thin</dt>
+
+  <dt>thin</dt>
 <dd><p>Positive integer, number of simulation steps
 made between each returned matrix.
 Active only for sequential null model algorithms.
 Ignored for non-sequential null model algorithms.</p></dd>
-<dt>MARGIN</dt>
+
+  <dt>MARGIN</dt>
 <dd><p>Integer, indicating the dimension over which multiple
 <code>simmat</code> objects are to be bound together by <code>smbind</code>.
 1: matrices are stacked (row bound), 2: matrices are column bound,
 3: iterations are combined. Needs to be of length 1.
 The other dimensions are expected to match across the objects.</p></dd>
-<dt>strict</dt>
+
+  <dt>strict</dt>
 <dd><p>Logical, if consistency of the time series attributes
 (<code>"start"</code>, <code>"end"</code>, <code>"thin"</code>, and number of simulated matrices)
 of <code>simmat</code> objects are strictly enforced when
 binding multiple objects together using <code>smbind</code>.
 Applies only to input objects based on sequential
 null model algorithms.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Additional arguments supplied to algorithms.
 In case of <code>smbind</code> it can contain multiple <code>simmat</code> objects.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -185,31 +198,64 @@ for sequential null models.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function <code>nullmodel</code> returns an object of class <code>nullmodel</code>.
-It is a set of objects sharing the same environment:</p><ul><li><p><code>data</code>: original matrix in integer mode.</p></li>
-<li><p><code>nrow</code>: number of rows.</p></li>
-<li><p><code>ncol</code>: number of columns.</p></li>
-<li><p><code>rowSums</code>: row sums.</p></li>
-<li><p><code>colSums</code>: column sums.</p></li>
-<li><p><code>rowFreq</code>: row frequencies (number of nonzero cells).</p></li>
-<li><p><code>colFreq</code>: column frequencies (number of nonzero cells).</p></li>
-<li><p><code>totalSum</code>: total sum.</p></li>
-<li><p><code>fill</code>: number of nonzero cells in the matrix.</p></li>
-<li><p><code>commsim</code>: the <code>commsim</code> object as a result
-    of the <code>method</code> argument.</p></li>
-<li><p><code>state</code>: current state of the permutations,
+    
+
+<p>The function <code>nullmodel</code> returns an object of class <code>nullmodel</code>.
+It is a set of objects sharing the same environment:</p>
+<dl><dt><code>data</code>: </dt>
+<dd><p>original matrix in integer mode.</p></dd>
+
+  <dt><code>nrow</code>: </dt>
+<dd><p>number of rows.</p></dd>
+
+  <dt><code>ncol</code>: </dt>
+<dd><p>number of columns.</p></dd>
+
+  <dt><code>rowSums</code>: </dt>
+<dd><p>row sums.</p></dd>
+
+  <dt><code>colSums</code>: </dt>
+<dd><p>column sums.</p></dd>
+
+  <dt><code>rowFreq</code>: </dt>
+<dd><p>row frequencies (number of nonzero cells).</p></dd>
+
+  <dt><code>colFreq</code>: </dt>
+<dd><p>column frequencies (number of nonzero cells).</p></dd>
+
+  <dt><code>totalSum</code>: </dt>
+<dd><p>total sum.</p></dd>
+
+  <dt><code>fill</code>: </dt>
+<dd><p>number of nonzero cells in the matrix.</p></dd>
+
+  <dt><code>commsim</code>: </dt>
+<dd><p>the <code>commsim</code> object as a result
+    of the <code>method</code> argument.</p></dd>
+
+  <dt><code>state</code>: </dt>
+<dd><p>current state of the permutations,
     a matrix similar to the original.
-    It is <code>NULL</code> for non-sequential algorithms.</p></li>
-<li><p><code>iter</code>: current number of iterations
+    It is <code>NULL</code> for non-sequential algorithms.</p></dd>
+
+  <dt><code>iter</code>: </dt>
+<dd><p>current number of iterations
   for sequential algorithms.
-    It is <code>NULL</code> for non-sequential algorithms.</p></li>
-</ul><p>The <code>simulate</code> method returns an object of class <code>simmat</code>.
+    It is <code>NULL</code> for non-sequential algorithms.</p></dd>
+
+
+
+</dl><p>The <code>simulate</code> method returns an object of class <code>simmat</code>.
 It is an array of simulated matrices (third dimension
-corresponding to <code>nsim</code> argument).
-The <code>update</code> method returns the current state (last updated matrix)
+corresponding to <code>nsim</code> argument).</p>
+
+
+<p>The <code>update</code> method returns the current state (last updated matrix)
 invisibly, and update the input object for sequential algorithms.
-For non sequential algorithms, it returns <code>NULL</code>.
-The <code>smbind</code> function returns an object of class <code>simmat</code>.</p>
+For non sequential algorithms, it returns <code>NULL</code>.</p>
+
+
+<p>The <code>smbind</code> function returns an object of class <code>simmat</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -230,146 +276,146 @@ This also applies to cases when the input is stratified into subsets.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">]</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## non-sequential nullmodel</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"r00"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">21</span><span class="op">:</span><span class="fl">30</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## non-sequential nullmodel</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"r00"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “nullmodel” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘r00’ method (binary, non-sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="op">(</span><span class="va">sm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">sm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘r00’ method (binary, non-sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## sequential nullmodel</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## sequential nullmodel</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “nullmodel” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Iterations = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="op">(</span><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 5, End = 50, Thin = 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="op">(</span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 55, End = 100, Thin = 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## sequential nullmodel with burnin and extra updating</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## sequential nullmodel with burnin and extra updating</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “nullmodel” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Iterations = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="op">(</span><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, burnin<span class="op">=</span><span class="fl">10</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, burnin<span class="op">=</span><span class="fl">10</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 15, End = 60, Thin = 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="op">(</span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 5, End = 50, Thin = 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## sequential nullmodel with separate initial burnin</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## sequential nullmodel with separate initial burnin</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “nullmodel” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Iterations = 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 15, End = 60, Thin = 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## combining multiple simmat objects</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## stratification</span></span>
-<span class="r-in"><span class="va">nm1</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span>, <span class="st">"r00"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm1</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">nm2</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">12</span>,<span class="op">]</span>, <span class="st">"r00"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm2</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">smbind</span><span class="op">(</span><span class="va">sm1</span>, <span class="va">sm2</span>, MARGIN<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## combining multiple simmat objects</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## stratification</span></span></span>
+<span class="r-in"><span><span class="va">nm1</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span>, <span class="st">"r00"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm1</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nm2</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="fl">7</span><span class="op">:</span><span class="fl">12</span>,<span class="op">]</span>, <span class="st">"r00"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm2</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">smbind</span><span class="op">(</span><span class="va">sm1</span>, <span class="va">sm2</span>, MARGIN<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘r00’ method (binary, non-sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## binding subsequent samples from sequential algorithms</span></span>
-<span class="r-in"><span class="co">## start, end, thin retained</span></span>
-<span class="r-in"><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">20</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">sm3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">smbind</span><span class="op">(</span><span class="va">sm3</span>, <span class="va">sm2</span>, <span class="va">sm1</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## binding subsequent samples from sequential algorithms</span></span></span>
+<span class="r-in"><span><span class="co">## start, end, thin retained</span></span></span>
+<span class="r-in"><span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">20</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sm3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">smbind</span><span class="op">(</span><span class="va">sm3</span>, <span class="va">sm2</span>, <span class="va">sm1</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 40 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 15, End = 210, Thin = 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## 'replicate' based usage which is similar to the output</span></span>
-<span class="r-in"><span class="co">## of 'parLapply' or 'mclapply' in the 'parallel' package</span></span>
-<span class="r-in"><span class="co">## start, end, thin are set, also noting number of chains</span></span>
-<span class="r-in"><span class="va">smfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">burnin</span>, <span class="va">nsim</span>, <span class="va">thin</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span></span>
-<span class="r-in">    <span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="va">burnin</span><span class="op">)</span></span>
-<span class="r-in">    <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="va">nsim</span>, thin<span class="op">=</span><span class="va">thin</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"><span class="va">smlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu">smfun</span><span class="op">(</span><span class="va">x</span>, burnin<span class="op">=</span><span class="fl">50</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, simplify<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">smbind</span><span class="op">(</span><span class="va">smlist</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co"># Number of permuted matrices = 30</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## 'replicate' based usage which is similar to the output</span></span></span>
+<span class="r-in"><span><span class="co">## of 'parLapply' or 'mclapply' in the 'parallel' package</span></span></span>
+<span class="r-in"><span><span class="co">## start, end, thin are set, also noting number of chains</span></span></span>
+<span class="r-in"><span><span class="va">smfun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">burnin</span>, <span class="va">nsim</span>, <span class="va">thin</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu">nullmodel</span><span class="op">(</span><span class="va">x</span>, <span class="st">"swap"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">nm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="va">burnin</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">nm</span>, nsim<span class="op">=</span><span class="va">nsim</span>, thin<span class="op">=</span><span class="va">thin</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="va">smlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">replicate</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu">smfun</span><span class="op">(</span><span class="va">x</span>, burnin<span class="op">=</span><span class="fl">50</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span>, simplify<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">smbind</span><span class="op">(</span><span class="va">smlist</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="co"># Number of permuted matrices = 30</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simmat” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘swap’ method (binary, sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12 x 10 matrix</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices = 30 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start = 55, End = 100, Thin = 5 (3 chains)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## parallel null model calculations</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="va">.Platform</span><span class="op">$</span><span class="va">OS.type</span> <span class="op">==</span> <span class="st">"unix"</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co">## forking on Unix systems</span></span>
-<span class="r-in"><span class="va">smlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">mclapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">smfun</span><span class="op">(</span><span class="va">x</span>, burnin<span class="op">=</span><span class="fl">50</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">smbind</span><span class="op">(</span><span class="va">smlist</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## socket type cluster, works on all platforms</span></span>
-<span class="r-in"><span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">makeCluster</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/parallel/clusterApply.html" class="external-link">clusterEvalQ</a></span><span class="op">(</span><span class="va">cl</span>, <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vegandevs/vegan" class="external-link">vegan</a></span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/parallel/clusterApply.html" class="external-link">clusterExport</a></span><span class="op">(</span><span class="va">cl</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"smfun"</span>, <span class="st">"x"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">smlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/clusterApply.html" class="external-link">parLapply</a></span><span class="op">(</span><span class="va">cl</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">smfun</span><span class="op">(</span><span class="va">x</span>, burnin<span class="op">=</span><span class="fl">50</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">smbind</span><span class="op">(</span><span class="va">smlist</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## parallel null model calculations</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">parallel</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">.Platform</span><span class="op">$</span><span class="va">OS.type</span> <span class="op">==</span> <span class="st">"unix"</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co">## forking on Unix systems</span></span></span>
+<span class="r-in"><span><span class="va">smlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/mclapply.html" class="external-link">mclapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">smfun</span><span class="op">(</span><span class="va">x</span>, burnin<span class="op">=</span><span class="fl">50</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">smbind</span><span class="op">(</span><span class="va">smlist</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## socket type cluster, works on all platforms</span></span></span>
+<span class="r-in"><span><span class="va">cl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">makeCluster</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/parallel/clusterApply.html" class="external-link">clusterEvalQ</a></span><span class="op">(</span><span class="va">cl</span>, <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://vegandevs.github.io/vegan/">vegan</a></span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/parallel/clusterApply.html" class="external-link">clusterExport</a></span><span class="op">(</span><span class="va">cl</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"smfun"</span>, <span class="st">"x"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">smlist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/parallel/clusterApply.html" class="external-link">parLapply</a></span><span class="op">(</span><span class="va">cl</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="fu">smfun</span><span class="op">(</span><span class="va">x</span>, burnin<span class="op">=</span><span class="fl">50</span>, nsim<span class="op">=</span><span class="fl">10</span>, thin<span class="op">=</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/parallel/makeCluster.html" class="external-link">stopCluster</a></span><span class="op">(</span><span class="va">cl</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">smbind</span><span class="op">(</span><span class="va">smlist</span>, MARGIN<span class="op">=</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -377,11 +423,11 @@ This also applies to cases when the input is stratified into subsets.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

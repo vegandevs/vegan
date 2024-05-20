@@ -4,9 +4,7 @@
   partitioning of the cca object and performs an optional
   permutation test for the spatial independence of residuals. The
   function plot.mso creates a diagnostic plot of the spatial
-  partitioning of the "cca" object.'><title>Functions for performing and displaying a spatial partitioning
-of cca or rda results — mso • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Functions for performing and displaying a spatial partitioning
-of cca or rda results — mso"><meta property="og:description" content='The function mso adds an attribute vario to
+  partitioning of the "cca" object.'><title>Functions for performing and displaying a spatial partitioning of cca or rda results — mso • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Functions for performing and displaying a spatial partitioning of cca or rda results — mso"><meta property="og:description" content='The function mso adds an attribute vario to
   an object of class "cca" that describes the spatial
   partitioning of the cca object and performs an optional
   permutation test for the spatial independence of residuals. The
@@ -18,11 +16,11 @@ of cca or rda results — mso"><meta property="og:description" content='The func
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +36,9 @@ of cca or rda results — mso"><meta property="og:description" content='The func
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -55,8 +56,7 @@ of cca or rda results — mso"><meta property="og:description" content='The func
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>Functions for performing and displaying a spatial partitioning
-of cca or rda results</h1>
+      <img src="" class="logo" alt=""><h1>Functions for performing and displaying a spatial partitioning of cca or rda results</h1>
       
       <div class="d-none name"><code>mso.Rd</code></div>
     </div>
@@ -72,8 +72,8 @@ of cca or rda results</h1>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mso</span><span class="op">(</span><span class="va">object.cca</span>, <span class="va">object.xy</span>, grain <span class="op">=</span> <span class="fl">1</span>, round.up <span class="op">=</span> <span class="cn">FALSE</span>, permutations <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="fu">msoplot</span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, explained <span class="op">=</span> <span class="cn">FALSE</span>, ylim <span class="op">=</span> <span class="cn">NULL</span>, legend <span class="op">=</span> <span class="st">"topleft"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mso</span><span class="op">(</span><span class="va">object.cca</span>, <span class="va">object.xy</span>, grain <span class="op">=</span> <span class="fl">1</span>, round.up <span class="op">=</span> <span class="cn">FALSE</span>, permutations <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu">msoplot</span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, explained <span class="op">=</span> <span class="cn">FALSE</span>, ylim <span class="op">=</span> <span class="cn">NULL</span>, legend <span class="op">=</span> <span class="st">"topleft"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -81,43 +81,54 @@ of cca or rda results</h1>
     <dl><dt>object.cca</dt>
 <dd><p>An object of class cca, created by the <code><a href="cca.html">cca</a></code> or
     <code><a href="cca.html">rda</a></code> function.</p></dd>
-<dt>object.xy</dt>
+
+   <dt>object.xy</dt>
 <dd><p>A vector, matrix or data frame with the spatial
     coordinates of the data represented by <code>object.cca</code>. The
     number of rows must match the number of observations (as given by
     <code>nobs</code>) in <code>cca.object</code>. Alternatively, interpoint
     distances can be supplied as a <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code> object.</p></dd>
-<dt>grain</dt>
+
+   <dt>grain</dt>
 <dd><p>Interval size for distance classes.</p></dd>
-<dt>round.up</dt>
+
+  <dt>round.up</dt>
 <dd><p>Determines the choice of breaks. If false, distances
     are rounded to the nearest multiple of grain. If true, distances are
     rounded to the upper multiple of grain.</p></dd>
-<dt>permutations</dt>
+ 
+  <dt>permutations</dt>
 <dd><p>a list of control values for the permutations
     as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
-<dt>x</dt>
+
+  <dt>x</dt>
 <dd><p>A result object of <code>mso</code>.</p></dd>
-<dt>alpha</dt>
+
+  <dt>alpha</dt>
 <dd><p>Significance level for the two-sided permutation test of
     the Mantel statistic for spatial independence of residual inertia
     and for the point-wise envelope of the variogram of the total
     variance. A Bonferroni-type correction can be achieved by dividing
     the overall significance value (e.g. 0.05) by the number of distance
     classes.</p></dd>
-<dt>explained</dt>
+ 
+  <dt>explained</dt>
 <dd><p>If false, suppresses the plotting of the variogram
     of explained variance.</p></dd>
-<dt>ylim</dt>
+
+  <dt>ylim</dt>
 <dd><p>Limits for y-axis.</p></dd>
-<dt>legend</dt>
+
+  <dt>legend</dt>
 <dd><p>The x and y co-ordinates to be used to position the legend. 
     They can be specified by keyword or in any way which is accepted 
     by <code><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></code>.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments passed to functions.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -134,19 +145,28 @@ of cca or rda results</h1>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function <code>mso</code> returns an amended <code>cca</code> or <code>rda</code>  object with the additional attributes <code>grain</code>, <code>H</code>,
-<code>H.test</code> and <code>vario</code>.</p>
+    
+
+<p>The function <code>mso</code> returns an amended <code>cca</code> or <code>rda</code></p>
+
+
+<p>object with the additional attributes <code>grain</code>, <code>H</code>,</p>
+<p></p>
+<p><code>H.test</code> and <code>vario</code>.</p>
 <dl><dt>grain</dt>
 <dd><p>The grain attribute defines the interval size of the
     distance classes .</p></dd>
-<dt>H </dt>
+ 
+  <dt>H </dt>
 <dd><p>H is an object of class 'dist' and contains the geographic
     distances between observations.</p></dd>
-<dt>H.test </dt>
+ 
+  <dt>H.test </dt>
 <dd><p>H.test contains a set of dummy variables that describe
     which pairs of observations (rows = elements of <code>object$H</code>) fall in
     which distance class (columns).</p></dd>
-<dt>vario </dt>
+ 
+  <dt>vario </dt>
 <dd><p>The vario attribute is a data frame that contains some
     or all of the following components for the rda case (cca case in
       brackets):</p><dl><dt><code>H</code></dt>
@@ -189,6 +209,7 @@ of cca or rda results</h1>
  
     
 </dl><p></p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -202,7 +223,7 @@ of cca or rda results</h1>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>The function is based on the code published in the Ecological
-  Archives E085-006 (doi: <a href="https://doi.org/10.1890/02-0738" class="external-link">10.1890/02-0738</a>
+  Archives E085-006 (<a href="https://doi.org/10.1890/02-0738" class="external-link">doi:10.1890/02-0738</a>
 ).</p>
     </div>
     <div class="section level2">
@@ -213,38 +234,38 @@ of cca or rda results</h1>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Reconstruct worked example of Wagner (submitted):</span></span>
-<span class="r-in"><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">tmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Canonical correspondence analysis (cca):</span></span>
-<span class="r-in"><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">Example.cca</span>, <span class="va">tmat</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Reconstruct worked example of Wagner (submitted):</span></span></span>
+<span class="r-in"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tmat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Canonical correspondence analysis (cca):</span></span></span>
+<span class="r-in"><span><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Example.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">Example.cca</span>, <span class="va">tmat</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Set of permutations &lt; 'minperm'. Generating entire set.</span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.cca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">Example.cca</span><span class="op">$</span><span class="va">vario</span></span>
+<span class="r-in"><span><span class="va">Example.cca</span><span class="op">$</span><span class="va">vario</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   H Dist n  All       Sum         CA       CCA se</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1    1 2 0.25 0.3456633 0.07461735 0.2710459  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 2    2 1 1.00 0.8086735 0.01147959 0.7971939 NA</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Correspondence analysis (ca):</span></span>
-<span class="r-in"><span class="va">Example.ca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, <span class="va">tmat</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Correspondence analysis (ca):</span></span></span>
+<span class="r-in"><span><span class="va">Example.ca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>, <span class="va">tmat</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Set of permutations &lt; 'minperm'. Generating entire set.</span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.ca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">Example.ca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Unconstrained ordination with test for autocorrelation</span></span>
-<span class="r-in"><span class="co">## using oribatid mite data set as in Wagner (2004)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, grain <span class="op">=</span>  <span class="fl">1</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Unconstrained ordination with test for autocorrelation</span></span></span>
+<span class="r-in"><span><span class="co">## using oribatid mite data set as in Wagner (2004)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite.xy</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, grain <span class="op">=</span>  <span class="fl">1</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="va">mite.cca</span></span>
+<span class="r-in"><span><span class="va">mite.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: mso(object.cca = mite.cca, object.xy = mite.xy, grain = 1,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> permutations = 99)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -272,15 +293,15 @@ of cca or rda results</h1>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Constrained ordination with test for residual autocorrelation</span></span>
-<span class="r-in"><span class="co">## and scale-invariance of species-environment relationships</span></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span> <span class="op">+</span> <span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>, <span class="va">mite.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Constrained ordination with test for residual autocorrelation</span></span></span>
+<span class="r-in"><span><span class="co">## and scale-invariance of species-environment relationships</span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">mite</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">~</span> <span class="va">SubsDens</span> <span class="op">+</span> <span class="va">WatrCont</span> <span class="op">+</span> <span class="va">Substrate</span> <span class="op">+</span> <span class="va">Shrub</span> <span class="op">+</span> <span class="va">Topo</span>, <span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mite.cca</span> <span class="op">&lt;-</span> <span class="fu">mso</span><span class="op">(</span><span class="va">mite.cca</span>, <span class="va">mite.xy</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">msoplot</span><span class="op">(</span><span class="va">mite.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="mso-4.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error variance of regression model underestimated by 0.4 percent </span>
-<span class="r-in"><span class="va">mite.cca</span></span>
+<span class="r-in"><span><span class="va">mite.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations =</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -305,12 +326,12 @@ of cca or rda results</h1>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     H   Dist   n    All    Sum     CA    CCA      se CA.signif</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0   0 0.3555  63 0.6250 0.7479 0.5512 0.1967 0.03506      0.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1 1.0659 393 0.7556 0.8820 0.6339 0.2482 0.01573      0.18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   2 2.0089 534 0.8931 0.9573 0.6473 0.3100 0.01487      0.68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   3 2.9786 417 1.0988 1.1010 0.6403 0.4607 0.01858      0.46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4 3.9817 322 1.3321 1.2548 0.6521 0.6027 0.02439      0.98</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5 5.0204 245 1.5109 1.4564 0.6636 0.7928 0.02801      0.41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 10 6.8069 441 1.7466 1.6266 0.6914 0.9351 0.02052      0.19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
@@ -322,11 +343,11 @@ of cca or rda results</h1>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

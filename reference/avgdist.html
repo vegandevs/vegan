@@ -4,7 +4,7 @@
   dataset each time. All of the subsampled iterations are then averaged
   (mean) to provide a distance matrix that represents the average of
   multiple subsampling iterations. This emulates the behavior of the
-  distance matrix calculator within the Mothur microbial ecology toolkit."><title>Averaged Subsampled Dissimilarity Matrices — avgdist • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Averaged Subsampled Dissimilarity Matrices — avgdist"><meta property="og:description" content="The function computes the dissimilarity matrix of a dataset multiple
+  distance matrix calculator within the Mothur microbial ecology toolkit."><title>Averaged Subsampled Dissimilarity Matrices — avgdist • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Averaged Subsampled Dissimilarity Matrices — avgdist"><meta property="og:description" content="The function computes the dissimilarity matrix of a dataset multiple
   times using vegdist while randomly subsampling the
   dataset each time. All of the subsampled iterations are then averaged
   (mean) to provide a distance matrix that represents the average of
@@ -16,11 +16,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -69,32 +72,56 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">avgdist</span><span class="op">(</span><span class="va">x</span>, <span class="va">sample</span>, distfun <span class="op">=</span> <span class="va">vegdist</span>, meanfun <span class="op">=</span> <span class="va">mean</span>,
-    transf <span class="op">=</span> <span class="cn">NULL</span>, iterations <span class="op">=</span> <span class="fl">100</span>, dmethod <span class="op">=</span> <span class="st">"bray"</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">avgdist</span><span class="op">(</span><span class="va">x</span>, <span class="va">sample</span>, distfun <span class="op">=</span> <span class="va">vegdist</span>, meanfun <span class="op">=</span> <span class="va">mean</span>,</span>
+<span>    transf <span class="op">=</span> <span class="cn">NULL</span>, iterations <span class="op">=</span> <span class="fl">100</span>, dmethod <span class="op">=</span> <span class="st">"bray"</span>,</span>
+<span>    diag <span class="op">=</span> <span class="cn">TRUE</span>, upper <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>x</dt>
 <dd><p>Community data matrix.</p></dd>
-<dt>sample</dt>
-<dd><p>The subsampling depth to be used in each iteration. Samples that do not meet this threshold will be removed from the analysis, and their identify returned to the user in stdout.</p></dd>
-<dt>distfun</dt>
-<dd><p>The dissimilarity matrix function to be used. Default is the vegan <code><a href="vegdist.html">vegdist</a></code></p></dd>
-<dt>meanfun</dt>
+
+  <dt>sample</dt>
+<dd><p>The subsampling depth to be used in each iteration. Samples that
+  do not meet this threshold will be removed from the analysis, and their
+  identity returned to the user in stdout.</p></dd>
+
+  <dt>distfun</dt>
+<dd><p>The dissimilarity matrix function to be used. Default is the
+  vegan <code><a href="vegdist.html">vegdist</a></code></p></dd>
+
+  <dt>meanfun</dt>
 <dd><p>The calculation to use for the average (mean or median).</p></dd>
-<dt>transf</dt>
-<dd><p>Option for transforming the count data before calculating the distance matrix. Any base transformation option can be used (e.g. <code><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></code>)</p></dd>
-<dt>iterations</dt>
-<dd><p>The number of random iterations to perform before averaging. Default is 100 iterations.</p></dd>
-<dt>dmethod</dt>
-<dd><p>Dissimilarity index to be used with the specified dissimilarity matrix function. Default is Bray-Curtis</p></dd>
-<dt>...</dt>
-<dd><p>Any additional arguments to add to the distance function or mean/median function specified.</p></dd>
+
+  <dt>transf</dt>
+<dd><p>Option for transforming the count data before calculating the
+  distance matrix. Any base transformation option can be used (e.g.
+  <code><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></code>)</p></dd>
+
+  <dt>iterations</dt>
+<dd><p>The number of random iterations to perform before averaging.
+  Default is 100 iterations.</p></dd>
+
+  <dt>dmethod</dt>
+<dd><p>Dissimilarity index to be used with the specified dissimilarity
+    matrix function. Default is Bray-Curtis</p></dd>
+
+  <dt>diag, upper</dt>
+<dd><p>Return dissimilarities with diagonal and upper
+    triangle. NB. the default differs from <code><a href="vegdist.html">vegdist</a></code>
+    and returns symmetric <code>"dist"</code> structure instead of lower
+    diagonal. However, the object cannot be accessed with matrix
+    indices unless cast to matrix with <code><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></code>.</p></dd>
+
+  <dt>...</dt>
+<dd><p>Any additional arguments to add to the distance function or
+  mean/median function specified.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Geoffrey Hannigan.</p>
+    <p>Geoffrey Hannigan, with some minor tweaks by Gavin L. Simpson.</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -116,168 +143,168 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Import an example count dataset</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Test the base functionality</span></span>
-<span class="r-in"><span class="va">mean.avg.dist</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Test the transformation function</span></span>
-<span class="r-in"><span class="va">mean.avg.dist.t</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">10</span>, transf <span class="op">=</span> <span class="va">sqrt</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Test the median functionality</span></span>
-<span class="r-in"><span class="va">median.avg.dist</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">10</span>, meanfun <span class="op">=</span> <span class="va">median</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Print the resulting tables</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mean.avg.dist</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Import an example count dataset</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Test the base functionality</span></span></span>
+<span class="r-in"><span><span class="va">mean.avg.dist</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Test the transformation function</span></span></span>
+<span class="r-in"><span><span class="va">mean.avg.dist.t</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">10</span>, transf <span class="op">=</span> <span class="va">sqrt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Test the median functionality</span></span></span>
+<span class="r-in"><span><span class="va">median.avg.dist</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">10</span>, meanfun <span class="op">=</span> <span class="va">median</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Print the resulting tables</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mean.avg.dist</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       1     2     3     4     5     6     7     8     9    10    11    12    13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.000 0.530 0.594 0.620 0.618 0.626 0.596 0.596 0.644 0.602 0.600 0.626 0.740</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.530 0.000 0.532 0.594 0.574 0.580 0.516 0.564 0.602 0.602 0.576 0.576 0.694</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.594 0.532 0.000 0.606 0.612 0.580 0.562 0.544 0.580 0.568 0.610 0.614 0.722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.620 0.594 0.606 0.000 0.626 0.656 0.606 0.584 0.592 0.600 0.624 0.628 0.682</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.618 0.574 0.612 0.626 0.000 0.590 0.606 0.610 0.644 0.632 0.650 0.662 0.770</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.626 0.580 0.580 0.656 0.590 0.000 0.584 0.608 0.626 0.642 0.592 0.598 0.722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.000 0.556 0.606 0.648 0.620 0.624 0.610 0.606 0.654 0.624 0.638 0.648 0.708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.556 0.000 0.568 0.568 0.632 0.568 0.532 0.554 0.576 0.578 0.588 0.560 0.678</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.606 0.568 0.000 0.582 0.578 0.618 0.600 0.568 0.610 0.574 0.610 0.622 0.738</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.648 0.568 0.582 0.000 0.624 0.654 0.610 0.572 0.594 0.594 0.596 0.636 0.672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.620 0.632 0.578 0.624 0.000 0.602 0.662 0.626 0.670 0.606 0.678 0.716 0.754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.624 0.568 0.618 0.654 0.602 0.000 0.598 0.566 0.616 0.644 0.576 0.568 0.706</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      14    15    16    17    18    19    20    21    22    23    24    25    26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.612 0.668 0.610 0.658 0.738 0.668 0.608 0.586 0.680 0.698 0.636 0.632 0.658</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.564 0.570 0.544 0.596 0.692 0.608 0.600 0.594 0.582 0.648 0.604 0.608 0.612</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.582 0.582 0.588 0.642 0.724 0.620 0.612 0.598 0.616 0.688 0.628 0.642 0.648</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.552 0.586 0.602 0.648 0.696 0.624 0.614 0.644 0.656 0.670 0.612 0.658 0.688</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.626 0.632 0.622 0.708 0.752 0.672 0.642 0.626 0.698 0.714 0.646 0.686 0.698</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.616 0.638 0.612 0.632 0.698 0.638 0.660 0.642 0.638 0.676 0.636 0.694 0.684</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.630 0.648 0.600 0.646 0.744 0.682 0.626 0.600 0.646 0.700 0.658 0.620 0.620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.600 0.592 0.554 0.564 0.660 0.584 0.598 0.606 0.544 0.642 0.574 0.624 0.592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.628 0.612 0.616 0.646 0.730 0.660 0.646 0.568 0.636 0.722 0.652 0.672 0.660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.602 0.602 0.618 0.634 0.666 0.622 0.636 0.656 0.568 0.642 0.614 0.654 0.638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.610 0.642 0.630 0.760 0.766 0.698 0.654 0.642 0.738 0.702 0.652 0.688 0.652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.618 0.696 0.626 0.618 0.668 0.634 0.664 0.648 0.630 0.694 0.608 0.682 0.674</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      27    28    29    30    31    32    33    34    35    36    37    38    39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.648 0.676 0.662 0.640 0.656 0.730 0.648 0.690 0.738 0.632 0.702 0.708 0.728</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.618 0.612 0.572 0.608 0.602 0.634 0.580 0.620 0.692 0.622 0.612 0.634 0.652</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.642 0.622 0.600 0.642 0.646 0.658 0.652 0.664 0.772 0.612 0.630 0.646 0.684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.634 0.658 0.610 0.600 0.650 0.658 0.646 0.634 0.760 0.644 0.610 0.654 0.658</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.686 0.670 0.696 0.686 0.648 0.722 0.698 0.728 0.778 0.684 0.690 0.702 0.742</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.650 0.634 0.642 0.690 0.642 0.670 0.666 0.656 0.780 0.678 0.656 0.676 0.712</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.702 0.684 0.674 0.634 0.680 0.724 0.692 0.684 0.744 0.666 0.694 0.716 0.700</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.632 0.586 0.568 0.582 0.646 0.606 0.618 0.634 0.722 0.638 0.590 0.590 0.616</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.668 0.660 0.654 0.676 0.660 0.674 0.694 0.700 0.764 0.684 0.628 0.684 0.708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.644 0.596 0.612 0.608 0.662 0.594 0.610 0.632 0.730 0.648 0.562 0.588 0.636</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.712 0.752 0.728 0.734 0.676 0.710 0.698 0.768 0.830 0.678 0.690 0.752 0.760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.628 0.640 0.630 0.668 0.668 0.636 0.662 0.682 0.768 0.678 0.658 0.664 0.700</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      40    41    42    43    44    45    46    47    48    49    50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.744 0.634 0.634 0.666 0.662 0.674 0.686 0.702 0.670 0.692 0.666</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.672 0.612 0.602 0.658 0.638 0.682 0.676 0.658 0.660 0.688 0.664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.722 0.652 0.640 0.634 0.626 0.636 0.736 0.696 0.668 0.694 0.678</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.708 0.604 0.652 0.676 0.672 0.700 0.688 0.668 0.682 0.706 0.696</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.778 0.678 0.660 0.680 0.668 0.648 0.758 0.736 0.708 0.714 0.680</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.752 0.672 0.684 0.662 0.670 0.694 0.702 0.680 0.714 0.736 0.716</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mean.avg.dist.t</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.714 0.686 0.624 0.688 0.654 0.668 0.668 0.650 0.676 0.694 0.676</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.638 0.670 0.644 0.654 0.626 0.664 0.648 0.638 0.648 0.678 0.672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.716 0.702 0.634 0.672 0.668 0.646 0.720 0.730 0.712 0.698 0.704</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.680 0.652 0.618 0.680 0.698 0.696 0.658 0.666 0.658 0.696 0.708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.828 0.688 0.654 0.658 0.690 0.654 0.772 0.720 0.704 0.692 0.656</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.724 0.686 0.678 0.670 0.666 0.698 0.734 0.692 0.714 0.734 0.704</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">mean.avg.dist.t</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           1         2         3         4         5         6         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.0000000 0.5211715 0.5294781 0.5714764 0.5982690 0.5668866 0.5816491</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5211715 0.0000000 0.5501856 0.5779002 0.5620828 0.5387641 0.5734941</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5294781 0.5501856 0.0000000 0.5668359 0.5399305 0.5720575 0.5813017</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5714764 0.5779002 0.5668359 0.0000000 0.5551293 0.6008419 0.6308244</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.5982690 0.5620828 0.5399305 0.5551293 0.0000000 0.5604001 0.6273287</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5668866 0.5387641 0.5720575 0.6008419 0.5604001 0.0000000 0.5409085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.0000000 0.5073247 0.5451162 0.5511308 0.5863431 0.5693314 0.5561033</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5073247 0.0000000 0.5076177 0.5454488 0.5590474 0.5361407 0.5075526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5451162 0.5076177 0.0000000 0.5169507 0.5442375 0.5536933 0.5580432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5511308 0.5454488 0.5169507 0.0000000 0.5556915 0.6029668 0.5894129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.5863431 0.5590474 0.5442375 0.5556915 0.0000000 0.5730661 0.5904097</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5693314 0.5361407 0.5536933 0.6029668 0.5730661 0.0000000 0.5161496</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           8         9        10        11        12        13        14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5605635 0.5835753 0.5938937 0.5699317 0.5927104 0.7028925 0.5888791</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5520810 0.5832334 0.5864088 0.5392822 0.5799523 0.7199698 0.5846065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5526802 0.5652797 0.5374007 0.5424914 0.5824578 0.7482811 0.5729492</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5772395 0.5901249 0.5669167 0.5459211 0.6138103 0.6889565 0.5613448</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.5664313 0.6120803 0.5829865 0.5880972 0.6322294 0.7327606 0.5911700</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5099455 0.5718106 0.6020255 0.5485110 0.5419337 0.6912161 0.6182168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5673559 0.5627535 0.5792425 0.5729159 0.6020539 0.7016723 0.5490011</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5366592 0.5380985 0.5623811 0.5321790 0.5515688 0.6779465 0.5572373</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5073755 0.5536056 0.5389882 0.5801096 0.5868026 0.7260347 0.5816036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5259962 0.5706750 0.5613498 0.5523447 0.5753112 0.6804780 0.5838035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.5484180 0.5855322 0.5881431 0.6281267 0.6276212 0.7377994 0.5875698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5529963 0.5552535 0.6215621 0.5618841 0.5336650 0.6716372 0.5641578</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          15        16        17        18        19        20        21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5632059 0.5806108 0.6252351 0.6988104 0.6104065 0.5960840 0.5935155</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5437828 0.5815743 0.6127967 0.6807515 0.5441901 0.5887730 0.5805707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5346315 0.5779998 0.6324438 0.7164121 0.5952368 0.5985417 0.5864602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5636750 0.5745765 0.6442923 0.6989586 0.6194423 0.5783485 0.6079649</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.5509613 0.5919066 0.6805386 0.7555615 0.6357262 0.6352012 0.5979677</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6161379 0.5719583 0.6439837 0.6695865 0.5794913 0.6462728 0.5951890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6050878 0.5605091 0.6262520 0.6790944 0.6158975 0.5894641 0.6238942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5492945 0.5571279 0.5683865 0.6719160 0.5864794 0.5817164 0.5785775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5651808 0.5907658 0.5986803 0.7180656 0.6208023 0.5831755 0.6141896</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5846365 0.5995058 0.6019378 0.6723126 0.6185437 0.5788246 0.6204008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.5886468 0.6313116 0.6908350 0.7310610 0.6738026 0.6056946 0.6248085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6245763 0.5734551 0.5897524 0.6553604 0.5945132 0.6253476 0.6236726</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          22        23        24        25        26        27        28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6062138 0.6949958 0.5883426 0.5807276 0.6026890 0.6103767 0.6034593</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6016684 0.6748952 0.5966708 0.5812395 0.5831479 0.6104027 0.6276663</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6412669 0.7371308 0.5815187 0.6052175 0.6346816 0.6101250 0.6284610</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6160790 0.6612333 0.5921551 0.6019891 0.6261934 0.6003383 0.6187110</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6789584 0.7030916 0.6137128 0.6280679 0.6401371 0.6308082 0.6478296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5945462 0.6673575 0.5515377 0.6464219 0.6092767 0.5784234 0.5978900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6087932 0.6864876 0.5674543 0.6124061 0.6000094 0.6287013 0.6246696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5851407 0.6506247 0.5554757 0.5519726 0.6143138 0.5810440 0.5887911</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6301892 0.7101043 0.5608707 0.5964616 0.6536689 0.6015372 0.6254962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6116276 0.6570546 0.5806733 0.5942875 0.6756654 0.6170196 0.6088559</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6692645 0.7281868 0.6019467 0.6240673 0.6717579 0.6824310 0.6781349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5779917 0.6752783 0.5474248 0.6048853 0.6297599 0.6032439 0.6025756</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          29        30        31        32        33        34        35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6104082 0.6152657 0.6499374 0.6786470 0.6234097 0.6784469 0.7006012</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5687044 0.6332052 0.6208923 0.6383650 0.6273711 0.6894763 0.7169946</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5955986 0.6269565 0.6498061 0.6472298 0.6274339 0.6960523 0.7547766</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5740101 0.6312927 0.6184213 0.6246798 0.6355859 0.6827176 0.6867101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6536919 0.6496658 0.6179988 0.6503514 0.6752629 0.7145308 0.7543620</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5901594 0.6705459 0.6089786 0.6661244 0.6323356 0.6842767 0.7515044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5877126 0.5931557 0.6122546 0.6435203 0.6114740 0.6243358 0.7012874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5493477 0.5852872 0.5988185 0.6153332 0.5921568 0.6244034 0.6905708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5678376 0.6210073 0.6158757 0.6377790 0.6371270 0.6555867 0.7323038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.5759931 0.5912841 0.5983615 0.6066556 0.6016788 0.6087876 0.6950808</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6276522 0.6379576 0.6034350 0.6457655 0.6563073 0.6866576 0.7235042</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.5816252 0.6242943 0.6152092 0.6137642 0.6116231 0.6246531 0.7312678</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          36        37        38        39        40        41        42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6728013 0.6688681 0.6273701 0.6493320 0.6912715 0.6239584 0.5859833</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6213323 0.6027689 0.6257947 0.6516199 0.6707898 0.6051258 0.5880905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6355542 0.6263914 0.6391783 0.6718140 0.7043962 0.6275683 0.5915948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6353194 0.5946926 0.6223656 0.6425368 0.6421351 0.5913723 0.5939618</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6361167 0.6306787 0.6515451 0.7001420 0.7079545 0.6415418 0.5832339</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6406018 0.6282747 0.6519895 0.6597777 0.6983861 0.6523747 0.5919273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5974168 0.6467898 0.6716840 0.6643855 0.6683070 0.6353745 0.6004874</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.5903695 0.5752574 0.6187077 0.6192344 0.6573943 0.6571387 0.6027516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.5687077 0.6126409 0.6617885 0.6959650 0.6909293 0.6525653 0.6014759</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6194344 0.5761296 0.6102164 0.6295049 0.6560977 0.5989171 0.6281164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6056532 0.6441953 0.6593381 0.7110348 0.7252049 0.6568578 0.6156351</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6109414 0.6067715 0.6656711 0.6870593 0.6686455 0.6769139 0.6426746</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          43        44        45        46        47        48        49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6150045 0.6513746 0.6369786 0.6546308 0.6305804 0.6523500 0.6535367</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6011100 0.6094102 0.6467621 0.6782057 0.6093659 0.6511736 0.6316396</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6034119 0.6382752 0.6204601 0.7227873 0.6813613 0.6694833 0.6831757</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6098274 0.6152369 0.6368468 0.6661722 0.6389929 0.6236678 0.6535291</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6341742 0.5936972 0.6317343 0.7103640 0.6736707 0.6677543 0.6514054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6085044 0.6629003 0.6300629 0.6716299 0.6514968 0.6358487 0.6760599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6310309 0.5900500 0.5774603 0.6474425 0.6488217 0.6157111 0.6070289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6028820 0.6126007 0.6208170 0.6652427 0.6134982 0.6243098 0.6319083</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6162330 0.6398741 0.6039060 0.7021972 0.6677691 0.6678864 0.6696487</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6197236 0.6379939 0.6156272 0.6582549 0.6062615 0.6139683 0.6466872</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6203780 0.6542059 0.6040162 0.7417980 0.6946591 0.6954255 0.6537119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6386277 0.6418793 0.6306854 0.6948586 0.6326248 0.6678749 0.6692019</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.6391270</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6444339</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6626571</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6271252</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6359956</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6626580</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">median.avg.dist</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5867459</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.6227903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.6365131</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.6260672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.6250031</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.6423431</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">median.avg.dist</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      1    2    3    4    5    6    7    8    9   10   11   12   13   14   15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.00 0.55 0.55 0.60 0.62 0.62 0.59 0.57 0.65 0.60 0.62 0.62 0.72 0.59 0.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.55 0.00 0.53 0.61 0.60 0.60 0.55 0.53 0.54 0.57 0.60 0.56 0.70 0.61 0.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.55 0.53 0.00 0.60 0.60 0.59 0.55 0.58 0.59 0.56 0.60 0.62 0.74 0.61 0.59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.60 0.61 0.60 0.00 0.63 0.66 0.63 0.64 0.66 0.59 0.62 0.62 0.71 0.63 0.64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.62 0.60 0.60 0.63 0.00 0.57 0.64 0.62 0.64 0.62 0.64 0.70 0.76 0.59 0.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.62 0.60 0.59 0.66 0.57 0.00 0.57 0.60 0.65 0.63 0.58 0.60 0.71 0.65 0.66</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.00 0.56 0.60 0.62 0.66 0.63 0.58 0.62 0.65 0.61 0.59 0.65 0.74 0.64 0.64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.56 0.00 0.53 0.59 0.64 0.63 0.60 0.58 0.58 0.60 0.59 0.62 0.68 0.58 0.61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.60 0.53 0.00 0.61 0.63 0.58 0.56 0.57 0.60 0.55 0.60 0.64 0.76 0.66 0.61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.62 0.59 0.61 0.00 0.64 0.66 0.62 0.58 0.57 0.58 0.63 0.62 0.66 0.55 0.57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.66 0.64 0.63 0.64 0.00 0.57 0.65 0.64 0.62 0.62 0.68 0.67 0.76 0.66 0.65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.63 0.63 0.58 0.66 0.57 0.00 0.58 0.62 0.61 0.66 0.60 0.59 0.74 0.69 0.70</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     16   17   18   19   20   21   22   23   24   25   26   27   28   29   30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.58 0.65 0.75 0.61 0.62 0.64 0.63 0.68 0.62 0.64 0.61 0.64 0.66 0.66 0.65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.54 0.59 0.70 0.58 0.58 0.57 0.59 0.62 0.56 0.59 0.58 0.61 0.60 0.58 0.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.56 0.65 0.75 0.57 0.58 0.62 0.65 0.69 0.63 0.63 0.64 0.67 0.61 0.63 0.65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.58 0.62 0.68 0.60 0.63 0.68 0.62 0.67 0.62 0.66 0.65 0.65 0.65 0.58 0.61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.61 0.73 0.78 0.66 0.62 0.58 0.73 0.70 0.65 0.62 0.65 0.68 0.69 0.72 0.70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.62 0.66 0.67 0.62 0.67 0.64 0.65 0.70 0.62 0.67 0.64 0.66 0.63 0.63 0.74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.63 0.65 0.76 0.67 0.65 0.65 0.66 0.68 0.66 0.66 0.62 0.66 0.65 0.66 0.66</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.62 0.59 0.69 0.61 0.56 0.64 0.62 0.67 0.60 0.58 0.62 0.64 0.63 0.56 0.63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.61 0.64 0.72 0.69 0.64 0.62 0.62 0.74 0.65 0.65 0.66 0.64 0.61 0.60 0.64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.63 0.62 0.67 0.61 0.60 0.68 0.59 0.67 0.62 0.60 0.66 0.60 0.62 0.59 0.62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.65 0.73 0.81 0.70 0.65 0.64 0.72 0.69 0.71 0.67 0.71 0.68 0.72 0.70 0.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.63 0.60 0.68 0.63 0.66 0.68 0.63 0.70 0.61 0.64 0.66 0.63 0.65 0.62 0.69</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     31   32   33   34   35   36   37   38   39   40   41   42   43   44   45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.67 0.67 0.63 0.70 0.76 0.62 0.64 0.66 0.70 0.71 0.66 0.62 0.65 0.63 0.66</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.63 0.60 0.57 0.66 0.74 0.62 0.61 0.63 0.64 0.65 0.67 0.60 0.67 0.61 0.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.63 0.64 0.63 0.68 0.77 0.64 0.62 0.64 0.69 0.70 0.67 0.62 0.62 0.64 0.66</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.66 0.67 0.67 0.66 0.76 0.65 0.64 0.63 0.66 0.67 0.68 0.64 0.67 0.67 0.74</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.66 0.74 0.68 0.75 0.80 0.66 0.68 0.75 0.74 0.75 0.66 0.64 0.66 0.66 0.68</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.66 0.69 0.65 0.68 0.79 0.70 0.68 0.69 0.73 0.78 0.73 0.66 0.68 0.63 0.68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.65 0.69 0.66 0.66 0.74 0.65 0.68 0.69 0.70 0.68 0.67 0.63 0.63 0.64 0.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.62 0.61 0.61 0.63 0.75 0.66 0.60 0.60 0.67 0.68 0.68 0.62 0.64 0.64 0.69</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.63 0.61 0.69 0.68 0.78 0.67 0.61 0.65 0.68 0.72 0.71 0.65 0.66 0.64 0.65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.59 0.65 0.61 0.66 0.79 0.61 0.57 0.61 0.65 0.66 0.68 0.63 0.66 0.68 0.71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.65 0.71 0.70 0.75 0.82 0.70 0.65 0.73 0.79 0.76 0.72 0.64 0.73 0.70 0.68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.68 0.68 0.67 0.68 0.82 0.72 0.71 0.69 0.71 0.75 0.74 0.69 0.67 0.69 0.72</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     46   47   48   49   50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.69 0.65 0.63 0.65 0.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.67 0.64 0.66 0.67 0.66</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.72 0.68 0.69 0.69 0.69</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.70 0.66 0.67 0.74 0.71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.75 0.72 0.69 0.71 0.67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.71 0.71 0.71 0.72 0.66</span>
-<span class="r-in"><span class="co"># Run example to illustrate low variance of mean, median, and stdev results</span></span>
-<span class="r-in"><span class="co"># Mean and median std dev are around 0.05</span></span>
-<span class="r-in"><span class="va">sdd</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">100</span>, meanfun <span class="op">=</span> <span class="va">sd</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mean.avg.dist</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.69 0.66 0.66 0.66 0.67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.69 0.62 0.67 0.63 0.65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.73 0.70 0.70 0.68 0.72</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.68 0.65 0.65 0.69 0.64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.76 0.70 0.75 0.72 0.70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.72 0.71 0.73 0.72 0.71</span>
+<span class="r-in"><span><span class="co"># Run example to illustrate low variance of mean, median, and stdev results</span></span></span>
+<span class="r-in"><span><span class="co"># Mean and median std dev are around 0.05</span></span></span>
+<span class="r-in"><span><span class="va">sdd</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">50</span>, iterations <span class="op">=</span> <span class="fl">100</span>, meanfun <span class="op">=</span> <span class="va">sd</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mean.avg.dist</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.4960  0.6100  0.6460  0.6473  0.6800  0.8400 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">median.avg.dist</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.4640  0.6180  0.6540  0.6543  0.6900  0.8360 </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">median.avg.dist</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.5000  0.6200  0.6500  0.6518  0.6900  0.8500 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sdd</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.4600  0.6100  0.6500  0.6501  0.6900  0.8600 </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">sdd</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.04357 0.05694 0.05999 0.05997 0.06303 0.07529 </span>
-<span class="r-in"><span class="co"># Test for when subsampling depth excludes some samples</span></span>
-<span class="r-in"><span class="co"># Return samples that are removed for not meeting depth filter</span></span>
-<span class="r-in"><span class="va">depth.avg.dist</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">450</span>, iterations <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.03849 0.05617 0.05921 0.05919 0.06208 0.07661 </span>
+<span class="r-in"><span><span class="co"># Test for when subsampling depth excludes some samples</span></span></span>
+<span class="r-in"><span><span class="co"># Return samples that are removed for not meeting depth filter</span></span></span>
+<span class="r-in"><span><span class="va">depth.avg.dist</span> <span class="op">&lt;-</span> <span class="fu">avgdist</span><span class="op">(</span><span class="va">BCI</span>, sample <span class="op">=</span> <span class="fl">450</span>, iterations <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>The following sampling units were removed because they were below sampling depth: 1, 2, 6, 7, 8, 9, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 31, 33, 34, 36, 37, 38, 39, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50</span>
-<span class="r-in"><span class="co"># Print the result</span></span>
-<span class="r-in"><span class="va">depth.avg.dist</span></span>
+<span class="r-in"><span><span class="co"># Print the result</span></span></span>
+<span class="r-in"><span><span class="va">depth.avg.dist</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            3         4         5        10        15        30        32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.0000000 0.3304444 0.3637778 0.3002222 0.3588889 0.4562222 0.4746667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.3304444 0.0000000 0.3757778 0.3175556 0.3564444 0.3882222 0.4295556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.3637778 0.3757778 0.0000000 0.3942222 0.3962222 0.4933333 0.5213333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.3002222 0.3175556 0.3942222 0.0000000 0.3197778 0.4275556 0.4197778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.3588889 0.3564444 0.3962222 0.3197778 0.0000000 0.4568889 0.4655556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.4562222 0.3882222 0.4933333 0.4275556 0.4568889 0.0000000 0.3833333</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 0.4746667 0.4295556 0.5213333 0.4197778 0.4655556 0.3833333 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 0.6675556 0.6371111 0.6946667 0.6900000 0.6597778 0.5200000 0.5942222</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40 0.5662222 0.5280000 0.6335556 0.5244444 0.5620000 0.4542222 0.4048889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.0000000 0.3282222 0.3635556 0.2942222 0.3562222 0.4555556 0.4726667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.3282222 0.0000000 0.3775556 0.3173333 0.3480000 0.3908889 0.4273333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.3635556 0.3775556 0.0000000 0.3900000 0.3995556 0.4968889 0.5231111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.2942222 0.3173333 0.3900000 0.0000000 0.3135556 0.4266667 0.4200000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.3562222 0.3480000 0.3995556 0.3135556 0.0000000 0.4535556 0.4657778</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.4555556 0.3908889 0.4968889 0.4266667 0.4535556 0.0000000 0.3811111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 0.4726667 0.4273333 0.5231111 0.4200000 0.4657778 0.3811111 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 0.6591111 0.6266667 0.6966667 0.6817778 0.6573333 0.5157778 0.5893333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 0.5624444 0.5286667 0.6413333 0.5240000 0.5628889 0.4540000 0.4057778</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           35        40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.6675556 0.5662222</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.6371111 0.5280000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.6946667 0.6335556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.6900000 0.5244444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.6597778 0.5620000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.5200000 0.4542222</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32 0.5942222 0.4048889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35 0.0000000 0.4355556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40 0.4355556 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  0.6591111 0.5624444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.6266667 0.5286667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.6966667 0.6413333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 0.6817778 0.5240000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.6573333 0.5628889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.5157778 0.4540000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32 0.5893333 0.4057778</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35 0.0000000 0.4280000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 0.4280000 0.0000000</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -285,11 +312,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

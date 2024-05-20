@@ -4,9 +4,7 @@
   analysis), or optionally partial constrained correspondence
   analysis. Function rda performs redundancy analysis, or
   optionally principal components analysis.
-  These are all very popular ordination techniques in community ecology."><title>[Partial] [Constrained] Correspondence Analysis and Redundancy
-  Analysis — cca • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="[Partial] [Constrained] Correspondence Analysis and Redundancy
-  Analysis — cca"><meta property="og:description" content="Function cca performs correspondence analysis, or optionally
+  These are all very popular ordination techniques in community ecology."><title>[Partial] [Constrained] Correspondence Analysis and Redundancy Analysis — cca • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="[Partial] [Constrained] Correspondence Analysis and Redundancy Analysis — cca"><meta property="og:description" content="Function cca performs correspondence analysis, or optionally
   constrained correspondence analysis (a.k.a. canonical correspondence
   analysis), or optionally partial constrained correspondence
   analysis. Function rda performs redundancy analysis, or
@@ -18,11 +16,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,6 +36,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -55,8 +56,7 @@
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="" class="logo" alt=""><h1>[Partial] [Constrained] Correspondence Analysis and Redundancy
-  Analysis</h1>
+      <img src="" class="logo" alt=""><h1>[Partial] [Constrained] Correspondence Analysis and Redundancy Analysis</h1>
       
       <div class="d-none name"><code>cca.Rd</code></div>
     </div>
@@ -72,16 +72,16 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S3 method for formula</span>
-<span class="fu">cca</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>, subset <span class="op">=</span> <span class="cn">NULL</span>,
-  <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for formula</span>
-<span class="fu">rda</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>,
-  subset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">cca</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for default</span>
-<span class="fu">rda</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">cca</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>, subset <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for formula</span></span>
+<span><span class="fu">rda</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>,</span>
+<span>  subset <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">cca</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for default</span></span>
+<span><span class="fu">rda</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -91,26 +91,32 @@
     community data matrix, right hand side gives the constraining variables,
     and conditioning variables can be given within a special function
     <code>Condition</code>.</p></dd>
-<dt>data</dt>
+
+  <dt>data</dt>
 <dd><p>Data frame containing the variables on the right hand side
     of the model formula.</p></dd>
-<dt>X</dt>
+
+  <dt>X</dt>
 <dd><p>Community data matrix.</p></dd>
-<dt>Y</dt>
+
+  <dt>Y</dt>
 <dd><p>Constraining matrix, typically of environmental variables.
     Can be missing. If this is a <code>data.frame</code>, it will be
     expanded to a <code><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></code> where factors are
     expanded to contrasts (“dummy variables”). It is better to
     use <code>formula</code> instead of this argument, and some further
     analyses only work when <code>formula</code> was used.</p></dd>
-<dt>Z</dt>
+
+  <dt>Z</dt>
 <dd><p>Conditioning matrix, the effect of which is removed
     (“partialled out”) before next step. Can be missing. If this is a
     <code>data.frame</code>, it is expanded similarly as constraining
     matrix.</p></dd>
+
 <dt>scale</dt>
 <dd><p>Scale species to unit variance (like correlations).</p></dd>
-<dt>na.action</dt>
+
+  <dt>na.action</dt>
 <dd><p>Handling of missing values in constraints or
     conditions. The default (<code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.fail</a></code>) is to stop with
     missing value. Choice <code><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></code> removes all rows with
@@ -119,14 +125,17 @@
     calculated. The WA scores of rows may be found also for missing
     values in constraints. Missing values are never allowed in
     dependent community data.</p></dd>
-<dt>subset</dt>
+
+  <dt>subset</dt>
 <dd><p>Subset of data rows. This can be a logical vector which
     is <code>TRUE</code> for kept observations, or a logical expression which
     can contain variables in the working environment, <code>data</code> or
     species names of the community data.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other arguments for <code>print</code> or <code>plot</code> functions
     (ignored in other functions).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -232,9 +241,13 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>cca</code> returns a huge object of class <code>cca</code>, which
-  is described separately in <code><a href="cca.object.html">cca.object</a></code>.
-  Function <code>rda</code> returns an object of class <code>rda</code> which
+    
+
+<p>Function <code>cca</code> returns a huge object of class <code>cca</code>, which
+  is described separately in <code><a href="cca.object.html">cca.object</a></code>.</p>
+
+
+<p>Function <code>rda</code> returns an object of class <code>rda</code> which
   inherits from class <code>cca</code> and is described in <code><a href="cca.object.html">cca.object</a></code>.
   The scaling used in <code>rda</code> scores is described in a separate
   vignette with this package.</p>
@@ -266,12 +279,12 @@
 <p>This help page describes two constrained ordination functions,
   <code>cca</code> and <code>rda</code>.  A related method, distance-based
   redundancy analysis (dbRDA) is described separately
-  (<code><a href="capscale.html">capscale</a></code>). All these functions return similar objects
+  (<code><a href="dbrda.html">capscale</a></code>). All these functions return similar objects
   (described in <code><a href="cca.object.html">cca.object</a></code>). There are numerous support
   functions that can be used to access the result object. In the list
   below, functions of type <code>cca</code> will handle all three constrained
   ordination objects, and functions of <code>rda</code> only handle <code>rda</code>
-  and <code><a href="capscale.html">capscale</a></code> results.</p>
+  and <code><a href="dbrda.html">capscale</a></code> results.</p>
 <p>The main plotting functions are <code><a href="plot.cca.html">plot.cca</a></code> for all
   methods, and <code><a href="biplot.rda.html">biplot.rda</a></code> for RDA and dbRDA.  However,
   generic <span class="pkg">vegan</span> plotting functions can also handle the results.
@@ -307,19 +320,17 @@
   several components (<code><a href="varpart.html">varpart</a></code>).</p>
 <p>Design decisions are explained in <code><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></code>
   on “Design decisions” which can be accessed with
-  <code>browseVignettes("vegan")</code>.</p>
-<p>Package <span class="pkg">ade4</span> provides alternative constrained ordination
-  function <code>pcaiv</code>.</p></div>
+  <code>browseVignettes("vegan")</code>.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="co">## Common but bad way: use all variables you happen to have in your</span></span>
-<span class="r-in"><span class="co">## environmental data matrix</span></span>
-<span class="r-in"><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.cca</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Common but bad way: use all variables you happen to have in your</span></span></span>
+<span class="r-in"><span><span class="co">## environmental data matrix</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(X = varespec, Y = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
@@ -338,11 +349,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.19776 0.14193 0.10117 0.07079 0.05330 0.03330 0.01887 0.01510 0.00949 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Formula interface and a better model</span></span>
-<span class="r-in"><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span><span class="op">*</span><span class="op">(</span><span class="va">K</span> <span class="op">+</span> <span class="va">Baresoil</span><span class="op">)</span>, data<span class="op">=</span><span class="va">varechem</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">vare.cca</span></span>
+<span class="r-in"><span><span class="co">## Formula interface and a better model</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span><span class="op">*</span><span class="op">(</span><span class="va">K</span> <span class="op">+</span> <span class="va">Baresoil</span><span class="op">)</span>, data<span class="op">=</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.cca</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data =</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -361,10 +372,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.27577 0.15411 0.13536 0.11803 0.08887 0.05511 0.04919 0.03781 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 17 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Partialling out and negative components of variance</span></span>
-<span class="r-in"><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span>, <span class="va">varechem</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Partialling out and negative components of variance</span></span></span>
+<span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca, data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
@@ -382,7 +393,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.4745 0.2939 0.2140 0.1954 0.1748 0.1171 0.1121 0.0880 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 22 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">pH</span><span class="op">)</span>, <span class="va">varechem</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">pH</span><span class="op">)</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca + Condition(pH), data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
@@ -401,11 +412,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.3834 0.2749 0.2123 0.1760 0.1701 0.1161 0.1089 0.0880 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 21 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co">## RDA</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">dune.Manure</span> <span class="op">&lt;-</span> <span class="fu">rda</span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Manure</span>, <span class="va">dune.env</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.Manure</span><span class="op">)</span> </span>
+<span class="r-in"><span><span class="co">## RDA</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dune.Manure</span> <span class="op">&lt;-</span> <span class="fu">rda</span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Manure</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.Manure</span><span class="op">)</span> </span></span>
 <span class="r-plt img"><img src="cca-3.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
@@ -414,11 +425,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

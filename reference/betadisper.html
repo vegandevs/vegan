@@ -11,7 +11,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
   the differences between the mean distance-to-centroid of the levels of
   the grouping factor with the specified family-wise probability of
   coverage.  The intervals are based on the Studentized range statistic,
-  Tukey's 'Honest Significant Difference' method."><title>Multivariate homogeneity of groups dispersions (variances) — betadisper • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Multivariate homogeneity of groups dispersions (variances) — betadisper"><meta property="og:description" content="Implements Marti Anderson's PERMDISP2 procedure for the analysis of
+  Tukey's 'Honest Significant Difference' method."><title>Multivariate homogeneity of groups dispersions (variances) — betadisper • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Multivariate homogeneity of groups dispersions (variances) — betadisper"><meta property="og:description" content="Implements Marti Anderson's PERMDISP2 procedure for the analysis of
   multivariate homogeneity of group dispersions (variances).
   betadisper is a multivariate analogue of Levene's test for
   homogeneity of variances. Non-euclidean distances between objects and
@@ -30,11 +30,11 @@ TukeyHSD.betadisper creates a set of confidence intervals on
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -90,37 +93,37 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">betadisper</span><span class="op">(</span><span class="va">d</span>, <span class="va">group</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"median"</span>,<span class="st">"centroid"</span><span class="op">)</span>, bias.adjust <span class="op">=</span> <span class="cn">FALSE</span>,
-       sqrt.dist <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"centroids"</span><span class="op">)</span>,
-       choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="eigenvals.html">eigenvals</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, axes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.7</span>,
-     pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">ng</span><span class="op">)</span>, col <span class="op">=</span> <span class="cn">NULL</span>, lty <span class="op">=</span> <span class="st">"solid"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, hull <span class="op">=</span> <span class="cn">TRUE</span>,
-     ellipse <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">conf</span>,
-     segments <span class="op">=</span> <span class="cn">TRUE</span>, seg.col <span class="op">=</span> <span class="st">"grey"</span>, seg.lty <span class="op">=</span> <span class="va">lty</span>, seg.lwd <span class="op">=</span> <span class="va">lwd</span>,
-     label <span class="op">=</span> <span class="cn">TRUE</span>, label.cex <span class="op">=</span> <span class="fl">1</span>,
-     <span class="va">ylab</span>, <span class="va">xlab</span>, <span class="va">main</span>, <span class="va">sub</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">x</span>, ylab <span class="op">=</span> <span class="st">"Distance to centroid"</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="st">"group"</span>, ordered <span class="op">=</span> <span class="cn">FALSE</span>,
-         conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S3 method for betadisper</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>,
-                           neigen <span class="op">=</span> <span class="fl">8</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">betadisper</span><span class="op">(</span><span class="va">d</span>, <span class="va">group</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"median"</span>,<span class="st">"centroid"</span><span class="op">)</span>, bias.adjust <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>       sqrt.dist <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"centroids"</span><span class="op">)</span>,</span>
+<span>       choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="eigenvals.html">eigenvals</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, axes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>     pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">ng</span><span class="op">)</span>, col <span class="op">=</span> <span class="cn">NULL</span>, lty <span class="op">=</span> <span class="st">"solid"</span>, lwd <span class="op">=</span> <span class="fl">1</span>, hull <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>     ellipse <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">conf</span>,</span>
+<span>     segments <span class="op">=</span> <span class="cn">TRUE</span>, seg.col <span class="op">=</span> <span class="st">"grey"</span>, seg.lty <span class="op">=</span> <span class="va">lty</span>, seg.lwd <span class="op">=</span> <span class="va">lwd</span>,</span>
+<span>     label <span class="op">=</span> <span class="cn">TRUE</span>, label.cex <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>     <span class="va">ylab</span>, <span class="va">xlab</span>, <span class="va">main</span>, <span class="va">sub</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">x</span>, ylab <span class="op">=</span> <span class="st">"Distance to centroid"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">x</span>, which <span class="op">=</span> <span class="st">"group"</span>, ordered <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>         conf.level <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for betadisper</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>                           neigen <span class="op">=</span> <span class="fl">8</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -129,88 +132,114 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <dd><p>a distance structure such as that returned by 
     <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>, <code><a href="betadiver.html">betadiver</a></code> or
     <code><a href="vegdist.html">vegdist</a></code>.</p></dd>
-<dt>group</dt>
+
+  <dt>group</dt>
 <dd><p>vector describing the group structure, usually a factor
     or an object that can be coerced to a factor using
     <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></code>. Can consist of a factor with a single
     level (i.e., one group).</p></dd>
-<dt>type</dt>
+
+  <dt>type</dt>
 <dd><p>the type of analysis to perform. Use the spatial median or
     the group centroid? The spatial median is now the default.</p></dd>
-<dt>bias.adjust</dt>
+
+  <dt>bias.adjust</dt>
 <dd><p>logical: adjust for small sample bias in beta
     diversity estimates?</p></dd>
-<dt>sqrt.dist</dt>
+
+  <dt>sqrt.dist</dt>
 <dd><p>Take square root of dissimilarities. This often
     euclidifies dissimilarities.</p></dd>
-<dt>add</dt>
+
+  <dt>add</dt>
 <dd><p>Add a constant to the non-diagonal dissimilarities such
     that all eigenvalues are non-negative in the underlying Principal
     Co-ordinates Analysis (see <code><a href="wcmdscale.html">wcmdscale</a></code> for
     details). Choice <code>"lingoes"</code> (or <code>TRUE</code>) use the
     recommended method of Legendre &amp; Anderson (1999: “method
     1”) and <code>"cailliez"</code> uses their “method 2”.</p></dd>
-<dt>display</dt>
+
+  <dt>display</dt>
 <dd><p>character; partial match to access scores for
     <code>"sites"</code> or <code>"species"</code>.</p></dd>
-<dt>object, x</dt>
+
+  <dt>object, x</dt>
 <dd><p>an object of class <code>"betadisper"</code>, the result of a
     call to <code>betadisper</code>.</p></dd>
-<dt>choices, axes</dt>
+
+  <dt>choices, axes</dt>
 <dd><p>the principal coordinate axes wanted.</p></dd>
-<dt>hull</dt>
+
+  <dt>hull</dt>
 <dd><p>logical; should the convex hull for each group be plotted?</p></dd>
-<dt>ellipse</dt>
+
+  <dt>ellipse</dt>
 <dd><p>logical; should the standard deviation data ellipse for
     each group be plotted?</p></dd>
-<dt>conf</dt>
+
+  <dt>conf</dt>
 <dd><p>Expected fractions of data coverage for data ellipses,
     e.g. 0.95. The default is to draw a 1 standard deviation data
     ellipse, but if supplied, <code>conf</code> is multiplied with the
     corresponding value found from the Chi-squared distribution with 2df
     to provide the requested coverage (probability contour).</p></dd>
-<dt>pch</dt>
+
+  <dt>pch</dt>
 <dd><p>plot symbols for the groups, a vector of length equal to
     the number of groups.</p></dd>
-<dt>col</dt>
-<dd><p>colors for the plot symbols for the groups, a vector of
-    length equal to the number of groups.</p></dd>
-<dt>lty, lwd</dt>
+
+  <dt>col</dt>
+<dd><p>colors for the plot symbols and centroid labels for the groups,
+    a vector of length equal to the number of groups.</p></dd>
+
+  <dt>lty, lwd</dt>
 <dd><p>linetype, linewidth for convex hulls and confidence
     ellipses.</p></dd>
-<dt>segments</dt>
+
+  <dt>segments</dt>
 <dd><p>logical; should segments joining points to their
     centroid be drawn?</p></dd>
-<dt>seg.col</dt>
+
+  <dt>seg.col</dt>
 <dd><p>colour to draw segments between points and their
     centroid. Can be a vector, in which case one colour per group.</p></dd>
-<dt>seg.lty, seg.lwd</dt>
+
+  <dt>seg.lty, seg.lwd</dt>
 <dd><p>linetype and line width for segments.</p></dd>
-<dt>label</dt>
+
+  <dt>label</dt>
 <dd><p>logical; should the centroids by labelled with their
     respective factor label?</p></dd>
-<dt>label.cex</dt>
+
+  <dt>label.cex</dt>
 <dd><p>numeric; character expansion for centroid labels.</p></dd>
-<dt>cex, ylab, xlab, main, sub</dt>
+
+  <dt>cex, ylab, xlab, main, sub</dt>
 <dd><p>graphical parameters. For details,
     see <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></code>.</p></dd>
-<dt>which</dt>
+
+  <dt>which</dt>
 <dd><p>A character vector listing terms in the fitted model for
     which the intervals should be calculated. Defaults to the grouping
     factor.</p></dd>
-<dt>ordered</dt>
+
+  <dt>ordered</dt>
 <dd><p>logical; see <code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></code>.</p></dd>
-<dt>conf.level</dt>
+
+  <dt>conf.level</dt>
 <dd><p>A numeric value between zero and one giving the
     family-wise confidence level to use.</p></dd>
-<dt>digits, neigen</dt>
+
+  <dt>digits, neigen</dt>
 <dd><p>numeric; for the <code>print</code> method, sets the
   number of digits to use (as per <code><a href="https://rdrr.io/r/base/print.default.html" class="external-link">print.default</a></code>) and the
   maximum number of axes to display eigenvalues for, repsectively.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>arguments, including graphical parameters (for
     <code>plot.betadisper</code> and <code>boxplot.betadisper</code>), passed to
     other methods.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -278,39 +307,65 @@ TukeyHSD.betadisper creates a set of confidence intervals on
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The <code>anova</code> method returns an object of class <code>"anova"</code>  inheriting from class <code>"data.frame"</code>.
-  The <code>scores</code> method returns a list with one or both of the
-  components <code>"sites"</code> and <code>"centroids"</code>.
-  The <code>plot</code> function invisibly returns an object of class
-<code>"ordiplot"</code>, a plotting structure which can be used by
-<code><a href="ordiplot.html">identify.ordiplot</a></code> (to identify the points) or other
-  functions in the <code><a href="ordiplot.html">ordiplot</a></code> family. 
-  The <code>boxplot</code> function invisibly returns a list whose components
-  are documented in <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>.
-<code>eigenvals.betadisper</code> returns a named vector of eigenvalues.
-<code>TukeyHSD.betadisper</code> returns a list. See <code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></code>  for further details.
-<code>betadisper</code> returns a list of class <code>"betadisper"</code> with the
+    
+
+<p>The <code>anova</code> method returns an object of class <code>"anova"</code></p>
+
+
+<p>inheriting from class <code>"data.frame"</code>.</p>
+
+
+<p>The <code>scores</code> method returns a list with one or both of the
+  components <code>"sites"</code> and <code>"centroids"</code>.</p>
+  
+
+<p>The <code>plot</code> function invisibly returns an object of class</p>
+<p></p>
+<p><code>"ordiplot"</code>, a plotting structure which can be used by</p>
+<p></p>
+<p><code><a href="ordiplot.html">identify.ordiplot</a></code> (to identify the points) or other
+  functions in the <code><a href="ordiplot.html">ordiplot</a></code> family.</p>
+
+
+<p>The <code>boxplot</code> function invisibly returns a list whose components
+  are documented in <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>.</p>
+<p></p>
+<p><code>eigenvals.betadisper</code> returns a named vector of eigenvalues.</p>
+<p></p>
+<p><code>TukeyHSD.betadisper</code> returns a list. See <code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></code></p>
+
+
+<p>for further details.</p>
+<p></p>
+<p><code>betadisper</code> returns a list of class <code>"betadisper"</code> with the
   following components:</p>
 <dl><dt>eig</dt>
 <dd><p>numeric; the eigenvalues of the principal coordinates
     analysis.</p></dd>
-<dt>vectors</dt>
+
+  <dt>vectors</dt>
 <dd><p>matrix; the eigenvectors of the principal coordinates
     analysis.</p></dd>
-<dt>distances</dt>
+
+  <dt>distances</dt>
 <dd><p>numeric; the Euclidean distances in principal
     coordinate space between the samples and their respective group
     centroid or median.</p></dd>
-<dt>group</dt>
+
+  <dt>group</dt>
 <dd><p>factor; vector describing the group structure</p></dd>
-<dt>centroids</dt>
+
+  <dt>centroids</dt>
 <dd><p>matrix; the locations of the group centroids or
     medians on the principal coordinates.</p></dd>
-<dt>group.distances</dt>
+
+  <dt>group.distances</dt>
 <dd><p>numeric; the mean distance to each group
     centroid or median.</p></dd>
-<dt>call</dt>
+
+  <dt>call</dt>
 <dd><p>the matched function call.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -357,17 +412,17 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Bray-Curtis distances between samples</span></span>
-<span class="r-in"><span class="va">dis</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## First 16 sites grazed, remaining 8 sites ungrazed</span></span>
-<span class="r-in"><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">16</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grazed"</span>,<span class="st">"ungrazed"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Calculate multivariate dispersions</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Bray-Curtis distances between samples</span></span></span>
+<span class="r-in"><span><span class="va">dis</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## First 16 sites grazed, remaining 8 sites ungrazed</span></span></span>
+<span class="r-in"><span><span class="va">groups</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">16</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">8</span><span class="op">)</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grazed"</span>,<span class="st">"ungrazed"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Calculate multivariate dispersions</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -384,9 +439,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 23 eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.7552 1.1334 0.4429 0.3698 0.2454 0.1961 0.1751 0.1284 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Perform test</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Perform test</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
@@ -395,9 +450,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.37801 0.017182                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Permutation test for F</span></span>
-<span class="r-in"><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod</span>, pairwise <span class="op">=</span> <span class="cn">TRUE</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Permutation test for F</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod</span>, pairwise <span class="op">=</span> <span class="cn">TRUE</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
@@ -405,7 +460,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.04 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.07 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.37801 0.017182                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -413,11 +468,11 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Pairwise comparisons:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Observed p-value below diagonal, permuted p-value above diagonal)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           grazed ungrazed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> grazed               0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> grazed               0.08</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed 0.04295         </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Tukey's Honest Significant Differences</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">mod.HSD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Tukey's Honest Significant Differences</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">mod.HSD</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Tukey multiple comparisons of means</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     95% family-wise confidence level</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -427,31 +482,36 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span>                       diff        lwr          upr     p adj</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod.HSD</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod.HSD</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Plot the groups and distances to centroids on the</span></span>
-<span class="r-in"><span class="co">## first two PCoA axes</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Plot the groups and distances to centroids on the</span></span></span>
+<span class="r-in"><span><span class="co">## first two PCoA axes</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## with data ellipses instead of hulls</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, ellipse <span class="op">=</span> <span class="cn">TRUE</span>, hull <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># 1 sd data ellipse</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## with data ellipses instead of hulls</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, ellipse <span class="op">=</span> <span class="cn">TRUE</span>, hull <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># 1 sd data ellipse</span></span></span>
 <span class="r-plt img"><img src="betadisper-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, ellipse <span class="op">=</span> <span class="cn">TRUE</span>, hull <span class="op">=</span> <span class="cn">FALSE</span>, conf <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span> <span class="co"># 90% data ellipse</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, ellipse <span class="op">=</span> <span class="cn">TRUE</span>, hull <span class="op">=</span> <span class="cn">FALSE</span>, conf <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span> <span class="co"># 90% data ellipse</span></span></span>
 <span class="r-plt img"><img src="betadisper-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## can also specify which axes to plot, ordering respected</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, axes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, seg.col <span class="op">=</span> <span class="st">"forestgreen"</span>, seg.lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot with manual colour specification</span></span></span>
+<span class="r-in"><span><span class="va">my_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#1b9e77"</span>, <span class="st">"#7570b3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, col <span class="op">=</span> <span class="va">my_cols</span>, pch <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">16</span>,<span class="fl">17</span><span class="op">)</span>, cex <span class="op">=</span> <span class="fl">1.1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-5.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Draw a boxplot of the distances to centroid for each group</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## can also specify which axes to plot, ordering respected</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, axes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, seg.col <span class="op">=</span> <span class="st">"forestgreen"</span>, seg.lty <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-6.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## `scores` and `eigenvals` also work</span></span>
-<span class="r-in"><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">scrs</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Draw a boxplot of the distances to centroid for each group</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="betadisper-7.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## `scores` and `eigenvals` also work</span></span></span>
+<span class="r-in"><span><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">scrs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ sites    : num [1:24, 1:2] 0.0946 -0.3125 -0.3511 -0.3291 -0.1926 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
@@ -461,7 +521,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "grazed" "ungrazed"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "PCoA1" "PCoA2"</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          PCoA1       PCoA2        PCoA3        PCoA4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18  0.09459373  0.15914576  0.074400844 -0.202466025</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15 -0.31248809  0.10032751 -0.062243360  0.110844864</span>
@@ -469,13 +529,13 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27 -0.32914546 -0.17019348  0.231623720  0.019110623</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23 -0.19259443 -0.01459250 -0.005679372 -0.209718312</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19 -0.06794575 -0.14501690 -0.085645653  0.002431355</span>
-<span class="r-in"><span class="co"># group centroids/medians </span></span>
-<span class="r-in"><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"centroids"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co"># group centroids/medians </span></span></span>
+<span class="r-in"><span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"centroids"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               PCoA1       PCoA2       PCoA3      PCoA4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> grazed   -0.1455200  0.07584572 -0.01366220 -0.0178990</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed  0.2786095 -0.21114993 -0.03475586  0.0220129</span>
-<span class="r-in"><span class="co"># eigenvalues from the underlying principal coordinates analysis</span></span>
-<span class="r-in"><span class="fu"><a href="eigenvals.html">eigenvals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> </span>
+<span class="r-in"><span><span class="co"># eigenvalues from the underlying principal coordinates analysis</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="eigenvals.html">eigenvals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      PCoA1      PCoA2      PCoA3      PCoA4      PCoA5      PCoA6      PCoA7 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1.7552165  1.1334455  0.4429018  0.3698054  0.2453532  0.1960921  0.1751131 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      PCoA8      PCoA9     PCoA10     PCoA11     PCoA12     PCoA13     PCoA14 </span>
@@ -484,9 +544,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span>  0.0051011 -0.0004131 -0.0064654 -0.0133147 -0.0253944 -0.0375105 -0.0480069 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     PCoA22     PCoA23 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -0.0537146 -0.0741390 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## try out bias correction; compare with mod3</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">mod3B</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span>, type <span class="op">=</span> <span class="st">"median"</span>, bias.adjust<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## try out bias correction; compare with mod3</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">mod3B</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span>, type <span class="op">=</span> <span class="st">"median"</span>, bias.adjust<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -504,7 +564,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 23 eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.7552 1.1334 0.4429 0.3698 0.2454 0.1961 0.1751 0.1284 </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod3B</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod3B</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
@@ -513,20 +573,22 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.41834 0.019015                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod3B</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod3B</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99   0.13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.41834 0.019015                     </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## should always work for a single group</span></span>
-<span class="r-in"><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"grazed"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">group</span>, type <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99   0.05 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.41834 0.019015                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## should always work for a single group</span></span></span>
+<span class="r-in"><span><span class="va">group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"grazed"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">group</span>, type <span class="op">=</span> <span class="st">"median"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -543,7 +605,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 23 eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.7552 1.1334 0.4429 0.3698 0.2454 0.1961 0.1751 0.1284 </span>
-<span class="r-in"><span class="op">(</span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">group</span>, type <span class="op">=</span> <span class="st">"centroid"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">group</span>, type <span class="op">=</span> <span class="st">"centroid"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -560,15 +622,15 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 23 eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.7552 1.1334 0.4429 0.3698 0.2454 0.1961 0.1751 0.1284 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## simulate missing values in 'd' and 'group'</span></span>
-<span class="r-in"><span class="co">## using spatial medians</span></span>
-<span class="r-in"><span class="va">groups</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">20</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span class="r-in"><span class="va">dis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">20</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span class="r-in"><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span><span class="op">)</span> <span class="co">## messages</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## simulate missing values in 'd' and 'group'</span></span></span>
+<span class="r-in"><span><span class="co">## using spatial medians</span></span></span>
+<span class="r-in"><span><span class="va">groups</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">20</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span><span class="va">dis</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">20</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></span>
+<span class="r-in"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span><span class="op">)</span> <span class="co">## messages</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> missing observations due to 'group' removed</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> missing observations due to 'd' removed</span>
-<span class="r-in"><span class="va">mod2</span></span>
+<span class="r-in"><span><span class="va">mod2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -585,7 +647,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 19 eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 </span>
-<span class="r-in"><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod2</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod2</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
@@ -593,27 +655,27 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495                     </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq F value Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979  2.4237 0.1369</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495               </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="betadisper-7.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-8.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-9.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## Using group centroids</span></span>
-<span class="r-in"><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span>, type <span class="op">=</span> <span class="st">"centroid"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="betadisper-10.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Using group centroids</span></span></span>
+<span class="r-in"><span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu">betadisper</span><span class="op">(</span><span class="va">dis</span>, <span class="va">groups</span>, type <span class="op">=</span> <span class="st">"centroid"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> missing observations due to 'group' removed</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> missing observations due to 'd' removed</span>
-<span class="r-in"><span class="va">mod3</span></span>
+<span class="r-in"><span><span class="va">mod3</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -630,19 +692,17 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 19 eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  PCoA1  PCoA2  PCoA3  PCoA4  PCoA5  PCoA6  PCoA7  PCoA8 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.4755 0.8245 0.4218 0.3456 0.2159 0.1688 0.1150 0.1060 </span>
-<span class="r-in"><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod3</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="anova.cca.html">permutest</a></span><span class="op">(</span><span class="va">mod3</span>, permutations <span class="op">=</span> <span class="fl">99</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for homogeneity of multivariate dispersions</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.033468 0.033468 3.1749     99   0.07 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.189749 0.010542                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.033468 0.033468 3.1749     99   0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.189749 0.010542                     </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
@@ -651,13 +711,13 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.189749 0.010542                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span>
-<span class="r-plt img"><img src="betadisper-10.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-11.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-12.png" alt="" width="700" height="1133"></span>
-<span class="r-in"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="betadisper-13.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
@@ -665,11 +725,11 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

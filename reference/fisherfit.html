@@ -3,7 +3,7 @@
   data. Function prestonfit groups species frequencies into
   doubling octave classes and fits Preston's lognormal model, and
   function prestondistr fits the truncated lognormal model
-  without pooling the data into octaves."><title>Fit Fisher's Logseries and Preston's Lognormal Model to Abundance Data — fisherfit • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fit Fisher's Logseries and Preston's Lognormal Model to Abundance Data — fisherfit"><meta property="og:description" content="Function fisherfit fits Fisher's logseries to abundance
+  without pooling the data into octaves."><title>Fit Fisher's Logseries and Preston's Lognormal Model to Abundance Data — fisherfit • vegan</title><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet"><script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous"><!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fit Fisher's Logseries and Preston's Lognormal Model to Abundance Data — fisherfit"><meta property="og:description" content="Function fisherfit fits Fisher's logseries to abundance
   data. Function prestonfit groups species frequencies into
   doubling octave classes and fits Preston's lognormal model, and
   function prestondistr fits the truncated lognormal model
@@ -14,11 +14,11 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary" data-bs-theme="dark"><div class="container">
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -66,24 +69,24 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fisherfit</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">prestonfit</span><span class="op">(</span><span class="va">x</span>, tiesplit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">prestondistr</span><span class="op">(</span><span class="va">x</span>, truncate <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for prestonfit</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Frequency"</span>, ylab <span class="op">=</span> <span class="st">"Species"</span>, bar.col <span class="op">=</span> <span class="st">"skyblue"</span>, 
-    line.col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for prestonfit</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, line.col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">veiledspec</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">as.fisher</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for fisher</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Frequency"</span>, ylab <span class="op">=</span> <span class="st">"Species"</span>, bar.col <span class="op">=</span> <span class="st">"skyblue"</span>,
-             kind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="st">"hiplot"</span>, <span class="st">"points"</span>, <span class="st">"lines"</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="fu">as.preston</span><span class="op">(</span><span class="va">x</span>, tiesplit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for preston</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Frequency"</span>, ylab <span class="op">=</span> <span class="st">"Species"</span>, bar.col <span class="op">=</span> <span class="st">"skyblue"</span>, <span class="va">...</span><span class="op">)</span>
-<span class="co"># S3 method for preston</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, xadjust <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fisherfit</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">prestonfit</span><span class="op">(</span><span class="va">x</span>, tiesplit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">prestondistr</span><span class="op">(</span><span class="va">x</span>, truncate <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for prestonfit</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Frequency"</span>, ylab <span class="op">=</span> <span class="st">"Species"</span>, bar.col <span class="op">=</span> <span class="st">"skyblue"</span>, </span>
+<span>    line.col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for prestonfit</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, line.col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">veiledspec</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">as.fisher</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for fisher</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Frequency"</span>, ylab <span class="op">=</span> <span class="st">"Species"</span>, bar.col <span class="op">=</span> <span class="st">"skyblue"</span>,</span>
+<span>             kind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bar"</span>, <span class="st">"hiplot"</span>, <span class="st">"points"</span>, <span class="st">"lines"</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">as.preston</span><span class="op">(</span><span class="va">x</span>, tiesplit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for preston</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Frequency"</span>, ylab <span class="op">=</span> <span class="st">"Species"</span>, bar.col <span class="op">=</span> <span class="st">"skyblue"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for preston</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">x</span>, xadjust <span class="op">=</span> <span class="fl">0.5</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -91,34 +94,45 @@
     <dl><dt>x</dt>
 <dd><p>Community data vector for fitting functions or their result
     object for <code>plot</code> functions.</p></dd>
-<dt>tiesplit</dt>
+
+  <dt>tiesplit</dt>
 <dd><p>Split frequencies \(1, 2, 4, 8\) etc between adjacent 
     octaves.</p></dd>
-<dt>truncate</dt>
+
+  <dt>truncate</dt>
 <dd><p>Truncation point for log-Normal model, in log2
     units. Default value \(-1\) corresponds to the left border of zero
     Octave. The choice strongly influences the fitting results.</p></dd>
-<dt>xlab, ylab</dt>
+
+  <dt>xlab, ylab</dt>
 <dd><p>Labels for <code>x</code> and <code>y</code> axes.</p></dd>
-<dt>bar.col</dt>
+
+  <dt>bar.col</dt>
 <dd><p>Colour of data bars.</p></dd>
-<dt>line.col</dt>
+
+  <dt>line.col</dt>
 <dd><p>Colour of fitted line.</p></dd>
-<dt>lwd</dt>
+
+  <dt>lwd</dt>
 <dd><p>Width of fitted line.</p></dd>
-<dt>kind</dt>
+
+  <dt>kind</dt>
 <dd><p>Kind of plot to drawn: <code>"bar"</code> is similar bar plot
     as in <code>plot.fisherfit</code>, <code>"hiplot"</code> draws vertical lines
     as with <code class="command">plot(..., type="h")</code>, and <code>"points"</code> and
     <code>"lines"</code> are obvious.</p></dd>
-<dt>add</dt>
+
+  <dt>add</dt>
 <dd><p>Add to an existing plot.</p></dd>
-<dt>xadjust</dt>
+
+  <dt>xadjust</dt>
 <dd><p>Adjustment of horizontal positions in octaves.</p></dd>
-<dt>...</dt>
+
+  <dt>...</dt>
 <dd><p>Other parameters passed to functions. Ignored in 
     <code>prestonfit</code> and <code>tiesplit</code> passed to <code>as.preston</code> in
     <code>prestondistr</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -192,14 +206,21 @@
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function <code>prestonfit</code> returns an object with fitted
-<code>coefficients</code>, and with observed (<code>freq</code>) and fitted
-  (<code>fitted</code>) frequencies, and a string describing the fitting
-<code>method</code>. Function <code>prestondistr</code> omits the entry
-<code>fitted</code>.  The function <code>fisherfit</code> returns the result of
-<code><a href="https://rdrr.io/r/stats/nlm.html" class="external-link">nlm</a></code>, where item <code>estimate</code> is \(\alpha\). The
-  result object is amended with the <code>nuisance</code> parameter and item
-<code>fisher</code> for the observed data from <code>as.fisher</code></p>
+    <p>The function <code>prestonfit</code> returns an object with fitted</p>
+<p></p>
+<p><code>coefficients</code>, and with observed (<code>freq</code>) and fitted
+  (<code>fitted</code>) frequencies, and a string describing the fitting</p>
+<p></p>
+<p><code>method</code>. Function <code>prestondistr</code> omits the entry</p>
+<p></p>
+<p><code>fitted</code>.  The function <code>fisherfit</code> returns the result of</p>
+<p></p>
+<p><code><a href="https://rdrr.io/r/stats/nlm.html" class="external-link">nlm</a></code>, where item <code>estimate</code> is \(\alpha\). The
+  result object is amended with the <code>nuisance</code> parameter and item</p>
+<p></p>
+<p><code>fisher</code> for the observed data from <code>as.fisher</code></p>
+
+
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -230,18 +251,18 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fisherfit</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="fl">5</span>,<span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fisherfit</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="fl">5</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fisher log series model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> No. of species: 101 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fisher alpha:   37.96423 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="co"># prestonfit seems to need large samples</span></span>
-<span class="r-in"><span class="va">mod.oct</span> <span class="op">&lt;-</span> <span class="fu">prestonfit</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod.ll</span> <span class="op">&lt;-</span> <span class="fu">prestondistr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">mod.oct</span></span>
+<span class="r-in"><span><span class="co"># prestonfit seems to need large samples</span></span></span>
+<span class="r-in"><span><span class="va">mod.oct</span> <span class="op">&lt;-</span> <span class="fu">prestonfit</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod.ll</span> <span class="op">&lt;-</span> <span class="fu">prestondistr</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod.oct</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Preston lognormal model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: Quasi-Poisson fit to octaves </span>
@@ -258,7 +279,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observed 18.00000 13.00000 7.000000 2.0000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitted   18.22226 11.97021 7.000122 3.6443</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="va">mod.ll</span></span>
+<span class="r-in"><span><span class="va">mod.ll</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Preston lognormal model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Method: maximized likelihood to log2 abundances </span>
@@ -275,17 +296,17 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Observed 18.00000 13.000000 7.000000 2.00000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Fitted   13.99829  8.113746 4.121808 1.83516</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod.oct</span><span class="op">)</span>  </span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">mod.ll</span>, line.col<span class="op">=</span><span class="st">"blue3"</span><span class="op">)</span> <span class="co"># Different</span></span>
-<span class="r-in"><span class="co">## Smoothed density</span></span>
-<span class="r-in"><span class="va">den</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">den</span><span class="op">$</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">*</span><span class="va">den</span><span class="op">$</span><span class="va">y</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="co"># Fairly similar to mod.oct</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod.oct</span><span class="op">)</span>  </span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">mod.ll</span>, line.col<span class="op">=</span><span class="st">"blue3"</span><span class="op">)</span> <span class="co"># Different</span></span></span>
+<span class="r-in"><span><span class="co">## Smoothed density</span></span></span>
+<span class="r-in"><span><span class="va">den</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">den</span><span class="op">$</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span><span class="op">*</span><span class="va">den</span><span class="op">$</span><span class="va">y</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span> <span class="co"># Fairly similar to mod.oct</span></span></span>
 <span class="r-plt img"><img src="fisherfit-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span class="co">## Extrapolated richness</span></span>
-<span class="r-in"><span class="fu">veiledspec</span><span class="op">(</span><span class="va">mod.oct</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="co">## Extrapolated richness</span></span></span>
+<span class="r-in"><span><span class="fu">veiledspec</span><span class="op">(</span><span class="va">mod.oct</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extrapolated     Observed       Veiled </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    235.40577    225.00000     10.40577 </span>
-<span class="r-in"><span class="fu">veiledspec</span><span class="op">(</span><span class="va">mod.ll</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">veiledspec</span><span class="op">(</span><span class="va">mod.ll</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Extrapolated     Observed       Veiled </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   230.931018   225.000000     5.931018 </span>
 </code></pre></div>
@@ -295,11 +316,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p></p><p>Developed by Jari Oksanen.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
     </footer></div>

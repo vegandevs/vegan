@@ -19,10 +19,16 @@
     <loc>https://vegandevs.github.io/vegan/index.html</loc>
   </url>
   <url>
+    <loc>https://vegandevs.github.io/vegan/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://vegandevs.github.io/vegan/reference/BCI.html</loc>
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/CCorA.html</loc>
+  </url>
+  <url>
+    <loc>https://vegandevs.github.io/vegan/reference/MDSaddpoints.html</loc>
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/MDSrotate.html</loc>
@@ -73,9 +79,6 @@
     <loc>https://vegandevs.github.io/vegan/reference/biplot.rda.html</loc>
   </url>
   <url>
-    <loc>https://vegandevs.github.io/vegan/reference/capscale.html</loc>
-  </url>
-  <url>
     <loc>https://vegandevs.github.io/vegan/reference/cascadeKM.html</loc>
   </url>
   <url>
@@ -92,6 +95,9 @@
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/contribdiv.html</loc>
+  </url>
+  <url>
+    <loc>https://vegandevs.github.io/vegan/reference/dbrda.html</loc>
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/decorana.html</loc>
@@ -224,9 +230,6 @@
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/ordisurf.html</loc>
-  </url>
-  <url>
-    <loc>https://vegandevs.github.io/vegan/reference/orditkplot.html</loc>
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/orditorp.html</loc>
