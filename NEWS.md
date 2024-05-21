@@ -1,9 +1,9 @@
-# vegan 2.6-7
+# vegan 2.6-7 (in development)
 
 ## Installation
 
-* **vegan** no longer suggests **tcltk**, but suggests
-  **vegan3d**. See `orditkplot` in section DEPRECATED AND DEFUNCT.
+* **vegan** no longer suggests **tcltk**, but suggests **vegan3d**
+  (version 1.3-0). See `orditkplot` in section Deprecated and Defunct.
 
 ## New Functions
 
