@@ -78,12 +78,14 @@ SEXP do_wcentre(SEXP x, SEXP w)
 	error("weights 'w' and data do not match");
     if (TYPEOF(x) != REALSXP)
 	x  = coerceVector(x, REALSXP);
+    PROTECT(x);
     SEXP rx = PROTECT(duplicate(x));
     if (TYPEOF(w) != REALSXP)
 	w = coerceVector(w, REALSXP);
-    w = PROTECT(duplicate(w));
+    PROTECT(w);
+    SEXP rw = PROTECT(duplicate(w));
     SEXP retx = PROTECT(allocMatrix(REALSXP, nr, nc));
-    wcentre(REAL(rx), REAL(retx), REAL(w), &nr, &nc);
+    wcentre(REAL(rx), REAL(retx), REAL(rw), &nr, &nc);
     /* set dimnames */
     SEXP dnames = getAttrib(x, R_DimNamesSymbol);
     if (!isNull(dnames)) {
@@ -93,7 +95,7 @@ SEXP do_wcentre(SEXP x, SEXP w)
         setAttrib(retx, R_DimNamesSymbol, dimnames);
         UNPROTECT(1);
     }
-    UNPROTECT(3);
+    UNPROTECT(5);
     return retx;
 }
 
