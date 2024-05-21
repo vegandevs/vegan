@@ -1,5 +1,11 @@
 ## vegan News
 
+### Changes in version 2\.6-6\.1
+
+* C function `do_wcentre` (weighted centring) can segfault due to a
+  protection error. The problem was found in automatic CRAN checks and
+  the fix was verified in Tomas Kalibera's docker container.
+
 ### Changes in version 2\.6-6
 
 #### INSTALLATION
