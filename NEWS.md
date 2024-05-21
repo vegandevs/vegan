@@ -38,6 +38,16 @@
   **vegan3d**). _This is experimental, and we may go to direct error,
   depending on user experience: please comment!_
 
+# vegan 2.6-6.1
+
+## Bug Fixes
+
+* C function `do_wcentre` (weighted centring) can segfault due to a
+  protection error. The problem was found in automatic CRAN
+  checks. `do_wcentre` is an internal function that is called from
+  `envfit` (`vectorfit`), `wcmdscale` and `varpart` (`simpleCCA`)
+  Fixes bug [#653](https://github.com/vegandevs/vegan/issues/653).
+
 # vegan 2.6-6
 
 ## Installation
