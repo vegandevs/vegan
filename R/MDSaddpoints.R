@@ -24,7 +24,7 @@
 
     tmp <- matrix(0, newn, ndim)
     for (i in 1:newn) {
-        pnt <- order(dis[i,seq_len(oldn)])[seq_len(neighbors)]
+        pnt <- order(dis[i,seq_len(oldn)])[seq_len(neighbours)]
         weight <- 1-dis[i,pnt]
         for (j in 1:ncol(points)) {
             tmp[i,j] <- weighted.mean(points[pnt,j], w=weight)
