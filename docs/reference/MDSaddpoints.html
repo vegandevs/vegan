@@ -80,7 +80,7 @@
   with <code>dist2xy</code>, or calculated with <code><a href="designdist.html">designdist2</a></code>.</p></dd>
 
 
-<dt>neighbors</dt>
+<dt>neighbours</dt>
 <dd><p>Number of nearest points used to get the starting
   locations for new points.</p></dd>
 
@@ -166,12 +166,56 @@ added new points.</p>
 <span class="r-in"><span><span class="va">mod3</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="fu">dist2xy</span><span class="op">(</span><span class="va">d</span>, <span class="fl">3</span>, <span class="st">"xx"</span>, invert <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, trace<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## add point 3 to the result</span></span></span>
 <span class="r-in"><span><span class="fu">MDSaddpoints</span><span class="op">(</span><span class="va">mod3</span>, <span class="fu">dist2xy</span><span class="op">(</span><span class="va">d</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in MDSaddpoints(mod3, dist2xy(d, 3)):</span> object 'neighbors' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $points</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          MDS1       MDS2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -0.04351094 -0.2040444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $seed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.005468966 -0.1947686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $deltastress</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.001811377</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $iters</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $cause</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "nmds"</span>
 <span class="r-in"><span><span class="co">## Use designdist2</span></span></span>
 <span class="r-in"><span><span class="va">d15</span> <span class="op">&lt;-</span> <span class="fu"><a href="designdist.html">designdist</a></span><span class="op">(</span><span class="va">dune</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">15</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">m15</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">d15</span>, trace<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">MDSaddpoints</span><span class="op">(</span><span class="va">m15</span>, <span class="fu"><a href="designdist.html">designdist2</a></span><span class="op">(</span><span class="va">dune</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">15</span>,<span class="op">]</span>, <span class="va">dune</span><span class="op">[</span><span class="fl">16</span><span class="op">:</span><span class="fl">20</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in MDSaddpoints(m15, designdist2(dune[1:15, ], dune[16:20, ])):</span> object 'neighbors' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $points</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          MDS1       MDS2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16  0.4296366 -0.3068902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 -0.4122463  0.4118309</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -0.1135994  0.3120708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  0.1421922  0.4869128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  0.5892538  0.1751219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $seed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]        [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.2832566 0.019571976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.1920994 0.137270818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.1529998 0.094374124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.0244597 0.137988191</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.3212258 0.009941098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $deltastress</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03394768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $iters</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $cause</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "nmds"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
