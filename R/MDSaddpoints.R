@@ -1,46 +1,5 @@
-#' Add New Points to NMDS ordination
-#'
-#' @param nmds Result object from \code{\link{metaMDS}}. The
-#'     configuration of points will be kept fixed, but new points will
-#'     be added.
-#' @param dis Dissimilarity object where the first items are
-#'     dissmilarities among fixed points in \code{nmds}, and the last
-#'     items dissimilarities for new points. The number of new points
-#'     is found as the difference of sizes in \code{nmds} and
-#'     \code{dis}.
-#' @param neighbors Number of nearest points used to get the starting
-#'     locations for new points.
-#' @param maxit Maximum number of iterations.
-#'
-#' @details
-#'
-#' Function provides an interface to \code{monoMDS} Fortran code with
-#' argument \code{NFIX} giving the number of points with fixed
-#' coordinates. The number of new points is the difference of number
-#' of points in the input ordination (\code{nmds}) and dissimilarities
-#' (\code{dis}).
-#'
-#' @return
-#'
-#' Function return a list of class \code{"nmds"} (there are no other
-#' objects of that type in \pkg{vegan}) with following elements
-#' \itemize{
-#'   \item{points}{Coordinates of all points, the first being fixed and the
-#'     last the new points.}
-#'   \item{newpoints}{Coordinates of added new points; the same as the last
-#'     ones in the previous item.}
-#'   \item{stress}{Stress as estimated here (but needs checking).}
-#'   \iters{iters}{Number of iterations.}
-#'   \item{cause}{Cause of termination of iterations (numeric).}
-#'   \item{seeds}{Starting coordinates for new points.}
-#' }
-#'
-## Open issues:
-##
-## - Tested only for metaMDS, should be tested also with monoMDS to see
-##   if it works there as well.
+### Add New Points to NMDS ordination
 
-#' @export
 `MDSaddpoints` <-
     function (nmds, dis, neighbors=5, maxit=200)
 {
