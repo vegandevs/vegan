@@ -129,10 +129,12 @@
            iters=as.integer(iters),
            cause=as.integer(icause))
     dim(out$points) <- c(totn, ndim)
-    out$newpoints <- out$points[(oldn+1):totn,, drop=FALSE]
-    out$seeds <- tmp
-    dimnames(out$points)[[1]] <- attr(dis,'Labels')
-    dimnames(out$newpoints)[[1]] <- attr(dis,'Labels')[(oldn+1):totn]
-    class(out) <- 'nmds'
-    out
+    newpoints <- out$points[(oldn+1):totn,, drop=FALSE]
+    dimnames(newpoints) <- list(attr(dis,'Labels')[(oldn+1):totn],
+                                colnames(nmds$points))
+    adds <- list(points = newpoints, seed = tmp,
+                 deltastress = out$stress - nmds$stress,
+                 iters = out$iters, cause = out$cause)
+    class(adds) <- 'nmds'
+    adds
 }
