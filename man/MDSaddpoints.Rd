@@ -7,7 +7,7 @@
   \code{\link{monoMDS}} ordination.}
 
 \usage{
-MDSaddpoints(nmds, dis, neighbors = 5, maxit = 200)
+MDSaddpoints(nmds, dis, neighbours = 5, maxit = 200)
 
 dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
 }
@@ -43,14 +43,12 @@ dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
 Function return a list of class \code{"nmds"} (there are no other
 objects of that type in \pkg{vegan}) with following elements
 
-  \item{points}{Coordinates of all points, the first being fixed and the
-    last the new points.}
-  \item{newpoints}{Coordinates of added new points; the same as the last
-    ones in the previous item.}
-  \item{stress}{Stress as estimated here (but needs checking).}
-  \item{iters}{Number of iterations.}
-  \item{cause}{Cause of termination of iterations (numeric).}
+  \item{points}{Coordinates of added new points}
   \item{seeds}{Starting coordinates for new points.}
+  \item{deltastress}{Change of stress with added points.}
+  \item{iters}{Number of iterations.}
+  \item{cause}{Cause of termination of iterations. Integer for
+    convergence criteria in \code{\link{monoMDS}}.}
 
 }
 
@@ -84,9 +82,9 @@ d <- vegdist(dune)
 ## remove point 3 from ordination
 mod3 <- metaMDS(dist2xy(d, 3, "xx", invert = TRUE), trace=0)
 ## add point 3 to the result
-str(MDSaddpoints(mod3, dist2xy(d, 3)))
+MDSaddpoints(mod3, dist2xy(d, 3))
 ## Use designdist2
 d15 <- designdist(dune[1:15,])
 m15 <- metaMDS(d15, trace=0)
-str(MDSaddpoints(m15, designdist2(dune[1:15,], dune[16:20,])))
+MDSaddpoints(m15, designdist2(dune[1:15,], dune[16:20,]))
 }
