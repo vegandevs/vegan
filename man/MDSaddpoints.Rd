@@ -22,7 +22,7 @@ dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
   extracted from complete dissimilarities of both old and new points
   with \code{dist2xy}, or calculated with \code{\link{designdist2}}.}
 
-\item{neighbors}{Number of nearest points used to get the starting
+\item{neighbours}{Number of nearest points used to get the starting
   locations for new points.}
 
 \item{maxit}{Maximum number of iterations.}

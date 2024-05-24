@@ -24,8 +24,11 @@
 
     tmp <- matrix(0, newn, ndim)
     for (i in 1:newn) {
-        pnt <- order(dis[i,seq_len(oldn)])[seq_len(neighbors)]
-        weight <- 1-dis[i,pnt]
+        pnt <- order(dis[i,seq_len(oldn)])[seq_len(neighbours)]
+        maxdist <- attr(dis, "maxdist")
+        if (is.null(maxdist))
+            maxdist <- max(1, dis)
+        weight <- maxdist - dis[i,pnt]
         for (j in 1:ncol(points)) {
             tmp[i,j] <- weighted.mean(points[pnt,j], w=weight)
         }
@@ -89,8 +92,7 @@
            cause=as.integer(icause))
     dim(out$points) <- c(totn, ndim)
     newpoints <- out$points[(oldn+1):totn,, drop=FALSE]
-    dimnames(newpoints) <- list(attr(dis,'Labels')[(oldn+1):totn],
-                                colnames(nmds$points))
+    dimnames(newpoints) <- list(rownames(dis), colnames(nmds$points))
     adds <- list(points = newpoints, seed = tmp,
                  deltastress = out$stress - nmds$stress,
                  iters = out$iters, cause = out$cause)
