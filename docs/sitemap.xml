@@ -19,10 +19,16 @@
     <loc>https://vegandevs.github.io/vegan/index.html</loc>
   </url>
   <url>
+    <loc>https://vegandevs.github.io/vegan/news/index.html</loc>
+  </url>
+  <url>
     <loc>https://vegandevs.github.io/vegan/reference/BCI.html</loc>
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/CCorA.html</loc>
+  </url>
+  <url>
+    <loc>https://vegandevs.github.io/vegan/reference/MDSaddpoints.html</loc>
   </url>
   <url>
     <loc>https://vegandevs.github.io/vegan/reference/MDSrotate.html</loc>

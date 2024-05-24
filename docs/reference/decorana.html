@@ -12,7 +12,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -73,19 +76,11 @@
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sites"</span>, <span class="st">"species"</span><span class="op">)</span>,</span>
 <span>       choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, origin <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">select</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## deprecated: use 'scores' for scores, 'weights' for weights</span></span>
-<span><span class="co"># S3 method for decorana</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits<span class="op">=</span><span class="fl">3</span>, origin<span class="op">=</span><span class="cn">TRUE</span>,</span>
-<span>        display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"both"</span>, <span class="st">"species"</span>,<span class="st">"sites"</span>,<span class="st">"none"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S3 method for summary.decorana</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, head <span class="op">=</span> <span class="cn">NA</span>, tail <span class="op">=</span> <span class="va">head</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">downweight</span><span class="op">(</span><span class="va">veg</span>, fraction <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># S3 method for decorana</span></span>
 <span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, display<span class="op">=</span><span class="st">"sites"</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span>
-<span>       origin<span class="op">=</span><span class="cn">TRUE</span>, tidy<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>       origin<span class="op">=</span><span class="cn">TRUE</span>, tidy<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">downweight</span><span class="op">(</span><span class="va">veg</span>, fraction <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -115,7 +110,7 @@
 <dd><p>Hill's piecewise transformation: values after
   transformation -- these must correspond to values in <code>before</code>.</p></dd>
 
-  <dt>x, object</dt>
+  <dt>x</dt>
 <dd><p>A <code>decorana</code> result object.</p></dd>
 
   <dt>choices</dt>
@@ -147,13 +142,6 @@
 
   <dt>xlim, ylim</dt>
 <dd><p>the x and y limits (min,max) of the plot.</p></dd>
-
-  <dt>digits</dt>
-<dd><p>Number of digits in summary output.</p></dd>
-
-  <dt>head, tail</dt>
-<dd><p>Number of rows printed from the head and tail of
-    species and site scores. Default <code>NA</code> prints all.</p></dd>
 
   <dt>fraction</dt>
 <dd><p>Abundance fraction where downweighting begins.</p></dd>
@@ -272,6 +260,9 @@
 <p>Github package <span class="pkg">natto</span> has an <span style="R">R</span> implementation of
   <code>decorana</code> which allows easier inspection of the
   algorithm and also easier development of the function.</p>
+<p><span class="pkg">vegan</span> 2.6-6 and earlier had a <code>summary</code> method, but it did
+  nothing useful and is now defunct. All its former information can be
+  extracted with <code>scores</code> or <code><a href="cca.object.html">weights.decorana</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

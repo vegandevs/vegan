@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +43,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
@@ -70,6 +73,13 @@
 <!-- badges: start -->
 
 <p>Website for the development version of the <strong>vegan</strong> package.</p>
+<p>Vignettes are available on <a href="https://vegandevs.r-universe.dev/vegan" class="external-link">R-universe</a></p>
+<ul>
+<li><a href="https://vegandevs.r-universe.dev/vegan/doc/intro-vegan.pdf" class="external-link">Introduction to ordination in vegan</a></li>
+<li><a href="https://vegandevs.r-universe.dev/vegan/doc/partitioning.pdf" class="external-link">Partition of Variation</a></li>
+<li><a href="https://vegandevs.r-universe.dev/vegan/doc/diversity-vegan.pdf" class="external-link">Diversity analysis in vegan</a></li>
+<li><a href="https://vegandevs.r-universe.dev/vegan/doc/decision-vegan.pdf" class="external-link">Design decisions and implementation</a></li>
+</ul>
 </div>
 <div class="section level1">
 <h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -89,13 +99,8 @@
 </h2>
 <p>If you just want to install a binary version of the packages, just as you would from CRAN, you can install from our R Universe repository. Run the following in your R session:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Enable repository from vegandevs</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  vegandevs <span class="op">=</span> <span class="st">'https://vegandevs.r-universe.dev'</span>,</span>
-<span>  CRAN <span class="op">=</span> <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># Download and install vegan in R</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'vegan'</span><span class="op">)</span></span></code></pre></div>
-<p>To make this permanent, you’ll need to include the <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code> part of that in your person R settings file, typically a <code>.Rprofile</code> profile in your home drive. See <code><a href="https://rdrr.io/r/base/Startup.html" class="external-link">?Startup</a></code>.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'vegan'</span>,</span>
+<span>    repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://vegandevs.r-universe.dev'</span>,<span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 
@@ -105,6 +110,7 @@
 <li><a href="https://cloud.r-project.org/package=vegan" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/vegandevs/vegan/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/vegandevs/vegan/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://vegandevs.r-universe.dev/vegan" class="external-link">R-universe</a></li>
 </ul>
 </div>
 
@@ -162,14 +168,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/vegandevs/vegan/actions" class="external-link"><img src="https://github.com/vegandevs/vegan/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://cran.r-project.org/package=vegan" class="external-link"><img src="https://www.r-pkg.org/badges/version/vegan" alt="CRAN_Status_Badge"></a></li>
-<li><a href="http://cran.rstudio.com/web/packages/vegan/index.html" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/vegan"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>

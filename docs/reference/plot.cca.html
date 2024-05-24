@@ -16,7 +16,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-6.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.6-7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,9 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-vignettes">
     <a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a>
   </div>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
@@ -84,10 +87,7 @@
 <span>       scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">const</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>       droplist <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, scaling <span class="op">=</span> <span class="st">"species"</span>, axes <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>                      display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>,<span class="st">"wa"</span>,<span class="st">"lc"</span>,<span class="st">"bp"</span>,<span class="st">"cn"</span><span class="op">)</span>,</span>
-<span>                      digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>                      correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">display</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -196,9 +196,6 @@
   <dt>axis.bp</dt>
 <dd><p>Draw <code><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></code> for biplot arrows.</p></dd>
 
-  <dt>axes</dt>
-<dd><p>Number of axes in summaries.</p></dd>
-
   <dt>digits</dt>
 <dd><p>Number of digits in output.</p></dd>
 
@@ -289,16 +286,6 @@
   to plot, <code><a href="ordiplot.html">ordiplot</a></code> for an alternative plotting routine
   and more support functions, and <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code>,
   <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code> and <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code> for the basic routines.</p></div>
-    </div>
-    <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Up to <span class="pkg">vegan</span> release 2.6-4 <code>summary</code> printed
-  ordination scores, and function was occasionally used to extract
-  scores. This is now deprecated and you should use
-  <code>scores</code>. This version of <span class="pkg">vegan</span> still enables extracting
-  scores with <code>summary</code>, but you should change your code to use
-  <code>scores</code> before next <span class="pkg">vegan</span> release. For instructions,
-  see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">https://github.com/vegandevs/vegan/discussions/644</a>.</p>
     </div>
 
     <div class="section level2">
