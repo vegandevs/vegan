@@ -7,7 +7,7 @@
   \code{\link{monoMDS}} ordination.}
 
 \usage{
-MDSaddpoints(nmds, dis, neighbors = 5, maxit = 200)
+MDSaddpoints(nmds, dis, neighbours = 5, maxit = 200)
 
 dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
 }

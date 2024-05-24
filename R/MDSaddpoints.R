@@ -1,7 +1,7 @@
 ### Add New Points to NMDS ordination
 
 `MDSaddpoints` <-
-    function (nmds, dis, neighbors=5, maxit=200)
+    function (nmds, dis, neighbours=5, maxit=200)
 {
 ## bring list component to local matrix
 
