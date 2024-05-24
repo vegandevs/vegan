@@ -92,8 +92,7 @@
            cause=as.integer(icause))
     dim(out$points) <- c(totn, ndim)
     newpoints <- out$points[(oldn+1):totn,, drop=FALSE]
-    dimnames(newpoints) <- list(attr(dis,'Labels')[(oldn+1):totn],
-                                colnames(nmds$points))
+    dimnames(newpoints) <- list(rownames(dis), colnames(nmds$points))
     adds <- list(points = newpoints, seed = tmp,
                  deltastress = out$stress - nmds$stress,
                  iters = out$iters, cause = out$cause)
