@@ -51,6 +51,7 @@
     type <- match.arg(type)
     if (!inherits(dist, "dist"))
         stop("'dist' must be a dissimilarity object of class 'dist'")
+    att <- attributes(dist)
     dist <- as.matrix(dist)
     n <- nrow(dist)
     ## make up the selection vector
@@ -59,9 +60,13 @@
     if (invert)
         k <- !k
     ## make compartments
-    if (type == "xy")
-        dist[k, !k, drop = FALSE]
-    else
-        as.dist(dist[k, k, drop = FALSE])
+    dist <- if (type == "xy")
+                dist[k, !k, drop = FALSE]
+            else
+                as.dist(dist[k, k, drop = FALSE])
+    attr(dist, "call") <- match.call()
+    attr(dist, "method") <- att$method
+    attr(dist, "maxdist") <- att$maxdist
+    dist
 }
 
