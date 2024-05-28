@@ -187,17 +187,17 @@ adj. RDA R squares -0.12553 -0.0250
 > MDSaddpoints(mod3, dist2xy(d, 3))
 $points
          MDS1       MDS2
-3 -0.04351138 -0.2040447
+3 -0.09726945 -0.4560911
 
 $seed
-            [,1]       [,2]
-[1,] 0.005468615 -0.1947698
+           [,1]      [,2]
+[1,] 0.01222408 -0.435372
 
 $deltastress
 [1] 0.001811369
 
 $iters
-[1] 16
+[1] 18
 
 $cause
 [1] 4
@@ -8948,7 +8948,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.578 0.271 8.874 0 0 
+Time elapsed:  8.559 0.295 8.885 0 0 
 > grDevices::dev.off()
 null device 
           1 
