@@ -158,19 +158,21 @@
   standard and more easily interpreted, and regression arrows should be
   used only if you know that you need them.
 
-  If you want to have a better control of plots, it is best to
-  construct the plot \code{text} and \code{points} commands which
-  accept graphical parameters. It is important to remember to use the
-  same \code{scaling}, \code{correlation} and \code{hill} arguments
-  in all calls. The \code{plot.cca} command returns invisibly an
+  If you want to have a better control of plots, it is best to construct
+  the plot \code{text} and \code{points} commands which accept graphical
+  parameters. It is important to remember to use the same
+  \code{scaling}, \code{correlation} and \code{hill} arguments in all
+  calls. The \code{plot.cca} command returns invisibly an
   \code{\link{ordiplot}} result object, and this will have consistent
-  scaling for all its elements. The easiest way for full control of
-  graphics is to first set up the plot frame using \code{plot} with
-  \code{type = "n"} and all needed scores in \code{display} and save
-  this result. The \code{points} and \code{text} commands for
-  \code{\link{ordiplot}} will allow full graphical control (see
-  section Examples). Utility function \code{labels} returns the default
-  labels in the order they are applied in \code{text}.
+  scaling for all its elements. It is also possible to use \R{} pipes
+  (\code{|>}) which maintain consistent scaling and setting. The easiest
+  way for full control of graphics is to first set up the plot frame
+  using \code{plot} with \code{type = "n"} and all needed scores in
+  \code{display} and save this result or use it as a first command in a
+  pipe. The \code{points} and \code{text} commands for
+  \code{\link{ordiplot}} will allow full graphical control (see section
+  Examples). Utility function \code{labels} returns the default labels
+  in the order they are applied in \code{text}.
   
   Palmer (1993) suggested using linear constraints (\dQuote{LC scores})
   in ordination diagrams, because these gave better results in
@@ -209,7 +211,12 @@ pca <- rda(dune)
 pl <- plot(pca, type="n", scaling="sites", correlation=TRUE)
 with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
-with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
+with(dune.env, legend("bottomleft", levels(Management), pch=21,
+   pt.bg=1:4, bty="n"))
+## Configuration with pipes: make an arrow biplot
+plot(pca, type="n", scaling="sites", correlation=TRUE) |>
+    points("sites", pch=21, col = 1, cex=1.5, bg = dune.env$Management) |>
+    text("species", col = "blue", arrow = TRUE, xpd = TRUE)
 ## Scaling can be numeric or more user-friendly names
 ## e.g. Hill's scaling for (C)CA
 scrs <- scores(mod, scaling = "sites", hill = TRUE)
