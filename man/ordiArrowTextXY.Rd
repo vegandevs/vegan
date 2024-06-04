@@ -13,9 +13,8 @@
 }
 \usage{
 ordiArrowTextXY(x, labels, display, choices = c(1,2),
-                rescale = TRUE, fill = 0.75, at = c(0,0), \ldots)
-ordiArrowMul(x, at = c(0,0), fill = 0.75,
-             display, choices = c(1,2), \ldots)
+    rescale = TRUE, fill = 0.75, at = c(0,0), cex = NULL, \ldots)
+ordiArrowMul(x, at = c(0,0), fill = 0.75, display, choices = c(1,2), \ldots)
 }
 
 \arguments{
@@ -54,6 +53,8 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
   \item{at}{The origin of fitted arrows in the plot.  If you plot arrows
     in other places than origin, you probably have to specify
     \code{arrrow.mul}.}
+
+  \item{cex}{Character expansion for text.}
 
   \item{...}{Parameters passed to \code{\link{scores}}, and
     \code{\link{strwidth}} and \code{\link{strheight}}.}
