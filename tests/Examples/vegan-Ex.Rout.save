@@ -5130,9 +5130,14 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > data(dune)
 > ord <- cca(dune)
 > plot(ord, type = "n")
+> ## add text
 > ordilabel(ord, dis="sites", cex=1.2, font=3, fill="hotpink", col="blue")
 > ## You may prefer separate plots, but here species as well
 > ordilabel(ord, dis="sp", font=2, priority=colSums(dune))
+> ## use in a pipe
+> plot(ord, type = "n") |>
++    ordilabel("spec", font = 3, priority = colSums(dune)) |>
++    points("sites", pch=21, bg = "yellow", col = "blue")
 > 
 > 
 > 
@@ -8953,7 +8958,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.568 0.288 8.883 0 0 
+Time elapsed:  8.563 0.309 8.9 0 0 
 > grDevices::dev.off()
 null device 
           1 
