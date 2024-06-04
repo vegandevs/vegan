@@ -57,6 +57,6 @@
     }
     output <- as.dist(output, diag = diag, upper = upper)
     attr(output, "call") <- match.call()
-    attr(output, "method") <- "avgdist"
+    attr(output, "method") <- paste("avgdist", dmethod)
     output
 }
