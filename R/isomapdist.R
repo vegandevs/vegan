@@ -48,6 +48,7 @@
         attr(dist, "critval") <- epsilon
     }
     attr(dist, "method") <- paste(attr(dist, "method"), "isomap")
+    attr(dist, "maxdist") <- NA
     attr(dist, "net") <- net
     attr(dist, "take") <- take
     attr(dist, "call") <- match.call()

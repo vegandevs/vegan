@@ -15,7 +15,7 @@
     if (varstep) {
         add <- -diff(c(nrow(x), rich, 1))
         add <- add/c(S, rich)
-        add <- add/sum(add) * 100
+        add <- add/sum(add) * 100 # 100 after Clarke, veganish would be 1
     }
     else {
         add <- rep(100/(ncol(x) + check), ncol(x) + check)
@@ -31,6 +31,7 @@
     out <- as.dist(out)
     attr(out, "method") <- "taxa2dist"
     attr(out, "steps") <- add
+    attr(out, "maxdist") <- 100 # after Clarke, veganish would be 1
     if (missing(labels)) {
         attr(out, "Labels") <- rownames(x)
     } else {
