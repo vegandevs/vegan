@@ -19,7 +19,7 @@
 \usage{
 \method{plot}{cca}(x, choices = c(1, 2), display = c("sp", "wa", "cn"),
      scaling = "species", type, xlim, ylim, const,
-     correlation = FALSE, hill = FALSE, ...)
+     correlation = FALSE, hill = FALSE, cex = 0.7, ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2),
      scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
      axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
@@ -116,6 +116,7 @@
   \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
   \item{axes}{Number of axes in summaries.}
   \item{digits}{Number of digits in output.}
+  \item{cex}{Character expansion.}
   \item{...}{Parameters passed to other functions.}
 }
 

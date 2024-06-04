@@ -13,7 +13,7 @@
     }
     if (arrows) {
         arrows(0, 0, sco[,1], sco[,2], length = length, ...)
-        sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE)
+        sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE, ...)
     }
     text(sco, labels = rownames(sco), ...)
     invisible(x)

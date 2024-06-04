@@ -1,6 +1,6 @@
 `plot.cca` <- function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
                         scaling = "species", type, xlim, ylim, const,
-                        correlation = FALSE, hill = FALSE, ...) {
+                        correlation = FALSE, hill = FALSE, cex = 0.7, ...) {
     TYPES <- c("text", "points", "none")
     ## take care that bp arrows are also returned if only cn given
     if (any(display %in% c("c","cn")))
@@ -77,22 +77,22 @@
     if (!is.null(g$species)) {
         if (type == "text")
             text(g$species, rownames(g$species), col = "red",
-                 cex = 0.7)
+                 cex = cex)
         else if (type == "points")
-            points(g$species, pch = "+", col = "red", cex = 0.7)
+            points(g$species, pch = "+", col = "red", cex = cex)
     }
     if (!is.null(g$sites)) {
         if (type == "text")
-            text(g$sites, rownames(g$sites), cex = 0.7)
+            text(g$sites, rownames(g$sites), cex = cex)
         else if (type == "points")
-            points(g$sites, pch = 1, cex = 0.7)
+            points(g$sites, pch = 1, cex = cex)
     }
     if (!is.null(g$constraints)) {
         if (type == "text")
-            text(g$constraints, rownames(g$constraints), cex = 0.7,
+            text(g$constraints, rownames(g$constraints), cex = cex,
                  col = "darkgreen")
         else if (type == "points")
-            points(g$constraints, pch = 2, cex = 0.7, col = "darkgreen")
+            points(g$constraints, pch = 2, cex = cex, col = "darkgreen")
     }
     if (!is.null(g$biplot) && nrow(g$biplot) > 0 && type != "none") {
         if (length(display) > 1) {
@@ -102,8 +102,9 @@
         attr(g$biplot, "arrow.mul") <- mul
         arrows(0, 0, mul * g$biplot[, 1], mul * g$biplot[, 2],
                length = 0.05, col = "blue")
-        biplabs <- ordiArrowTextXY(mul * g$biplot, rownames(g$biplot))
-        text(biplabs, rownames(g$biplot), col = "blue")
+        biplabs <- ordiArrowTextXY(mul * g$biplot, rownames(g$biplot),
+                                   cex = cex)
+        text(biplabs, rownames(g$biplot), col = "blue", cex = cex)
     }
     if (!is.null(g$regression) && nrow(g$regression > 0) && type != "none") {
         rcol <- "purple4"
@@ -114,21 +115,22 @@
         attr(g$regression, "arrow.mul") <- mul
         arrows(0, 0, mul * g$regression[, 1], mul * g$regression[, 2],
                length = 0.05, col = rcol)
-        biplabs <- ordiArrowTextXY(mul * g$regression, rownames(g$regression))
-        text(biplabs, rownames(g$regression), col = rcol)
+        biplabs <- ordiArrowTextXY(mul * g$regression, rownames(g$regression),
+                                   cex = cex)
+        text(biplabs, rownames(g$regression), col = rcol, cex = cex)
     }
     if (!is.null(g$centroids) && !anyNA(g$centroids) && type !=
         "none") {
         if (type == "text")
-            text(g$centroids, rownames(g$centroids), col = "blue")
+            text(g$centroids, rownames(g$centroids), col = "blue", cex = cex)
         else if (type == "points")
-            points(g$centroids, pch = "x", col = "blue")
+            points(g$centroids, pch = "x", col = "blue", cex = cex)
     }
     if (!is.null(g$default) && type != "none") {
         if (type == "text")
-            text(g$default, rownames(g$default), cex = 0.7)
+            text(g$default, rownames(g$default), cex = cex)
         else if (type == "points")
-            points(g$default, pch = 1, cex = 0.7)
+            points(g$default, pch = 1, cex = cex)
     }
     class(g) <- "ordiplot"
     invisible(g)
