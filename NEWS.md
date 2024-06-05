@@ -21,10 +21,15 @@
   
   The function is still experimental. In particular the user interface
   may need development. Comments are welcome.
+  
+## New Features
 
-## Deprecated and Defunct
+* `plot.cca` (and hence `ordiplot`) gained argument to change text and
+  point sizes. Issue
+  [#656](https://github.com/vegandevs/vegan/issues/656).
 
-* `adonis` is defunct: use `adonis2` with improved functionality.
+* `ordilabel` can be used in a pipe. This allows using the function to
+  add items to ordination plots.
 
 * Disabled use of `summary` to get ordination scores: use `scores`!
   For `summary.cca` see
