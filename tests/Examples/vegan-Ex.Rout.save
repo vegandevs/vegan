@@ -1788,15 +1788,11 @@ log(N) P K Ca pH Al    6      0.2822
 > ## different type for species and site scores
 > biplot(mod, scaling = "symmetric", type = c("text", "points"))
 > 
-> ## We can use ordiplot pipes in R 4.1 to build similar plots with
-> ## flexible control
-> ## Not run: 
-> ##D if (getRversion() >= "4.1") {
-> ##D plot(mod, scaling = "symmetric", type="n") |>
-> ##D    text("sites", cex=0.8) |>
-> ##D    text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
-> ##D }
-> ## End(Not run)
+> ## We can use ordiplot pipes to build similar plots with flexible
+> ## control
+> plot(mod, scaling = "symmetric", type="n") |>
++    points("sites", cex=0.7) |>
++    text("species", arrows=TRUE, length=0.05, col=2, cex=0.7, font=3)
 > 
 > 
 > 
@@ -8958,7 +8954,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.563 0.309 8.9 0 0 
+Time elapsed:  8.552 0.266 8.844 0 0 
 > grDevices::dev.off()
 null device 
           1 
