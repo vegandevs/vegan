@@ -5159,19 +5159,20 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > pl <- ordiplot(dune.mds, type = "none")
 > points(pl, "sites", pch=21, col="red", bg="yellow")
 > text(pl, "species", col="blue", cex=0.9)
-> ## Not run: 
-> ##D ## same plot using pipes (|>)
-> ##D ordiplot(dune.mds, type="n") |>
-> ##D   points("sites", pch=21, col="red", bg="yellow") |>
-> ##D   text("species", col="blue", cex=0.9)
-> ##D ## Some people think that species should be shown with arrows in PCA.
-> ##D ## Other ordination methods also return an invisible ordiplot object and
-> ##D ## we can use pipes to draw those arrows.
-> ##D mod <- rda(dune)
-> ##D plot(mod, type="n") |>
-> ##D   points("sites", pch=16, col="red") |>
-> ##D   text("species", arrows = TRUE, length=0.05, col="blue")
-> ## End(Not run)
+> 
+> ## same plot using pipes (|>)
+> ordiplot(dune.mds, type="n") |>
++   points("sites", pch=21, col="red", bg="yellow") |>
++   text("species", col="blue", cex=0.9)
+> 
+> ## Some people think that species should be shown with arrows in PCA.
+> ## Other ordination methods also return an invisible ordiplot object and
+> ## we can use pipes to draw those arrows.
+> mod <- rda(dune)
+> plot(mod, type="n") |>
++   points("sites", pch=16, col="red") |>
++   text("species", arrows = TRUE, length=0.05, col="blue")
+> 
 > ## Default plot of the previous using identify to label selected points
 > ## Not run: 
 > ##D pl <- ordiplot(dune.mds)
@@ -6098,14 +6099,22 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
 > mod <- cca(dune ~ A1 + Moisture + Management, dune.env)
+> 
 > ## better control -- remember to set scaling etc identically
-> plot(mod, type="n", scaling="sites")
-> text(mod, dis="cn", scaling="sites")
-> points(mod, pch=21, col="red", bg="yellow", cex=1.2, scaling="sites")
-> text(mod, "species", col="blue", cex=0.8, scaling="sites")
+> plot(mod, type="n", scaling="sites", choices = 2:3)
+> text(mod, dis="cn", scaling="sites", choices = 2:3)
+> points(mod, pch=21, col="red", bg="yellow", cex=1.2, scaling="sites",
++     choices = 2:3)
+> text(mod, "species", col="blue", cex=0.8, scaling="sites", choices = 2:3)
+> 
+> ## same with pipe
+> plot(mod, type="n", scaling="sites", choices = c(2,3)) |>
++     text("centroids") |>
++     points("sites", pch=21, col="red", bg = "yellow", cex=1.2) |>
++     text("species", col="blue", cex=0.8)
+> 
 > ## catch the invisible result and use ordiplot support - the example
 > ## will make a biplot with arrows for species and correlation scaling
 > pca <- rda(dune)
@@ -6114,10 +6123,12 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
 > with(dune.env, legend("bottomleft", levels(Management), pch=21,
 +    pt.bg=1:4, bty="n"))
+> 
 > ## Configuration with pipes: make an arrow biplot
 > plot(pca, type="n", scaling="sites", correlation=TRUE) |>
 +     points("sites", pch=21, col = 1, cex=1.5, bg = dune.env$Management) |>
 +     text("species", col = "blue", arrow = TRUE, xpd = TRUE)
+> 
 > ## Scaling can be numeric or more user-friendly names
 > ## e.g. Hill's scaling for (C)CA
 > scrs <- scores(mod, scaling = "sites", hill = TRUE)
@@ -8954,7 +8965,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.552 0.266 8.844 0 0 
+Time elapsed:  8.574 0.269 8.867 0 0 
 > grDevices::dev.off()
 null device 
           1 
