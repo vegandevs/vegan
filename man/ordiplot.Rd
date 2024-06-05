@@ -21,10 +21,11 @@
 \usage{
 ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
      cex = 0.7, ...)
-\method{identify}{ordiplot}(x, what, labels,  ...)
-\method{points}{ordiplot}(x, what, select, arrows = FALSE, ...)
+\method{points}{ordiplot}(x, what, select, arrows = FALSE,
+    length = 0.05, ...)
 \method{text}{ordiplot}(x, what, labels, select, arrows = FALSE,
     length = 0.05, ...)
+\method{identify}{ordiplot}(x, what, labels,  ...)
 }
 
 \arguments{
