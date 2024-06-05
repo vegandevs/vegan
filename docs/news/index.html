@@ -65,8 +65,9 @@
 </li>
 </ul></div>
 <div class="section level3">
-<h3 id="deprecated-and-defunct-2-6-7">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-6-7"></a></h3>
-<ul><li><p><code>adonis</code> is defunct: use <code>adonis2</code> with improved functionality.</p></li>
+<h3 id="new-features-2-6-7">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-6-7"></a></h3>
+<ul><li><p><code>plot.cca</code> (and hence <code>ordiplot</code>) gained argument to change text and point sizes. Issue <a href="https://github.com/vegandevs/vegan/issues/656" class="external-link">#656</a>.</p></li>
+<li><p><code>ordilabel</code> can be used in a pipe. This allows using the function to add items to ordination plots.</p></li>
 <li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code>! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
 <li><p><code>summary.decorana</code> is defunct. It did nothing useful, but you can extract the same information with <code>scores</code> and <code>weights</code>.</p></li>
 <li><p><code>orditkplot</code> code was removed, but we try to launch <code><a href="https://rdrr.io/pkg/vegan3d/man/orditkplot.html" class="external-link">vegan3d::orditkplot</a></code> loudly (with a deprecation message to go to <strong>vegan3d</strong>). <em>This is experimental, and we may go to direct error, depending on user experience: please comment!</em></p></li>
