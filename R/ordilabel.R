@@ -5,18 +5,18 @@
 {
     if (missing(display))
         display <- "sites"
-    x <- scores(x, choices = choices, display = display, ...)
+    sco <- scores(x, choices = choices, display = display, ...)
     if (missing(labels))
-        labels <- rownames(x)
+        labels <- rownames(sco)
     if (!missing(select)) {
-        x <- .checkSelect(select, x)
+        sco <- .checkSelect(select, sco)
         labels <- .checkSelect(select, labels)
     }
     if (!missing(priority)) {
         if (!missing(select))
             priority <- priority[select]
         ord <- order(priority)
-        x <- x[ord, ]
+        sco <- sco[ord, ]
         labels <- labels[ord]
     } else {
         ord <- seq_along(labels)
@@ -30,15 +30,16 @@
             col <- border
         else
             col <- par("fg")
-    col <- rep(col, length=nrow(x))[ord]
+    col <- rep(col, length=nrow(sco))[ord]
     if(!is.null(border))
-        border <- rep(border, length=nrow(x))[ord]
-    fill <- rep(fill, length=nrow(x))[ord]
-    for (i in 1:nrow(x)) {
-        ordiArgAbsorber(x[i,1] + c(-1,1,1,-1)*w[i], x[i,2] + c(-1,-1,1,1)*h[i],
+        border <- rep(border, length=nrow(sco))[ord]
+    fill <- rep(fill, length=nrow(sco))[ord]
+    for (i in 1:nrow(sco)) {
+        ordiArgAbsorber(sco[i,1] + c(-1,1,1,-1)*w[i],
+                        sco[i,2] + c(-1,-1,1,1)*h[i],
                         col = fill[i], border = border[i], xpd = xpd,
                         FUN = polygon, ...)
-        ordiArgAbsorber(x[i,1], x[i,2], labels = labels[i], cex = cex,
+        ordiArgAbsorber(sco[i,1], sco[i,2], labels = labels[i], cex = cex,
                         col = col[i], xpd = xpd, FUN = text, ...)
     }
     invisible(x)

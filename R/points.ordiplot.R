@@ -1,5 +1,5 @@
 `points.ordiplot`  <-
-    function (x, what, select, arrows = FALSE, ...)
+    function (x, what, select, arrows = FALSE, length = 0.05, ...)
 {
     sco <- scores(x, what)
     if (!missing(select))
@@ -12,7 +12,7 @@
     }
     ## draw arrows when requested, also for "species" etc
     if (arrows) {
-        arrows(0, 0, sco[,1], sco[,2], ...)
+        arrows(0, 0, sco[,1], sco[,2], length = length, ...)
     } else {
         points(sco, ...)
     }
