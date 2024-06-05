@@ -31,6 +31,8 @@
 * `ordilabel` can be used in a pipe. This allows using the function to
   add items to ordination plots.
 
+## Deprecated and Defunct
+
 * Disabled use of `summary` to get ordination scores: use `scores`!
   For `summary.cca` see
   [#644](https://github.com/vegandevs/vegan/discussions/644).
