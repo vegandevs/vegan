@@ -1,3 +1,4 @@
+\encoding{UTF-8}
 \name{plot.cca}
 \alias{plot.cca}
 \alias{text.cca}
@@ -158,21 +159,42 @@
   standard and more easily interpreted, and regression arrows should be
   used only if you know that you need them.
 
-  If you want to have a better control of plots, it is best to construct
-  the plot \code{text} and \code{points} commands which accept graphical
-  parameters. It is important to remember to use the same
-  \code{scaling}, \code{correlation} and \code{hill} arguments in all
-  calls. The \code{plot.cca} command returns invisibly an
-  \code{\link{ordiplot}} result object, and this will have consistent
-  scaling for all its elements. It is also possible to use \R{} pipes
-  (\code{|>}) which maintain consistent scaling and setting. The easiest
-  way for full control of graphics is to first set up the plot frame
-  using \code{plot} with \code{type = "n"} and all needed scores in
-  \code{display} and save this result or use it as a first command in a
-  pipe. The \code{points} and \code{text} commands for
-  \code{\link{ordiplot}} will allow full graphical control (see section
-  Examples). Utility function \code{labels} returns the default labels
-  in the order they are applied in \code{text}.
+  Basic \code{plot} is intended for quick overall view of the result
+  with limited configuration.  If you want to have a better control of
+  plots, it is best to use \code{text} and \code{points} which accept
+  graphical parameters. It is important to remember to use the same
+  \code{choices}, \code{scaling}, \code{correlation} and \code{hill}
+  arguments in all calls. The \code{plot.cca} command returns
+  invisibly an \code{\link{ordiplot}} result object, and this will
+  have consistent scaling for all its elements. The easiest way for
+  full control of graphics is to first set up the plot frame using
+  \code{plot} with \code{type = "n"} and all needed scores of
+  \code{display} and save this result or use it as a first command in
+  a pipe. The most practical method may be to use pipes:
+  \enumerate{
+    \item Create an empty frame for the graph with \code{plot(..., type="n")}
+    setting \code{choices}, \code{scaling}, \code{hill},
+    \code{correlation} etc. This will create an invisible \code{\link{ordiplot}}
+    object that will contain all scores with used settings. Use this as
+    the first command in a pipe. The dimensions of the plot will be
+    defined by all scores of \code{display}, and if you do not use some
+    scores, there may be unnecessary white space at the margin, and it is
+    best to explicitly list only used score types in \code{display}.
+
+    \item Use \code{\link{ordiplot}} functions \code{points} and
+    \code{text} or \code{\link{ordilabel}} to add scores to the plot.
+    The full object may contain scores of names
+    \Sexpr[results=rd,stage=build]{require(vegan, quietly=TRUE);
+     data(dune, dune.env);
+     noquote(paste0(sQuote(names(scores(rda(dune ~ ., dune.env)))),
+     collapse=", "))}
+     (some may be missing depending on the type of analysis). Use one of
+     these names as the quoted first argument of \code{points},
+     \code{text} or \code{ordilabel}. The \code{\link{ordiplot}} commands
+     \code{points} and \code{text} have argument \code{arrows} which will draw
+     plain or labelled arrows. These commands can be configured
+     freely, and they can pass the scores to the next command in a pipe.
+  }
   
   Palmer (1993) suggested using linear constraints (\dQuote{LC scores})
   in ordination diagrams, because these gave better results in
@@ -197,14 +219,22 @@
   \code{\link{points}} and \code{\link{arrows}} for the basic routines.  }
 
 \examples{
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 mod <- cca(dune ~ A1 + Moisture + Management, dune.env)
+
 ## better control -- remember to set scaling etc identically
-plot(mod, type="n", scaling="sites")
-text(mod, dis="cn", scaling="sites")
-points(mod, pch=21, col="red", bg="yellow", cex=1.2, scaling="sites")
-text(mod, "species", col="blue", cex=0.8, scaling="sites")
+plot(mod, type="n", scaling="sites", choices = 2:3)
+text(mod, dis="cn", scaling="sites", choices = 2:3)
+points(mod, pch=21, col="red", bg="yellow", cex=1.2, scaling="sites",
+    choices = 2:3)
+text(mod, "species", col="blue", cex=0.8, scaling="sites", choices = 2:3)
+
+## same with pipe
+plot(mod, type="n", scaling="sites", choices = c(2,3)) |>
+    text("centroids") |>
+    points("sites", pch=21, col="red", bg = "yellow", cex=1.2) |>
+    text("species", col="blue", cex=0.8)
+
 ## catch the invisible result and use ordiplot support - the example
 ## will make a biplot with arrows for species and correlation scaling
 pca <- rda(dune)
@@ -213,10 +243,12 @@ with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
 with(dune.env, legend("bottomleft", levels(Management), pch=21,
    pt.bg=1:4, bty="n"))
+
 ## Configuration with pipes: make an arrow biplot
 plot(pca, type="n", scaling="sites", correlation=TRUE) |>
     points("sites", pch=21, col = 1, cex=1.5, bg = dune.env$Management) |>
     text("species", col = "blue", arrow = TRUE, xpd = TRUE)
+
 ## Scaling can be numeric or more user-friendly names
 ## e.g. Hill's scaling for (C)CA
 scrs <- scores(mod, scaling = "sites", hill = TRUE)
