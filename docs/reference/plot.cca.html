@@ -246,22 +246,37 @@
   partialled out to get the LC scores. The biplot arrows are more
   standard and more easily interpreted, and regression arrows should be
   used only if you know that you need them.</p>
-<p>If you want to have a better control of plots, it is best to construct
-  the plot <code>text</code> and <code>points</code> commands which accept graphical
-  parameters. It is important to remember to use the same
-  <code>scaling</code>, <code>correlation</code> and <code>hill</code> arguments in all
-  calls. The <code>plot.cca</code> command returns invisibly an
-  <code><a href="ordiplot.html">ordiplot</a></code> result object, and this will have consistent
-  scaling for all its elements. It is also possible to use <span style="R">R</span> pipes
-  (<code>|&gt;</code>) which maintain consistent scaling and setting. The easiest
-  way for full control of graphics is to first set up the plot frame
-  using <code>plot</code> with <code>type = "n"</code> and all needed scores in
-  <code>display</code> and save this result or use it as a first command in a
-  pipe. The <code>points</code> and <code>text</code> commands for
-  <code><a href="ordiplot.html">ordiplot</a></code> will allow full graphical control (see section
-  Examples). Utility function <code>labels</code> returns the default labels
-  in the order they are applied in <code>text</code>.</p>  
-<p>Palmer (1993) suggested using linear constraints (“LC scores”)
+<p>Basic <code>plot</code> is intended for quick overall view of the result
+  with limited configuration.  If you want to have a better control of
+  plots, it is best to use <code>text</code> and <code>points</code> which accept
+  graphical parameters. It is important to remember to use the same
+  <code>choices</code>, <code>scaling</code>, <code>correlation</code> and <code>hill</code>
+  arguments in all calls. The <code>plot.cca</code> command returns
+  invisibly an <code><a href="ordiplot.html">ordiplot</a></code> result object, and this will
+  have consistent scaling for all its elements. The easiest way for
+  full control of graphics is to first set up the plot frame using
+  <code>plot</code> with <code>type = "n"</code> and all needed scores of
+  <code>display</code> and save this result or use it as a first command in
+  a pipe. The most practical method may be to use pipes:</p><ol><li><p>Create an empty frame for the graph with <code>plot(..., type="n")</code>
+    setting <code>choices</code>, <code>scaling</code>, <code>hill</code>,
+    <code>correlation</code> etc. This will create an invisible <code><a href="ordiplot.html">ordiplot</a></code>
+    object that will contain all scores with used settings. Use this as
+    the first command in a pipe. The dimensions of the plot will be
+    defined by all scores of <code>display</code>, and if you do not use some
+    scores, there may be unnecessary white space at the margin, and it is
+    best to explicitly list only used score types in <code>display</code>.</p></li>
+<li><p>Use <code><a href="ordiplot.html">ordiplot</a></code> functions <code>points</code> and
+    <code>text</code> or <code><a href="ordilabel.html">ordilabel</a></code> to add scores to the plot.
+    The full object may contain scores of names
+    ‘species’, ‘sites’, ‘constraints’, ‘biplot’, ‘regression’, ‘centroids’
+
+     (some may be missing depending on the type of analysis). Use one of
+     these names as the quoted first argument of <code>points</code>,
+     <code>text</code> or <code>ordilabel</code>. The <code><a href="ordiplot.html">ordiplot</a></code> commands
+     <code>points</code> and <code>text</code> have argument <code>arrows</code> which will draw
+     plain or labelled arrows. These commands can be configured
+     freely, and they can pass the scores to the next command in a pipe.</p></li>
+</ol><p>Palmer (1993) suggested using linear constraints (“LC scores”)
   in ordination diagrams, because these gave better results in
   simulations and site scores (“WA scores”) are a step from
   constrained to unconstrained analysis.  However, McCune (1997) showed
@@ -295,15 +310,24 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">A1</span> <span class="op">+</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">Management</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## better control -- remember to set scaling etc identically</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"cn"</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">mod</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg<span class="op">=</span><span class="st">"yellow"</span>, cex<span class="op">=</span><span class="fl">1.2</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">mod</span>, <span class="st">"species"</span>, col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.8</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, choices <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"cn"</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, choices <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">mod</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg<span class="op">=</span><span class="st">"yellow"</span>, cex<span class="op">=</span><span class="fl">1.2</span>, scaling<span class="op">=</span><span class="st">"sites"</span>,</span></span>
+<span class="r-in"><span>    choices <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">mod</span>, <span class="st">"species"</span>, col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.8</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, choices <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.cca-1.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## same with pipe</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"centroids"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="st">"sites"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg <span class="op">=</span> <span class="st">"yellow"</span>, cex<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"species"</span>, col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.cca-2.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## catch the invisible result and use ordiplot support - the example</span></span></span>
 <span class="r-in"><span><span class="co">## will make a biplot with arrows for species and correlation scaling</span></span></span>
 <span class="r-in"><span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
@@ -312,12 +336,14 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">pl</span>, <span class="st">"sp"</span>, arrow<span class="op">=</span><span class="cn">TRUE</span>, length<span class="op">=</span><span class="fl">0.05</span>, col<span class="op">=</span><span class="fl">4</span>, cex<span class="op">=</span><span class="fl">0.6</span>, xpd<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">Management</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">21</span>,</span></span>
 <span class="r-in"><span>   pt.bg<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, bty<span class="op">=</span><span class="st">"n"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.cca-2.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="plot.cca-3.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Configuration with pipes: make an arrow biplot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pca</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, correlation<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="st">"sites"</span>, pch<span class="op">=</span><span class="fl">21</span>, col <span class="op">=</span> <span class="fl">1</span>, cex<span class="op">=</span><span class="fl">1.5</span>, bg <span class="op">=</span> <span class="va">dune.env</span><span class="op">$</span><span class="va">Management</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"species"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, arrow <span class="op">=</span> <span class="cn">TRUE</span>, xpd <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.cca-3.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="plot.cca-4.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Scaling can be numeric or more user-friendly names</span></span></span>
 <span class="r-in"><span><span class="co">## e.g. Hill's scaling for (C)CA</span></span></span>
 <span class="r-in"><span><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, scaling <span class="op">=</span> <span class="st">"sites"</span>, hill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
