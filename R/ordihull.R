@@ -3,13 +3,12 @@
               draw = c("lines", "polygon", "none"),
               col = NULL, alpha = 127, show.groups, label = FALSE,
               border = NULL, lty = NULL, lwd = NULL, ...)
-      
 {
     draw <- match.arg(draw)
     ## Internal function to find the polygon centre
     polycentre <- function(x) {
         n <- nrow(x)
-        if (n < 4) 
+        if (n < 4)
             return(colMeans(x[-n, , drop = FALSE]))
         xy <- x[-n, 1] * x[-1, 2] - x[-1, 1] * x[-n, 2]
         A <- sum(xy)/2
@@ -24,6 +23,8 @@
     if (draw == "polygon" && !is.null(col))
         col <- rgb(t(col2rgb(col)), alpha = alpha, maxColorValue = 255)
     pts <- scores(ord, display = display, ...)
+    if (ncol(pts) > 2)
+        pts <- pts[, 1:2, drop = FALSE]
     if (!missing(show.groups)) {
         take <- groups %in% show.groups
         pts <- pts[take, , drop = FALSE]
@@ -31,7 +32,7 @@
     }
     out <- seq(along = groups)
     inds <- names(table(groups))
-    
+
     ## fill in graphical vectors with default values if unspecified
     ## and recycles shorter vectors
     col.new <- border.new <- lty.new <- lwd.new <- NULL
@@ -63,15 +64,15 @@
             X <- pts[gr,, drop = FALSE]
             hpts <- chull(X)
             hpts <- c(hpts, hpts[1])
-            if (draw == "lines") 
+            if (draw == "lines")
                 ordiArgAbsorber(X[hpts, ], FUN = lines,
-                                col = if (is.null(col)) 
+                                col = if (is.null(col))
                                           par("fg")
                                       else
                                           col.new[match(is, inds)],
                                 lty = lty.new[match(is,inds)],
                                 lwd = lwd.new[match(is,inds)], ...)
-            else if (draw == "polygon") 
+            else if (draw == "polygon")
 
                 ordiArgAbsorber(X[hpts, ],
                                 border= border.new[match(is,inds)],
@@ -87,13 +88,13 @@
         }
     }
     if (label && draw != "none") {
-      if (draw == "lines") 
+      if (draw == "lines")
           ordiArgAbsorber(cntrs[, 1], cntrs[, 2],
-                          labels = rownames(cntrs), 
+                          labels = rownames(cntrs),
                           col = col.new[match(is, inds)],
                           FUN = text, ...)
       else ordiArgAbsorber(cntrs, labels = rownames(cntrs),
-                           col = NULL, 
+                           col = NULL,
                            FUN = ordilabel, ...)
     }
     class(res) <- "ordihull"
