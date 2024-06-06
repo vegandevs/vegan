@@ -6,10 +6,10 @@
     if (any(display %in% c("c","cn")))
         display <- c(display, "bp")
     g <- scores(x, choices, display, scaling, const, correlation = correlation,
-                hill = hill, tidy = FALSE, droplist = TRUE)
+                hill = hill, tidy = FALSE, droplist = FALSE)
     if (length(g) == 0 || all(is.na(g)))
       stop("nothing to plot: requested scores do not exist")
-    if (!is.list(g))
+    if (!is.list(g)) # never! but doesn't harm either
         g <- list(default = g)
     ## Take care that there are names
     for (i in seq_along(g)) {
