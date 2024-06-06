@@ -28,7 +28,7 @@
     }
     if (missing(type)) {
         nitlimit <- 80
-        nit <- max(nrow(g$spe), nrow(g$sit), nrow(g$con), nrow(g$def))
+        nit <- max(nrow(g$spe), nrow(g$sit), nrow(g$con), nrow(g$cen), 0)
         if (nit > nitlimit)
             type <- "points"
         else type <- "text"
@@ -103,7 +103,7 @@
         arrows(0, 0, mul * g$biplot[, 1], mul * g$biplot[, 2],
                length = 0.05, col = "blue")
         biplabs <- ordiArrowTextXY(mul * g$biplot, rownames(g$biplot),
-                                   cex = cex)
+                                   cex = cex, rescale = FALSE)
         text(biplabs, rownames(g$biplot), col = "blue", cex = cex)
     }
     if (!is.null(g$regression) && nrow(g$regression > 0) && type != "none") {
