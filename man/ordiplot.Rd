@@ -22,9 +22,9 @@
 ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
      cex = 0.7, ...)
 \method{points}{ordiplot}(x, what, select, arrows = FALSE,
-    length = 0.05, ...)
+    length = 0.05, arr.mul, ...)
 \method{text}{ordiplot}(x, what, labels, select, arrows = FALSE,
-    length = 0.05, ...)
+    length = 0.05, arr.mul, ...)
 \method{identify}{ordiplot}(x, what, labels,  ...)
 }
 
@@ -56,6 +56,10 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
     allows, e.g, using biplot arrows for species. The arrow head will be
     at the value of scores, and possible text is moved outwards.}
   \item{length}{Length of arrow heads (see \code{\link{arrows}}).}
+  \item{arr.mul}{Numeric multiplier to arrow lenghts; this will also set
+    \code{arrows = TRUE}. The default is to automatically adjust arrow
+    lengths with \code{"biplot"} and \code{"regression"} scores and else
+    use scores directly.}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items.}
