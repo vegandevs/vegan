@@ -7,6 +7,8 @@
     w <- eval(w)
     mrg <- cluster$merge
     ord <- scores(ord, display = display, ...)
+    if (ncol(ord) > 2)
+        ord <- ord[, 1:2, drop = FALSE]
     if (nrow(mrg) != nrow(ord) - 1)
         stop("dimensions do not match in 'ord' and 'cluster'")
     if (length(w) == 1) w <- rep(w, nrow(ord))
