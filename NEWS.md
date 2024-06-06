@@ -24,12 +24,17 @@
   
 ## New Features
 
+* Configuring ordination plots with piped commands is improved.
+  `ordilabel` can be used in a pipe, and `text` and `points` function
+  (for `ordiplot`) gained argument for adjusting arrow lengths
+  similarly as these functions for `cca`. Using pipes is more
+  extensively described in help pages `?plot.cca`, `?ordiplot` and
+  `?biplot.rda`.
+
 * `plot.cca` (and hence `ordiplot`) gained argument to change text and
   point sizes. Issue
   [#656](https://github.com/vegandevs/vegan/issues/656).
 
-* `ordilabel` can be used in a pipe. This allows using the function to
-  add items to ordination plots.
 
 ## Deprecated and Defunct
 
