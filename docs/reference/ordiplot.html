@@ -82,10 +82,10 @@
 <span>     cex <span class="op">=</span> <span class="fl">0.7</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for ordiplot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span>, <span class="va">select</span>, arrows <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    length <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>    length <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">arr.mul</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for ordiplot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span>, <span class="va">labels</span>, <span class="va">select</span>, arrows <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>    length <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>    length <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">arr.mul</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for ordiplot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/identify.html" class="external-link">identify</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">what</span>, <span class="va">labels</span>,  <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -142,6 +142,12 @@
 
   <dt>length</dt>
 <dd><p>Length of arrow heads (see <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code>).</p></dd>
+
+  <dt>arr.mul</dt>
+<dd><p>Numeric multiplier to arrow lenghts; this will also set
+    <code>arrows = TRUE</code>. The default is to automatically adjust arrow
+    lengths with <code>"biplot"</code> and <code>"regression"</code> scores and else
+    use scores directly.</p></dd>
 
   <dt>select</dt>
 <dd><p>Items to be displayed.  This can either be a logical
