@@ -20,7 +20,9 @@
 \usage{
 \method{plot}{cca}(x, choices = c(1, 2), display = c("sp", "wa", "cn"),
      scaling = "species", type, xlim, ylim, const,
-     correlation = FALSE, hill = FALSE, cex = 0.7, ...)
+     correlation = FALSE, hill = FALSE, spe.par = list(), sit.par =
+     list(), con.par = list(), bip.par = list(), cen.par = list(),
+     reg.par = list(), ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2),
      scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
      axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
@@ -74,6 +76,11 @@
     correlation-like scores or Hill's scaling for PCA/RDA and CA/CCA
     respectively. See argument \code{scaling} for details.}
   
+  \item{spe.par, sit.par, con.par, bip.par, cen.par, reg.par}{
+    Lists of graphical parameters fro species, sites, constraints (lc
+    scores), biplot and text, centroids and regression. These take
+    precedence over globally set parameters and defaults.} 
+  
   \item{tidy}{Return scores that are compatible with
     \CRANpkg{ggplot2}: all scores are in a single \code{data.frame},
     score type is identified by factor variable \code{score}, the
@@ -113,7 +120,7 @@
     kind of scores were requested.}
   \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
   \item{digits}{Number of digits in output.}
-  \item{cex}{Character expansion.}
+
   \item{...}{Parameters passed to other functions.}
 }
 
