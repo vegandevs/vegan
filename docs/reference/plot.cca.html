@@ -69,7 +69,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for cca</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>, <span class="st">"wa"</span>, <span class="st">"cn"</span><span class="op">)</span>,</span>
 <span>     scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">type</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">const</span>,</span>
-<span>     correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>     correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, sit.par <span class="op">=</span></span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, con.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, bip.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, cen.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>     reg.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for cca</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">labels</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>     scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">arrow.mul</span>, head.arrow <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">select</span>, <span class="va">const</span>,</span>
@@ -138,6 +140,12 @@
     respectively. See argument <code>scaling</code> for details.</p></dd>
 
   
+  <dt>spe.par, sit.par, con.par, bip.par, cen.par, reg.par</dt>
+<dd><p>Lists of graphical parameters fro species, sites, constraints (lc
+    scores), biplot and text, centroids and regression. These take
+    precedence over globally set parameters and defaults.</p></dd>
+ 
+  
   <dt>tidy</dt>
 <dd><p>Return scores that are compatible with
     <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a>: all scores are in a single <code>data.frame</code>,
@@ -199,8 +207,6 @@
   <dt>digits</dt>
 <dd><p>Number of digits in output.</p></dd>
 
-  <dt>cex</dt>
-<dd><p>Character expansion.</p></dd>
 
   <dt>...</dt>
 <dd><p>Parameters passed to other functions.</p></dd>
