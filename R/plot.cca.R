@@ -59,19 +59,17 @@
         return(invisible(pl))
     }
     if (missing(xlim)) {
-        xlim <- range(g$species[, 1], g$sites[, 1], g$constraints[, 1],
-                      g$biplot[, 1],
+        xlim <- range(0, g$species[, 1], g$sites[, 1], g$constraints[, 1],
+                      g$biplot[, 1], g$regression[,1],
                       if (length(g$centroids) > 0 && all(is.na(g$centroids))) NA else g$centroids[, 1],
-                      g$default[, 1],
                       na.rm = TRUE)
     }
     if (!any(is.finite(xlim)))
         stop("no finite scores to plot")
     if (missing(ylim)) {
-        ylim <- range(g$species[, 2], g$sites[, 2], g$constraints[, 2],
-                      g$biplot[, 2],
+        ylim <- range(0, g$species[, 2], g$sites[, 2], g$constraints[, 2],
+                      g$biplot[, 2], g$regression[,2],
                       if (length(g$centroids) > 0 && all(is.na(g$centroids))) NA else g$centroids[, 2],
-                      g$default[, 2],
                       na.rm = TRUE)
     }
     plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
