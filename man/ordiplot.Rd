@@ -24,7 +24,7 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
 \method{points}{ordiplot}(x, what, select, arrows = FALSE,
     length = 0.05, arr.mul, ...)
 \method{text}{ordiplot}(x, what, labels, select, arrows = FALSE,
-    length = 0.05, arr.mul, ...)
+    length = 0.05, arr.mul, bg, ...)
 \method{identify}{ordiplot}(x, what, labels,  ...)
 }
 
@@ -60,6 +60,9 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
     \code{arrows = TRUE}. The default is to automatically adjust arrow
     lengths with \code{"biplot"} and \code{"regression"} scores and else
     use scores directly.}
+  \item{bg}{Background colour for labels. If \code{bg} is set, the
+    labels are displayed with \code{\link{ordilabel}} instead of
+    \code{\link{text}}.  }
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items.}
