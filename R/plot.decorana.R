@@ -1,7 +1,7 @@
-"plot.decorana" <-
-    function (x, choices = c(1, 2), origin = TRUE, display = c("both", 
-                                                   "sites", "species", "none"), cex = 0.8, cols = c(1, 2), type, xlim, ylim, 
-              ...) 
+`plot.decorana` <-
+    function (x, choices = c(1, 2), origin = TRUE,
+              display = c("both", "sites", "species", "none"), cex = 0.7,
+              cols = c(1, 2), type, xlim, ylim, ...)
 {
     display <- match.arg(display)
     sites <- x$rproj
@@ -9,11 +9,11 @@
     if (missing(type)) {
         nitlimit <- 120
         nit <- 0
-        if (display == "sites" || display == "both") 
+        if (display == "sites" || display == "both")
             nit <- nit + nrow(sites)
-        if (display == "species" || display == "both") 
+        if (display == "species" || display == "both")
             nit <- nit + nrow(specs)
-        if (nit > nitlimit) 
+        if (nit > nitlimit)
             type <- "points"
         else type <- "text"
     }
@@ -50,7 +50,7 @@
         if (missing(xlim)) xlim <- range(sp.x, st.x)
         if (missing(ylim)) ylim <- range(sp.y, st.y)
     })
-    plot(sites, type = "n", xlim = xlim, ylim = ylim, asp = 1, 
+    plot(sites, type = "n", xlim = xlim, ylim = ylim, asp = 1,
          ...)
     if (origin) {
         abline(h = 0, lty = 3)
@@ -61,12 +61,12 @@
         abline(v = x$origin[choices[1]], lty = 3)
     }
     if (type != "none" && (display == "both" || display == "sites")) {
-        if (type == "text" && !is.null(sitnam)) 
+        if (type == "text" && !is.null(sitnam))
             text(sites, sitnam, cex = cex, col = cols[1])
         else points(sites, cex = cex, col = cols[1])
     }
     if (type != "none" && (display == "both" || display == "species")) {
-        if (type == "text" && !is.null(spenam)) 
+        if (type == "text" && !is.null(spenam))
             text(specs, spenam, cex = cex, col = cols[2])
         else points(specs, pch = "+", cex = cex, col = cols[2])
     }
