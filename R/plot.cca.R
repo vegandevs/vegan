@@ -114,7 +114,7 @@
         arrows(0, 0, mul * g$regression[, 1], mul * g$regression[, 2],
                length = 0.05, col = rcol)
         biplabs <- ordiArrowTextXY(mul * g$regression, rownames(g$regression),
-                                   cex = cex)
+                                   cex = cex, rescale = FALSE)
         text(biplabs, rownames(g$regression), col = rcol, cex = cex)
     }
     if (!is.null(g$centroids) && !anyNA(g$centroids) && type !=
