@@ -19,8 +19,7 @@
 }
 
 \usage{
-ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
-     cex = 0.7, ...)
+ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
 \method{points}{ordiplot}(x, what, select, arrows = FALSE,
     length = 0.05, arr.mul, ...)
 \method{text}{ordiplot}(x, what, labels, select, arrows = FALSE,
@@ -38,7 +37,6 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
     \code{\link{rda}}, \code{\link{dbrda}} and \code{\link{capscale}}
     it is the same as in \code{\link{plot.cca}}.  }
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
-  \item{cex}{Character expansion factor for points and text.}
   \item{\dots}{Other graphical parameters. }
   \item{x}{A result object from \code{ordiplot}.}
   \item{what}{Items identified in the ordination plot. The types depend
@@ -106,13 +104,6 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
 
 \author{
   Jari Oksanen
-}
-\note{
-  The purpose of these functions is to provide similar functionality as
-  the \code{plot}, \code{plotid} and \code{specid} methods in library
-  \code{labdsv}. The functions are somewhat limited in parametrization,
-  but you can call directly the standard \code{\link{identify}} and
-  \code{\link{plot}} functions for a better user control.
 }
 
 \seealso{ \code{\link{identify}} for basic operations, \code{\link{plot.cca}},
