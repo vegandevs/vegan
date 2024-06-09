@@ -18,7 +18,7 @@ decorana(veg, iweigh=0, iresc=4, ira=0, mk=26, short=0,
 
 \method{plot}{decorana}(x, choices=c(1,2), origin=TRUE,
      display=c("both","sites","species","none"),
-     cex = 0.8, cols = c(1,2), type, xlim, ylim, ...)
+     cex = 0.7, cols = c(1,2), type, xlim, ylim, ...)
 
 \method{text}{decorana}(x, display = c("sites", "species"), labels,
      choices = 1:2, origin = TRUE, select,  ...)
