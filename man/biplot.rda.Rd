@@ -83,6 +83,9 @@ data(dune)
 mod <- rda(dune, scale = TRUE)
 biplot(mod, scaling = "symmetric")
 
+## plot.cca can do the same
+plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE))
+
 ## different type for species and site scores
 biplot(mod, scaling = "symmetric", type = c("text", "points"))
 
