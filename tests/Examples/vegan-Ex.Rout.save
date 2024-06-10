@@ -1785,6 +1785,9 @@ log(N) P K Ca pH Al    6      0.2822
 > mod <- rda(dune, scale = TRUE)
 > biplot(mod, scaling = "symmetric")
 > 
+> ## plot.cca can do the same
+> plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE))
+> 
 > ## different type for species and site scores
 > biplot(mod, scaling = "symmetric", type = c("text", "points"))
 > 
@@ -5004,9 +5007,9 @@ Al  1.8804734 -0.3507570
 P  -0.9168309 -1.6419845
 K  -0.9931606 -0.3713207
 > 
->     ## draw arrows and text labels
+>     ## arrows will touch the bounding box of the text
 >     arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
->     text(bip.lab, labels = labs)
+>     ordilabel(bip.lab, labels = labs)
 > 
 >     ## Handling of ordination objects directly
 >     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)
@@ -6102,18 +6105,19 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > data(dune, dune.env)
 > mod <- cca(dune ~ A1 + Moisture + Management, dune.env)
 > 
-> ## better control -- remember to set scaling etc identically
-> plot(mod, type="n", scaling="sites", choices = 2:3)
-> text(mod, dis="cn", scaling="sites", choices = 2:3)
-> points(mod, pch=21, col="red", bg="yellow", cex=1.2, scaling="sites",
-+     choices = 2:3)
-> text(mod, "species", col="blue", cex=0.8, scaling="sites", choices = 2:3)
+> ## default and modified plot
+> plot(mod, scaling="sites")
+> plot(mod, scaling="sites", type = "text",
++   sit.par = list(type = "points", pch=21, col="red", bg="yellow", cex=1.2),
++   spe.par = list(col="blue", cex=0.8),
++   cen.par = list(bg="white"))
 > 
 > ## same with pipe
-> plot(mod, type="n", scaling="sites", choices = c(2,3)) |>
-+     text("centroids") |>
-+     points("sites", pch=21, col="red", bg = "yellow", cex=1.2) |>
-+     text("species", col="blue", cex=0.8)
+> plot(mod, type="n", scaling="sites") |>
++   points("sites", pch=21, col="red", bg = "yellow", cex=1.2) |>
++   text("species", col="blue", cex=0.8) |>
++   text("biplot") |>
++   text("centroids", bg="white")
 > 
 > ## catch the invisible result and use ordiplot support - the example
 > ## will make a biplot with arrows for species and correlation scaling
@@ -6124,10 +6128,10 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > with(dune.env, legend("bottomleft", levels(Management), pch=21,
 +    pt.bg=1:4, bty="n"))
 > 
-> ## Configuration with pipes: make an arrow biplot
+> ## Pipe
 > plot(pca, type="n", scaling="sites", correlation=TRUE) |>
 +     points("sites", pch=21, col = 1, cex=1.5, bg = dune.env$Management) |>
-+     text("species", col = "blue", arrow = TRUE, xpd = TRUE)
++     text("species", col = "blue", arrows = TRUE, xpd = TRUE, font = 3)
 > 
 > ## Scaling can be numeric or more user-friendly names
 > ## e.g. Hill's scaling for (C)CA
@@ -8965,7 +8969,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.574 0.269 8.867 0 0 
+Time elapsed:  8.54 0.277 8.841 0 0 
 > grDevices::dev.off()
 null device 
           1 
