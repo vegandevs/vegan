@@ -121,9 +121,9 @@
     on the kind of plot used. Most methods know <code>sites</code> and
     <code>species</code>, functions <code><a href="cca.html">cca</a></code> and <code><a href="cca.html">rda</a></code>
     know in addition 
-    <code>constraints</code> (for LC scores), <code>centroids</code> and
-    <code>biplot</code>, and <code><a href="procrustes.html">plot.procrustes</a></code> ordination plot has
-    <code>heads</code> and <code>points</code>.</p></dd>
+    <code>constraints</code> (for LC scores), <code>centroids</code>, <code>biplot</code>
+    and <code>regression</code>, and <code><a href="procrustes.html">plot.procrustes</a></code> ordination
+    plot has <code>heads</code> and <code>points</code>.</p></dd>
 
   <dt>labels</dt>
 <dd><p>Optional text used for labels. Row names will be used if
@@ -131,8 +131,9 @@
 
   <dt>arrows</dt>
 <dd><p>Draw arrows from the origin. This will always be
-    <code>TRUE</code> for biplot scores and its value will be ignored. Setting
-    this <code>TRUE</code> will draw arrows for any type of scores. This
+    <code>TRUE</code> for biplot and regression scores in constrained
+    ordination (<code><a href="cca.html">cca</a></code> etc.) and its value will be ignored.
+    Setting this <code>TRUE</code> will draw arrows for any type of scores. This
     allows, e.g, using biplot arrows for species. The arrow head will be
     at the value of scores, and possible text is moved outwards.</p></dd>
 
@@ -194,7 +195,7 @@
 <p></p>
 <p><code>ordiplot</code> object. If the <code>plot(..., type = "n")</code> was used
   originally, the plot is empty, and items can be added with the
-  invisible object. Functions <code>points</code> and <code>text</code> will return
+  invisible object. Functions <code>points</code> and <code>text</code> return
   their input object without modification, which allows chaining these
   commands with pipes. Function <code>identify.ordiplot</code> uses this
   object to label the point.</p>
