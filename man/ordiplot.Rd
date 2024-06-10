@@ -43,14 +43,15 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
     on the kind of plot used. Most methods know \code{sites} and
     \code{species}, functions \code{\link{cca}} and \code{\link{rda}}
     know in addition 
-    \code{constraints} (for LC scores), \code{centroids} and
-    \code{biplot}, and \code{\link{plot.procrustes}} ordination plot has
-    \code{heads} and \code{points}.}
+    \code{constraints} (for LC scores), \code{centroids}, \code{biplot}
+    and \code{regression}, and \code{\link{plot.procrustes}} ordination
+    plot has \code{heads} and \code{points}.}
   \item{labels}{Optional text used for labels. Row names will be used if
     this is missing.}
   \item{arrows}{Draw arrows from the origin. This will always be
-    \code{TRUE} for biplot scores and its value will be ignored. Setting
-    this \code{TRUE} will draw arrows for any type of scores. This
+    \code{TRUE} for biplot and regression scores in constrained
+    ordination (\code{\link{cca}} etc.) and its value will be ignored.
+    Setting this \code{TRUE} will draw arrows for any type of scores. This
     allows, e.g, using biplot arrows for species. The arrow head will be
     at the value of scores, and possible text is moved outwards.}
   \item{length}{Length of arrow heads (see \code{\link{arrows}}).}
@@ -95,7 +96,7 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
   functions for ordination results will also return an invisible
   \code{ordiplot} object. If the \code{plot(..., type = "n")} was used
   originally, the plot is empty, and items can be added with the
-  invisible object. Functions \code{points} and \code{text} will return
+  invisible object. Functions \code{points} and \code{text} return
   their input object without modification, which allows chaining these
   commands with pipes. Function \code{identify.ordiplot} uses this
   object to label the point.

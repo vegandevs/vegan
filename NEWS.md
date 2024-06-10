@@ -24,17 +24,28 @@
   
 ## New Features
 
-* Configuring ordination plots with piped commands is improved.
-  `ordilabel` can be used in a pipe, and `text` and `points` function
-  (for `ordiplot`) gained argument for adjusting arrow lengths
-  similarly as these functions for `cca`. Using pipes is more
-  extensively described in help pages `?plot.cca`, `?ordiplot` and
-  `?biplot.rda`.
+* `plot.cca` graphics can be configured. `plot.cca` had hard-coded
+  graphical parameters and user arguments were ignored (see issue
+  [#656](https://github.com/vegandevs/vegan/issues/656)). Now
+  graphical parameters can be given either for all score types, or
+  with a list of graphical parameters for a specific score.
 
-* `plot.cca` (and hence `ordiplot`) gained argument to change text and
-  point sizes. Issue
-  [#656](https://github.com/vegandevs/vegan/issues/656).
+  Alternatively ordination plots can be built up adding each score
+  type in piped commands. Pipes were available since release 2.5-1,
+  but their use is now improved: `ordilabel` can be used in a pipe,
+  `text` can use opaque background label, and `text` and `points`
+  function (for `ordiplot`) gained argument for adjusting arrow
+  lengths similarly as these functions for `cca`.
 
+  `biplot` and `regression` arrows failed or where not nicely
+  presented if they were the only requested `display` in `plot.cca`.
+
+  The new features are more extensively described in help pages
+  `?plot.cca`, `?ordiplot` and `?biplot.rda`.
+
+## Bug Fixes
+
+* `summary.ordihull` failed if input data were not two-dimensional.
 
 ## Deprecated and Defunct
 

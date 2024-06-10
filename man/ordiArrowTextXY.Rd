@@ -98,9 +98,9 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75, display, choices = c(1,2), \ldots)
     ## calculate coordinate of labels for arrows
     (bip.lab <- ordiArrowTextXY(bip.scl, rescale = FALSE, labels = labs))
 
-    ## draw arrows and text labels
+    ## arrows will touch the bounding box of the text
     arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
-    text(bip.lab, labels = labs)
+    ordilabel(bip.lab, labels = labs)
 
     ## Handling of ordination objects directly
     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)
