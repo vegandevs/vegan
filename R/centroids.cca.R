@@ -51,7 +51,7 @@
 {
     if (is.null(ord$CCA) || ord$CCA$rank < 1)
         return(NULL)
-    centroids <- centroids.cca(ord$CCA$wa, mframe, ord$rowsum)
+    centroids <- centroids.cca(ord$CCA$u, mframe, ord$rowsum)
     if (!is.null(ord$CCA$alias))
         centroids <- unique(centroids)
     ## See that there really are centroids
