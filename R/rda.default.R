@@ -8,8 +8,10 @@
         stop("function cannot be used with (dis)similarities")
     X <- as.matrix(X)
     if (!is.null(Y)) {
-        if (is.data.frame(Y) || is.factor(Y))
+        if (is.data.frame(Y) || is.factor(Y)) { # save Y for centroids
+            mframe <- as.data.frame(Y) # can be a single factor
             Y <- model.matrix(~ ., as.data.frame(Y))[,-1,drop=FALSE]
+        }
         Y <- as.matrix(Y)
     }
     if (!is.null(Z)) {
@@ -19,6 +21,9 @@
     }
 
     sol <- ordConstrained(X, Y, Z, arg = scale, method = "rda")
+    ## mframe exists only if function was called rda(X, mframe)
+    if (exists("mframe"))
+        sol$CCA$centroids <- getCentroids(sol, mframe)
 
     call <- match.call()
     call[[1]] <- as.name("rda")

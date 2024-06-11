@@ -173,9 +173,7 @@
   function uses a simple heuristics for adjusting the unit-length arrows
   to the current plot area, but the user can give the expansion factor
   in \code{arrow.mul}.  With \code{display="cn"} the centroids of levels
-  of \code{\link{factor}} variables are displayed (these are available
-  only if there were factors and a formula interface was used in
-  \code{\link{cca}} or \code{\link{rda}}). With this option continuous
+  of \code{\link{factor}} variables are displayed. With this option continuous
   variables still are presented as arrows and ordered factors as arrows
   and centroids. With \code{display = "reg"} arrows will be drawn for
   regression coefficients (a.k.a. canonical coefficients) of constraints
