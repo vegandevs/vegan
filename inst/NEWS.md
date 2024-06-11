@@ -1,10 +1,42 @@
 ## vegan News
 
+### Changes in version 2\.6-6\.2
+
+#### What Is Version 2.6-6.2?
+
+  Version 2.6-6.2 cherry-picks fixes for bugs and buglets and
+  unexpected features from the development branch 2.6-7. This version
+  may never be released, but if there are important bugs or many
+  changes and major release of the 2.6-7 is not near, a minor CRAN
+  release may happen.
+
+#### Enhancements
+
+* `cca` and `rda` return centroids for factor levels even when they
+  are called without formula, for instance, as `cca(dune, dune.env)`.
+
+* `plot.cca` retains default graphical settings also when only one set
+  of scores was displayed.
+
+* `ordiplot` did not pass character size (`cex`) to `plot.cca`. Version
+  2.6-7 has more extensive changes, but this fixes the immediate issue
+  [#656](https://github.com/vegandevs/vegan/issues/656).
+
+#### Bug Fixes
+
+* `plot.cca`: biplot or regression arrows were not nicely scaled and
+  drew no arrows when displayed as the only item in graph.
+
+* `summary.ordihull` (and hence `ordiareatest` for convex hulls)
+  failed if input had more than two dimensions.
+
 ### Changes in version 2\.6-6\.1
 
 * C function `do_wcentre` (weighted centring) can segfault due to a
-  protection error. The problem was found in automatic CRAN checks and
-  the fix was verified in Tomas Kalibera's docker container.
+  protection error. The problem was found in automatic CRAN
+  checks. `do_wcentre` is an internal function that is called from
+  `envfit` (`vectorfit`), `wcmdscale` and `varpart` (`simpleCCA`)
+  Fixes bug [#653](https://github.com/vegandevs/vegan/issues/653).
 
 ### Changes in version 2\.6-6
 
