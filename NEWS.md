@@ -43,6 +43,9 @@
   The new features are more extensively described in help pages
   `?plot.cca`, `?ordiplot` and `?biplot.rda`.
 
+* `rda` and `cca` return centroids for factor levels also when
+  called without formula, for instance `cca(dune, dune.env)`.
+
 ## Bug Fixes
 
 * `summary.ordihull` failed if input data were not two-dimensional.
