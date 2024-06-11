@@ -10,21 +10,7 @@
     d <- ordiParseFormula(formula, data = data, na.action = na.action,
                           subset = substitute(subset))
     sol <- cca.default(d$X, d$Y, d$Z)
-    if (!is.null(sol$CCA) && sol$CCA$rank > 0) {
-        centroids <- centroids.cca(sol$CCA$wa, d$modelframe,
-                                   sol$rowsum)
-        if (!is.null(sol$CCA$alias))
-            centroids <- unique(centroids)
-        ## See that there really are centroids
-        if (!is.null(centroids)) {
-            rs <- rowSums(centroids^2)
-            centroids <- centroids[rs > 1e-04,, drop = FALSE]
-            if (length(centroids) == 0)
-                centroids <- NULL
-        }
-        if (!is.null(centroids))
-            sol$CCA$centroids <- centroids
-    }
+    sol$CCA$centroids <- getCentroids(sol, d$modelframe)
     ## replace cca.default call
     call <- match.call()
     call[[1]] <- as.name("cca")
