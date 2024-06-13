@@ -98,8 +98,8 @@ importFrom(graphics, abline, arrows, axis, barplot, box, contour,
            mtext, par, plot.new, plot.window, polygon, rect, rug,
            segments, strheight, strwidth, symbols, title)
 import(permute) ## vegan depends on permute: import everything
-importFrom(utils, news, vignette, combn, flush.console, head,
-           modifyList, object.size, read.fortran, read.fwf, tail, str)
+importFrom(utils, news, vignette, combn, flush.console, modifyList,
+           object.size, read.fortran, read.fwf, str)
 importFrom(tools, Rd2txt, startDynamicHelp)
 importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.off,
            heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
