@@ -64,6 +64,10 @@
   **vegan3d**). _This is experimental, and we may go to direct error,
   depending on user experience: please comment!_
 
+* relic function `vegandocs` is officially defunct. Better tools to
+  read **vegan** documentation are `browseVignettes("vegan")` and
+  `news(package="vegan")`.
+
 # vegan 2.6-6.1
 
 ## Bug Fixes

@@ -100,7 +100,6 @@ importFrom(graphics, abline, arrows, axis, barplot, box, contour,
 import(permute) ## vegan depends on permute: import everything
 importFrom(utils, news, vignette, combn, flush.console, modifyList,
            object.size, read.fortran, read.fwf, str)
-importFrom(tools, Rd2txt, startDynamicHelp)
 importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.off,
            heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
            rgb, svg, tiff, xfig, xy.coords)
