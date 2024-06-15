@@ -103,8 +103,13 @@
         }
         dimnames(tbl) <- d
         print(noquote(tbl))
+        ## collect all pages for output table
+        if (exists(".tabout", inherits = FALSE))
+            .tabout[,2] <- paste0(.tabout[,2], tbl[,2])
+        else
+            .tabout <- tbl
     }
-    out <- list(sites = site.ind, species = sp.ind, table = tbl)
+    out <- list(sites = site.ind, species = sp.ind, table = .tabout)
     cat(length(out$sites), "sites,", length(out$species), "species\n")
     if (!is.null(usedscale))
         cat("scale: ",  usedscale, "\n")
