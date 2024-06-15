@@ -26,6 +26,8 @@
 
 * `plot.cca`: biplot or regression arrows were not nicely scaled and
   drew no arrows when displayed as the only item in graph.
+  
+* `metaMDS`: half-change scaling failed when maxdist was not 1.
 
 * `summary.ordihull` (and hence `ordiareatest` for convex hulls)
   failed if input had more than two dimensions.
