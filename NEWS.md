@@ -37,9 +37,6 @@
   function (for `ordiplot`) gained argument for adjusting arrow
   lengths similarly as these functions for `cca`.
 
-  `biplot` and `regression` arrows failed or where not nicely
-  presented if they were the only requested `display` in `plot.cca`.
-
   The new features are more extensively described in help pages
   `?plot.cca`, `?ordiplot` and `?biplot.rda`.
 
@@ -47,6 +44,11 @@
   called without formula, for instance `cca(dune, dune.env)`.
 
 ## Bug Fixes
+
+* `plot.cca`: `biplot` and `regression` arrows were not drawn and
+  plots were badly scaled or when they were the only item displayed
+
+* `metaMDS`: half-change scaling failed when maxdist was not 1.
 
 * `summary.ordihull` failed if input data were not two-dimensional.
 
