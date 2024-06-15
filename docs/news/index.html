@@ -69,15 +69,15 @@
 <ul><li>
 <p><code>plot.cca</code> graphics can be configured. <code>plot.cca</code> had hard-coded graphical parameters and user arguments were ignored (see issue <a href="https://github.com/vegandevs/vegan/issues/656" class="external-link">#656</a>). Now graphical parameters can be given either for all score types, or with a list of graphical parameters for a specific score.</p>
 <p>Alternatively ordination plots can be built up adding each score type in piped commands. Pipes were available since release 2.5-1, but their use is now improved: <code>ordilabel</code> can be used in a pipe, <code>text</code> can use opaque background label, and <code>text</code> and <code>points</code> function (for <code>ordiplot</code>) gained argument for adjusting arrow lengths similarly as these functions for <code>cca</code>.</p>
-<p><code>biplot</code> and <code>regression</code> arrows failed or where not nicely presented if they were the only requested <code>display</code> in <code>plot.cca</code>.</p>
 <p>The new features are more extensively described in help pages <code><a href="../reference/plot.cca.html">?plot.cca</a></code>, <code><a href="../reference/ordiplot.html">?ordiplot</a></code> and <code><a href="../reference/biplot.rda.html">?biplot.rda</a></code>.</p>
 </li>
 <li><p><code>rda</code> and <code>cca</code> return centroids for factor levels also when called without formula, for instance <code>cca(dune, dune.env)</code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-6-7">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-7"></a></h3>
-<ul><li>
-<code>summary.ordihull</code> failed if input data were not two-dimensional.</li>
+<ul><li><p><code>plot.cca</code>: <code>biplot</code> and <code>regression</code> arrows were not drawn and plots were badly scaled or when they were the only item displayed</p></li>
+<li><p><code>metaMDS</code>: half-change scaling failed when maxdist was not 1.</p></li>
+<li><p><code>summary.ordihull</code> failed if input data were not two-dimensional.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-and-defunct-2-6-7">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-6-7"></a></h3>
