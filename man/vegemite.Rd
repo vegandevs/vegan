@@ -15,7 +15,8 @@
   analysis.
 }
 \usage{
-vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
+vegemite(x, use, scale, sp.ind, site.ind, zero=".", select,
+    diagonalize = FALSE, ...)
 tabasco(x, use, sp.ind = NULL, site.ind = NULL, select,
     Rowv = TRUE, Colv = TRUE, labRow = NULL, labCol = NULL,
     scale, col = heat.colors(12), ...)
@@ -38,6 +39,14 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     sites.  The order of indices does not influence results, but you
     must specify \code{use} or \code{site.ind} to reorder sites.
   }
+
+  \item{diagonalize}{Try to re-order \code{vegemite} table to a diagonal
+    pattern when using classification factor or a dendrogram.
+    Dendrograms are re-orded by the first axis of correspondence
+    analysis.  Factor levels and sites within factor levels are
+    re-ordered by the first axis of (constrained) correspondence
+    analysis.}
+
   \item{Rowv, Colv}{Re-order dendrograms for the rows (sites) or
     columns (species) of \code{x}.  If the \code{Rowv = TRUE}, row
     dendrograms are ordered by the first axis of correspondence

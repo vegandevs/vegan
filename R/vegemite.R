@@ -1,7 +1,19 @@
 `vegemite` <-
     function (x, use, scale, sp.ind = NULL, site.ind = NULL, zero = ".",
-              select, ...)
+              select, diagonalize = FALSE, ...)
 {
+    diagOrder <- function(x = x, scale = scale, z = NULL) {
+        if (!missing(scale))
+            x <- coverscale(x, scale = scale, character = FALSE)
+        ord <- cca(x, z)
+        ## Dendrograms need only WA scores, but ordering factors and
+        ## sites within factors needs WA & LC, and species scores give
+        ## wanted species ordering
+        if (is.null(z))
+            scores(ord, choices = 1, display = "wa")
+        else
+            scores(ord, choices = 1, display = c("lc","wa","sp"))
+    }
     if (!missing(use)) {
         if (!is.list(use) && is.vector(use)) {
             if (is.null(site.ind))
@@ -13,12 +25,20 @@
             if (inherits(use, "twins")) {
                 use <- as.hclust(use)
             }
+            if (diagonalize) {
+                wts <- diagOrder(x, scale)
+                use <- reorder(use, wts)
+            }
             if (is.null(site.ind))
                 site.ind <- use$order
             if (is.null(sp.ind))
                 sp.ind <- order(wascores(order(site.ind), x))
         }
         else if (inherits(use, "dendrogram")) {
+            if (diagonalize) {
+                wts <- diagOrder(x, scale)
+                use <- reorder(use, wts)
+            }
             if (is.null(site.ind)) {
                 site.ind <- 1:nrow(x)
                 names(site.ind) <- rownames(x)
@@ -46,6 +66,17 @@
         }
         else if (is.factor(use)) {
             tmp <- as.numeric(use)
+            if (diagonalize) {
+                ord <- diagOrder(x, scale, use)
+                if (cor(tmp, ord$constraints, method = "spearman") < 0) {
+                    ord$constraints <- -ord$constraints
+                    ord$sites <- -ord$sites
+                    ord$species <- -ord$species
+                }
+                ## order factors and sites within factor levels
+                site.ind <- order(ord$constraints, ord$sites)
+                sp.ind <- order(ord$species)
+            }
             if (is.null(site.ind))
                 site.ind <- order(tmp)
             if (is.null(sp.ind))
