@@ -47,13 +47,14 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     re-ordered by the first axis of (constrained) correspondence
     analysis.}
 
-  \item{Rowv, Colv}{Re-order dendrograms for the rows (sites) or
-    columns (species) of \code{x}.  If the \code{Rowv = TRUE}, row
-    dendrograms are ordered by the first axis of correspondence
-    analysis, and when \code{Colv = TRUE} column dendrograms by the
-    weighted average (\code{\link{wascores}}) of the row order.
-    Alternatively, the arguments can be vectors that are used to
-    reorder the dendrogram. }
+  \item{Rowv, Colv}{Re-order factors or dendrograms for the rows (sites)
+    or columns (species) of \code{x}.  If \code{Rowv = TRUE}, factor
+    levels and sites within factors are re-ordered to show diagonal
+    pattern using CCA. If \code{Rowv = TRUE}, row dendrograms are
+    ordered by the first axis of correspondence analysis, and when
+    \code{Colv = TRUE} column dendrograms by the weighted average
+    (\code{\link{wascores}}) of the row order.  Alternatively, the
+    arguments can be vectors that are used to reorder the dendrogram. }
 
   \item{labRow, labCol}{character vectors with row and column labels
     used in the \code{\link{heatmap}} instead of the default. NB., the
