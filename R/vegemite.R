@@ -44,6 +44,13 @@
             if (is.null(sp.ind))
                 sp.ind <- order(wascores(tmp, x))
         }
+        else if (is.factor(use)) {
+            tmp <- as.numeric(use)
+            if (is.null(site.ind))
+                site.ind <- order(tmp)
+            if (is.null(sp.ind))
+                sp.ind <- order(wascores(tmp, x))
+        }
     }
     if (!is.null(sp.ind) && is.logical(sp.ind))
         sp.ind <- seq_len(ncol(x))[sp.ind]

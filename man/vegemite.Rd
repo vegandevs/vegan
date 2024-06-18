@@ -25,9 +25,9 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 
 \arguments{
   \item{x}{Community data. }
-  \item{use}{Either a vector, or an object from \code{cca},
-    \code{decorana} \emph{etc.} or \code{hclust} or a
-    \code{\link{dendrogram}} for ordering sites and species.}
+  \item{use}{Either a numeric vector or a classification factor, or an
+    object from \code{cca}, \code{decorana} \emph{etc.} or \code{hclust}
+    or a \code{\link{dendrogram}} for ordering sites and species.}
   \item{sp.ind, site.ind}{Species and site indices. In \code{tabasco},
     these can also be \code{\link{hclust}} tree,
     \code{\link[cluster]{agnes}} clusterings or
@@ -99,15 +99,16 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \code{vegemite}.  No dendrogram for species is displayed, except
   when given in \code{sp.ind}.
 
-  If \code{use} is a vector, it is used for ordering sites.  If
-  \code{use} is an object from ordination, both sites and species are
-  arranged by the first axis (provided that results are available both
-  also for species).  When \code{use} is an object from
-  \code{\link{hclust}}, \code{\link[cluster]{agnes}} or a
-  \code{\link{dendrogram}}, the sites are ordered similarly as in the
-  cluster dendrogram.  Function \code{tabasco} re-orders the dendrogram
-  if \code{Rowv = TRUE} or \code{Rowv} is a vector. Such re-ordering is
-  not available for \code{vegemite}, but it can be done by hand using
+  If \code{use} is a numeric vector, it is used for ordering sites, and
+  if it is a factor, it is used to order sites by classes. If \code{use}
+  is an object from ordination, both sites and species are arranged by
+  the first axis (provided that results are available both also for
+  species).  When \code{use} is an object from \code{\link{hclust}},
+  \code{\link[cluster]{agnes}} or a \code{\link{dendrogram}}, the sites
+  are ordered similarly as in the cluster dendrogram.  Function
+  \code{tabasco} re-orders the dendrogram if \code{Rowv = TRUE} or
+  \code{Rowv} is a vector. Such re-ordering is not available for
+  \code{vegemite}, but it can be done by hand using
   \code{\link{reorder.dendrogram}} or \code{\link{reorder.hclust}}.
   Please note that \code{\link{dendrogram}} and \code{\link{hclust}}
   reordering can differ: unweighted means of merged branches are used in
