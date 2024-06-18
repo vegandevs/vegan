@@ -88,6 +88,12 @@
                 site.ind <- order(tmp)
             if (is.null(sp.ind))
                 sp.ind <- order(wascores(tmp, x))
+        } else if (is.factor(use)) {
+            tmp <- as.numeric(use)
+            if (is.null(site.ind))
+                site.ind <- order(tmp)
+            if (is.null(sp.ind))
+                sp.ind <- order(wascores(tmp, x))
         }
     }
     ## see if sp.ind is a dendrogram or hclust tree
