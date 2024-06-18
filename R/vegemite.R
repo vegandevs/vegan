@@ -2,50 +2,41 @@
     function (x, use, scale, sp.ind = NULL, site.ind = NULL, zero = ".",
               select, diagonalize = FALSE, ...)
 {
-    diagOrder <- function(x = x, scale = scale, z = NULL) {
-        if (!missing(scale))
-            x <- coverscale(x, scale = scale, character = FALSE)
-        ord <- cca(x, z)
-        ## Dendrograms need only WA scores, but ordering factors and
-        ## sites within factors needs WA & LC, and species scores give
-        ## wanted species ordering
-        if (is.null(z))
-            scores(ord, choices = 1, display = "wa")
-        else
-            scores(ord, choices = 1, display = c("lc","wa","sp"))
-    }
     if (!missing(use)) {
+        ## derived index should be based on transformed & tabulated data
+        xprime <- if (missing(scale)) x
+                  else coverscale(x, scale = scale, character = FALSE)
         if (!is.list(use) && is.vector(use)) {
             if (is.null(site.ind))
                 site.ind <- order(use)
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(use, x))
+                sp.ind <- order(wascores(use, xprime))
         }
         else if (inherits(use, c("hclust", "twins"))) {
             if (inherits(use, "twins")) {
                 use <- as.hclust(use)
             }
             if (diagonalize) {
-                wts <- diagOrder(x, scale)
+                wts <- scores(cca(xprime), choices=1, display = "wa")
                 use <- reorder(use, wts)
             }
             if (is.null(site.ind))
                 site.ind <- use$order
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(order(site.ind), x))
+                sp.ind <- order(wascores(order(site.ind), xprime))
         }
         else if (inherits(use, "dendrogram")) {
             if (diagonalize) {
-                wts <- diagOrder(x, scale)
+                wts <- scores(cca(xprime), choices=1, display = "wa")
                 use <- reorder(use, wts)
             }
             if (is.null(site.ind)) {
-                site.ind <- 1:nrow(x)
+                site.ind <- seq_len(nrow(x))
                 names(site.ind) <- rownames(x)
                 site.ind <- site.ind[labels(use)]
             }
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(order(site.ind), x))
+                sp.ind <- order(wascores(order(site.ind), xprime))
         }
         else if (is.list(use)) {
             tmp <- scores(use, choices = 1, display = "sites")
@@ -55,19 +46,20 @@
                 sp.ind <- try(order(scores(use, choices = 1,
                                            display = "species")))
             if (inherits(sp.ind, "try-error"))
-                sp.ind <- order(wascores(tmp, x))
+                sp.ind <- order(wascores(tmp, xprime))
         }
         else if (is.matrix(use)) {
             tmp <- scores(use, choices = 1, display = "sites")
             if (is.null(site.ind))
                 site.ind <- order(tmp)
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(tmp, x))
+                sp.ind <- order(wascores(tmp, xprime))
         }
         else if (is.factor(use)) {
             tmp <- as.numeric(use)
             if (diagonalize) {
-                ord <- diagOrder(x, scale, use)
+                ord <- scores(cca(xprime, use), choices = 1,
+                              display = c("lc","wa","sp"))
                 if (cor(tmp, ord$constraints, method = "spearman") < 0) {
                     ord$constraints <- -ord$constraints
                     ord$sites <- -ord$sites
@@ -80,9 +72,9 @@
             if (is.null(site.ind))
                 site.ind <- order(tmp)
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(tmp, x))
+                sp.ind <- order(wascores(tmp, xprime))
         }
-    }
+    } # end of handling 'use'
     if (!is.null(sp.ind) && is.logical(sp.ind))
         sp.ind <- seq_len(ncol(x))[sp.ind]
     if (!is.null(site.ind) && is.logical(site.ind))
