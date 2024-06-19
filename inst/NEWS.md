@@ -4,13 +4,13 @@
 
 #### What Is Version 2.6-6.2?
 
-  Version 2.6-6.2 cherry-picks fixes for bugs and buglets and
+  Version 2.6-6.2 cherry-picks fixes for bugs and buglets and fixes to
   unexpected features from the development branch 2.6-7. This version
   may never be released, but if there are important bugs or many
   changes and major release of the 2.6-7 is not near, a minor CRAN
   release may happen.
 
-#### Enhancements
+#### New Features
 
 * `cca` and `rda` return centroids for factor levels even when they
   are called without formula, for instance, as `cca(dune, dune.env)`.
@@ -31,6 +31,9 @@
 
 * `summary.ordihull` (and hence `ordiareatest` for convex hulls)
   failed if input had more than two dimensions.
+
+* `vegemite` returned only the last page of multi-page table in its
+  (invisible) return object.
 
 ### Changes in version 2\.6-6\.1
 
