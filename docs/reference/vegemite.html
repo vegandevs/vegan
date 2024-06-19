@@ -78,7 +78,8 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vegemite</span><span class="op">(</span><span class="va">x</span>, <span class="va">use</span>, <span class="va">scale</span>, <span class="va">sp.ind</span>, <span class="va">site.ind</span>, zero<span class="op">=</span><span class="st">"."</span>, <span class="va">select</span> ,<span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">vegemite</span><span class="op">(</span><span class="va">x</span>, <span class="va">use</span>, <span class="va">scale</span>, <span class="va">sp.ind</span>, <span class="va">site.ind</span>, zero<span class="op">=</span><span class="st">"."</span>, <span class="va">select</span>,</span>
+<span>    diagonalize <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">tabasco</span><span class="op">(</span><span class="va">x</span>, <span class="va">use</span>, sp.ind <span class="op">=</span> <span class="cn">NULL</span>, site.ind <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">select</span>,</span>
 <span>    Rowv <span class="op">=</span> <span class="cn">TRUE</span>, Colv <span class="op">=</span> <span class="cn">TRUE</span>, labRow <span class="op">=</span> <span class="cn">NULL</span>, labCol <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    <span class="va">scale</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -92,9 +93,9 @@
 <dd><p>Community data.</p></dd>
 
   <dt>use</dt>
-<dd><p>Either a vector, or an object from <code>cca</code>,
-    <code>decorana</code> <em>etc.</em> or <code>hclust</code> or a
-    <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code> for ordering sites and species.</p></dd>
+<dd><p>Either a numeric vector or a classification factor, or an
+    object from <code>cca</code>, <code>decorana</code> <em>etc.</em> or <code>hclust</code>
+    or a <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code> for ordering sites and species.</p></dd>
 
   <dt>sp.ind, site.ind</dt>
 <dd><p>Species and site indices. In <code>tabasco</code>,
@@ -111,14 +112,25 @@
     sites.  The order of indices does not influence results, but you
     must specify <code>use</code> or <code>site.ind</code> to reorder sites.</p></dd>
 
+
+  <dt>diagonalize</dt>
+<dd><p>Try to re-order <code>vegemite</code> table to a diagonal
+    pattern when using classification factor or a dendrogram.
+    Dendrograms are re-orded by the first axis of correspondence
+    analysis.  Factor levels and sites within factor levels are
+    re-ordered by the first axis of (constrained) correspondence
+    analysis.</p></dd>
+
+
   <dt>Rowv, Colv</dt>
-<dd><p>Re-order dendrograms for the rows (sites) or
-    columns (species) of <code>x</code>.  If the <code>Rowv = TRUE</code>, row
-    dendrograms are ordered by the first axis of correspondence
-    analysis, and when <code>Colv = TRUE</code> column dendrograms by the
-    weighted average (<code><a href="wascores.html">wascores</a></code>) of the row order.
-    Alternatively, the arguments can be vectors that are used to
-    reorder the dendrogram.</p></dd>
+<dd><p>Re-order factors or dendrograms for the rows (sites)
+    or columns (species) of <code>x</code>.  If <code>Rowv = TRUE</code>, factor
+    levels and sites within factors are re-ordered to show diagonal
+    pattern using CCA. If <code>Rowv = TRUE</code>, row dendrograms are
+    ordered by the first axis of correspondence analysis, and when
+    <code>Colv = TRUE</code> column dendrograms by the weighted average
+    (<code><a href="wascores.html">wascores</a></code>) of the row order.  Alternatively, the
+    arguments can be vectors that are used to reorder the dendrogram.</p></dd>
 
 
   <dt>labRow, labCol</dt>
@@ -149,9 +161,9 @@
 
 
   <dt>character</dt>
-<dd><p>Return character codes suitable for
+<dd><p>Return character codes suitable for tabulation in
     <code>vegemite</code>. If <code>FALSE</code>, returns corresponding
-    integers.</p></dd>
+    integers suitable for numerical analysis.</p></dd>
 
 
   <dt>...</dt>
@@ -182,24 +194,26 @@
   <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code>, <code><a href="https://rdrr.io/pkg/cluster/man/agnes.html" class="external-link">agnes</a></code> and
   <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code> must be for sites. The dendrogram is
   displayed above the sites in <code>tabasco</code>, but is not shown in
-  <code>vegemite</code>.  No dendrogram for species is displayed, except
-  when given in <code>sp.ind</code>.</p>
-<p>If <code>use</code> is a vector, it is used for ordering sites.  If
+  <code>vegemite</code>.  In <code>tabasco</code> the species dendrogram can be
+  given in <code>sp.ind</code>.</p>
+<p>If <code>use</code> is a numeric vector, it is used for ordering sites,
+  and if it is a factor, it is used to order sites by classes. If
   <code>use</code> is an object from ordination, both sites and species are
-  arranged by the first axis (provided that results are available both
-  also for species).  When <code>use</code> is an object from
+  arranged by the first axis (provided that results are available also
+  for species).  When <code>use</code> is an object from
   <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code>, <code><a href="https://rdrr.io/pkg/cluster/man/agnes.html" class="external-link">agnes</a></code> or a
   <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code>, the sites are ordered similarly as in the
-  cluster dendrogram.  Function <code>tabasco</code> re-orders the dendrogram
-  if <code>Rowv = TRUE</code> or <code>Rowv</code> is a vector. Such re-ordering is
-  not available for <code>vegemite</code>, but it can be done by hand using
-  <code><a href="https://rdrr.io/r/stats/reorder.dendrogram.html" class="external-link">reorder.dendrogram</a></code> or <code><a href="reorder.hclust.html">reorder.hclust</a></code>.
-  Please note that <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code> and <code><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></code>
-  reordering can differ: unweighted means of merged branches are used in
-  <code><a href="https://rdrr.io/r/stats/dendrogram.html" class="external-link">dendrogram</a></code>, but weighted means (= means of leaves of the
-  cluster) are used in <code><a href="reorder.hclust.html">reorder.hclust</a></code>.  In all cases where
-  species scores are missing, species are ordered by their weighted
-  averages (<code><a href="wascores.html">wascores</a></code>) on site order.</p>
+  cluster dendrogram.  Function <code>tabasco</code> re-orders the
+  dendrogram to give a diagonal pattern if <code>Rowv =
+  TRUE</code>. Alternatively, if <code>Rowv</code> is a vector its values are used
+  to re-order dendrogram. With <code>diagonalize = TRUE</code> the
+  dendrogram will be re-ordered in <code>vegemite</code> to give a diagonal
+  pattern. If <code>use</code> is a factor, its levels and sites within
+  levels will be reordered to give a diagonal pattern if
+  <code>diagonalize = TRUE</code> in <code>vegemite</code> or <code>Rowv = TRUE</code>
+  in <code>tabasco</code>. In all cases where species scores are missing,
+  species are ordered by their weighted averages
+  (<code><a href="wascores.html">wascores</a></code>) on site order or site value.</p>
 <p>Species and sites can be ordered explicitly giving their indices or
   names in parameters <code>sp.ind</code> and <code>site.ind</code>.  If these are
   given, they take precedence over <code>use</code>. A subset of sites can
@@ -463,49 +477,49 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             1   111  1211221212222</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           431567380922149306254578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Flavniva 21.111.111....11........</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cladamau .1.1...1................</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Stersp   111211111....111.1.111.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Polypili ..111..1......111..1....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Diphcomp .1...111.1...........1..</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Flavniva 21.111.111....11........</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cladphyl ..1.....11...1..........</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladrang 344544332133111223121121</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladcerv 1.........1..........1..</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Diphcomp .1...111.1...........1..</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cladstel 454121215555213111111.1.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladrang 344544332133111223121121</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cladarbu 322344331111132222121111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Vacculig 11...2.1........1.1..111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Callvulg 111.1.311.11.1..11111...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Icmaeric ...1.1.......1...1......</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladsp   1...1.11.1......111..11.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladcocc 1111111111...1111111.1.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Pinusylv 1.111.1111111111111111.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Callvulg 111.1.311.11.1..11111...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Polypili ..111..1......111..1....</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Nepharct .1...1.1........1....1..</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Stersp   111211111....111.1.111.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cladchlo .1..111.111.1.11..1.1...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cetrisla 1.1...1.11.111...1.111.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladfimb 11.11111111111111111.111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Peltapht ..1...11.......1.....11.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladcerv 1.........1..........1..</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cetreric 11.1111111...1..111111..</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladgrac 11111111.111111111111111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Pohlnuta 111..11111.1111111111.11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Ptilcili .11.1.11.11.2.11.1111111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Barbhatc ......1.....1.11......1.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladcocc 1111111111...1111111.1.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cladcorn 111111111111111111111111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Vaccviti 113122132323412331223232</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Cladcris 111111111111111111111111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Empenigr 111111122122312322111231</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladbotr ......1.....1.111...1.11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Betupube ............1.....1..1..</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladunci 111111111111131111112111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Claddefo 11.111111111111111111111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Dicrpoly ..11.1..11..1.1111.11..1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Polycomm ............111......11.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Rhodtome ......1.....1.....1...11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladfimb 11.11111111111111111.111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladgrac 11111111.111111111111111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Polyjuni 1.111111111.111111.112.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Vacculig 11...2.1........1.1..111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Pinusylv 1.111.1111111111111111.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Pohlnuta 111..11111.1111111111.11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Claddefo 11.111111111111111111111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladunci 111111111111131111112111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladsp   1...1.11.1......111..11.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Peltapht ..1...11.......1.....11.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Vaccviti 113122132323412331223232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cetrisla 1.1...1.11.111...1.111.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Dicrpoly ..11.1..11..1.1111.11..1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Empenigr 111111122122312322111231</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Ptilcili .11.1.11.11.2.11.1111111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Dicrfusc 11111111111112111442.211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Barbhatc ......1.....1.11......1.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Descflex 1....1......1.1...1..111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Pleuschr 113111111111123333444455</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Vaccmyrt ......1..1..311..111..13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Nepharct .1...1.1........1....1..</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Cladbotr ......1.....1.111...1.11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Rhodtome ......1.....1.....1...11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Polycomm ............111......11.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  Betupube ............1.....1..1..</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Dicrsp   ......1....11...111133.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  Descflex 1....1......1.1...1..111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Hylosple ................1....122</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24 sites, 44 species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> scale:  Hult </span>
