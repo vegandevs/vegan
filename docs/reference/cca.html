@@ -81,7 +81,9 @@
 <span><span class="co"># S3 method for default</span></span>
 <span><span class="fu">cca</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for default</span></span>
-<span><span class="fu">rda</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">rda</span><span class="op">(</span><span class="va">X</span>, <span class="va">Y</span>, <span class="va">Z</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">ca</span><span class="op">(</span><span class="va">X</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">pca</span><span class="op">(</span><span class="va">X</span>, scale<span class="op">=</span><span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -134,7 +136,8 @@
 
   <dt>...</dt>
 <dd><p>Other arguments for <code>print</code> or <code>plot</code> functions
-    (ignored in other functions).</p></dd>
+    (ignored in other functions). For <code>pca()</code> and <code>ca()</code>,
+    arguments are passed to <code>rda()</code> and <code>cca()</code>, respectively.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -154,10 +157,10 @@
   Legendre (2012), Table 11.5 (p. 650) give a skeleton of the RDA
   algorithm of <span class="pkg">vegan</span>. The algorithm of CCA is similar, but
   involves standardization by row and column weights.</p>
-<p>The functions can be called either with matrix-like entries for
-  community data and constraints, or with formula interface.  In
-  general, the formula interface is preferred, because it allows a
-  better control of the model and allows factor constraints. Some
+<p>The functions <code>cca()</code> and <code>rda()</code> can be called either with
+  matrix-like entries for community data and constraints, or with formula
+  interface.  In general, the formula interface is preferred, because it
+  allows a better control of the model and allows factor constraints. Some
   analyses of ordination results are only possible if model was fitted
   with formula (e.g., most cases of <code><a href="anova.cca.html">anova.cca</a></code>, automatic
   model building).</p>
@@ -235,7 +238,12 @@
   increase total Chi-square after partialling out some
   variation, and give negative “components of variance”.  In general,
   such components of “variance” are not to be trusted due to
-  interactions between two sets of variables.</p>  
+  interactions between two sets of variables.</p>
+<p>The unconstrained ordination methods, Principal Components Analysis (PCA) and
+  Correspondence Analysis (CA), may be performed using <code>pca()</code> and
+  <code>ca()</code>, which are simple wrappers around <code>rda()</code> and <code>cca()</code>,
+  respectively. Functions <code>pca()</code> and <code>ca</code> can only be called with
+  matrix-like objects.</p>  
 <p>The functions have <code>summary</code> and <code>plot</code> methods which are
   documented separately (see <code><a href="plot.cca.html">plot.cca</a></code>, <code><a href="plot.cca.html">summary.cca</a></code>).</p>
     </div>
@@ -277,14 +285,16 @@
     <div class="dont-index">
   
 <p>This help page describes two constrained ordination functions,
-  <code>cca</code> and <code>rda</code>.  A related method, distance-based
-  redundancy analysis (dbRDA) is described separately
-  (<code><a href="dbrda.html">capscale</a></code>). All these functions return similar objects
-  (described in <code><a href="cca.object.html">cca.object</a></code>). There are numerous support
-  functions that can be used to access the result object. In the list
-  below, functions of type <code>cca</code> will handle all three constrained
-  ordination objects, and functions of <code>rda</code> only handle <code>rda</code>
-  and <code><a href="dbrda.html">capscale</a></code> results.</p>
+  <code>cca</code> and <code>rda</code> and their corresponding unconstrained
+  ordination functions, <code>ca</code> and <code>pca</code>. A related method,
+  distance-based redundancy analysis (dbRDA) is described separately
+  (<code><a href="dbrda.html">capscale</a></code>), as is dbRDA's unconstrained variant,
+  principal coordinates analysis (PCO). All these functions return
+  similar objects (described in <code><a href="cca.object.html">cca.object</a></code>). There are
+  numerous support functions that can be used to access the result object.
+  In the list below, functions of type <code>cca</code> will handle all three
+  constrained ordination objects, and functions of <code>rda</code> only handle
+  <code>rda</code> and <code><a href="dbrda.html">capscale</a></code> results.</p>
 <p>The main plotting functions are <code><a href="plot.cca.html">plot.cca</a></code> for all
   methods, and <code><a href="biplot.rda.html">biplot.rda</a></code> for RDA and dbRDA.  However,
   generic <span class="pkg">vegan</span> plotting functions can also handle the results.
