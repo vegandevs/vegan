@@ -43,6 +43,15 @@
 * `rda` and `cca` return centroids for factor levels also when
   called without formula, for instance `cca(dune, dune.env)`.
 
+* `vegemite` and `tabasco` can now `use` a factor to show a
+  classification. The factor levels and sites within levels can be
+  reordered to give a diagonal pattern, as default in code `tabasco`
+  and in `vegemite` with new argument `diagonalize = TRUE` (defaults
+  `FALSE`). With the same argument, `vegemite` can also reorder
+  dendrogram (or tree) to give a diagonal pattern. If `coverscale` is
+  used, all internal calculations for ordering rows and columns will
+  be based on scaled data.
+
 ## Bug Fixes
 
 * `plot.cca`: `biplot` and `regression` arrows were not drawn and
@@ -51,6 +60,9 @@
 * `metaMDS`: half-change scaling failed when maxdist was not 1.
 
 * `summary.ordihull` failed if input data were not two-dimensional.
+
+* `vegemite` returned only the last page of multi-page table in its
+  (invisible) return object.
 
 ## Deprecated and Defunct
 

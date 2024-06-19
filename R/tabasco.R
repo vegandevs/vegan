@@ -88,6 +88,23 @@
                 site.ind <- order(tmp)
             if (is.null(sp.ind))
                 sp.ind <- order(wascores(tmp, x))
+        } else if (is.factor(use)) {
+            tmp <- as.numeric(use)
+            if (isTRUE(Rowv)) { # reorder factor levels & sites within factors
+                ord <- scores(cca(x, use),
+                              choices=1, display = c("lc","wa","sp"))
+                if (cor(tmp, ord$constraints, method = "spearman") < 0) {
+                    ord$constraints <- -ord$constraints
+                    ord$sites <- -ord$sites
+                    ord$species <- -ord$species
+                }
+                site.ind <- order(ord$constraints, ord$sites)
+                sp.ind <- order(ord$species)
+            }
+            if (is.null(site.ind))
+                site.ind <- order(tmp)
+            if (is.null(sp.ind))
+                sp.ind <- order(wascores(tmp, x))
         }
     }
     ## see if sp.ind is a dendrogram or hclust tree

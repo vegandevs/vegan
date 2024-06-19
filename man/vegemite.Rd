@@ -15,7 +15,8 @@
   analysis.
 }
 \usage{
-vegemite(x, use, scale, sp.ind, site.ind, zero=".", select ,...)
+vegemite(x, use, scale, sp.ind, site.ind, zero=".", select,
+    diagonalize = FALSE, ...)
 tabasco(x, use, sp.ind = NULL, site.ind = NULL, select,
     Rowv = TRUE, Colv = TRUE, labRow = NULL, labCol = NULL,
     scale, col = heat.colors(12), ...)
@@ -25,9 +26,9 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 
 \arguments{
   \item{x}{Community data. }
-  \item{use}{Either a vector, or an object from \code{cca},
-    \code{decorana} \emph{etc.} or \code{hclust} or a
-    \code{\link{dendrogram}} for ordering sites and species.}
+  \item{use}{Either a numeric vector or a classification factor, or an
+    object from \code{cca}, \code{decorana} \emph{etc.} or \code{hclust}
+    or a \code{\link{dendrogram}} for ordering sites and species.}
   \item{sp.ind, site.ind}{Species and site indices. In \code{tabasco},
     these can also be \code{\link{hclust}} tree,
     \code{\link[cluster]{agnes}} clusterings or
@@ -38,13 +39,22 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     sites.  The order of indices does not influence results, but you
     must specify \code{use} or \code{site.ind} to reorder sites.
   }
-  \item{Rowv, Colv}{Re-order dendrograms for the rows (sites) or
-    columns (species) of \code{x}.  If the \code{Rowv = TRUE}, row
-    dendrograms are ordered by the first axis of correspondence
-    analysis, and when \code{Colv = TRUE} column dendrograms by the
-    weighted average (\code{\link{wascores}}) of the row order.
-    Alternatively, the arguments can be vectors that are used to
-    reorder the dendrogram. }
+
+  \item{diagonalize}{Try to re-order \code{vegemite} table to a diagonal
+    pattern when using classification factor or a dendrogram.
+    Dendrograms are re-orded by the first axis of correspondence
+    analysis.  Factor levels and sites within factor levels are
+    re-ordered by the first axis of (constrained) correspondence
+    analysis.}
+
+  \item{Rowv, Colv}{Re-order factors or dendrograms for the rows (sites)
+    or columns (species) of \code{x}.  If \code{Rowv = TRUE}, factor
+    levels and sites within factors are re-ordered to show diagonal
+    pattern using CCA. If \code{Rowv = TRUE}, row dendrograms are
+    ordered by the first axis of correspondence analysis, and when
+    \code{Colv = TRUE} column dendrograms by the weighted average
+    (\code{\link{wascores}}) of the row order.  Alternatively, the
+    arguments can be vectors that are used to reorder the dendrogram. }
 
   \item{labRow, labCol}{character vectors with row and column labels
     used in the \code{\link{heatmap}} instead of the default. NB., the
@@ -65,9 +75,9 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     Data maximum in the \code{select}ed subset will be used if this is
     missing.}
 
-  \item{character}{Return character codes suitable for
+  \item{character}{Return character codes suitable for tabulation in
     \code{vegemite}. If \code{FALSE}, returns corresponding
-    integers.}
+    integers suitable for numerical analysis.}
 
   \item{\dots}{Arguments passed to \code{coverscale} (i.e., \code{maxabund}) in
     \code{vegemite} and to \code{\link{heatmap}} in \code{tabasco}.}
@@ -96,25 +106,27 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \code{\link{hclust}}, \code{\link[cluster]{agnes}} and
   \code{\link{dendrogram}} must be for sites. The dendrogram is
   displayed above the sites in \code{tabasco}, but is not shown in
-  \code{vegemite}.  No dendrogram for species is displayed, except
-  when given in \code{sp.ind}.
+  \code{vegemite}.  In \code{tabasco} the species dendrogram can be
+  given in \code{sp.ind}.
 
-  If \code{use} is a vector, it is used for ordering sites.  If
+  If \code{use} is a numeric vector, it is used for ordering sites,
+  and if it is a factor, it is used to order sites by classes. If
   \code{use} is an object from ordination, both sites and species are
-  arranged by the first axis (provided that results are available both
-  also for species).  When \code{use} is an object from
+  arranged by the first axis (provided that results are available also
+  for species).  When \code{use} is an object from
   \code{\link{hclust}}, \code{\link[cluster]{agnes}} or a
   \code{\link{dendrogram}}, the sites are ordered similarly as in the
-  cluster dendrogram.  Function \code{tabasco} re-orders the dendrogram
-  if \code{Rowv = TRUE} or \code{Rowv} is a vector. Such re-ordering is
-  not available for \code{vegemite}, but it can be done by hand using
-  \code{\link{reorder.dendrogram}} or \code{\link{reorder.hclust}}.
-  Please note that \code{\link{dendrogram}} and \code{\link{hclust}}
-  reordering can differ: unweighted means of merged branches are used in
-  \code{\link{dendrogram}}, but weighted means (= means of leaves of the
-  cluster) are used in \code{\link{reorder.hclust}}.  In all cases where
-  species scores are missing, species are ordered by their weighted
-  averages (\code{\link{wascores}}) on site order.
+  cluster dendrogram.  Function \code{tabasco} re-orders the
+  dendrogram to give a diagonal pattern if \code{Rowv =
+  TRUE}. Alternatively, if \code{Rowv} is a vector its values are used
+  to re-order dendrogram. With \code{diagonalize = TRUE} the
+  dendrogram will be re-ordered in \code{vegemite} to give a diagonal
+  pattern. If \code{use} is a factor, its levels and sites within
+  levels will be reordered to give a diagonal pattern if
+  \code{diagonalize = TRUE} in \code{vegemite} or \code{Rowv = TRUE}
+  in \code{tabasco}. In all cases where species scores are missing,
+  species are ordered by their weighted averages
+  (\code{\link{wascores}}) on site order or site value.
 
   Species and sites can be ordered explicitly giving their indices or
   names in parameters \code{sp.ind} and \code{site.ind}.  If these are
