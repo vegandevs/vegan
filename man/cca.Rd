@@ -5,6 +5,8 @@
 \alias{rda}
 \alias{rda.default}
 \alias{rda.formula}
+\alias{ca}
+\alias{pca}
 
 \title{ [Partial] [Constrained] Correspondence Analysis and Redundancy
   Analysis } 
@@ -23,6 +25,8 @@
   subset = NULL, ...)
 \method{cca}{default}(X, Y, Z, ...)
 \method{rda}{default}(X, Y, Z, scale=FALSE, ...)
+ca(X, ...)
+pca(X, scale=FALSE, ...)
 }
 
 \arguments{
@@ -57,7 +61,8 @@
     can contain variables in the working environment, \code{data} or
     species names of the community data.}
   \item{...}{Other arguments for \code{print} or \code{plot} functions
-    (ignored in other functions).}
+    (ignored in other functions). For \code{pca()} and \code{ca()},
+    arguments are passed to \code{rda()} and \code{cca()}, respectively.}
 }
 \details{
   Since their introduction (ter Braak 1986), constrained, or canonical,
@@ -76,10 +81,10 @@
   algorithm of \pkg{vegan}. The algorithm of CCA is similar, but
   involves standardization by row and column weights.
 
-  The functions can be called either with matrix-like entries for
-  community data and constraints, or with formula interface.  In
-  general, the formula interface is preferred, because it allows a
-  better control of the model and allows factor constraints. Some
+  The functions \code{cca()} and \code{rda()} can be called either with
+  matrix-like entries for community data and constraints, or with formula
+  interface.  In general, the formula interface is preferred, because it
+  allows a better control of the model and allows factor constraints. Some
   analyses of ordination results are only possible if model was fitted
   with formula (e.g., most cases of \code{\link{anova.cca}}, automatic
   model building).
@@ -165,6 +170,12 @@
   variation, and give negative \dQuote{components of variance}.  In general,
   such components of \dQuote{variance} are not to be trusted due to
   interactions between two sets of variables.
+
+  The unconstrained ordination methods, Principal Components Analysis (PCA) and
+  Correspondence Analysis (CA), may be performed using \code{pca()} and
+  \code{ca()}, which are simple wrappers around \code{rda()} and \code{cca()},
+  respectively. Functions \code{pca()} and \code{ca} can only be called with
+  matrix-like objects.
   
   The functions have \code{summary} and \code{plot} methods which are
   documented separately (see \code{\link{plot.cca}}, \code{\link{summary.cca}}).
@@ -205,14 +216,16 @@
 \seealso{
   
   This help page describes two constrained ordination functions,
-  \code{cca} and \code{rda}.  A related method, distance-based
-  redundancy analysis (dbRDA) is described separately
-  (\code{\link{capscale}}). All these functions return similar objects
-  (described in \code{\link{cca.object}}). There are numerous support
-  functions that can be used to access the result object. In the list
-  below, functions of type \code{cca} will handle all three constrained
-  ordination objects, and functions of \code{rda} only handle \code{rda}
-  and \code{\link{capscale}} results.
+  \code{cca} and \code{rda} and their corresponding unconstrained
+  ordination functions, \code{ca} and \code{pca}. A related method,
+  distance-based redundancy analysis (dbRDA) is described separately
+  (\code{\link{capscale}}), as is dbRDA's unconstrained variant,
+  principal coordinates analysis (PCO). All these functions return
+  similar objects (described in \code{\link{cca.object}}). There are
+  numerous support functions that can be used to access the result object.
+  In the list below, functions of type \code{cca} will handle all three
+  constrained ordination objects, and functions of \code{rda} only handle
+  \code{rda} and \code{\link{capscale}} results.
 
   The main plotting functions are \code{\link{plot.cca}} for all
   methods, and \code{\link{biplot.rda}} for RDA and dbRDA.  However,
@@ -279,4 +292,3 @@ dune.Manure <- rda(dune ~ Manure, dune.env)
 plot(dune.Manure) 
 }
 \keyword{ multivariate }
-
