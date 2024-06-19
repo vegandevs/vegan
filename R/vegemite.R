@@ -67,7 +67,8 @@
                 }
                 ## order factors and sites within factor levels
                 site.ind <- order(ord$constraints, ord$sites)
-                sp.ind <- order(ord$species)
+                if (is.null(sp.ind))
+                    sp.ind <- order(ord$species)
             }
             if (is.null(site.ind))
                 site.ind <- order(tmp)
