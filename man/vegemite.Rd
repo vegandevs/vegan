@@ -75,9 +75,9 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     Data maximum in the \code{select}ed subset will be used if this is
     missing.}
 
-  \item{character}{Return character codes suitable for
+  \item{character}{Return character codes suitable for tabulation in
     \code{vegemite}. If \code{FALSE}, returns corresponding
-    integers.}
+    integers suitable for numerical analysis.}
 
   \item{\dots}{Arguments passed to \code{coverscale} (i.e., \code{maxabund}) in
     \code{vegemite} and to \code{\link{heatmap}} in \code{tabasco}.}
@@ -106,26 +106,27 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \code{\link{hclust}}, \code{\link[cluster]{agnes}} and
   \code{\link{dendrogram}} must be for sites. The dendrogram is
   displayed above the sites in \code{tabasco}, but is not shown in
-  \code{vegemite}.  No dendrogram for species is displayed, except
-  when given in \code{sp.ind}.
+  \code{vegemite}.  In \code{tabasco} the species dendrogram can be
+  given in \code{sp.ind}.
 
-  If \code{use} is a numeric vector, it is used for ordering sites, and
-  if it is a factor, it is used to order sites by classes. If \code{use}
-  is an object from ordination, both sites and species are arranged by
-  the first axis (provided that results are available both also for
-  species).  When \code{use} is an object from \code{\link{hclust}},
-  \code{\link[cluster]{agnes}} or a \code{\link{dendrogram}}, the sites
-  are ordered similarly as in the cluster dendrogram.  Function
-  \code{tabasco} re-orders the dendrogram if \code{Rowv = TRUE} or
-  \code{Rowv} is a vector. Such re-ordering is not available for
-  \code{vegemite}, but it can be done by hand using
-  \code{\link{reorder.dendrogram}} or \code{\link{reorder.hclust}}.
-  Please note that \code{\link{dendrogram}} and \code{\link{hclust}}
-  reordering can differ: unweighted means of merged branches are used in
-  \code{\link{dendrogram}}, but weighted means (= means of leaves of the
-  cluster) are used in \code{\link{reorder.hclust}}.  In all cases where
-  species scores are missing, species are ordered by their weighted
-  averages (\code{\link{wascores}}) on site order.
+  If \code{use} is a numeric vector, it is used for ordering sites,
+  and if it is a factor, it is used to order sites by classes. If
+  \code{use} is an object from ordination, both sites and species are
+  arranged by the first axis (provided that results are available also
+  for species).  When \code{use} is an object from
+  \code{\link{hclust}}, \code{\link[cluster]{agnes}} or a
+  \code{\link{dendrogram}}, the sites are ordered similarly as in the
+  cluster dendrogram.  Function \code{tabasco} re-orders the
+  dendrogram to give a diagonal pattern if \code{Rowv =
+  TRUE}. Alternatively, if \code{Rowv} is a vector its values are used
+  to re-order dendrogram. With \code{diagonalize = TRUE} the
+  dendrogram will be re-ordered in \code{vegemite} to give a diagonal
+  pattern. If \code{use} is a factor, its levels and sites within
+  levels will be reordered to give a diagonal pattern if
+  \code{diagonalize = TRUE} in \code{vegemite} or \code{Rowv = TRUE}
+  in \code{tabasco}. In all cases where species scores are missing,
+  species are ordered by their weighted averages
+  (\code{\link{wascores}}) on site order or site value.
 
   Species and sites can be ordered explicitly giving their indices or
   names in parameters \code{sp.ind} and \code{site.ind}.  If these are
