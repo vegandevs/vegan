@@ -1,8 +1,10 @@
 \name{dbrda}
 \alias{capscale}
 \alias{dbrda}
+\alias{pco}
 
-\title{[Partial] Distance-based Redundancy Analysis }
+\title{Principal Coordinates Analysis and [Partial] Distance-based
+Redundancy Analysis}
 
 \description{
 
@@ -18,9 +20,9 @@
   more useful, with other dissimilarity measures. Function
   \code{capscale} is a simplified version based on Euclidean
   approximation of dissimilarities. The functions can also perform
-  unconstrained principal coordinates analysis, optionally using
-  extended dissimilarities.
-
+  unconstrained principal coordinates analysis (PCO), optionally using
+  extended dissimilarities. \code{pco()} is a wrapper to \code{dbrda()},
+  which performs PCO.
 }
 
 \usage{
@@ -30,6 +32,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     comm = NULL, add = FALSE,  dfun = vegdist, metaMDSdist = FALSE,
     na.action = na.fail, subset = NULL, ...)
+pco(X, ...)
 }
 
 \arguments{
@@ -48,6 +51,7 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     special term \code{Condition} that defines variables to be
     \dQuote{partialled out} before constraints, just like in \code{\link{rda}}
     or \code{\link{cca}}. This allows the use of partial dbRDA.}
+  \item{X}{ Community data matrix. }
   \item{data}{ Data frame containing the variables on the right hand side of
     the model formula. }
   \item{distance}{The name of the dissimilarity (or distance) index if
@@ -95,7 +99,8 @@ capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      environment, \code{data} or species names of the community data
      (if given in the formula or as \code{comm} argument).}
    \item{\dots}{Other parameters passed to underlying functions (e.g.,
-     \code{\link{metaMDSdist}}).  }
+     \code{\link{metaMDSdist}}). For \code{pco()} argument are passed to
+     \code{dbrda()}. }
 }
 \details{
 
@@ -230,6 +235,8 @@ dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray",
 (m <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="jaccard"))
 ## add species scores
 sppscores(m) <- wisconsin(varespec)
+## pco
+pco(varespec, dist = "bray", sqrt.dist = TRUE)
 }
 \keyword{ multivariate }
 
