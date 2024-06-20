@@ -7,3 +7,7 @@
 ## ignore backup files
 
 .Rproj.user
+
+# compiled source files
+src/*.o
+src/*.so
