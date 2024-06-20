@@ -162,7 +162,7 @@
     # the sample-specific mean value and subtract every entries'
     # value with that.
     clog <- log(x)
-    means <- rowMeans(clog)
+    means <- rowMeans(clog, na.rm = na.rm)
     clog <- clog - means
     attr(clog, "parameters") <- list("means" = means,
                                      "pseudocount" = pseudocount)
