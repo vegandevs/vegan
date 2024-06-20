@@ -22,6 +22,12 @@
   2.6-7 has more extensive changes, but this fixes the immediate issue
   [#656](https://github.com/vegandevs/vegan/issues/656).
 
+* Wrappers for the unconstrained ordination methods principal components
+  analysis (PCA), correspondence anslysis (CA), and principal coordinates
+  analysis (PCO) are now available via `pca()`, `ca()`, and `pco()`
+  respectaively. The underlying methods used are `rda()`, `cca()` and `dbrda()`
+  respectively. See [#655](https://github.com/vegandevs/vegan/issues/655)
+
 #### Bug Fixes
 
 * `plot.cca`: biplot or regression arrows were not nicely scaled and
