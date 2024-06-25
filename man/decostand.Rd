@@ -26,7 +26,9 @@ decobackstand(x, zap = TRUE)
     subsets of data.  The dimensions of \code{MARGIN} must match with
     \code{x}. }
   \item{logbase}{The logarithm base used in \code{method = "log"}.}
-  \item{na.rm}{Ignore missing values in row or column standardizations.}
+  \item{na.rm}{Ignore missing values in row or column
+    standardizations. The \code{NA} values remain as \code{NA}, but they
+    are ignored in standardization of other values.}
   \item{zap}{Make near-zero values exact zeros to avoid negative
     values and exaggerated estimates of species richness.}
   \item{\dots}{Other arguments to the function (ignored).}
