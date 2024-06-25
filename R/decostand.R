@@ -61,17 +61,26 @@
         x <- sweep(x, MARGIN, ran, "/")
         attr <- list("min" = tmp, "range" = ran, "margin" = MARGIN)
     }, rank = {
+        wasNA <- is.na(x)
+        if (any(wasNA) && !na.rm)
+            stop("missing values are not allowed with 'na.rm = FALSE'")
         if (missing(MARGIN)) MARGIN <- 1
         x[x==0] <- NA
         x <- apply(x, MARGIN, rank, na.last = "keep")
         if (MARGIN == 1) # gives transposed x
             x <- t(x)
         x[is.na(x)] <- 0
+        if(any(wasNA))
+            x[wasNA] <- NA
         attr <- list("margin" = MARGIN)
     }, rrank = {
         if (missing(MARGIN)) MARGIN <- 1
-        x <- decostand(x, "rank", MARGIN = MARGIN)
+        x <- decostand(x, "rank", MARGIN = MARGIN, na.rm = na.rm)
+        if (na.rm && any(wasNA <- is.na(x)))
+            x[wasNA] <- 0
         x <- sweep(x, MARGIN, specnumber(x, MARGIN = MARGIN), "/")
+        if (any(wasNA))
+            x[wasNA] <- NA
         attr <- list("margin" = MARGIN)
     }, standardize = {
         if (!missing(MARGIN) && MARGIN == 1)
