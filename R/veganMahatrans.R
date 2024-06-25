@@ -7,10 +7,10 @@
 ### input must be correct: 'x' must be a centred matrix (not a
 ### data.frame, not raw data).
 `veganMahatrans` <-
-    function (x, s2, tol = sqrt(.Machine$double.eps))
+    function (x, s2, tol = sqrt(.Machine$double.eps), na.rm = FALSE)
 {
     if (missing(s2))
-        s2 <- cov(x)
+        s2 <- cov(x, use = if(na.rm) "pairwise.complete.obs" else "all.obs")
     e <- eigen(s2, symmetric = TRUE)
     k <- e$values > max(tol, tol * e$values[1L])
     sisqr <- e$vectors[,k, drop=FALSE] %*%
