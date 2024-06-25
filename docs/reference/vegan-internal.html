@@ -72,7 +72,7 @@
 <span><span class="fu">howHead</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">pasteCall</span><span class="op">(</span><span class="va">call</span>, prefix <span class="op">=</span> <span class="st">"Call:"</span><span class="op">)</span></span>
 <span><span class="fu">veganCovEllipse</span><span class="op">(</span><span class="va">cov</span>, center <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, scale <span class="op">=</span> <span class="fl">1</span>, npoints <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
-<span><span class="fu">veganMahatrans</span><span class="op">(</span><span class="va">x</span>, <span class="va">s2</span>, tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">veganMahatrans</span><span class="op">(</span><span class="va">x</span>, <span class="va">s2</span>, tol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="va">.Machine</span><span class="op">$</span><span class="va">double.eps</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu">hierParseFormula</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span></span>
 <span><span class="fu">GowerDblcen</span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">addLingoes</span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
@@ -126,7 +126,8 @@
   distances are Mahalanobis distances. The input data <code>x</code> must be
   a matrix centred by columns, and <code>s2</code> its covariance matrix. If
   <code>s2</code> is not given, covariance matrix is found from <code>x</code>
-  within the function.</p>
+  within the function. If <code>na.rm = TRUE</code>, <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cov</a></code> is
+  called with <code>use = "pairwise.complete.obs"</code>.</p>
 <p><code>hierParseFormula</code> returns a list of one matrix (left hand side)
   and a model frame with factors representing hierarchy levels 
   (right hand side) to be used in <code><a href="adipart.html">adipart</a></code>, 
