@@ -78,6 +78,8 @@
 <div class="section level3">
 <h3 id="bug-fixes-2-6-7">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-7"></a></h3>
 <ul><li><p><code>plot.cca</code>: <code>biplot</code> and <code>regression</code> arrows were not drawn and plots were badly scaled or when they were the only item displayed</p></li>
+<li><p><code>vegdist</code> with argument <code>na.rm = TRUE</code> still failed with missing values. Dissimilarity methods <code>"chisq"</code> (Chi-square distance) and <code>"mahalanobis"</code> did not implement <code>na.rm = TRUE</code>. Even when missing values are removed in calculation, dissimilarities may contain <code>NA</code> depending on the number and pattern of missing values and dissimilarity method.</p></li>
+<li><p><code>decostand</code> standardization method <code>"clr"</code> did not implement <code>na.rm = TRUE</code> (issue <a href="https://github.com/vegandevs/vegan/issues/661" class="external-link">#661</a>). Standardization methods <code>"rank"</code> and <code>"rrank"</code> did not retain <code>NA</code> values but changed them to 0. Original <code>NA</code> values are kept in <code>decostand</code>, but with <code>na.rm = TRUE</code> they are ignored when transforming other data values.</p></li>
 <li><p><code>metaMDS</code>: half-change scaling failed when maxdist was not 1.</p></li>
 <li><p><code>summary.ordihull</code> failed if input data were not two-dimensional.</p></li>
 <li><p><code>vegemite</code> returned only the last page of multi-page table in its (invisible) return object.</p></li>
