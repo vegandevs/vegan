@@ -33,6 +33,21 @@
 * `plot.cca`: biplot or regression arrows were not nicely scaled and
   drew no arrows when displayed as the only item in graph.
   
+* `vegdist` with argument `na.rm = TRUE` still failed with missing
+  values. Dissimilarity methods `"chisq"` (Chi-square distance) and
+  `"mahalanobis"` did not implement `na.rm = TRUE`. Even when missing
+  values are removed in calculation, dissimilarities may contain `NA`
+  depending on the number and pattern of missing values and
+  dissimilarity method.
+
+* `decostand` standardization method `"clr"` did not implement
+  `na.rm = TRUE`
+  (issue [#661](https://github.com/vegandevs/vegan/issues/661)).
+  Standardization methods `"rank"` and `"rrank"` did not retain `NA`
+  values but changed them to 0. Original `NA` values are kept in
+  `decostand`, but with `na.rm = TRUE` they are ignored when
+  transforming other data values.
+
 * `metaMDS`: half-change scaling failed when maxdist was not 1.
 
 * `summary.ordihull` (and hence `ordiareatest` for convex hulls)
