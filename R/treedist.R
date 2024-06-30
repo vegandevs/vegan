@@ -33,5 +33,10 @@
     attr(out, "method") <- if (relative) "treedist" else "raw treeedist"
     attr(out, "call") <- match.call()
     attr(out, "Labels") <- row.names(x)
+    ## if (relative) theoretical maximum is 2, but that is only
+    ## achieved when two zero-height trees (only one species) are
+    ## combined into above zero-height tree (two species), and
+    ## therefore we set here NA (but this can be reconsidered).
+    attr(out, "maxdist") <- NA
     out
 }

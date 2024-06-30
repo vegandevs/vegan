@@ -6,3 +6,6 @@ LICENSE
 ^Makefile$
 ^\.github
 ^_pkgdown\.yml$
+^\.github$
+^.*\.Rproj$
+^\.Rproj\.user$

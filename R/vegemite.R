@@ -1,31 +1,42 @@
 `vegemite` <-
     function (x, use, scale, sp.ind = NULL, site.ind = NULL, zero = ".",
-              select, ...)
+              select, diagonalize = FALSE, ...)
 {
     if (!missing(use)) {
+        ## derived index should be based on transformed & tabulated data
+        xprime <- if (missing(scale)) x
+                  else coverscale(x, scale = scale, character = FALSE)
         if (!is.list(use) && is.vector(use)) {
             if (is.null(site.ind))
                 site.ind <- order(use)
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(use, x))
+                sp.ind <- order(wascores(use, xprime))
         }
         else if (inherits(use, c("hclust", "twins"))) {
             if (inherits(use, "twins")) {
                 use <- as.hclust(use)
             }
+            if (diagonalize) {
+                wts <- scores(cca(xprime), choices=1, display = "wa")
+                use <- reorder(use, wts)
+            }
             if (is.null(site.ind))
                 site.ind <- use$order
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(order(site.ind), x))
+                sp.ind <- order(wascores(order(site.ind), xprime))
         }
         else if (inherits(use, "dendrogram")) {
+            if (diagonalize) {
+                wts <- scores(cca(xprime), choices=1, display = "wa")
+                use <- reorder(use, wts)
+            }
             if (is.null(site.ind)) {
-                site.ind <- 1:nrow(x)
+                site.ind <- seq_len(nrow(x))
                 names(site.ind) <- rownames(x)
                 site.ind <- site.ind[labels(use)]
             }
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(order(site.ind), x))
+                sp.ind <- order(wascores(order(site.ind), xprime))
         }
         else if (is.list(use)) {
             tmp <- scores(use, choices = 1, display = "sites")
@@ -35,16 +46,36 @@
                 sp.ind <- try(order(scores(use, choices = 1,
                                            display = "species")))
             if (inherits(sp.ind, "try-error"))
-                sp.ind <- order(wascores(tmp, x))
+                sp.ind <- order(wascores(tmp, xprime))
         }
         else if (is.matrix(use)) {
             tmp <- scores(use, choices = 1, display = "sites")
             if (is.null(site.ind))
                 site.ind <- order(tmp)
             if (is.null(sp.ind))
-                sp.ind <- order(wascores(tmp, x))
+                sp.ind <- order(wascores(tmp, xprime))
         }
-    }
+        else if (is.factor(use)) {
+            tmp <- as.numeric(use)
+            if (diagonalize) {
+                ord <- scores(cca(xprime, use), choices = 1,
+                              display = c("lc","wa","sp"))
+                if (cor(tmp, ord$constraints, method = "spearman") < 0) {
+                    ord$constraints <- -ord$constraints
+                    ord$sites <- -ord$sites
+                    ord$species <- -ord$species
+                }
+                ## order factors and sites within factor levels
+                site.ind <- order(round(ord$constraints, 6), ord$sites)
+                if (is.null(sp.ind))
+                    sp.ind <- order(ord$species)
+            }
+            if (is.null(site.ind))
+                site.ind <- order(tmp)
+            if (is.null(sp.ind))
+                sp.ind <- order(wascores(tmp, xprime))
+        }
+    } # end of handling 'use'
     if (!is.null(sp.ind) && is.logical(sp.ind))
         sp.ind <- seq_len(ncol(x))[sp.ind]
     if (!is.null(site.ind) && is.logical(site.ind))
@@ -103,8 +134,13 @@
         }
         dimnames(tbl) <- d
         print(noquote(tbl))
+        ## collect all pages for output table
+        if (exists(".tabout", inherits = FALSE))
+            .tabout[,2] <- paste0(.tabout[,2], tbl[,2])
+        else
+            .tabout <- tbl
     }
-    out <- list(sites = site.ind, species = sp.ind, table = tbl)
+    out <- list(sites = site.ind, species = sp.ind, table = .tabout)
     cat(length(out$sites), "sites,", length(out$species), "species\n")
     if (!is.null(usedscale))
         cat("scale: ",  usedscale, "\n")

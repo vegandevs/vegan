@@ -14,6 +14,11 @@ C 1.02 January 7, 2016 - fixed bug in MONREG so that huge
 C                        dissimilarities are correctly handled in
 C                        creating the initial partition for monotone 
 C                        regression with primary tie treatment.
+C 1.03 April 11, 2023 - changed calculation of M in ASORT4 from
+C                       exponentiation to use of ISHIFT to avoid a
+C                       problem with some optimizing compilers
+C 1.04 March 8, 2024  - removed the use of ALLOCATABLE arrays by making
+C                       IWORK, GRAD, and GRLAST permananet local arrays
 C
 C Written by Dr. Peter R. Minchin
 C            Department of Biological Sciences
@@ -137,18 +142,19 @@ C---OUTPUT ARGUMENTS
       INTEGER, INTENT(OUT) :: ITERS, ICAUSE
       DOUBLE PRECISION, INTENT(OUT) :: X(NOBJ,NDIM), DIST(NDIS), 
      .  DHAT(NDIS), STRESS, STRS(NGRP)
-C---ALLOCATABLE TEMPORARY ARRAYS
-      INTEGER, ALLOCATABLE :: IWORK(:)
-      DOUBLE PRECISION, ALLOCATABLE :: GRAD(:,:), GRLAST(:,:)
+C-Removed the use of allocatable arrays (v 1.04)
+C---TEMPORARY ARRAYS
+      INTEGER :: IWORK(NDIS)
+      DOUBLE PRECISION :: GRAD(NOBJ,NDIM), GRLAST(NOBJ,NDIM)
 C
       DOUBLE PRECISION :: STRLST, SQRTN, SRATF1, SRATF2, FNGRP,
      .  STRINC, COSAV, ACOSAV, SRATAV, STEP, FNDIM, SFGR, SRATIO,
      .  SFACT, TFACT, DMEAN, CAGRGL, SFGLST, STPNEW, SSFACB, SSFACT,
      .  PARAM(2)
-C
+C-Removed the use of allocatable arrays (v 1.04)
 C ALLOCATE THE TEMPORARY ARRAYS NEEDED
-C
-      ALLOCATE (IWORK(NDIS), GRAD(NOBJ,NDIM), GRLAST(NOBJ,NDIM))
+C 
+C      ALLOCATE (IWORK(NDIS), GRAD(NOBJ,NDIM), GRLAST(NOBJ,NDIM))
 C
 C INITIALIZE SOME PARAMETERS
 C
@@ -354,9 +360,10 @@ C END OF ITERATION LOOP
 C
 C=======================================================================
 C
+C-Removed the use of allocatable arrays (v 1.04)
 C DEALLOCATE THE TEMPORARY ARRAYS AND RETURN
 C
-      DEALLOCATE (IWORK, GRAD, GRLAST)
+C      DEALLOCATE (IWORK, GRAD, GRLAST)
       RETURN
       END SUBROUTINE monoMDS
 
@@ -382,7 +389,10 @@ C
       IF (N.LT.2) RETURN
       FN=REAL(N)
       NLOOPS=MAX(NINT(LOG(FN)/LOG(2.)),1)
-      M=ISHFT(1,NLOOPS-1) ! i.e., 2^(N_LOOPS-1) using bit shifts
+C REPLACED EXPONENTIATION BY ISHFT TO AVOID A PROBLEM WITH SOME
+C   OPTIMIZING COMPILERS (v 1.03)
+C      M=2**(NLOOPS-1)
+      M=ISHFT(1, NLOOPS-1)
       DO II=1,NLOOPS
         FM=M
         DO I=1,MAX(1,N-M)
@@ -761,7 +771,7 @@ C
       ENDDO
       RETURN
       END SUBROUTINE MAMAS
- 
+
       SUBROUTINE MONREG (DISS,DIST,DHAT,IIDX,JIDX,IWORK,N,ITIES)
 C
 C PERFORMS KRUSKAL'S MONOTONE REGRESSION OF DIST ON DISS, PLACING THE 

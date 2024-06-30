@@ -83,17 +83,17 @@ data(dune)
 mod <- rda(dune, scale = TRUE)
 biplot(mod, scaling = "symmetric")
 
+## plot.cca can do the same
+plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE))
+
 ## different type for species and site scores
 biplot(mod, scaling = "symmetric", type = c("text", "points"))
 
-## We can use ordiplot pipes in R 4.1 to build similar plots with
-## flexible control
-\dontrun{
-if (getRversion() >= "4.1") {
+## We can use ordiplot pipes to build similar plots with flexible
+## control
 plot(mod, scaling = "symmetric", type="n") |>
-   text("sites", cex=0.8) |>
-   text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
+   points("sites", cex=0.7) |>
+   text("species", arrows=TRUE, length=0.05, col=2, cex=0.7, font=3)
 }
-}
-}
+
 \keyword{hplot}

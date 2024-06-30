@@ -35,7 +35,7 @@ getPermuteMatrix(perm, N, strata = NULL)
 howHead(x, ...)
 pasteCall(call, prefix = "Call:")
 veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)
-veganMahatrans(x, s2, tol = sqrt(.Machine$double.eps))
+veganMahatrans(x, s2, tol = sqrt(.Machine$double.eps), na.rm = FALSE)
 hierParseFormula(formula, data)
 GowerDblcen(x, na.rm = TRUE)
 addLingoes(d)
@@ -95,7 +95,8 @@ addCailliez(d)
   distances are Mahalanobis distances. The input data \code{x} must be
   a matrix centred by columns, and \code{s2} its covariance matrix. If
   \code{s2} is not given, covariance matrix is found from \code{x}
-  within the function.
+  within the function. If \code{na.rm = TRUE}, \code{\link{cov}} is
+  called with \code{use = "pairwise.complete.obs"}.
 
   \code{hierParseFormula} returns a list of one matrix (left hand side)
   and a model frame with factors representing hierarchy levels 
@@ -110,9 +111,8 @@ addCailliez(d)
   \code{addLingoes} and \code{addCailliez} find the constant added to
   non-diagonal (squared) dissimilarities to make all eigenvalues
   non-negative in Principal Co-ordinates Analysis
-  (\code{\link{wcmdscale}}, \code{\link{capscale}}). Function
-  \code{\link{cmdscale}} implements the Cailliez method. The argument
-  is a matrix of dissimilarities.
-}
+  (\code{\link{wcmdscale}}, \code{\link{dbrda}},
+  \code{\link{capscale}}). Function \code{\link{cmdscale}} implements
+  the Cailliez method. The argument is a matrix of dissimilarities.  }
 
 \keyword{internal }

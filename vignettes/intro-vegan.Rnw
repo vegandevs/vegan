@@ -101,7 +101,7 @@ stress solution.  Finally it scales and rotates the solution, and adds
 species scores to the configuration as weighted averages (function
 \code{wascores}):
 <<>>=
-ord <- metaMDS(dune)
+ord <- metaMDS(dune, trace = FALSE)
 ord
 @
 
@@ -136,7 +136,7 @@ sizes freely (Fig. \ref{fig:plot.args}):
 <<a>>=
 plot(ord, type = "n")
 points(ord, display = "sites", cex = 0.8, pch=21, col="red", bg="yellow")
-text(ord, display = "spec", cex=0.7, col="blue")
+text(ord, display = "species", cex=0.7, col="blue")
 @
 \begin{figure}
 <<fig=true,echo=false>>=
@@ -146,6 +146,13 @@ text(ord, display = "spec", cex=0.7, col="blue")
   species are text.}
 \label{fig:plot.args}
 \end{figure}
+The \code{plot} commands can be chained with pipe \code{|>}, and the previous
+can also be expressed as:
+<<<fig=false>>=
+plot(ord, type = "n") |>
+points("sites", cex = 0.8, pch=21, col="red", bg="yellow") |>
+text("species", cex=0.7, col="blue")
+@
 
 All \pkg{vegan} ordination methods have a specific \code{plot}
 function.  In addition, \pkg{vegan} has an alternative plotting
@@ -156,11 +163,24 @@ an \code{ordiplot} object, so that you can use \code{ordiplot}
 support functions with the results (\code{points}, \code{text},
 \code{identify}).
 
-Function \code{ordirgl} (requires \pkg{rgl} package) provides
-dynamic three-dimensional graphics that can be spun around or zoomed
-into with your mouse.  Function \pkg{ordiplot3d} (requires package
-\code{scatterplot3d}) displays simple three-dimensional
-scatterplots.
+Alternative plotting methods are available in two packages:
+
+\begin{itemize}
+
+  \item \pkg{vegan3d} in CRAN provides static 3D plots
+      (\code{ordiplot3d}), dynamic 3D plots that can be spinned around
+      or zoomed (\code{ordirgl}) and interactive 2D plots that can be
+      edited moving point labels to better position (\code{orditkplot}).
+
+   \item \pkg{ggvegan} in github provides \pkg{ggplot2} graphics for
+      most \pkg{vegan} objects. The \pkg{vegan} \code{scores}
+      functions for ordination objects (and some others) recognize
+      argument \code{tidy} which can be used to extract scores for
+      \code{ggplot2} graphics. NB., there are some \pkg{lattice}
+      graphics functions in \pkg{vegan}, but the plan is to phase out
+      these in favour of \code{ggvegan} graphics.
+
+\end{itemize}
 
 \subsection{Cluttered plots}
 
@@ -187,13 +207,11 @@ methods you can try:
 \item Use automatic \code{ordipointlabel} function that uses both
   points and text labels, and tries to optimize the location of the
   text to avoid overwriting.
-\item Use interactive \code{orditkplot} function that draws both
-  points and labels for ordination scores, and allows you to drag
-  labels to better positions. You can export the results of the edited
-  graph to encapsulated \proglang{postscript}, \proglang{pdf},
-  \proglang{png} or \proglang{jpeg} files, or copy directly to
-  encapsulated \proglang{postscript}, or return the edited positions
-  to \proglang{R} for further processing.
+\item Use interactive \code{orditkplot} function in \pkg{vegan3d} that
+  draws both points and labels for ordination scores, and allows you
+  to drag labels to better positions. You can export the edited graph
+  in several graphical formats, or return the edited positions to
+  \proglang{R} for further processing.
 \end{itemize}
 
 \subsection{Adding items to ordination plots}
@@ -281,7 +299,7 @@ ordisurf(ord, A1, add=TRUE)
 \pkg{Vegan} has three methods of constrained ordination:
 constrained or ``canonical'' correspondence analysis (function
 \code{cca}), redundancy analysis (function \code{rda}) and
-distance-based redundancy analysis (function \code{capscale}).  All
+distance-based redundancy analysis (function \code{dbrda}).  All
 these functions can have a conditioning term that is ``partialled
 out''.  I only demonstrate \code{cca}, but all functions accept
 similar commands and can be used in the same way.

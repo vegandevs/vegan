@@ -3,7 +3,9 @@
 ### label these heads, '...' passes arguments (such as 'cex') to
 ### strwidth() and strheight().
 `ordiArrowTextXY` <- function (x, labels, display, choices = c(1,2),
-                               rescale = TRUE, fill = 0.75, at = c(0,0), ...) {
+                               rescale = TRUE, fill = 0.75, at = c(0,0),
+                               cex = NULL, ...)
+{
     ## handle x, which we try with scores, but also retain past usage of
     ## a two column matrix
     X <- if (is.matrix(x)) {
@@ -38,8 +40,8 @@
         }
     }
 
-    w <- strwidth(labels, ...)
-    h <- strheight(labels, ...)
+    w <- strwidth(labels, cex = cex, ...)
+    h <- strheight(labels, cex = cex, ...)
 
     ## slope of arrows
     b <- (X[,2] - at[2]) / (X[,1] - at[1])

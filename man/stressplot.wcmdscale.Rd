@@ -31,7 +31,8 @@
 \arguments{
   \item{object}{
     Result object from eigenvector ordination (\code{\link{wcmdscale}},
-    \code{\link{rda}}, \code{\link{cca}}, \code{\link{capscale}})
+    \code{\link{rda}}, \code{\link{cca}}, \code{\link{dbrda}},
+    \code{\link{capscale}})
 }
   \item{k}{
     Number of dimensions for which the ordination distances are displayed.
@@ -46,28 +47,32 @@
 }
 
 \details{ The functions offer a similar display for eigenvector
-  ordinations as the standard Shepard diagram (\code{\link{stressplot}})
-  in non-metric multidimensional scaling. The ordination distances in
-  given number of dimensions are plotted against observed
-  distances. With metric distances, the ordination distances in full
-  space (with all ordination axes) are equal to observed distances, and
-  the fit line shows this equality. In general, the fit line does not go
-  through the points, but the points for observed distances approach the
-  fit line from below. However, with non-Euclidean distances (in
-  \code{\link{wcmdscale}} or \code{\link{capscale}}) with negative
-  eigenvalues the ordination distances can exceed the observed distances
-  in real dimensions; the imaginary dimensions with negative eigenvalues
-  will correct these excess distances. If you have used
+  ordinations as the standard Shepard diagram
+  (\code{\link{stressplot}}) in non-metric multidimensional
+  scaling. The ordination distances in given number of dimensions are
+  plotted against observed distances. With metric distances, the
+  ordination distances in full space (with all ordination axes) are
+  equal to observed distances, and the fit line shows this
+  equality. In general, the fit line does not go through the points,
+  but the points for observed distances approach the fit line from
+  below. However, with non-Euclidean distances (in
+  \code{\link{wcmdscale}}, \code{\link{dbrda}} or
+  \code{\link{capscale}}) with negative eigenvalues the ordination
+  distances can exceed the observed distances in real dimensions; the
+  imaginary dimensions with negative eigenvalues will correct these
+  excess distances. If you have used \code{\link{dbrda}},
   \code{\link{capscale}} or \code{\link{wcmdscale}} with argument
   \code{add} to avoid negative eigenvalues, the ordination distances
   will exceed the observed dissimilarities.
 
-  In partial ordination (\code{\link{cca}}, \code{\link{rda}} and
+  In partial ordination (\code{\link{cca}}, \code{\link{rda}}, and
   \code{\link{capscale}} with \code{Condition} in the formula), the
   distances in the partial component are included both in the observed
   distances and in ordination distances.  With \code{k=0}, the
-  ordination distances refer to the partial ordination.
-
+  ordination distances refer to the partial ordination. The exception is
+  \code{\link{dbrda}} where the distances in partial, constrained and
+  residual components are not additive, and only the first of these
+  components can be shown, and partial models cannot be shown at all.
 }
 
 \value{

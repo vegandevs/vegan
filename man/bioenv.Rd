@@ -42,7 +42,7 @@ bioenvdist(x, which = "best")
   \item{x}{\code{bioenv} result object.}
   \item{which}{The number of the model for which the environmental
     distances are evaluated, or the \code{"best"} model.}
-  \item{...}{Other arguments passed to \code{\link{cor}}.}
+  \item{...}{Other arguments passed to \code{\link{vegdist}}.}
 }
 \details{
   

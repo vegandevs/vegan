@@ -1,7 +1,7 @@
 
-R version 4.2.2 (2022-10-31) -- "Innocent and Trusting"
-Copyright (C) 2022 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20 (64-bit)
+R version 4.4.0 (2024-04-24) -- "Puppy Cup"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.6-5
+This is vegan 2.6-7
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -166,6 +166,79 @@ adj. RDA R squares -0.12553 -0.0250
 > 
 > 
 > cleanEx()
+> nameEx("MDSaddpoints")
+> ### * MDSaddpoints
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MDSaddpoints
+> ### Title: Add New Points to NMDS ordination
+> ### Aliases: MDSaddpoints dist2xy
+> 
+> ### ** Examples
+> 
+> ## Cross-validation: remove a point when performing NMDS and add as
+> ## a new points
+> data(dune)
+> d <- vegdist(dune)
+> ## remove point 3 from ordination
+> mod3 <- metaMDS(dist2xy(d, 3, "xx", invert = TRUE), trace=0)
+> ## add point 3 to the result
+> MDSaddpoints(mod3, dist2xy(d, 3))
+$points
+         MDS1       MDS2
+3 -0.09726945 -0.4560911
+
+$seed
+           [,1]      [,2]
+[1,] 0.01222408 -0.435372
+
+$deltastress
+[1] 0.001811369
+
+$iters
+[1] 18
+
+$cause
+[1] 4
+
+attr(,"class")
+[1] "nmds"
+> ## Use designdist2
+> d15 <- designdist(dune[1:15,])
+> m15 <- metaMDS(d15, trace=0)
+> MDSaddpoints(m15, designdist2(dune[1:15,], dune[16:20,]))
+$points
+         MDS1       MDS2
+16  0.4296423 -0.3068932
+17 -0.4122711  0.4118212
+18 -0.1136045  0.3120744
+19  0.1421902  0.4869208
+20  0.5892616  0.1751240
+
+$seed
+            [,1]        [,2]
+[1,]  0.28325990 0.019573380
+[2,] -0.19210409 0.137271524
+[3,] -0.15300359 0.094374812
+[4,] -0.02446212 0.137991139
+[5,]  0.32122956 0.009941574
+
+$deltastress
+[1] 0.03394833
+
+$iters
+[1] 33
+
+$cause
+[1] 4
+
+attr(,"class")
+[1] "nmds"
+> 
+> 
+> 
+> cleanEx()
 > nameEx("MDSrotate")
 > ### * MDSrotate
 > 
@@ -302,7 +375,7 @@ $r.squared
 [1] 0.4471676
 
 $adj.r.squared
-[1] 0.3449254
+[1] 0.3449495
 
 > ## default method
 > RsquareAdj(0.8, 20, 5)
@@ -423,11 +496,11 @@ dune ~ 1
 
              Df    AIC      F Pr(>F)   
 + Moisture    3 86.608 2.2536  0.005 **
-+ Management  3 86.935 2.1307  0.005 **
-+ A1          1 87.411 2.1400  0.020 * 
++ Management  3 86.935 2.1307  0.010 **
++ A1          1 87.411 2.1400  0.025 * 
 <none>          87.657                 
 + Manure      4 88.832 1.5251  0.035 * 
-+ Use         2 89.134 1.1431  0.175   
++ Use         2 89.134 1.1431  0.180   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -850,7 +923,7 @@ Number of permutations: 999
 Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
            Df ChiSquare      F Pr(>F)    
 Moisture    3   0.62831 2.4465  0.001 ***
-Management  3   0.37407 1.4565  0.054 .  
+Management  3   0.37407 1.4565  0.045 *  
 Residual   13   1.11289                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -862,8 +935,8 @@ Number of permutations: 999
 
 Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
            Df ChiSquare      F Pr(>F)  
-Moisture    3   0.39854 1.5518  0.025 *
-Management  3   0.37407 1.4565  0.059 .
+Moisture    3   0.39854 1.5518  0.030 *
+Management  3   0.37407 1.4565  0.052 .
 Residual   13   1.11289                
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -877,11 +950,11 @@ Number of permutations: 999
 Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
              Df ChiSquare      F Pr(>F)    
 Moisture.L    1   0.41081 4.7988  0.001 ***
-Moisture.Q    1   0.11261 1.3154  0.175    
-Moisture.C    1   0.10489 1.2253  0.226    
-ManagementHF  1   0.08849 1.0337  0.379    
-ManagementNM  1   0.20326 2.3744  0.012 *  
-ManagementSF  1   0.08231 0.9615  0.429    
+Moisture.Q    1   0.11261 1.3154  0.168    
+Moisture.C    1   0.10489 1.2253  0.224    
+ManagementHF  1   0.08849 1.0337  0.382    
+ManagementNM  1   0.20326 2.3744  0.010 ** 
+ManagementSF  1   0.08231 0.9615  0.406    
 Residual     13   1.11289                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -895,7 +968,7 @@ Model 1: dune ~ Moisture + Management
 Model 2: dune ~ A1 + Moisture + Management + Use + Manure
   ResDf ResChiSquare Df ChiSquare      F Pr(>F)
 1    13       1.1129                           
-2     7       0.6121  6   0.50079 0.9545  0.489
+2     7       0.6121  6   0.50079 0.9545  0.514
 > 
 > 
 > 
@@ -1565,16 +1638,16 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 10 "j" = a/(a+b+c)
 11 "sor" = 2*a/(2*a+b+c)
 12 "m" = (2*a+b+c)*(b+c)/(a+b+c)
-13 "-2" = pmin(b,c)/(pmax(b,c)+a)
+13 "-2" = pmin.int(b,c)/(pmax.int(b,c)+a)
 14 "co" = (a*c+a*b+2*b*c)/(2*(a+b)*(a+c))
 15 "cc" = (b+c)/(a+b+c)
 16 "g" = (b+c)/(a+b+c)
-17 "-3" = pmin(b,c)/(a+b+c)
+17 "-3" = pmin.int(b,c)/(a+b+c)
 18 "l" = (b+c)/2
 19 "19" = 2*(b*c+1)/(a+b+c)/(a+b+c-1)
 20 "hk" = (b+c)/(2*a+b+c)
 21 "rlb" = a/(a+c)
-22 "sim" = pmin(b,c)/(pmin(b,c)+a)
+22 "sim" = pmin.int(b,c)/(pmin.int(b,c)+a)
 23 "gl" = 2*abs(b-c)/(2*a+b+c)
 24 "z" = (log(2)-log(2*a+b+c)+log(a+b+c))/log(2)
 > ## The basic Whittaker index
@@ -1712,187 +1785,17 @@ log(N) P K Ca pH Al    6      0.2822
 > mod <- rda(dune, scale = TRUE)
 > biplot(mod, scaling = "symmetric")
 > 
+> ## plot.cca can do the same
+> plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE))
+> 
 > ## different type for species and site scores
 > biplot(mod, scaling = "symmetric", type = c("text", "points"))
 > 
-> ## We can use ordiplot pipes in R 4.1 to build similar plots with
-> ## flexible control
-> ## Not run: 
-> ##D if (getRversion() >= "4.1") {
-> ##D plot(mod, scaling = "symmetric", type="n") |>
-> ##D    text("sites", cex=0.8) |>
-> ##D    text("species", arrows=TRUE, length=0.02, col="red", cex=0.6)
-> ##D }
-> ## End(Not run)
-> 
-> 
-> 
-> cleanEx()
-> nameEx("capscale")
-> ### * capscale
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: capscale
-> ### Title: [Partial] Distance-based Redundancy Analysis
-> ### Aliases: capscale dbrda
-> ### Keywords: multivariate
-> 
-> ### ** Examples
-> 
-> data(varespec)
-> data(varechem)
-> ## Basic Analysis
-> vare.cap <- capscale(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="bray")
-> vare.cap
-Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray")
-
-                Inertia Proportion Rank
-Total          4.792609   1.000000     
-Conditional    0.977190   0.203895    1
-Constrained    0.997170   0.208064    3
-Unconstrained  2.829038   0.590292   15
-Imaginary     -0.010790  -0.002251    8
-Inertia is squared Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3 
-0.5413 0.3265 0.1293 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10  MDS11 
-0.9065 0.5127 0.3379 0.2626 0.2032 0.1618 0.1242 0.0856 0.0689 0.0583 0.0501 
- MDS12  MDS13  MDS14  MDS15 
-0.0277 0.0208 0.0073 0.0013 
-
-> plot(vare.cap)
-> anova(vare.cap)
-Permutation test for capscale under reduced model
-Permutation: free
-Number of permutations: 999
-
-Model: capscale(formula = varespec ~ N + P + K + Condition(Al), data = varechem, distance = "bray")
-         Df SumOfSqs      F Pr(>F)   
-Model     3  0.99717 2.2324  0.004 **
-Residual 19  2.82904                 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> ## Avoid negative eigenvalues with additive constant
-> capscale(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="bray", add =TRUE)
-Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray", add = TRUE)
-
-              Inertia Proportion Rank
-Total          6.2496     1.0000     
-Conditional    1.0468     0.1675    1
-Constrained    1.1956     0.1913    3
-Unconstrained  4.0073     0.6412   19
-Inertia is Lingoes adjusted squared Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3 
-0.6103 0.3940 0.1913 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.9796 0.5811 0.4077 0.3322 0.2769 0.2346 0.1962 0.1566 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-Constant added to distances: 0.07413903 
-
-> ## Avoid negative eigenvalues by taking square roots of dissimilarities
-> capscale(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist = "bray", sqrt.dist= TRUE)
-Call: capscale(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray", sqrt.dist = TRUE)
-
-              Inertia Proportion Rank
-Total          6.9500     1.0000     
-Conditional    0.9535     0.1372    1
-Constrained    1.2267     0.1765    3
-Unconstrained  4.7698     0.6863   19
-Inertia is Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for constrained axes:
-  CAP1   CAP2   CAP3 
-0.5817 0.4086 0.2365 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.9680 0.6100 0.4469 0.3837 0.3371 0.3012 0.2558 0.2010 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-> ## Principal coordinates analysis with extended dissimilarities
-> capscale(varespec ~ 1, dist="bray", metaMDS = TRUE)
-Square root transformation
-Wisconsin double standardization
-Call: capscale(formula = varespec ~ 1, distance = "bray", metaMDSdist =
-TRUE)
-
-                Inertia Rank
-Total          2.593021     
-Unconstrained  2.594999   19
-Imaginary     -0.001978    4
-Inertia is squared Bray distance 
-Species scores projected from ‘varespec’ 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.6075 0.3820 0.3335 0.2046 0.1731 0.1684 0.1505 0.1163 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-metaMDSdist transformed data: wisconsin(sqrt(varespec)) 
-
-> ## dbrda
-> dbrda(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="bray")
-Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "bray")
-
-              Inertia Proportion Rank RealDims
-Total          4.5444     1.0000              
-Conditional    0.9726     0.2140    1         
-Constrained    0.9731     0.2141    3        3
-Unconstrained  2.5987     0.5718   19       13
-Inertia is squared Bray distance 
-
-Eigenvalues for constrained axes:
-dbRDA1 dbRDA2 dbRDA3 
-0.5362 0.3198 0.1171 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-0.9054 0.5070 0.3336 0.2581 0.2027 0.1605 0.1221 0.0825 
-(Showing 8 of 19 unconstrained eigenvalues)
-
-> ## avoid negative eigenvalues also with Jaccard distances
-> dbrda(varespec ~ N + P + K + Condition(Al), varechem,
-+                      dist="jaccard")
-Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
-varechem, distance = "jaccard")
-
-              Inertia Proportion Rank
-Total          6.5044     1.0000     
-Conditional    1.0330     0.1588    1
-Constrained    1.2068     0.1855    3
-Unconstrained  4.2646     0.6557   19
-Inertia is squared Jaccard distance 
-
-Eigenvalues for constrained axes:
-dbRDA1 dbRDA2 dbRDA3 
-0.5992 0.3994 0.2082 
-
-Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
-1.0388 0.6441 0.4518 0.3759 0.3239 0.2785 0.2279 0.1644 
-(Showing 8 of 19 unconstrained eigenvalues)
-
+> ## We can use ordiplot pipes to build similar plots with flexible
+> ## control
+> plot(mod, scaling = "symmetric", type="n") |>
++    points("sites", cex=0.7) |>
++    text("species", arrows=TRUE, length=0.05, col=2, cex=0.7, font=3)
 > 
 > 
 > 
@@ -2258,6 +2161,89 @@ C     0  0.00000000  0.00000000
 > 
 > graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
+> nameEx("dbrda")
+> ### * dbrda
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dbrda
+> ### Title: [Partial] Distance-based Redundancy Analysis
+> ### Aliases: capscale dbrda
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+> data(varespec, varechem)
+> ## dbrda
+> dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray")
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "bray")
+
+              Inertia Proportion Rank RealDims
+Total          4.5444     1.0000              
+Conditional    0.9726     0.2140    1         
+Constrained    0.9731     0.2141    3        3
+Unconstrained  2.5987     0.5718   19       13
+Inertia is squared Bray distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5362 0.3198 0.1171 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+0.9054 0.5070 0.3336 0.2581 0.2027 0.1605 0.1221 0.0825 
+(Showing 8 of 19 unconstrained eigenvalues)
+
+> ## avoid negative eigenvalues with sqrt distances
+> dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray",
++      sqrt.dist = TRUE)
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "bray", sqrt.dist = TRUE)
+
+              Inertia Proportion Rank
+Total          6.9500     1.0000     
+Conditional    0.9535     0.1372    1
+Constrained    1.2267     0.1765    3
+Unconstrained  4.7698     0.6863   19
+Inertia is Bray distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5817 0.4086 0.2365 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+0.9680 0.6100 0.4469 0.3837 0.3371 0.3012 0.2558 0.2010 
+(Showing 8 of 19 unconstrained eigenvalues)
+
+> ## avoid negative eigenvalues also with Jaccard distances
+> (m <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="jaccard"))
+Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
+varechem, distance = "jaccard")
+
+              Inertia Proportion Rank
+Total          6.5044     1.0000     
+Conditional    1.0330     0.1588    1
+Constrained    1.2068     0.1855    3
+Unconstrained  4.2646     0.6557   19
+Inertia is squared Jaccard distance 
+
+Eigenvalues for constrained axes:
+dbRDA1 dbRDA2 dbRDA3 
+0.5992 0.3994 0.2082 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+1.0388 0.6441 0.4518 0.3759 0.3239 0.2785 0.2279 0.1644 
+(Showing 8 of 19 unconstrained eigenvalues)
+
+> ## add species scores
+> sppscores(m) <- wisconsin(varespec)
+> 
+> 
+> 
+> cleanEx()
 > nameEx("decorana")
 > ### * decorana
 > 
@@ -2265,8 +2251,8 @@ C     0  0.00000000  0.00000000
 > 
 > ### Name: decorana
 > ### Title: Detrended Correspondence Analysis and Basic Reciprocal Averaging
-> ### Aliases: decorana summary.decorana print.summary.decorana plot.decorana
-> ###   downweight scores.decorana points.decorana text.decorana
+> ### Aliases: decorana summary.decorana plot.decorana downweight
+> ###   scores.decorana points.decorana text.decorana
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -2287,97 +2273,6 @@ Eigenvalues          0.5235 0.3253 0.20010 0.19176
 Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
 Decorana values      0.5249 0.1572 0.09669 0.06075
 Axis lengths         2.8161 2.2054 1.54650 1.64864
-
-> summary(vare.dca)
-
-Call:
-decorana(veg = varespec) 
-
-Detrended correspondence analysis with 26 segments.
-Rescaling of axes with 4 iterations.
-Total inertia (scaled Chi-square): 2.0832 
-
-                       DCA1   DCA2    DCA3    DCA4
-Eigenvalues          0.5235 0.3253 0.20010 0.19176
-Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
-Decorana values      0.5249 0.1572 0.09669 0.06075
-Axis lengths         2.8161 2.2054 1.54650 1.64864
-
-Species scores:
-
-             DCA1     DCA2     DCA3     DCA4 Totals
-Callvulg  0.04119 -1.53268 -2.55101  1.32277  45.07
-Empenigr  0.09019  0.82274  0.20569  0.30631 151.99
-Rhodtome  1.34533  2.47141 -0.34970 -1.13823   8.39
-Vaccmyrt  1.86298  1.71424 -0.60535 -0.40205  50.71
-Vaccviti  0.16641  0.71095  0.00313 -0.55801 275.03
-Pinusylv -0.73490  1.62050 -1.60275 -2.10199   4.11
-Descflex  1.97061  1.81651  1.74896 -0.91463   5.60
-Betupube  0.79745  3.36374 -0.94546 -1.01741   0.29
-Vacculig -0.08912 -1.17478  2.86624  0.87025  15.22
-Diphcomp -0.82669 -0.44195  2.58579 -0.38459   3.24
-Dicrsp    2.37743 -0.27373 -0.47099 -1.89036  40.50
-Dicrfusc  1.58267 -1.33770 -1.33563  1.47417 113.52
-Dicrpoly  0.86689  2.39519 -0.82064 -3.41534   6.06
-Hylosple  2.66242  1.19669  1.48288 -0.69978  18.04
-Pleuschr  1.64098  0.15607  0.30044 -0.26717 377.97
-Polypili -0.56213  0.14009  0.25198  0.49177   0.61
-Polyjuni  1.22244 -0.89173  0.61287  3.60066  13.85
-Polycomm  1.01545  2.08388  0.06402  0.84199   0.71
-Pohlnuta -0.00712  1.09704 -0.82126 -1.59862   2.62
-Ptilcili  0.48093  2.86420 -0.71801 -1.02698  14.01
-Barbhatc  0.58303  3.71792 -0.84212 -1.88837   3.19
-Cladarbu -0.18554 -1.18973  0.68113  0.55399 255.05
-Cladrang -0.83427 -0.78085  0.90603  0.70057 388.71
-Cladstel -1.67768  0.98907 -0.83789 -0.60206 486.71
-Cladunci  0.97686 -1.70859 -1.68281 -2.26756  56.28
-Cladcocc -0.27221 -0.76713 -0.63836  0.66927   2.79
-Cladcorn  0.29068 -0.97039  0.50414  0.95738   6.22
-Cladgrac  0.21778 -0.41879  0.06530 -0.31472   5.14
-Cladfimb  0.00889 -0.23922 -0.26505  0.33123   3.96
-Cladcris  0.37774 -1.09161 -0.55627  0.23868   7.47
-Cladchlo -0.91983  1.54955 -0.58109 -1.48643   1.16
-Cladbotr  0.66438  2.19584 -0.90331 -0.91391   0.47
-Cladamau -0.96418 -0.98992  2.71458  0.52352   0.14
-Cladsp   -1.12318 -0.15330 -0.69833  0.44040   0.52
-Cetreric  0.27163 -1.28867 -0.81682 -1.93935   3.60
-Cetrisla -0.50158  2.22098 -1.16461 -1.89349   2.03
-Flavniva -1.67937 -3.67985  4.15644  3.18919  11.85
-Nepharct  2.18561 -0.82837  0.71958  5.81930   5.26
-Stersp   -0.78699 -2.01214  2.31212  2.03946  17.52
-Peltapht  0.45763 -0.34395  0.09916  1.34695   0.76
-Icmaeric  0.04950 -1.97605  1.41509  2.10154   0.22
-Cladcerv -1.21585 -2.30519  2.55186  3.41532   0.10
-Claddefo  0.60517 -1.19771 -0.33388  0.22585  10.23
-Cladphyl -1.53959  1.48574 -1.43209 -1.52387   0.80
-
-Site scores:
-
-      DCA1    DCA2    DCA3    DCA4 Totals
-18 -0.1729 -0.2841  0.4775  0.2521   89.2
-15  0.8539 -0.3360  0.0708  0.0924   89.8
-24  1.2467 -0.1183 -0.1211 -0.8718   94.2
-27  1.0675  0.4169  0.2897 -0.1758  125.6
-23  0.4234  0.0112  0.2179  0.1265   90.5
-19  0.0252  0.3600 -0.0263 -0.1168   81.3
-22  1.0695 -0.3707 -0.4285  0.4145  109.8
-16  0.7724 -0.5325 -0.2856  0.5269   88.5
-28  1.6189  0.5482  0.2342 -0.3333  110.7
-13 -0.2642 -0.6851 -0.3777  0.5003  101.9
-14  0.6431 -0.9604 -0.6000 -0.2885   81.7
-20  0.4504 -0.1666  0.1850 -0.1291   64.1
-25  1.2501 -0.2248  0.0244  0.3741   94.1
-7  -0.3910 -0.7618  0.8640  0.5557  103.4
-5  -0.6407 -0.9427  0.9465  0.7769   94.8
-6  -0.4523 -0.5529  0.3988  0.2781  110.9
-3  -1.1043  0.2106 -0.0653 -0.0539  106.7
-4  -0.9454 -0.5974  0.4639  0.4889   84.8
-2  -1.1971  0.5691 -0.3246 -0.2522  119.1
-9  -1.0983  0.7850 -0.5274 -0.4848  122.6
-12 -0.8673  0.5621 -0.3254 -0.3217  119.8
-10 -1.1842  0.7442 -0.4995 -0.3917  122.4
-11 -0.4134  0.0260  0.0107 -0.0682  112.8
-21  0.3210  1.2450 -0.2541 -0.5253   99.2
 
 > plot(vare.dca)
 > 
@@ -2458,10 +2353,9 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > flush(stderr()); flush(stdout())
 > 
 > ### Encoding: UTF-8
-> 
 > ### Name: designdist
 > ### Title: Design your own Dissimilarities
-> ### Aliases: designdist chaodist
+> ### Aliases: designdist designdist2 chaodist
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -3334,47 +3228,47 @@ Management 0 1 2 3 4
 0.8748741 0.6087512 0.6633248 0.7581210 
 > intersetcor(mod)
                    CCA1        CCA2        CCA3         CCA4        CCA5
-A1           -0.5332506 -0.13691202 -0.47996401 -0.259859587  0.09894964
-Moisture.L   -0.8785505 -0.17867589  0.03714134  0.181952935  0.09826534
-Moisture.Q   -0.1956664  0.33044917 -0.27321286 -0.180333890 -0.26609291
-Moisture.C   -0.2023782  0.09698397  0.28596824 -0.261712720  0.49103002
-ManagementHF  0.3473460 -0.01680324 -0.51205769  0.194144965 -0.30752664
-ManagementNM -0.5699549  0.61111645  0.14751127 -0.013777789 -0.04571982
-ManagementSF -0.1197499 -0.64084416  0.19780650  0.134892908  0.09679992
-Use.L        -0.1871999 -0.32990444 -0.30941161 -0.372747011 -0.09586963
-Use.Q        -0.1820298  0.48874152 -0.01997442 -0.009812946 -0.04812588
-Manure.L      0.3175126 -0.65945634  0.03724864 -0.025383543  0.04077470
-Manure.Q     -0.4075615  0.21149073  0.49297244 -0.176686201 -0.11973190
-Manure.C      0.4676279 -0.11376054  0.29132473 -0.173382982 -0.14219924
-Manure^4      0.2222349  0.12789494 -0.12921227  0.108367170  0.02559567
+A1           -0.5332506  0.13691202 -0.47996401 -0.259859587 -0.09894964
+Moisture.L   -0.8785505  0.17867589  0.03714134  0.181952935 -0.09826534
+Moisture.Q   -0.1956664 -0.33044917 -0.27321286 -0.180333890  0.26609291
+Moisture.C   -0.2023782 -0.09698397  0.28596824 -0.261712720 -0.49103002
+ManagementHF  0.3473460  0.01680324 -0.51205769  0.194144965  0.30752664
+ManagementNM -0.5699549 -0.61111645  0.14751127 -0.013777789  0.04571982
+ManagementSF -0.1197499  0.64084416  0.19780650  0.134892908 -0.09679992
+Use.L        -0.1871999  0.32990444 -0.30941161 -0.372747011  0.09586963
+Use.Q        -0.1820298 -0.48874152 -0.01997442 -0.009812946  0.04812588
+Manure.L      0.3175126  0.65945634  0.03724864 -0.025383543 -0.04077470
+Manure.Q     -0.4075615 -0.21149073  0.49297244 -0.176686201  0.11973190
+Manure.C      0.4676279  0.11376054  0.29132473 -0.173382982  0.14219924
+Manure^4      0.2222349 -0.12789494 -0.12921227  0.108367170 -0.02559567
                     CCA6        CCA7        CCA8        CCA9         CCA10
-A1           -0.15225816 -0.25788462 -0.19247720  0.27694466 -0.1158449480
-Moisture.L   -0.02923342 -0.07858647  0.10772510 -0.07101300  0.0952517164
-Moisture.Q   -0.11211675 -0.05062810  0.48302647 -0.06138704 -0.2053304965
-Moisture.C   -0.23581275  0.38693407  0.10144580  0.21907160  0.1875632770
-ManagementHF -0.24278705 -0.16364055  0.14053438 -0.31066725  0.1310215145
-ManagementNM -0.06430101 -0.23917584 -0.14375754  0.27103732  0.0002768613
-ManagementSF -0.01611984  0.49726250 -0.08073472  0.30235728 -0.1381281272
-Use.L         0.19127262  0.44624831  0.18450714 -0.12950951  0.0452826749
-Use.Q         0.13485545 -0.10367354  0.11020112 -0.41245485 -0.0766932005
-Manure.L     -0.22265819  0.49627772  0.16971786  0.03943343 -0.0045229147
-Manure.Q     -0.19402211  0.11937394 -0.17611673  0.44002593  0.0903998202
-Manure.C      0.14760330 -0.07842345 -0.37774417 -0.10181374  0.1055057288
-Manure^4     -0.36683782 -0.05953330 -0.40927409  0.06054381 -0.1500198368
+A1           -0.15225816  0.25788462  0.19247720 -0.27694466 -0.1158449480
+Moisture.L   -0.02923342  0.07858647 -0.10772510  0.07101300  0.0952517164
+Moisture.Q   -0.11211675  0.05062810 -0.48302647  0.06138704 -0.2053304965
+Moisture.C   -0.23581275 -0.38693407 -0.10144580 -0.21907160  0.1875632770
+ManagementHF -0.24278705  0.16364055 -0.14053438  0.31066725  0.1310215145
+ManagementNM -0.06430101  0.23917584  0.14375754 -0.27103732  0.0002768613
+ManagementSF -0.01611984 -0.49726250  0.08073472 -0.30235728 -0.1381281272
+Use.L         0.19127262 -0.44624831 -0.18450714  0.12950951  0.0452826749
+Use.Q         0.13485545  0.10367354 -0.11020112  0.41245485 -0.0766932005
+Manure.L     -0.22265819 -0.49627772 -0.16971786 -0.03943343 -0.0045229147
+Manure.Q     -0.19402211 -0.11937394  0.17611673 -0.44002593  0.0903998202
+Manure.C      0.14760330  0.07842345  0.37774417  0.10181374  0.1055057288
+Manure^4     -0.36683782  0.05953330  0.40927409 -0.06054381 -0.1500198368
                    CCA11       CCA12
-A1            0.03550223  0.08881387
-Moisture.L   -0.06404776  0.08587882
-Moisture.Q    0.21810558 -0.16917878
-Moisture.C   -0.13701079  0.14260914
-ManagementHF -0.17283125 -0.13296499
-ManagementNM  0.01358436 -0.09533598
-ManagementSF  0.01468592  0.06614834
-Use.L         0.08584883 -0.32559307
-Use.Q        -0.41893616 -0.04881247
-Manure.L     -0.02396993 -0.13049087
-Manure.Q     -0.12987366 -0.07137031
-Manure.C     -0.05176927  0.41550238
-Manure^4      0.41603287 -0.01661279
+A1           -0.03550223 -0.08881387
+Moisture.L    0.06404776 -0.08587882
+Moisture.Q   -0.21810558  0.16917878
+Moisture.C    0.13701079 -0.14260914
+ManagementHF  0.17283125  0.13296499
+ManagementNM -0.01358436  0.09533598
+ManagementSF -0.01468592 -0.06614834
+Use.L        -0.08584883  0.32559307
+Use.Q         0.41893616  0.04881247
+Manure.L      0.02396993  0.13049087
+Manure.Q      0.12987366  0.07137031
+Manure.C      0.05176927 -0.41550238
+Manure^4     -0.41603287  0.01661279
 > ## IGNORE_RDIFF_END
 > 
 > 
@@ -4074,10 +3968,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Run 0 stress 0.1192678 
 Run 1 stress 0.1886532 
 Run 2 stress 0.1192678 
-... Procrustes: rmse 5.822835e-06  max resid 1.845818e-05 
+... Procrustes: rmse 5.822838e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
-... Procrustes: rmse 6.697234e-06  max resid 2.061976e-05 
+... Procrustes: rmse 6.697236e-06  max resid 2.061976e-05 
 ... Similar to previous best
 Run 4 stress 0.1183186 
 ... New best solution
@@ -4169,7 +4063,7 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 1.230098e-05  max resid 4.079838e-05 
+... Procrustes: rmse 1.230099e-05  max resid 4.079838e-05 
 ... Similar to previous best
 Run 17 stress 0.1192679 
 Run 18 stress 0.1192678 
@@ -4272,7 +4166,7 @@ Run 3 stress 0.1067169
 ... Procrustes: rmse 5.139263e-06  max resid 1.72906e-05 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 4.498737e-06  max resid 1.408227e-05 
+... Procrustes: rmse 4.498738e-06  max resid 1.408227e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1653484 
@@ -4294,13 +4188,13 @@ Run 17 stress 0.1069786
 ... Procrustes: rmse 0.006774349  max resid 0.02387355 
 Run 18 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 3.536972e-06  max resid 1.241593e-05 
+... Procrustes: rmse 3.536974e-06  max resid 1.241593e-05 
 ... Similar to previous best
 Run 19 stress 0.1067169 
-... Procrustes: rmse 2.356116e-06  max resid 5.608413e-06 
+... Procrustes: rmse 2.356113e-06  max resid 5.608413e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175633e-07  max resid 1.839172e-06 
+... Procrustes: rmse 8.175769e-07  max resid 1.839172e-06 
 ... Similar to previous best
 *** Best solution repeated 3 times
 > sol
@@ -5113,9 +5007,9 @@ Al  1.8804734 -0.3507570
 P  -0.9168309 -1.6419845
 K  -0.9931606 -0.3713207
 > 
->     ## draw arrows and text labels
+>     ## arrows will touch the bounding box of the text
 >     arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
->     text(bip.lab, labels = labs)
+>     ordilabel(bip.lab, labels = labs)
 > 
 >     ## Handling of ordination objects directly
 >     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)
@@ -5235,9 +5129,14 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > data(dune)
 > ord <- cca(dune)
 > plot(ord, type = "n")
+> ## add text
 > ordilabel(ord, dis="sites", cex=1.2, font=3, fill="hotpink", col="blue")
 > ## You may prefer separate plots, but here species as well
 > ordilabel(ord, dis="sp", font=2, priority=colSums(dune))
+> ## use in a pipe
+> plot(ord, type = "n") |>
++    ordilabel("spec", font = 3, priority = colSums(dune)) |>
++    points("sites", pch=21, bg = "yellow", col = "blue")
 > 
 > 
 > 
@@ -5263,21 +5162,20 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > pl <- ordiplot(dune.mds, type = "none")
 > points(pl, "sites", pch=21, col="red", bg="yellow")
 > text(pl, "species", col="blue", cex=0.9)
-> ## Not run: 
-> ##D ## same plot using pipes (pipes |> are available from R version 4.1.0)
-> ##D if (getRversion() >= "4.1") {
-> ##D ordiplot(dune.mds, type="n") |>
-> ##D   points("sites", pch=21, col="red", bg="yellow") |>
-> ##D   text("species", col="blue", cex=0.9)
-> ##D ## Some people think that species should be shown with arrows in PCA.
-> ##D ## Other ordination methods also return an invisible ordiplot object and
-> ##D ## we can use pipes to draw those arrows.
-> ##D mod <- rda(dune)
-> ##D plot(mod, type="n") |>
-> ##D   points("sites", pch=16, col="red") |>
-> ##D   text("species", arrows = TRUE, length=0.05, col="blue")
-> ##D }
-> ## End(Not run)
+> 
+> ## same plot using pipes (|>)
+> ordiplot(dune.mds, type="n") |>
++   points("sites", pch=21, col="red", bg="yellow") |>
++   text("species", col="blue", cex=0.9)
+> 
+> ## Some people think that species should be shown with arrows in PCA.
+> ## Other ordination methods also return an invisible ordiplot object and
+> ## we can use pipes to draw those arrows.
+> mod <- rda(dune)
+> plot(mod, type="n") |>
++   points("sites", pch=16, col="red") |>
++   text("species", arrows = TRUE, length=0.05, col="blue")
+> 
 > ## Default plot of the previous using identify to label selected points
 > ## Not run: 
 > ##D pl <- ordiplot(dune.mds)
@@ -5624,7 +5522,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.8-42. For overview type 'help("mgcv-package")'.
+This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5698,35 +5596,6 @@ REML score: 39.52198
 
 detaching ‘package:mgcv’, ‘package:nlme’
 
-> nameEx("orditkplot")
-> ### * orditkplot
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: orditkplot
-> ### Title: Ordination Plot with Movable Labels
-> ### Aliases: orditkplot plot.orditkplot scores.orditkplot points.orditkplot
-> ###   text.orditkplot
-> ### Keywords: iplot dynamic
-> 
-> ### ** Examples
-> 
-> ## The example needs user interaction and is not executed directly.
-> ## It should work when pasted to the window.
-> ## Not run: 
-> ##D data(varespec)
-> ##D ord <- cca(varespec)
-> ##D ## Do something with the graph and end by clicking "Dismiss"
-> ##D orditkplot(ord, mar = c(4,4,1,1)+.1, font=3)
-> ##D ## Use ordipointlabel to produce a plot that has both species and site
-> ##D ## scores in different colors and plotting symbols
-> ##D pl <- ordipointlabel(ord)
-> ##D orditkplot(pl)
-> ## End(Not run)
-> 
-> 
-> 
-> cleanEx()
 > nameEx("orditorp")
 > ### * orditorp
 > 
@@ -5829,7 +5698,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 8.71  total = 9.71 
 
-REML score: 25.8026     
+REML score: -120.7705     
 > ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
 
 Family: gaussian 
@@ -5841,7 +5710,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 7.18  total = 8.18 
 
-REML score: 43.10693     
+REML score: -103.4662     
 > ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
 
 Family: gaussian 
@@ -5853,7 +5722,7 @@ y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 Estimated degrees of freedom:
 8.32  total = 9.32 
 
-REML score: 52.38255     
+REML score: -94.19053     
 > par(op)
 > ## Plot first PCNMs against each other
 > ordisplom(pcnm1, choices=1:4)
@@ -6228,135 +6097,42 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ### Title: Plot or Extract Results of Constrained Correspondence Analysis
 > ###   or Redundancy Analysis
 > ### Aliases: plot.cca text.cca points.cca scores.cca scores.rda summary.cca
-> ###   print.summary.cca head.summary.cca tail.summary.cca labels.cca
+> ###   print.summary.cca labels.cca
 > ### Keywords: hplot aplot
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
 > mod <- cca(dune ~ A1 + Moisture + Management, dune.env)
-> ## better control -- remember to set scaling etc identically
-> plot(mod, type="n", scaling="sites")
-> text(mod, dis="cn", scaling="sites")
-> points(mod, pch=21, col="red", bg="yellow", cex=1.2, scaling="sites")
-> text(mod, "species", col="blue", cex=0.8, scaling="sites")
+> 
+> ## default and modified plot
+> plot(mod, scaling="sites")
+> plot(mod, scaling="sites", type = "text",
++   sit.par = list(type = "points", pch=21, col="red", bg="yellow", cex=1.2),
++   spe.par = list(col="blue", cex=0.8),
++   cen.par = list(bg="white"))
+> 
+> ## same with pipe
+> plot(mod, type="n", scaling="sites") |>
++   points("sites", pch=21, col="red", bg = "yellow", cex=1.2) |>
++   text("species", col="blue", cex=0.8) |>
++   text("biplot") |>
++   text("centroids", bg="white")
+> 
 > ## catch the invisible result and use ordiplot support - the example
 > ## will make a biplot with arrows for species and correlation scaling
 > pca <- rda(dune)
 > pl <- plot(pca, type="n", scaling="sites", correlation=TRUE)
 > with(dune.env, points(pl, "site", pch=21, col=1, bg=Management))
 > text(pl, "sp", arrow=TRUE, length=0.05, col=4, cex=0.6, xpd=TRUE)
-> with(dune.env, legend("bottomleft", levels(Management), pch=21, pt.bg=1:4, bty="n"))
-> ## Limited output of 'summary' (NB. Signs of axes are arbitrary and can change
-> ## when the command is run repeatedly).
-> ## IGNORE_RDIFF_BEGIN
-> head(summary(mod), tail=2)
-
-Call:
-cca(formula = dune ~ A1 + Moisture + Management, data = dune.env) 
-
-Partitioning of scaled Chi-square:
-              Inertia Proportion
-Total          2.1153     1.0000
-Constrained    1.1392     0.5385
-Unconstrained  0.9761     0.4615
-
-Eigenvalues, and their contribution to the scaled Chi-square 
-
-Importance of components:
-                        CCA1   CCA2    CCA3    CCA4    CCA5    CCA6    CCA7
-Eigenvalue            0.4483 0.3001 0.14995 0.10733 0.05668 0.04335 0.03345
-Proportion Explained  0.2119 0.1419 0.07089 0.05074 0.02680 0.02050 0.01581
-Cumulative Proportion 0.2119 0.3538 0.42470 0.47544 0.50223 0.52273 0.53855
-                         CA1     CA2     CA3     CA4     CA5     CA6     CA7
-Eigenvalue            0.3064 0.13191 0.11516 0.10947 0.07724 0.07575 0.04871
-Proportion Explained  0.1448 0.06236 0.05444 0.05175 0.03652 0.03581 0.02303
-Cumulative Proportion 0.6834 0.74574 0.80018 0.85194 0.88845 0.92427 0.94730
-                          CA8     CA9     CA10     CA11     CA12
-Eigenvalue            0.03758 0.03106 0.021024 0.012542 0.009277
-Proportion Explained  0.01777 0.01468 0.009939 0.005929 0.004386
-Cumulative Proportion 0.96506 0.97975 0.989685 0.995614 1.000000
-
-Accumulated constrained eigenvalues
-Importance of components:
-                        CCA1   CCA2   CCA3    CCA4    CCA5    CCA6    CCA7
-Eigenvalue            0.4483 0.3001 0.1499 0.10733 0.05668 0.04335 0.03345
-Proportion Explained  0.3935 0.2635 0.1316 0.09422 0.04976 0.03806 0.02937
-Cumulative Proportion 0.3935 0.6570 0.7886 0.88282 0.93258 0.97063 1.00000
-
-Scaling 2 for species and site scores
-* Species are scaled proportional to eigenvalues
-* Sites are unscaled: weighted dispersion equal on all dimensions
-
-
-Species scores
-
-            CCA1    CCA2     CCA3     CCA4      CCA5     CCA6
-Achimill  0.8150  0.4375 -0.11236  0.35595 -0.114763 -0.01972
-Agrostol -0.7488 -0.4783  0.03561  0.17039  0.187389  0.23471
-Airaprae -0.8186  1.7469  1.04506 -0.28593  0.191836  0.73077
-Alopgeni -0.3442 -1.0216  0.37620  0.02296 -0.004041  0.04789
-Anthodor  0.3367  0.7694 -0.07602 -0.05421  0.136354  0.42463
-Bellpere  0.6535  0.2200  0.03438  0.60436 -0.090469  0.28138
-....                                                         
-Bracruta -0.1309  0.2009 -0.03708 -0.17421 -0.109657  0.04381
-Callcusp -1.5181  0.3834 -0.23255  0.15246  0.104239 -0.11424
-
-
-Site scores (weighted averages of species scores)
-
-        CCA1    CCA2     CCA3    CCA4    CCA5    CCA6
-1     1.2468 -0.4017  0.91955  0.7292  1.5785 -1.0196
-2     0.8622 -0.1641  0.25789  1.7240 -0.7592 -0.6479
-3     0.3165 -0.9785  0.82952  0.7451  0.6556  0.3256
-4     0.2405 -0.8699  1.07861  1.4103  1.1164  2.4714
-5     1.1362  0.2621 -1.10847 -0.9417  0.5630  1.1495
-6     1.0575  0.4041 -1.65035 -1.8483  1.0287 -0.1690
-....                                                 
-19   -0.7913  2.7451  2.93017 -1.3851 -0.3932  1.7277
-20   -2.0770  1.0113 -0.02581 -0.8949  1.6406 -1.7917
-
-
-Site constraints (linear combinations of constraining variables)
-
-        CCA1    CCA2     CCA3    CCA4    CCA5     CCA6
-1     0.7245 -0.3695  1.25652 -0.3678  0.9827 -0.60590
-2     0.9033  0.4250  0.03901  1.0557 -1.0860 -1.61234
-3     0.4493 -0.6694  0.67765  0.8695  0.9609  1.52307
-4     0.4550 -0.6532  0.72768  0.8529  0.9795  1.50218
-5     0.9671 -0.2010 -1.93972 -0.5807  0.2582  0.31905
-6     1.0805  0.1235 -0.93911 -0.9126  0.6307 -0.09863
-....                                                  
-19   -1.4581  1.6074  1.16812 -0.5305  0.3178 -0.40336
-20   -1.4468  1.6399  1.26818 -0.5637  0.3551 -0.44513
-
-
-Biplot scores for constraining variables
-
-                CCA1    CCA2     CCA3     CCA4     CCA5     CCA6
-A1           -0.5554 -0.1617 -0.67982  0.10708 -0.17998  0.30507
-Moisture.L   -0.9437 -0.1638  0.07974 -0.02238  0.03067 -0.02368
-Moisture.Q   -0.1876  0.3571 -0.45352 -0.17237  0.28350 -0.63025
-Moisture.C   -0.2069  0.1732  0.10635  0.68203  0.50123  0.35887
-ManagementHF  0.3645 -0.1171 -0.42202 -0.67746  0.17212 -0.12317
-ManagementNM -0.5855  0.7267 -0.01115 -0.09642 -0.11445  0.27037
-ManagementSF -0.1511 -0.6957  0.38543  0.24770  0.29469  0.23829
-
-
-Centroids for factor constraints
-
-                CCA1     CCA2     CCA3     CCA4     CCA5    CCA6
-Moisture1     0.9119  0.35388 -0.40013 -0.26218  0.02084 -0.4708
-Moisture2     0.5015 -0.06706  0.60222  1.12478  0.33942  1.2024
-Moisture4    -0.1522 -1.35873  0.76544 -1.37289 -1.80794  0.3849
-Moisture5    -1.3394  0.11972 -0.20942  0.04843  0.39751 -0.3902
-ManagementBF  0.8376  0.41614  0.13885  1.40679 -0.97766 -0.9604
-ManagementHF  0.5426 -0.17426 -0.62822 -1.00848  0.25622 -0.1834
-ManagementNM -1.1010  1.36665 -0.02097 -0.18131 -0.21523  0.5084
-ManagementSF -0.2320 -1.06831  0.59183  0.38035  0.45250  0.3659
-
-> ## IGNORE_RDIFF_END
+> with(dune.env, legend("bottomleft", levels(Management), pch=21,
++    pt.bg=1:4, bty="n"))
+> 
+> ## Pipe
+> plot(pca, type="n", scaling="sites", correlation=TRUE) |>
++     points("sites", pch=21, col = 1, cex=1.5, bg = dune.env$Management) |>
++     text("species", col = "blue", arrows = TRUE, xpd = TRUE, font = 3)
+> 
 > ## Scaling can be numeric or more user-friendly names
 > ## e.g. Hill's scaling for (C)CA
 > scrs <- scores(mod, scaling = "sites", hill = TRUE)
@@ -6422,65 +6198,65 @@ Call:
 prc(response = pyrifos, treatment = dose, time = week) 
 Species scores:
     Simve     Daplo     Cerpu     Alogu     Aloco     Alore     Aloaf     Copsp 
--1.461934 -0.796510 -0.295171 -0.152301 -0.096273 -0.171335 -0.231967 -0.635966 
+ 2.688099  1.464566  0.542739  0.280040  0.177019  0.315038  0.426524  1.169368 
     Ostsp     Slyla     Acrha     Aloex     Chysp     Alona     Plead     Oxyte 
--1.257492  0.302872 -0.057396 -0.124049 -0.051689 -0.034638 -0.075268 -0.013815 
+ 2.312186 -0.556899  0.105535  0.228092  0.095042  0.063689  0.138397  0.025401 
     Grate     Copdi     NauLa     CilHa     Strvi     amosp     Ascmo     Synsp 
--0.052667 -0.777088 -2.636100 -0.486881 -1.669474  0.738371 -0.037926  0.014409 
+ 0.096840  1.428854  4.847070  0.895241  3.069709 -1.357663  0.069736 -0.026494 
     Squro     Squmu     Polar     Kerqu     Anufi     Mytve     Mytvi     Mytmu 
--0.143790  0.246185 -0.251255 -0.269397 -0.235362 -0.040448 -0.049452 -0.057589 
+ 0.264390 -0.452667  0.461989  0.495348  0.432767  0.074372  0.090928  0.105891 
     Lepsp     Leppa     Colob     Colbi     Colun     Lecsp     Lecqu     Lecco 
--0.542922 -0.046123  0.393234  0.075905  0.450495 -0.257170  0.048327  0.158007 
+ 0.998286  0.084809 -0.723051 -0.139569 -0.828338  0.472866 -0.088860 -0.290531 
     Leclu     Lecfl     Tripo     Cepsp     Monlo     Monae     Scalo     Trilo 
--0.027077  0.221912 -0.117056  0.440303  0.287108  0.048918  0.041981  0.021257 
+ 0.049788 -0.408035  0.215234 -0.809597 -0.527913 -0.089948 -0.077192 -0.039086 
   Tripo.1     Tricy     Trisp     Tepat     Rotne     Notla     Filsp     Lopox 
--0.134025 -0.182409 -0.042651 -0.004198 -0.078168  0.062163  0.091561  0.016854 
+ 0.246435  0.335400  0.078423  0.007719  0.143730 -0.114301 -0.168356 -0.030990 
  hydrspec  bothrosp  olchaeta  erpoocto  glsicomp  alglhete  hebdstag   sphidae 
- 0.026485 -0.216815  0.633674  0.490029  0.078527  0.039728 -0.490678 -0.796015 
+-0.048698  0.398665 -1.165154 -0.901030 -0.144389 -0.073049  0.902223  1.463655 
  ansuvote  armicris  bathcont  binitent  gyraalbu  hippcomp  lymnstag  lymnaes7 
--0.076512 -0.913681 -0.039855  1.060788 -0.017975 -0.219974  0.143403 -0.073502 
+ 0.140685  1.680010  0.073282 -1.950500  0.033051  0.404473 -0.263679  0.135150 
  physfont  plbacorn  popyanti  radiovat  radipere  valvcris  valvpisc  hycarina 
- 0.014349 -0.046098 -0.691904  0.010777  0.340163 -0.005753  0.145523 -0.567803 
+-0.026383  0.084761  1.272223 -0.019815 -0.625468  0.010579 -0.267577  1.044034 
  gammpule  aselaqua  proameri  collembo  caenhora  caenluct  caenrobu  cloedipt 
--0.830166 -0.858606 -0.063401 -0.016264 -3.136867 -1.292300 -0.068624 -2.574625 
+ 1.526450  1.578743  0.116577  0.029906  5.767844  2.376188  0.126181  4.734035 
  cloesimi  aeshniae  libellae  conagrae  corident  coripanz  coripunc  cymabons 
--0.675580 -0.115677  0.044524 -0.886795 -0.007484 -0.065501  0.096124 -0.025213 
+ 1.242207  0.212699 -0.081867  1.630574  0.013761  0.120439 -0.176746  0.046360 
  hesplinn  hespsahl  notoglau  notomacu  notoobli  notoviri  pacoconc  pleaminu 
- 0.037779 -0.018078 -0.301948 -0.027226 -0.044790 -0.117398 -0.009087 -0.038705 
+-0.069465  0.033240  0.555201  0.050060  0.082356  0.215863  0.016709  0.071168 
  sigadist  sigafall  sigastri  sigarasp  colyfusc  donacis6  gyrimari  haliconf 
--0.041594  0.009987 -0.032743  0.150817 -0.019847  0.042751 -0.005753 -0.243054 
+ 0.076479 -0.018364  0.060206 -0.277312  0.036493 -0.078608  0.010579  0.446911 
  haliflav  haligruf  haliobli  herubrev  hya_herm  hyglpusi  hyhyovat  hypoplan 
--0.024222 -0.244814 -0.071501  0.069877  0.175327  0.006404 -0.013159 -0.008145 
+ 0.044538  0.450146  0.131472 -0.128486 -0.322379 -0.011775  0.024196  0.014976 
  hyporusp  hytuinae  hytuvers  laphminu  noteclav  rhantusp  sialluta  ablalong 
--0.126197 -1.259664 -0.963901 -0.344204 -0.004303 -0.036774 -0.603320 -0.008145 
+ 0.232042  2.316179  1.772351  0.632897  0.007912  0.067618  1.109341  0.014976 
  ablaphmo  cltanerv  malopisp  mopetenu  prdiussp  pstavari  chironsp  crchirsp 
--1.627590 -0.041132 -0.025919 -0.004740 -0.301790 -0.045054 -1.027839 -0.009087 
+ 2.992695  0.075631  0.047658  0.008716  0.554911  0.082842  1.889916  0.016709 
  crclglat  ditendsp  mitegchl  pachgarc  pachgvit  popegnub  popedisp  acriluce 
--0.015746 -0.045402 -0.125429  0.006628  0.016265 -0.121971  0.037879  0.004324 
+ 0.028953  0.083481  0.230629 -0.012187 -0.029907  0.224272 -0.069649 -0.007950 
  chclpige  conescut  cricotsp  liesspec  psclbarb  psclgsli  psclobvi  psclplat 
- 0.004756 -0.446524 -0.066095 -0.058403  0.015576 -0.327165  0.197081  0.028310 
+-0.008744  0.821036  0.121530  0.107387 -0.028639  0.601568 -0.362378 -0.052054 
  psclpsil  pscladsp  cladotsp  laa_spec  patanysp  tatarssp  zaa_spec  anopmacu 
--0.003991 -0.003086 -0.293623 -0.018548 -0.079841 -0.364072 -0.027165  0.089046 
+ 0.007339  0.005674  0.539894  0.034105  0.146807  0.669430  0.049949 -0.163731 
  cepogoae  chaoobsc  cucidae4  tabanusp  agdasphr  athrater  cyrncren  holodubi 
--1.389767 -1.328261 -0.018078  0.006309 -0.147828 -0.036774 -0.038705 -0.051532 
+ 2.555403  2.442310  0.033240 -0.011601  0.271815  0.067618  0.071168  0.094754 
  holopici  leceriae  lilurhom  monaangu  mystazur  mystloni  oecefurv  oecelacu 
--0.332631 -0.162413 -0.004929 -0.350402 -0.018078 -1.630725 -0.291847 -0.140893 
+ 0.611618  0.298633  0.009063  0.644295  0.033240  2.998460  0.536628  0.259064 
  triabico  paponysp 
--0.048357 -0.053182 
+ 0.088915  0.097788 
 
 Coefficients for dose + week:dose interaction
 which are contrasts to dose 0 
 rows are dose, columns are week
-        -4     -1    0.1       1      2      4      8     12     15     19
-0.1 0.1327 0.2527 0.1875 0.07479 0.3863 0.2509 0.1485 0.2824 0.2064 0.3977
-0.9 0.1490 0.3558 0.3560 0.87706 0.9151 0.7918 0.2488 0.6523 0.4428 0.3229
-6   0.3055 0.2266 0.8346 2.12626 1.9923 2.1165 1.0317 0.8638 0.5660 0.6054
-44  0.2570 0.3601 1.3438 2.31842 2.3862 2.6894 2.3745 1.8536 1.4377 1.0607
-        24
-0.1 0.1441
-0.9 0.2839
-6   0.3352
-44  0.5704
+          -4      -1     0.1        1       2       4        8      12      15
+0.1 -0.07218 -0.1375 -0.1020 -0.04068 -0.2101 -0.1364 -0.08077 -0.1536 -0.1123
+0.9 -0.08106 -0.1935 -0.1936 -0.47699 -0.4977 -0.4306 -0.13532 -0.3548 -0.2408
+6   -0.16616 -0.1232 -0.4539 -1.15638 -1.0835 -1.1511 -0.56112 -0.4698 -0.3078
+44  -0.13979 -0.1958 -0.7308 -1.26088 -1.2978 -1.4627 -1.29139 -1.0081 -0.7819
+         19       24
+0.1 -0.2163 -0.07835
+0.9 -0.1756 -0.15442
+6   -0.3293 -0.18227
+44  -0.5768 -0.31022
 > logabu <- colSums(pyrifos)
 > plot(mod, select = logabu > 100)
 > ## IGNORE_RDIFF_END
@@ -6513,8 +6289,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Title: Prediction Tools for [Constrained] Ordination (CCA, RDA, DCA,
 > ###   CA, PCA)
 > ### Aliases: fitted.cca fitted.rda fitted.capscale fitted.dbrda
-> ###   residuals.cca predict.cca predict.rda predict.decorana coef.cca
-> ###   coef.rda calibrate.cca calibrate
+> ###   residuals.cca predict.cca predict.rda predict.dbrda predict.decorana
+> ###   coef.cca coef.rda calibrate.cca calibrate
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -6585,14 +6361,14 @@ Scorautu Trifprat Trifrepe Vicilath Bracruta Callcusp
 > mod <- cca(dune[, freq>1] ~ A1 + Management + Condition(Moisture), dune.env)
 > ## IGNORE_RDIFF_BEGIN
 > predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
-               CCA1       CCA2       CCA3       CCA4
-Chenalbu  1.5737337 -0.7842538  0.5503660 0.35108333
-Cirsarve  0.5945146 -0.3714228 -0.2862647 0.88373727
-Empenigr -1.8771953 -0.9904299 -0.2446222 0.04858656
+               CCA1      CCA2       CCA3        CCA4
+Chenalbu  1.5737337 0.7842538  0.5503660 -0.35108333
+Cirsarve  0.5945146 0.3714228 -0.2862647 -0.88373727
+Empenigr -1.8771953 0.9904299 -0.2446222 -0.04858656
 > # New sites
 > predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), scal=2)
-      CCA1      CCA2       CCA3       CCA4
-1 -2.38829 -1.230652 -0.2363485 -0.3338258
+      CCA1     CCA2       CCA3      CCA4
+1 -2.38829 1.230652 -0.2363485 0.3338258
 > # Calibration and residual plot
 > mod <- cca(dune ~ A1 + Moisture, dune.env)
 > pred <- calibrate(mod)
@@ -6674,8 +6450,8 @@ Rotation matrix:
 [2,] 0.1160491  0.9932435
 
 Translation of averages:
-              [,1]          [,2]
-[1,] -4.387224e-17 -1.687662e-17
+             [,1]         [,2]
+[1,] 4.321034e-19 4.059583e-17
 
 Scaling of target:
 [1] 0.6725743
@@ -7096,11 +6872,11 @@ Callcusp 0.00698 0.01611 0.43330 0.50000 0.00000  0.983 0.85
 Rumeacet 0.00453 0.01044 0.43330 0.33300 0.00000  0.990 0.96   
 Cirsarve 0.00398 0.00918 0.43360 0.33300 0.00000  0.996 0.41   
 Chenalbu 0.00233 0.00537 0.43330 0.16700 0.00000  1.000 0.40   
-Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.73   
-Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.68   
-Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.46   
-Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.85   
-Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.85   
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7131,12 +6907,12 @@ Bellpere 0.00999 0.01257 0.79480 0.66700 0.40000  0.978 0.92
 Callcusp 0.00662 0.01508 0.43930 0.50000 0.00000  0.989 0.94   
 Cirsarve 0.00381 0.00867 0.43940 0.33300 0.00000  0.996 0.61   
 Chenalbu 0.00221 0.00503 0.43930 0.16700 0.00000  1.000 0.58   
-Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.75   
-Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.83   
-Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.52   
-Hyporadi 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.92   
-Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.91   
-Vicilath 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.92   
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Hyporadi 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Vicilath 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7172,7 +6948,7 @@ Empenigr 0.00523 0.01200 0.43540 0.00000 0.33300  0.986 0.28
 Cirsarve 0.00478 0.01089 0.43910 0.33300 0.00000  0.993 0.01 **
 Chenalbu 0.00289 0.00660 0.43820 0.16700 0.00000  0.996 0.01 **
 Vicilath 0.00279 0.00642 0.43450 0.00000 0.16700  1.000 0.72   
-Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.97   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7202,13 +6978,13 @@ Eleopalu 0.01017 0.02111 0.48170 0.00000 0.80000  0.955 0.97
 Hyporadi 0.00895 0.01312 0.68240 0.66700 0.00000  0.974 0.54  
 Poaprat  0.00720 0.01010 0.71330 4.00000 3.40000  0.989 1.00  
 Ranuflam 0.00508 0.01055 0.48170 0.00000 0.40000  1.000 0.99  
-Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.54  
-Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.37  
-Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.44  
-Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.74  
-Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.33  
-Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.80  
-Callcusp 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.77  
+Airaprae 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Comapalu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Empenigr 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Salirepe 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
+Callcusp 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7240,11 +7016,11 @@ Airaprae 0.01341 0.01969 0.68100 0.00000 0.83300  0.965 0.34
 Comapalu 0.01074 0.01571 0.68400 0.00000 0.66700  0.980 0.46   
 Alopgeni 0.01000 0.01463 0.68300 0.66700 0.00000  0.993 0.99   
 Empenigr 0.00479 0.01105 0.43300 0.00000 0.33300  1.000 0.37   
-Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.38   
-Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.49   
-Juncbufo 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.95   
-Rumeacet 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.94   
-Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.83   
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Juncbufo 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Rumeacet 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Trifprat 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -7279,8 +7055,8 @@ Comapalu 0.01011 0.01456 0.69400 0.00000 0.66700  0.978 0.26
 Bellpere 0.00880 0.01373 0.64100 0.40000 0.33300  0.990 0.93   
 Empenigr 0.00454 0.01033 0.43900 0.00000 0.33300  0.997 0.59   
 Vicilath 0.00240 0.00546 0.43900 0.00000 0.16700  1.000 0.85   
-Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.54   
-Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000 0.53   
+Chenalbu 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
+Cirsarve 0.00000 0.00000     NaN 0.00000 0.00000  1.000   NA   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -7345,7 +7121,7 @@ Number of permuted matrices = 99
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: sipoo
-> ### Title: Birds in the Archipelago of Sipoo (Sibbo and Borg<c3><a5>)
+> ### Title: Birds in the Archipelago of Sipoo (Sibbo and Borgå)
 > ### Aliases: sipoo sipoo.map
 > ### Keywords: datasets
 > 
@@ -8016,20 +7792,19 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ## Phylogenetically ordered community table
 > dtree <- treedist(dune, cl)
 > tabasco(dune, hclust(dtree), cl)
-> ## Use tree distances  in capscale
-> capscale(dtree ~ 1, comm=dune)
-Call: capscale(formula = dtree ~ 1, comm = dune)
+> ## Use tree distances in distance-based RDA
+> dbrda(dtree ~ 1)
+Call: dbrda(formula = dtree ~ 1)
 
-                Inertia Rank
-Total          2.335836     
-Unconstrained  2.343860   10
-Imaginary     -0.008024    9
+              Inertia Rank RealDims
+Total           2.183              
+Unconstrained   2.183   19       10
 Inertia is squared Treedist distance 
-Species scores projected from ‘dune’ 
 
 Eigenvalues for unconstrained axes:
-  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8   MDS9  MDS10 
-1.1971 0.4546 0.2967 0.1346 0.1067 0.0912 0.0391 0.0190 0.0045 0.0004 
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+1.1971 0.4546 0.2967 0.1346 0.1067 0.0912 0.0391 0.0190 
+(Showing 8 of 19 unconstrained eigenvalues)
 
 > 
 > 
@@ -8726,7 +8501,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > flush(stderr()); flush(stdout())
 > 
 > ### Encoding: UTF-8
-> 
 > ### Name: vegdist
 > ### Title: Dissimilarity Indices for Community Ecologists
 > ### Aliases: vegdist
@@ -8941,49 +8715,49 @@ scale:  Hult
                                   
             1   111  1211221212222
           431567380922149306254578
- Flavniva 21.111.111....11........
  Cladamau .1.1...1................
- Stersp   111211111....111.1.111.1
- Polypili ..111..1......111..1....
- Diphcomp .1...111.1...........1..
+ Flavniva 21.111.111....11........
  Cladphyl ..1.....11...1..........
- Cladrang 344544332133111223121121
- Cladcerv 1.........1..........1..
+ Diphcomp .1...111.1...........1..
  Cladstel 454121215555213111111.1.
+ Cladrang 344544332133111223121121
  Cladarbu 322344331111132222121111
- Vacculig 11...2.1........1.1..111
- Callvulg 111.1.311.11.1..11111...
  Icmaeric ...1.1.......1...1......
- Cladsp   1...1.11.1......111..11.
- Cladcocc 1111111111...1111111.1.1
- Pinusylv 1.111.1111111111111111.1
+ Callvulg 111.1.311.11.1..11111...
+ Polypili ..111..1......111..1....
+ Nepharct .1...1.1........1....1..
+ Stersp   111211111....111.1.111.1
  Cladchlo .1..111.111.1.11..1.1...
- Cetrisla 1.1...1.11.111...1.111.1
- Cladfimb 11.11111111111111111.111
- Peltapht ..1...11.......1.....11.
+ Cladcerv 1.........1..........1..
  Cetreric 11.1111111...1..111111..
- Cladgrac 11111111.111111111111111
- Pohlnuta 111..11111.1111111111.11
- Ptilcili .11.1.11.11.2.11.1111111
- Barbhatc ......1.....1.11......1.
+ Cladcocc 1111111111...1111111.1.1
  Cladcorn 111111111111111111111111
- Vaccviti 113122132323412331223232
  Cladcris 111111111111111111111111
- Empenigr 111111122122312322111231
- Cladbotr ......1.....1.111...1.11
- Betupube ............1.....1..1..
- Cladunci 111111111111131111112111
- Claddefo 11.111111111111111111111
- Dicrpoly ..11.1..11..1.1111.11..1
- Polycomm ............111......11.
- Rhodtome ......1.....1.....1...11
+ Cladfimb 11.11111111111111111.111
+ Cladgrac 11111111.111111111111111
  Polyjuni 1.111111111.111111.112.1
+ Vacculig 11...2.1........1.1..111
+ Pinusylv 1.111.1111111111111111.1
+ Pohlnuta 111..11111.1111111111.11
+ Claddefo 11.111111111111111111111
+ Cladunci 111111111111131111112111
+ Cladsp   1...1.11.1......111..11.
+ Peltapht ..1...11.......1.....11.
+ Vaccviti 113122132323412331223232
+ Cetrisla 1.1...1.11.111...1.111.1
+ Dicrpoly ..11.1..11..1.1111.11..1
+ Empenigr 111111122122312322111231
+ Ptilcili .11.1.11.11.2.11.1111111
  Dicrfusc 11111111111112111442.211
+ Barbhatc ......1.....1.11......1.
+ Descflex 1....1......1.1...1..111
  Pleuschr 113111111111123333444455
  Vaccmyrt ......1..1..311..111..13
- Nepharct .1...1.1........1....1..
+ Cladbotr ......1.....1.111...1.11
+ Rhodtome ......1.....1.....1...11
+ Polycomm ............111......11.
+ Betupube ............1.....1..1..
  Dicrsp   ......1....11...111133.1
- Descflex 1....1......1.1...1..111
  Hylosple ................1....122
 24 sites, 44 species
 scale:  Hult 
@@ -9158,13 +8932,13 @@ Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--4.440892e-16  6.661338e-16 -2.775558e-16  5.551115e-17  2.775558e-17 
+-8.881784e-16  7.216450e-16 -1.665335e-16 -2.775558e-17  1.110223e-16 
           CA6           CA7           CA8           CA9          CA10 
- 2.775558e-16 -2.359224e-16 -8.326673e-17  1.387779e-17  6.245005e-17 
+ 2.359224e-16 -2.914335e-16 -8.326673e-17  5.551115e-17  3.469447e-17 
          CA11          CA12          CA13          CA14          CA15 
- 1.318390e-16  9.714451e-17  6.245005e-17  1.734723e-17  1.908196e-17 
+ 1.457168e-16  9.020562e-17  8.326673e-17  1.734723e-17 -1.908196e-17 
          CA16          CA17          CA18          CA19 
- 6.938894e-18  1.214306e-17 -3.122502e-17 -1.734723e-18 
+-1.734723e-18  5.204170e-18 -2.255141e-17  1.778092e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9173,7 +8947,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
-1.421e-14 
+4.263e-14 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9195,7 +8969,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.996 0.284 9.293 0 0 
+Time elapsed:  8.598 0.302 8.931 0 0 
 > grDevices::dev.off()
 null device 
           1 

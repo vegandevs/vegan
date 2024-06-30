@@ -6,13 +6,16 @@
   Choose a Model by Permutation Tests in Constrained Ordination
 }
 \description{
+
   Automatic stepwise model building for constrained ordination methods
-  (\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}).
-  The function \code{ordistep} is modelled after \code{\link{step}} and
-  can do forward, backward and stepwise model selection using permutation tests.
-  Function \code{ordiR2step} performs forward model choice solely on adjusted
-  \eqn{R^2}{R2} and P-value, for ordination objects created by \code{\link{rda}} or \code{\link{capscale}}.
+  (\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
+  \code{\link{capscale}}).  The function \code{ordistep} is modelled
+  after \code{\link{step}} and can do forward, backward and stepwise
+  model selection using permutation tests.  Function \code{ordiR2step}
+  performs forward model choice solely on adjusted \eqn{R^2}{R2} and
+  \eqn{P}-value.
 }
+
 \usage{
 ordistep(object, scope, direction = c("both", "backward", "forward"),
    Pin = 0.05, Pout = 0.1, permutations = how(nperm = 199), steps = 50,

@@ -16,7 +16,7 @@
   The function performs an ANOVA like permutation test for Constrained
   Correspondence Analysis (\code{\link{cca}}), Redundancy Analysis
   (\code{\link{rda}}) or distance-based Redundancy Analysis (dbRDA,
-  \code{\link{capscale}}) to assess the significance of constraints.
+  \code{\link{dbrda}}) to assess the significance of constraints.
 }
 
 \usage{

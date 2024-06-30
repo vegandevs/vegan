@@ -32,6 +32,6 @@
     if (unity) ## each column sums to 1
         out <- sweep(out, 2, colSums(out), "/")
     if (proportional)
-        out <- out/getComps(tot, display)
+        out <- sweep(out, 1, rowSums(out), "/")
     out
 }

@@ -7,7 +7,8 @@
   \code{\link{text}}, but the text is on an opaque label. This can help
   in crowded ordination plots: you still cannot see all text labels, but
   at least the uppermost are readable. Argument \code{priority} helps to
-  make the most important labels visible.  }
+  make the most important labels visible.  Function can be used in pipe
+  after ordination \code{plot} or \code{\link{ordiplot}} command. }
 
 \usage{
 ordilabel(x, display, labels, choices = c(1, 2), priority, select, 
@@ -46,9 +47,14 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
 
 \details{ The function may be useful with crowded ordination plots, in
   particular together with argument \code{priority}. You will not see
-  all text labels, but at least some are readable. Other alternatives to
-  crowded plots are \code{\link{identify.ordiplot}},
-  \code{\link{orditorp}} and \code{\link{orditkplot}}.  }
+  all text labels, but at least some are readable. Function can be used
+  as a part of a pipe (\code{|>}) in place of \code{text} after an
+  ordination \code{plot} command (see Examples).
+
+  Other alternatives to crowded plots are
+  \code{\link{identify.ordiplot}}, \code{\link{orditorp}} and
+  \code{\link[vegan3d]{orditkplot}} (in \pkg{vegan3d} package).
+}
 
 \author{ Jari Oksanen }
 
@@ -59,9 +65,14 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
 data(dune)
 ord <- cca(dune)
 plot(ord, type = "n")
+## add text
 ordilabel(ord, dis="sites", cex=1.2, font=3, fill="hotpink", col="blue")
 ## You may prefer separate plots, but here species as well
 ordilabel(ord, dis="sp", font=2, priority=colSums(dune))
+## use in a pipe
+plot(ord, type = "n") |>
+   ordilabel("spec", font = 3, priority = colSums(dune)) |>
+   points("sites", pch=21, bg = "yellow", col = "blue")
 }
 \keyword{ aplot }
 

@@ -57,10 +57,9 @@ an official part of the [GNU](https://www.gnu.org/) project (“GNU S”).
 Both R and latest release version of **vegan** can be obtained through
 [CRAN](https://cran.r-project.org). Unstable development version of
 **vegan** can be obtained through
-[GitHub](https://github.com/vegandevs/vegan). Formerly **vegan** was
-developed in [R-Forge](https://r-forge.r-project.org/projects/vegan/),
-but after moving to [GitHub](https://github.com/vegandevs/vegan) the
-R-Forge repository is out of date.
+[GitHub](https://github.com/vegandevs/vegan). The github page gives
+further instructions for obtaining and installing development versions
+of **vegan**.
 
 ------------------------------------------------------------------------
 
@@ -72,15 +71,16 @@ is developed together with **vegan** in
 [GitHub](https://github.com/gavinsimpson/permute).
 
 Some individual **vegan** functions depend on packages **MASS**,
-**mgcv**, **parallel**, **cluster**, **lattice** and **tcltk**. These
-all are base or recommended R packages that should be available in
-every R installation.  **Vegan** declares these as suggested or
-imported packages, and you can install **vegan** and use most of its
-functions without these packages.
+**mgcv**, **parallel**, **cluster** and **lattice**. **Vegan**
+dependence on **tcltk** is deprecated and will be removed in future
+releases. These all are base or recommended R packages that should be
+available in every R installation.  **Vegan** declares these as
+suggested or imported packages, and you can install **vegan** and use
+most of its functions without these packages.
 
 **Vegan** is accompanied with a supporting package **vegan3d** for
 three-dimensional and dynamic plotting. The **vegan3d** package needs
-non-standard packages **rgl** and **scatterplot3d**.
+**tcltk** and non-standard packages **rgl** and **scatterplot3d**.
 
 ------------------------------------------------------------------------
 
@@ -103,7 +103,7 @@ last resource you can use the force and the read the source, as
 documents which can be read with `browseVignettes("vegan")`
 command. The documents included in the **vegan** package are
 
--   **Vegan** `NEWS`
+-   **Vegan** `NEWS` that can be accessed via `news()` command.
 -   This document (`FAQ-vegan`).
 -   Short introduction to basic ordination methods in **vegan**
     (`intro-vegan`).
@@ -115,7 +115,8 @@ command. The documents included in the **vegan** package are
 
 Web documents outside the package include:
 
--   <https://github.com/vegandevs/vegan>: **vegan** homepage.
+-   <https://github.com/vegandevs/vegan>: development page.
+-   <https://vegandevs.github.io/vegan/>: **vegan** homepage.
 
 ------------------------------------------------------------------------
 
@@ -154,10 +155,8 @@ MacOS X).
 
 ### Are there binaries for devel versions?
 
-Not currently. You need tools to build C and Fortran programs to
-install **vegan**. If you have those, you can use
-`devtools::install_github("vegan")` to install the most recent devel
-version.
+Binaries can be available from R Universe: see
+<https://github.com/vegandevs/vegan> for instructions.
 
 ------------------------------------------------------------------------
 
@@ -217,7 +216,7 @@ Ordination
 
 You are wrong! Computers are painfully pedantic, and if they find
 non-numeric or negative data entries, you really have them. Check your
-data. Most common reasons for non-numeric data are that row names were
+data! Most common reasons for non-numeric data are that row names were
 read as a non-numeric variable instead of being used as row names (check
 argument `row.names` in reading the data), or that the column names were
 interpreted as data (check argument `header = TRUE` in reading the
@@ -354,6 +353,7 @@ on “Design decision and implementation details in vegan” that you can
 read with command `browseVignettes("vegan")`.
 
 ------------------------------------------------------------------------
+
 ### I cannot print and plot RDA results properly
 
 If the RDA ordination results have a weird format or you cannot plot
@@ -375,31 +375,26 @@ possible to use these packages simultaneously, and the safest choice
 is to unload one of the packages if only possible. See discussion in
 [vegan github issues](https://github.com/vegandevs/vegan/issues/277).
 
-If you have a very old version of **ade4** (prior to 1.7-8), you may
-have similar name clashes with `cca`. The solution is to upgrade
-**ade4**.
-
 ------------------------------------------------------------------------
+
 ### Ordination fails with “Error in La.svd”
 
-Constrained ordination (`cca`, `rda`, `capscale`) will sometimes fail
-with error message
+Constrained ordination (`cca`, `rda`, `dbrda`, `capscale`) will
+sometimes fail with error message
 `Error in La.svd(x, nu, nv): error code 1 from Lapack routine 'dgesdd'.`
 
 It seems that the basic problem is in the `svd` function of `LAPACK`
 that is used for numerical analysis in R. `LAPACK` is an external
 library that is beyond the control of package developers and R core team
-so that these problems may be unsolvable. It seems that the problems
-with the `LAPACK` code are so common that even the help page of `svd`
-warns about them
+so that these problems may be unsolvable.
 
 Reducing the range of constraints (environmental variables) helps
 sometimes. For instance, multiplying constraints by a constant \< 1.
 This rescaling does not influence the numerical results of constrained
 ordination, but it can complicate further analyses when values of
-constraints are needed, because the same scaling must be applied there.
-We can only hope that this problem is fixed in the future versions of R
-and `LAPACK`.
+constraints are needed, because the same scaling must be applied
+there.  The reports on the problems are getting rare and it may that
+this problem is fixed in R and `LAPACK`.
 
 ------------------------------------------------------------------------
 
@@ -431,28 +426,23 @@ If you still want to get “explanation of variation” (or a deranged
 editor requests that from you), it is possible to get this information
 for some methods:
 
--   Eigenvector methods: Functions `rda`, `cca` and `capscale` give the
-    variation of conditional (partialled), constrained (canonical) and
-    residual components, but you must calculate the proportions by hand.
-    Function `eigenvals` extracts the eigenvalues, and
-    `summary(eigenvals(ord))` reports the proportions explained in the
-    result object `ord`. Function `RsquareAdj` gives the R-squared and
-    adjusted R-squared (if available) for constrained components.
-    Function `goodness` gives the same statistics for individual species
-    or sites (species are unavailable with `capscale`). In addition,
-    there is a special function `varpart` for unbiased partitioning of
-    variance between up to four separate components in redundancy
-    analysis.
--   Detrended correspondence analysis (function `decorana`). The total
-    amount of variation is undefined in detrended correspondence
-    analysis, and therefore proportions from total are unknown and
-    undefined. DCA is not a method for decomposition of variation, and
-    therefore these proportions would not make sense either.
--   Nonmetric multidimensional scaling. NMDS is a method for nonlinear
-    mapping, and the concept of of variation explained does not make
-    sense. However, 1 - stress\^2 transforms nonlinear stress into
-    quantity analogous to squared correlation coefficient. Function
-    `stressplot` displays the nonlinear fit and gives this statistic.
+- Eigenvector methods: Functions `rda`, `cca`, `dbrda` and `capscale`
+  give the variation of conditional (partialled), constrained
+  (canonical) and residual components.  Function `eigenvals` extracts
+  the eigenvalues, and `summary(eigenvals(ord))` reports the
+  proportions explained in the result object `ord`, and also works
+  with `decorana` and `wcmdscale`. Function `RsquareAdj` gives the
+  R-squared and adjusted R-squared (if available) for constrained
+  components.  Function `goodness` gives the same statistics for
+  individual species or sites.  In addition, there is a special
+  function `varpart` for unbiased partitioning of variance between up
+  to four separate components in redundancy analysis.
+
+- Nonmetric multidimensional scaling. NMDS is a method for
+  nonlinear mapping, and the concept of of variation explained does
+  not make sense. However, 1 - stress\^2 transforms nonlinear stress
+  into quantity analogous to squared correlation coefficient. Function
+  `stressplot` displays the nonlinear fit and gives this statistic.
 
 ------------------------------------------------------------------------
 
@@ -462,7 +452,7 @@ No. Strictly speaking, this is impossible. However, you can define
 models that respond to similar goals as random effects models, although
 they strictly speaking use only fixed effects.
 
-Constrained ordination functions `cca`, `rda` and `capscale` can have
+Constrained ordination functions `cca`, `rda` and `dbrda` can have
 `Condition()` terms in their formula. The `Condition()` define partial
 terms that are fitted before other constraints and can be used to remove
 the effects of background variables, and their contribution to
@@ -503,20 +493,14 @@ add points to eigenvector methods using `predict` functions with
 sites, and then you can find scores for all points using your complete
 data as `newdata`. The `predict` functions are available for basic
 eigenvector methods in **vegan** (`cca`, `rda`, `decorana`, for an
-up-to-date list, use command `methods("predict")`). You also can
-simulate the passive points in R by using low weights to row and columns
-(this is the method used in software with passive points). For instance,
-the following command makes row 3 “passive”:
-`dune[3,] <- 0.001*dune[3,]`.
+up-to-date list, use command `methods("predict")`).
 
 ------------------------------------------------------------------------
 
 ### Class variables and dummies
 
 You should define a class variable as an R `factor`, and **vegan** will
-automatically handle them with formula interface. You also can define
-constrained ordination without formula interface, but then you must code
-your class variables by hand.
+automatically handle them.
 
 R (and **vegan**) knows both unordered and ordered factors. Unordered
 factors are internally coded as dummy variables, but one redundant level
@@ -535,7 +519,7 @@ lengths of `envfit` arrows using command `scores`.
 
 The scaled environmental vectors from `envfit` and the arrows for
 continuous environmental variables in constrained ordination (`cca`,
-`rda`, `capscale`) are adjusted to fill the current graph. The lengths
+`rda`, `dbrda`) are adjusted to fill the current graph. The lengths
 of arrows do not have fixed meaning with respect to the points (species,
 sites), but they can only compared against each other, and therefore
 only their relative lengths are important.
@@ -650,10 +634,10 @@ discussion and examples.
 -   Ordination `text` and `points` functions have argument `select` that
     can be used for full control of selecting items plotted as text or
     points.
--   Use interactive `orditkplot` function that lets you drag labels of
-    points to better positions if you need to see all labels. Only one
-    set of points can be used (see [Decluttering
-    blog](https://fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/)).
+-   Use interactive `orditkplot` function (**vegan3d** package)
+    that lets you drag labels of points to better positions if you need to see
+    all labels. Only one set of points can be used
+    (see [Decluttering blog](https://fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/)).
 -   Most `plot` functions allow you to zoom to a part of the graph using
     `xlim` and `ylim` arguments to reduce clutter in congested areas.
 
@@ -674,10 +658,10 @@ into ordination diagrams. Normally you must set both `xlim` and `ylim`
 because ordination plots will keep the equal aspect ratio of axes, and
 they will fill the graph so that the longer axis will fit.
 
-Dynamic zooming can be done with function `orditkplot`. You can directly
-save the edited `orditkplot` graph in various graphic formats, or you
-can export the graph object back to R and use `plot` to display the
-results.
+Dynamic zooming can be done with function `orditkplot` in CRAN package
+**vegan3d**. You can directly save the edited `orditkplot` graph in
+various graphic formats, or you can export the graph object back to R
+session and use `plot` to display the results.
 
 ------------------------------------------------------------------------
 
@@ -688,10 +672,8 @@ Other analysis methods
 
 ### Is there TWINSPAN?
 
-No. It may be possible to port TWINSPAN to **vegan**, but it is not
-among the **vegan** top priorities. If anybody wants to try porting, I
-will be happy to help. TWINSPAN has a very permissive license, and it
-would be completely legal to port the function into R.
+TWINSPAN for R is available in
+[github](https://github.com/jarioksa/twinspan).
 
 ------------------------------------------------------------------------
 

@@ -2,8 +2,8 @@
 ### latter can have special features which are commented below. cca
 ### results are handled by scores.cca.
 `scores.rda` <-
-    function (x, choices = c(1, 2), display = c("sp", "wa", "bp", "cn"),
-              scaling = "species", const, correlation = FALSE, tidy = FALSE,
+    function (x, choices = c(1, 2), display = "all", scaling = "species",
+              const, correlation = FALSE, tidy = FALSE, droplist = TRUE,
               ...)
 {
     ## Check the na.action, and pad the result with NA or WA if class
@@ -169,7 +169,8 @@
         const <- const[1]
     ## return NULL for list(), matrix for single scores, and a list
     ## for several scores
-    sol <- switch(min(2, length(sol)), sol[[1]], sol)
+    if (droplist)
+        sol <- switch(min(2, length(sol)), sol[[1]], sol)
     if (!is.null(sol))
         attr(sol, "const") <- const
     sol

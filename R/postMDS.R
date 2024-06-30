@@ -45,7 +45,7 @@
         else {
             k <- coef(lm(dist[take] ~ ordi[take]))
             names(k) <- NULL
-            hc <- (1 - k[1])/2/k[2]
+            hc <- (maxdist - k[1])/2/k[2]
             x <- x/hc
         }
     }

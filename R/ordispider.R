@@ -17,6 +17,8 @@
         return(invisible(lc))
     }
     pts <- scores(ord, display = display, ...)
+    if (ncol(pts) > 2)
+        pts <- pts[, 1:2, drop = FALSE]
     ## spids stores pointwise centroids to be returned invisibly
     ## (transposed here so that filling is easier, but back-transposed
     ## when returned).

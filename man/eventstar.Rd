@@ -58,7 +58,7 @@ relative abundance distributions of the communities.
 }
 \value{
 A data frame with columns:
-\itemize{
+
   \item{\code{qstar}}{ scale parameter value \eqn{q\ast}{q*}
     corresponding to minimum value of Tsallis based evenness profile.}
   \item{\code{Estar}}{ Value of evenness based on normalized Tsallis 
@@ -68,7 +68,7 @@ A data frame with columns:
     converted to numbers equivalents
     (also called as Hill numbers, effective number of species, 
     \sQuote{true} diversity; cf. Jost 2007).}
-}
+
 See \code{\link{tsallis}} for calculation details.
 }
 \references{

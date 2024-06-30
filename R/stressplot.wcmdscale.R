@@ -186,11 +186,16 @@
 ### dbrda() returns only row scores 'u' (LC scores for constraints,
 ### site scores for unconstrained part), and these can be used to
 ### reconstitute dissimilarities only in unconstrained ordination or
-### for constrained component.
+### for constrained component. stressplot across component would need
+### reconstruction of data, but dbrda components are not additive, or
+### ordiYbar(x, "initial") is *not* ordiYbar(x, "pCCA") + ordiYbar(x,
+### "CCA") + ordiYbar(x, "CA").
 
 `stressplot.dbrda` <-
     function(object, k = 2, pch, p.col = "blue", l.col = "red", lwd = 2, ...)
 {
+    if (!is.null(object$pCCA))
+        stop("partial models cannot be analysed")
     ## Reconstructed zero distances can be tiny (negative) non-zero
     ## values, and we zap them to zero
     ZAP <- sqrt(.Machine$double.eps)
@@ -212,27 +217,27 @@
     ## undo internal sqrt.dist
     if (object$sqrt.dist)
         dis <- dis^2
-    ## Approximate dissimilarities from real components. Can only be
-    ## used for one component.
-    if (is.null(object$CCA)) {
-        U <- object$CA$u
-        eig <- object$CA$eig
-    } else {
+    ## Approximate dissimilarities from real components with positive
+    ## eigenvalues.
+    if (!is.null(object$CCA)) {
         U <- object$CCA$u
-        eig <- object$CCA$eig
+        kmax <- object$CCA$poseig
+        eig <- object$CCA$eig[seq_len(kmax)]
+    } else {
+        U <- object$CA$u
+        kmax <- object$CA$poseig
+        eig <- object$CA$eig[seq_len(kmax)]
     }
-    eig <- eig[eig > 0]
-    ## check that 'k' does not exceed real rank
-    if (k > ncol(U))
-        warning(gettextf("max allowed rank is k = %d", ncol(U)))
-    k <- min(k, ncol(U))
-    Gk <- tcrossprod(sweep(U[, seq_len(k), drop=FALSE], 2,
-                  sqrt(eig[seq_len(k)]), "*"))
-    dia <- diag(Gk)
-    odis <- -2 * Gk + outer(dia, dia, "+")
-    odis[abs(odis) < ZAP] <- 0
-    odis <- sqrt(as.dist(odis)) * object$adjust
-    ## Plot
+    U <- U %*% diag(sqrt(eig), nrow = kmax)
+    if (k > kmax) {
+        warning(gettextf("max allowed rank is k = %d", kmax))
+        k <- kmax
+    }
+    if (k > 0) {
+        odis <- dist(U[, seq_len(k), drop = FALSE]) * object$adjust
+    } else {
+        odis <- dist(matrix(0, nrow(U)))
+    }
     if (missing(pch))
         if (length(dis) > 5000)
             pch <- "."

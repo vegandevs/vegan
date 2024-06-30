@@ -131,8 +131,8 @@ oecosimu(dune, treedive, "r1", tree = cl, verbose = FALSE)
 ## Phylogenetically ordered community table
 dtree <- treedist(dune, cl)
 tabasco(dune, hclust(dtree), cl)
-## Use tree distances  in capscale
-capscale(dtree ~ 1, comm=dune)
+## Use tree distances in distance-based RDA
+dbrda(dtree ~ 1)
 }
 
 \keyword{ univar }

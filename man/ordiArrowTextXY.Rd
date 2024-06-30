@@ -13,9 +13,8 @@
 }
 \usage{
 ordiArrowTextXY(x, labels, display, choices = c(1,2),
-                rescale = TRUE, fill = 0.75, at = c(0,0), \ldots)
-ordiArrowMul(x, at = c(0,0), fill = 0.75,
-             display, choices = c(1,2), \ldots)
+    rescale = TRUE, fill = 0.75, at = c(0,0), cex = NULL, \ldots)
+ordiArrowMul(x, at = c(0,0), fill = 0.75, display, choices = c(1,2), \ldots)
 }
 
 \arguments{
@@ -34,7 +33,7 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
     of its methods which indicates the type of scores to extract. In
     fitting functions these are ordinary site scores or linear
     combination scores (\code{"lc"}) in constrained ordination
-    (\code{\link{cca}}, \code{\link{rda}}, \code{\link{capscale}}). If
+    (\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}}). If
     \code{x} was created by \code{envfit} then \code{display} can not be
     set by the user and takes the value \code{"vectors"}. Ignored if
     \code{x} is a matrix.}
@@ -54,6 +53,8 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
   \item{at}{The origin of fitted arrows in the plot.  If you plot arrows
     in other places than origin, you probably have to specify
     \code{arrrow.mul}.}
+
+  \item{cex}{Character expansion for text.}
 
   \item{...}{Parameters passed to \code{\link{scores}}, and
     \code{\link{strwidth}} and \code{\link{strheight}}.}
@@ -97,9 +98,9 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75,
     ## calculate coordinate of labels for arrows
     (bip.lab <- ordiArrowTextXY(bip.scl, rescale = FALSE, labels = labs))
 
-    ## draw arrows and text labels
+    ## arrows will touch the bounding box of the text
     arrows(0, 0, bip.scl[,1], bip.scl[,2], length = 0.1)
-    text(bip.lab, labels = labs)
+    ordilabel(bip.lab, labels = labs)
 
     ## Handling of ordination objects directly
     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)

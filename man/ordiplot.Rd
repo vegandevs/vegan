@@ -19,12 +19,12 @@
 }
 
 \usage{
-ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
-     cex = 0.7, ...)
-\method{identify}{ordiplot}(x, what, labels,  ...)
-\method{points}{ordiplot}(x, what, select, arrows = FALSE, ...)
+ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
+\method{points}{ordiplot}(x, what, select, arrows = FALSE,
+    length = 0.05, arr.mul, ...)
 \method{text}{ordiplot}(x, what, labels, select, arrows = FALSE,
-    length = 0.05, ...)
+    length = 0.05, arr.mul, bg, ...)
+\method{identify}{ordiplot}(x, what, labels,  ...)
 }
 
 \arguments{
@@ -34,27 +34,34 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
     \code{"text"} or \code{"none"} for any ordination method.}
   \item{display}{Display only "sites" or "species". The default for most
     methods is to display both, but for \code{\link{cca}},
-    \code{\link{rda}} and \code{\link{capscale}} it is the same as in
-    \code{\link{plot.cca}}.  }
+    \code{\link{rda}}, \code{\link{dbrda}} and \code{\link{capscale}}
+    it is the same as in \code{\link{plot.cca}}.  }
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
-  \item{cex}{Character expansion factor for points and text.}
   \item{\dots}{Other graphical parameters. }
   \item{x}{A result object from \code{ordiplot}.}
   \item{what}{Items identified in the ordination plot. The types depend
     on the kind of plot used. Most methods know \code{sites} and
     \code{species}, functions \code{\link{cca}} and \code{\link{rda}}
     know in addition 
-    \code{constraints} (for LC scores), \code{centroids} and
-    \code{biplot}, and \code{\link{plot.procrustes}} ordination plot has
-    \code{heads} and \code{points}.}
+    \code{constraints} (for LC scores), \code{centroids}, \code{biplot}
+    and \code{regression}, and \code{\link{plot.procrustes}} ordination
+    plot has \code{heads} and \code{points}.}
   \item{labels}{Optional text used for labels. Row names will be used if
     this is missing.}
   \item{arrows}{Draw arrows from the origin. This will always be
-    \code{TRUE} for biplot scores and its value will be ignored. Setting
-    this \code{TRUE} will draw arrows for any type of scores. This
+    \code{TRUE} for biplot and regression scores in constrained
+    ordination (\code{\link{cca}} etc.) and its value will be ignored.
+    Setting this \code{TRUE} will draw arrows for any type of scores. This
     allows, e.g, using biplot arrows for species. The arrow head will be
     at the value of scores, and possible text is moved outwards.}
   \item{length}{Length of arrow heads (see \code{\link{arrows}}).}
+  \item{arr.mul}{Numeric multiplier to arrow lenghts; this will also set
+    \code{arrows = TRUE}. The default is to automatically adjust arrow
+    lengths with \code{"biplot"} and \code{"regression"} scores and else
+    use scores directly.}
+  \item{bg}{Background colour for labels. If \code{bg} is set, the
+    labels are displayed with \code{\link{ordilabel}} instead of
+    \code{\link{text}}.  }
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items.}
@@ -89,7 +96,7 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
   functions for ordination results will also return an invisible
   \code{ordiplot} object. If the \code{plot(..., type = "n")} was used
   originally, the plot is empty, and items can be added with the
-  invisible object. Functions \code{points} and \code{text} will return
+  invisible object. Functions \code{points} and \code{text} return
   their input object without modification, which allows chaining these
   commands with pipes. Function \code{identify.ordiplot} uses this
   object to label the point.
@@ -98,13 +105,6 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim,
 
 \author{
   Jari Oksanen
-}
-\note{
-  The purpose of these functions is to provide similar functionality as
-  the \code{plot}, \code{plotid} and \code{specid} methods in library
-  \code{labdsv}. The functions are somewhat limited in parametrization,
-  but you can call directly the standard \code{\link{identify}} and
-  \code{\link{plot}} functions for a better user control.
 }
 
 \seealso{ \code{\link{identify}} for basic operations, \code{\link{plot.cca}},
@@ -123,12 +123,12 @@ dune.mds$species <- wascores(dune.mds$points, dune, expand = TRUE)
 pl <- ordiplot(dune.mds, type = "none")
 points(pl, "sites", pch=21, col="red", bg="yellow")
 text(pl, "species", col="blue", cex=0.9)
-\dontrun{
-## same plot using pipes (pipes |> are available from R version 4.1.0)
-if (getRversion() >= "4.1") {
+
+## same plot using pipes (|>)
 ordiplot(dune.mds, type="n") |>
   points("sites", pch=21, col="red", bg="yellow") |>
   text("species", col="blue", cex=0.9)
+
 ## Some people think that species should be shown with arrows in PCA.
 ## Other ordination methods also return an invisible ordiplot object and
 ## we can use pipes to draw those arrows.
@@ -136,8 +136,7 @@ mod <- rda(dune)
 plot(mod, type="n") |>
   points("sites", pch=16, col="red") |>
   text("species", arrows = TRUE, length=0.05, col="blue")
-}
-}
+
 ## Default plot of the previous using identify to label selected points
 \dontrun{
 pl <- ordiplot(dune.mds)

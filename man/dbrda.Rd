@@ -1,29 +1,38 @@
-\name{capscale}
+\name{dbrda}
 \alias{capscale}
 \alias{dbrda}
+\alias{pco}
 
-\title{[Partial] Distance-based Redundancy Analysis }
+\title{Principal Coordinates Analysis and [Partial] Distance-based
+Redundancy Analysis}
+
 \description{
+
   Distance-based redundancy analysis (dbRDA) is an ordination method
   similar to Redundancy Analysis (\code{\link{rda}}), but it allows
   non-Euclidean dissimilarity indices, such as Manhattan or
-  Bray--Curtis distance. Despite this non-Euclidean feature, the analysis
-  is strictly linear and metric. If called with Euclidean distance,
-  the results are identical to \code{\link{rda}}, but dbRDA
-  will be less efficient. Functions \code{capscale} and \code{dbrda} are
-  constrained versions of metric scaling, a.k.a. principal coordinates
-  analysis, which are based on the Euclidean distance but can be used,
-  and are more useful, with other dissimilarity measures. The functions
-  can also perform unconstrained principal coordinates analysis,
-  optionally using extended dissimilarities.
+  Bray-Curtis distance. Despite this non-Euclidean feature, the
+  analysis is strictly linear and metric. If called with Euclidean
+  distance, the results are identical to \code{\link{rda}}, but dbRDA
+  will be less efficient. Functions \code{dbrda} is constrained
+  versions of metric scaling, a.k.a. principal coordinates analysis,
+  which are based on the Euclidean distance but can be used, and are
+  more useful, with other dissimilarity measures. Function
+  \code{capscale} is a simplified version based on Euclidean
+  approximation of dissimilarities. The functions can also perform
+  unconstrained principal coordinates analysis (PCO), optionally using
+  extended dissimilarities. \code{pco()} is a wrapper to \code{dbrda()},
+  which performs PCO.
 }
+
 \usage{
-capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
-    comm = NULL, add = FALSE,  dfun = vegdist, metaMDSdist = FALSE,
-    na.action = na.fail, subset = NULL, ...)
 dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     add = FALSE, dfun = vegdist, metaMDSdist = FALSE,
     na.action = na.fail, subset = NULL, ...)
+capscale(formula, data, distance = "euclidean", sqrt.dist = FALSE,
+    comm = NULL, add = FALSE,  dfun = vegdist, metaMDSdist = FALSE,
+    na.action = na.fail, subset = NULL, ...)
+pco(X, ...)
 }
 
 \arguments{
@@ -42,6 +51,7 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
     special term \code{Condition} that defines variables to be
     \dQuote{partialled out} before constraints, just like in \code{\link{rda}}
     or \code{\link{cca}}. This allows the use of partial dbRDA.}
+  \item{X}{ Community data matrix. }
   \item{data}{ Data frame containing the variables on the right hand side of
     the model formula. }
   \item{distance}{The name of the dissimilarity (or distance) index if
@@ -89,25 +99,22 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
      environment, \code{data} or species names of the community data
      (if given in the formula or as \code{comm} argument).}
    \item{\dots}{Other parameters passed to underlying functions (e.g.,
-     \code{\link{metaMDSdist}}).  }
+     \code{\link{metaMDSdist}}). For \code{pco()} argument are passed to
+     \code{dbrda()}. }
 }
 \details{
 
-  Functions \code{capscale} and \code{dbrda} provide two alternative
-  implementations of dbRDA. Function \code{capscale} is based on
+  Functions \code{dbrda} and \code{capscale} provide two alternative
+  implementations of dbRDA.  Function \code{dbrda} is based on McArdle
+  & Anderson (2001) and directly decomposes dissimilarities. With
+  Euclidean distances results are identical to \code{\link{rda}}.
+  Non-Euclidean dissimilarities may give negative eigenvalues
+  associated with imaginary axes. Function \code{capscale} is based on
   Legendre & Anderson (1999): the dissimilarity data are first
   ordinated using metric scaling, and the ordination results are
-  analysed as \code{\link{rda}}. Function \code{dbrda} is based on
-  McArdle & Anderson (2001) and directly decomposes
-  dissimilarities. It does not use \code{\link{rda}} but a parallel
-  implementation adapted for analysing dissimilarities and returns a
-  subset of \code{\link{rda}} items. With Euclidean distances both
-  results are identical to \code{\link{rda}}.  Other dissimilarities
-  may give negative eigenvalues associated with imaginary
-  axes. Negative eigenvalues are handled differently: \code{capscale}
-  ignores imaginary axes and analyses only real axes with positive
-  eigenvalues, and \code{dbrda} directly analyses dissimilarities and
-  can give negative eigenvalues in any component.
+  analysed as \code{\link{rda}}. \code{capscale} ignores the imaginary
+  component and will not give negative eigenvalues (but will report
+  the magnitude on imaginary component).
 
   If the user supplied a community data frame instead of
   dissimilarities, the functions will find dissimilarities using
@@ -130,16 +137,16 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
   a column with sums of positive eigenvalues and an item of sum of
   negative eigenvalues, and \code{dbrda} will add a column giving the
   number of real dimensions with positive eigenvalues.  If negative
-  eigenvalues are disturbing, functions let you to distort the
+  eigenvalues are disturbing, functions let you distort the
   dissimilarities so that only non-negative eigenvalues will be
   produced with argument \code{add = TRUE}. Alternatively, with
-  \code{sqrt.dist = TRUE}, square roots of dissimilarities will be
+  \code{sqrt.dist = TRUE}, square roots of dissimilarities can be
   used which may help in avoiding negative eigenvalues (Legendre &
   Anderson 1999).
 
   The functions can be also used to perform ordinary metric scaling
   a.k.a. principal coordinates analysis by using a formula with only a
-  constant on the left hand side, or \code{comm ~ 1}. With
+  constant on the right hand side, or \code{comm ~ 1}. With
   \code{metaMDSdist = TRUE}, the function can do automatic data
   standardization and use extended dissimilarities using function
   \code{\link{stepacross}} similarly as in non-metric multidimensional
@@ -148,8 +155,8 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 }
 \value{
 
-  The functions return an object of class \code{capscale} or
-  \code{dbrda} which inherits from \code{\link{rda}}. See
+  The functions return an object of class \code{dbrda} or
+  \code{capscale} which inherit from \code{\link{rda}}. See
   \code{\link{cca.object}} for description of the result object.
 
 }
@@ -175,12 +182,20 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 
 \author{ Jari Oksanen }
 
-\note{ The function \code{capscale} was originally developed as a
-  variant of constrained analysis of proximities (Anderson & Willis
-  2003), but these developments made it similar to dbRDA. However, it
-  discards the imaginary dimensions with negative eigenvalues and
-  ordination and significance tests area only based on real dimensions
-  and positive eigenvalues.
+\note{
+
+  Function \code{dbrda} implements real distance-based RDA and is
+  preferred over \code{capscale}. \code{capscale} was originally
+  developed as a variant of constrained analysis of proximities
+  (Anderson & Willis 2003), but these developments made it more
+  similar to dbRDA. However, it discards the imaginary dimensions with
+  negative eigenvalues and ordination and significance tests area only
+  based on real dimensions and positive eigenvalues. \code{capscale}
+  may be removed from \pkg{vegan} in the future. It has been in
+  \code{vegan} since 2003 (CRAN release 1.6-0) while \code{dbrda} was
+  first released in 2016 (version 2.4-0), and removal of
+  \code{capscale} may be disruptive to historical examples and
+  scripts, but in modern times \code{dbrda} should be used.
 
   The inertia is named after the dissimilarity index as defined in the
   dissimilarity data, or as \code{unknown distance} if such
@@ -210,28 +225,18 @@ dbrda(formula, data, distance = "euclidean", sqrt.dist = FALSE,
 
 }
 \examples{
-data(varespec)
-data(varechem)
-## Basic Analysis
-vare.cap <- capscale(varespec ~ N + P + K + Condition(Al), varechem,
-                     dist="bray")
-vare.cap
-plot(vare.cap)
-anova(vare.cap)
-## Avoid negative eigenvalues with additive constant
-capscale(varespec ~ N + P + K + Condition(Al), varechem,
-                     dist="bray", add =TRUE)
-## Avoid negative eigenvalues by taking square roots of dissimilarities
-capscale(varespec ~ N + P + K + Condition(Al), varechem,
-                     dist = "bray", sqrt.dist= TRUE)
-## Principal coordinates analysis with extended dissimilarities
-capscale(varespec ~ 1, dist="bray", metaMDS = TRUE)
+data(varespec, varechem)
 ## dbrda
-dbrda(varespec ~ N + P + K + Condition(Al), varechem,
-                     dist="bray")
+dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray")
+## avoid negative eigenvalues with sqrt distances
+dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray",
+     sqrt.dist = TRUE)
 ## avoid negative eigenvalues also with Jaccard distances
-dbrda(varespec ~ N + P + K + Condition(Al), varechem,
-                     dist="jaccard")
+(m <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="jaccard"))
+## add species scores
+sppscores(m) <- wisconsin(varespec)
+## pco
+pco(varespec, dist = "bray", sqrt.dist = TRUE)
 }
 \keyword{ multivariate }
 

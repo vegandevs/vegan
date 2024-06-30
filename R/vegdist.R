@@ -35,16 +35,16 @@
         warning("results may be meaningless because data have negative entries
                  in method ",
                  dQuote(inm))
-    if (method %in% c(11,18) && any(colSums(x) == 0))
+    if (method %in% c(11,18) && any(colSums(x) == 0, na.rm = TRUE))
         warning("data have empty species which influence the results in
                  method ",
                 dQuote(inm))
     if (method == 6) # gower, but no altGower
         x <- decostand(x, "range", 2, na.rm = TRUE, ...)
     if (method == 16) # mahalanobis
-        x <- veganMahatrans(scale(x, scale = FALSE))
+        x <- veganMahatrans(scale(x, scale = FALSE), na.rm = na.rm)
     if (method == 18) # chisq
-        x <- decostand(x, "chi.square")
+        x <- decostand(x, "chi.square", na.rm = na.rm)
     if (method == 21)  # aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
     if (method == 22)  # robust.aitchison

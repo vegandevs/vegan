@@ -180,13 +180,13 @@
         sumev <- sum(object)
     }
     vars <- object/sumev
-    cumvars <- if (!anyNA(vars) && all(vars >= 0)) {
+    cumvars <- if (!anyNA(vars)) {
         cumsum(vars)
     } else {
         NA
     }
     out <- rbind(`Eigenvalue` = object,
-                 `Proportion Explained` = abs(vars),
+                 `Proportion Explained` = vars,
                  `Cumulative Proportion` = cumvars)
     class(out) <- c("summary.eigenvals", "matrix")
     out

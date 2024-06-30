@@ -6,7 +6,7 @@
     if (is.null(object$CCA) || !object$CCA$rank)
         stop("no constrained ordination or rank of constraints is zero")
     wa <- object$CCA$wa
-    X <- qr.X(object$CCA$QR)
+    X <- qr.X(object$CCA$QR, ncol = length(object$CCA$QR$pivot))
     ## remove conditions (partial terms)
     if (!is.null(object$pCCA)) {
         X <- X[, -seq_along(object$pCCA$envcentre), drop = FALSE]

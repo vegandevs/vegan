@@ -1,7 +1,6 @@
 \name{decorana}
 \alias{decorana}
 \alias{summary.decorana}
-\alias{print.summary.decorana}
 \alias{plot.decorana}
 \alias{downweight}
 \alias{scores.decorana}
@@ -19,7 +18,7 @@ decorana(veg, iweigh=0, iresc=4, ira=0, mk=26, short=0,
 
 \method{plot}{decorana}(x, choices=c(1,2), origin=TRUE,
      display=c("both","sites","species","none"),
-     cex = 0.8, cols = c(1,2), type, xlim, ylim, ...)
+     cex = 0.7, cols = c(1,2), type, xlim, ylim, ...)
 
 \method{text}{decorana}(x, display = c("sites", "species"), labels,
      choices = 1:2, origin = TRUE, select,  ...)
@@ -27,15 +26,10 @@ decorana(veg, iweigh=0, iresc=4, ira=0, mk=26, short=0,
 \method{points}{decorana}(x, display = c("sites", "species"),
        choices=1:2, origin = TRUE, select, ...)
 
-\method{summary}{decorana}(object, digits=3, origin=TRUE,
-        display=c("both", "species","sites","none"), ...)
-
-\method{print}{summary.decorana}(x, head = NA, tail = head, ...)
-
-downweight(veg, fraction = 5)
-
 \method{scores}{decorana}(x, display="sites", choices=1:4,
        origin=TRUE, tidy=FALSE, ...)
+
+downweight(veg, fraction = 5)
 }
 
 \arguments{
@@ -48,7 +42,7 @@ downweight(veg, fraction = 5)
   \item{before}{Hill's piecewise transformation: values before transformation. }
   \item{after}{Hill's piecewise transformation: values after
   transformation -- these must correspond to values in \code{before}.}
-  \item{x, object}{A \code{decorana} result object.}
+  \item{x}{A \code{decorana} result object.}
   \item{choices}{Axes shown.}
   \item{origin}{Use true origin even in detrended correspondence analysis.}
   \item{display}{Display only sites, only species, both or neither.}
@@ -61,9 +55,6 @@ downweight(veg, fraction = 5)
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items.}
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
-  \item{digits}{Number of digits in summary output.}
-  \item{head, tail}{Number of rows printed from the head and tail of
-    species and site scores. Default \code{NA} prints all.}
   \item{fraction}{Abundance fraction where downweighting begins.}
   \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
     all scores are in a single \code{data.frame}, score type is
@@ -109,13 +100,10 @@ downweight(veg, fraction = 5)
   \code{\link{tolerance}} returns this internal criterion and can be
   used to assess the success of rescaling.
 
-  The \code{summary} method prints the ordination scores,
-  possible prior weights used in downweighting, and the marginal totals
-  after applying these weights. The \code{plot} method plots
-  species and site scores.  Classical \code{decorana} scaled the axes
-  so that smallest site score was 0 (and smallest species score was
-  negative), but \code{summary}, \code{plot} and
-  \code{scores} use the true origin, unless \code{origin = FALSE}.
+  The \code{plot} method plots species and site scores.  Classical
+  \code{decorana} scaled the axes so that smallest site score was 0 (and
+  smallest species score was negative), but \code{summary}, \code{plot}
+  and \code{scores} use the true origin, unless \code{origin = FALSE}.
 
   In addition to proper eigenvalues, the function reports
   \sQuote{decorana values} in detrended analysis. These \sQuote{decorana
@@ -176,6 +164,10 @@ downweight(veg, fraction = 5)
   Github package \pkg{natto} has an \R{} implementation of
   \code{decorana} which allows easier inspection of the
   algorithm and also easier development of the function.
+
+  \pkg{vegan} 2.6-6 and earlier had a \code{summary} method, but it did
+  nothing useful and is now defunct. All its former information can be
+  extracted with \code{scores} or \code{\link{weights.decorana}}.
 }
 
 \seealso{
@@ -196,7 +188,6 @@ downweight(veg, fraction = 5)
 data(varespec)
 vare.dca <- decorana(varespec)
 vare.dca
-summary(vare.dca)
 plot(vare.dca)
 
 ### the detrending rationale:

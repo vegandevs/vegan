@@ -126,7 +126,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   is a single variable, the partitioning is based on linear
   regression.  If \code{Y} are dissimilarities, the decomposition is
   based on distance-based redundancy analysis (db-RDA, see
-  \code{\link{capscale}}) following McArdle & Anderson (2001). The
+  \code{\link{dbrda}}) following McArdle & Anderson (2001). The
   input dissimilarities must be compatible to the results of
   \code{\link{dist}}. \pkg{Vegan} functions \code{\link{vegdist}},
   \code{\link{designdist}}, \code{\link{raupcrick}} and
@@ -235,7 +235,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   Items \code{fract},
   \code{indfract}, \code{contr1} and \code{contr2} are all data frames with
   items:
-  \itemize{
+  \describe{
   \item{\code{Df}: }{Degrees of freedom of numerator of the \eqn{F}-statistic
     for the fraction.}
   \item{\code{R.square}: }{Raw \eqn{R^2}{R-squared}. This is calculated only for
@@ -305,14 +305,14 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
   results can be negative.  The fractions are orthogonal, or linearly
   independent, but more complicated or nonlinear dependencies can
   cause negative non-testable fractions. Any fraction can be negative
-  for non-Euclidean dissimilarities because the underlying db-RDA model
-  can yield negative eigenvalues (see \code{\link{capscale}},
+  for non-Euclidean dissimilarities because the underlying db-RDA
+  model can yield negative eigenvalues (see
   \code{\link{dbrda}}). These negative eigenvalues in the underlying
-  analysis can be avoided with arguments \code{sqrt.dist} and \code{add}
-  which have a similar effect as in \code{\link{capscale}}: the square
-  roots of several dissimilarities do not have negative eigenvalues, and
-  no negative eigenvalues are produced after Lingoes or Cailliez
-  adjustment, which in effect add random variation to the
+  analysis can be avoided with arguments \code{sqrt.dist} and
+  \code{add} which have a similar effect as in \code{\link{dbrda}}:
+  the square roots of several dissimilarities do not have negative
+  eigenvalues, and no negative eigenvalues are produced after Lingoes
+  or Cailliez adjustment, which in effect add random variation to the
   dissimilarities.
 
   A simplified, fast version of RDA, CCA adn dbRDA are used (functions

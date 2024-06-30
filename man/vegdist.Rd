@@ -42,7 +42,8 @@
   \item{diag}{Compute diagonals. }
   \item{upper}{Return only the upper diagonal. }
   \item{na.rm}{Pairwise deletion of missing observations when
-    computing dissimilarities.}
+    computing dissimilarities (but some dissimilarities may still be
+    \code{NA}, although calculation is handled).}
   \item{\dots}{Other parameters.  These are ignored, except in
     \code{method ="gower"} which accepts \code{range.global} parameter of
     \code{\link{decostand}}, and in \code{method="aitchison"}, which

@@ -55,15 +55,11 @@ void wcentre(double *x, double *retx, double *w, int *nr, int *nc)
      for (i = 0, sw = 0.0; i < (*nr); i++)
 	  sw += w[i];
 
-     /* weights to unit sum (usually they are already, but still...) */
-     for(i = 0; i < (*nr); i++)
-	 w[i] /= sw;
-
      for (j = 0; j < (*nc) ; j++) {
 	  for (i = 0, swx = 0.0, ij = (*nr)*j; i < (*nr); i++, ij++) {
 	       swx += w[i] * x[ij];
 	  }
-
+	  swx /= sw;
 	  for (i = 0,  ij = (*nr)*j; i < (*nr); i++, ij++) {
 	       retx[ij] = x[ij] - swx;
 	       retx[ij] *= sqrt(w[i]);
@@ -82,13 +78,24 @@ SEXP do_wcentre(SEXP x, SEXP w)
 	error("weights 'w' and data do not match");
     if (TYPEOF(x) != REALSXP)
 	x  = coerceVector(x, REALSXP);
+    PROTECT(x);
     SEXP rx = PROTECT(duplicate(x));
     if (TYPEOF(w) != REALSXP)
 	w = coerceVector(w, REALSXP);
-    w = PROTECT(duplicate(w));
+    PROTECT(w);
+    SEXP rw = PROTECT(duplicate(w));
     SEXP retx = PROTECT(allocMatrix(REALSXP, nr, nc));
-    wcentre(REAL(rx), REAL(retx), REAL(w), &nr, &nc);
-    UNPROTECT(3);
+    wcentre(REAL(rx), REAL(retx), REAL(rw), &nr, &nc);
+    /* set dimnames */
+    SEXP dnames = getAttrib(x, R_DimNamesSymbol);
+    if (!isNull(dnames)) {
+        SEXP dimnames = PROTECT(allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(dimnames, 0, duplicate(VECTOR_ELT(dnames, 0)));
+        SET_VECTOR_ELT(dimnames, 1, duplicate(VECTOR_ELT(dnames, 1)));
+        setAttrib(retx, R_DimNamesSymbol, dimnames);
+        UNPROTECT(1);
+    }
+    UNPROTECT(5);
     return retx;
 }
 

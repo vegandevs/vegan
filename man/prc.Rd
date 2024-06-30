@@ -17,7 +17,7 @@
 
 \usage{
 prc(response, treatment, time, ...)
-\method{summary}{prc}(object, axis = 1, scaling = "symmetric", const,
+\method{summary}{prc}(object, axis = 1, scaling = "sites", const,
         digits = 4, correlation = FALSE, ...)
 \method{plot}{prc}(x, species = TRUE, select, scaling = "symmetric",
      axis = 1, correlation = FALSE, const, type = "l", xlab, ylab, ylim,

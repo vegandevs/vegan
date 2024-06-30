@@ -5,16 +5,17 @@ useDynLib(vegan, .registration = TRUE)
 
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis2, anosim, beals, betadisper, betadiver,
-bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, calibrate, capscale,
+bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, ca, calibrate, capscale,
 cascadeKM, cca, chaodist, contribdiv, clamtest, commsim, cutreeord,
-dbrda, decobackstand, decorana, decostand, designdist,
-coverscale, dispweight, dispindmorisita, distconnected,
+dbrda, decobackstand, decorana, decostand, designdist, designdist2,
+dist2xy, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
 estaccumR, estimateR, eventstar, factorfit, fisherfit, fitspecaccum,
 gdispweight,goodness, hiersimu, humpfit, indpower, inertcomp, initMDS,
 intersetcor, isomapdist, isomap, linestack, mantel, meandist,
-metaMDSdist, metaMDSiter, metaMDSredist, MDSrotate, metaMDS, monoMDS,
-mrpp, msoplot, mso, multipart, make.commsim, nestedbetajac, nestedbetasor, nestedchecker,
+metaMDSdist, metaMDSiter, metaMDSredist, MDSaddpoints, MDSrotate, metaMDS,
+monoMDS, mrpp, msoplot, mso, multipart, make.commsim, nestedbetajac,
+nestedbetasor, nestedchecker,
 nesteddisc, nestedn0, nestednodf, nestedtemp, nullmodel, oecosimu, smbind,
 ordiareatest, ordiR2step,
 ordiarrows, ordiArrowMul, ordiArrowTextXY, ordibar, ordicloud,
@@ -22,7 +23,7 @@ ordicluster, ordiellipse, ordigrid,
 ordihull, ordilabel, ordiplot, ordipointlabel, ordiresids,
 ordisegments, ordispider, ordisplom, ordistep, ordisurf,
 orditkplot, orditorp, ordixyplot, ordiYbar,
-pcnm, permatfull, permatswap, permustats, permutest,
+pca, pco, pcnm, permatfull, permatswap, permustats, permutest,
 poolaccum, postMDS, prc, prestondistr, prestonfit, procrustes,
 protest, radfit, radlattice, rankindex, rarefy, rarecurve, rareslope,
 raupcrick, rda, renyiaccum, renyi, rrarefy, scores,
@@ -97,9 +98,8 @@ importFrom(graphics, abline, arrows, axis, barplot, box, contour,
            mtext, par, plot.new, plot.window, polygon, rect, rug,
            segments, strheight, strwidth, symbols, title)
 import(permute) ## vegan depends on permute: import everything
-importFrom(utils, news, vignette, combn, flush.console, head, object.size,
-           read.fortran, read.fwf, tail, str)
-importFrom(tools, Rd2txt, startDynamicHelp)
+importFrom(utils, news, vignette, combn, flush.console, modifyList,
+           object.size, read.fortran, read.fwf, str)
 importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.off,
            heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
            rgb, svg, tiff, xfig, xy.coords)
@@ -238,8 +238,6 @@ S3method(goodness, monoMDS)
 # hatvalues: stats
 S3method(hatvalues, cca)
 S3method(hatvalues, rda)
-# head: utils
-S3method(head, summary.cca)
 # hiersimu: vegan
 S3method(hiersimu, default)
 S3method(hiersimu, formula)
@@ -342,7 +340,6 @@ S3method(plot, nestednodf)
 S3method(plot, nestedtemp)
 S3method(plot, ordisurf)
 S3method(plot, ordipointlabel)
-S3method(plot, orditkplot)
 S3method(plot, permat)
 S3method(plot, poolaccum)
 S3method(plot, prc)
@@ -368,13 +365,13 @@ S3method(points, decorana)
 S3method(points, metaMDS)
 S3method(points, monoMDS)
 S3method(points, ordiplot)
-S3method(points, orditkplot)
 S3method(points, procrustes)
 S3method(points, radline)
 S3method(points, radfit)
 # predict: stats
 S3method(predict, cca)
 S3method(predict, decorana)
+S3method(predict, dbrda)
 S3method(predict, fitspecaccum)
 S3method(predict, procrustes)
 S3method(predict, radline)
@@ -428,7 +425,6 @@ S3method(print, simper)
 S3method(print, summary.bioenv)
 S3method(print, summary.cca)
 S3method(print, summary.clamtest)
-S3method(print, summary.decorana)
 S3method(print, summary.dispweight)
 S3method(print, summary.eigenvals)
 S3method(print, summary.isomap)
@@ -480,7 +476,6 @@ S3method(scores, metaMDS)
 S3method(scores, monoMDS)
 S3method(scores, ordihull)
 S3method(scores, ordiplot)
-S3method(scores, orditkplot)
 S3method(scores, pcnm)
 S3method(scores, rda)
 S3method(scores, wcmdscale)
@@ -539,15 +534,12 @@ S3method(summary, simper)
 S3method(summary, specaccum)
 S3method(summary, taxondive)
 S3method(summary, varpart)
-# tail: utils
-S3method(tail, summary.cca)
 # text: graphics
 S3method(text, cca)
 S3method(text, decorana)
 S3method(text, metaMDS)
 S3method(text, monoMDS)
 S3method(text, ordiplot)
-S3method(text, orditkplot)
 S3method(text, procrustes)
 # tolerance
 S3method(tolerance, cca)

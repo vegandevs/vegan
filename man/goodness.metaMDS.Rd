@@ -74,8 +74,7 @@
 \seealso{\code{\link{metaMDS}},  \code{\link{monoMDS}}, 
   \code{\link[MASS]{isoMDS}}, \code{\link[MASS]{Shepard}}. Similar
   diagrams for eigenvector ordinations can be drawn with
-  \code{\link{stressplot.wcmdscale}}, \code{\link{stressplot.cca}},
-  \code{\link{stressplot.rda}} and \code{\link{stressplot.capscale}}.
+  \code{\link{stressplot.wcmdscale}}, \code{\link{stressplot.cca}}.
 }
 
 \examples{

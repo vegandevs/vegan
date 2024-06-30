@@ -21,38 +21,25 @@
     model <- match.arg(model)
     if (model == "CCA" && is.null(object$CCA))
         model <- "CA"
-    if (inherits(object, "dbrda"))
-        take <- object[[model]]$poseig
-    else
-        take <- object[[model]]$rank
+    take <- object[[model]]$rank
     if (take == 0)
         stop(gettextf("model '%s' has rank 0", model))
     if (rank != "full")
         take <- min(take, rank)
-    if (!inherits(object, "dbrda")) {
-        ## the ifs are only needed to cope with pre-2.5-0 vegan: now
-        ## we always have Ybar, but earlier we needed to check whether
-        ## we had CA or CCA Xbar
-        if (!is.null(object$Ybar)) {
-            cent <- attr(object$Ybar, "scaled:center")
-            scal <- attr(object$Ybar, "scaled:scale")
-        } else { # needed for vegan-2.4 compatibility
-            if (is.null(object$CCA))
-                tmp <- object$CA$Xbar
-            else tmp <- object$CCA$Xbar
-            cent <- attr(tmp, "scaled:center")
-            scal <- attr(tmp, "scaled:scale")
-        }
-        scaled.PCA <- !is.null(scal)
-    }
+
+    if (is.null(object$Ybar))
+        stop("update() your outdated result object")
+    cent <- attr(object$Ybar, "scaled:center")
+    scal <- attr(object$Ybar, "scaled:scale")
+    scaled.PCA <- !is.null(scal)
+
     nr <- nobs(object) - 1
     u <- object[[model]]$u[, 1:take, drop = FALSE]
     w <- object[[model]]$wa[, 1:take, drop = FALSE]
     if (is.null(w))
         w <- u
-    if (!inherits(object, "dbrda")) {
-        v <- object[[model]]$v[, 1:take, drop = FALSE]
-    }
+    v <- object[[model]]$v[, 1:take, drop = FALSE]
+
     ## process scaling arg, scaling used later so needs to be a numeric
     scaling <- scalingType(scaling = scaling, correlation = correlation)
     if (type %in% c("wa","sp","lc")) {
@@ -68,21 +55,11 @@
             u <- predict(object, type = if(model == "CCA") "lc" else "wa",
                          newdata = newdata, rank = take)
         }
-        if (inherits(object, c("capscale", "dbrda"))) {
+        if (inherits(object, "capscale")) {
             if (take > 0) {
                 out <- u %*% slam
                 if (type == "response") {
                     out <- dist(out)
-                    if (!is.null(object$ac)) {
-                        if (object$add == "lingoes")
-                            out <- sqrt(out^2 - 2 * object$ac)
-                        else if (object$add == "cailliez")
-                            out <- out - object$ac
-                        else
-                            stop("unknown euclidifying adjustment")
-                    }
-                    if (object$sqrt.dist)
-                        out <- out^2
                 }
             }
         } else {
@@ -128,7 +105,7 @@
     }
     else if (type == "wa") {
         if (!missing(newdata)) {
-            if (inherits(object, c("capscale", "dbrda")))
+            if (inherits(object, "capscale"))
                 stop(gettextf("'wa' scores not available in %s with 'newdata'",
                      object$method))
             if (!is.null(object$pCCA))
@@ -158,8 +135,6 @@
     else if (type == "sp") {
         if (inherits(object, "capscale"))
             warning("'sp' scores may be meaningless in 'capscale'")
-        if (inherits(object, "dbrda"))
-            stop("'sp' scores are not available in 'dbrda'")
         if (!missing(newdata)) {
             nm <- rownames(u)
             if (!is.null(nm)) {
@@ -183,6 +158,92 @@
                 out <- out / object$colsum
                 out <- out * sqrt(object$tot.chi / (nobs(object)-1))
             }
+        }
+    }
+    out
+}
+
+### distance-based RDA benefits from its own predict
+
+`predict.dbrda` <-
+    function(object, newdata, type = c("response", "lc", "wa", "working"),
+             rank = "full", model = c("CCA", "CA"), scaling = "none",
+             const, ...)
+{
+    type <- match.arg(type)
+    model <- match.arg(model)
+    ZAP <- sqrt(.Machine$double.eps)
+    if (type %in% c("response", "working")) {
+        if(rank == "full" && missing(newdata)) {
+            out <- ordiYbar(object, model)
+        } else {
+            lambda <- object[[model]]$eig
+            if (!missing(newdata)) {
+                u <- predict(object, newdata = newdata, type = "lc",
+                             rank = rank)
+            } else {
+                u <- object[[model]]$u
+                if (!is.null(object[[model]]$imaginary.u))
+                    u <- cbind(u, object[[model]]$imaginary.u)
+            }
+            if (rank != "full") {
+                k <- seq_len(min(rank, ncol(u)))
+                u <- u[, k, drop = FALSE]
+                lambda <- lambda[k]
+            }
+            out <- u %*% diag(lambda, nrow=length(lambda)) %*% t(u)
+        }
+        if (type == "response") {
+            dia <- diag(out)
+            out <- as.dist(-2*out + outer(dia, dia, "+"))
+            out[abs(out) < ZAP] <- 0
+            out <- sqrt(out)
+        }
+    } else if (type %in% c("lc", "wa")) {
+        if (model == "CA" && type == "lc")
+            stop("'lc' scores are not available for unconstrained ordination")
+        if (type == "wa" && !missing(newdata))
+            stop("'newdata' is not available for type='wa'")
+        if (!missing(newdata)) {
+            if (is.null(object$terminfo))
+                E <- as.matrix(newdata)
+            else {
+                d <- ordiParseFormula(formula(object), newdata,
+                                      object$terminfo$xlev)
+                E <- cbind(d$Z, d$Y)
+            }
+            E <- sweep(E, 2,
+                       c(object$pCCA$envcentre, object$CCA$envcentre), "-")
+            p1 <- object[[model]]$QR$pivot[seq_len(object[[model]]$QR$rank)]
+            out <- E[, p1, drop = FALSE] %*% coef(object)[p1, , drop =FALSE]
+        } else {
+            out <- object[[model]]$u
+        }
+        if (rank != "full") {
+            k <- seq_len(min(rank, ncol(out)))
+            out <- out[, k, drop=FALSE]
+        } else {
+            k <- seq_len(ncol(out))
+        }
+        ## wa can be estimated as ordiYbar(object, "initial") %*% u
+        ## %*% diag(1/lambda), but "initial" ordiYbar is not available
+        ## and cannot be found from constrained u with predict(...,
+        ## type="response", newdata=...) which gives ordYbar(...,
+        ## "CCA").
+        if (type == "wa" && model == "CCA") { # in model="CA" out has these
+            out <- object[[model]]$wa[, k, drop = FALSE]
+        }
+        scaling <- scalingType(scaling)
+        if (scaling) { # scaling="none" is 0 == FALSE
+            if (missing(const))
+                const <- sqrt(sqrt((nobs(object) - 1) * object$tot.chi))
+            slam <- diag(sqrt(object[[model]]$eig[k] / object$tot.chi),
+                         nrow = length(k))
+            out <- switch(scaling,
+                          const * out %*% slam,
+                          const * out,
+                          const * out %*% sqrt(slam)
+                          )
         }
     }
     out
