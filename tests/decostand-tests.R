@@ -1,4 +1,6 @@
-        
+###<--- BEGIN TESTS --->
+suppressPackageStartupMessages(require(vegan))
+
 ############################### CLR ####################################
 # Calculates clr-transformation. Should be equal.
 

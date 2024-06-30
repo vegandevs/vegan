@@ -1,3 +1,6 @@
+###<--- BEGIN TESTS --->
+suppressPackageStartupMessages(require(vegan))
+
 # Test data
 # data(varespec)
 set.seed(252)
