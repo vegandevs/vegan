@@ -29,15 +29,37 @@ log(x) - mean(log(x))}))
 max(abs(x.clr-alt.clr)) < 1e-6      
 all((x.rclr==0) == (testdata==0))
 
-# Test that NAs are handled as expected
-x <- testdata; x[sample(prod(dim(x)), 50)] <- NA; insert some NAs in the data
+# Test that NAs are handled as expected in CLR
+x <- testdata; x[sample(prod(dim(x)), 50)] <- NA # insert some NAs in the data
 # NAs in the original data remain NAs in the returned data
 all(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[is.na(x)]))==TRUE # NAs
 # For the other (non-NA) values, we get non-NA values back
-any(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE 
+any(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE
+any(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1, MARGIN=2)[!is.na(t(x))]))==FALSE 
 # Results match for the non-NA values always (with tolerance 1e-6)
 inds <- !is.na(x) # Non-NA values
 max(abs(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[inds]-decostand(x, "clr", na.rm=TRUE, pseudocount=1)[inds]))<1e-6
+# For the other (non-NA) values, we get non-NA values back
+any(is.na(decostand(x, "alr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE
+# Works correctly also with other margin
+inds <- !is.na(x) # Non-NA values
+max(abs(decostand(x, "clr", na.rm=FALSE, pseudocount=1, MARGIN=2)[inds]-decostand(x, "clr", na.rm=TRUE, pseudocount=1, MARGIN)[inds]))<1e-6
+# Results match for the non-NA values always (with tolerance 1e-6)
+inds <- !is.na(x) # Non-NA values
+max(abs(decostand(x, "alr", na.rm=FALSE, pseudocount=1)[inds]-decostand(x, "alr", na.rm=TRUE, pseudocount=1)[inds]))<1e-6
+
+# Test that NAs are handled as expected in ALR
+set.seed(4354353)
+x <- testdata; x[sample(prod(dim(x)), 50)] <- NA; x[4, c(2, 10)] <- NA  # insert some NAs in the data
+# NAs in the output share NAs with the reference vector
+all(is.na(decostand(x, "alr", na.rm=FALSE, pseudocount=1, reference=4))==is.na(x[-4,]))
+# Output vector has same NAs than the original vector and reference vector
+all(is.na(decostand(x, "alr", na.rm=FALSE, pseudocount=1, reference=4)[2,])==(is.na(x[4,]) | is.na(x[2,])))
+# No NAs after removing them
+!any(is.na(decostand(x, "alr", na.rm=TRUE, pseudocount=1, reference=4)))
+# All NAs are replaced by zero
+inds <- is.na(x[-4,])
+all((colMeans(decostand(x, "alr", na.rm=TRUE, pseudocount=1, reference=4)==0)==1)==is.na(x[4,]))
 
 # Expect that error does not occur
 vegan::decostand(testdata, method = "rclr")

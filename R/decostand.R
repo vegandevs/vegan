@@ -123,8 +123,8 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- t(.calc_alr(t(x), ...))
-	else x <- .calc_alr(x, ...)
+            x <- t(.calc_alr(t(x), na.rm, ...))
+	else x <- .calc_alr(x, na.rm, ...)
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, clr = {
@@ -132,7 +132,7 @@
 	    MARGIN <- 1
         if (MARGIN == 1)
             x <- .calc_clr(x, na.rm, ...)
-	else x <- t(.calc_clr(t(x), ...))
+	else x <- t(.calc_clr(t(x), na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, rclr = {
@@ -181,6 +181,7 @@
 
     # Replace missing values with 0
     if (na.rm) {
+        message("Replacing missing values with zero for clr. You can disable this with na.rm=FALSE.")    
         clog[is.na(clog)] <- 0
     } 
     
@@ -232,12 +233,13 @@
 
 
 .calc_alr <-
-    function (x, reference = 1, pseudocount = 0, na.rm = TRUE)
+    function (x, na.rm, pseudocount = 0, reference = 1)
 {
     # Add pseudocount
     x <- x + pseudocount
     # If there is negative values, gives an error.
-    if (any(x < 0, na.rm = na.rm)) {
+    # Always na.rm=TRUE at this step
+    if (any(x < 0, na.rm = TRUE)) {
         stop("'alr' cannot be used with negative data: use pseudocount >= ",
              -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
@@ -253,6 +255,13 @@
     clog <- log(x)
     refvector <- clog[, reference]
     clog <- clog[, -reference] - refvector
+
+    # Replace missing values with 0
+    if (na.rm) {
+        message("Replacing missing values with zero for alr. You can disable this with na.rm=FALSE.")
+        clog[is.na(clog)] <- 0
+    } 
+
     attr(clog, "parameters") <- list("reference" = refvector,
                                      "index" = reference,
                                      "pseudocount" = pseudocount)
