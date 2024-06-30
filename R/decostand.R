@@ -192,10 +192,11 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm = TRUE, ...)
+    function(x, na.rm, ...)
 {
     # Error with negative values
-    if (any(x < 0, na.rm = na.rm)) {
+    # Always na.rm=TRUE at this step!
+    if (any(x < 0, na.rm = TRUE)) {
         stop("'rclr' cannot be used with negative data", call. = FALSE)
     }
    # Log transform
@@ -204,26 +205,27 @@
    clog[is.infinite(clog)] <- NA
 
    # Calculate log of geometric mean for every sample, ignoring the NAs
-   means <- rowMeans(clog, na.rm = na.rm)
+   # Always na.rm=TRUE at this step!   
+   means <- rowMeans(clog, na.rm = TRUE)
    if (any(is.na(means))) {
-     stop("Some samples do not contain observations and rclr cannot be calculated.")
+     stop("Some samples do not contain (any) observations and thus rclr cannot be calculated.")
    }
 
    ## Divide (or in log-space, reduce) all values by their sample-wide geometric means
    xx <- clog - means
-
-   ## zeros become infinite after log transform.
-   ## Convert those to NA
-   xx[is.infinite(xx)] <- NA
    attr(xx, "parameters") <- list("means" = means)
 
+    # Replace missing values with 0
+    if (na.rm) {
+        xx[is.na(xx)] <- 0
+    } 
+
    # Add the matrix completion step
-   if (any(is.na(xx))) {
-     dimnams <- dimnames(xx)
-     o <- .OptSpace(xx, ...);
-     xx <- o$X%*%o$S%*%t(o$Y)
-     dimnames(xx) <- dimnams
-   } 
+   #if (any(is.na(xx))) {
+   #  dimnams <- dimnames(xx)
+   #  xx <- filling::fill.OptSpace(xx)$X
+   #  dimnames(xx) <- dimnams
+   #} 
 
    return(xx)
    
