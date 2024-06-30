@@ -131,7 +131,7 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_clr(x, ...)
+            x <- .calc_clr(x, na.rm, ...)
 	else x <- t(.calc_clr(t(x), ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
@@ -156,14 +156,15 @@
 
 ## Modified from the original version in mia R package
 .calc_clr <-
-    function(x, pseudocount=0, na.rm = TRUE)
+    function(x, na.rm, pseudocount=0)
 {
+
     # Add pseudocount
     x <- x + pseudocount
-    # Error with negative values
-    if (any(x <= 0, na.rm = na.rm)) {
+    # Error with negative values (note: at this step we always use na.rm=TRUE)
+    if (any(x <= 0, na.rm = TRUE)) {
         stop("'clr' cannot be used with non-positive data: use pseudocount > ",
-             -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
+             -min(x, na.rm = TRUE) + pseudocount, call. = FALSE)
     }
 
     # In every sample, calculate the log of individual entries.
@@ -171,8 +172,18 @@
     # the sample-specific mean value and subtract every entries'
     # value with that.
     clog <- log(x)
-    means <- rowMeans(clog, na.rm = na.rm)
+
+    # Calculate sample-wise log means (note: here we always set na.rm=TRUE !)
+    means <- rowMeans(clog, na.rm = TRUE)
+
+    # CLR transformation
     clog <- clog - means
+
+    # Replace missing values with 0
+    if (na.rm) {
+        clog[is.na(clog)] <- 0
+    } 
+    
     attr(clog, "parameters") <- list("means" = means,
                                      "pseudocount" = pseudocount)
     clog
