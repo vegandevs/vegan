@@ -16,7 +16,7 @@ relative <- vegan::decostand(testdata, "total")
 relative.with.pseudo <- vegan::decostand(testdata+1, "total")
 
 # CLR data
-x.clr <- vegan::decostand(testdata+1, method = "clr")
+x.clr  <- vegan::decostand(testdata+1, method = "clr")
 x.rclr <- vegan::decostand(testdata, method = "rclr")
 x.clr.pseudo <- vegan::decostand(testdata, method = "clr", pseudocount=1)
 
@@ -28,6 +28,16 @@ alt.clr <- t(apply(as.matrix(relative.with.pseudo), 1, FUN=function(x){
 log(x) - mean(log(x))}))
 max(abs(x.clr-alt.clr)) < 1e-6      
 all((x.rclr==0) == (testdata==0))
+
+# Test that NAs are handled as expected
+x <- testdata; x[sample(prod(dim(x)), 50)] <- NA; insert some NAs in the data
+# NAs in the original data remain NAs in the returned data
+all(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[is.na(x)]))==TRUE # NAs
+# For the other (non-NA) values, we get non-NA values back
+any(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE 
+# Results match for the non-NA values always (with tolerance 1e-6)
+inds <- !is.na(x) # Non-NA values
+max(abs(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[inds]-decostand(x, "clr", na.rm=TRUE, pseudocount=1)[inds]))<1e-6
 
 # Expect that error does not occur
 vegan::decostand(testdata, method = "rclr")
