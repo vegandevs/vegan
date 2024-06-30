@@ -131,6 +131,9 @@
   kept constant. Although <code>mantel.partial</code> silently accepts other
   methods than <code>"pearson"</code>, partial correlations will probably be
   wrong with other methods.</p>
+<p>Borcard &amp; Legendre (2012) warn against using partial Mantel test and
+  recommend instead Mantel correlogram
+  (<code><a href="mantel.correlog.html">mantel.correlog</a></code>).</p>
 <p>The function uses <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code>, which should accept
   alternatives <code>pearson</code> for product moment correlations and
   <code>spearman</code> or <code>kendall</code> for rank correlations.</p>
@@ -169,15 +172,13 @@
 </dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>The test is due to Mantel, of course, but the
-  current implementation is based on Legendre and Legendre.</p>
+    
+
+<p>Borcard, D. &amp; Legendre, P. (2012) Is the Mantel correlogram powerful
+  enough to be useful in ecological analysis? A simulation
+  study. <em>Ecology</em> 93: 1473-1481.</p>
 <p>Legendre, P. and Legendre, L. (2012) <em>Numerical Ecology</em>. 3rd English
   Edition. Elsevier.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Legendre &amp; Legendre (2012, Box 10.4) warn against using partial
-  Mantel correlations.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -185,13 +186,7 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code> for correlation coefficients,
-  <code><a href="procrustes.html">protest</a></code> (Procrustes test) for an alternative with
-  ordination diagrams, <code><a href="anosim.html">anosim</a></code>  and <code><a href="mrpp.html">mrpp</a></code>
-  for comparing dissimilarities against 
-  classification.  For dissimilarity matrices, see <code><a href="vegdist.html">vegdist</a></code>
-  or <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.  See <code><a href="bioenv.html">bioenv</a></code> for selecting
-  environmental variables.</p></div>
+    <div class="dont-index"><p><code><a href="mantel.correlog.html">mantel.correlog</a></code>.</p></div>
     </div>
 
     <div class="section level2">
