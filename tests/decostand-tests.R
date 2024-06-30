@@ -12,16 +12,16 @@ colnames(testdata) <- paste0("col", seq_len(ncol(testdata)))
 testdata.with.pseudo <- testdata + 1
 
 # Calculates relative abundance table
-relative <- vegan::decostand(testdata, "total")
-relative.with.pseudo <- vegan::decostand(testdata+1, "total")
+relative <- decostand(testdata, "total")
+relative.with.pseudo <- decostand(testdata+1, "total")
 
 # CLR data
-x.clr  <- vegan::decostand(testdata+1, method = "clr")
-x.rclr <- vegan::decostand(testdata, method = "rclr")
-x.clr.pseudo <- vegan::decostand(testdata, method = "clr", pseudocount=1)
+x.clr  <- decostand(testdata+1, method = "clr")
+x.rclr <- decostand(testdata, method = "rclr")
+x.clr.pseudo <- decostand(testdata, method = "clr", pseudocount=1)
 
 max(abs(x.clr - x.clr.pseudo))<1e-6
-max(abs(vegan::decostand(testdata+1, method = "clr", pseudocount=0)-x.clr.pseudo))<1e-6
+max(abs(decostand(testdata+1, method = "clr", pseudocount=0)-x.clr.pseudo))<1e-6
 
 # Tests clr
 alt.clr <- t(apply(as.matrix(relative.with.pseudo), 1, FUN=function(x){
@@ -32,40 +32,40 @@ all((x.rclr==0) == (testdata==0))
 # Test that NAs are handled as expected in CLR
 x <- testdata; x[sample(prod(dim(x)), 50)] <- NA # insert some NAs in the data
 # NAs in the original data remain NAs in the returned data
-all(is.na(vegan::decostand(x, "clr", na.rm=FALSE, pseudocount=1)[is.na(x)]))==TRUE # NAs
+all(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[is.na(x)]))==TRUE # NAs
 # For the other (non-NA) values, we get non-NA values back
-any(is.na(vegan::decostand(x, "clr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE
-any(is.na(vegan::decostand(x, "clr", MARGIN=2, na.rm=FALSE, pseudocount=1)[!is.na(t(x))]))==FALSE 
+any(is.na(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE
+any(is.na(decostand(x, "clr", MARGIN=2, na.rm=FALSE, pseudocount=1)[!is.na(t(x))]))==FALSE 
 # Results match for the non-NA values always (with tolerance 1e-6)
 inds <- !is.na(x) # Non-NA values
-max(abs(vegan::decostand(x, "clr", na.rm=FALSE, pseudocount=1)[inds]-vegan::decostand(x, "clr", na.rm=TRUE, pseudocount=1)[inds]))<1e-6
+max(abs(decostand(x, "clr", na.rm=FALSE, pseudocount=1)[inds]-decostand(x, "clr", na.rm=TRUE, pseudocount=1)[inds]))<1e-6
 # For the other (non-NA) values, we get non-NA values back
-any(is.na(vegan::decostand(x, "alr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE
+any(is.na(decostand(x, "alr", na.rm=FALSE, pseudocount=1)[!is.na(x)]))==FALSE
 # Works correctly also with other MARGIN
 inds <- !is.na(x) # Non-NA values
-max(abs(vegan::decostand(x, "clr", MARGIN=2, na.rm=FALSE, pseudocount=1)[inds]-vegan::decostand(x, "clr", MARGIN=2, na.rm=TRUE, pseudocount=1)[inds]))<1e-6
+max(abs(decostand(x, "clr", MARGIN=2, na.rm=FALSE, pseudocount=1)[inds]-decostand(x, "clr", MARGIN=2, na.rm=TRUE, pseudocount=1)[inds]))<1e-6
 # Results match for the non-NA values always (with tolerance 1e-6)
 inds <- !is.na(x) # Non-NA values
-max(abs(vegan::decostand(x, "alr", na.rm=FALSE, pseudocount=1)[inds]-vegan::decostand(x, "alr", na.rm=TRUE, pseudocount=1)[inds]))<1e-6
+max(abs(decostand(x, "alr", na.rm=FALSE, pseudocount=1)[inds]-decostand(x, "alr", na.rm=TRUE, pseudocount=1)[inds]))<1e-6
 
 # Test that NAs are handled as expected in ALR
 set.seed(4354353)
 x <- testdata; x[sample(prod(dim(x)), 50)] <- NA; x[4, c(2, 10)] <- NA  # insert some NAs in the data
 # NAs in the output share NAs with the reference vector
-all(is.na(vegan::decostand(x, "alr", na.rm=FALSE, pseudocount=1, reference=4))[which(is.na(x[,4])),])
+all(is.na(decostand(x, "alr", na.rm=FALSE, pseudocount=1, reference=4))[which(is.na(x[,4])),])
 # Output vector has same NAs than the original vector and reference vector
-all(is.na(vegan::decostand(x, "alr", na.rm=FALSE, pseudocount=1, reference=4)[,2])==(is.na(x[,4]) | is.na(x[,2])))
+all(is.na(decostand(x, "alr", na.rm=FALSE, pseudocount=1, reference=4)[,2])==(is.na(x[,4]) | is.na(x[,2])))
 # No NAs after removing them
-!any(is.na(vegan::decostand(x, "alr", na.rm=TRUE, pseudocount=1, reference=4)))
+!any(is.na(decostand(x, "alr", na.rm=TRUE, pseudocount=1, reference=4)))
 # All NAs are replaced by zero
-all((rowMeans(vegan::decostand(x, "alr", na.rm=TRUE, pseudocount=1, reference=4)==0)==1)==is.na(x[,4]))
+all((rowMeans(decostand(x, "alr", na.rm=TRUE, pseudocount=1, reference=4)==0)==1)==is.na(x[,4]))
 
 # Expect that error does not occur
-vegan::decostand(testdata, method = "rclr")
-vegan::decostand(testdata, method = "clr", pseudocount=1)
+decostand(testdata, method = "rclr")
+decostand(testdata, method = "clr", pseudocount=1)
 # Expect error
-#class(try(vegan::decostand(testdata, method = "clr")))=="try-error"
-#class(try(vegan::decostand(testdata, method = "clr", pseudocount=0)))=="try-error"
+#class(try(decostand(testdata, method = "clr")))=="try-error"
+#class(try(decostand(testdata, method = "clr", pseudocount=0)))=="try-error"
 
 # Tests that clr robust gives values that are approximately same if only 
 # one value per sample are changed to zero
@@ -74,8 +74,8 @@ test <- testdata+1
 test2 <- test; test2[,1] <- 0
 
 # clr robust transformations
-test <- vegan::decostand(test, method = "rclr")
-test2 <- vegan::decostand(test2, method = "rclr")
+test <- decostand(test, method = "rclr")
+test2 <- decostand(test2, method = "rclr")
 
 # Removes first cols
 test <- test[, -1]
@@ -87,32 +87,32 @@ cor(unlist(test), unlist(test2)) > 0.99
 ############################# NAMES ####################################
 
 # Tests that dimensins have correct names
-all(rownames(vegan::decostand(testdata+1, method = "clr")) == rownames(testdata))
-all(colnames(vegan::decostand(testdata, method = "clr", pseudocount=1)) == colnames(testdata))
-all(rownames(vegan::decostand(testdata, method = "rclr")) == rownames(testdata))
-all(colnames(vegan::decostand(testdata, method = "rclr")) == colnames(testdata))
+all(rownames(decostand(testdata+1, method = "clr")) == rownames(testdata))
+all(colnames(decostand(testdata, method = "clr", pseudocount=1)) == colnames(testdata))
+all(rownames(decostand(testdata, method = "rclr")) == rownames(testdata))
+all(colnames(decostand(testdata, method = "rclr")) == colnames(testdata))
 
 ########################################################################
 
 # Count vs. Relative data
 
 # CLR is identical with count and relative data
-a1 <- vegan::decostand(testdata.with.pseudo, method = "clr")
-a2 <- vegan::decostand(relative.with.pseudo, method = "clr")
+a1 <- decostand(testdata.with.pseudo, method = "clr")
+a2 <- decostand(relative.with.pseudo, method = "clr")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
 # rCLR is identical with count and relative data
-a1 <- vegan::decostand(testdata.with.pseudo, method = "rclr")
-a2 <- vegan::decostand(relative.with.pseudo, method = "rclr")
+a1 <- decostand(testdata.with.pseudo, method = "rclr")
+a2 <- decostand(relative.with.pseudo, method = "rclr")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
 # ALR is identical with count and relative data
-a1 <- vegan::decostand(testdata.with.pseudo, method = "alr")
-a2 <- vegan::decostand(relative.with.pseudo, method = "alr")
+a1 <- decostand(testdata.with.pseudo, method = "alr")
+a2 <- decostand(relative.with.pseudo, method = "alr")
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
 ####### # ALR transformation drops one feature ################
-ncol(vegan::decostand(testdata.with.pseudo, "alr")) == ncol(testdata.with.pseudo)-1
+ncol(decostand(testdata.with.pseudo, "alr")) == ncol(testdata.with.pseudo)-1
 
 
 
