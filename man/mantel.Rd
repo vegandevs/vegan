@@ -61,6 +61,10 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   methods than \code{"pearson"}, partial correlations will probably be
   wrong with other methods.
 
+  Borcard & Legendre (2012) warn against using partial Mantel test and
+  recommend instead Mantel correlogram
+  (\code{\link{mantel.correlog}}).
+
   The function uses \code{\link{cor}}, which should accept
   alternatives \code{pearson} for product moment correlations and
   \code{spearman} or \code{kendall} for rank correlations.
@@ -80,29 +84,22 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
   \item{control}{A list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}.}
 }
-\references{ The test is due to Mantel, of course, but the
-  current implementation is based on Legendre and Legendre.
+\references{
+
+  Borcard, D. & Legendre, P. (2012) Is the Mantel correlogram powerful
+  enough to be useful in ecological analysis? A simulation
+  study. \emph{Ecology} 93: 1473-1481.
 
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   Edition. Elsevier.
   
 }
 
-\note{
-  Legendre & Legendre (2012, Box 10.4) warn against using partial
-  Mantel correlations.
-}
 
 \author{Jari Oksanen }
 
 
-\seealso{\code{\link{cor}} for correlation coefficients,
-  \code{\link{protest}} (Procrustes test) for an alternative with
-  ordination diagrams, \code{\link{anosim}}  and \code{\link{mrpp}}
-  for comparing dissimilarities against 
-  classification.  For dissimilarity matrices, see \code{\link{vegdist}}
-  or \code{\link{dist}}.  See \code{\link{bioenv}} for selecting
-  environmental variables. }
+\seealso{ \code{\link{mantel.correlog}}. }
 
 \examples{
 ## Is vegetation related to environment?

@@ -8,7 +8,7 @@
   Function \code{mantel.correlog} computes a multivariate
   Mantel correlogram. Proposed by Sokal (1986) and Oden and Sokal
   (1986), the method is also described in Legendre and Legendre (2012,
-  pp. 819--821).
+  pp. 819--821) and tested and compared in Borcard and Legendere (2012).
 }
 
 \usage{
@@ -81,9 +81,18 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
   permutational Mantel test performed by \code{vegan}'s
   \code{\link{mantel}} function.
 
+  Borcard and Legendre (2012) show that the testing method in the
+  Mantel correlogram has correct type I error and power, contrary to
+  the simple and partial Mantel tests so often used by ecologists and
+  geneticists in spatial analysis (see \code{\link{mantel.partial}}).
+  They also show that the test in Mantel correlograms is the same test
+  as used by Wagner (2004) in multiscale ordination
+  (\code{\link{mso}}), and that it is closely related to the Geary’s
+  \eqn{c} test in univariate correlograms.
+
   When a correction for multiple testing is applied, more permutations
   are necessary than in the no-correction case, to obtain significant
-  p-values in the higher correlogram classes.
+  \eqn{p}-values in the higher correlogram classes.
 
   The \code{print.mantel.correlog} function prints out the
   correlogram. See examples.  }
@@ -119,6 +128,10 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
 
 \references{
 
+  Borcard, D. & P. Legendre. 2012. Is the Mantel correlogram powerful
+  enough to be useful in ecological analysis? A simulation
+  study. Ecology 93: 1473-1481.
+
   Legendre, P. and L. Legendre. 2012. Numerical ecology, 3rd English
   edition. Elsevier Science BV, Amsterdam.
 
@@ -134,7 +147,12 @@ cutoff=TRUE, r.type="pearson", nperm=999, mult="holm", progressive=TRUE)
   informatics, IV. North-Holland, Amsterdam.
   
   Sturges, H. A. 1926. The choice of a class interval. Journal of the 
-  American Statistical Association 21: 65–66.  }
+  American Statistical Association 21: 65–66.
+
+  Wagner, H.H. 2004. Direct multi-scale ordination with canonical
+  correspondence analysis. Ecology 85: 342-351.
+
+}
 
 \examples{   
 # Mite data available in "vegan"
