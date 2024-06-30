@@ -47,11 +47,14 @@ msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, legend = "topleft", ...
     by \code{\link{legend}}.}
   \item{\dots}{Other arguments passed to functions.}
 }
+
 \details{
-  The Mantel test is an adaptation of the function \code{\link{mantel}} of the
-  \pkg{vegan} package to the parallel testing of several distance classes. It
-  compares the mean inertia in each distance class to the pooled mean
-  inertia of all other distance classes. 
+
+  The Mantel test is an adaptation of the function
+  \code{\link{mantel}} to the parallel testing of several distance
+  classes and similar to multivariate \code{\link{mantel.correlog}}.
+  It compares the mean inertia in each distance class to the pooled
+  mean inertia of all other distance classes.
 
   If there are explanatory variables (RDA, CCA, pRDA, pCCA) and a
   significance test for residual autocorrelation was performed when
@@ -103,8 +106,9 @@ msoplot(x, alpha = 0.05, explained = FALSE, ylim = NULL, legend = "topleft", ...
 \author{ The responsible author was Helene Wagner.} 
 \note{ The function is based on the code published in the Ecological
   Archives E085-006 (\doi{10.1890/02-0738}).  }
-\seealso{ Function \code{\link{cca}} and \code{\link{rda}},
-  \code{\link{cca.object}}. }
+
+\seealso{ \code{\link{mantel.correlog}}. }
+
 \examples{
 ## Reconstruct worked example of Wagner (submitted):
 X <- matrix(c(1, 2, 3, 2, 1, 0), 3, 2)
