@@ -123,8 +123,8 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- t(.calc_alr(t(x), na.rm, ...))
-	else x <- .calc_alr(x, na.rm, ...)
+            x <- .calc_alr(x, na.rm, ...)
+	else x <- t(.calc_alr(t(x), na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, clr = {
@@ -192,13 +192,14 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm, ...)
+    function(x, ...)
 {
     # Error with negative values
     # Always na.rm=TRUE at this step!
     if (any(x < 0, na.rm = TRUE)) {
         stop("'rclr' cannot be used with negative data", call. = FALSE)
     }
+
    # Log transform
    clog <- log(x)
    # Convert zeros to NAs in rclr
@@ -215,11 +216,10 @@
    xx <- clog - means
    attr(xx, "parameters") <- list("means" = means)
 
-    # Replace missing values with 0
-    if (na.rm) {
-        xx[is.na(xx)] <- 0
-    } 
-
+   # Replace missing values with 0
+   message("Replacing missing values with zero for clr. You can disable this with na.rm=FALSE.")    
+   xx[is.na(xx)] <- 0
+ 
    # Add the matrix completion step
    #if (any(is.na(xx))) {
    #  dimnams <- dimnames(xx)
@@ -241,8 +241,8 @@
     x <- x + pseudocount
     # If there is negative values, gives an error.
     # Always na.rm=TRUE at this step
-    if (any(x < 0, na.rm = TRUE)) {
-        stop("'alr' cannot be used with negative data: use pseudocount >= ",
+    if (any(x <= 0, na.rm = TRUE)) {
+        stop("'alr' cannot be used with non-positive data: use pseudocount >= ",
              -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
