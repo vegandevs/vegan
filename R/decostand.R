@@ -156,7 +156,7 @@
 
 ## Modified from the original version in mia R package
 .calc_clr <-
-    function(x, na.rm, pseudocount=0)
+    function(x, na.rm, pseudocount=0, ...)
 {
 
     # Add pseudocount
@@ -180,7 +180,7 @@
     clog <- clog - means
 
     # Replace missing values with 0
-    if (na.rm) {
+    if (na.rm && any(is.na(clog))) {
         message("Replacing missing values with zero for clr. You can disable this with na.rm=FALSE.")    
         clog[is.na(clog)] <- 0
     } 
@@ -231,18 +231,15 @@
    
 }
 
-
-
-
 .calc_alr <-
-    function (x, na.rm, pseudocount = 0, reference = 1)
+    function (x, na.rm, pseudocount = 0, reference = 1, ...)
 {
     # Add pseudocount
     x <- x + pseudocount
     # If there is negative values, gives an error.
     # Always na.rm=TRUE at this step
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("'alr' cannot be used with non-positive data: use pseudocount >= ",
+        stop("'alr' cannot be used with non-positive data: use pseudocount > ",
              -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
@@ -259,7 +256,7 @@
     clog <- clog[, -reference] - refvector
 
     # Replace missing values with 0
-    if (na.rm) {
+    if (na.rm && any(is.na(clog))) {
         message("Replacing missing values with zero for alr. You can disable this with na.rm=FALSE.")
         clog[is.na(clog)] <- 0
     } 
