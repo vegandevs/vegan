@@ -82,6 +82,8 @@
 <li><p><code>decostand</code> standardization method <code>"clr"</code> did not implement <code>na.rm = TRUE</code> (issue <a href="https://github.com/vegandevs/vegan/issues/661" class="external-link">#661</a>). Standardization methods <code>"rank"</code> and <code>"rrank"</code> did not retain <code>NA</code> values but changed them to 0. Original <code>NA</code> values are kept in <code>decostand</code>, but with <code>na.rm = TRUE</code> they are ignored when transforming other data values.</p></li>
 <li><p><code>metaMDS</code>: half-change scaling failed when maxdist was not 1.</p></li>
 <li><p><code>summary.ordihull</code> failed if input data were not two-dimensional.</p></li>
+<li><p><code>decorana</code> checks now that input data are numeric instead of confusing error message such as in (<a href="https://stackoverflow.com/questions/78666646/" class="external-link uri">https://stackoverflow.com/questions/78666646/</a>).</p></li>
+<li><p><code>simulate.rda</code> failed with univariate response.</p></li>
 <li><p><code>vegemite</code> returned only the last page of multi-page table in its (invisible) return object.</p></li>
 </ul></div>
 <div class="section level3">
