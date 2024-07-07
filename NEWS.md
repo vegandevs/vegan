@@ -82,6 +82,12 @@
 
 * `summary.ordihull` failed if input data were not two-dimensional.
 
+* `decorana` checks now that input data are numeric instead of
+  confusing error message such as in
+  (https://stackoverflow.com/questions/78666646/).
+
+* `simulate.rda` failed with univariate response.
+
 * `vegemite` returned only the last page of multi-page table in its
   (invisible) return object.
 

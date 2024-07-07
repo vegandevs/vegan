@@ -9,7 +9,7 @@
     ## data
     veg <- as.matrix(veg)
     if (!is.numeric(veg))
-        stop("data must be numeric (no factors nor characters)")
+        stop("data 'veg' must be numeric (not factors or characters)")
     if (any(veg < 0))
         stop("'decorana' cannot handle negative data entries")
     ## optional data transformation
