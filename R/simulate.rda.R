@@ -80,10 +80,10 @@
                                 function(x) mvrnorm(1, mu = x, Sigma = dev)))
         }
         ## ans to the scale of observations
-        ans[,,i] <- ans[,,i] * sqnr1
+        ans[,,i] <- ans[,,i, drop = FALSE] * sqnr1
         if (!is.null(scl))
-            ans[,,i] <- sweep(ans[,,i], 2, scl, "*")
-        ans[,,i] <- sweep(ans[,,i], 2, cnt, "+")
+            ans[,,i] <- sweep(ans[,,i, drop = FALSE], 2, scl, "*")
+        ans[,,i] <- sweep(ans[,,i, drop = FALSE], 2, cnt, "+")
     }
     ## set RNG attributes
     if (is.null(indx))
