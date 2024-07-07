@@ -35,19 +35,8 @@
                           nsim, nrow(indx)))
     ## collect data to back-transform data to the scale of observations
     sqnr1 <- sqrt(nobs(object) - 1)
-    ## the ifs are only needed to cope with pre-2.5-0 vegan: now
-    ## we always have Ybar, but earlier we needed to check whether
-    ## we had CA or CCA Xbar
-    if (!is.null(object$Ybar)) {
-        cnt <- attr(object$Ybar, "scaled:center")
-        scl <- attr(object$Ybar, "scaled:scale")
-    } else { # needed for vegan-2.4 compatibility
-        if (is.null(object$CCA))
-            tmp <- object$CA$Xbar
-        else tmp <- object$CCA$Xbar
-        cnt <- attr(tmp, "scaled:center")
-        scl <- attr(tmp, "scaled:scale")
-    }
+    cnt <- attr(object$Ybar, "scaled:center")
+    scl <- attr(object$Ybar, "scaled:scale")
 
     ## Proper simulation: very similar for simulate.lm, but produces
     ## an array of response matrices
