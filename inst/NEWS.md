@@ -53,6 +53,12 @@
 * `summary.ordihull` (and hence `ordiareatest` for convex hulls)
   failed if input had more than two dimensions.
 
+* `decorana` checks now that input data are numeric instead of
+  confusing error message (see
+  https://stackoverflow.com/questions/78666646/).
+
+* `simulate.rda` failed with univariate response.
+
 * `vegemite` returned only the last page of multi-page table in its
   (invisible) return object.
 
