@@ -1,6 +1,8 @@
 `make.cepnames` <-
     function (names, seconditem = FALSE)
 {
+    ## do not split by hyphens, but collapse hyphened names
+    names <- gsub("-", "", names)
     ## make valid names
     names <- make.names(names, unique = FALSE, allow_ = FALSE)
     ## remove trailing and duplicated dots
