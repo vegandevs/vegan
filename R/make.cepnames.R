@@ -8,14 +8,18 @@
     ## remove trailing and duplicated dots
     names <- gsub("\\.[\\.]+", ".", names)
     names <- gsub("\\.$", "", names)
-    ## split by dots and take 4 letters of each element (if several)
-    names <- lapply(strsplit(names, "\\."), function(x) if (length(x) > 1)
-                    substring(x, 1, 4) else x )
-    ## Take first and last element or 8 characters if only one element
-    names <- unlist(lapply(names, function(x) if (length(x) > 1)
-                           paste(x[c(1, if(seconditem) 2 else length(x))], collapse = "")
-                           else x))
-    names <- abbreviate(names, 8)
-    ## Final clean-up
-    make.names(names, unique = TRUE)
+    ## split by dots and get genus and epithet
+    names <- strsplit(names, ".", fixed = TRUE)
+    gen <- sapply(names, function(x) x[1])
+    epi <- sapply(names,
+                  function(x) {if (seconditem) x[2]
+                               else if (length(x) > 1) x[length(x)] else ""})
+    ## strict=TRUE always takes 4 even if this generates duplicates
+    gen <- ifelse(epi != "",
+                  abbreviate(gen, 4, use.classes = FALSE, strict = TRUE),
+                  gen)
+    names <- abbreviate(paste0(gen, epi), 8, use.classes = FALSE)
+    ## try to remove wovels if names > 8
+    names <- abbreviate(names, 8, use.classes = TRUE, named = FALSE)
+    names
 }
