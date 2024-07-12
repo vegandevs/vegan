@@ -1,7 +1,9 @@
 `make.cepnames` <-
     function (names, minlengths = c(4,4), seconditem = FALSE,
-              uniqgenera = FALSE)
+              uniqgenera = FALSE, method, named = FALSE)
 {
+    if (named)
+        orignames <- names
     ## do not split by hyphens, but collapse hyphened names
     names <- gsub("-", "", names)
     ## make valid names
@@ -25,7 +27,12 @@
     if (uniqgenera)
         gen <- abbreviate(gen, glen, use.classes = TRUE)
     names <- abbreviate(paste0(gen, epi), nmlen, use.classes = FALSE)
-    ## try to remove wovels if names > glel
-    names <- abbreviate(names, nmlen, use.classes = TRUE, named = FALSE)
+    ## try to remove wovels if names > nmlen
+    if (missing(method))
+        method <- "left.kept"
+    names <- abbreviate(names, nmlen, use.classes = TRUE, method = method,
+                        named = FALSE)
+    if (named)
+        names(names) <- orignames
     names
 }
