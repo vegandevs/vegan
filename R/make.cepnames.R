@@ -20,16 +20,15 @@
     ## strict=TRUE always takes given minlength even if these are duplicates
     glen <- minlengths[1]
     nmlen <- sum(minlengths)
-    gen <- ifelse(epi != "",
-                  abbreviate(gen, glen, use.classes = FALSE,
-                             strict = !uniqgenera),
-                  gen)
-    if (uniqgenera)
-        gen <- abbreviate(gen, glen, use.classes = TRUE)
-    names <- abbreviate(paste0(gen, epi), nmlen, use.classes = FALSE)
-    ## try to remove wovels if names > nmlen
     if (missing(method))
         method <- "left.kept"
+    gen <- ifelse(epi != "",
+                  abbreviate(abbreviate(gen, glen, use.classes = FALSE,
+                                        strict = !uniqgenera),
+                             glen, use.classes = TRUE, method = method),
+                  gen)
+    names <- abbreviate(paste0(gen, epi), nmlen, use.classes = FALSE)
+    ## try to remove wovels if names > nmlen
     names <- abbreviate(names, nmlen, use.classes = TRUE, method = method,
                         named = FALSE)
     if (named)
