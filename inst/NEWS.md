@@ -4,11 +4,9 @@
 
 #### What Is Version 2.6-6.2?
 
-  Version 2.6-6.2 cherry-picks fixes for bugs and buglets and fixes to
-  unexpected features from the development branch 2.6-7. This version
-  may never be released, but if there are important bugs or many
-  changes and major release of the 2.6-7 is not near, a minor CRAN
-  release may happen.
+  Version 2.6-6.2 cherry-picks fixes of bugs and buglets and fixes to
+  unexpected features from the development branch 2.6-7. The release
+  is scheduled for August 2024.
 
 #### New Features
 
@@ -26,7 +24,15 @@
   analysis (PCA), correspondence anslysis (CA), and principal coordinates
   analysis (PCO) are now available via `pca()`, `ca()`, and `pco()`
   respectaively. The underlying methods used are `rda()`, `cca()` and `dbrda()`
-  respectively. See [#655](https://github.com/vegandevs/vegan/issues/655)
+  respectively. See
+  [#655](https://github.com/vegandevs/vegan/issues/655).
+
+* `decorana` checks now that input data are numeric instead of
+  confusing error message (see
+  https://stackoverflow.com/questions/78666646/).
+
+* `make.cepnames` no longer splits names by hyphen: _Capsella
+  bursa-pastoris_ used to be `Capspast` but now is `Capsburs`.
 
 #### Bug Fixes
 
@@ -52,10 +58,6 @@
 
 * `summary.ordihull` (and hence `ordiareatest` for convex hulls)
   failed if input had more than two dimensions.
-
-* `decorana` checks now that input data are numeric instead of
-  confusing error message (see
-  https://stackoverflow.com/questions/78666646/).
 
 * `simulate.rda` failed with univariate response.
 
