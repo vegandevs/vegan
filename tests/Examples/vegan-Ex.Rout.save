@@ -1840,7 +1840,7 @@ log(N) P K Ca pH Al    6      0.2822
 > ### Name: cca
 > ### Title: [Partial] [Constrained] Correspondence Analysis and Redundancy
 > ###   Analysis
-> ### Aliases: cca cca.default cca.formula rda rda.default rda.formula
+> ### Aliases: cca cca.default cca.formula rda rda.default rda.formula ca pca
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -2167,8 +2167,9 @@ C     0  0.00000000  0.00000000
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: dbrda
-> ### Title: [Partial] Distance-based Redundancy Analysis
-> ### Aliases: capscale dbrda
+> ### Title: Principal Coordinates Analysis and [Partial] Distance-based
+> ###   Redundancy Analysis
+> ### Aliases: capscale dbrda pco
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -2240,6 +2241,20 @@ Eigenvalues for unconstrained axes:
 
 > ## add species scores
 > sppscores(m) <- wisconsin(varespec)
+> ## pco
+> pco(varespec, dist = "bray", sqrt.dist = TRUE)
+Call: pco(X = varespec, dist = "bray", sqrt.dist = TRUE)
+
+              Inertia Rank
+Total            6.95     
+Unconstrained    6.95   23
+Inertia is Bray distance 
+
+Eigenvalues for unconstrained axes:
+  MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
+1.6348 1.1428 0.5658 0.4780 0.3737 0.3716 0.3074 0.2665 
+(Showing 8 of 23 unconstrained eigenvalues)
+
 > 
 > 
 > 
@@ -3769,20 +3784,26 @@ attr(,"class")
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: make.cepnames
-> ### Title: Abbreviates a Botanical or Zoological Latin Name into an
-> ###   Eight-character Name
+> ### Title: Abbreviates a Two-Part Botanical or Zoological Latin Name into
+> ###   Character String
 > ### Aliases: make.cepnames
 > ### Keywords: character
 > 
 > ### ** Examples
 > 
-> make.cepnames(c("Aa maderoi", "Poa sp.", "Cladina rangiferina",
-+ "Cladonia cornuta", "Cladonia cornuta var. groenlandica",
-+ "Cladonia rangiformis", "Bryoerythrophyllum"))
-[1] "Aamade"     "Poasp"      "Cladrang"   "Cladcorn"   "Cladgroe"  
-[6] "Cladrang.1" "Bryrythr"  
-> data(BCI)
-> colnames(BCI) <- make.cepnames(colnames(BCI))
+> names <- c("Aa maderoi", "Capsella bursa-pastoris", "Taraxacum",
++   "Cladina rangiferina", "Cladonia rangiformis", "Cladonia cornuta",
++   "Cladonia cornuta var. groenlandica", "Rumex acetosa",
++   "Rumex acetosella")
+> make.cepnames(names)
+[1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladrangife" "Cladrangifo"
+[6] "Cladcorn"    "Cladgroe"    "Rumeacetosa" "Rumeacetose"
+> make.cepnames(names, uniqgenera = TRUE)
+[1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladiran"    "Cladoran"   
+[6] "Cladocor"    "Cladogro"    "Rumeacetosa" "Rumeacetose"
+> make.cepnames(names, method = "both.sides")
+[1] "Aamadero" "Capsburs" "Taraxacu" "Cladrngf" "Cldrngfo" "Cladcorn" "Cladgroe"
+[8] "Rumeacts" "Rmcetose"
 > 
 > 
 > 
@@ -8969,7 +8990,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.598 0.302 8.931 0 0 
+Time elapsed:  8.554 0.341 8.927 0 0 
 > grDevices::dev.off()
 null device 
           1 
