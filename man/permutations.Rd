@@ -30,14 +30,14 @@
   These capabilities are provided by functions from the \pkg{permute}
   package. The user can request a particular type of permutation by
   supplying the \code{permutations} argument of a function with an
-  object returned by \code{\link{how}}, which defines how samples should
-  be permuted. Alternatively, the user can simply specify the required
-  number of permutations and a simple randomisation procedure will be
-  performed. Finally, the user can supply a matrix of permutations (with
-  number of rows equal to the number of permutations and number of
-  columns equal to the number of observations in the data) and
-  \pkg{vegan} will use these permutations instead of generating new
-  permutations.
+  object returned by \code{\link[permute]{how}}, which defines how
+  samples should be permuted. Alternatively, the user can simply
+  specify the required number of permutations and a simple
+  randomisation procedure will be performed. Finally, the user can
+  supply a matrix of permutations (with number of rows equal to the
+  number of permutations and number of columns equal to the number of
+  observations in the data) and \pkg{vegan} will use these
+  permutations instead of generating new permutations.
 
   The majority of functions in \pkg{vegan} allow for the full range of
   possibilities outlined above. Exceptions include
