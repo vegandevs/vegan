@@ -58,6 +58,10 @@
   used, all internal calculations for ordering rows and columns will
   be based on scaled data.
 
+* `make.cepnames` was completely re-designed and is much more flexible
+  with enhanced user-control. The function is now based solely on
+  `abbreviate`.
+
 ## Bug Fixes
 
 * `plot.cca`: `biplot` and `regression` arrows were not drawn and
