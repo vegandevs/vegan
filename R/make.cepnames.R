@@ -1,6 +1,6 @@
 `make.cepnames` <-
     function (names, minlengths = c(4,4), seconditem = FALSE,
-              uniqgenera = FALSE, method, named = FALSE)
+              uniqgenera = FALSE, named = FALSE, method)
 {
     if (named)
         orignames <- names
