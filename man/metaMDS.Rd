@@ -64,7 +64,7 @@ metaMDSredist(object, ...)
     \code{trymax} was reached.}
   \item{engine}{The function used for MDS. The default is to use the
     \code{\link{monoMDS}} function in \pkg{vegan}, but for backward
-    compatibility it is also possible to use \code{\link{isoMDS}} of
+    compatibility it is also possible to use \code{\link[MASS]{isoMDS}} of
     \pkg{MASS}.}
 
   \item{autotransform}{Use simple heuristics for possible data

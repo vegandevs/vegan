@@ -55,7 +55,7 @@
     pairwise comparisons of group mean distances (dispersions or variances).}
   \item{groups}{character; the levels of the grouping factor.}
   \item{control}{a list, the result of a call to
-    \code{\link{how}}.}
+    \code{\link[permute]{how}}.}
 }
 \references{
   Anderson, M.J. (2006) Distance-based tests for homogeneity of
