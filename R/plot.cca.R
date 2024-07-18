@@ -111,6 +111,7 @@
         score <- if (!is.null(UserPar[[kind]]$type))
                      UserPar[[kind]]$type
                  else type
+        score <- match.arg(score, TYPES)
         if (score == "none") next
         par <- switch(score,
                       "text" = defParText[[kind]],
