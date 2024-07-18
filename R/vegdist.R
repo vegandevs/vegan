@@ -48,7 +48,7 @@
     if (method == 21)  # aitchison
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
     if (method == 22)  # robust.aitchison
-        x <- decostand(x, "rclr") # No pseudocount for rclr
+        x <- decostand(x, "rclr", ...) # No pseudocount for rclr
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)
