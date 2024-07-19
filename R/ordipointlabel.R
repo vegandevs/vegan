@@ -95,7 +95,10 @@
     ##text(lab, labels=labels, col = col, cex = cex, font = font,  ...)
     ordiArgAbsorber(lab, labels=labels, col = col, cex = cex, font = font,
                     FUN = text, ...)
-    pl <- list(points = xy)
+    if (!inherits(x, "ordiplot"))
+        pl <- list(points = xy)
+    else
+        pl <- x
     pl$labels <- lab
     attr(pl$labels, "font") <- font
     args <- list(tcex = cex, tcol = col, pch = pch, pcol = col,
