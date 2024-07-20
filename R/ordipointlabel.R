@@ -38,7 +38,7 @@
             font <- font[1]
     }
     if (!add)
-        pl <- ordiplot(x, display = display, choices = choices, type="n", ...)
+        pl <- ordiplot(xy, display = "sites", type="n", ...)
     labels <- rownames(xy)
     em <- strwidth("m", cex = min(cex), font = min(font))
     ex <- strheight("x", cex = min(cex), font = min(font))
