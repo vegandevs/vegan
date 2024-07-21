@@ -69,14 +69,18 @@
     k <- k[maylap]
     jk <- sort(unique(c(j,k)))
     ## SANN: no. of iterations & starting positions
-    nit <- min(48 * length(jk), 10000)
-    pos <- rep(1, n)
-    ## Criterion: overlap + penalty for positions other than directly
-    ## above and especially for corners
+    nit <- min(64 * length(jk), 10000)
+    pos <- ifelse(xy[,2] > 0, 1, 3)
+    ## Criterion: overlap + penalty for moving towards origin and also
+    ## for corners. Penalty is mild: max 1 ltr and one-character
+    ## string > 3*ltr due to padding (em, ex) of the bounding box.
     fn <- function(pos) {
+        move <- makeoff(pos, matrix(1, 1, 2))
         off <- makeoff(pos, box)
         val <- sum(overlap(xy[j,]+off[j,], box[j,], xy[k,]+off[k,], box[k,]))
-        val <- val/ltr + sum(pos>1)*0.1 + sum(pos>4)*0.1
+        val <- val/ltr + sum(move[,1] * xy[,1] < 0) * 0.4 +
+            sum(move[,2] * xy[,2] < 0) * 0.4 +
+            sum(pos > 4) * 0.2
     }
     ## Move a label of one point
     gr <- function(pos) {
