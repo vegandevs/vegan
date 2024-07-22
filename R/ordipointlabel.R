@@ -31,11 +31,13 @@
     else {
         xy <- xy[[1]]
         if (length(col) < nrow(xy))
-            col <- col[1]
+            col <- rep(col[1], nrow(xy))
         if (length(pch) < nrow(xy))
-            pch <- pch[1]
-        if (length(font) < nrow(xy))
-            font <- font[1]
+            pch <- rep(pch[1], nrow(xy))
+        if (length(cex) < nrow(xy))
+            cex <- rep(cex[1], length = nrow(xy))
+        if (length(cex) < nrow(xy))
+            font <- rep(font[1], length = nrow(xy))
     }
     if (!add)
         pl <- ordiplot(xy, display = "sites", type="n")
