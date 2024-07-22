@@ -1,6 +1,7 @@
 \name{ordipointlabel}
 \alias{ordipointlabel}
 \alias{plot.ordipointlabel}
+\alias{labels.ordipointlabel}
 
 \title{ Ordination Plots with Points and Optimized Locations for Text }
 \description{
@@ -13,7 +14,7 @@
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
-   cex = c(0.8, 0.8), add = FALSE, select, ...)
+   cex = c(0.8, 0.8), add = FALSE, labels, select, ...)
 
 \method{plot}{ordipointlabel}(x, ...)
 }
@@ -29,6 +30,10 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
      plot. These should be vectors of the same length as the number of
      items in \code{display}.}
   \item{add}{ Add to an existing plot. }
+  \item{labels}{Labels used in graph. Species (variable) and SU (row)
+    names are used if this is missing. Labels must be given in one
+    vector for all scores of \code{display}. Function \code{labels} can
+    extract the current name from a saved \code{ordipointlabel} object.}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items. \code{select} is only used if a single set of

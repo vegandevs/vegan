@@ -249,6 +249,7 @@ S3method(identify, ordiplot)
 # labels: base
 S3method(labels, cca)
 S3method(labels, envfit)
+S3method(labels, ordipointlabel)
 # lines: graphics
 S3method(lines, fitspecaccum)
 S3method(lines, permat)

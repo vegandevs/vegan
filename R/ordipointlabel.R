@@ -2,7 +2,7 @@
 `ordipointlabel` <-
     function(x, display = c("sites", "species"), choices = c(1,2), col=c(1,2),
              pch=c("o","+"), font = c(1,1), cex=c(0.8, 0.8), add = FALSE,
-             select, ...)
+             labels, select, ...)
 {
     xy <- list()
     ## Some 'scores' accept only one 'display': a workaround
@@ -37,7 +37,14 @@
     }
     if (!add)
         pl <- ordiplot(xy, display = "sites", type="n")
-    labels <- rownames(xy)
+    if (!missing(labels)) {
+        if (length(labels) != nrow(xy))
+            stop(gettextf(
+                "you need  %d labels but arg 'labels' only had %d: arg ignored",
+                nrow(xy), length(labels)))
+    } else {
+        labels <- rownames(xy)
+    }
     em <- strwidth("m", cex = min(cex), font = min(font))
     ex <- strheight("x", cex = min(cex), font = min(font))
     ltr <- em*ex
@@ -117,4 +124,12 @@
     attr(pl, "optim") <- sol
     class(pl) <- c("ordipointlabel", "orditkplot", class(pl))
     invisible(pl)
+}
+
+### Extract labels: useful if arg labels= is given in ordipointlabel call
+
+`labels.ordipointlabel` <-
+    function(object, ...)
+{
+    rownames(object$labels)
 }
