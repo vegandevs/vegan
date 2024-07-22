@@ -14,7 +14,7 @@
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
-   cex = c(0.8, 0.8), add = FALSE, labels, select, ...)
+   cex = c(0.7, 0.7), add = FALSE, labels, select, ...)
 
 \method{plot}{ordipointlabel}(x, ...)
 }

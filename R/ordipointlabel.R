@@ -1,7 +1,7 @@
 ### Modelled after maptools:::pointLabel.
 `ordipointlabel` <-
     function(x, display = c("sites", "species"), choices = c(1,2), col=c(1,2),
-             pch=c("o","+"), font = c(1,1), cex=c(0.8, 0.8), add = FALSE,
+             pch=c("o","+"), font = c(1,1), cex=c(0.7, 0.7), add = FALSE,
              labels, select, ...)
 {
     xy <- list()
@@ -29,11 +29,13 @@
     else {
         xy <- xy[[1]]
         if (length(col) < nrow(xy))
-            col <- col[1]
+            col <- rep(col[1], nrow(xy))
         if (length(pch) < nrow(xy))
-            pch <- pch[1]
-        if (length(font) < nrow(xy))
-            font <- font[1]
+            pch <- rep(pch[1], nrow(xy))
+        if (length(cex) < nrow(xy))
+            cex <- rep(cex[1], length = nrow(xy))
+        if (length(cex) < nrow(xy))
+            font <- rep(font[1], length = nrow(xy))
     }
     if (!add)
         pl <- ordiplot(xy, display = "sites", type="n")
