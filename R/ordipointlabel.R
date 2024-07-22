@@ -43,9 +43,15 @@
     em <- strwidth("m", cex = min(cex), font = min(font))
     ex <- strheight("x", cex = min(cex), font = min(font))
     ltr <- em*ex
-    w <- strwidth(labels, cex = cex, font = font) + em
-    h <- strheight(labels, cex = cex, font = font) + ex
-    box <- cbind(w, h)
+    ## bounding box: strwidth/height do not accept vector cex and font
+    ## and we loop
+    box <- matrix(0, nrow(xy), 2)
+    for (i in seq_len(nrow(xy))) {
+        box[i,1] <- strwidth(labels[i], cex = cex[i], font = font[i]) +
+            strwidth("m", cex = cex[i], font = font[i])
+        box[i,2] <- strheight(labels[i], cex = cex[i], font = font[i]) +
+            strheight("x", cex = cex[i], font = font[i])
+    }
     ## offset: 1 up, 2..4 sides, 5..8 corners
     makeoff <- function(pos, lab) {
         cbind(c(0,1,0,-1,0.9,0.9,-0.9,-0.9)[pos] * lab[,1]/2,
