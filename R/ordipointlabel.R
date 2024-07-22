@@ -19,14 +19,12 @@
         }
     }
     if (length(display) > 1) {
-        col <- rep(col, sapply(xy, nrow))
-        pch <- rep(pch, sapply(xy, nrow))
-        font <- rep(font, sapply(xy, nrow))
-        cex <- rep(cex, sapply(xy, nrow))
-        tmp <- xy[[1]]
-        for (i in 2:length(display))
-            tmp <- rbind(tmp, xy[[i]])
-        xy <- tmp
+        ld <- length(display)
+        col <- rep(rep(col, length=ld), sapply(xy, nrow))
+        pch <- rep(rep(pch, length=ld), sapply(xy, nrow))
+        font <- rep(rep(font, length=ld), sapply(xy, nrow))
+        cex <- rep(rep(cex, length=ld), sapply(xy, nrow))
+        xy <- do.call(rbind, xy)
     }
     else {
         xy <- xy[[1]]
