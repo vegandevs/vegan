@@ -14,7 +14,7 @@
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
-   cex = c(0.7, 0.7), add = FALSE, labels, select, ...)
+   cex = c(0.7, 0.7), add = FALSE, labels, bg, select, ...)
 
 \method{plot}{ordipointlabel}(x, ...)
 }
@@ -34,6 +34,9 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
     names are used if this is missing. Labels must be given in one
     vector for all scores of \code{display}. Function \code{labels} can
     extract the current name from a saved \code{ordipointlabel} object.}
+  \item{bg}{Background colour for labels. If this is given, texts is
+    drawn over non-transparent background. Either a single colour or
+    vector of colours for each \code{display}.}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items. \code{select} is only used if a single set of

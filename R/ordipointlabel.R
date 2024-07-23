@@ -2,7 +2,7 @@
 `ordipointlabel` <-
     function(x, display = c("sites", "species"), choices = c(1,2), col=c(1,2),
              pch=c("o","+"), font = c(1,1), cex=c(0.7, 0.7), add = FALSE,
-             labels, select, ...)
+             labels, bg, select, ...)
 {
     xy <- list()
     ## Some 'scores' accept only one 'display': a workaround
@@ -24,6 +24,8 @@
         pch <- rep(rep(pch, length=ld), sapply(xy, nrow))
         font <- rep(rep(font, length=ld), sapply(xy, nrow))
         cex <- rep(rep(cex, length=ld), sapply(xy, nrow))
+        if (!missing(bg))
+            fill <- rep(rep(bg, length=ld), sapply(xy, nrow))
         xy <- do.call(rbind, xy)
     }
     else {
@@ -36,6 +38,8 @@
             cex <- rep(cex[1], length = nrow(xy))
         if (length(cex) < nrow(xy))
             font <- rep(font[1], length = nrow(xy))
+        if (!missing(bg) && length(bg)  < nrow(xy))
+            fill <- rep(bg[1], length = nrow(xy))
     }
     if (!add)
         pl <- ordiplot(xy, display = "sites", type="n")
@@ -104,14 +108,28 @@
     ## Simulated annealing
     sol <- optim(par = pos, fn = fn, gr = gr, method="SANN",
                  control=list(maxit=nit))
+    lab <- xy + makeoff(sol$par, box)
+    dev.hold()
+    ## draw optional lab background first so it does not cover points
+    if (!missing(bg)) {
+        for(i in seq_len(nrow(lab))) {
+            polygon(lab[i,1] + c(-1,1,1,-1)*box[i,1]/2.2,
+                    lab[i,2] + c(-1,-1,1,1)*box[i,2]/2.2,
+                    col = fill[i], border = col[i], xpd = TRUE)
+            ordiArgAbsorber(lab[i,1], lab[i,2], labels = labels[i],
+                            col = col[i], cex = cex[i], font = font[i],
+                            FUN = text, ...)
+        }
+    } else {
+        ordiArgAbsorber(lab, labels=labels, col = col, cex = cex,
+                        font = font, FUN = text, ...)
+    }
     if (!add)
         ##points(xy, pch = pch, col = col, cex=cex, ...)
         ordiArgAbsorber(xy, pch = pch, col = col, cex = cex, FUN = points,
                         ...)
-    lab <- xy + makeoff(sol$par, box)
     ##text(lab, labels=labels, col = col, cex = cex, font = font,  ...)
-    ordiArgAbsorber(lab, labels=labels, col = col, cex = cex, font = font,
-                    FUN = text, ...)
+    dev.flush()
     if (!inherits(x, "ordiplot"))
         pl <- list(points = xy)
     else
