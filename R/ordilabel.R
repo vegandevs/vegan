@@ -34,6 +34,7 @@
     if(!is.null(border))
         border <- rep(border, length=nrow(sco))[ord]
     fill <- rep(fill, length=nrow(sco))[ord]
+    dev.hold()
     for (i in 1:nrow(sco)) {
         ordiArgAbsorber(sco[i,1] + c(-1,1,1,-1)*w[i],
                         sco[i,2] + c(-1,-1,1,1)*h[i],
@@ -42,6 +43,7 @@
         ordiArgAbsorber(sco[i,1], sco[i,2], labels = labels[i], cex = cex,
                         col = col[i], xpd = xpd, FUN = text, ...)
     }
+    dev.flush()
     invisible(x)
 }
 
