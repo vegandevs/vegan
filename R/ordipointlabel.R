@@ -36,7 +36,7 @@
             pch <- rep(pch[1], nrow(xy))
         if (length(cex) < nrow(xy))
             cex <- rep(cex[1], length = nrow(xy))
-        if (length(cex) < nrow(xy))
+        if (length(font) < nrow(xy))
             font <- rep(font[1], length = nrow(xy))
     }
     if (!add)
