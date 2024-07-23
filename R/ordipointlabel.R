@@ -1,8 +1,8 @@
 ### Modelled after maptools:::pointLabel.
 `ordipointlabel` <-
     function(x, display = c("sites", "species"), choices = c(1,2), col=c(1,2),
-             pch=c("o","+"), font = c(1,1), cex=c(0.7, 0.7), add = FALSE,
-             labels, bg, select, ...)
+             pch=c("o","+"), font = c(1,1), cex=c(0.7, 0.7),
+             add = inherits(x, "ordiplot"), labels, bg, select, ...)
 {
     xy <- list()
     ## Some 'scores' accept only one 'display': a workaround

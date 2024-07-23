@@ -14,7 +14,7 @@
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
-   cex = c(0.7, 0.7), add = FALSE, labels, bg, select, ...)
+   cex = c(0.7, 0.7), add = inherits(x, "ordiplot"), labels, bg, select, ...)
 
 \method{plot}{ordipointlabel}(x, ...)
 }
@@ -29,7 +29,8 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
      character expansion for each kind of scores displayed in the
      plot. These should be vectors of the same length as the number of
      items in \code{display}.}
-  \item{add}{ Add to an existing plot. }
+  \item{add}{ Add to an existing plot. Default is \code{add = TRUE} when
+     the function is used in a pipe, and \code{FALSE} usually. }
   \item{labels}{Labels used in graph. Species (variable) and SU (row)
     names are used if this is missing. Labels must be given in one
     vector for all scores of \code{display}. Function \code{labels} can
