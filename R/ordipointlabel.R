@@ -124,9 +124,9 @@
         ordiArgAbsorber(lab, labels=labels, col = col, cex = cex,
                         font = font, FUN = text, ...)
     }
-    if (!add)
-        ##points(xy, pch = pch, col = col, cex=cex, ...)
-        ordiArgAbsorber(xy, pch = pch, col = col, cex = cex, FUN = points,
+
+    ## always plot points (heck, the function is ordi*point*label)
+    ordiArgAbsorber(xy, pch = pch, col = col, cex = cex, FUN = points,
                         ...)
     ##text(lab, labels=labels, col = col, cex = cex, font = font,  ...)
     dev.flush()
