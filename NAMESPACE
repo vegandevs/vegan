@@ -100,8 +100,8 @@ importFrom(graphics, abline, arrows, axis, barplot, box, contour,
 import(permute) ## vegan depends on permute: import everything
 importFrom(utils, news, vignette, combn, flush.console, modifyList,
            object.size, read.fortran, read.fwf, str)
-importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.off,
-           heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
+importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.hold, dev.flush,
+           dev.off, heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
            rgb, svg, tiff, xfig, xy.coords)
 ## import(grDevices) ## too many functions to be listed separately
 ## import(lattice) # vegan depends on lattice: import all
