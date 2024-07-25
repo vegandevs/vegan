@@ -1,12 +1,15 @@
-"scores.default" <-
+`scores.default` <-
     function (x, choices, display = c("sites", "species", "both"),
               tidy = FALSE, ...)
 {
-    display <- match.arg(display)
+    if (is.list(x)) {
+        ## why not display <- match.arg(display, names(x)) ?
+        display <- match.arg(display)
+        if (tidy)
+            display <- "both"
+        att <- names(x)
+    }
     X <- Y <- NULL
-    if (tidy)
-        display <- "both"
-    att <- names(x)
     if (is.data.frame(x) && all(sapply(x, is.numeric)))
         x <- as.matrix(x)
     if (is.list(x) && display %in% c("sites", "both")) {
@@ -44,7 +47,6 @@
         else { # "both" may be non-chalant: only warn
             warning("cannot find species scores")
         }
-
     }
     else if (is.numeric(x)) {
         X <- as.matrix(x)
