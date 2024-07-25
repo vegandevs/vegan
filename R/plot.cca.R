@@ -85,16 +85,17 @@
     defParText <- list("species" = list("col" = 2, "cex" = 0.7),
                        "sites" = list("cex" = 0.7),
                        "constraints" = list("col" = "darkgreen", "cex" = 0.7),
-                       "biplot" = list("col" = "blue"),
-                       "regression" = list("col" = "purple4"),
-                       "centroids" = list("col" = "blue"))
+                       "biplot" = list("col" = "blue", "cex" = 1.0),
+                       "regression" = list("col" = "purple4", "cex" = 1.0),
+                       "centroids" = list("col" = "blue", "cex" = 1.0))
     defParPoints <- list("species" = list("col" = 2, "cex" = 0.7, "pch" = "+"),
                          "sites" = list("cex" = 0.7, pch = 1),
                          "constraints" = list("col" = "darkgreen", "cex" = 0.7,
                                               "pch" = 2),
                          "biplot" = list("col" = "blue"),
                          "regression" = list("col" = "purple4"),
-                         "centroids" = list("col" = "blue", "pch" = "x"))
+                         "centroids" = list("col" = "blue", "pch" = "x",
+                                            "cex" = 1.0))
     UserPar <- list("species" = spe.par,
                     "sites" = sit.par,
                     "constraints" = con.par,
