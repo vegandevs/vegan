@@ -5,11 +5,11 @@
 
 \title{ Ordination Plots with Points and Optimized Locations for Text }
 \description{
-  The function \code{ordipointlabel} produces ordination plots with
-  points and text label to the points. The points are in the exact
-  location given by the ordination, but the function tries to optimize
-  the location of the text labels to minimize overplotting text. The
-  function may be useful with moderately crowded ordination plots.
+  Function produces ordination plots with points and text label to
+  the points. The points are in the fixed location given by the
+  ordination, but optimize the locations of the text labels are
+  optimized to minimize overplotting. The function is useful with
+  moderately crowded ordination plots.
 }
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
@@ -21,8 +21,8 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 
 \arguments{
   \item{x}{For \code{ordipointlabel()} a result object from an
-    ordination function. For \code{plot.ordipointlabel} an object
-    resulting from a call to \code{ordipointlabel()}.}
+    ordination function or an ordination plot (possibly in a pipe). For
+    \code{plot.ordipointlabel} an object from \code{ordipointlabel()}.}
   \item{display}{Scores displayed in the plot. }
   \item{choices}{Axes shown. }
   \item{col, pch, font, cex}{Colours, point types, font style and
@@ -48,18 +48,23 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   \code{\link{text}}.}
 }
 \details{
+
   The function uses simulated annealing (\code{\link{optim}},
   \code{method = "SANN"}) to optimize the location of the text labels
   to the points. There are eight possible locations: up, down, sides
-  and corners. There is a weak preference to text right above the
-  point, and a weak avoidance of corner positions. The exact locations
-  and the goodness of solution varies between runs, and there is no
-  guarantee of finding the global optimum. The optimization can take a
-  long time in difficult cases with a high number of potential
-  overlaps. Several sets of scores can be displayed in one plot. 
+  and corners. There is a weak preference to text away from zero, and
+  a weak avoidance of corner positions. The locations and goodness of
+  solution varies between runs, and there is no guarantee of finding
+  the global optimum, or the same text locations twice. The
+  optimization can take a long time in difficult cases with a high
+  number of potential overlaps. Several sets of scores can be
+  displayed in one plot.
 
-  The function is modelled after \code{pointLabel} in the
-  \pkg{maptools} package.
+  The function can be used in a pipe where the first command is an
+  ordination \code{plot} command with \code{type = "n"} or to add
+  points and lablels to save \pkg{vegan} ordination plot object. See
+  examples.
+
 }
 \value{
   The function returns invisibly an object of class
@@ -68,11 +73,11 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   \code{cex} and \code{font} for graphical parameters of each point or
   label. In addition, it returns the result of \code{\link{optim}} as
   an attribute \code{"optim"}. The unit of overlap is the area
-  of character \code{"m"}, and with variable \code{cex} it is the
+  of character \code{"m"}, and with varying graphical parameters the
   smallest alternative.
 
-  There is a \code{plot} method based on \code{orditkplot} but which
-  does not alter nor reset the graphical parameters via \code{par}.
+  There is a \code{plot} method based on \code{orditkplot} but it
+  does not alter or reset the graphical parameters via \code{par}.
   
   The result object from \code{ordipointlabel} inherits from
   \code{\link[vegan3d]{orditkplot}} of \pkg{vegan3d} package, and it may
@@ -83,26 +88,17 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 }
 
 \author{ Jari Oksanen }
-\note{ 
-  The function is designed for ordination graphics, and the
-  optimization works properly with plots of isometric aspect ratio.
-}
 
 \examples{
-data(dune)
-ord <- cca(dune)
-plt <- ordipointlabel(ord)
+data(mite, mite.env)
+ord <- cca(mite)
+ordipointlabel(ord)
 
-## set scaling - should be no warnings!
-ordipointlabel(ord, scaling = "sites")
-
-## plot then add
-plot(ord, scaling = "symmetric", type = "n")
-ordipointlabel(ord, display = "species", scaling = "symm", add = TRUE)
-ordipointlabel(ord, display = "sites", scaling = "symm", add = TRUE)
-
-## redraw plot without rerunning SANN optimisation
-plot(plt)
+## Use in a pipe
+ord <- cca(mite ~ SubsDens + WatrCont, mite.env)
+plot(cca(ord), scaling = "symmetric", type = "n") |>
+  ordipointlabel() |>
+  text("biplot", bg = "white", cex=1)
 }
 \keyword{ hplot }
 \keyword{ aplot }
