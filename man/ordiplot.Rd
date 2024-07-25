@@ -22,8 +22,8 @@
 ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
 \method{points}{ordiplot}(x, what, select, arrows = FALSE,
     length = 0.05, arr.mul, ...)
-\method{text}{ordiplot}(x, what, labels, select, arrows = FALSE,
-    length = 0.05, arr.mul, bg, ...)
+\method{text}{ordiplot}(x, what, labels, select, optimize = FALSE,
+    arrows = FALSE, length = 0.05, arr.mul, bg, ...)
 \method{identify}{ordiplot}(x, what, labels,  ...)
 }
 
@@ -48,6 +48,9 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
     plot has \code{heads} and \code{points}.}
   \item{labels}{Optional text used for labels. Row names will be used if
     this is missing.}
+  \item{optimize}{Optimize locations of text to reduce overlap and plot
+    point in the actual locations of the scores. Uses
+    \code{\link{ordipointlabel}}. }
   \item{arrows}{Draw arrows from the origin. This will always be
     \code{TRUE} for biplot and regression scores in constrained
     ordination (\code{\link{cca}} etc.) and its value will be ignored.
