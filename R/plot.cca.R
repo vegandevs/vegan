@@ -72,8 +72,8 @@
                       if (length(g$centroids) > 0 && all(is.na(g$centroids))) NA else g$centroids[, 2],
                       na.rm = TRUE)
     }
-    plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
-         ...)
+    ordiArgAbsorber(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
+         FUN = plot, ...)
     abline(h = 0, lty = 3)
     abline(v = 0, lty = 3)
     ## set up lists for graphical parameters
@@ -119,6 +119,9 @@
         par <- modifyList(par, GlobalPar)
         if (!is.null(UserPar[[kind]]))
             par <- modifyList(par, UserPar[[kind]])
+        ## do not pass unrecognized par to functions
+        if (score == "points")
+            par <- modifyList(par, list(optimize = NULL))
         ## add arguments for text/points.ordiplot, remove type
         par <- modifyList(par, list("x" = g, "what" = kind, "type" = NULL))
         do.call(score, par)
