@@ -106,8 +106,11 @@
     ## separate eigenvectors associated with negative eigenvalues from
     ## u into imaginary.u
     if (!is.null(sol$CCA) && sol$CCA$rank > sol$CCA$poseig) {
-        sol$CCA$imaginary.u <- sol$CCA$u[, -seq_len(sol$CCA$poseig),
-                                         drop = FALSE]
+        if (sol$CCA$poseig > 0)
+            sol$CCA$imaginary.u <- sol$CCA$u[, -seq_len(sol$CCA$poseig),
+                                             drop = FALSE]
+        else
+            sol$CCA$imaginary.u <- sol$CCA$u
         sol$CCA$u <- sol$CCA$u[, seq_len(sol$CCA$poseig), drop = FALSE]
     }
     if (!is.null(sol$CA) && sol$CA$rank > sol$CA$poseig) {
