@@ -259,12 +259,14 @@
                            "CAPSCALE" = "CAP",
                            "DISTBASED" = "dbRDA"),
                     seq_len(sum(posev)))
+    if (!any(posev)) # issue #670: no positive eigenvalues in dbrda
+        axnam <- NULL
     if (DISTBASED && any(!posev))
         negnam <- paste0("idbRDA", seq_len(sum(!posev)))
     else
         negnam <- NULL
     dnam <- dimnames(Y)
-    if (any(posev))
+    if (any(posev) || any(!posev))
         names(lambda) <- c(axnam, negnam)
     if (ncol(u))
         dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
