@@ -79,8 +79,12 @@
     ## set up lists for graphical parameters
     GlobalPar <- list("type" = type)
     dots <- match.call(expand.dots = FALSE)$...
-    if (!is.null(dots))
+    if (!is.null(dots)) {
+        ## dots par optimize must be eval'ed to force it logical
+        if (!is.null(dots$optimize))
+            dots$optimize <- eval(dots$optimize)
         GlobalPar <- modifyList(GlobalPar, dots)
+    }
     ## Default graphical parameters
     defParText <- list("species" = list("col" = 2, "cex" = 0.7),
                        "sites" = list("cex" = 0.7),
@@ -119,9 +123,17 @@
         par <- modifyList(par, GlobalPar)
         if (!is.null(UserPar[[kind]]))
             par <- modifyList(par, UserPar[[kind]])
-        ## do not pass unrecognized par to functions
-        if (score == "points")
+        ## sanitize par combinations
+        if (score == "points") # points cannot be optimized
             par <- modifyList(par, list(optimize = NULL))
+        else if (score == "text") {
+            if (isTRUE(par$optimize)) {
+                if (isTRUE(par$arrows) || kind %in% c("biplot", "regression"))
+                    message("'optimize = TRUE' and arrows do not mix nicely")
+                if (is.null(par$pch)) # optimize=TRUE needs points
+                    par <- modifyList(par, defParPoints[[kind]])
+            }
+        }
         ## add arguments for text/points.ordiplot, remove type
         par <- modifyList(par, list("x" = g, "what" = kind, "type" = NULL))
         do.call(score, par)
