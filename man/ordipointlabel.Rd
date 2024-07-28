@@ -4,13 +4,14 @@
 \alias{labels.ordipointlabel}
 
 \title{ Ordination Plots with Points and Optimized Locations for Text }
-\description{
-  Function produces ordination plots with points and text label to
-  the points. The points are in the fixed location given by the
-  ordination, but optimize the locations of the text labels are
-  optimized to minimize overplotting. The function is useful with
-  moderately crowded ordination plots.
+
+\description{ Function produces ordination plots with points and text
+  labels to the points. The points are in the fixed locations given by
+  the ordination, but the locations of the text labels are optimized to
+  minimize overplotting. The function is useful with moderately crowded
+  ordination plots.
 }
+
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
@@ -20,15 +21,19 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 }
 
 \arguments{
-  \item{x}{For \code{ordipointlabel()} a result object from an
+  \item{x}{For \code{ordipointlabel} a result object from an
     ordination function or an ordination plot (possibly in a pipe). For
-    \code{plot.ordipointlabel} an object from \code{ordipointlabel()}.}
-  \item{display}{Scores displayed in the plot. }
+    \code{plot.ordipointlabel} an object from \code{ordipointlabel}.}
+  \item{display}{Scores displayed in the plot. The default is to show
+    \code{"sites"} and \code{"species"} that are available to many
+    ordination methods, but there can be only one set or more than two
+    set of scores to \code{display}. }
   \item{choices}{Axes shown. }
   \item{col, pch, font, cex}{Colours, point types, font style and
      character expansion for each kind of scores displayed in the
      plot. These should be vectors of the same length as the number of
-     items in \code{display}.}
+     items in \code{display}, or if there is only one \code{display}
+     they can be a vector of the length of number items.}
   \item{add}{ Add to an existing plot. Default is \code{add = TRUE} when
      the function is used in a pipe, and \code{FALSE} usually. }
   \item{labels}{Labels used in graph. Species (variable) and SU (row)
@@ -37,7 +42,8 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
     extract the current name from a saved \code{ordipointlabel} object.}
   \item{bg}{Background colour for labels. If this is given, texts is
     drawn over non-transparent background. Either a single colour or
-    vector of colours for each \code{display}.}
+    vector of colours for each \code{display}, or with one display, for
+    each label.}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     of displayed items. \code{select} is only used if a single set of
@@ -50,15 +56,14 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 \details{
 
   The function uses simulated annealing (\code{\link{optim}},
-  \code{method = "SANN"}) to optimize the location of the text labels
-  to the points. There are eight possible locations: up, down, sides
-  and corners. There is a weak preference to text away from zero, and
-  a weak avoidance of corner positions. The locations and goodness of
-  solution varies between runs, and there is no guarantee of finding
-  the global optimum, or the same text locations twice. The
-  optimization can take a long time in difficult cases with a high
-  number of potential overlaps. Several sets of scores can be
-  displayed in one plot.
+  \code{method = "SANN"}) to optimize the locations of the text labels
+  to the points. There are eight possible locations: up, down, two sides
+  and four corners. There is a weak preference to text away from zero,
+  and a weak avoidance of corners. The locations and goodness of
+  solution varies between runs, and there is no guarantee of finding the
+  global optimum, or the same text locations twice. The optimization can
+  take a long time in difficult cases with a high number of potential
+  overlaps. Several sets of scores can be displayed in one plot.
 
   The function can be used in a pipe where the first command is an
   ordination \code{plot} command with \code{type = "n"} or to add
@@ -87,6 +92,10 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   margins.
 }
 
+\seealso{The function is invoked for one set of scores (one
+  \code{display}) from \code{\link{text.ordiplot}} and
+  \code{\link{plot.cca}} with argument \code{optimize = TRUE}.}
+
 \author{ Jari Oksanen }
 
 \examples{
@@ -96,8 +105,8 @@ ordipointlabel(ord)
 
 ## Use in a pipe
 ord <- cca(mite ~ SubsDens + WatrCont, mite.env)
-plot(cca(ord), scaling = "symmetric", type = "n") |>
-  ordipointlabel() |>
+plot(ord, scaling = "symmetric", type = "n") |>
+  ordipointlabel() |>       # both sites and species
   text("biplot", bg = "white", cex=1)
 }
 \keyword{ hplot }

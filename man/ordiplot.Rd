@@ -7,16 +7,15 @@
 
 \title{ Alternative plot and identify Functions for Ordination }
 
-\description{
-  Function \code{ordiplot} is an alternative plotting function which
-  can be worked with any \pkg{vegan} ordination result and many
-  non-\pkg{vegan} results. In addition, \code{plot} functions for
-  \pkg{vegan} ordinations return invisibly an \code{"ordiplot"} result
-  object, and this allows using \code{ordiplot} support functions with
-  this result: \code{identify} can be used to add labels to selected
-  site, species or constraint points, and \code{points} and
-  \code{text} can add elements to the plot.
-}
+\description{ Function \code{ordiplot} is an alternative plotting
+  function which works with any \pkg{vegan} ordination object and many
+  non-\pkg{vegan} objects. In addition, \code{plot} functions for
+  \pkg{vegan} ordinations return invisibly an \code{"ordiplot"} object,
+  and this allows using \code{ordiplot} support functions with this
+  result: \code{identify} can be used to add labels to selected site,
+  species or constraint points, and \code{points} and \code{text} can
+  add elements to the plot, and  used in a pipe to add scores into plot
+  by layers.  }
 
 \usage{
 ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
@@ -46,22 +45,22 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
     \code{constraints} (for LC scores), \code{centroids}, \code{biplot}
     and \code{regression}, and \code{\link{plot.procrustes}} ordination
     plot has \code{heads} and \code{points}.}
-  \item{labels}{Optional text used for labels. Row names will be used if
-    this is missing.}
+  \item{labels}{Optional text used for labels. Row names of scores will
+    be used if this is missing.}
   \item{optimize}{Optimize locations of text to reduce overlap and plot
     point in the actual locations of the scores. Uses
     \code{\link{ordipointlabel}}. }
-  \item{arrows}{Draw arrows from the origin. This will always be
+   \item{arrows}{Draw arrows from the origin. This will always be
     \code{TRUE} for biplot and regression scores in constrained
-    ordination (\code{\link{cca}} etc.) and its value will be ignored.
-    Setting this \code{TRUE} will draw arrows for any type of scores. This
-    allows, e.g, using biplot arrows for species. The arrow head will be
-    at the value of scores, and possible text is moved outwards.}
+    ordination (\code{\link{cca}} etc.). Setting this \code{TRUE} will
+    draw arrows for any type of scores. This allows, e.g, using biplot
+    arrows for species. The arrow head will be at the value of scores,
+    and possible text is moved outwards.}
   \item{length}{Length of arrow heads (see \code{\link{arrows}}).}
   \item{arr.mul}{Numeric multiplier to arrow lenghts; this will also set
     \code{arrows = TRUE}. The default is to automatically adjust arrow
     lengths with \code{"biplot"} and \code{"regression"} scores and else
-    use scores directly.}
+    use unmodified scores.}
   \item{bg}{Background colour for labels. If \code{bg} is set, the
     labels are displayed with \code{\link{ordilabel}} instead of
     \code{\link{text}}.  }
@@ -71,11 +70,10 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
 
 }
 \details{
-  Function \code{ordiplot} draws an ordination diagram using black circles for
-  sites and red crosses for species.  It returns invisibly an object of
-  class \code{ordiplot} which can be used by \code{identify.ordiplot}
-  to label selected sites or species, or constraints in
-  \code{\link{cca}} and \code{\link{rda}}.
+  
+  Function \code{ordiplot} draws an ordination diagram with default of
+  black circles for sites and red crosses for species.  It returns
+  invisibly an object of class \code{ordiplot}.
 
   The function can handle output from several alternative ordination
   methods. For \code{\link{cca}}, \code{\link{rda}} and
@@ -89,8 +87,11 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
   with \code{type = "none"} and save the result, and then add sites and
   species using \code{points.ordiplot} or \code{text.ordiplot} which
   both pass all their arguments to the corresponding default graphical
-  functions. The functions can be chained with pipes which allows an
-  alternative intuitive way of building up plots. 
+  functions. Alternatively, \code{points} and \code{text} can be used in
+  pipe which allows an intuitive way of building up plots by layers. In
+  addition, function \code{\link{ordilabel}} and
+  \code{\link{ordipointlabel}} can be used in pipe after \code{ordiplot}
+  or other \pkg{vegan} ordination \code{plot} commands. See Examples. 
 }
 \value{
   
@@ -110,11 +111,17 @@ ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
   Jari Oksanen
 }
 
-\seealso{ \code{\link{identify}} for basic operations, \code{\link{plot.cca}},
-  \code{\link{plot.decorana}}, \code{\link{plot.procrustes}} which also
-  produce objects for
-  \code{identify.ordiplot} and \code{\link{scores}} for extracting
-  scores from non-\code{vegan} ordinations. 
+\seealso{
+  With argument \code{bg} function calls \code{\link{ordilabel}}
+  to draw text on non-transparent label, and with argument
+  \code{optimize = TRUE} function calls \code{\link{ordipointlabel}} to
+  optimize the locations of text labels to minimize
+  over-plotting. Functions \code{\link{ordilabel}} and
+  \code{\link{ordipointlabel}} can be used in a pipe together with
+  \code{ordiplot} methods \code{text} and \code{points}. Function
+  \code{\link{plot.cca}} uses \code{ordiplot} methods \code{text} and
+  \code{points} in configurable plots, and these accept the
+  arguments of the \code{ordiplot} methods described here.
 }
 
 \examples{

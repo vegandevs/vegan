@@ -127,21 +127,27 @@
     the frame).}
 }
 
-\details{
-  Same \code{plot} function will be used for \code{\link{cca}} and
-  \code{\link{rda}}. This produces a quick, standard plot with current
-  \code{scaling}.
+\details{ Same \code{plot} function will be used for \code{\link{cca}},
+  \code{\link{rda}}, \code{\link{dbrda}} and
+  \code{\link{capscale}}. This produces a quick, standard plot with
+  current \code{scaling}.
 
   The \code{plot} function sets colours (\code{col}), plotting
-  characters (\code{pch}) and character sizes (\code{cex}) to
-  default values. The defaults can be changed with global parameters
-  (\dQuote{dot arguments}) applied to all score types, or a list of
-  parameters for a specified score type which take precedence over
-  global parameters and defaults. If you use \code{points} or
-  \code{text} to add scores to an existing plot, you must be careful to
-  use exactly same \code{scaling}, \code{choices} and other parameters.
+  characters (\code{pch}) and character sizes (\code{cex}) to default
+  values for each score type. The defaults can be changed with global
+  parameters (\dQuote{dot arguments}) applied to all score types, or a
+  list of parameters for a specified score type (\code{spe.par},
+  \code{sit.par} etc.) which take precedence over global parameters and
+  defaults. This allows full control of graphics. The scores are plotted
+  with \code{\link{text.ordiplot}} and \code{\link{points.ordiplot}} and
+  accept paremeters of these functions. In addition to standard
+  graphical parameters, text can be plotted over non-transparent label
+  with arbument \code{bg = <colour>}, and location of text can be
+  optimized to avoid over-writing with argument \code{optimize = TRUE},
+  and argument \code{arrows = TRUE} to draw arrows pointing to the
+  ordination scores.
 
-  The \code{plot} function returns (invisible) \code{\link{ordiplot}}
+  the \code{plot} function returns (invisible) \code{\link{ordiplot}}
   object. You can save this object and use it to construct your plot
   with \code{ordiplot} functions \code{points} and \code{text}. These
   functions can be used in pipe (\code{|>}) which allows incremental
@@ -156,9 +162,17 @@
     data(dune, dune.env);
     noquote(paste0(sQuote(names(scores(rda(dune ~ ., dune.env)))),
     collapse=", "))}
-  (some of these may be missing depending on your model). The first
+  (some of these may be missing depending on your model and are only
+  available if given in \code{display}). The first
   \code{plot} will set the dimensions of graph, and if you do not use
-  some score type there may be empty white space.
+  some score type there may be empty white space. In addition to
+  \code{\link{ordiplot}} \code{text} and \code{points}, you can also use
+  \code{\link{ordilabel}} and \code{\link{ordipointlabel}} in a
+  pipe. Unlike in basic \code{plot}, there are no defaults for score
+  types, but all graphical parameters must be set in the command in
+  pipe. On the other hand, there may be more flexibility in these
+  settings than in \code{plot} arguments, in particular in
+  \code{\link{ordilabel}} and \code{\link{ordipointlabel}}.
 
   Environmental variables receive a special treatment. With
   \code{display="bp"}, arrows will be drawn. These are labelled with
@@ -186,6 +200,14 @@
   standard and more easily interpreted, and regression arrows should be
   used only if you know that you need them.
 
+  The ordination object has \code{text} and \code{points} methods that
+  can be used to add items to an existing plot from the ordination
+  result directly. These should be used with extreme care, because you
+  must set scaling and other graphical parameters exactly similarly as
+  in the original \code{plot} command. It is best to avoid using these
+  historic functions and instead configure \code{plot} command or use
+  pipe.
+
   Palmer (1993) suggested using linear constraints (\dQuote{LC scores})
   in ordination diagrams, because these gave better results in
   simulations and site scores (\dQuote{WA scores}) are a step from
@@ -195,18 +217,24 @@
   little affected.  Therefore the \code{plot} function uses site scores
   (\dQuote{WA scores}) as the default. This is consistent with the usage
   in statistics and other functions in \R (\code{\link[MASS]{lda}},
-  \code{\link{cancor}}).  } \value{ The \code{plot} function returns
+  \code{\link{cancor}}).}
+
+\value{ The \code{plot} function returns
   invisibly a plotting structure which can be used by function
   \code{\link{identify.ordiplot}} to identify the points or other
-  functions in the \code{\link{ordiplot}} family.  }
+  functions in the \code{\link{ordiplot}} family or in a pipe to add new
+  graphicael elements with \code{\link{ordiplot}} \code{text} and
+  \code{points} or with \code{\link{ordilabel}} and
+  \code{\link{ordipointlabel}}. }
 
 \author{Jari Oksanen }
 
 \seealso{
-  The function builds upon \code{\link{ordiplot}} and its \code{text}
-  and \code{points} functions. See these to find available graphical
-  parameters. Function \code{\link{ordilabel}} can also be used within a
-  pipe.
+  The function builds upon \code{\link{ordiplot}} and its
+  \code{text} and \code{points} functions. See these to find new
+  graphical parameters such as \code{arrows} (for drawing arrows),
+  \code{bg} (for writing text on non-transparent label) and
+  \code{optimize} (to move text labels of points to avoid overwriting).
 }
 
 \examples{
