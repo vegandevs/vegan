@@ -94,7 +94,10 @@
     fn <- function(pos) {
         move <- makeoff(pos, matrix(1, 1, 2))
         off <- makeoff(pos, box)
-        val <- sum(overlap(xy[j,]+off[j,], box[j,], xy[k,]+off[k,], box[k,]))
+        val <- sum(overlap(xy[j,,drop=FALSE]+off[j,,drop=FALSE],
+                           box[j,,drop=FALSE],
+                           xy[k,,drop=FALSE]+off[k,,drop=FALSE],
+                           box[k,,drop=FALSE]))
         val <- val/ltr + sum(move[,1] * xy[,1] < 0) * 0.4 +
             sum(move[,2] * xy[,2] < 0) * 0.4 +
             sum(pos > 4) * 0.2
