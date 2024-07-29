@@ -131,7 +131,7 @@
                 if (isTRUE(par$arrows) || kind %in% c("biplot", "regression"))
                     message("'optimize = TRUE' and arrows do not mix nicely")
                 if (is.null(par$pch)) # optimize=TRUE needs points
-                    par <- modifyList(par, defParPoints[[kind]])
+                    par <- modifyList(par, list(pch = defParPoints[[kind]]$pch))
             }
         }
         ## add arguments for text/points.ordiplot, remove type
