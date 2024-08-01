@@ -36,6 +36,10 @@
 
 #### Bug Fixes
 
+* `dbrda` failed in rare cases when an ordination component had only
+  negative eigenvalues. Issue
+  [#670](https://github.com/vegandevs/vegan/issues/670).
+
 * `plot.cca`: biplot or regression arrows were not nicely scaled and
   drew no arrows when displayed as the only item in graph.
   
@@ -45,6 +49,9 @@
   values are removed in calculation, dissimilarities may contain `NA`
   depending on the number and pattern of missing values and
   dissimilarity method.
+
+* `ordipointlabel` failed with `decorana` result. Bounding box for
+  text could be wrongly estimated with varying values of `cex`.
 
 * `decostand` standardization method `"clr"` did not implement
   `na.rm = TRUE`
