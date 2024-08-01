@@ -36,6 +36,13 @@
   graphical parameters can be given either for all score types, or
   with a list of graphical parameters for a specific score.
 
+  `text.ordiplot` and hence `plot.cca` gained argument `optimize` that
+  will call `ordipointlabel` to optimize the location of the text to
+  minimize over-writing, but mark the real scores with a point.
+
+  `text.ordiplot` and hence `plot.cca` gained argument `bg=<colour>`
+  that will plot text over non-transparent label using `ordilabel`.
+
   Alternatively ordination plots can be built up adding each score
   type in piped commands. Pipes were available since release 2.5-1,
   but their use is now improved: `ordilabel` can be used in a pipe,
@@ -43,8 +50,14 @@
   function (for `ordiplot`) gained argument for adjusting arrow
   lengths similarly as these functions for `cca`.
 
-  The new features are more extensively described in help pages
-  `?plot.cca`, `?ordiplot` and `?biplot.rda`.
+  The new features are more extensively described in help pages of
+  `plot.cca`, `ordiplot` and `biplot.rda`.
+
+* `ordipointlabel` can be used in pipe. Function gained argument
+  `label` that allows changing plotted text, and a function `labels`
+  that return the current labels. The optimization rules were changed
+  to give a slight preference for putting labels outwards from origin
+  but avoiding corner positions.
 
 * `rda` and `cca` return centroids for factor levels also when
   called without formula, for instance `cca(dune, dune.env)`.
@@ -64,6 +77,10 @@
 
 ## Bug Fixes
 
+* `dbrda` failed in rare cases where an ordination component had only
+  negative eigenvalues. Issue
+  [#670](https://github.com/vegandevs/vegan/issues/670).
+
 * `plot.cca`: `biplot` and `regression` arrows were not drawn and
   plots were badly scaled or when they were the only item displayed
 
@@ -73,6 +90,9 @@
   values are removed in calculation, dissimilarities may contain `NA`
   depending on the number and pattern of missing values and
   dissimilarity method.
+
+* `ordipointlabel` failed with `decorana` results. Bounding box for
+  text could be wrongly estimated with varying values of `cex`.
 
 * `decostand` standardization method `"clr"` did not implement
   `na.rm = TRUE`
