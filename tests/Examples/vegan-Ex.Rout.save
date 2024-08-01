@@ -1,5 +1,5 @@
 
-R version 4.4.0 (2024-04-24) -- "Puppy Cup"
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
 Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
@@ -5213,25 +5213,20 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > 
 > ### Name: ordipointlabel
 > ### Title: Ordination Plots with Points and Optimized Locations for Text
-> ### Aliases: ordipointlabel plot.ordipointlabel
+> ### Aliases: ordipointlabel plot.ordipointlabel labels.ordipointlabel
 > ### Keywords: hplot aplot
 > 
 > ### ** Examples
 > 
-> data(dune)
-> ord <- cca(dune)
-> plt <- ordipointlabel(ord)
+> data(mite, mite.env)
+> ord <- cca(mite)
+> ordipointlabel(ord)
 > 
-> ## set scaling - should be no warnings!
-> ordipointlabel(ord, scaling = "sites")
-> 
-> ## plot then add
-> plot(ord, scaling = "symmetric", type = "n")
-> ordipointlabel(ord, display = "species", scaling = "symm", add = TRUE)
-> ordipointlabel(ord, display = "sites", scaling = "symm", add = TRUE)
-> 
-> ## redraw plot without rerunning SANN optimisation
-> plot(plt)
+> ## Use in a pipe
+> ord <- cca(mite ~ SubsDens + WatrCont, mite.env)
+> plot(ord, scaling = "symmetric", type = "n") |>
++   ordipointlabel() |>       # both sites and species
++   text("biplot", bg = "white", cex=1)
 > 
 > 
 > 
@@ -6124,7 +6119,7 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ### ** Examples
 > 
 > data(dune, dune.env)
-> mod <- cca(dune ~ A1 + Moisture + Management, dune.env)
+> mod <- cca(dune ~ Moisture + Management, dune.env)
 > 
 > ## default and modified plot
 > plot(mod, scaling="sites")
@@ -6139,6 +6134,10 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 +   text("species", col="blue", cex=0.8) |>
 +   text("biplot") |>
 +   text("centroids", bg="white")
+> 
+> ## LC scores & factors mean much overplotting: try optimize=TRUE
+> plot(mod, display = c("lc","sp","cn"), optimize = TRUE,
++    bip.par = list(optimize = FALSE)) # arrows and optimize mix poorly
 > 
 > ## catch the invisible result and use ordiplot support - the example
 > ## will make a biplot with arrows for species and correlation scaling
@@ -8990,7 +8989,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.554 0.341 8.927 0 0 
+Time elapsed:  10.033 0.41 10.476 0 0 
 > grDevices::dev.off()
 null device 
           1 
