@@ -239,7 +239,7 @@
 
 \examples{
 data(dune, dune.env)
-mod <- cca(dune ~ A1 + Moisture + Management, dune.env)
+mod <- cca(dune ~ Moisture + Management, dune.env)
 
 ## default and modified plot
 plot(mod, scaling="sites")
@@ -254,6 +254,10 @@ plot(mod, type="n", scaling="sites") |>
   text("species", col="blue", cex=0.8) |>
   text("biplot") |>
   text("centroids", bg="white")
+
+## LC scores & factors mean much overplotting: try optimize=TRUE
+plot(mod, display = c("lc","sp","cn"), optimize = TRUE,
+   bip.par = list(optimize = FALSE)) # arrows and optimize mix poorly
 
 ## catch the invisible result and use ordiplot support - the example
 ## will make a biplot with arrows for species and correlation scaling
