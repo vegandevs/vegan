@@ -7,5 +7,10 @@ plot.ordipointlabel <- function (x, ...)
         font <- par("font")
     text(x$labels, rownames(x$labels), cex = x$args$tcex, col = x$args$tcol,
          font = font, ...)
+    psize <- par("din")
+    if(any(abs(psize - x$dim)/x$dim > 0.1))
+        message(gettextf(
+            "original plot size was %.1f x %.1f, current is %.1f x %.1f",
+            x$dim[1], x$dim[2], psize[1], psize[2]))
     invisible(x)
 }
