@@ -99,15 +99,16 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 \author{ Jari Oksanen }
 
 \examples{
-data(mite, mite.env)
-ord <- cca(mite)
+data(dune, dune.env)
+ord <- cca(dune)
 ordipointlabel(ord)
 
-## Use in a pipe
-ord <- cca(mite ~ SubsDens + WatrCont, mite.env)
+## Use in a pipe: optimize species, sites & centroids together
+ord <- cca(dune ~ Management + Moisture, dune.env)
 plot(ord, scaling = "symmetric", type = "n") |>
-  ordipointlabel() |>       # both sites and species
-  text("biplot", bg = "white", cex=1)
+  ordipointlabel(c("sites","species","centroids"), cex=c(0.7,0.7,1),
+      col = c("black","red","blue"), font = c(1,3,1), pch=c(1,3,4), xpd=TRUE) |>
+  text("biplot", col = "blue", bg = "white", cex=1)
 }
 \keyword{ hplot }
 \keyword{ aplot }

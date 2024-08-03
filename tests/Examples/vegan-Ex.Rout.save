@@ -5218,15 +5218,16 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > 
 > ### ** Examples
 > 
-> data(mite, mite.env)
-> ord <- cca(mite)
+> data(dune, dune.env)
+> ord <- cca(dune)
 > ordipointlabel(ord)
 > 
-> ## Use in a pipe
-> ord <- cca(mite ~ SubsDens + WatrCont, mite.env)
+> ## Use in a pipe: optimize species, sites & centroids together
+> ord <- cca(dune ~ Management + Moisture, dune.env)
 > plot(ord, scaling = "symmetric", type = "n") |>
-+   ordipointlabel() |>       # both sites and species
-+   text("biplot", bg = "white", cex=1)
++   ordipointlabel(c("sites","species","centroids"), cex=c(0.7,0.7,1),
++       col = c("black","red","blue"), font = c(1,3,1), pch=c(1,3,4), xpd=TRUE) |>
++   text("biplot", col = "blue", bg = "white", cex=1)
 > 
 > 
 > 
@@ -8989,7 +8990,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.033 0.41 10.476 0 0 
+Time elapsed:  8.802 0.304 9.136 0 0 
 > grDevices::dev.off()
 null device 
           1 
