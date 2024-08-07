@@ -18,7 +18,8 @@
   by layers.  }
 
 \usage{
-ordiplot(ord, choices = c(1, 2), type="points", display, xlim, ylim, ...)
+ordiplot(ord, choices = c(1, 2), type="points", display, optimize = FALSE,
+    arrows = FALSE, length = 0.05, arr.mul, xlim, ylim, ...)
 \method{points}{ordiplot}(x, what, select, arrows = FALSE,
     length = 0.05, arr.mul, ...)
 \method{text}{ordiplot}(x, what, labels, select, optimize = FALSE,

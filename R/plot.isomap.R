@@ -1,12 +1,12 @@
 `plot.isomap` <-
-    function (x, net = TRUE, n.col = "gray", type = "points", ...) 
+    function (x, net = TRUE, n.col = "gray", type = "points", ...)
 {
     type <- match.arg(type, c("points", "text", "none"))
     if (!net) {
         pl <- ordiplot(x, display="sites", type = type, ...)
     } else {
         pl <- ordiplot(x, display = "sites", type = "none", ...)
-        z <- scores(pl, "sites")
+        z <- scores(pl, display = "sites")
         k <- x$net
         ## recycle colour for points
         n.col <- rep(n.col, length = nrow(z))

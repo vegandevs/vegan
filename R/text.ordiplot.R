@@ -2,7 +2,7 @@
     function (x, what, labels, select, optimize = FALSE, arrows = FALSE,
               length = 0.05, arr.mul, bg, ...)
 {
-    sco <- scores(x, what)
+    sco <- scores(x, display = what)
     if (!missing(labels))
         rownames(sco) <- labels
     if (!missing(select))

@@ -1,12 +1,13 @@
 `ordiplot` <-
-    function (ord, choices = c(1, 2), type = "points", display, xlim,
-              ylim, ...)
+    function (ord, choices = c(1, 2), type = "points", display,
+              optimize = FALSE, arrows = FALSE, length = 0.05, arr.mul,
+              xlim, ylim, ...)
 {
     ## local functions to absorb non-par arguments of plot.default
     localPoints <- function(..., log, frame.plot, panel.first,
-                            panel.last, axes) points(...)
+                            panel.last, axes) points.ordiplot(...)
     localText <- function(..., log, frame.plot, panel.first,
-                          panel.last, axes) text(...)
+                          panel.last, axes) text.ordiplot(...)
     if (inherits(ord, "decorana") || inherits(ord, "cca")) {
         if (missing(display))
             out <- plot(ord, choices = choices, type = type, xlim = xlim,
@@ -75,7 +76,9 @@
                     warning("type='t', but no names available: using x1...")
                     labs <- paste0("x", as.character(seq_len(nrow(X))))
                 }
-                localText(X, labels = labs, col = 1,  ...)
+                localText(X, what = "sites", labels = labs, col = 1,
+                          optimize = optimize, arrows = arrows, length = length,
+                          arr.mul = arr.mul, ...)
             }
             if (!is.null(Y)) {
                 labs <- rownames(Y)
@@ -83,7 +86,9 @@
                     warning("type='t', but no names available: using y1...")
                     labs <- paste0("y", as.character(seq_len(nrow(Y))))
                 }
-                localText(Y, labels = labs, col = "red", ...)
+                localText(Y, what = "species", labels = labs, col = "red",
+                          optimize = optimize, arrows = arrows, length = length,
+                          arr.mul = arr.mul, ...)
             }
         }
         out <- list(sites = X, species = Y)
