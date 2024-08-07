@@ -1,7 +1,7 @@
 `points.ordiplot`  <-
     function (x, what, select, arrows = FALSE, ...)
 {
-    sco <- scores(x, what)
+    sco <- scores(x, display = what)
     if (!missing(select))
         sco <- .checkSelect(select, sco)
     ## draw adjusted arrows automatically for biplot scores

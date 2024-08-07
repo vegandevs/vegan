@@ -1,7 +1,7 @@
 `text.ordiplot`  <-
     function (x, what, labels, select, arrows = FALSE, length = 0.05, ...)
 {
-    sco <- scores(x, what)
+    sco <- scores(x, display = what)
     if (!missing(labels))
         rownames(sco) <- labels
     if (!missing(select))
