@@ -30,7 +30,7 @@ metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20,
     noshare = (engine == "isoMDS"), wascores = TRUE, expand = TRUE, 
     trace = 1, plot = FALSE, previous.best,  ...)
 \method{plot}{metaMDS}(x, display = c("sites", "species"), choices = c(1, 2),
-    type = "p", shrink = FALSE, ...)
+    type = "p", shrink = FALSE, cex = 0.7, ...)
 \method{points}{metaMDS}(x, display = c("sites", "species"),
     choices = c(1,2), shrink = FALSE, select, ...)
 \method{text}{metaMDS}(x, display = c("sites", "species"), labels, 
@@ -104,6 +104,7 @@ metaMDSredist(object, ...)
  \item{display}{Display \code{"sites"} or \code{"species"}.}
  \item{shrink}{Shrink back species scores if they were expanded
    originally.}
+ \item{cex}{Character expansion for plotting symbols.}
  \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
    all scores are in a single \code{data.frame}, score type is
    identified by factor variable \code{code} (\code{"sites"} or
