@@ -32,9 +32,9 @@ metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20,
 \method{plot}{metaMDS}(x, display = c("sites", "species"), choices = c(1, 2),
     type = "p", shrink = FALSE, cex = 0.7, ...)
 \method{points}{metaMDS}(x, display = c("sites", "species"),
-    choices = c(1,2), shrink = FALSE, select, ...)
+    choices = c(1,2), shrink = FALSE, select, cex = 0.7, ...)
 \method{text}{metaMDS}(x, display = c("sites", "species"), labels, 
-    choices = c(1,2), shrink = FALSE, select, ...)
+    choices = c(1,2), shrink = FALSE, select, cex = 0.7, ...)
 \method{scores}{metaMDS}(x, display = c("sites", "species"), shrink = FALSE, 
     choices, tidy = FALSE, ...)
 metaMDSdist(comm, distance = "bray", autotransform = TRUE, 
