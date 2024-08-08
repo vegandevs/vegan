@@ -58,8 +58,10 @@
             ylim <- tmp[, 2]
         plot(tmp, xlim = xlim, ylim = ylim, asp = 1, type = "n",
              ...)
-        ## default cex = 0.7 if not defined by the user
-        if (is.null(match.call(expand.dots = FALSE)$...$cex)) {
+        ## default cex = 0.7 if not defined by the user, but if had
+        ## optimize=TRUE, ordipointlabel is called with cex=0.7 which
+        ## with par(cex) becomes cex=0.49
+        if (is.null(match.call(expand.dots = FALSE)$...$cex) && !optimize) {
             op <- par(cex = 0.7)
             on.exit(par(op))
         }

@@ -1,6 +1,6 @@
-"text.metaMDS" <-
+`text.metaMDS` <-
     function (x, display = c("sites", "species"), labels,
-              choices = c(1, 2), shrink = FALSE, select, ...)
+              choices = c(1, 2), shrink = FALSE, select, cex = 0.7, ...)
 {
     display <- match.arg(display)
     x <- scores(x, display = display, choices = choices, shrink = shrink)
@@ -8,6 +8,6 @@
         rownames(x) <- labels
     if (!missing(select))
         x <- .checkSelect(select, x)
-    text(x, labels = rownames(x), ...)
+    text.ordiplot(x, what = display, labels = rownames(x), cex = cex, ...)
     invisible()
 }
