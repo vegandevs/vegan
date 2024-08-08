@@ -62,7 +62,7 @@
     x <- scores(x, choices = choices)
     if (!missing(select))
         x <- .checkSelect(select, x)
-    points(x, ...)
+    points (x, ...)
     invisible()
 }
 
@@ -74,7 +74,7 @@
         rownames(x) <- labels
     if (!missing(select))
         x <- .checkSelect(select, x)
-    text(x, labels = rownames(x), ...)
+    text.ordiplot(x, what = "sites", labels = rownames(x), ...)
     invisible()
 }
 
