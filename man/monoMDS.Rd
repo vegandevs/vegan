@@ -191,7 +191,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   are returned in item \code{points} (function \code{scores} extracts
   these results), and the stress in item \code{stress}. In addition,
   there is a large number of other items (but these may change without
-  notice in the future releases). }
+  notice in the future releases). There are no species scores, but these
+  can be added with \code{\link{sppscores}} function.}
 
 \references{
 
