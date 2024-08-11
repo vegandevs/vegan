@@ -57,6 +57,18 @@
     object
 }
 
+## monoMDS
+
+`sppscores<-.monoMDS` <-
+    function(object, value)
+{
+    wa <- wascores(object$points, value, expand = TRUE)
+    attr(wa, "data") <- deparse(substitute(value))
+    object$species <- wa
+    object
+}
+
+
 ## sppscores<-.wcmdscale works with the simple case of row
 ## weights. Verified to give the same result as RDA with duplicated
 ## rows when using the number of duplicates as row weights in
