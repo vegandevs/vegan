@@ -146,7 +146,9 @@ pco(X, ...)
 
   The functions can be also used to perform ordinary metric scaling
   a.k.a. principal coordinates analysis by using a formula with only a
-  constant on the right hand side, or \code{comm ~ 1}. With
+  constant on the right hand side, or \code{comm ~ 1}. The new function
+  \code{pco()} implements principal coordinates analysis via
+  \code{dbrda()} directly, using this formula. With
   \code{metaMDSdist = TRUE}, the function can do automatic data
   standardization and use extended dissimilarities using function
   \code{\link{stepacross}} similarly as in non-metric multidimensional
@@ -157,7 +159,9 @@ pco(X, ...)
 
   The functions return an object of class \code{dbrda} or
   \code{capscale} which inherit from \code{\link{rda}}. See
-  \code{\link{cca.object}} for description of the result object.
+  \code{\link{cca.object}} for description of the result object. Function
+  \code{pco()} returns an object of class \code{"vegan_pco"} (which
+  inherits from class \code{"dbrda"}) to avoid clashes with other packages.
 
 }
 \references{
