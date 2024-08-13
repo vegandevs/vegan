@@ -6,6 +6,6 @@
   ord <- cca(X = X, ...)
   # change the call to be from ca()
   ord$call <- match.call()
-  class(ord) <- append(class(ord), "ca", after = 0)
+  class(ord) <- append(class(ord), "vegan_ca", after = 0)
   ord
 }

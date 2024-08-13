@@ -6,6 +6,6 @@
   ord <- dbrda(X ~ 1, ...)
   # change the call to be from pco()
   ord$call <- match.call()
-  class(ord) <- append(class(ord), "pco", after = 0)
+  class(ord) <- append(class(ord), "vegan_pco", after = 0)
   ord
 }
