@@ -500,6 +500,8 @@ S3method(specslope, fitspecaccum)
 S3method("sppscores<-", capscale)
 S3method("sppscores<-", dbrda)
 S3method("sppscores<-", metaMDS)
+S3method("sppscores<-", monoMDS)
+S3method("sppscores<-", wcmdscale)
 # SSD: stats
 S3method(SSD, cca)
 # str: utils

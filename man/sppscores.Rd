@@ -4,6 +4,8 @@
 \alias{sppscores<-.dbrda}
 \alias{sppscores<-.capscale}
 \alias{sppscores<-.metaMDS}
+\alias{sppscores<-.monoMDS}
+\alias{sppscores<-.wcmdscale}
 
 \title{
 Add or Replace Species Scores in Distance-Based Ordination
@@ -12,12 +14,13 @@ Add or Replace Species Scores in Distance-Based Ordination
 \description{
 
   Distance-based ordination (\code{\link{dbrda}},
-  \code{\link{capscale}}, \code{\link{metaMDS}}) have no information
-  on species, but some methods may add species scores if community
-  data were available. However, the species scores may be missing (and
-  they always are in \code{\link{dbrda}}), or they may not have a
-  close relation to used dissimilarity index. This function will add
-  the species scores or replace the existing species scores in
+  \code{\link{capscale}}, \code{\link{metaMDS}}, \code{\link{monoMDS}},
+  \code{\link{wcmdscale}}) has no information on species, but some
+  methods may add species scores if community data were
+  available. However, the species scores may be missing (and they always
+  are in \code{\link{dbrda}} and \code{\link{wcmdscale}}), or they may
+  not have a close relation to used dissimilarity index. This function
+  will add the species scores or replace the existing species scores in
   distance-based methods.
 
 }
@@ -27,7 +30,9 @@ sppscores(object) <- value
 }
 
 \arguments{
-  \item{object}{Ordination result.}
+  \item{object}{Ordination result from \code{\link{capscale}},
+    \code{\link{dbrda}}, \code{\link{metaMDS}}, \code{\link{monoMDS}},
+    \code{\link{pco}} or \code{\link{wcmdscale}}.}
   \item{value}{Community data to find the species scores.}
 }
 
@@ -39,7 +44,7 @@ sppscores(object) <- value
   information after the analysis to help the interpretation of
   results. Some ordination methods (\code{\link{capscale}},
   \code{\link{metaMDS}}) can supplement the species scores during the
-  analysis if community data was available in the analysis.
+  analysis if community data were available in the analysis.
 
   In \code{\link{capscale}} the species scores are found by projecting
   the community data to site ordination (linear combination scores),
@@ -58,16 +63,17 @@ sppscores(object) <- value
   squareroot transformation to damp down the effect of squared
   differences (see Examples).
 
-  Function \code{\link{dbrda}} never finds the species scores, but it
-  is mathematically similar to \code{\link{capscale}}, and similar
-  rules should be followed when supplementing the species scores.
+  Functions \code{\link{dbrda}} and \code{\link{wcmdscale}} never find
+  the species scores, but they mathematically similar to
+  \code{\link{capscale}}, and similar rules should be followed when
+  supplementing the species scores.
 
-  Function \code{\link{metaMDS}} uses weighted averages
-  (\code{\link{wascores}}) to find the species scores. These have a
-  better relationship with most dissimilarities than the projection
-  scores used in metric ordination, but similar transformation of the
-  community data should be used both in dissimilarities and in species
-  scores.
+  Functions for species scores in \code{\link{metaMDS}} and
+  \code{\link{monoMDS}} use weighted averages (\code{\link{wascores}})
+  to find the species scores. These have better relationship with most
+  dissimilarities than the projection scores used in metric ordination,
+  but similar transformation of the community data should be used both
+  in dissimilarities and in species scores.
 
 }
 
@@ -77,7 +83,6 @@ sppscores(object) <- value
   scores in the ordination object.
 
 }
-
 
 \author{
   Jari Oksanen
