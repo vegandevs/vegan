@@ -46,26 +46,43 @@
 }
 
 `scores.wcmdscale` <-
-    function(x, choices = NA, tidy = FALSE, ...)
+    function(x, choices = NA, display = "sites", tidy = FALSE, ...)
 {
-    p <-
-        if (any(is.na(choices))) {
-            x$points
-        } else {
-            choices <- choices[choices <= NCOL(x$points)]
-            x$points[, choices, drop = FALSE]
+    if ("species" %in% names(x))
+        display <- match.arg(display, c("sites", "species"), several.ok = TRUE)
+    else
+        display <- match.arg(display, "sites")
+    p <- list()
+    for (sco in display) {
+        if (sco == "sites")
+            p[[sco]] <- x$points
+        else
+            p[[sco]] <- x[[sco]]
+        if (!anyNA(choices)) {
+            choices <- choices[choices <= NCOL(p[[sco]])]
+            p[[sco]] <- p[[sco]][, choices, drop = FALSE]
         }
-    if (is.null(rownames(p)))
-        rownames(p) <- as.character(seq_len(nrow(p)))
-    if (tidy) {
-        p <- data.frame(p, "scores" = "sites", "label" = rownames(p),
-                        "weight" = weights(x))
+        if (is.null(rownames(p[[sco]])))
+            rownames(sco) <- as.character(seq_len(nrow(p[[sco]])))
+        if (tidy) {
+            wts <- if(sco == "sites") weights(x) else NA
+            p[[sco]] <- data.frame(p[[sco]], "score" = sco,
+                                   "label" = rownames(p[[sco]]),
+                                   weights = wts)
+        }
     }
-    p
+    if (tidy && length(display) > 1) {
+        p <- do.call("rbind", p)
+        rownames(p) <- p$label
+    }
+    if (length(p) == 1)
+        p[[1]]
+    else
+        p
 }
 
 `plot.wcmdscale` <-
-    function(x, choices = c(1,2), type = "t", ...)
+    function(x, choices = c(1,2), display = "sites", type = "t", ...)
 {
-    ordiplot(x, display = "sites", choices = choices, type = type, ...)
+    ordiplot(x, display = display, choices = choices, type = type, ...)
 }
