@@ -229,7 +229,7 @@
 <p>The unconstrained ordination methods, Principal Components Analysis (PCA) and
   Correspondence Analysis (CA), may be performed using <code>pca()</code> and
   <code>ca()</code>, which are simple wrappers around <code>rda()</code> and <code>cca()</code>,
-  respectively. Functions <code>pca()</code> and <code>ca</code> can only be called with
+  respectively. Functions <code>pca()</code> and <code>ca()</code> can only be called with
   matrix-like objects.</p>
 <p>The functions have <code>summary</code> and <code>plot</code> methods which are
   documented separately (see <code><a href="plot.cca.html">plot.cca</a></code>, <code><a href="plot.cca.html">summary.cca</a></code>).</p>
@@ -242,6 +242,10 @@
   inherits from class <code>cca</code> and is described in <code><a href="cca.object.html">cca.object</a></code>.
   The scaling used in <code>rda</code> scores is described in a separate
   vignette with this package.</p>
+<p>Functions <code>pca()</code> and <code>ca()</code> return objects of class
+  <code>"vegan_pca"</code> and <code>"vegan_ca"</code> respectively to avoid
+  clashes with other packages. These classes inherit from <code>"rda"</code>
+  and <code>"cca"</code> respectively.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

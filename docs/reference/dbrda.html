@@ -235,7 +235,9 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
   Anderson 1999).</p>
 <p>The functions can be also used to perform ordinary metric scaling
   a.k.a. principal coordinates analysis by using a formula with only a
-  constant on the right hand side, or <code>comm ~ 1</code>. With
+  constant on the right hand side, or <code>comm ~ 1</code>. The new function
+  <code>pco()</code> implements principal coordinates analysis via
+  <code>dbrda()</code> directly, using this formula. With
   <code>metaMDSdist = TRUE</code>, the function can do automatic data
   standardization and use extended dissimilarities using function
   <code><a href="stepacross.html">stepacross</a></code> similarly as in non-metric multidimensional
@@ -247,7 +249,9 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
 
 <p>The functions return an object of class <code>dbrda</code> or
   <code>capscale</code> which inherit from <code><a href="cca.html">rda</a></code>. See
-  <code><a href="cca.object.html">cca.object</a></code> for description of the result object.</p>
+  <code><a href="cca.object.html">cca.object</a></code> for description of the result object. Function
+  <code>pco()</code> returns an object of class <code>"vegan_pco"</code> (which
+  inherits from class <code>"dbrda"</code>) to avoid clashes with other packages.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
