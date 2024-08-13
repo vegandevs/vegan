@@ -13,7 +13,9 @@
         colnames(sites) <- paste0("NMDS", choices)
         out$sites <- sites
     }
-    if ("species" %in% display && !is.null(x$species) && !all(is.na(x$species))) {
+    if ("species" %in% display) {
+        if (is.null(x$species) || all(is.na(x$species)))
+            stop("ordination object has no 'species' scores")
         species <- x$species[, choices, drop=FALSE]
         colnames(species) <- paste0("NMDS", choices)
         if (shrink) {

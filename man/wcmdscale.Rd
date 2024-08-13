@@ -12,8 +12,8 @@
 \title{Weighted Classical (Metric) Multidimensional Scaling}
 \usage{
 wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
-\method{plot}{wcmdscale}(x, choices = c(1, 2), type = "t", ...)
-\method{scores}{wcmdscale}(x, choices = NA, tidy = FALSE, ...)
+\method{plot}{wcmdscale}(x, choices = c(1, 2), display = "sites", type = "t", ...)
+\method{scores}{wcmdscale}(x, choices = NA, display = "sites", tidy = FALSE, ...)
 }
 \description{
   Weighted classical multidimensional scaling,
@@ -39,6 +39,9 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     called with options \code{eig = TRUE} or \code{x.ret = TRUE} (See
     Details).}
   \item{choices}{Axes to be returned; \code{NA} returns all real axes.}
+  \item{display}{Kind of scores. Normally only \code{"sites"} are
+    available, but \code{"species"} can be supplemented with
+    \code{\link{sppscores}}.}
   \item{type}{Type of graph which may be \code{"t"}ext, \code{"p"}oints
     or \code{"n"}one.}
   \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
@@ -119,7 +122,8 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
 \seealso{The function is modelled after \code{\link{cmdscale}}, but adds
   weights (hence name) and handles negative eigenvalues differently.
   \code{\link{eigenvals.wcmdscale}} and
-  \code{\link{stressplot.wcmdscale}} are some specific methods. Other
+  \code{\link{stressplot.wcmdscale}} are some specific methods. Species
+  scores can be added to the result with \code{\link{sppscores}}. Other
   multidimensional scaling methods are \code{\link{monoMDS}}, and
   \code{\link[MASS]{isoMDS}} and \code{\link[MASS]{sammon}} in package
   \pkg{MASS}.  }
