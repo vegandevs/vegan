@@ -42,7 +42,7 @@ anova(m, by="term", permutations=99) # failed before 2.5-0
 anova(m, by="margin", permutations=99) # works since 2.5-0
 anova(m, by="axis", permutations=99)
 ## adonis
-adonis2(fla, data = dune.env)
+adonis2(fla, data = dune.env, by = "terms")
 ## capscale
 p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 anova(p, permutations=99)
@@ -80,10 +80,10 @@ foo("capscale", dune, Management, na.action = na.omit) # fails in 2.2-1
 ## adonis must be done with detached 'df' or it will be used instead
 ## of with(dune.env, ...)
 detach(df)
-with(dune.env, foo("adonis2", dune, Management))
+with(dune.env, foo("adonis2", dune, Management, by = "terms"))
 ## the test case reported in github issue #285 by @ktmbiome
 var <- "Moisture"
-adonis2(dune ~ dune.env[, var])
+adonis2(dune ~ dune.env[, var], by = "terms")
 rm(var)
 ###
 
