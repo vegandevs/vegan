@@ -12,7 +12,7 @@
 
 \usage{
 adonis2(formula, data, permutations = 999, method = "bray",
-    sqrt.dist = FALSE, add = FALSE, by = "terms",
+    sqrt.dist = FALSE, add = FALSE, by = NULL,
     parallel = getOption("mc.cores"), na.action = na.fail,
     strata = NULL, ...)
 }
@@ -45,13 +45,13 @@ adonis2(formula, data, permutations = 999, method = "bray",
     details). Choice \code{"lingoes"} (or \code{TRUE}) use the
     recommended method of Legendre & Anderson (1999: \dQuote{method
     1}) and \code{"cailliez"} uses their \dQuote{method 2}.}
-  \item{by}{\code{by = "terms"} will assess significance for each term
-    (sequentially from first to last), setting \code{by = "margin"}
+  \item{by}{\code{by = NULL} will assess the overall significance of all
+    terms together, \code{by = "terms"} will assess significance for each
+    term (sequentially from first to last), setting \code{by = "margin"}
     will assess the marginal effects of the terms (each marginal term
     analysed in a model with all other variables), \code{by = "onedf"}
-    will analyse one-degree-of-freedom contrasts sequentially, \code{by =
-    NULL} will assess the overall significance of all terms
-    together. The arguments is passed on to \code{\link{anova.cca}}.}
+    will analyse one-degree-of-freedom contrasts sequentially. The
+    argument is passed on to \code{\link{anova.cca}}.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
@@ -149,10 +149,10 @@ Ecology and Evolution}, 3, 89--101.
 \examples{
 data(dune)
 data(dune.env)
-## default test by terms
+## default is overall (omnibus) test
 adonis2(dune ~ Management*A1, data = dune.env)
-## overall tests
-adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
+## sequential tests
+adonis2(dune ~ Management*A1, data = dune.env, by = "terms")
 
 ### Example of use with strata, for nested (e.g., block) designs.
 dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
