@@ -75,6 +75,11 @@
   with enhanced user-control. The function is now based solely on
   `abbreviate`.
 
+`* adonis2()` now defaults to running an omnibus test of the model (`by = NULL`) 
+  instead of a sequential test of model terms (`by = "terms"`). This makes
+  `adonis2()` more consistent with the default for related ordination methods.
+  See [#677](https://github.com/vegandevs/vegan/issues/677).
+
 ## Bug Fixes
 
 * `dbrda` failed in rare cases where an ordination component had only
