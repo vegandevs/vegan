@@ -1,6 +1,6 @@
 `adonis2` <-
     function(formula, data, permutations = 999, method = "bray",
-             sqrt.dist = FALSE, add = FALSE, by = "terms",
+             sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
              strata = NULL, ...)
 {
