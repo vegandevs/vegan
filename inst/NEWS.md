@@ -24,8 +24,7 @@
   analysis (PCA), correspondence anslysis (CA), and principal coordinates
   analysis (PCO) are now available via `pca()`, `ca()`, and `pco()`
   respectaively. The underlying methods used are `rda()`, `cca()` and `dbrda()`
-  respectively. See
-  [#655](https://github.com/vegandevs/vegan/issues/655).
+  respectively. See [#655](https://github.com/vegandevs/vegan/issues/655).
 
 * `decorana` checks now that input data are numeric instead of
   confusing error message (see
