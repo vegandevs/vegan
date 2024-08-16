@@ -90,9 +90,11 @@
         stop("old style result object: update() your model")
     ## analyse only terms of 'ass' thar are in scope
     scopeterms <- which(alltrms %in% trmlab)
-    mods <- lapply(scopeterms, function(i, ...)
-           permutest(ordConstrained(Y, X[, ass != i, drop=FALSE], Z, "pass"),
-                     permutations, ...), ...)
+    mods <- suppressMessages(
+        lapply(scopeterms, function(i, ...)
+            permutest(ordConstrained(Y, X[, ass != i, drop = FALSE], Z, "pass"),
+                permutations, ...), ...)
+    )
     ## Chande in df
     Df <- sapply(mods, function(x) x$df[2]) - dfbig
     ## F of change
@@ -197,7 +199,9 @@
     F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
     for (i in seq_along(eig)) {
         if (i > 1) {
-            object <- ordConstrained(Y, X, cbind(Z, LC[, seq_len(i-1)]), "pass")
+            object <- suppressMessages(
+                ordConstrained(Y, X, cbind(Z, LC[, seq_len(i - 1)]), "pass")
+            )
         }
         if (length(eig) == i) {
             mod <- permutest(object, permutations, model = model,
