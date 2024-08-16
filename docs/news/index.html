@@ -64,7 +64,8 @@
 <li><p><code>rda</code> and <code>cca</code> return centroids for factor levels also when called without formula, for instance <code>cca(dune, dune.env)</code>.</p></li>
 <li><p><code>vegemite</code> and <code>tabasco</code> can now <code>use</code> a factor to show a classification. The factor levels and sites within levels can be reordered to give a diagonal pattern, as default in code <code>tabasco</code> and in <code>vegemite</code> with new argument <code>diagonalize = TRUE</code> (defaults <code>FALSE</code>). With the same argument, <code>vegemite</code> can also reorder dendrogram (or tree) to give a diagonal pattern. If <code>coverscale</code> is used, all internal calculations for ordering rows and columns will be based on scaled data.</p></li>
 <li><p><code>make.cepnames</code> was completely re-designed and is much more flexible with enhanced user-control. The function is now based solely on <code>abbreviate</code>.</p></li>
-</ul></div>
+</ul><p><code>* adonis2()</code> now defaults to running an omnibus test of the model (<code>by = NULL</code>) instead of a sequential test of model terms (<code>by = "terms"</code>). This makes <code><a href="../reference/adonis.html">adonis2()</a></code> more consistent with the default for related ordination methods. See <a href="https://github.com/vegandevs/vegan/issues/677" class="external-link">#677</a>.</p>
+</div>
 <div class="section level3">
 <h3 id="bug-fixes-2-6-7">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-7"></a></h3>
 <ul><li><p><code>dbrda</code> failed in rare cases where an ordination component had only negative eigenvalues. Issue <a href="https://github.com/vegandevs/vegan/issues/670" class="external-link">#670</a>.</p></li>
