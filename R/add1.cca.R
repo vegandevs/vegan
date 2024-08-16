@@ -8,7 +8,8 @@
         stop("ordination model must be fitted using formula")
     test <- match.arg(test)
     ## Default add1
-    out <- NextMethod("add1", object, test = "none", ...)
+    # don't show messages about aliased terms
+    out <- suppressMessages(NextMethod("add1", object, test = "none", ...))
     cl <- class(out)
     ## Loop over terms in 'scope' and do anova.cca
     if (test == "permutation") {
