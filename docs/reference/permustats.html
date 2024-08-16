@@ -208,9 +208,8 @@
 <span class="r-in"><span><span class="va">perm</span> <span class="op">&lt;-</span> <span class="fu">permustats</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">perm</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            statistic    SES   mean lower median  upper Pr(perm)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management    3.0730 4.6870 1.0387       0.9565 1.8217    0.004 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1            2.7676 2.7175 1.0022       0.8484 2.2436    0.028 * </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       statistic    SES   mean lower median  upper Pr(perm)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model    2.9966 5.1322 1.0296       0.9637 1.7332    0.001 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -229,13 +228,13 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">perm</span>, interval <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             statistic     SES    mean   lower  median   upper Pr(perm)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Overall (F)    1.9506  0.7173  1.1427          0.8211  2.4909    0.154  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> BF-HF (t)     -0.5634 -0.4124 -0.0443 -2.0202 -0.0293  1.8851    0.591  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> BF-NM (t)     -2.2387 -1.8672 -0.0045 -1.8423  0.0074  2.0628    0.067 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> BF-SF (t)     -1.1675 -0.9341 -0.0086 -1.9337 -0.0450  1.9486    0.283  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HF-NM (t)     -2.1017 -1.9328  0.0277 -1.6716  0.0346  1.7582    0.067 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HF-SF (t)     -0.8789 -0.7872  0.0321 -1.8598  0.0284  1.8394    0.379  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> NM-SF (t)      0.9485  0.8265  0.0121 -1.9118  0.0690  1.7827    0.379  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Overall (F)    1.9506  0.7056  1.1486          0.8252  2.4572    0.151  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BF-HF (t)     -0.5634 -0.4194 -0.0368 -2.0185 -0.0225  1.8650    0.595  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BF-NM (t)     -2.2387 -1.8952  0.0016 -1.8350  0.0135  2.0395    0.067 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> BF-SF (t)     -1.1675 -0.9472 -0.0034 -1.9013 -0.0394  1.9116    0.283  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HF-NM (t)     -2.1017 -1.9518  0.0386 -1.6716  0.0599  1.7582    0.063 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HF-SF (t)     -0.8789 -0.7842  0.0230 -1.8911  0.0285  1.8432    0.387  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NM-SF (t)      0.9485  0.8451  0.0005 -1.8527  0.0508  1.7827    0.373  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
