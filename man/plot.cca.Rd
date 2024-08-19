@@ -160,7 +160,7 @@
   object may contain scores with names
   \Sexpr[results=rd,stage=build]{require(vegan, quietly=TRUE);
     data(dune, dune.env);
-    noquote(paste0(sQuote(names(scores(rda(dune ~ ., dune.env)))),
+    noquote(paste0(sQuote(names(scores(rda(dune ~ Moisture, dune.env)))),
     collapse=", "))}
   (some of these may be missing depending on your model and are only
   available if given in \code{display}). The first
