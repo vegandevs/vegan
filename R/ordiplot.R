@@ -31,7 +31,7 @@
             op <- options(show.error.messages = FALSE)
             Y <- try(scores(ord, choices = choices, display = "species"))
             options(op)
-            if (inherits(Y, "try-error")) {
+            if (!length(Y) || inherits(Y, "try-error")) {
                 message("species scores not available")
                 Y <- NULL
             }
@@ -42,7 +42,7 @@
                 message("species scores not available")
             }
         }
-        if (is.null(X) && is.null(Y))
+        if (is.null(X) && is.null(Y) || !length(X) && !length(Y))
             stop("no scores found: nothing to plot")
         ## Use linestack and exit if there is only one dimension
         if (NCOL(X) == 1 && NCOL(Y) == 1) {
@@ -67,9 +67,9 @@
         }
         if (type == "points") {
             if (!is.null(X))
-                localPoints(X, pch = 1, col = 1, ...)
+                localPoints(X, what = "sites", pch = 1, col = 1, ...)
             if (!is.null(Y))
-                localPoints(Y, pch = "+", col = "red", ...)
+                localPoints(Y, what = "species", pch = "+", col = "red", ...)
         }
         if (type == "text") {
             if (!is.null(X)) {
