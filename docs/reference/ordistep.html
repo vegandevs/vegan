@@ -220,6 +220,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod0</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span>  <span class="co"># Model with intercept only</span></span></span>
 <span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span>  <span class="co"># Model with all explanatory variables</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## With scope present, the default direction is "both"</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">ordistep</span><span class="op">(</span><span class="va">mod0</span>, scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -241,6 +244,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 89.62 2.84  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.005 **</span>
@@ -257,6 +263,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.285</span>
@@ -266,11 +275,16 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   46.4249     0.5519    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 37.6988     0.4481   13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 </span>
@@ -303,6 +317,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.010 **</span>
@@ -313,6 +330,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management + Moisture </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.265</span>
@@ -321,11 +341,16 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   46.4249     0.5519    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 37.6988     0.4481   13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 </span>
@@ -339,6 +364,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-in"><span><span class="co">## Example of ordiR2step (always forward)</span></span></span>
 <span class="r-in"><span><span class="co">## stops because R2 of 'mod1' exceeded</span></span></span>
 <span class="r-in"><span><span class="fu">ordiR2step</span><span class="op">(</span><span class="va">mod0</span>, <span class="va">mod1</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: R2.adj= 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: dune ~ 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
@@ -359,6 +387,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: R2.adj= 0.2251241 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: dune ~ Management </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 R2.adjusted</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture        0.3450334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;All variables&gt;   0.3250882</span>
@@ -369,11 +400,16 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   29.2307     0.3475    3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 54.8930     0.6525   16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3 </span>

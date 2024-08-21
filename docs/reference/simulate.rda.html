@@ -164,14 +164,18 @@
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span>  <span class="va">Moisture</span> <span class="op">+</span> <span class="va">Management</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## One simulation</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op">~</span>  <span class="va">.</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = simulate(mod) ~ Moisture + Management, data =</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = simulate(mod) ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         86.0878     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   57.3442     0.6661    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 28.7436     0.3339   13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 </span>

@@ -273,15 +273,20 @@
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">A1</span> <span class="op">+</span> <span class="va">Management</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">Moisture</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Definition of the concepts 'fitted' and 'residuals'</span></span></span>
 <span class="r-in"><span><span class="va">mod</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = dune ~ A1 + Management + Condition(Moisture), data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = dune ~ A1 + Management + Condition(Moisture), data =</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.1153     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Conditional    0.6283     0.2970    3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained    0.5109     0.2415    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  0.9761     0.4615   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    CCA1    CCA2    CCA3    CCA4 </span>
@@ -296,10 +301,15 @@
 <span class="r-in"><span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(X = fitted(mod))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          0.5109     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  0.5109    4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     CA1     CA2     CA3     CA4 </span>
@@ -308,10 +318,15 @@
 <span class="r-in"><span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(X = residuals(mod))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          0.9761     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  0.9761   12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 </span>

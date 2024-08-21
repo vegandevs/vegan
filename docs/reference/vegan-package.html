@@ -159,10 +159,15 @@ individual functions: see credits in function help pages.</p>
 <span class="r-in"><span><span class="va">mod0</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ 1, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total           84.12     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained   84.12   19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8 </span>
@@ -173,16 +178,28 @@ individual functions: see credits in function help pages.</p>
 <span class="r-plt img"><img src="vegan-package-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## All environmental variables: Full model</span></span></span>
 <span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-in"><span><span class="va">mod1</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   63.2062     0.7513   12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 20.9175     0.2487    7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Note --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> This can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 </span>
@@ -216,6 +233,9 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 89.62 2.84  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.015 *</span>
@@ -232,6 +252,9 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769   0.01 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.405</span>
@@ -241,11 +264,16 @@ individual functions: see credits in function help pages.</p>
 <span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   46.4249     0.5519    6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 37.6988     0.4481   13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 </span>

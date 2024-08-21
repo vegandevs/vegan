@@ -114,6 +114,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## defaults to species tolerances</span></span></span>
 <span class="r-in"><span><span class="fu">tolerance</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>

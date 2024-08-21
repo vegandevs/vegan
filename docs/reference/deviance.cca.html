@@ -169,6 +169,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1448.956</span>
 <span class="r-in"><span><span class="co"># Stepwise selection (forward from an empty model "dune ~ 1")</span></span></span>
 <span class="r-in"><span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span>, scope <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">ord</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start:  AIC=87.66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dune ~ 1</span>
@@ -193,11 +196,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 87.657</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = dune ~ Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.1153     1.0000     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Constrained    0.6283     0.2970    3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  1.4870     0.7030   16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   CCA1   CCA2   CCA3 </span>
