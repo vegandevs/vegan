@@ -306,12 +306,20 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > foo("cca", dune, Management, na.action = na.omit)
 Call: cca(formula = Y ~ X, na.action = ..1)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          2.0949     1.0000     
 Constrained    0.6236     0.2977    3
 Unconstrained  1.4713     0.7023   14
-Inertia is scaled Chi-square 
-2 observations deleted due to missingness 
+
+Inertia is scaled Chi-square
+
+-- Note --
+
+2 observations deleted due to missingness
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3 
@@ -326,12 +334,20 @@ Eigenvalues for unconstrained axes:
 > foo("rda", dune, Management, na.action = na.omit)
 Call: rda(formula = Y ~ X, na.action = ..1)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         85.1176     1.0000     
 Constrained   32.7765     0.3851    3
 Unconstrained 52.3412     0.6149   14
-Inertia is variance 
-2 observations deleted due to missingness 
+
+Inertia is variance
+
+-- Note --
+
+2 observations deleted due to missingness
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3 
@@ -346,13 +362,22 @@ Eigenvalues for unconstrained axes:
 > foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
 Call: bar(formula = Y ~ X, distance = "jaccard", na.action = ..2)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          5.1432     1.0000     
 Constrained    1.6453     0.3199    3
 Unconstrained  3.4979     0.6801   14
-Inertia is squared Jaccard distance 
-Species scores projected from 'Y' 
-2 observations deleted due to missingness 
+
+Inertia is squared Jaccard distance
+
+-- Note --
+
+Species scores projected from 'Y'
+
+2 observations deleted due to missingness
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -367,14 +392,22 @@ Eigenvalues for unconstrained axes:
 > foo("capscale", vegdist(dune), Management, na.action = na.omit)
 Call: bar(formula = Y ~ X, na.action = ..1)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          3.7652                
 RealTotal      3.9493     1.0000     
 Constrained    1.4456     0.3660    3
 Unconstrained  2.5037     0.6340   13
 Imaginary     -0.1841                
-Inertia is squared Bray distance 
-2 observations deleted due to missingness 
+
+Inertia is squared Bray distance
+
+-- Note --
+
+2 observations deleted due to missingness
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -389,13 +422,22 @@ Eigenvalues for unconstrained axes:
 > foo("capscale", dune, Management, na.action = na.omit) # fails in 2.2-1
 Call: bar(formula = Y ~ X, na.action = ..1)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         85.1176     1.0000     
 Constrained   32.7765     0.3851    3
 Unconstrained 52.3412     0.6149   14
-Inertia is mean squared Euclidean distance 
-Species scores projected from 'Y' 
-2 observations deleted due to missingness 
+
+Inertia is mean squared Euclidean distance
+
+-- Note --
+
+Species scores projected from 'Y'
+
+2 observations deleted due to missingness
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -445,15 +487,20 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
 > tab <- anova(m, by = "axis", permutations = 99)
 > m
-Call: cca(formula = dune ~ A1 + Moisture + Condition(Management), data
-= dune.env, subset = A1 > 3)
+Call: cca(formula = dune ~ A1 + Moisture + Condition(Management), data =
+dune.env, subset = A1 > 3)
+
+-- Model Summary --
 
               Inertia Proportion Rank
 Total          2.0976     1.0000     
 Conditional    0.6251     0.2980    3
 Constrained    0.5555     0.2648    4
 Unconstrained  0.9170     0.4372   10
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4 
@@ -625,6 +672,9 @@ Residual 26   5.2565
 > set.seed(4711)
 > cca <- dune
 > m <- cca(cca ~ ., dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): 'Manure^4'
 > anova(m, by="term")
 Permutation test for cca under reduced model
 Terms added sequentially (first to last)
@@ -642,6 +692,9 @@ Residual    7   0.61210
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > m <- capscale(cca ~ ., dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): 'Manure^4'
 > anova(m, by="term")
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -908,12 +961,17 @@ Species: expanded scores based on 'wisconsin(sqrt(subset(varespec, select = colS
 > (mr <- rda(varespec ~ Al + P + Condition(pH), varechem))
 Call: rda(formula = varespec ~ Al + P + Condition(pH), data = varechem)
 
+-- Model Summary --
+
                 Inertia Proportion Rank
 Total         1825.6594     1.0000     
 Conditional    234.0961     0.1282    1
 Constrained    424.4375     0.2325    2
 Unconstrained 1167.1258     0.6393   20
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2 
@@ -925,15 +983,19 @@ Eigenvalues for unconstrained axes:
 (Showing 8 of 20 unconstrained eigenvalues)
 
 > (md <- dbrda(varespec ~ Al + P + Condition(pH), varechem))
-Call: dbrda(formula = varespec ~ Al + P + Condition(pH), data =
-varechem)
+Call: dbrda(formula = varespec ~ Al + P + Condition(pH), data = varechem)
+
+-- Model Summary --
 
                 Inertia Proportion Rank
 Total         1825.6594     1.0000     
 Conditional    234.0961     0.1282    1
 Constrained    424.4375     0.2325    2
 Unconstrained 1167.1258     0.6393   20
-Inertia is mean squared Euclidean distance 
+
+Inertia is mean squared Euclidean distance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 
@@ -948,13 +1010,21 @@ Eigenvalues for unconstrained axes:
 Call: capscale(formula = varespec ~ Al + P + Condition(pH), data =
 varechem)
 
+-- Model Summary --
+
                 Inertia Proportion Rank
 Total         1825.6594     1.0000     
 Conditional    234.0961     0.1282    1
 Constrained    424.4375     0.2325    2
 Unconstrained 1167.1258     0.6393   20
-Inertia is mean squared Euclidean distance 
-Species scores projected from 'varespec' 
+
+Inertia is mean squared Euclidean distance
+
+-- Note --
+
+Species scores projected from 'varespec'
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2 
@@ -1003,4 +1073,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.108   0.041   1.165 
+  1.246   0.041   1.289 
