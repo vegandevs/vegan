@@ -518,11 +518,16 @@ dune ~ Moisture
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Call: cca(formula = dune ~ Moisture, data = dune.env)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          2.1153     1.0000     
 Constrained    0.6283     0.2970    3
 Unconstrained  1.4870     0.7030   16
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3 
@@ -541,6 +546,9 @@ Eigenvalues for unconstrained axes:
 > ## Manual model building
 > ## -- define the maximal model for scope
 > mbig <- rda(dune ~  ., dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > ## -- define an empty model to start with
 > m0 <- rda(dune ~ 1, dune.env)
 > ## -- manual selection and updating
@@ -556,6 +564,9 @@ Manure      4 89.232 1.9539  0.025 *
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Management)
 > add1(m0, scope=formula(mbig), test="perm")
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
          Df    AIC      F Pr(>F)   
 <none>      87.082                 
 A1        1 87.424 1.2965  0.195   
@@ -574,6 +585,9 @@ Moisture    3 87.082 1.9764  0.025 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > add1(m0, scope=formula(mbig), test="perm")
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
        Df    AIC      F Pr(>F)
 <none>    85.567              
 A1      1 86.220 0.8359  0.610
@@ -748,33 +762,33 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > data(dune)
 > data(dune.env)
-> ## default test by terms
+> ## default is overall (omnibus) test
 > adonis2(dune ~ Management*A1, data = dune.env)
+Permutation test for adonis under reduced model
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = dune ~ Management * A1, data = dune.env)
+         Df SumOfSqs      R2      F Pr(>F)    
+Model     7   2.4987 0.58122 2.3792  0.001 ***
+Residual 12   1.8004 0.41878                  
+Total    19   4.2990 1.00000                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## sequential tests
+> adonis2(dune ~ Management*A1, data = dune.env, by = "terms")
 Permutation test for adonis under reduced model
 Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis2(formula = dune ~ Management * A1, data = dune.env)
-              Df SumOfSqs      R2      F Pr(>F)   
-Management     3   1.4686 0.34161 3.2629  0.002 **
-A1             1   0.4409 0.10256 2.9387  0.013 * 
-Management:A1  3   0.5892 0.13705 1.3090  0.192   
-Residual      12   1.8004 0.41878                 
-Total         19   4.2990 1.00000                 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> ## overall tests
-> adonis2(dune ~ Management*A1, data = dune.env, by = NULL)
-Permutation test for adonis under reduced model
-Permutation: free
-Number of permutations: 999
-
-adonis2(formula = dune ~ Management * A1, data = dune.env, by = NULL)
-         Df SumOfSqs      R2      F Pr(>F)    
-Model     7   2.4987 0.58122 2.3792  0.001 ***
-Residual 12   1.8004 0.41878                  
-Total    19   4.2990 1.00000                  
+adonis2(formula = dune ~ Management * A1, data = dune.env, by = "terms")
+              Df SumOfSqs      R2      F Pr(>F)    
+Management     3   1.4686 0.34161 3.2629  0.001 ***
+A1             1   0.4409 0.10256 2.9387  0.024 *  
+Management:A1  3   0.5892 0.13705 1.3090  0.221    
+Residual      12   1.8004 0.41878                  
+Total         19   4.2990 1.00000                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -811,26 +825,24 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > ### Incorrect (no strata)
 > adonis2(Y ~ NO3, data = dat, permutations = 199)
 Permutation test for adonis under reduced model
-Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 199
 
 adonis2(formula = Y ~ NO3, data = dat, permutations = 199)
          Df SumOfSqs      R2      F Pr(>F)
-NO3       1 0.020795 0.17606 2.1368   0.12
+Model     1 0.020795 0.17606 2.1368   0.12
 Residual 10 0.097321 0.82394              
 Total    11 0.118116 1.00000              
 > ## Correct with strata
 > with(dat, adonis2(Y ~ NO3, data = dat, permutations = 199, strata = field))
 Permutation test for adonis under reduced model
-Terms added sequentially (first to last)
 Blocks:  strata 
 Permutation: free
 Number of permutations: 199
 
 adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)
          Df SumOfSqs      R2      F Pr(>F)   
-NO3       1 0.020795 0.17606 2.1368   0.01 **
+Model     1 0.020795 0.17606 2.1368   0.01 **
 Residual 10 0.097321 0.82394                 
 Total    11 0.118116 1.00000                 
 ---
@@ -960,6 +972,9 @@ Residual     13   1.11289
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## test for adding all environmental variables
 > anova(mod, cca(dune ~ ., dune.env))
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 Permutation tests for cca under reduced model
 Permutation: free
 Number of permutations: 999
@@ -1853,11 +1868,16 @@ log(N) P K Ca pH Al    6      0.2822
 > vare.cca
 Call: cca(X = varespec, Y = varechem)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          2.0832     1.0000     
 Constrained    1.4415     0.6920   14
 Unconstrained  0.6417     0.3080    9
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
@@ -1873,14 +1893,18 @@ Eigenvalues for unconstrained axes:
 > ## Formula interface and a better model
 > vare.cca <- cca(varespec ~ Al + P*(K + Baresoil), data=varechem)
 > vare.cca
-Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data =
-varechem)
+Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data = varechem)
+
+-- Model Summary --
 
               Inertia Proportion Rank
 Total           2.083      1.000     
 Constrained     1.046      0.502    6
 Unconstrained   1.038      0.498   17
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 
@@ -1896,11 +1920,16 @@ Eigenvalues for unconstrained axes:
 > cca(varespec ~ Ca, varechem)
 Call: cca(formula = varespec ~ Ca, data = varechem)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         2.08320    1.00000     
 Constrained   0.15722    0.07547    1
 Unconstrained 1.92598    0.92453   22
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1 
@@ -1914,12 +1943,17 @@ Eigenvalues for unconstrained axes:
 > cca(varespec ~ Ca + Condition(pH), varechem)
 Call: cca(formula = varespec ~ Ca + Condition(pH), data = varechem)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          2.0832     1.0000     
 Conditional    0.1458     0.0700    1
 Constrained    0.1827     0.0877    1
 Unconstrained  1.7547     0.8423   21
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1 
@@ -2180,12 +2214,17 @@ C     0  0.00000000  0.00000000
 Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
 
+-- Model Summary --
+
               Inertia Proportion Rank RealDims
 Total          4.5444     1.0000              
 Conditional    0.9726     0.2140    1         
 Constrained    0.9731     0.2141    3        3
 Unconstrained  2.5987     0.5718   19       13
-Inertia is squared Bray distance 
+
+Inertia is squared Bray distance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 
@@ -2202,12 +2241,17 @@ Eigenvalues for unconstrained axes:
 Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray", sqrt.dist = TRUE)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          6.9500     1.0000     
 Conditional    0.9535     0.1372    1
 Constrained    1.2267     0.1765    3
 Unconstrained  4.7698     0.6863   19
-Inertia is Bray distance 
+
+Inertia is Bray distance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 
@@ -2223,12 +2267,17 @@ Eigenvalues for unconstrained axes:
 Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "jaccard")
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          6.5044     1.0000     
 Conditional    1.0330     0.1588    1
 Constrained    1.2068     0.1855    3
 Unconstrained  4.2646     0.6557   19
-Inertia is squared Jaccard distance 
+
+Inertia is squared Jaccard distance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 
@@ -2245,10 +2294,15 @@ Eigenvalues for unconstrained axes:
 > pco(varespec, dist = "bray", sqrt.dist = TRUE)
 Call: pco(X = varespec, dist = "bray", sqrt.dist = TRUE)
 
+-- Model Summary --
+
               Inertia Rank
 Total            6.95     
 Unconstrained    6.95   23
-Inertia is Bray distance 
+
+Inertia is Bray distance
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
@@ -2427,6 +2481,9 @@ X-squared = 1449, df = 551, p-value < 2.2e-16
 [1] 1448.956
 > # Stepwise selection (forward from an empty model "dune ~ 1")
 > ord <- cca(dune ~ ., dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > step(cca(dune ~ 1, dune.env), scope = formula(ord))
 Start:  AIC=87.66
 dune ~ 1
@@ -2451,11 +2508,16 @@ dune ~ Moisture
 - Moisture    3 87.657
 Call: cca(formula = dune ~ Moisture, data = dune.env)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total          2.1153     1.0000     
 Constrained    0.6283     0.2970    3
 Unconstrained  1.4870     0.7030   16
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3 
@@ -2617,11 +2679,16 @@ Based on 99 simulations on 'c0_ind' nullmodel
 > rda(mite.dw ~ Shrub + WatrCont, data = mite.env)
 Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         38.1640     1.0000     
 Constrained    9.2129     0.2414    3
 Unconstrained 28.9511     0.7586   35
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
  RDA1  RDA2  RDA3 
@@ -3189,16 +3256,28 @@ ManagementSF
     2.424444 
 > # Aliased constraints
 > mod <- cca(dune ~ ., dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > mod
-Call: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure,
-data = dune.env)
+Call: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data
+= dune.env)
+
+-- Model Summary --
 
               Inertia Proportion Rank
 Total          2.1153     1.0000     
 Constrained    1.5032     0.7106   12
 Unconstrained  0.6121     0.2894    7
-Inertia is scaled Chi-square 
-Some constraints or conditions were aliased because they were redundant
+
+Inertia is scaled Chi-square
+
+-- Note --
+
+Some constraints or conditions were aliased because they were redundant.
+This can happen if terms are linearly dependent (collinear): ‘Manure^4’
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
@@ -4427,10 +4506,15 @@ Set of permutations < 'minperm'. Generating entire set.
 Call: mso(object.cca = mite.cca, object.xy = mite.xy, grain = 1,
 permutations = 99)
 
+-- Model Summary --
+
               Inertia Rank
 Total           1.164     
 Unconstrained   1.164   34
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
@@ -4459,14 +4543,18 @@ Number of permutations: 99
 > msoplot(mite.cca)
 Error variance of regression model underestimated by 0.4 percent 
 > mite.cca
-Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations =
-99)
+Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations = 99)
+
+-- Model Summary --
 
               Inertia Proportion Rank
 Total          1.1638     1.0000     
 Constrained    0.5211     0.4478   11
 Unconstrained  0.6427     0.5522   34
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
@@ -5273,6 +5361,9 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > data(dune.env)
 > mod0 <- rda(dune ~ 1, dune.env)  # Model with intercept only
 > mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > 
 > ## With scope present, the default direction is "both"
 > mod <- ordistep(mod0, scope = formula(mod1))
@@ -5311,6 +5402,9 @@ Step: dune ~ Moisture + Management
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
+
          Df    AIC      F Pr(>F)
 + Manure  3 85.762 1.1225  0.300
 + A1      1 86.220 0.8359  0.685
@@ -5319,11 +5413,16 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > mod
 Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         84.1237     1.0000     
 Constrained   46.4249     0.5519    6
 Unconstrained 37.6988     0.4481   13
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -5357,6 +5456,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Step: dune ~ Management 
 
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
+
            Df    AIC      F Pr(>F)   
 + Moisture  3 85.567 1.9764  0.005 **
 + Manure    3 87.517 1.3902  0.095 . 
@@ -5367,6 +5469,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Step: dune ~ Management + Moisture 
 
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
+
          Df    AIC      F Pr(>F)
 + Manure  3 85.762 1.1225  0.315
 + A1      1 86.220 0.8359  0.605
@@ -5374,11 +5479,16 @@ Step: dune ~ Management + Moisture
 
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         84.1237     1.0000     
 Constrained   46.4249     0.5519    6
 Unconstrained 37.6988     0.4481   13
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -5392,6 +5502,9 @@ Eigenvalues for unconstrained axes:
 > ## Example of ordiR2step (always forward)
 > ## stops because R2 of 'mod1' exceeded
 > ordiR2step(mod0, mod1)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 Step: R2.adj= 0 
 Call: dune ~ 1 
  
@@ -5412,6 +5525,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Step: R2.adj= 0.2251241 
 Call: dune ~ Management 
  
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
                 R2.adjusted
 + Moisture        0.3450334
 <All variables>   0.3250882
@@ -5422,11 +5538,16 @@ Call: dune ~ Management
 
 Call: rda(formula = dune ~ Management, data = dune.env)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         84.1237     1.0000     
 Constrained   29.2307     0.3475    3
 Unconstrained 54.8930     0.6525   16
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3 
@@ -5996,9 +6117,8 @@ X-squared = 0.40156, df = 1, p-value = 0.5263
 > perm <- permustats(mod)
 > summary(perm)
 
-           statistic    SES   mean lower median  upper Pr(perm)   
-Management    3.0730 4.9011 1.0124       0.9446 1.7788    0.002 **
-A1            2.7676 2.8132 1.0364       0.9039 2.2849    0.021 * 
+      statistic    SES   mean lower median  upper Pr(perm)   
+Model    2.9966 5.3815 1.0184       0.9625 1.6979    0.002 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -6014,13 +6134,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > summary(perm, interval = 0.90)
 
             statistic     SES    mean   lower  median   upper Pr(perm)  
-Overall (F)    1.9506  0.7790  1.1108          0.7617  2.4904    0.168  
-BF-HF (t)     -0.5634 -0.4990 -0.0020 -1.7690 -0.0382  1.8192    0.573  
-BF-NM (t)     -2.2387 -1.8876  0.0153 -1.8120 -0.0146  2.0067    0.061 .
-BF-SF (t)     -1.1675 -0.9769 -0.0117 -1.9015 -0.0534  1.8619    0.251  
-HF-NM (t)     -2.1017 -1.8404  0.0186 -1.9587  0.0631  1.8701    0.077 .
-HF-SF (t)     -0.8789 -0.7233 -0.0232 -1.8836  0.0540  1.7446    0.423  
-NM-SF (t)      0.9485  0.8665 -0.0381 -1.8811 -0.0455  1.9683    0.325  
+Overall (F)    1.9506  0.8054  1.0900          0.7495  2.4330    0.160  
+BF-HF (t)     -0.5634 -0.4952 -0.0087 -1.7690 -0.0436  1.8152    0.579  
+BF-NM (t)     -2.2387 -1.9209  0.0342 -1.7723 -0.0084  2.0042    0.055 .
+BF-SF (t)     -1.1675 -0.9825 -0.0027 -1.9389 -0.0261  1.8619    0.249  
+HF-NM (t)     -2.1017 -1.8773  0.0447 -1.9195  0.0871  1.8452    0.073 .
+HF-SF (t)     -0.8789 -0.7362 -0.0043 -1.8836  0.0729  1.7700    0.415  
+NM-SF (t)      0.9485  0.8840 -0.0502 -1.8588 -0.0474  1.9030    0.317  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -6191,12 +6311,17 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > mod            # RDA
 Call: prc(response = pyrifos, treatment = dose, time = week)
 
+-- Model Summary --
+
                Inertia Proportion Rank
 Total         288.9920     1.0000     
 Conditional    63.3493     0.2192   10
 Constrained    96.6837     0.3346   44
 Unconstrained 128.9589     0.4462   77
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
@@ -6321,15 +6446,20 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
 > # Definition of the concepts 'fitted' and 'residuals'
 > mod
-Call: cca(formula = dune ~ A1 + Management + Condition(Moisture), data
-= dune.env)
+Call: cca(formula = dune ~ A1 + Management + Condition(Moisture), data =
+dune.env)
+
+-- Model Summary --
 
               Inertia Proportion Rank
 Total          2.1153     1.0000     
 Conditional    0.6283     0.2970    3
 Constrained    0.5109     0.2415    4
 Unconstrained  0.9761     0.4615   12
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4 
@@ -6344,10 +6474,15 @@ Eigenvalues for unconstrained axes:
 > cca(fitted(mod))
 Call: cca(X = fitted(mod))
 
+-- Model Summary --
+
               Inertia Rank
 Total          0.5109     
 Unconstrained  0.5109    4
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4 
@@ -6356,10 +6491,15 @@ Eigenvalues for unconstrained axes:
 > cca(residuals(mod))
 Call: cca(X = residuals(mod))
 
+-- Model Summary --
+
               Inertia Rank
 Total          0.9761     
 Unconstrained  0.9761   12
-Inertia is scaled Chi-square 
+
+Inertia is scaled Chi-square
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
@@ -7105,14 +7245,18 @@ Number of permutations: 99
 > mod <- rda(dune ~  Moisture + Management, dune.env)
 > ## One simulation
 > update(mod, simulate(mod) ~  .)
-Call: rda(formula = simulate(mod) ~ Moisture + Management, data =
-dune.env)
+Call: rda(formula = simulate(mod) ~ Moisture + Management, data = dune.env)
+
+-- Model Summary --
 
               Inertia Proportion Rank
 Total         82.8232     1.0000     
 Constrained   52.6966     0.6363    6
 Unconstrained 30.1266     0.3637   13
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -7494,7 +7638,7 @@ se.ACE     5.736054   5.571998   6.191618   5.367571   5.848474
 > ### Name: sppscores
 > ### Title: Add or Replace Species Scores in Distance-Based Ordination
 > ### Aliases: sppscores sppscores<- sppscores<-.dbrda sppscores<-.capscale
-> ###   sppscores<-.metaMDS
+> ###   sppscores<-.metaMDS sppscores<-.monoMDS sppscores<-.wcmdscale
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -7655,6 +7799,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > data(dune)
 > data(dune.env)
 > mod <- cca(dune ~ ., data = dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > 
 > ## defaults to species tolerances
 > tolerance(mod)
@@ -7817,10 +7964,15 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > dbrda(dtree ~ 1)
 Call: dbrda(formula = dtree ~ 1)
 
+-- Model Summary --
+
               Inertia Rank RealDims
 Total           2.183              
 Unconstrained   2.183   19       10
-Inertia is squared Treedist distance 
+
+Inertia is squared Treedist distance
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
@@ -8337,10 +8489,15 @@ Number of permutations: 999
 > mod0
 Call: rda(formula = dune ~ 1, data = dune.env)
 
+-- Model Summary --
+
               Inertia Rank
 Total           84.12     
 Unconstrained   84.12   19
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
    PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8 
@@ -8350,16 +8507,28 @@ Eigenvalues for unconstrained axes:
 > plot(mod0)
 > ## All environmental variables: Full model
 > mod1 <- rda(dune ~ ., dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > mod1
-Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure,
-data = dune.env)
+Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data
+= dune.env)
+
+-- Model Summary --
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
 Constrained   63.2062     0.7513   12
 Unconstrained 20.9175     0.2487    7
-Inertia is variance 
-Some constraints or conditions were aliased because they were redundant
+
+Inertia is variance
+
+-- Note --
+
+Some constraints or conditions were aliased because they were redundant.
+This can happen if terms are linearly dependent (collinear): ‘Manure^4’
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
@@ -8393,6 +8562,9 @@ Step: dune ~ Management
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
+
            Df    AIC      F Pr(>F)   
 + Moisture  3 85.567 1.9764  0.005 **
 + Manure    3 87.517 1.3902  0.095 . 
@@ -8409,6 +8581,9 @@ Step: dune ~ Management + Moisture
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are linearly dependent (collinear): ‘Manure^4’
+
          Df    AIC      F Pr(>F)
 + Manure  3 85.762 1.1225  0.365
 + A1      1 86.220 0.8359  0.630
@@ -8417,11 +8592,16 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > mod
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
+-- Model Summary --
+
               Inertia Proportion Rank
 Total         84.1237     1.0000     
 Constrained   46.4249     0.5519    6
 Unconstrained 37.6988     0.4481   13
-Inertia is variance 
+
+Inertia is variance
+
+-- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -8483,33 +8663,26 @@ REML score: 3.00623
 > ### permutational anova
 > adonis2(dune ~ ., dune.env)
 Permutation test for adonis under reduced model
-Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
 adonis2(formula = dune ~ ., data = dune.env)
-           Df SumOfSqs      R2      F Pr(>F)    
-A1          1   0.7230 0.16817 5.2038  0.001 ***
-Moisture    3   1.1871 0.27613 2.8482  0.005 ** 
-Management  3   0.9036 0.21019 2.1681  0.019 *  
-Use         2   0.0921 0.02143 0.3315  0.979    
-Manure      3   0.4208 0.09787 1.0096  0.453    
-Residual    7   0.9725 0.22621                  
-Total      19   4.2990 1.00000                  
+         Df SumOfSqs      R2      F Pr(>F)  
+Model    12   3.3265 0.77379 1.9954  0.012 *
+Residual  7   0.9725 0.22621                
+Total    19   4.2990 1.00000                
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > adonis2(dune ~ Management + Moisture, dune.env)
 Permutation test for adonis under reduced model
-Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
 adonis2(formula = dune ~ Management + Moisture, data = dune.env)
-           Df SumOfSqs      R2      F Pr(>F)   
-Management  3   1.4686 0.34161 3.7907  0.002 **
-Moisture    3   1.1516 0.26788 2.9726  0.003 **
-Residual   13   1.6788 0.39051                 
-Total      19   4.2990 1.00000                 
+         Df SumOfSqs      R2      F Pr(>F)    
+Model     6   2.6202 0.60949 3.3816  0.001 ***
+Residual 13   1.6788 0.39051                  
+Total    19   4.2990 1.00000                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -8990,7 +9163,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.802 0.304 9.136 0 0 
+Time elapsed:  8.677 0.28 8.984 0 0 
 > grDevices::dev.off()
 null device 
           1 
