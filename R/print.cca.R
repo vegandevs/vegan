@@ -1,7 +1,9 @@
 `print.cca` <-
     function (x, digits = max(3, getOption("digits") - 3), ...)
 {
-    writeLines(strwrap(pasteCall(x$call)))
+    ord_obj <- deparse(substitute(x))
+    msg_w <- 0.95 * getOption("width")
+    writeLines(strwrap(pasteCall(x$call), width = msg_w))
     cat("\n")
     if (!is.null(x$CA$imaginary.chi))
         totchi <- x$tot.chi - x$CA$imaginary.chi
@@ -37,22 +39,46 @@
         tbl <- tbl[,-2]
     ## 'cs' columns before "Rank" are non-integer
     cs <- which(colnames(tbl) == "Rank") - 1
+    writeLines("-- Model Summary --\n")
     printCoefmat(tbl, digits = digits, na.print = "", cs.ind = seq_len(cs))
-    cat("Inertia is", x$inertia, "\n")
-    ## data used for species scores in db ordination
-    if (!is.null(x$vdata))
-        cat("Species scores projected from", sQuote(x$vdata), "\n")
-    if (!is.null(x$CCA$alias))
-        cat("Some constraints or conditions were aliased because they were redundant\n")
-    ## Report removed observations and species
-    if (!is.null(x$na.action))
-        cat(naprint(x$na.action), "\n")
+    writeLines(strwrap(paste("Inertia is", x$inertia), width = msg_w,
+        initial = "\n"))
     sp.na <- if (is.null(x$CCA)) attr(x$CA$v, "na.action")
     else attr(x$CCA$v, "na.action")
-    if (!is.null(sp.na))
-        cat(length(sp.na), "species",
-            ifelse(length(sp.na)==1, "(variable)", "(variables)"),
-            "deleted due to missingness\n")
+    # print any notices
+    if (any(!is.null(x$vdata), !is.null(x$CCA$alias), x$CA$rank < 1,
+        !is.null(x$na.action), !is.null(sp.na))) {
+        writeLines("\n-- Note --")
+    }
+    ## data used for species scores in db ordination
+    if (!is.null(x$vdata)) {
+        writeLines(
+            strwrap(paste("Species scores projected from", sQuote(x$vdata)),
+                width = msg_w, initial = "\n")
+        )
+    }
+    # notify if any terms are linearly dependent (aliased)
+    if (!is.null(x$CCA$alias)) {
+        vif_msg <- sQuote(paste0("vif.cca(", ord_obj, ")"))
+        aliased <- paste(sQuote(alias(x, names.only = TRUE)), collapse = ", ")
+        msg <- paste("Some constraints or conditions were aliased because they were redundant.",
+        "This can happen if terms are linearly dependent (collinear):", aliased)
+        writeLines(strwrap(msg, width = msg_w, initial = "\n"))
+    }
+    if (x$CA$rank < 1) {
+        msg <- "The model is overfitted with no unconstrained (residual) component."
+        writeLines(strwrap(msg, width = msg_w, initial = "\n"))
+    }
+    ## Report removed observations and species
+    if (!is.null(x$na.action)) {
+        writeLines(strwrap(naprint(x$na.action), width = msg_w, initial = "\n"))
+    }
+    if (!is.null(sp.na)) {
+        writeLines(strwrap(paste(length(sp.na), "species",
+            ifelse(length(sp.na) == 1, "(variable)", "(variables)"),
+            "deleted due to missingness."), width = msg_w, initial = "\n"))
+    }
+    writeLines("\n-- Eigenvalues --")
     if (!is.null(x$CCA) && x$CCA$rank > 0) {
         cat("\nEigenvalues for constrained axes:\n")
         print(zapsmall(x$CCA$eig, digits = digits), ...)
