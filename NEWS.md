@@ -80,6 +80,15 @@
   `adonis2()` more consistent with the default for related ordination methods.
   See [#677](https://github.com/vegandevs/vegan/issues/677).
 
+* The constrained ordination functions are now louder at informing users when
+  one or more terms in a model are aliased (linearly dependent) and their 
+  effects cannot be estimated. See [#682](https://github.com/vegandevs/vegan/issues/682).
+
+* The output from the ordination methods `pca()`, `pco()`, `ca()`, `rda()`,
+  `cca()`, and `dbrda()` has changed slightly to better separate the results
+  from notifications to the user about issues encountered with the data or the
+  model. Related to changes in [#682](https://github.com/vegandevs/vegan/issues/682).
+
 ## Bug Fixes
 
 * `dbrda` failed in rare cases where an ordination component had only
