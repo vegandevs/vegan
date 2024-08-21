@@ -30,7 +30,7 @@
             op <- options(show.error.messages = FALSE)
             Y <- try(scores(ord, choices = choices, display = "species"))
             options(op)
-            if (inherits(Y, "try-error")) {
+            if (!length(Y) || inherits(Y, "try-error")) {
                 message("species scores not available")
                 Y <- NULL
             }
@@ -41,7 +41,7 @@
                 message("species scores not available")
             }
         }
-        if (is.null(X) && is.null(Y))
+        if (is.null(X) && is.null(Y) || !length(X) && !length(Y))
             stop("no scores found: nothing to plot")
         ## Use linestack and exit if there is only one dimension
         if (NCOL(X) == 1 && NCOL(Y) == 1) {
