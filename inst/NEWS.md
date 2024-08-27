@@ -1,14 +1,26 @@
 ## vegan News
 
-### Changes in version 2\.6-6\.2
-
-#### What Is Version 2.6-6.2?
-
-  Version 2.6-6.2 cherry-picks fixes of bugs and buglets and fixes to
-  unexpected features from the development branch 2.6-7. The release
-  is scheduled for August 2024.
+### Changes in version 2\.6-8
 
 #### New Features
+
+* Wrappers for the unconstrained ordination methods principal components
+  analysis (PCA), correspondence anslysis (CA), and principal coordinates
+  analysis (PCO) are now available via `pca()`, `ca()`, and `pco()`
+  respectively. The underlying methods used are `rda()`, `cca()` and `dbrda()`
+  respectively. See
+  [#655](https://github.com/vegandevs/vegan/issues/655).
+
+* The output from the ordination methods `pca()`, `pco()`, `ca()`,
+  `rda()`, `cca()`, `capscale`, and `dbrda()` has changed slightly to
+  better separate the results from notifications to the user about
+  issues encountered with the data or the model. Related to changes in
+  [#682](https://github.com/vegandevs/vegan/issues/682).
+
+* The constrained ordination functions are now louder at informing users when
+  one or more terms in a model are aliased (linearly dependent) and their 
+  effects cannot be estimated. See
+  [#682](https://github.com/vegandevs/vegan/issues/682).
 
 * `cca` and `rda` return centroids for factor levels even when they
   are called without formula, for instance, as `cca(dune, dune.env)`.
@@ -17,14 +29,14 @@
   of scores was displayed.
 
 * `ordiplot` did not pass character size (`cex`) to `plot.cca`. Version
-  2.6-7 has more extensive changes, but this fixes the immediate issue
+  2.7-0 has more extensive changes, but this fixes the immediate issue
   [#656](https://github.com/vegandevs/vegan/issues/656).
 
-* Wrappers for the unconstrained ordination methods principal components
-  analysis (PCA), correspondence anslysis (CA), and principal coordinates
-  analysis (PCO) are now available via `pca()`, `ca()`, and `pco()`
-  respectaively. The underlying methods used are `rda()`, `cca()` and `dbrda()`
-  respectively. See [#655](https://github.com/vegandevs/vegan/issues/655).
+* `adonis2()` now defaults to running an omnibus test of the model
+  (`by = NULL`) instead of a sequential test of model terms (`by =
+  "terms"`). This makes `adonis2()` more consistent with the default
+  for related ordination methods.  See
+  [#677](https://github.com/vegandevs/vegan/issues/677).
 
 * `decorana` checks now that input data are numeric instead of
   confusing error message (see
@@ -32,20 +44,6 @@
 
 * `make.cepnames` no longer splits names by hyphen: _Capsella
   bursa-pastoris_ used to be `Capspast` but now is `Capsburs`.
-
-* `adonis2()` now defaults to running an omnibus test of the model (`by = NULL`) 
-  instead of a sequential test of model terms (`by = "terms"`). This makes
-  `adonis2()` more consistent with the default for related ordination methods.
-  See [#677](https://github.com/vegandevs/vegan/issues/677).
-
-* The constrained ordination functions are now louder at informing users when
-  one or more terms in a model are aliased (linearly dependent) and their 
-  effects cannot be estimated. See [#682](https://github.com/vegandevs/vegan/issues/682).
-
-* The output from the ordination methods `pca()`, `pco()`, `ca()`, `rda()`,
-  `cca()`, and `dbrda()` has changed slightly to better separate the results
-  from notifications to the user about issues encountered with the data or the
-  model. Related to changes in [#682](https://github.com/vegandevs/vegan/issues/682).
 
 #### Bug Fixes
 
