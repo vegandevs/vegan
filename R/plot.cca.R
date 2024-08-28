@@ -152,5 +152,5 @@
     if (!("CA" %in% names(x)))
         stop(gettextf("%s is not a vegan rda object",
                       sQuote(deparse(substitute(x)))))
-    NextMethod("plot", x, ...)
+    plot.cca(x, ...)
 }
