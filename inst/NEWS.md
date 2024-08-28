@@ -53,16 +53,16 @@
 
 * `plot.cca`: biplot or regression arrows were not nicely scaled and
   drew no arrows when displayed as the only item in graph.
-  
+
+* `ordipointlabel` failed with `decorana` result. Bounding box for
+  text could be wrongly estimated with varying values of `cex`.
+
 * `vegdist` with argument `na.rm = TRUE` still failed with missing
   values. Dissimilarity methods `"chisq"` (Chi-square distance) and
   `"mahalanobis"` did not implement `na.rm = TRUE`. Even when missing
   values are removed in calculation, dissimilarities may contain `NA`
   depending on the number and pattern of missing values and
   dissimilarity method.
-
-* `ordipointlabel` failed with `decorana` result. Bounding box for
-  text could be wrongly estimated with varying values of `cex`.
 
 * `decostand` standardization method `"clr"` did not implement
   `na.rm = TRUE`
