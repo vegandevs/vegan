@@ -1,4 +1,4 @@
-# vegan 2.6-7 (in development)
+# vegan 2.7-0 (in development)
 
 ## Installation
 
@@ -22,12 +22,6 @@
   The function is still experimental. In particular the user interface
   may need development. Comments are welcome.
 
-* Wrappers for the unconstrained ordination methods principal components
-  analysis (PCA), correspondence anslysis (CA), and principal coordinates
-  analysis (PCO) are now available via `pca()`, `ca()`, and `pco()`
-  respectaively. The underlying methods used are `rda()`, `cca()` and `dbrda()`
-  respectively. See [#655](https://github.com/vegandevs/vegan/issues/655)
-  
 ## New Features
 
 * `plot.cca` graphics can be configured. `plot.cca` had hard-coded
@@ -59,9 +53,6 @@
   to give a slight preference for putting labels outwards from origin
   but avoiding corner positions.
 
-* `rda` and `cca` return centroids for factor levels also when
-  called without formula, for instance `cca(dune, dune.env)`.
-
 * `vegemite` and `tabasco` can now `use` a factor to show a
   classification. The factor levels and sites within levels can be
   reordered to give a diagonal pattern, as default in code `tabasco`
@@ -74,60 +65,6 @@
 * `make.cepnames` was completely re-designed and is much more flexible
   with enhanced user-control. The function is now based solely on
   `abbreviate`.
-
-`* adonis2()` now defaults to running an omnibus test of the model (`by = NULL`) 
-  instead of a sequential test of model terms (`by = "terms"`). This makes
-  `adonis2()` more consistent with the default for related ordination methods.
-  See [#677](https://github.com/vegandevs/vegan/issues/677).
-
-* The constrained ordination functions are now louder at informing users when
-  one or more terms in a model are aliased (linearly dependent) and their 
-  effects cannot be estimated. See [#682](https://github.com/vegandevs/vegan/issues/682).
-
-* The output from the ordination methods `pca()`, `pco()`, `ca()`, `rda()`,
-  `cca()`, and `dbrda()` has changed slightly to better separate the results
-  from notifications to the user about issues encountered with the data or the
-  model. Related to changes in [#682](https://github.com/vegandevs/vegan/issues/682).
-
-## Bug Fixes
-
-* `dbrda` failed in rare cases where an ordination component had only
-  negative eigenvalues. Issue
-  [#670](https://github.com/vegandevs/vegan/issues/670).
-
-* `plot.cca`: `biplot` and `regression` arrows were not drawn and
-  plots were badly scaled or when they were the only item displayed
-
-* `vegdist` with argument `na.rm = TRUE` still failed with missing
-  values. Dissimilarity methods `"chisq"` (Chi-square distance) and
-  `"mahalanobis"` did not implement `na.rm = TRUE`. Even when missing
-  values are removed in calculation, dissimilarities may contain `NA`
-  depending on the number and pattern of missing values and
-  dissimilarity method.
-
-* `ordipointlabel` failed with `decorana` results. Bounding box for
-  text could be wrongly estimated with varying values of `cex`.
-
-* `decostand` standardization method `"clr"` did not implement
-  `na.rm = TRUE`
-  (issue [#661](https://github.com/vegandevs/vegan/issues/661)).
-  Standardization methods `"rank"` and `"rrank"` did not retain `NA`
-  values but changed them to 0. Original `NA` values are kept in
-  `decostand`, but with `na.rm = TRUE` they are ignored when
-  transforming other data values.
-
-* `metaMDS`: half-change scaling failed when maxdist was not 1.
-
-* `summary.ordihull` failed if input data were not two-dimensional.
-
-* `decorana` checks now that input data are numeric instead of
-  confusing error message such as in
-  (https://stackoverflow.com/questions/78666646/).
-
-* `simulate.rda` failed with univariate response.
-
-* `vegemite` returned only the last page of multi-page table in its
-  (invisible) return object.
 
 ## Deprecated and Defunct
 
@@ -146,6 +83,90 @@
 * relic function `vegandocs` is officially defunct. Better tools to
   read **vegan** documentation are `browseVignettes("vegan")` and
   `news(package="vegan")`.
+  
+# Changes in version 2.6-8
+
+## New Features
+
+* Wrappers for the unconstrained ordination methods principal components
+  analysis (PCA), correspondence anslysis (CA), and principal coordinates
+  analysis (PCO) are now available via `pca()`, `ca()`, and `pco()`
+  respectively. The underlying methods used are `rda()`, `cca()` and `dbrda()`
+  respectively. See
+  [#655](https://github.com/vegandevs/vegan/issues/655).
+
+* The output from the ordination methods `pca()`, `pco()`, `ca()`,
+  `rda()`, `cca()`, `capscale`, and `dbrda()` has changed slightly to
+  better separate the results from notifications to the user about
+  issues encountered with the data or the model. Related to changes in
+  [#682](https://github.com/vegandevs/vegan/issues/682).
+
+* The constrained ordination functions are now louder at informing users when
+  one or more terms in a model are aliased (linearly dependent) and their 
+  effects cannot be estimated. See
+  [#682](https://github.com/vegandevs/vegan/issues/682).
+
+* `cca` and `rda` return centroids for factor levels even when they
+  are called without formula, for instance, as `cca(dune, dune.env)`.
+
+* `plot.cca` retains default graphical settings also when only one set
+  of scores was displayed.
+
+* `ordiplot` did not pass character size (`cex`) to `plot.cca`. Version
+  2.7-0 has more extensive changes, but this fixes the immediate issue
+  [#656](https://github.com/vegandevs/vegan/issues/656).
+
+* `adonis2()` now defaults to running an omnibus test of the model
+  (`by = NULL`) instead of a sequential test of model terms (`by =
+  "terms"`). This makes `adonis2()` more consistent with the default
+  for related ordination methods.  See
+  [#677](https://github.com/vegandevs/vegan/issues/677).
+
+* `decorana` checks now that input data are numeric instead of
+  confusing error message (see
+  https://stackoverflow.com/questions/78666646/).
+
+* `make.cepnames` no longer splits names by hyphen: _Capsella
+  bursa-pastoris_ used to be `Capspast` but now is `Capsburs`.
+
+## Bug Fixes
+
+* `dbrda` failed in rare cases when an ordination component had only
+  negative eigenvalues. Issue
+  [#670](https://github.com/vegandevs/vegan/issues/670).
+
+* `plot.cca`: biplot or regression arrows were not nicely scaled and
+  drew no arrows when displayed as the only item in graph.
+
+* `ordipointlabel` failed with `decorana` result. Bounding box for
+  text could be wrongly estimated with varying values of `cex`.
+
+* `vegdist` with argument `na.rm = TRUE` still failed with missing
+  values. Dissimilarity methods `"chisq"` (Chi-square distance) and
+  `"mahalanobis"` did not implement `na.rm = TRUE`. Even when missing
+  values are removed in calculation, dissimilarities may contain `NA`
+  depending on the number and pattern of missing values and
+  dissimilarity method.
+
+* `decostand` standardization method `"clr"` did not implement
+  `na.rm = TRUE`
+  (issue [#661](https://github.com/vegandevs/vegan/issues/661)).
+  Standardization methods `"rank"` and `"rrank"` did not retain `NA`
+  values but changed them to 0. Original `NA` values are kept in
+  `decostand`, but with `na.rm = TRUE` they are ignored when
+  transforming other data values.
+
+* `metaMDS`: half-change scaling failed when `maxdist` was fixed, but
+  was not 1.
+
+* `summary.ordihull` (and hence `ordiareatest` for convex hulls)
+  failed if input had more than two dimensions.
+
+* `simulate.rda` failed with univariate response.
+
+* `vegemite` returned only the last page of multi-page table in its
+  (invisible) return object.
+
 
 # vegan 2.6-6.1
 
