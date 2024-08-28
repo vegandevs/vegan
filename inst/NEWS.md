@@ -72,7 +72,8 @@
   `decostand`, but with `na.rm = TRUE` they are ignored when
   transforming other data values.
 
-* `metaMDS`: half-change scaling failed when maxdist was not 1.
+* `metaMDS`: half-change scaling failed when `maxdist` was fixed, but
+  was not 1.
 
 * `summary.ordihull` (and hence `ordiareatest` for convex hulls)
   failed if input had more than two dimensions.
