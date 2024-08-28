@@ -37,22 +37,21 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.6-7" id="vegan-26-7-in-development">vegan 2.6-7 (in development)<a class="anchor" aria-label="anchor" href="#vegan-26-7-in-development"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.7-0" id="vegan-27-0-in-development">vegan 2.7-0 (in development)<a class="anchor" aria-label="anchor" href="#vegan-27-0-in-development"></a></h2>
 <div class="section level3">
-<h3 id="installation-2-6-7">Installation<a class="anchor" aria-label="anchor" href="#installation-2-6-7"></a></h3>
+<h3 id="installation-2-7-0">Installation<a class="anchor" aria-label="anchor" href="#installation-2-7-0"></a></h3>
 <ul><li>
 <strong>vegan</strong> no longer suggests <strong>tcltk</strong>, but suggests <strong>vegan3d</strong> (version 1.3-0). See <code>orditkplot</code> in section Deprecated and Defunct.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-functions-2-6-7">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-6-7"></a></h3>
+<h3 id="new-functions-2-7-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-7-0"></a></h3>
 <ul><li>
 <p>A set of functions to add new points to an existing NMDS ordination from <code>metaMDS</code> or <code>monoMDS</code>. This serves the same purpose as adding new points to an existing eigenvector ordination (for instance, <code>predict.rda</code>). The main function is <code>MDSaddpoints</code>. This needs as an input rectangular matrix of dissimilarities of all new points (rows) to all old points (columns). Support function <code>dist2xy</code> can extract needed matrices from dissimilarities of all (old and new) points, and function <code>designdist2</code> can directly find the needed dissimilarities between two data matrices. In addition, <strong>analogue</strong> package can calculate such rectangular dissimilarities, including many indices that cannot be defined with <code>designdist2</code>.</p>
 <p>The function is still experimental. In particular the user interface may need development. Comments are welcome.</p>
 </li>
-<li><p>Wrappers for the unconstrained ordination methods principal components analysis (PCA), correspondence anslysis (CA), and principal coordinates analysis (PCO) are now available via <code><a href="../reference/cca.html">pca()</a></code>, <code><a href="../reference/cca.html">ca()</a></code>, and <code><a href="../reference/dbrda.html">pco()</a></code> respectaively. The underlying methods used are <code><a href="../reference/cca.html">rda()</a></code>, <code><a href="../reference/cca.html">cca()</a></code> and <code><a href="../reference/dbrda.html">dbrda()</a></code> respectively. See <a href="https://github.com/vegandevs/vegan/issues/655" class="external-link">#655</a></p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-2-6-7">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-6-7"></a></h3>
+<h3 id="new-features-2-7-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-7-0"></a></h3>
 <ul><li>
 <p><code>plot.cca</code> graphics can be configured. <code>plot.cca</code> had hard-coded graphical parameters and user arguments were ignored (see issue <a href="https://github.com/vegandevs/vegan/issues/656" class="external-link">#656</a>). Now graphical parameters can be given either for all score types, or with a list of graphical parameters for a specific score.</p>
 <p><code>text.ordiplot</code> and hence <code>plot.cca</code> gained argument <code>optimize</code> that will call <code>ordipointlabel</code> to optimize the location of the text to minimize over-writing, but mark the real scores with a point.</p>
@@ -61,32 +60,42 @@
 <p>The new features are more extensively described in help pages of <code>plot.cca</code>, <code>ordiplot</code> and <code>biplot.rda</code>.</p>
 </li>
 <li><p><code>ordipointlabel</code> can be used in pipe. Function gained argument <code>label</code> that allows changing plotted text, and a function <code>labels</code> that return the current labels. The optimization rules were changed to give a slight preference for putting labels outwards from origin but avoiding corner positions.</p></li>
-<li><p><code>rda</code> and <code>cca</code> return centroids for factor levels also when called without formula, for instance <code>cca(dune, dune.env)</code>.</p></li>
 <li><p><code>vegemite</code> and <code>tabasco</code> can now <code>use</code> a factor to show a classification. The factor levels and sites within levels can be reordered to give a diagonal pattern, as default in code <code>tabasco</code> and in <code>vegemite</code> with new argument <code>diagonalize = TRUE</code> (defaults <code>FALSE</code>). With the same argument, <code>vegemite</code> can also reorder dendrogram (or tree) to give a diagonal pattern. If <code>coverscale</code> is used, all internal calculations for ordering rows and columns will be based on scaled data.</p></li>
 <li><p><code>make.cepnames</code> was completely re-designed and is much more flexible with enhanced user-control. The function is now based solely on <code>abbreviate</code>.</p></li>
-</ul><p><code>* adonis2()</code> now defaults to running an omnibus test of the model (<code>by = NULL</code>) instead of a sequential test of model terms (<code>by = "terms"</code>). This makes <code><a href="../reference/adonis.html">adonis2()</a></code> more consistent with the default for related ordination methods. See <a href="https://github.com/vegandevs/vegan/issues/677" class="external-link">#677</a>.</p>
-<ul><li><p>The constrained ordination functions are now louder at informing users when one or more terms in a model are aliased (linearly dependent) and their effects cannot be estimated. See <a href="https://github.com/vegandevs/vegan/issues/682" class="external-link">#682</a>.</p></li>
-<li><p>The output from the ordination methods <code><a href="../reference/cca.html">pca()</a></code>, <code><a href="../reference/dbrda.html">pco()</a></code>, <code><a href="../reference/cca.html">ca()</a></code>, <code><a href="../reference/cca.html">rda()</a></code>, <code><a href="../reference/cca.html">cca()</a></code>, and <code><a href="../reference/dbrda.html">dbrda()</a></code> has changed slightly to better separate the results from notifications to the user about issues encountered with the data or the model. Related to changes in <a href="https://github.com/vegandevs/vegan/issues/682" class="external-link">#682</a>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-2-6-7">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-7"></a></h3>
-<ul><li><p><code>dbrda</code> failed in rare cases where an ordination component had only negative eigenvalues. Issue <a href="https://github.com/vegandevs/vegan/issues/670" class="external-link">#670</a>.</p></li>
-<li><p><code>plot.cca</code>: <code>biplot</code> and <code>regression</code> arrows were not drawn and plots were badly scaled or when they were the only item displayed</p></li>
-<li><p><code>vegdist</code> with argument <code>na.rm = TRUE</code> still failed with missing values. Dissimilarity methods <code>"chisq"</code> (Chi-square distance) and <code>"mahalanobis"</code> did not implement <code>na.rm = TRUE</code>. Even when missing values are removed in calculation, dissimilarities may contain <code>NA</code> depending on the number and pattern of missing values and dissimilarity method.</p></li>
-<li><p><code>ordipointlabel</code> failed with <code>decorana</code> results. Bounding box for text could be wrongly estimated with varying values of <code>cex</code>.</p></li>
-<li><p><code>decostand</code> standardization method <code>"clr"</code> did not implement <code>na.rm = TRUE</code> (issue <a href="https://github.com/vegandevs/vegan/issues/661" class="external-link">#661</a>). Standardization methods <code>"rank"</code> and <code>"rrank"</code> did not retain <code>NA</code> values but changed them to 0. Original <code>NA</code> values are kept in <code>decostand</code>, but with <code>na.rm = TRUE</code> they are ignored when transforming other data values.</p></li>
-<li><p><code>metaMDS</code>: half-change scaling failed when maxdist was not 1.</p></li>
-<li><p><code>summary.ordihull</code> failed if input data were not two-dimensional.</p></li>
-<li><p><code>decorana</code> checks now that input data are numeric instead of confusing error message such as in (<a href="https://stackoverflow.com/questions/78666646/" class="external-link uri">https://stackoverflow.com/questions/78666646/</a>).</p></li>
-<li><p><code>simulate.rda</code> failed with univariate response.</p></li>
-<li><p><code>vegemite</code> returned only the last page of multi-page table in its (invisible) return object.</p></li>
-</ul></div>
-<div class="section level3">
-<h3 id="deprecated-and-defunct-2-6-7">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-6-7"></a></h3>
+<h3 id="deprecated-and-defunct-2-7-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-0"></a></h3>
 <ul><li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code>! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
 <li><p><code>summary.decorana</code> is defunct. It did nothing useful, but you can extract the same information with <code>scores</code> and <code>weights</code>.</p></li>
 <li><p><code>orditkplot</code> code was removed, but we try to launch <code><a href="https://rdrr.io/pkg/vegan3d/man/orditkplot.html" class="external-link">vegan3d::orditkplot</a></code> loudly (with a deprecation message to go to <strong>vegan3d</strong>). <em>This is experimental, and we may go to direct error, depending on user experience: please comment!</em></p></li>
 <li><p>relic function <code>vegandocs</code> is officially defunct. Better tools to read <strong>vegan</strong> documentation are <code>browseVignettes("vegan")</code> and <code>news(package="vegan")</code>.</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.6-8" id="changes-in-version-26-8">Changes in version 2.6-8<a class="anchor" aria-label="anchor" href="#changes-in-version-26-8"></a></h2><p class="text-muted">CRAN release: 2024-08-28</p>
+<div class="section level3">
+<h3 id="new-features-2-6-8">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-6-8"></a></h3>
+<ul><li><p>Wrappers for the unconstrained ordination methods principal components analysis (PCA), correspondence anslysis (CA), and principal coordinates analysis (PCO) are now available via <code><a href="../reference/cca.html">pca()</a></code>, <code><a href="../reference/cca.html">ca()</a></code>, and <code><a href="../reference/dbrda.html">pco()</a></code> respectively. The underlying methods used are <code><a href="../reference/cca.html">rda()</a></code>, <code><a href="../reference/cca.html">cca()</a></code> and <code><a href="../reference/dbrda.html">dbrda()</a></code> respectively. See <a href="https://github.com/vegandevs/vegan/issues/655" class="external-link">#655</a>.</p></li>
+<li><p>The output from the ordination methods <code><a href="../reference/cca.html">pca()</a></code>, <code><a href="../reference/dbrda.html">pco()</a></code>, <code><a href="../reference/cca.html">ca()</a></code>, <code><a href="../reference/cca.html">rda()</a></code>, <code><a href="../reference/cca.html">cca()</a></code>, <code>capscale</code>, and <code><a href="../reference/dbrda.html">dbrda()</a></code> has changed slightly to better separate the results from notifications to the user about issues encountered with the data or the model. Related to changes in <a href="https://github.com/vegandevs/vegan/issues/682" class="external-link">#682</a>.</p></li>
+<li><p>The constrained ordination functions are now louder at informing users when one or more terms in a model are aliased (linearly dependent) and their effects cannot be estimated. See <a href="https://github.com/vegandevs/vegan/issues/682" class="external-link">#682</a>.</p></li>
+<li><p><code>cca</code> and <code>rda</code> return centroids for factor levels even when they are called without formula, for instance, as <code>cca(dune, dune.env)</code>.</p></li>
+<li><p><code>plot.cca</code> retains default graphical settings also when only one set of scores was displayed.</p></li>
+<li><p><code>ordiplot</code> did not pass character size (<code>cex</code>) to <code>plot.cca</code>. Version 2.7-0 has more extensive changes, but this fixes the immediate issue <a href="https://github.com/vegandevs/vegan/issues/656" class="external-link">#656</a>.</p></li>
+<li><p><code><a href="../reference/adonis.html">adonis2()</a></code> now defaults to running an omnibus test of the model (<code>by = NULL</code>) instead of a sequential test of model terms (<code>by =   "terms"</code>). This makes <code><a href="../reference/adonis.html">adonis2()</a></code> more consistent with the default for related ordination methods. See <a href="https://github.com/vegandevs/vegan/issues/677" class="external-link">#677</a>.</p></li>
+<li><p><code>decorana</code> checks now that input data are numeric instead of confusing error message (see <a href="https://stackoverflow.com/questions/78666646/" class="external-link uri">https://stackoverflow.com/questions/78666646/</a>).</p></li>
+<li><p><code>make.cepnames</code> no longer splits names by hyphen: <em>Capsella bursa-pastoris</em> used to be <code>Capspast</code> but now is <code>Capsburs</code>.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-6-8">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-8"></a></h3>
+<ul><li><p><code>dbrda</code> failed in rare cases when an ordination component had only negative eigenvalues. Issue <a href="https://github.com/vegandevs/vegan/issues/670" class="external-link">#670</a>.</p></li>
+<li><p><code>plot.cca</code>: biplot or regression arrows were not nicely scaled and drew no arrows when displayed as the only item in graph.</p></li>
+<li><p><code>ordipointlabel</code> failed with <code>decorana</code> result. Bounding box for text could be wrongly estimated with varying values of <code>cex</code>.</p></li>
+<li><p><code>vegdist</code> with argument <code>na.rm = TRUE</code> still failed with missing values. Dissimilarity methods <code>"chisq"</code> (Chi-square distance) and <code>"mahalanobis"</code> did not implement <code>na.rm = TRUE</code>. Even when missing values are removed in calculation, dissimilarities may contain <code>NA</code> depending on the number and pattern of missing values and dissimilarity method.</p></li>
+<li><p><code>decostand</code> standardization method <code>"clr"</code> did not implement <code>na.rm = TRUE</code> (issue <a href="https://github.com/vegandevs/vegan/issues/661" class="external-link">#661</a>). Standardization methods <code>"rank"</code> and <code>"rrank"</code> did not retain <code>NA</code> values but changed them to 0. Original <code>NA</code> values are kept in <code>decostand</code>, but with <code>na.rm = TRUE</code> they are ignored when transforming other data values.</p></li>
+<li><p><code>metaMDS</code>: half-change scaling failed when <code>maxdist</code> was fixed, but was not 1.</p></li>
+<li><p><code>summary.ordihull</code> (and hence <code>ordiareatest</code> for convex hulls) failed if input had more than two dimensions.</p></li>
+<li><p><code>simulate.rda</code> failed with univariate response.</p></li>
+<li><p><code>vegemite</code> returned only the last page of multi-page table in its (invisible) return object.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
