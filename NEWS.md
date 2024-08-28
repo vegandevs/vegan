@@ -84,7 +84,7 @@
   read **vegan** documentation are `browseVignettes("vegan")` and
   `news(package="vegan")`.
   
-# Changes in version 2.6-8
+# vegan 2.6-8
 
 ## New Features
 
