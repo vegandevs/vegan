@@ -23,7 +23,7 @@ Automatic stepwise model building for constrained ordination methods
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,6 @@ Automatic stepwise model building for constrained ordination methods
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes"><li><a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a></li>
   </ul></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/vegandevs/vegan/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -230,37 +229,34 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start: dune ~ 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 87.707 2.5883  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 89.232 1.9539  0.010 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.030 * </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.310   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 89.232 1.9539  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.010 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.065 . </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.270   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Moisture </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Df   AIC    F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 89.62 2.84  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df   AIC      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture  3 89.62 2.5883  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure    3 87.517 1.3902  0.075 . </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.170   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.390   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management + Moisture </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 87.082 1.9764  0.010 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 85.567 2.1769  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 86.060 1.8598  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 88.003 1.4245  0.125   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 88.886 0.6286  0.845   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Moisture + Management </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 87.082 1.9764  0.020 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769  0.015 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
@@ -268,12 +264,12 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.285</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359  0.535</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.305</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359  0.620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.745</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">mod</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -297,8 +293,8 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-in"><span><span class="co">## summary table of steps</span></span></span>
 <span class="r-in"><span><span class="va">mod</span><span class="op">$</span><span class="va">anova</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 85.567 1.9764  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 87.707 2.5883  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 85.567 2.1769  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span></span></span>
@@ -311,8 +307,8 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 87.707 2.5883  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 89.232 1.9539  0.010 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.020 * </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.265   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.050 * </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.275   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -321,11 +317,11 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.010 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure    3 87.517 1.3902  0.055 . </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.200   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.420   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.020 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure    3 87.517 1.3902  0.115  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.190  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.425  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -335,9 +331,9 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.265</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359  0.630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.715</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225   0.30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359   0.61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027   0.72</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

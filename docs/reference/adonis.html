@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +26,6 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes"><li><a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a></li>
   </ul></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/vegandevs/vegan/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -224,10 +223,10 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management * A1, data = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     7   2.4987 0.58122 2.3792  0.002 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 12   1.8004 0.41878                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    19   4.2990 1.00000                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     7   2.4987 0.58122 2.3792  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 12   1.8004 0.41878                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    19   4.2990 1.00000                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span><span class="co">## sequential tests</span></span></span>
@@ -240,8 +239,8 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management * A1, data = dune.env, by = "terms")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Df SumOfSqs      R2      F Pr(&gt;F)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Management     3   1.4686 0.34161 3.2629  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.020 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.214    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.021 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.213    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual      12   1.8004 0.41878                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         19   4.2990 1.00000                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
@@ -286,12 +285,10 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1 0.036688 0.24632 3.2682   0.06 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.112256 0.75368                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.148944 1.00000                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1  0.02681 0.13438 1.5524   0.23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10  0.17270 0.86562              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11  0.19951 1.00000              </span>
 <span class="r-in"><span><span class="co">## Correct with strata</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dat</span>, <span class="fu">adonis2</span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">NO3</span>, data <span class="op">=</span> <span class="va">dat</span>, permutations <span class="op">=</span> <span class="fl">199</span>, strata <span class="op">=</span> <span class="va">field</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for adonis under reduced model</span>
@@ -300,10 +297,10 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1 0.036688 0.24632 3.2682  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.112256 0.75368                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.148944 1.00000                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1  0.02681 0.13438 1.5524   0.03 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10  0.17270 0.86562                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11  0.19951 1.00000                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
