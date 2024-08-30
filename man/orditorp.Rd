@@ -17,12 +17,13 @@ orditorp(x, display, labels, choices = c(1, 2), priority,
 
 \arguments{
   \item{x}{A result object from ordination or an \code{\link{ordiplot}}
-    result. }
+    result. If the function is used in \code{\link{ordiplot}} pipe, this
+    should be missing and first argument be \code{display}.}
   \item{display}{Items to be displayed in the plot.  Only one
     alternative is allowed. Typically this is \code{"sites"} or
     \code{"species"}.  }
-  \item{labels}{ Optional text used for labels. Row names will be used if
-  this is missing. }
+  \item{labels}{ Optional text used for labels. Row names of scores will
+    be used if this is missing. }
   \item{choices}{ Axes shown.}
   \item{priority}{ Text will be used for items with higher priority
     if labels overlap.  This should be vector of the same
@@ -49,18 +50,23 @@ orditorp(x, display, labels, choices = c(1, 2), priority,
   with most ordination results, or plotting results from
   \code{\link{ordiplot}} or ordination plot functions
   (\code{\link{plot.cca}}, \code{\link{plot.decorana}},
-  \code{\link{plot.metaMDS}}).
+  \code{\link{plot.metaMDS}}). Function can also be used in a pipe
+  (\code{|>}) where the first command is a \pkg{vegan} ordination
+  \code{plot} command or \code{\link{ordiplot}}.
 
   Arguments can be passed to the relevant \code{\link{scores}} method
   for the ordination object (\code{x}) being drawn. See the relevant
   \code{\link{scores}} help page for arguments that can be used.
 }
 \value{
-  The function returns invisibly a logical vector where \code{TRUE}
-  means that item was labelled with text and \code{FALSE} means that it
-  was marked with a point. The returned vector can be used as the
-  \code{select} argument in ordination \code{text} and \code{points}
-  functions.
+  The function returns invisibly the The function returns invisibly a
+  logical vector where \code{TRUE} means that item was labelled with
+  text and \code{FALSE} means that it was marked with a point. If
+  function is used in an \code{\link{ordiplot}} pipe, it will return the
+  input \code{ordiplot} object, but amend the plotted scores with this
+  vector as attribute \code{"orditorp"}. The returned vector can be used
+  as the \code{select} argument in ordination \code{text} and
+  \code{points} functions.
 }
 
 \author{ Jari Oksanen }
