@@ -86,6 +86,9 @@
   read **vegan** documentation are `browseVignettes("vegan")` and
   `news(package="vegan")`.
   
+* `humpfit` is no longer exported to avoid name clash with the
+  **natto** package.
+
 # vegan 2.6-8
 
 ## New Features
