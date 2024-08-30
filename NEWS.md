@@ -52,6 +52,8 @@
   that return the current labels. The optimization rules were changed
   to give a slight preference for putting labels outwards from origin
   but avoiding corner positions.
+  
+* `orditorp` can be used in pipe.
 
 * `vegemite` and `tabasco` can now `use` a factor to show a
   classification. The factor levels and sites within levels can be
