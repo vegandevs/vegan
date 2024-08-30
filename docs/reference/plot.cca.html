@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,6 +26,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes"><li><a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/vegandevs/vegan/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -54,7 +55,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>, <span class="st">"wa"</span>, <span class="st">"cn"</span><span class="op">)</span>,</span>
 <span>     scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">type</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">const</span>,</span>
-<span>     correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>     correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, sit.par <span class="op">=</span></span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, con.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, bip.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, cen.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>     reg.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">labels</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>     scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">arrow.mul</span>, head.arrow <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">select</span>, <span class="va">const</span>,</span>
@@ -72,10 +75,7 @@
 <span>       scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">const</span>, correlation <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>       droplist <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, scaling <span class="op">=</span> <span class="st">"species"</span>, axes <span class="op">=</span> <span class="fl">6</span>,</span>
-<span>                      display<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>,<span class="st">"wa"</span>,<span class="st">"lc"</span>,<span class="st">"bp"</span>,<span class="st">"cn"</span><span class="op">)</span>,</span>
-<span>                      digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>                      correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/labels.html" class="external-link">labels</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">display</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -125,6 +125,12 @@
     are used to select the corresponding negative scaling type; either
     correlation-like scores or Hill's scaling for PCA/RDA and CA/CCA
     respectively. See argument <code>scaling</code> for details.</p></dd>
+
+
+  <dt id="arg-spe-par-sit-par-con-par-bip-par-cen-par-reg-par">spe.par, sit.par, con.par, bip.par, cen.par, reg.par<a class="anchor" aria-label="anchor" href="#arg-spe-par-sit-par-con-par-bip-par-cen-par-reg-par"></a></dt>
+<dd><p>Lists of graphical parameters for species, sites, constraints (lc
+    scores), biplot and text, centroids and regression. These take
+    precedence over globally set parameters and defaults.</p></dd>
 
 
   <dt id="arg-tidy">tidy<a class="anchor" aria-label="anchor" href="#arg-tidy"></a></dt>
@@ -185,38 +191,67 @@
   <dt id="arg-axis-bp">axis.bp<a class="anchor" aria-label="anchor" href="#arg-axis-bp"></a></dt>
 <dd><p>Draw <code><a href="https://rdrr.io/r/graphics/axis.html" class="external-link">axis</a></code> for biplot arrows.</p></dd>
 
-  <dt id="arg-axes">axes<a class="anchor" aria-label="anchor" href="#arg-axes"></a></dt>
-<dd><p>Number of axes in summaries.</p></dd>
-
   <dt id="arg-digits">digits<a class="anchor" aria-label="anchor" href="#arg-digits"></a></dt>
 <dd><p>Number of digits in output.</p></dd>
 
-  <dt id="arg-cex">cex<a class="anchor" aria-label="anchor" href="#arg-cex"></a></dt>
-<dd><p>Character expansion.</p></dd>
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Parameters passed to other functions.</p></dd>
+<dd><p>Parameters passed to graphical functions. These will be
+    applied to all score types, but will be superseded by score type
+    parameters list (except <code>type = "none"</code> which will only draw
+    the frame).</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Same <code>plot</code> function will be used for <code><a href="cca.html">cca</a></code> and
-  <code><a href="cca.html">rda</a></code>. This produces a quick, standard plot with current
-  <code>scaling</code>.</p>
+    <p>Same <code>plot</code> function will be used for <code><a href="cca.html">cca</a></code>,
+  <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code> and
+  <code><a href="dbrda.html">capscale</a></code>. This produces a quick, standard plot with
+  current <code>scaling</code>.</p>
 <p>The <code>plot</code> function sets colours (<code>col</code>), plotting
-  characters (<code>pch</code>) and character sizes (<code>cex</code>) to
-  certain standard values. For a fuller control of produced plot, it is
-  best to call <code>plot</code> with <code>type="none"</code> first, and then add
-  each plotting item separately using <code>text.cca</code> or
-  <code>points.cca</code> functions. These use the default settings of standard
-  <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code> and <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code> functions and accept all
-  their parameters, allowing  a full user control of produced plots.</p>
+  characters (<code>pch</code>) and character sizes (<code>cex</code>) to default
+  values for each score type. The defaults can be changed with global
+  parameters (“dot arguments”) applied to all score types, or a
+  list of parameters for a specified score type (<code>spe.par</code>,
+  <code>sit.par</code> etc.) which take precedence over global parameters and
+  defaults. This allows full control of graphics. The scores are plotted
+  with <code><a href="ordiplot.html">text.ordiplot</a></code> and <code><a href="ordiplot.html">points.ordiplot</a></code> and
+  accept paremeters of these functions. In addition to standard
+  graphical parameters, text can be plotted over non-transparent label
+  with arbument <code>bg = &lt;colour&gt;</code>, and location of text can be
+  optimized to avoid over-writing with argument <code>optimize = TRUE</code>,
+  and argument <code>arrows = TRUE</code> to draw arrows pointing to the
+  ordination scores.</p>
+<p>the <code>plot</code> function returns (invisible) <code><a href="ordiplot.html">ordiplot</a></code>
+  object. You can save this object and use it to construct your plot
+  with <code>ordiplot</code> functions <code>points</code> and <code>text</code>. These
+  functions can be used in pipe (<code>|&gt;</code>) which allows incremental
+  building of plots with full control of graphical parameters for each
+  score type. With pipe it is best to first create an empty plot with
+  <code>plot(&lt;cca-result&gt;, type = "n")</code> and then add elements with
+  <code>points</code>, <code>text</code> of <code><a href="ordiplot.html">ordiplot</a></code> or
+  <code><a href="ordilabel.html">ordilabel</a></code>. Within pipe, the first argument should be a
+  quoted score type, and then the grapcical parameters. The full
+  object may contain scores with names
+  ‘species’, ‘sites’, ‘constraints’, ‘biplot’, ‘regression’, ‘centroids’
+
+  (some of these may be missing depending on your model and are only
+  available if given in <code>display</code>). The first
+  <code>plot</code> will set the dimensions of graph, and if you do not use
+  some score type there may be empty white space. In addition to
+  <code><a href="ordiplot.html">ordiplot</a></code> <code>text</code> and <code>points</code>, you can also use
+  <code><a href="ordilabel.html">ordilabel</a></code> and <code><a href="ordipointlabel.html">ordipointlabel</a></code> in a
+  pipe. Unlike in basic <code>plot</code>, there are no defaults for score
+  types, but all graphical parameters must be set in the command in
+  pipe. On the other hand, there may be more flexibility in these
+  settings than in <code>plot</code> arguments, in particular in
+  <code><a href="ordilabel.html">ordilabel</a></code> and <code><a href="ordipointlabel.html">ordipointlabel</a></code>.</p>
 <p>Environmental variables receive a special treatment. With
   <code>display="bp"</code>, arrows will be drawn. These are labelled with
   <code>text</code> and unlabelled with <code>points</code>. The arrows have
   basically unit scaling, but if sites were scaled (<code>scaling</code>
   <code>"sites"</code> or <code>"symmetric"</code>), the scores of requested axes
-  are adjusted relative to the axis with highest eigenvalue.  With
+  are adjusted to the plotting area.  With
   <code>scaling = "species"</code> or <code>scaling = "none"</code>, the arrows will
   be consistent with vectors fitted to linear combination scores
   (<code>display = "lc"</code> in function <code><a href="envfit.html">envfit</a></code>), but with
@@ -236,19 +271,13 @@
   partialled out to get the LC scores. The biplot arrows are more
   standard and more easily interpreted, and regression arrows should be
   used only if you know that you need them.</p>
-<p>If you want to have a better control of plots, it is best to
-  construct the plot <code>text</code> and <code>points</code> commands which
-  accept graphical parameters. It is important to remember to use the
-  same <code>scaling</code>, <code>correlation</code> and <code>hill</code> arguments
-  in all calls. The <code>plot.cca</code> command returns invisibly an
-  <code><a href="ordiplot.html">ordiplot</a></code> result object, and this will have consistent
-  scaling for all its elements. The easiest way for full control of
-  graphics is to first set up the plot frame using <code>plot</code> with
-  <code>type = "n"</code> and all needed scores in <code>display</code> and save
-  this result. The <code>points</code> and <code>text</code> commands for
-  <code><a href="ordiplot.html">ordiplot</a></code> will allow full graphical control (see
-  section Examples). Utility function <code>labels</code> returns the default
-  labels in the order they are applied in <code>text</code>.</p>
+<p>The ordination object has <code>text</code> and <code>points</code> methods that
+  can be used to add items to an existing plot from the ordination
+  result directly. These should be used with extreme care, because you
+  must set scaling and other graphical parameters exactly similarly as
+  in the original <code>plot</code> command. It is best to avoid using these
+  historic functions and instead configure <code>plot</code> command or use
+  pipe.</p>
 <p>Palmer (1993) suggested using linear constraints (“LC scores”)
   in ordination diagrams, because these gave better results in
   simulations and site scores (“WA scores”) are a step from
@@ -265,7 +294,10 @@
     <p>The <code>plot</code> function returns
   invisibly a plotting structure which can be used by function
   <code><a href="ordiplot.html">identify.ordiplot</a></code> to identify the points or other
-  functions in the <code><a href="ordiplot.html">ordiplot</a></code> family.</p>
+  functions in the <code><a href="ordiplot.html">ordiplot</a></code> family or in a pipe to add new
+  graphicael elements with <code><a href="ordiplot.html">ordiplot</a></code> <code>text</code> and
+  <code>points</code> or with <code><a href="ordilabel.html">ordilabel</a></code> and
+  <code><a href="ordipointlabel.html">ordipointlabel</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -273,42 +305,56 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code> and <code><a href="dbrda.html">capscale</a></code>
-  for getting something
-  to plot, <code><a href="ordiplot.html">ordiplot</a></code> for an alternative plotting routine
-  and more support functions, and <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code>,
-  <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code> and <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code> for the basic routines.</p></div>
-    </div>
-    <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Up to <span class="pkg">vegan</span> release 2.6-4 <code>summary</code> printed
-  ordination scores, and function was occasionally used to extract
-  scores. This is now deprecated and you should use
-  <code>scores</code>. This version of <span class="pkg">vegan</span> still enables extracting
-  scores with <code>summary</code>, but you should change your code to use
-  <code>scores</code> before next <span class="pkg">vegan</span> release. For instructions,
-  see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">https://github.com/vegandevs/vegan/discussions/644</a>.</p>
+    <div class="dont-index"><p>The function builds upon <code><a href="ordiplot.html">ordiplot</a></code> and its
+  <code>text</code> and <code>points</code> functions. See these to find new
+  graphical parameters such as <code>arrows</code> (for drawing arrows),
+  <code>bg</code> (for writing text on non-transparent label) and
+  <code>optimize</code> (to move text labels of points to avoid overwriting).</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">A1</span> <span class="op">+</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">Management</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## better control -- remember to set scaling etc identically</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">mod</span>, dis<span class="op">=</span><span class="st">"cn"</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">mod</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg<span class="op">=</span><span class="st">"yellow"</span>, cex<span class="op">=</span><span class="fl">1.2</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">mod</span>, <span class="st">"species"</span>, col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.8</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">Management</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## default and modified plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.cca-1.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, type <span class="op">=</span> <span class="st">"text"</span>,</span></span>
+<span class="r-in"><span>  sit.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"points"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg<span class="op">=</span><span class="st">"yellow"</span>, cex<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  cen.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>bg<span class="op">=</span><span class="st">"white"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.cca-2.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## same with pipe</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="st">"sites"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="st">"red"</span>, bg <span class="op">=</span> <span class="st">"yellow"</span>, cex<span class="op">=</span><span class="fl">1.2</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"species"</span>, col<span class="op">=</span><span class="st">"blue"</span>, cex<span class="op">=</span><span class="fl">0.8</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"biplot"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"centroids"</span>, bg<span class="op">=</span><span class="st">"white"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.cca-3.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## LC scores &amp; factors mean much overplotting: try optimize=TRUE</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lc"</span>,<span class="st">"sp"</span>,<span class="st">"cn"</span><span class="op">)</span>, optimize <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>   bip.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co"># arrows and optimize mix poorly</span></span></span>
+<span class="r-plt img"><img src="plot.cca-4.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## catch the invisible result and use ordiplot support - the example</span></span></span>
 <span class="r-in"><span><span class="co">## will make a biplot with arrows for species and correlation scaling</span></span></span>
 <span class="r-in"><span><span class="va">pca</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">pl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pca</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, correlation<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">pl</span>, <span class="st">"site"</span>, pch<span class="op">=</span><span class="fl">21</span>, col<span class="op">=</span><span class="fl">1</span>, bg<span class="op">=</span><span class="va">Management</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">pl</span>, <span class="st">"sp"</span>, arrow<span class="op">=</span><span class="cn">TRUE</span>, length<span class="op">=</span><span class="fl">0.05</span>, col<span class="op">=</span><span class="fl">4</span>, cex<span class="op">=</span><span class="fl">0.6</span>, xpd<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">Management</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">21</span>, pt.bg<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, bty<span class="op">=</span><span class="st">"n"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.cca-2.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"bottomleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">Management</span><span class="op">)</span>, pch<span class="op">=</span><span class="fl">21</span>,</span></span>
+<span class="r-in"><span>   pt.bg<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, bty<span class="op">=</span><span class="st">"n"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.cca-5.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Pipe</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pca</span>, type<span class="op">=</span><span class="st">"n"</span>, scaling<span class="op">=</span><span class="st">"sites"</span>, correlation<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="st">"sites"</span>, pch<span class="op">=</span><span class="fl">21</span>, col <span class="op">=</span> <span class="fl">1</span>, cex<span class="op">=</span><span class="fl">1.5</span>, bg <span class="op">=</span> <span class="va">dune.env</span><span class="op">$</span><span class="va">Management</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"species"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, arrows <span class="op">=</span> <span class="cn">TRUE</span>, xpd <span class="op">=</span> <span class="cn">TRUE</span>, font <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.cca-6.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Scaling can be numeric or more user-friendly names</span></span></span>
 <span class="r-in"><span><span class="co">## e.g. Hill's scaling for (C)CA</span></span></span>
 <span class="r-in"><span><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, scaling <span class="op">=</span> <span class="st">"sites"</span>, hill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>

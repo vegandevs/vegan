@@ -8,9 +8,11 @@ Function designdist lets you define your own dissimilarities
   shared species, and totals are numbers of species on sites. The
   quadratic terms are cross-products and sums of squares, and minimum
   terms are sums of parallel minima and row totals. Function
-  chaodist lets you define your own dissimilarities using terms
-  that are supposed to take into account the &amp;#8220;unseen species&amp;#8221;
-  (see Chao et al., 2005 and Details in vegdist)."><meta property="og:description" content="
+  designdist2 is similar, but finds dissimilarities among two
+  data sets. Function chaodist lets you define your own
+  dissimilarities using terms that are supposed to take into account the
+  &amp;#8220;unseen species&amp;#8221; (see Chao et al., 2005 and Details in
+  vegdist)."><meta property="og:description" content="
 
 Function designdist lets you define your own dissimilarities
   using terms for shared and total quantities, number of rows and number
@@ -19,9 +21,11 @@ Function designdist lets you define your own dissimilarities
   shared species, and totals are numbers of species on sites. The
   quadratic terms are cross-products and sums of squares, and minimum
   terms are sums of parallel minima and row totals. Function
-  chaodist lets you define your own dissimilarities using terms
-  that are supposed to take into account the &amp;#8220;unseen species&amp;#8221;
-  (see Chao et al., 2005 and Details in vegdist)."></head><body>
+  designdist2 is similar, but finds dissimilarities among two
+  data sets. Function chaodist lets you define your own
+  dissimilarities using terms that are supposed to take into account the
+  &amp;#8220;unseen species&amp;#8221; (see Chao et al., 2005 and Details in
+  vegdist)."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -29,7 +33,7 @@ Function designdist lets you define your own dissimilarities
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +46,7 @@ Function designdist lets you define your own dissimilarities
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes"><li><a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/vegandevs/vegan/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -68,15 +73,20 @@ Function designdist lets you define your own dissimilarities
   shared species, and totals are numbers of species on sites. The
   quadratic terms are cross-products and sums of squares, and minimum
   terms are sums of parallel minima and row totals. Function
-  <code>chaodist</code> lets you define your own dissimilarities using terms
-  that are supposed to take into account the “unseen species”
-  (see Chao et al., 2005 and Details in <code><a href="vegdist.html">vegdist</a></code>).</p>
+  <code>designdist2</code> is similar, but finds dissimilarities among two
+  data sets. Function <code>chaodist</code> lets you define your own
+  dissimilarities using terms that are supposed to take into account the
+  “unseen species” (see Chao et al., 2005 and Details in
+  <code><a href="vegdist.html">vegdist</a></code>).</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">designdist</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"(A+B-2*J)/(A+B)"</span>,</span>
 <span>           terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>, <span class="st">"quadratic"</span>, <span class="st">"minimum"</span><span class="op">)</span>, </span>
+<span>           abcd <span class="op">=</span> <span class="cn">FALSE</span>, alphagamma <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">name</span>, <span class="va">maxdist</span><span class="op">)</span></span>
+<span><span class="fu">designdist2</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="st">"(A+B-2*J)/(A+B)"</span>,</span>
+<span>           terms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"binary"</span>, <span class="st">"quadratic"</span>, <span class="st">"minimum"</span><span class="op">)</span>,</span>
 <span>           abcd <span class="op">=</span> <span class="cn">FALSE</span>, alphagamma <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">name</span>, <span class="va">maxdist</span><span class="op">)</span></span>
 <span><span class="fu">chaodist</span><span class="op">(</span><span class="va">x</span>, method <span class="op">=</span> <span class="st">"1 - 2*U*V/(U+V)"</span>, <span class="va">name</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -86,6 +96,10 @@ Function designdist lets you define your own dissimilarities
     <p></p>
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>Input data.</p></dd>
+
+  <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
+<dd><p>Another input data set: dissimilarities will be calculated
+    among rows of <code>x</code> and rows of <code>y</code>.</p></dd>
 
   <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>Equation for your dissimilarities. This can use terms
