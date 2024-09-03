@@ -6,7 +6,7 @@ useDynLib(vegan, .registration = TRUE)
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis2, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, ca, calibrate, capscale,
-cascadeKM, cca, chaodist, contribdiv, clamtest, commsim, cutreeord,
+cascadeKM, cca, centredist, chaodist, contribdiv, clamtest, commsim, cutreeord,
 dbrda, decobackstand, decorana, decostand, designdist, designdist2,
 dist2xy, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
@@ -176,6 +176,8 @@ S3method(calibrate, ordisurf)
 # cca: vegan
 S3method(cca, default)
 S3method(cca, formula)
+# centredist: vegan
+S3method(centredist, betadisper)
 # coef: stats
 S3method(coef, cca)
 S3method(coef, radfit)
@@ -388,6 +390,7 @@ S3method(print, rad)
 S3method(print, betadisper)
 S3method(print, bioenv)
 S3method(print, cca)
+S3method(print, centredist)
 S3method(print, commsim)
 S3method(print, decorana)
 S3method(print, eigenvals)
