@@ -37,15 +37,20 @@
     centres <- factor(centres)
     distance <- match.arg(distance)
     cv <- list()
-    for(cl in levels(centres)) {
-        cv[[cl]] <- cov.wt(x[centres == cl,, drop=FALSE])
-    }
     if (distance == "mahalanobis") {
-        dis <- sapply(levels(centres),
-                      function (cl) mahalanobis(x, cv[[cl]]$center,
-                                                cv[[cl]]$cov))
+        for(cl in levels(centres)) {
+            cv[[cl]] <- cov.wt(x[centres == cl,, drop=FALSE])
+        }
+        dis <-
+            sapply(levels(centres),
+                   function (cl) if (det(cv[[cl]]$cov) <= .Machine$double.eps)
+                                     rep(NA, nrow(x))
+                                 else
+                                     mahalanobis(x, cv[[cl]]$center,
+                                                 cv[[cl]]$cov))
     } else { # euclidean
-        cnt <- sapply(cv, function(z) z$center)
+        cnt <- sapply(levels(centres),
+                      function(cl) colMeans(x[centres == cl,, drop=FALSE]))
         dis <- apply(cnt, 2, function(z) rowSums(sweep(x, 2, z)^2))
         dis <- sqrt(dis)
     }
@@ -59,7 +64,7 @@
 `print.centredist`<-
     function(x, ...)
 {
-    cat("distances: ", attr(x, "distance"), "\n\n")
+    cat("\ndistances: ", attr(x, "distance"), "\n\n")
     print(data.frame("centre" = x$centre, "nearest" =  x$nearest, x$distances))
     invisible(x)
 }
