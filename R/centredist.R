@@ -40,8 +40,19 @@
     if (missing(w))
         w <- weights(x, display = display, ...)
     x <- scores(x, display = display, ...)
+    if (inherits(x, c("dbrda", "wcmdscale")) && any(eigenvals(x) < 0))
+        warning("axes with negative eigenvalues are ignored")
     cv <- list()
     if (distance == "mahalanobis") {
+        if (min(table(centres)) <= ncol(x))
+        if (max(table(centres)) <= ncol(x))
+            stop(gettextf(
+                "no group is larger than the number of dimensions (%d)",
+                ncol(x)))
+        if (min(table(centres)) <= ncol(x))
+            warning(
+                gettextf("groups smaller or equal to no. of dimensions (%d) will be NA",
+                         ncol(x)))
         if (is.null(w))
             w <- rep(1, nrow(x))
         for(cl in levels(centres)) {
