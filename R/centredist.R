@@ -81,6 +81,10 @@
     out
 }
 
+## For the Americans
+
+`centerdist` <- function(...) centredist(...)
+
 `print.centredist`<-
     function(x, ...)
 {

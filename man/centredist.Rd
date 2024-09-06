@@ -1,5 +1,6 @@
 \name{centredist}
 \alias{centredist}
+\alias{centerdist}
 \alias{centredist.betadisper}
 \alias{centredist.default}
 
