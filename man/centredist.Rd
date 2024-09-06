@@ -11,18 +11,20 @@
 }
 \usage{
 \method{centredist}{default}(x, centres, distance = c("euclidean",
-  "mahalanobis"),
-    ...)
+  "mahalanobis"), display = "sites", w, ...)
 \method{centredist}{betadisper}(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-    Matrix for the default method or a\code{betadisper} result object.
-  }
+  \item{x}{An ordination result object, or a atrix for the default
+    method or a \code{betadisper} result object.}
   \item{centres}{Factor to define classes for which centres are found.}
   \item{distance}{Use either simple Euclidean distance of Mahalanobis
     distances that take into account the shape of covariance ellipses.}
+  \item{display}{Kind of \code{\link{scores}}.}
+  \item{w}{Weights. If \code{x} has weights (such as \code{\link{cca}}
+    result), these will be used. NOT YET IMPLEMENTED for
+    \code{distance="euclidean"}.}
   \item{\dots}{Other arguments to functions (ignored).}
 }
 \details{

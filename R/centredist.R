@@ -31,15 +31,23 @@
 }
 
 `centredist.default` <-
-    function(x, centres, distance = c("euclidean", "mahalanobis"), ...)
+    function(x, centres, distance = c("euclidean", "mahalanobis"),
+             display = "sites", w, ...)
 {
-    ## assume so far that x is a matrix that can be handled as such
+    weights.default <- function(object, ...)
+        if (is.atomic(object)) NULL else stats::weights(object, ...)
     centres <- factor(centres)
     distance <- match.arg(distance)
+    if (missing(w))
+        w <- weights(x, display = display, ...)
+    x <- scores(x, display = display, ...)
     cv <- list()
     if (distance == "mahalanobis") {
+        if (is.null(w))
+            w <- rep(1, nrow(x))
         for(cl in levels(centres)) {
-            cv[[cl]] <- cov.wt(x[centres == cl,, drop=FALSE])
+            cv[[cl]] <- cov.wt(x[centres == cl,, drop=FALSE],
+                               wt = w[centres == cl])
         }
         dis <-
             sapply(levels(centres),
@@ -49,6 +57,8 @@
                                      mahalanobis(x, cv[[cl]]$center,
                                                  cv[[cl]]$cov))
     } else { # euclidean
+        if (!is.null(w) && var(w) > 1e-4)
+            warning("weighted model is not implemented yet for Euclidean distances")
         cnt <- sapply(levels(centres),
                       function(cl) colMeans(x[centres == cl,, drop=FALSE]))
         dis <- apply(cnt, 2, function(z) rowSums(sweep(x, 2, z)^2))
