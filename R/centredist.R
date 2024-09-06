@@ -34,8 +34,7 @@
     function(x, centres, distance = c("euclidean", "mahalanobis"),
              display = "sites", w, ...)
 {
-    weights.default <- function(object, ...)
-        if (is.atomic(object)) NULL else stats::weights(object, ...)
+    weights.default <- function(object, ...) NULL
     centres <- factor(centres)
     distance <- match.arg(distance)
     if (missing(w))
