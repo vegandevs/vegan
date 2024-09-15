@@ -34,11 +34,11 @@
     function(x, centres, distance = c("euclidean", "mahalanobis"),
              display = "sites", w, ...)
 {
-    weights.default <- function(object, ...) NULL
     centres <- factor(centres)
     distance <- match.arg(distance)
     if (missing(w))
-        w <- weights(x, display = display, ...)
+        w <- if (is.atomic(x)) attr(x, "weights")
+             else weights(x, display = display, ...)
     x <- scores(x, display = display, ...)
     if (inherits(x, c("dbrda", "wcmdscale")) && any(eigenvals(x) < 0))
         warning("axes with negative eigenvalues are ignored")
