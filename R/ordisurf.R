@@ -18,20 +18,20 @@
 `ordisurf.default` <-
     function (x, y, choices = c(1, 2), knots = 10, family = "gaussian",
               col = "red", isotropic = TRUE, thinplate = TRUE, bs = "tp",
-              fx = FALSE, add = FALSE, display = "sites",
-              w = weights(x, display), main, nlevels = 10, levels,
-              npoints = 31, labcex = 0.6, bubble = FALSE, cex = 1,
+              fx = FALSE, add = FALSE, display = "sites", w, main, nlevels = 10,
+              levels, npoints = 31, labcex = 0.6, bubble = FALSE, cex = 1,
               select = TRUE, method = "REML", gamma = 1, plot = TRUE,
               lwd.cl = par("lwd"), ...)
 {
-    weights.default <- function(object, ...) NULL
     if(!missing(thinplate)) {
         warning("use of 'thinplate' is deprecated and will soon be removed;\nuse 'isotropic' instead")
         isotropic <- thinplate
     }
     ## GRID no user-definable - why 31?
     GRID <- npoints
-    w <- eval(w)
+    if (missing(w))
+        w <- if(is.atomic(x)) attr(x, "weights")
+             else weights(x, display = display)
     if (!is.null(w) && length(w) == 1)
         w <- NULL
     X <- scores(x, choices = choices, display = display, ...)

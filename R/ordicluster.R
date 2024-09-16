@@ -1,17 +1,17 @@
 `ordicluster` <-
     function (ord, cluster, prune = 0, display = "sites",
-              w = weights(ord, display), col = 1,
-              draw = c("segments", "none"), ...)
+              w, col = 1, draw = c("segments", "none"), ...)
 {
-    weights.default <- function(object, ...) NULL
-    w <- eval(w)
+    if(missing(w))
+        w <- if(is.atomic(ord)) attr(ord, "weights")
+             else weights(ord, display = display)
     mrg <- cluster$merge
     ord <- scores(ord, display = display, ...)
     if (ncol(ord) > 2)
         ord <- ord[, 1:2, drop = FALSE]
     if (nrow(mrg) != nrow(ord) - 1)
         stop("dimensions do not match in 'ord' and 'cluster'")
-    if (length(w) == 1) w <- rep(w, nrow(ord))
+    if (is.null(w) || length(w) == 1) w <- rep(w, nrow(ord))
     n <- if (is.null(w)) rep(1, nrow(ord)) else w
     noden <- numeric(nrow(mrg) - prune)
     go <- matrix(0, nrow(mrg) - prune, 2)

@@ -1,11 +1,9 @@
 `ordiellipse` <-
     function (ord, groups, display = "sites", kind = c("sd", "se", "ehull"),
               conf, draw = c("lines", "polygon", "none"),
-              w = weights(ord, display), col = NULL, alpha = 127,
-              show.groups, label = FALSE, border = NULL, lty = NULL,
-              lwd = NULL, ...)
+              w, col = NULL, alpha = 127, show.groups, label = FALSE
+            , border = NULL, lty = NULL, lwd = NULL, ...)
 {
-    weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
     draw <- match.arg(draw)
     pts <- scores(ord, display = display, ...)
@@ -15,10 +13,10 @@
         pts <- pts[ , 1:2, drop = FALSE]
     if (ncol(pts) < 2)
         stop("needs two dimensions")
-    w <- eval(w)
-    if (length(w) == 1)
-        w <- rep(1, nrow(pts))
-    if (is.null(w))
+    if (missing(w))
+        w <- if(is.atomic(ord)) attr(ord, "weights")
+             else weights(ord, display = display)
+    if (is.null(w) || length(w) == 1)
         w <- rep(1, nrow(pts))
     ## make semitransparent fill; alpha should be integer in 0..255,
     ## but users may have given that as real in 0..1

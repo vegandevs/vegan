@@ -22,17 +22,14 @@ ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
          border = NULL, lty = NULL, lwd = NULL, ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se", "ehull"),
          conf, draw = c("lines","polygon", "none"),
-	 w = weights(ord, display), col = NULL, alpha = 127, show.groups,
-	 label = FALSE, border = NULL, lty = NULL, lwd=NULL, ...)
+	 w, col = NULL, alpha = 127, show.groups, label = FALSE,
+         border = NULL, lty = NULL, lwd=NULL, ...)
 ordibar(ord, groups, display = "sites", kind = c("sd", "se"), conf,
-         w = weights(ord, display), col = 1, show.groups, label = FALSE,
-	 lwd = NULL, length = 0,  ...)
-ordispider(ord, groups, display="sites", w = weights(ord, display),
-	 spiders = c("centroid", "median"),  show.groups,
-         label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
+         w, col = 1, show.groups, label = FALSE, lwd = NULL, length = 0,  ...)
+ordispider(ord, groups, display="sites", w, spiders = c("centroid", "median"),
+         show.groups, label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
 ordicluster(ord, cluster, prune = 0, display = "sites",
-            w = weights(ord, display), col = 1, draw = c("segments", "none"),
-            ...)
+            w, col = 1, draw = c("segments", "none"), ...)
 \method{summary}{ordihull}(object, ...)
 \method{summary}{ordiellipse}(object, ...)
 ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
