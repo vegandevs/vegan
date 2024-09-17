@@ -40,6 +40,8 @@
         w <- if (is.atomic(x)) attr(x, "weights")
              else weights(x, display = display, ...)
     x <- scores(x, display = display, ...)
+    if (is.null(w))
+        w <- rep(1, nrow(x))
     if (inherits(x, c("dbrda", "wcmdscale")) && any(eigenvals(x) < 0))
         warning("axes with negative eigenvalues are ignored")
     cv <- list()
@@ -53,8 +55,6 @@
             warning(
                 gettextf("groups smaller or equal to no. of dimensions (%d) will be NA",
                          ncol(x)))
-        if (is.null(w))
-            w <- rep(1, nrow(x))
         for(cl in levels(centres)) {
             cv[[cl]] <- cov.wt(x[centres == cl,, drop=FALSE],
                                wt = w[centres == cl])
@@ -67,12 +67,12 @@
                                      mahalanobis(x, cv[[cl]]$center,
                                                  cv[[cl]]$cov))
     } else { # euclidean
-        if (!is.null(w) && var(w) > 1e-4)
-            warning("weighted model is not implemented yet for Euclidean distances")
+        sumw <- sum(w)
+        w <- w/sumw
         cnt <- sapply(levels(centres),
-                      function(cl) colMeans(x[centres == cl,, drop=FALSE]))
-        dis <- apply(cnt, 2, function(z) rowSums(sweep(x, 2, z)^2))
-        dis <- sqrt(dis)
+                      function(cl) colMeans(w * x[centres == cl,, drop=FALSE]))
+        dis <- apply(cnt, 2, function(z) rowSums(w * sweep(x, 2, z)^2))
+        dis <- sqrt(sumw * dis)
     }
     nearest <- levels(centres)[apply(dis, 1, which.min)]
     out <- list("centre" = centres, "nearest" = nearest, "distances" = dis)
