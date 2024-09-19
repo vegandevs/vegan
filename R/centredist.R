@@ -83,13 +83,34 @@
 }
 
 ## Above: dist="eucl": sum of squared distances to their centre should
-## give eigenvalues for consistent estimates. Consistent distances to
-## rda model 'm': using scaling="site" with const =
-## sqrt(m$tot.chi*nobs(m)) and w = rep(1/nobs(m), nobs(m)). Consistent
-## to wchmdscale with const = sqrt(m$tot.chi*nobs(m)) and w = rep(1,
-## nobs(m)). The cca results can be used directly (naturally, with
-## scaling="site").
+## give eigenvalues for consistent estimates. For consistent
+## distances, see fucntions centredist.cca and centredist.rda below.
 
+
+## cca: use scaling by scores type
+`centredist.cca` <-
+    function(x, centres, distance = c("euclidean", "mahalanobis"),
+             display = c("sites", "species"), ...)
+{
+    ## only accept displays "sites", "species"
+    display <- match.arg(display)
+    centredist.default(x = x, centres = centres, distance = distance,
+                       display = display, scaling = display, ...)
+}
+
+## rda, dbrda, capscale: scaling by scores type, const and w give
+## results consistent with the returned eigenvalue
+`centredist.rda` <-
+        function(x, centres, distance = c("euclidean", "mahalanobis"),
+                 display = c("sites", "species"), ...)
+{
+    display = match.arg(display)
+    N <- nobs(x)
+    centredist.default(x = x, centres = centres, distance = distance,
+                       display = display, scaling = display,
+                       const = sqrt(x$tot.chi * N),
+                       w = rep(1/N, N), ...)
+}
 ## For the Americans
 
 `centerdist` <- function(...) centredist(...)

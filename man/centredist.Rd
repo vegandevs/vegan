@@ -3,6 +3,8 @@
 \alias{centerdist}
 \alias{centredist.betadisper}
 \alias{centredist.default}
+\alias{centredist.cca}
+\alias{centredist.rda}
 
 \title{
   Distances of Points to Class Centroids
