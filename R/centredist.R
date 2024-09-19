@@ -69,9 +69,10 @@
     } else { # euclidean
         sumw <- sum(w)
         w <- w/sumw
-        cnt <- sapply(levels(centres),
-                      function(cl) colMeans(w * x[centres == cl,, drop=FALSE]))
-        dis <- apply(cnt, 2, function(z) rowSums(w * sweep(x, 2, z)^2))
+        cnt <- sapply(levels(centres), function(cl)
+            apply(x[centres == cl,, drop=FALSE], 2,
+                  weighted.mean, w = w[centres == cl]))
+        dis <- apply(cnt, 2, function(z) w * rowSums(sweep(x, 2, z)^2))
         dis <- sqrt(sumw * dis)
     }
     nearest <- levels(centres)[apply(dis, 1, which.min)]
@@ -80,6 +81,14 @@
     class(out) <- "centredist"
     out
 }
+
+## Above: dist="eucl": sum of squared distances to their centre should
+## give eigenvalues for consistent estimates. Consistent distances to
+## rda model 'm': using scaling="site" with const =
+## sqrt(m$tot.chi*nobs(m)) and w = rep(1/nobs(m), nobs(m)). Consistent
+## to wchmdscale with const = sqrt(m$tot.chi*nobs(m)) and w = rep(1,
+## nobs(m)). The cca results can be used directly (naturally, with
+## scaling="site").
 
 ## For the Americans
 
