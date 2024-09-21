@@ -102,14 +102,15 @@
 ## results consistent with the returned eigenvalue
 `centredist.rda` <-
         function(x, centres, distance = c("euclidean", "mahalanobis"),
-                 display = c("sites", "species"), ...)
+                 display = c("sites"), ...)
 {
     display = match.arg(display)
     N <- nobs(x)
+    w <- weights(x, display = display)
     centredist.default(x = x, centres = centres, distance = distance,
                        display = display, scaling = display,
                        const = sqrt(x$tot.chi * N),
-                       w = rep(1/N, N), ...)
+                       w = w/sum(w), ...)
 }
 ## For the Americans
 
