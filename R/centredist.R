@@ -112,12 +112,15 @@
     if (pmatch(rank, "full", nomatch = FALSE))
         rank <- max(x$CCA$rank, 0) + max(x$CA$rank, 0)
     choices = seq_len(rank)
-    N <- nobs(x)
+    if (!is.null(x$adjust)) # set in dbrda, capscalef
+        adj <- x$adjust
+    else
+        adj <- sqrt(nobs(x))
     w <- weights(x, displaya = display)
     centredist.default(x = x, group = group, distance = distance,
                        display = display, scaling = display,
                        choices = choices,
-                       const = sqrt(x$tot.chi * N),
+                       const = sqrt(x$tot.chi) * adj,
                        w = w/sum(w), ...)
 }
 
