@@ -1,4 +1,4 @@
-
+ 
 R version 4.4.1 (2024-06-14) -- "Race for Your Life"
 Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
@@ -492,9 +492,7 @@ col1 0.040196
 > ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 > ## head(goodness(mancap, display="sites")) # currently disabled
 > ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
-> head(goodness(m0cca))
-    
-[1,]
+> ## head(goodness(m0cca)) # now an error: no goodness without constraints
 > 
 > head(inertcomp(mcca))
               pCCA       CCA       CA
