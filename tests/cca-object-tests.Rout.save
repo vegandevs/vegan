@@ -492,9 +492,7 @@ col1 0.040196
 > ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 > ## head(goodness(mancap, display="sites")) # currently disabled
 > ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
-> head(goodness(m0cca))
-    
-[1,]
+> ## head(goodness(m0cca)) # now an error: no goodness without constraints
 > 
 > head(inertcomp(mcca))
               pCCA       CCA       CA
@@ -2337,4 +2335,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  0.864   0.077   1.501 
+  0.917   0.078   1.543 
