@@ -13,7 +13,7 @@
   Function finds distances of points to class centroids.
 }
 \usage{
-\method{centredist}{default}(x, centres, distance = c("euclidean",
+\method{centredist}{default}(x, group, distance = c("euclidean",
   "mahalanobis"), display = "sites", w, ...)
 \method{centredist}{betadisper}(x, ...)
 }
@@ -21,7 +21,7 @@
 \arguments{
   \item{x}{An ordination result object, or a atrix for the default
     method or a \code{betadisper} result object.}
-  \item{centres}{Factor to define classes for which centres are found.}
+  \item{group}{Factor to define classes for which centroids are found.}
   \item{distance}{Use either simple Euclidean distance of Mahalanobis
     distances that take into account the shape of covariance ellipses.}
   \item{display}{Kind of \code{\link{scores}}.}

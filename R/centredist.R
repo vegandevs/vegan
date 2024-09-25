@@ -31,10 +31,10 @@
 }
 
 `centredist.default` <-
-    function(x, centres, distance = c("euclidean", "mahalanobis"),
+    function(x, group, distance = c("euclidean", "mahalanobis"),
              display = "sites", w, ...)
 {
-    centres <- factor(centres)
+    group <- factor(group)
     distance <- match.arg(distance)
     if (missing(w))
         w <- if (is.atomic(x)) attr(x, "weights")
@@ -46,21 +46,21 @@
         warning("axes with negative eigenvalues are ignored")
     cv <- list()
     if (distance == "mahalanobis") {
-        if (min(table(centres)) <= ncol(x))
-        if (max(table(centres)) <= ncol(x))
+        if (min(table(group)) <= ncol(x))
+        if (max(table(group)) <= ncol(x))
             stop(gettextf(
                 "no group is larger than the number of dimensions (%d)",
                 ncol(x)))
-        if (min(table(centres)) <= ncol(x))
+        if (min(table(group)) <= ncol(x))
             warning(
                 gettextf("groups smaller or equal to no. of dimensions (%d) will be NA",
                          ncol(x)))
-        for(cl in levels(centres)) {
-            cv[[cl]] <- cov.wt(x[centres == cl,, drop=FALSE],
-                               wt = w[centres == cl])
+        for(cl in levels(group)) {
+            cv[[cl]] <- cov.wt(x[group == cl,, drop=FALSE],
+                               wt = w[group == cl])
         }
         dis <-
-            sapply(levels(centres),
+            sapply(levels(group),
                    function (cl) if (det(cv[[cl]]$cov) <= .Machine$double.eps)
                                      rep(NA, nrow(x))
                                  else
@@ -69,14 +69,14 @@
     } else { # euclidean
         sumw <- sum(w)
         w <- w/sumw
-        cnt <- sapply(levels(centres), function(cl)
-            apply(x[centres == cl,, drop=FALSE], 2,
-                  weighted.mean, w = w[centres == cl]))
+        cnt <- sapply(levels(group), function(cl)
+            apply(x[group == cl,, drop=FALSE], 2,
+                  weighted.mean, w = w[group == cl]))
         dis <- apply(cnt, 2, function(z) w * rowSums(sweep(x, 2, z)^2))
         dis <- sqrt(sumw * dis)
     }
-    nearest <- levels(centres)[apply(dis, 1, which.min)]
-    out <- list("centre" = centres, "nearest" = nearest, "distances" = dis)
+    nearest <- levels(group)[apply(dis, 1, which.min)]
+    out <- list("centre" = group, "nearest" = nearest, "distances" = dis)
     attr(out, "distance") <- distance
     class(out) <- "centredist"
     out
@@ -89,25 +89,25 @@
 
 ## cca: use scaling by scores type
 `centredist.cca` <-
-    function(x, centres, distance = c("euclidean", "mahalanobis"),
+    function(x, group, distance = c("euclidean", "mahalanobis"),
              display = c("sites", "species"), ...)
 {
     ## only accept displays "sites", "species"
     display <- match.arg(display)
-    centredist.default(x = x, centres = centres, distance = distance,
+    centredist.default(x = x, group = group, distance = distance,
                        display = display, scaling = display, ...)
 }
 
 ## rda, dbrda, capscale: scaling by scores type, const and w give
 ## results consistent with the returned eigenvalue
 `centredist.rda` <-
-        function(x, centres, distance = c("euclidean", "mahalanobis"),
+        function(x, group, distance = c("euclidean", "mahalanobis"),
                  display = c("sites"), ...)
 {
     display = match.arg(display)
     N <- nobs(x)
     w <- weights(x, display = display)
-    centredist.default(x = x, centres = centres, distance = distance,
+    centredist.default(x = x, group = group, distance = distance,
                        display = display, scaling = display,
                        const = sqrt(x$tot.chi * N),
                        w = w/sum(w), ...)
