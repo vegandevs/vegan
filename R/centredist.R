@@ -90,28 +90,63 @@
 ## cca: use scaling by scores type
 `centredist.cca` <-
     function(x, group, distance = c("euclidean", "mahalanobis"),
-             display = c("sites", "species"), ...)
+             display = c("sites", "species"), rank = 2, ...)
 {
     ## only accept displays "sites", "species"
     display <- match.arg(display)
+    if (pmatch(rank, "full", nomatch = FALSE))
+        rank <- max(x$CCA$rank, 0) + max(x$CA$rank, 0)
+    choices = seq_len(rank)
     centredist.default(x = x, group = group, distance = distance,
-                       display = display, scaling = display, ...)
+                       display = display, scaling = display, choices = choices,
+                       ...)
 }
 
 ## rda, dbrda, capscale: scaling by scores type, const and w give
 ## results consistent with the returned eigenvalue
 `centredist.rda` <-
         function(x, group, distance = c("euclidean", "mahalanobis"),
-                 display = c("sites"), ...)
+                 display = "sites", rank = 2, ...)
 {
-    display = match.arg(display)
+    display <- match.arg(display)
+    if (pmatch(rank, "full", nomatch = FALSE))
+        rank <- max(x$CCA$rank, 0) + max(x$CA$rank, 0)
+    choices = seq_len(rank)
     N <- nobs(x)
-    w <- weights(x, display = display)
+    w <- weights(x, displaya = display)
     centredist.default(x = x, group = group, distance = distance,
                        display = display, scaling = display,
+                       choices = choices,
                        const = sqrt(x$tot.chi * N),
                        w = w/sum(w), ...)
 }
+
+## wcmdscale class (i.e., with eig=TRUE) may have negative eigenvalues
+
+`centredist.wcmdscale` <-
+    function(x, group, distance = c("euclidean", "mahalanobis"),
+             display = "sites", rank = 2, ...)
+{
+    display <- match.arg(display)
+    distance <- match.arg(distance)
+    if (is.numeric(rank)) {
+        centredist.default(x = x, group = group, distance = distance,
+                           display = display, choices = seq_len(rank),
+                           ...)
+    } else if (pmatch(rank, "full", nomatch = FALSE)) {
+        if (distance == "mahalanobis")
+            stop("rank='full' is only possible with distance='euclidean'")
+        xre <- centredist(x = x$points, group = group, distance = distance,
+                          ...)
+        if (!is.null(x$negaxes)) {
+            xim <- centredist(x = x$negaxes, group = group, distance = distance,
+                              ...)$distances
+            xre$distances <- sqrt(xre$distances^2 - xim^2)
+            xre
+        }
+    } else (stop("'rank' should be integer of 'full'"))
+}
+
 ## For the Americans
 
 `centerdist` <- function(...) centredist(...)
