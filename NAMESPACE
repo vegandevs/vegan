@@ -179,6 +179,7 @@ S3method(cca, formula)
 # centredist: vegan
 S3method(centredist, betadisper)
 S3method(centredist, cca)
+S3method(centredist, dbrda)
 S3method(centredist, default)
 S3method(centredist, rda)
 S3method(centredist, wcmdscale)

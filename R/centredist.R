@@ -116,7 +116,7 @@
         adj <- x$adjust
     else
         adj <- sqrt(nobs(x))
-    w <- weights(x, displaya = display)
+    w <- weights(x, display = display)
     centredist.default(x = x, group = group, distance = distance,
                        display = display, scaling = display,
                        choices = choices,
@@ -124,6 +124,36 @@
                        w = w/sum(w), ...)
 }
 
+`centredist.dbrda` <-
+    function(x, group, distance = c("euclidean", "mahalanobis"),
+             display = "sites", rank = 2, ...)
+{
+    display <- match.arg(display)
+    distance <- match.arg(distance)
+    if (is.numeric(rank)) {
+        centredist.rda(x = x, group = group, distance = distance,
+                       display = display, rank = rank, ...)
+    } else if (pmatch(rank, "full", nomatch = FALSE)) {
+        if (distance == "mahalanobis")
+            stop("rank='full' is only possible with distance='euclidean'")
+        rank <- max(x$CCA$poseig, 0) + max(x$CA$poseig, 0)
+        choices = seq_len(rank)
+        re <- scores(x, display = display, scaling = display,
+                     const = sqrt(x$tot.chi * x$adjust), choices = choices)
+        xre <- centredist.default(x = re, group = group, distance = distance,
+                                  ...)
+        negev <- eigenvals(x)
+        negev <- negev[negev < 0]
+        if (length(negev)) {
+            im <- cbind(x$CCA$imaginary.u, x$CA$imaginary.u)
+            im <- sweep(im, 2, sqrt(abs(negev)), "*")
+            xim <- centredist.default(x = im, group = group,
+                                      distance = distance, ...)$distances
+            xre$distances <- sqrt(xre$distances^2 - xim^2)
+        }
+        xre
+    } else {stop("'rank' should be integer or 'full'")}
+}
 ## wcmdscale class (i.e., with eig=TRUE) may have negative eigenvalues
 
 `centredist.wcmdscale` <-
