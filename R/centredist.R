@@ -22,7 +22,7 @@
     if (length(neg))
         d <- d - apply(cnt[, neg], 1,
                        function(z) rowSums(sweep(coord[,neg], 2, z)^2))
-    d <- as.data.frame(sqrt(d))
+    d <- sqrt(d)
     nearest <- levels(x$group)[apply(d, 1, which.min)]
     out <- list("centre" = x$group, "nearest" = nearest, "distances" = d)
     attr(out, "distance") <- attr(x, "method")
