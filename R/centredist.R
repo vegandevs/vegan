@@ -148,6 +148,7 @@
                                       distance = distance, ...)$distances
             xre$distances <- sqrt(xre$distances^2 - xim^2)
         }
+        xre$distances <- xre$distances/sqrt(x$adjust)
         xre
     } else {stop("'rank' should be integer or 'full'")}
 }
