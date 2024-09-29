@@ -174,7 +174,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   unbalanced designs.
 
   The results of the analysis can be visualised using the \code{plot}
-  and \code{boxplot} methods.
+  and \code{boxplot} methods. The distances of points to all centroids
+  (\code{group}) can be found with function \code{\link{centredist}}.
 
   One additional use of these functions is in assessing beta diversity
   (Anderson \emph{et al} 2006). Function \code{\link{betadiver}}
@@ -258,7 +259,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   assembly. \emph{Ecology} \strong{94}, 1057--1068.
 }
 \author{Gavin L. Simpson; bias correction by Adrian Stier and Ben Bolker.}
-\seealso{\code{\link{permutest.betadisper}}, \code{\link[stats]{anova.lm}},
+\seealso{\code{\link{permutest.betadisper}}, \code{\link{centredist}},
+  \code{\link[stats]{anova.lm}},
   \code{\link{scores}}, \code{\link{boxplot}},
   \code{\link{TukeyHSD}}. Further measure of beta diversity
   can be found in \code{\link{betadiver}}.}

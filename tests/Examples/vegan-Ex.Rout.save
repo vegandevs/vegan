@@ -23,7 +23,7 @@ Type 'q()' to quit R.
 > library('vegan')
 Loading required package: permute
 Loading required package: lattice
-This is vegan 2.6-7
+This is vegan 2.7-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -1969,6 +1969,56 @@ Eigenvalues for unconstrained axes:
 > data(dune.env)
 > dune.Manure <- rda(dune ~ Manure, dune.env)
 > plot(dune.Manure) 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("centredist")
+> ### * centredist
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: centredist
+> ### Title: Distances of Points to Class Centroids
+> ### Aliases: centredist centerdist centredist.betadisper centredist.dbrda
+> ###   centredist.default centredist.cca centredist.rda centredist.wcmdscale
+> 
+> ### ** Examples
+> 
+>   data(dune, dune.env)
+>   d <- vegdist(dune) # Bray-Curtis
+>   mod <- with(dune.env, betadisper(d, Management))
+>   centredist(mod)
+
+distances:  bray 
+
+   centre nearest         BF        HF        NM        SF
+1      SF      BF 0.49644568 0.5418457 0.8517511 0.5644371
+2      BF      BF 0.25251672 0.3780172 0.7075570 0.4114648
+3      SF      SF 0.41470128 0.3855665 0.6204737 0.1110907
+4      SF      SF 0.42624976 0.4393619 0.6358864 0.2266270
+5      HF      HF 0.37738597 0.2087227 0.6498706 0.5146204
+6      HF      HF 0.34039792 0.2456723 0.6126336 0.5642756
+7      HF      HF 0.29310989 0.1150411 0.6612193 0.4818030
+8      HF      SF 0.50164812 0.4375138 0.4274640 0.2449894
+9      HF      SF 0.53148596 0.3887899 0.5918427 0.2614780
+10     BF      BF 0.03881034 0.2868014 0.6154078 0.5175787
+11     BF      BF 0.36741961 0.4427340 0.5443921 0.5525589
+12     SF      SF 0.67759762 0.5249557 0.5627151 0.3810054
+13     SF      SF 0.67165475 0.5651190 0.5987912 0.3495776
+14     NM      NM 0.75201600 0.7713289 0.4241926 0.6703521
+15     NM      NM 0.81690124 0.7245346 0.3013518 0.6254642
+16     SF      NM 0.86797919 0.7654150 0.4951610 0.5510415
+17     NM      NM 0.66496238 0.6792701 0.6563399 0.8377509
+18     NM      BF 0.44376561 0.5052147 0.5074504 0.6320749
+19     NM      NM 0.67278867 0.6880656 0.5126987 0.7579196
+20     NM      NM 0.86808311 0.7719325 0.3037948 0.6683067
+>   ## equal to metric scaling when using centroids instead of medians
+>   modc <- with(dune.env, betadisper(d, Management, type = "centroid"))
+>   ord <- pco(d)
+>   all.equal(centredist(modc), centredist(ord, dune.env$Management, rank="full"),
++      check.attributes = FALSE)
+[1] TRUE
 > 
 > 
 > 
@@ -9163,7 +9213,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.677 0.28 8.984 0 0 
+Time elapsed:  8.739 0.365 9.113 0 0 
 > grDevices::dev.off()
 null device 
           1 
