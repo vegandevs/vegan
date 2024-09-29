@@ -1,9 +1,8 @@
 `ordispider` <-
-    function (ord, groups, display = "sites", w = weights(ord, display),
-              spiders = c("centroid", "median"), show.groups,
-              label = FALSE, col = NULL, lty = NULL, lwd = NULL, ...)
+    function (ord, groups, display = "sites", w,
+              spiders = c("centroid", "median"), show.groups, label = FALSE,
+              col = NULL, lty = NULL, lwd = NULL, ...)
 {
-    weights.default <- function(object, ...) NULL
     spiders <- match.arg(spiders)
     if (inherits(ord, "cca") && missing(groups)) {
         lc <- scores(ord, display = "lc", ...)
@@ -26,10 +25,10 @@
     ## ordihull: draw lines from centre to the points in the hull
     if (inherits(ord, "ordihull"))
         groups <- attr(pts, "hulls")
-    w <- eval(w)
-    if (length(w) == 1)
-        w <- rep(1, nrow(pts))
-    if (is.null(w))
+    if(missing(w))
+        w <- if(is.atomic(ord)) attr(ord, "weights")
+        else weights(ord, display = display)
+    if (is.null(w) || length(w) == 1)
         w <- rep(1, nrow(pts))
     if (!missing(show.groups)) {
         take <- groups %in% show.groups
