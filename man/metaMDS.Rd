@@ -93,7 +93,8 @@ metaMDSredist(object, ...)
     more voluminous.}
   \item{plot}{Graphical tracing: plot interim results. You may want to set
     \code{par(ask = TRUE)} with this option.}
-  \item{previous.best}{Start searches from a previous solution.}
+  \item{previous.best}{Start searches from a previous solution. This can
+    also be a \code{\link{monoMDS}} solution or a matrix of coordinates.}
 
   \item{x}{\code{metaMDS} result (or a dissimilarity structure for
   \code{initMDS}).}
