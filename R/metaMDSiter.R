@@ -31,7 +31,7 @@
     ## Previous best or initial configuration
     if (!missing(previous.best) && !is.null(previous.best)) {
         ## check if previous.best is from metaMDS or isoMDS
-        if (inherits(previous.best, "metaMDS") ||
+        if (inherits(previous.best, c("metaMDS", "monoMDS")) ||
             is.list(previous.best) &&
             all(c("points", "stress") %in% names(previous.best))) {
             ## Previous best may come from another 'engine' or
@@ -39,9 +39,9 @@
             ## configuration with 'maxit = 0' to evaluate the stress
             ## in current case, or take a matrix as configuration.
             init <- previous.best$points
-            bestry <- previous.best$bestry
-            trybase <- previous.best$tries
-            converged <- previous.best$converged
+            bestry <- max(0, previous.best$bestry)
+            trybase <- max(0, previous.best$tries)
+            converged <- max(0, previous.best$converged)
             nc <- NCOL(init)
             if (nc > k)
                 init <- init[, 1:k, drop = FALSE]
