@@ -59,13 +59,13 @@
 {
     display <- match.arg(display)
     if(display == "ci")
-        tval <- qt(1-(1-0.95)/2, x$N2)
+        tval <- qt(1 - (1 - p)/2, x$N2-1)
     switch(display,
            "wa" = x$wa,
            "stdev" = x$stdev,
            "var" = x$stdev^2,
-           "se" = x$stdev/x$N2,
-           "ci" = x$stdev/x$N2 * tval,
-           "n2" = x$N2
+           "se" = x$stdev/sqrt(x$N2),
+           "ci" = x$stdev/sqrt(x$N2) * tval,
+           "n2" = x$N2,
            "all" = unclass(x))
 }
