@@ -7,12 +7,15 @@
     w <- as.matrix(w)
     nc <- ncol(x)
     nr <- ncol(w)
+    dnam <- list(colnames(w), colnames(x))
     wa <- t(sapply(colnames(w),
                    function(m) apply(x, 2, weighted.mean, w = w[,m])))
+    wa <- matrix(wa, nr, nc, dimnames = dnam)
     if (stdev) {
-        sdwa <- sqrt(sapply(colnames(x), function(k)
+        sdwa <- sqrt(sapply(seq_len(nc), function(k)
             sapply(colnames(w), function(m)
                 cov.wt(x[,k,drop=FALSE], w[,m])$cov)))
+        sdwa <- matrix(sdwa, nr, nc, dimnames = dnam)
     }
     if (expand) {
         i <- complete.cases(wa)
@@ -34,6 +37,35 @@
     if (stdev) {
         wa <- list("wa" = wa, "stdev" = sdwa,
                    "N2" = diversity(w, "invsimpson", MARGIN=2))
+        attr(wa, "call") <- match.call()
+        class(wa) <- "wascores"
     }
     wa
+}
+
+`print.wascores` <-
+    function(x, ...)
+{
+    cat("\nWeighted Averages\n")
+    cat("Call:", deparse(attr(x, "call")), "\n\n")
+    cat(nrow(x$wa), "weighted averages and their standard deviations for",
+        ncol(x$wa), "variables \n\n")
+    invisible(x)
+}
+
+`scores.wascores` <-
+    function(x, display = c("wa", "stdev", "var", "se", "ci", "n2", "all"),
+             p = 0.95, ...)
+{
+    display <- match.arg(display)
+    if(display == "ci")
+        tval <- qt(1-(1-0.95)/2, x$N2)
+    switch(display,
+           "wa" = x$wa,
+           "stdev" = x$stdev,
+           "var" = x$stdev^2,
+           "se" = x$stdev/x$N2,
+           "ci" = x$stdev/x$N2 * tval,
+           "n2" = x$N2
+           "all" = unclass(x))
 }
