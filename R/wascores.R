@@ -54,12 +54,12 @@
 }
 
 `scores.wascores` <-
-    function(x, display = c("wa", "stdev", "var", "se", "ci", "n2", "all"),
+    function(x, display = c("wa", "stdev", "var", "se", "n2", "all"),
              p = 0.95, ...)
 {
     display <- match.arg(display)
     if(display == "ci")
-        tval <- qt(1 - (1 - p)/2, x$N2-1)
+        tval <- qt((1 - p)/2, x$N2, lower.tail = FALSE)
     switch(display,
            "wa" = x$wa,
            "stdev" = x$stdev,
@@ -67,5 +67,5 @@
            "se" = x$stdev/sqrt(x$N2),
            "ci" = x$stdev/sqrt(x$N2) * tval,
            "n2" = x$N2,
-           "all" = unclass(x))
+           "raw" = unclass(x))
 }
