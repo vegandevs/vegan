@@ -86,7 +86,7 @@ importFrom(stats, .getXlevels, add.scope, aggregate, aov, approx,
            na.pass, napredict, naprint, nlm, nls, optim, optimize, p.adjust,
            p.adjust.methods, pchisq, pf, plogis, pnorm, poisson,
            ppoints, prcomp, printCoefmat, pt, qchisq, qf, qlogis,
-           qnorm, quantile, quasipoisson, r2dtable, reformulate,
+           qnorm, qt, quantile, quasipoisson, r2dtable, reformulate,
            rmultinom, rnorm, runif, sd, spline, summary.lm, terms, ts,
            uniroot, update.formula, var, weighted.mean)
 ## S3methods for these
@@ -487,6 +487,7 @@ S3method(scores, ordihull)
 S3method(scores, ordiplot)
 S3method(scores, pcnm)
 S3method(scores, rda)
+S3method(scores, wascores)
 S3method(scores, wcmdscale)
 # screeplot: stats
 S3method(screeplot, cca)
