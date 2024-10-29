@@ -54,7 +54,7 @@
 }
 
 `scores.wascores` <-
-    function(x, display = c("wa", "stdev", "var", "se", "n2", "all"),
+    function(x, display = c("wa", "stdev", "var", "se", "n2", "raw"),
              p = 0.95, ...)
 {
     display <- match.arg(display)
