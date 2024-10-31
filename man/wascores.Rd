@@ -27,39 +27,56 @@ eigengrad(x, w)
 }
 \details{
 
-  Function \code{wascores} computes weighted averages. Weighted averages
-  \dQuote{shrink}: they cannot be more extreme than values used for
-  calculating the averages. With \code{expand = TRUE}, the function
-  \dQuote{deshrinks} the weighted averages by making their biased
-  weighted variance equal to the biased weighted variance of the
-  corresponding environmental variable. There are many other methods of
-  deshrinking, and the one used in this function is the simplest
-  possible one and fixes only the shrinking of variance but not bias,
-  like the popular regression based deshrinking.  Function
-  \code{eigengrad} returns the inverses of squared expansion factors or
-  the attribute \code{shrinkage} of the \code{wascores} result for each
-  environmental gradient.  This is equal to the constrained eigenvalue
-  of \code{\link{cca}} when only this one gradient was used as a
+  Weighted Averages are a classical way of estimating the species optima
+  along continuous environmental variables (a.k.a. gradients). Function
+  \code{wascores} is a simple function that is mainly designed to add
+  species scores to unimodal ordinations (\code{\link{metaMDS}},
+  \code{\link{sppscores}}) or ordering rows or columns to give diagonal
+  pattern of tabulation (\code{\link{vegemite}},
+  \code{\link{tabasco}}). It can also be used to find species
+  \dQuote{optima} or sampling unit calibrations for community data, but
+  it does not enable easy cross-validation. For this purpose,
+  specialized packages such \pkg{analogue} are recommended (but see
+  \code{\link{calibrate.cca}}).
+
+  First argument of \code{wascores} is the variable or a matrix of
+  variables for which weighted averages are needed, and the second
+  argument is the matrix of weights. In classical approaches weights are
+  a community matrix, where taxon abundances define the weights. The
+  number of rows must match. If the first argument is for taxa
+  (columns), community weight matrix must be transposed. 
+
+  Weighted averages \dQuote{shrink}: they cannot be more extreme than
+  values used for calculating the averages. With \code{expand = TRUE},
+  the function \dQuote{deshrinks} the weighted averages making their
+  biased variance equal to the biased weighted variance of the
+  corresponding environmental variable. Specialized packages (such as
+  \pkg{analogue} offer a wider range of deshrinking alternatives, but
+  deshrinking can also made after the analysis (see Examples). Function
+  \code{eigengrad} returns the strength of expansion as attribute
+  \code{shrinkage} of the \code{wascores} result for each environmental
+  gradient.  This is equal to the constrained eigenvalue of
+  \code{\link{cca}} when only this one gradient was used as a
   constraint, and describes the strength of the gradient.
 
   With \code{stdev = TRUE} the function estimates the unbiased weighted
   standard deviation of the WA estimates using \code{\link{cov.wt}}. For
   unbiased standard deviation the virtual number of observations is
   equal to inverse Simpson index of diversity also known as Hill number
-  N2. The numeric results can be accessed with \code{scores}
-  function.
+  N2 (see \code{\link{diversity}}). The numeric results can be accessed
+  with \code{scores} function.
 
   The method is closely linked to correspondence analysis
   (\code{\link{ca}}, \code{\link{cca}}). Repeated use of \code{wascores}
   will converge to unconstrained correspondence analysis
-  (\code{\link{ca}}) which is the reason for calling it Reciprocal
-  Averaging. Function \code{\link{calibrate.cca}} for one-constraint
+  (\code{\link{ca}}) which is behind the traditional name Reciprocal
+  Averaging (Hill 1973). Function \code{\link{calibrate.cca}} for
   constrained correspondence analysis (\code{\link{cca}}) will return
-  weighted averages with different deshrinking.  Function
+  weighted averages with different deshrinking. Function
   \code{\link{tolerance}} uses the same algebra for weighted standard
-  deviation, but bases the variance on linear combination
-  scores which are scaled constraining variables instead of the weighted
-  averages of the sites like \code{wascores}.
+  deviation, but bases the variance on linear combination scores
+  (constaints) variables instead of the weighted averages of the sites
+  like \code{wascores}.
 
 }
 
@@ -80,31 +97,45 @@ eigengrad(x, w)
 
 \author{ Jari Oksanen }
 
-\seealso{ \code{\link{cca}}, \code{\link{calibrate.cca}},
-  \code{\link{tolerance.cca}}. WA scores are used for species in
-  \code{\link{metaMDS}}. }
+\seealso{\code{\link{calibrate.cca}}, \code{\link{tolerance.cca}},
+  \code{\link{sppscores}}.}
+
+\references{
+
+  Hill, M.O. (1973) Reciprocal averaging: An eigenvector method of
+  ordination. \emph{Journal of Ecology} 61, 237--249.
+  
+}
 
 \examples{
-data(varespec)
-data(varechem)
-vare.dist <- vegdist(wisconsin(varespec))
-vare.mds <- monoMDS(vare.dist)
-vare.points <- postMDS(vare.mds$points, vare.dist)
-vare.wa <- wascores(vare.points, varespec)
-plot(scores(vare.points), pch="+", asp=1)
-text(vare.wa, rownames(vare.wa), cex=0.8, col="blue")
-## Omit rare species (frequency <= 4)
-freq <- apply(varespec>0, 2, sum)
-plot(scores(vare.points), pch="+", asp=1)
-text(vare.wa[freq > 4,], rownames(vare.wa)[freq > 4],cex=0.8,col="blue")
-## Works for environmental variables, too.
-head(spwa <- wascores(varechem, varespec, expand = TRUE))
-## use species WA for Humdepth to estimate site WA
-wascores(spwa[, "Humdepth"], t(varespec), expand = TRUE)
-## use cca to get the weighted average of Humdepth (different deshrinking)
-calibrate(cca(varespec ~ Humdepth, varechem))
-## And the strengths of these variables are:
-eigengrad(varechem, varespec)
+data(mite, mite.env)
+## add species points to ordination
+mod <- monoMDS(vegdist(mite))
+plot(mod)
+## add species points; sppscores does the same and can also add the
+## species scores to mod
+points(wascores(scores(mod), mite, expand = TRUE), pch="+", col=2)
+## Get taxon optima for WatrCont
+head(wascores(mite.env$WatrCont, mite))
+## WA calibration: site WA from species WA; NB using transpose for site WA
+spwa <- wascores(mite.env$WatrCont, mite, expand = TRUE)
+wacalib <- wascores(spwa, t(mite), expand = TRUE)
+plot(wacalib ~ WatrCont, data=mite.env)
+abline(0, 1)
+## use traditional 'inverse' regression deshrinking instead of wascores
+## 'expand'
+wareg <- fitted(lm(WatrCont ~ wacalib, data=mite.env))
+head(cbind("WatrCont" = mite.env$WatrCont, "expand" = drop(wacalib),
+    "regression" = wareg))
+## Reciprocal Averaging algorithm for Correspondence Analysis
+## start with random values
+u <- runif(nrow(mite))
+## repeat the following steps so long that the shrinkage converges
+v <- wascores(u, mite, expand = TRUE)
+u <- wascores(v, t(mite), expand = TRUE)
+attr(u, "shrinkage") # current estimate of eigenvalue
+## The strengths of two continuous variables in the data set
+eigengrad(mite.env[, 1:2], mite)
 }
 \keyword{ multivariate }
 \keyword{ univar }
