@@ -11,8 +11,7 @@
 \usage{
 wascores(x, w, expand = FALSE, stdev = FALSE)
 eigengrad(x, w)
-\method{scores}{wascores}(x, display = c("wa", "stdev", "var", "se", "n2", "raw"),
-             p = 0.95, ...)
+\method{scores}{wascores}(x, display = c("wa", "stdev", "var", "se", "n2", "raw"), ...)
 }
 
 \arguments{
@@ -23,7 +22,7 @@ eigengrad(x, w)
     weighted variance as the corresponding environmental variables.}
   \item{stdev}{Estimate weighted standard deviation of WA scores.}
   \item{display}{Type of scores returned.}
-  \item{..., p}{Ignored.}
+  \item{\dots}{Other arguments passed to functions (currently ignored).}
   
 }
 \details{

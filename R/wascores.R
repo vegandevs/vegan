@@ -54,10 +54,13 @@
 }
 
 `scores.wascores` <-
-    function(x, display = c("wa", "stdev", "var", "se", "n2", "raw"),
-             p = 0.95, ...)
+    function(x, display = c("wa", "stdev", "var", "se", "n2", "raw"), ...)
 {
     display <- match.arg(display)
+    ## Calculation of CI via t-value is currently disabled (although
+    ## there is an entry in switch). If it is ever enabled in similar
+    ## way, p-value should be lifted to function arguments.
+    p <- 0.95
     if(display == "ci")
         tval <- qt((1 - p)/2, x$N2, lower.tail = FALSE)
     switch(display,
