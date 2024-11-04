@@ -27,16 +27,16 @@ eigengrad(x, w)
 }
 \details{
 
-  Weighted Averages are a classical way of estimating the species optima
-  along continuous environmental variables (a.k.a. gradients). Function
-  \code{wascores} is a simple function that is mainly designed to add
-  species scores to unimodal ordinations (\code{\link{metaMDS}},
-  \code{\link{sppscores}}) or ordering rows or columns to give diagonal
-  pattern of tabulation (\code{\link{vegemite}},
-  \code{\link{tabasco}}). It can also be used to find species
-  \dQuote{optima} or sampling unit calibrations for community data, but
-  it does not enable easy cross-validation. For this purpose,
-  specialized packages such \pkg{analogue} are recommended (but see
+  Weighted Averages are a classical way of estimating the species
+  optima along continuous environmental variables
+  (a.k.a. gradients). Function \code{wascores} is a simple function
+  that is mainly designed to add species scores to unimodal
+  ordinations (\code{\link{metaMDS}}, \code{\link{sppscores}}) or
+  ordering rows or columns to give diagonal pattern of tabulation
+  (\code{\link{vegemite}}, \code{\link{tabasco}}). It can also be used
+  to find species \dQuote{optima} or sampling unit calibrations for
+  community data. For this purpose, specialized packages such
+  \pkg{analogue} are recommended (but see
   \code{\link{calibrate.cca}}).
 
   First argument of \code{wascores} is the variable or a matrix of
@@ -49,34 +49,36 @@ eigengrad(x, w)
   Weighted averages \dQuote{shrink}: they cannot be more extreme than
   values used for calculating the averages. With \code{expand = TRUE},
   the function \dQuote{deshrinks} the weighted averages making their
-  biased variance equal to the biased weighted variance of the
-  corresponding environmental variable. Specialized packages (such as
-  \pkg{analogue} offer a wider range of deshrinking alternatives, but
-  deshrinking can also made after the analysis (see Examples). Function
-  \code{eigengrad} returns the strength of expansion as attribute
-  \code{shrinkage} of the \code{wascores} result for each environmental
-  gradient.  This is equal to the constrained eigenvalue of
-  \code{\link{cca}} when only this one gradient was used as a
-  constraint, and describes the strength of the gradient.
+  weighted variance equal to the weighted variance of the
+  corresponding input variable. Specialized packages (such as
+  \pkg{analogue}) offer a wider range of deshrinking alternatives, but
+  deshrinking can also made after the analysis (see
+  Examples). Function \code{eigengrad} returns the strength of
+  expansion as attribute \code{shrinkage} of the \code{wascores}
+  result for each environmental gradient.  The shrinkage equal to the
+  constrained eigenvalue of \code{\link{cca}} when only this one
+  gradient was used as a constraint, and describes the strength of the
+  gradient.
 
-  With \code{stdev = TRUE} the function estimates the unbiased weighted
-  standard deviation of the WA estimates using \code{\link{cov.wt}}. For
-  unbiased standard deviation the virtual number of observations is
-  equal to inverse Simpson index of diversity also known as Hill number
-  N2 (see \code{\link{diversity}}). The numeric results can be accessed
-  with \code{scores} function.
+  With \code{stdev = TRUE} the function estimates the unbiased
+  weighted standard deviation of the WA estimates using
+  \code{\link{cov.wt}}. For unbiased standard deviation the virtual
+  number of observations is equal to inverse Simpson index of
+  diversity also known as Hill number N2 (see
+  \code{\link{diversity}}). The numeric results can be accessed with
+  \code{scores} function.  Function \code{\link{tolerance}} uses the
+  same algebra for weighted standard deviation, but bases the variance
+  on linear combination scores (constaints) variables instead of the
+  weighted averages of the sites like \code{wascores}.
 
-  The method is closely linked to correspondence analysis
-  (\code{\link{ca}}, \code{\link{cca}}). Repeated use of \code{wascores}
-  will converge to unconstrained correspondence analysis
-  (\code{\link{ca}}) which is behind the traditional name Reciprocal
-  Averaging (Hill 1973). Function \code{\link{calibrate.cca}} for
-  constrained correspondence analysis (\code{\link{cca}}) will return
-  weighted averages with different deshrinking. Function
-  \code{\link{tolerance}} uses the same algebra for weighted standard
-  deviation, but bases the variance on linear combination scores
-  (constaints) variables instead of the weighted averages of the sites
-  like \code{wascores}.
+  Weighted averages are closely linked to correspondence analysis
+  (\code{\link{ca}}, \code{\link{cca}}). Repeated use of
+  \code{wascores} will converge to the first axis of unconstrained
+  correspondence analysis (\code{\link{ca}}) which therefore is also
+  known as Reciprocal Averaging (Hill 1973). Constrained
+  correspondence analysis (\code{\link{cca}}) is equivalent to
+  weighted averages and \code{\link{calibrate.cca}} will return
+  weighted averages of the constraint with different deshrinking.
 
 }
 
@@ -84,16 +86,21 @@ eigengrad(x, w)
   If \code{stdev = TRUE}, function returns an object of class
   \code{"wascores"} with items
   
-  \item{wa}{A matrix of weighted averages with.  If \code{expand=TRUE},
-    attribute \code{shrinkage} has the inverses of squared expansion
-    factors or \code{\link{cca}} eigenvalues for the variable.}
+  \item{wa}{A matrix of weighted averages with.  If
+    \code{expand=TRUE}, attribute \code{shrinkage} has the inverses of
+    squared expansion factors or \code{\link{cca}} eigenvalues for the
+    variable and attribute \code{centre} for the weighted means of the
+    variables.}
+
   \item{stdev}{a matrix of weighted standard deviations}
   \item{n2}{effective sample sizes which are equal to inverse Simpson
     diversity or Hill number N2}
 
-  If \code{stdev = FALSE} (default), only the plain matrix \code{wa} is
-  returned.  Function \code{eigengrad} returns only the \code{shrinkage}
-  attribute.  }
+  If \code{stdev = FALSE} (default), only the plain matrix \code{wa}
+  is returned.  Function \code{eigengrad} returns only the
+  \code{shrinkage} attribute. With \code{stdev = TRUE} only a brief
+  summary of the result is printed, and the individvual scores can be
+  accessed with \code{scores} function. }
 
 \author{ Jari Oksanen }
 
