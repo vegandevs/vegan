@@ -1,5 +1,13 @@
 ## vegan News
 
+### Changes in verstion 2\.6-9
+
+#### Bug Fixes
+
+* `anova.cca(..., by="margin")` failed when a constraint was
+  completely aliased by conditions. See
+  [#701](https://github.com/vegandevs/vegan/pull/701).
+
 ### Changes in version 2\.6-8
 
 #### New Features
