@@ -161,11 +161,14 @@
   Function \code{calibrate.cca} finds estimates of constraints from
   community ordination or \code{"wa"} scores from \code{\link{cca}},
   \code{\link{rda}} and \code{\link{capscale}}. This is often known as
-  calibration, bioindication or environmental reconstruction.
-  Basically, the method is similar to projecting site scores onto
-  biplot arrows, but it uses regression coefficients.  The function
-  can be called with \code{newdata} so that cross-validation is
-  possible.  The \code{newdata} may contain new sites, but species
+  calibration, bioindication or environmental reconstruction, and it
+  is equivalent to performing Weighted Averaging (see
+  \code{\link{wascores}}). As a Weighted Averaging method it uses
+  deshrinking where the sum of weighted prediction errors is
+  zero. Basically, the method is similar to projecting site scores
+  onto biplot arrows, but it uses regression coefficients.  The
+  function can be called with \code{newdata} so that cross-validation
+  is possible.  The \code{newdata} may contain new sites, but species
   must match in the original and new data.  The function does not work
   with \sQuote{partial} models with \code{Condition} term, and it
   cannot be used with \code{newdata} for \code{\link{capscale}} or
@@ -203,8 +206,7 @@
   \code{\link{goodness.cca}}. }
 
 \examples{
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
 # Definition of the concepts 'fitted' and 'residuals'
 mod
@@ -220,11 +222,13 @@ predict(mod, type="sp", newdata=dune[, freq==1], scaling="species")
 # New sites
 predict(mod, type="lc", new=data.frame(A1 = 3, Management="NM", Moisture="2"), scal=2)
 # Calibration and residual plot
-mod <- cca(dune ~ A1 + Moisture, dune.env)
-pred <- calibrate(mod)
-pred
+mod <- cca(dune ~ A1, dune.env)
+head(pred <- calibrate(mod))
+## For single variable similar to weighted averaging calibration, but
+## different deshrinking
+head(wascores(wascores(dune.env$A1, dune, expand=TRUE), t(dune), expand=TRUE))
 ## IGNORE_RDIFF_END
-with(dune.env, plot(A1, pred[,"A1"] - A1, ylab="Prediction Error"))
+with(dune.env, plot(A1, pred - A1, ylab="Prediction Error"))
 abline(h=0)
 }
 \keyword{ multivariate }
