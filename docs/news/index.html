@@ -63,6 +63,12 @@
 <li><p><code>orditorp</code> can be used in pipe.</p></li>
 <li><p><code>vegemite</code> and <code>tabasco</code> can now <code>use</code> a factor to show a classification. The factor levels and sites within levels can be reordered to give a diagonal pattern, as default in code <code>tabasco</code> and in <code>vegemite</code> with new argument <code>diagonalize = TRUE</code> (defaults <code>FALSE</code>). With the same argument, <code>vegemite</code> can also reorder dendrogram (or tree) to give a diagonal pattern. If <code>coverscale</code> is used, all internal calculations for ordering rows and columns will be based on scaled data.</p></li>
 <li><p><code>make.cepnames</code> was completely re-designed and is much more flexible with enhanced user-control. The function is now based solely on <code>abbreviate</code>.</p></li>
+<li><p><code>wascores</code> can now calculate (unbiased) weighted standard deviation of weighted averages with argument <code>stdev = TRUE</code>.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-7-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-0"></a></h3>
+<ul><li>
+<code>anova.cca(..., by="margin")</code> failed when a constraint was completely aliased by conditions. See <a href="https://github.com/vegandevs/vegan/pull/701" class="external-link">#701</a>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-and-defunct-2-7-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-0"></a></h3>
@@ -1053,7 +1059,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon, Tuomas Borman.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Tuomas Borman, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">

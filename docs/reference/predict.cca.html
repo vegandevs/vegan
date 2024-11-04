@@ -224,11 +224,14 @@
 <p>Function <code>calibrate.cca</code> finds estimates of constraints from
   community ordination or <code>"wa"</code> scores from <code><a href="cca.html">cca</a></code>,
   <code><a href="cca.html">rda</a></code> and <code><a href="dbrda.html">capscale</a></code>. This is often known as
-  calibration, bioindication or environmental reconstruction.
-  Basically, the method is similar to projecting site scores onto
-  biplot arrows, but it uses regression coefficients.  The function
-  can be called with <code>newdata</code> so that cross-validation is
-  possible.  The <code>newdata</code> may contain new sites, but species
+  calibration, bioindication or environmental reconstruction, and it
+  is equivalent to performing Weighted Averaging (see
+  <code><a href="wascores.html">wascores</a></code>). As a Weighted Averaging method it uses
+  deshrinking where the sum of weighted prediction errors is
+  zero. Basically, the method is similar to projecting site scores
+  onto biplot arrows, but it uses regression coefficients.  The
+  function can be called with <code>newdata</code> so that cross-validation
+  is possible.  The <code>newdata</code> may contain new sites, but species
   must match in the original and new data.  The function does not work
   with ‘partial’ models with <code>Condition</code> term, and it
   cannot be used with <code>newdata</code> for <code><a href="dbrda.html">capscale</a></code> or
@@ -268,8 +271,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">A1</span> <span class="op">+</span> <span class="va">Management</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">Moisture</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Definition of the concepts 'fitted' and 'residuals'</span></span></span>
 <span class="r-in"><span><span class="va">mod</span></span></span>
@@ -358,32 +360,27 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>       CCA1     CCA2       CCA3      CCA4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 -2.38829 1.230652 -0.2363485 0.3338258</span>
 <span class="r-in"><span><span class="co"># Calibration and residual plot</span></span></span>
-<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">A1</span> <span class="op">+</span> <span class="va">Moisture</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu">calibrate</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">pred</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            A1  Moisture.L  Moisture.Q   Moisture.C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   2.2630533 -0.62633470 -0.20456759  0.220761764</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   4.0510042 -0.47341146 -0.36986691  0.474939409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   4.2752294 -0.07214500 -0.60797514  0.303213289</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   4.5398659  0.03192745 -1.12417368  0.932223234</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   5.0409406 -0.84235946  0.43000738 -0.291599200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   5.1962100 -0.91316862  1.11354235 -0.804453944</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   4.2452549 -0.76452556  0.60464291 -0.484842066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   5.0208369  0.43886340  0.08169514  0.132995916</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   4.2663219  0.10720486 -0.34067849 -0.675151598</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  4.0411356 -0.65472729  0.02832164  0.558402684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  2.8280051 -0.45762457  0.63079135 -0.089977975</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  5.1204137  0.36328912 -0.69118581 -0.665622948</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  4.9034218  0.47069541 -0.54378271 -0.118643453</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14 11.6455841  0.60920550  0.78341426  0.532852308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 10.7829689  0.69208513  0.82190786  0.237311062</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  7.9892176  0.96421599  0.46793089  0.373647014</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  0.9218684 -0.15822891  0.14593271  1.189161582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  3.1680733 -0.41737900  1.03352732 -0.236938282</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 -1.2003506  0.57033354  0.72777285  0.509955590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  4.7876770  1.00324330  1.49898460  0.009202396</span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">A1</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pred</span> <span class="op">&lt;-</span> <span class="fu">calibrate</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         A1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1.418491</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2.873101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 3.873171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 3.976229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 3.116662</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 3.479079</span>
+<span class="r-in"><span><span class="co">## For single variable similar to weighted averaging calibration, but</span></span></span>
+<span class="r-in"><span><span class="co">## different deshrinking</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="wascores.html">wascores</a></span><span class="op">(</span><span class="fu"><a href="wascores.html">wascores</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">$</span><span class="va">A1</span>, <span class="va">dune</span>, expand<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, expand<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2.326038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 3.376503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 4.098717</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 4.173142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 3.552394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 3.814118</span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">pred</span><span class="op">[</span>,<span class="st">"A1"</span><span class="op">]</span> <span class="op">-</span> <span class="va">A1</span>, ylab<span class="op">=</span><span class="st">"Prediction Error"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">pred</span> <span class="op">-</span> <span class="va">A1</span>, ylab<span class="op">=</span><span class="st">"Prediction Error"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="predict.cca-1.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
@@ -393,7 +390,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon, Tuomas Borman.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Tuomas Borman, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">

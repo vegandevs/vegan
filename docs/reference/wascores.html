@@ -46,15 +46,18 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wascores</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span>, expand<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="fu">eigengrad</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">wascores</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span>, expand <span class="op">=</span> <span class="cn">FALSE</span>, stdev <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">eigengrad</span><span class="op">(</span><span class="va">x</span>, <span class="va">w</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'wascores'</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wa"</span>, <span class="st">"stdev"</span>, <span class="st">"var"</span>, <span class="st">"se"</span>, <span class="st">"n2"</span>, <span class="st">"raw"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <p></p>
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>Environmental variables or ordination scores.</p></dd>
+<dd><p>Environmental variables or ordination scores, or for
+    <code>wascores</code> object with <code>stdev = TRUE</code>.</p></dd>
 
   <dt id="arg-w">w<a class="anchor" aria-label="anchor" href="#arg-w"></a></dt>
 <dd><p>Weights: species abundances.</p></dd>
@@ -63,29 +66,96 @@
 <dd><p>Expand weighted averages so that they have the same
     weighted variance as the corresponding environmental variables.</p></dd>
 
+  <dt id="arg-stdev">stdev<a class="anchor" aria-label="anchor" href="#arg-stdev"></a></dt>
+<dd><p>Estimate weighted standard deviation of WA scores.</p></dd>
+
+  <dt id="arg-display">display<a class="anchor" aria-label="anchor" href="#arg-display"></a></dt>
+<dd><p>Type of scores returned.</p></dd>
+
+  <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Other arguments passed to functions (currently ignored).</p></dd>
+
+
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Function <code>wascores</code> computes weighted averages. Weighted averages
-  “shrink”: they cannot be more extreme than values used for
-  calculating the averages. With <code>expand = TRUE</code>, the function
-  “deshrinks” the weighted averages by making their biased
-  weighted variance equal to the biased weighted variance of the
-  corresponding environmental variable.  Function <code>eigengrad</code>
-  returns the inverses of squared expansion factors or the attribute
-  <code>shrinkage</code> of the <code>wascores</code> result for each environmental
-  gradient.  This is equal to the constrained eigenvalue of
-  <code><a href="cca.html">cca</a></code> when only this one gradient was used as a
-  constraint, and describes the strength of the gradient.</p>
+
+
+<p>Weighted Averages are a classical way of estimating the species
+  optima along continuous environmental variables
+  (a.k.a. gradients). Function <code>wascores</code> is a simple function
+  that is mainly designed to add species scores to unimodal
+  ordinations (<code><a href="metaMDS.html">metaMDS</a></code>, <code><a href="sppscores.html">sppscores</a></code>) or
+  ordering rows or columns to give diagonal pattern of tabulation
+  (<code><a href="vegemite.html">vegemite</a></code>, <code><a href="vegemite.html">tabasco</a></code>). It can also be used
+  to find species “optima” or sampling unit calibrations for
+  community data. For this purpose, specialized packages such
+  <span class="pkg">analogue</span> are recommended (but see
+  <code><a href="predict.cca.html">calibrate.cca</a></code>).</p>
+<p>First argument of <code>wascores</code> is the variable or a matrix of
+  variables for which weighted averages are needed, and the second
+  argument is the matrix of weights. In classical approaches weights are
+  a community matrix, where taxon abundances define the weights. The
+  number of rows must match. If the first argument is for taxa
+  (columns), community weight matrix must be transposed.</p>
+<p>Weighted averages “shrink”: they cannot be more extreme than
+  values used for calculating the averages. With <code>expand = TRUE</code>,
+  the function “deshrinks” the weighted averages making their
+  weighted variance equal to the weighted variance of the
+  corresponding input variable. Specialized packages (such as
+  <span class="pkg">analogue</span>) offer a wider range of deshrinking alternatives, but
+  deshrinking can also made after the analysis (see
+  Examples). Function <code>eigengrad</code> returns the strength of
+  expansion as attribute <code>shrinkage</code> of the <code>wascores</code>
+  result for each environmental gradient.  The shrinkage equal to the
+  constrained eigenvalue of <code><a href="cca.html">cca</a></code> when only this one
+  gradient was used as a constraint, and describes the strength of the
+  gradient.</p>
+<p>With <code>stdev = TRUE</code> the function estimates the unbiased
+  weighted standard deviation of the WA estimates using
+  <code><a href="https://rdrr.io/r/stats/cov.wt.html" class="external-link">cov.wt</a></code>. For unbiased standard deviation the virtual
+  number of observations is equal to inverse Simpson index of
+  diversity also known as Hill number N2 (see
+  <code><a href="diversity.html">diversity</a></code>). The numeric results can be accessed with
+  <code>scores</code> function.  Function <code><a href="tolerance.html">tolerance</a></code> uses the
+  same algebra for weighted standard deviation, but bases the variance
+  on linear combination scores (constaints) variables instead of the
+  weighted averages of the sites like <code>wascores</code>.</p>
+<p>Weighted averages are closely linked to correspondence analysis
+  (<code><a href="cca.html">ca</a></code>, <code><a href="cca.html">cca</a></code>). Repeated use of
+  <code>wascores</code> will converge to the first axis of unconstrained
+  correspondence analysis (<code><a href="cca.html">ca</a></code>) which therefore is also
+  known as Reciprocal Averaging (Hill 1973). Constrained
+  correspondence analysis (<code><a href="cca.html">cca</a></code>) is equivalent to
+  weighted averages and <code><a href="predict.cca.html">calibrate.cca</a></code> will return
+  weighted averages of the constraint with different deshrinking.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Function <code>wascores</code> returns a matrix where species define rows
-  and ordination axes or environmental variables define columns. If
-  <code>expand = TRUE</code>, attribute <code>shrinkage</code> has the inverses of
-  squared expansion factors or <code><a href="cca.html">cca</a></code> eigenvalues for the
-  variable.  Function <code>eigengrad</code> returns only the <code>shrinkage</code>
-  attribute.</p>
+    <p>If <code>stdev = TRUE</code>, function returns an object of class
+  <code>"wascores"</code> with items</p>
+<p></p>
+<dl><dt>wa</dt>
+<dd><p>A matrix of weighted averages with.  If
+    <code>expand=TRUE</code>, attribute <code>shrinkage</code> has the inverses of
+    squared expansion factors or <code><a href="cca.html">cca</a></code> eigenvalues for the
+    variable and attribute <code>centre</code> for the weighted means of the
+    variables.</p></dd>
+
+
+  <dt>stdev</dt>
+<dd><p>a matrix of weighted standard deviations</p></dd>
+
+  <dt>n2</dt>
+<dd><p>effective sample sizes which are equal to inverse Simpson
+    diversity or Hill number N2</p></dd>
+
+
+</dl><p>If <code>stdev = FALSE</code> (default), only the plain matrix <code>wa</code>
+  is returned.  Function <code>eigengrad</code> returns only the
+  <code>shrinkage</code> attribute. With <code>stdev = TRUE</code> only a brief
+  summary of the result is printed, and the individvual scores can be
+  accessed with <code>scores</code> function.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -93,123 +163,66 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="monoMDS.html">monoMDS</a></code>, <code><a href="cca.html">cca</a></code>.</p></div>
+    <div class="dont-index"><p><code><a href="predict.cca.html">calibrate.cca</a></code>, <code><a href="tolerance.html">tolerance.cca</a></code>,
+  <code><a href="sppscores.html">sppscores</a></code>.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
+
+
+<p>Hill, M.O. (1973) Reciprocal averaging: An eigenvector method of
+  ordination. <em>Journal of Ecology</em> 61, 237–249.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">vare.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">vare.points</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">postMDS</a></span><span class="op">(</span><span class="va">vare.mds</span><span class="op">$</span><span class="va">points</span>, <span class="va">vare.dist</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">vare.wa</span> <span class="op">&lt;-</span> <span class="fu">wascores</span><span class="op">(</span><span class="va">vare.points</span>, <span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">vare.points</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">vare.wa</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">)</span>, cex<span class="op">=</span><span class="fl">0.8</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mite</span>, <span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## add species points to ordination</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## add species points; sppscores does the same and can also add the</span></span></span>
+<span class="r-in"><span><span class="co">## species scores to mod</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="fu">wascores</span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>, <span class="va">mite</span>, expand <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, col<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="wascores-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="co">## Omit rare species (frequency &lt;= 4)</span></span></span>
-<span class="r-in"><span><span class="va">freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">&gt;</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="va">sum</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">vare.points</span><span class="op">)</span>, pch<span class="op">=</span><span class="st">"+"</span>, asp<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">[</span><span class="va">freq</span> <span class="op">&gt;</span> <span class="fl">4</span>,<span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">vare.wa</span><span class="op">)</span><span class="op">[</span><span class="va">freq</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">]</span>,cex<span class="op">=</span><span class="fl">0.8</span>,col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## Get taxon optima for WatrCont</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">wascores</span><span class="op">(</span><span class="va">mite.env</span><span class="op">$</span><span class="va">WatrCont</span>, <span class="va">mite</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Brachy  360.4302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PHTH    292.0329</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HPAV    392.4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RARD    277.4195</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SSTR    359.1609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Protopl 248.4969</span>
+<span class="r-in"><span><span class="co">## WA calibration: site WA from species WA; NB using transpose for site WA</span></span></span>
+<span class="r-in"><span><span class="va">spwa</span> <span class="op">&lt;-</span> <span class="fu">wascores</span><span class="op">(</span><span class="va">mite.env</span><span class="op">$</span><span class="va">WatrCont</span>, <span class="va">mite</span>, expand <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wacalib</span> <span class="op">&lt;-</span> <span class="fu">wascores</span><span class="op">(</span><span class="va">spwa</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>, expand <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wacalib</span> <span class="op">~</span> <span class="va">WatrCont</span>, data<span class="op">=</span><span class="va">mite.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="wascores-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="co">## Works for environmental variables, too.</span></span></span>
-<span class="r-in"><span><span class="fu">wascores</span><span class="op">(</span><span class="va">varechem</span>, <span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 N        P         K       Ca        Mg        S        Al</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Callvulg 25.12401 41.66188 246.92383 572.3431  99.40828 49.10552 245.15751</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Empenigr 21.61371 44.17350 158.92517 580.8403  89.20628 35.75327 107.05670</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rhodtome 22.34553 40.35530 162.31108 643.8819  95.07712 30.84303  28.83159</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vaccmyrt 24.96352 49.80649 189.70177 656.4179  96.75529 34.55190  32.75705</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vaccviti 21.14028 45.86984 162.12372 613.2126  94.30084 37.26975 116.14656</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pinusylv 18.37299 44.24818 163.60195 670.9387  93.52214 37.02238 150.45523</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Descflex 22.24089 54.74804 212.20357 771.0159 114.15179 38.00000  24.64143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Betupube 21.51034 28.86552 112.28276 513.5586  75.15172 23.55172  33.12414</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vacculig 28.00729 33.48758 114.90230 372.9653  70.89954 29.32378 202.89008</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Diphcomp 22.34228 39.71049 127.44259 446.1565  80.16173 32.32963 122.31574</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrsp   21.33007 60.03758 185.04563 828.0544 148.67509 46.75427  90.42294</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrfusc 23.45681 39.14575 162.91954 578.2309  77.81648 33.48086  60.66890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrpoly 20.65446 43.87409 150.51485 665.5845 115.22112 36.17079  90.16733</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hylosple 26.10599 67.88980 245.78681 779.6520 111.96685 42.27433  24.92738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pleuschr 22.60476 54.22534 199.96241 712.6278 109.23425 40.01132  70.43900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polypili 23.17377 43.75902 144.82623 724.9738  85.42623 30.58525 145.73115</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polyjuni 22.89480 47.98022 154.81906 643.3864  87.27819 33.63863  53.24888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polycomm 21.73521 41.17042 154.91549 631.8704 101.84789 32.17324  46.80986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pohlnuta 19.99885 48.59198 169.68855 678.3813 104.31641 39.94427 132.05458</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ptilcili 21.27880 33.44211 127.08522 564.5652  85.96417 27.11720  56.60692</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Barbhatc 21.17461 27.93323 113.13542 497.9138  77.50564 23.72288  42.09749</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladarbu 23.56127 38.04952 142.03073 454.9019  74.00779 33.81002 173.12698</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladrang 24.28421 38.60534 135.31177 463.2750  70.54209 32.53349 183.79979</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladstel 19.28049 46.71060 158.00576 540.4904  80.19153 40.29106 225.89526</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladunci 21.41240 45.49844 163.40402 621.9100  98.35538 40.00734 119.59481</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcocc 21.72473 42.80681 156.32330 557.9007  80.95448 36.25161 149.82616</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcorn 22.11640 47.06656 160.36881 623.5185  95.17781 36.75273 104.71463</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladgrac 22.51887 44.06576 156.50214 583.1558  94.10292 36.93930 134.13424</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladfimb 21.77980 41.82652 153.29444 512.4646  78.28232 35.62323 128.96061</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcris 20.88795 44.12262 171.04016 574.5672  92.52169 38.24003 116.03507</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladchlo 19.51207 45.39655 150.93190 571.0233  95.77586 39.50862 156.81983</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladbotr 22.97660 38.89574 167.20000 590.8021  99.57234 34.79362  87.75957</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladamau 25.07143 35.84286 105.07857 395.2214  68.18571 27.11429  95.91429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladsp   19.21923 47.37308 168.49231 526.7654  79.54423 45.15385 215.33846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cetreric 21.00944 47.76972 165.07972 579.6322  99.14944 42.25472 163.46000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cetrisla 18.36552 42.73695 151.78374 626.2813  89.77833 35.33498 132.68227</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Flavniva 18.56110 61.18194 207.67705 502.9203  60.91755 50.22532 396.82405</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nepharct 23.33099 49.10019 146.84715 618.1601  64.27319 29.95760  31.72300</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Stersp   28.19743 32.84800  94.33459 389.5143  53.25377 24.22175  95.39326</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Peltapht 21.08553 54.45395 193.38816 886.5487 119.35132 37.92500 106.16447</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Icmaeric 28.88636 27.00000  87.86818 307.0500  40.48182 22.17273  89.94091</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcerv 20.25000 56.79000 192.36000 519.2300  62.10000 45.18000 314.92000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Claddefo 22.19198 45.22981 167.73069 583.7983  92.01320 38.51369 100.46139</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladphyl 15.73750 54.56875 180.39375 775.4500  99.65625 43.35000 208.55000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  Fe        Mn        Zn        Mo  Baresoil Humdepth       pH</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Callvulg  75.457843  52.38247  8.281074 0.4734635 27.241036 2.187819 2.845108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Empenigr  38.146102  53.49357  7.159938 0.3289657 27.324317 2.367439 2.888078</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Rhodtome   5.560906  70.48260  7.444100 0.2251490 37.325030 2.689154 2.895352</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vaccmyrt   5.589213  75.17221  7.838533 0.2666732 31.404171 2.798935 2.855216</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vaccviti  37.586067  51.81515  7.617213 0.3680289 26.307701 2.307879 2.923128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pinusylv  39.121898  35.22311  7.733333 0.3485401 17.762968 1.996350 3.049148</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Descflex   6.066429 110.87232  9.526607 0.2316071 22.740179 2.834821 2.822857</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Betupube   5.417241  37.53448  5.637931 0.2068966 51.496552 2.527586 2.979310</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Vacculig  93.963929  37.73062  4.593824 0.3780552 21.410710 2.041196 3.006965</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Diphcomp  73.281173  46.88025  4.593827 0.3725309 31.836574 2.103704 2.856790</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrsp    22.504617  65.35020 13.060765 0.5610370 23.182889 2.232247 2.954272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrfusc  13.922252  61.40958  6.922859 0.3218816 26.918674 2.484399 2.806431</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dicrpoly  20.973927  33.28779  9.110561 0.3892739 37.304043 2.228713 3.015842</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hylosple   4.729157 115.14606  9.885976 0.2851996 20.956264 2.925000 2.807594</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pleuschr  19.113811  77.12277  9.007860 0.3405945 24.584979 2.596881 2.858446</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polypili  51.993443  36.74754  8.045902 0.2204918 17.368852 1.493443 3.227869</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polyjuni  12.885704  82.56274  7.945126 0.2760289 28.116303 2.615523 2.874729</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Polycomm   7.895775  68.22535  7.843662 0.2591549 38.687324 2.926761 2.860563</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pohlnuta  33.089313  42.02290  8.452290 0.3935115 24.709351 2.147328 2.985496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ptilcili  14.036188  33.93547  5.906924 0.2303712 48.941884 2.502498 2.973376</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Barbhatc   8.199687  31.11379  5.550784 0.2084639 54.331975 2.514734 2.986834</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladarbu  65.470394  38.28429  6.387500 0.4464046 22.592997 2.048540 2.937879</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladrang  76.612752  34.86010  6.616452 0.3903501 17.270158 1.799128 3.022346</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladstel  84.639467  33.27903  7.287216 0.4054879  9.854042 1.851973 3.052167</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladunci  27.463504  40.10322  9.108102 0.5120114 28.312376 2.362687 2.858564</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcocc  46.653763  43.53584  7.269176 0.3698925 19.972222 2.025090 2.974194</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcorn  32.916238  53.38441  7.518489 0.3639871 26.620868 2.399518 2.890997</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladgrac  45.758366  44.63911  7.702724 0.4244163 25.546654 2.230350 2.933658</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladfimb  41.710354  47.83687  6.815152 0.3887626 24.763889 2.239394 2.902778</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcris  34.729585  44.75984  6.933735 0.3746988 29.711352 2.400000 2.841633</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladchlo  42.089655  35.13276  7.908621 0.3814655 22.319655 2.075000 3.022414</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladbotr  23.374468  46.54255  7.263830 0.3106383 45.725532 2.580851 2.904255</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladamau  68.971429  41.98571  4.928571 0.3214286 27.592857 1.857143 2.914286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladsp    47.913462  49.61923  8.421154 0.6173077 16.864423 2.213462 2.921154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cetreric  42.614167  36.96694  9.516389 0.5687500 21.452639 2.058056 2.923889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cetrisla  29.617734  33.24138  7.518227 0.3192118 26.417980 2.027586 3.065025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Flavniva  94.339916  37.03232  9.116371 0.9987764 19.692312 1.799241 2.923629</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nepharct  12.910837 115.15684  7.743536 0.2180608 23.135932 2.541065 2.918251</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Stersp    30.226998  31.97061  7.635502 0.2828767 15.844007 1.477740 3.038756</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Peltapht  37.598684  56.64079  7.652632 0.2046053 28.321053 2.286842 3.026316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Icmaeric  24.236364  23.95909  6.618182 0.2863636 18.727273 1.568182 2.968182</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladcerv 111.090000  52.04000  8.530000 0.6800000 15.393000 1.870000 2.900000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Claddefo  25.116325  48.81105  7.599609 0.4096285 33.814545 2.468133 2.823656</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cladphyl  50.475000  35.28125  8.568750 0.2812500  7.728125 1.575000 3.231250</span>
-<span class="r-in"><span><span class="co">## And the strengths of these variables are:</span></span></span>
-<span class="r-in"><span><span class="fu">eigengrad</span><span class="op">(</span><span class="va">varechem</span>, <span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          N          P          K         Ca         Mg          S         Al </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.13000842 0.18880078 0.16246365 0.15722067 0.16359171 0.13391967 0.29817406 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Fe         Mn         Zn         Mo   Baresoil   Humdepth         pH </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.20766831 0.27254480 0.16783834 0.09542514 0.20931501 0.25051326 0.14583161 </span>
+<span class="r-in"><span><span class="co">## use traditional 'inverse' regression deshrinking instead of wascores</span></span></span>
+<span class="r-in"><span><span class="co">## 'expand'</span></span></span>
+<span class="r-in"><span><span class="va">wareg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">WatrCont</span> <span class="op">~</span> <span class="va">wacalib</span>, data<span class="op">=</span><span class="va">mite.env</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="st">"WatrCont"</span> <span class="op">=</span> <span class="va">mite.env</span><span class="op">$</span><span class="va">WatrCont</span>, <span class="st">"expand"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/drop.html" class="external-link">drop</a></span><span class="op">(</span><span class="va">wacalib</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"regression"</span> <span class="op">=</span> <span class="va">wareg</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   WatrCont   expand regression</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   350.15 418.9468   418.3084</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   434.81 505.9779   484.6130</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   371.72 481.1096   465.6672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   360.50 430.6437   427.2198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   204.13 210.6019   259.5811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   311.55 227.7218   272.6239</span>
+<span class="r-in"><span><span class="co">## Reciprocal Averaging algorithm for Correspondence Analysis</span></span></span>
+<span class="r-in"><span><span class="co">## start with random values</span></span></span>
+<span class="r-in"><span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## repeat the following steps so long that the shrinkage converges</span></span></span>
+<span class="r-in"><span><span class="va">v</span> <span class="op">&lt;-</span> <span class="fu">wascores</span><span class="op">(</span><span class="va">u</span>, <span class="va">mite</span>, expand <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu">wascores</span><span class="op">(</span><span class="va">v</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">mite</span><span class="op">)</span>, expand <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">u</span>, <span class="st">"shrinkage"</span><span class="op">)</span> <span class="co"># current estimate of eigenvalue</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07763647</span>
+<span class="r-in"><span><span class="co">## The strengths of two continuous variables in the data set</span></span></span>
+<span class="r-in"><span><span class="fu">eigengrad</span><span class="op">(</span><span class="va">mite.env</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, <span class="va">mite</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   SubsDens   WatrCont </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.09996798 0.39512786 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -217,7 +230,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon, Tuomas Borman.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Tuomas Borman, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
