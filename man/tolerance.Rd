@@ -21,6 +21,10 @@ tolerance(x, \dots)
   Function to compute species tolerances and site heterogeneity measures
   from unimodal ordinations (CCA & CA). Implements Eq 6.47 and 6.48 from
   the Canoco 4.5 Reference Manual (pages 178--179).
+
+  Function \code{wascores} with \code{stdev = TRUE} uses the same
+  algebra, but bases the standard deviations on weighted averages
+  scores instead of linear combinations scores of \code{tolerance}.
 }
 \value{
   Matrix of tolerances/heterogeneities with some additional
