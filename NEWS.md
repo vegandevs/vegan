@@ -68,6 +68,16 @@
   with enhanced user-control. The function is now based solely on
   `abbreviate`.
 
+* `wascores` can now calculate (unbiased) weighted standard deviation
+  of weighted averages with argument `stdev = TRUE`.
+  
+
+## Bug Fixes
+
+* `anova.cca(..., by="margin")` failed when a constraint was
+  completely aliased by conditions. See
+  [#701](https://github.com/vegandevs/vegan/pull/701).
+
 ## Deprecated and Defunct
 
 * Disabled use of `summary` to get ordination scores: use `scores`!
