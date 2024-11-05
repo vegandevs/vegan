@@ -46,20 +46,26 @@
 `print.wascores` <-
     function(x, ...)
 {
-    cat("\nWeighted Averages\n")
-    cat("Call:", deparse(attr(x, "call")), "\n\n")
-    cat(nrow(x$wa), "weighted averages and their standard deviations for",
-        ncol(x$wa), "variables \n\n")
-    invisible(x)
+    if (!is.null(x$stdev)) { # should be always TRUE with class "wascores"
+        if (ncol(x$wa) == 1) {
+            out <- do.call("cbind", x)
+            colnames(out) <- c("WA", "SD", "N2")
+            print(out)
+        } else { # more than one x-variate
+            print(x$wa)
+            cat("\nUse scores() to see stdev (or derived statistics) and N2\n\n")
+        }
+    }
 }
 
 `scores.wascores` <-
     function(x, display = c("wa", "stdev", "var", "se", "n2", "raw"), ...)
 {
+    display <- tolower(display)
     display <- match.arg(display)
     ## Calculation of CI via t-value is currently disabled (although
     ## there is an entry in switch). If it is ever enabled in similar
-    ## way, p-value should be lifted to function arguments.
+    ## way, p-value should be lifted to function arguments and "ci" in display.
     p <- 0.95
     if(display == "ci")
         tval <- qt((1 - p)/2, x$N2, lower.tail = FALSE)
