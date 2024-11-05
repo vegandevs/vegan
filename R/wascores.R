@@ -56,6 +56,7 @@
             cat("\nUse scores() to see stdev (or derived statistics) and N2\n\n")
         }
     }
+    invisible(x)
 }
 
 `scores.wascores` <-
