@@ -1,10 +1,13 @@
 `envfit.default` <-
     function (ord, env, permutations = 999, strata = NULL, choices = c(1, 2),
-             display = "sites", w = weights(ord, display), na.rm = FALSE, ...)
+             display = "sites", w, na.rm = FALSE, ...)
 {
     vectors <- NULL
     factors <- NULL
-    X <- scores(ord, display = display, choices = choices, ...)
+    w <- if (missing(w))
+             if (is.atomic(ord)) attr(ord, "weights")
+             else weights(ord, display = display)
+    X <- scores(ord, display = display, choices = choices, w = w, ...)
     keep <- complete.cases(X) & complete.cases(env)
     if (any(!keep)) {
         if (!na.rm)
