@@ -4,10 +4,10 @@
 {
     vectors <- NULL
     factors <- NULL
-    w <- if (missing(w))
-             if (is.atomic(ord)) attr(ord, "weights")
+    if (missing(w))
+        w <- if (is.atomic(ord)) attr(ord, "weights")
              else weights(ord, display = display)
-    X <- scores(ord, display = display, choices = choices, w = w, ...)
+    X <- scores(ord, display = display, choices = choices, ...)
     keep <- complete.cases(X) & complete.cases(env)
     if (any(!keep)) {
         if (!na.rm)
