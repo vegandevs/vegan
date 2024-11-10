@@ -22,6 +22,13 @@
   The function is still experimental. In particular the user interface
   may need development. Comments are welcome.
 
+* `centredist`: new functions to find distances of points to their
+  group centroids in `betadisper` or in several ordination methods
+  (`cca`, `rda`, `dbrda`, `wcmdscale`). Functions can find (weighted)
+  Euclidean or Mahalanobis distances. See
+  (https://stackoverflow.com/questions/77391007/) and issue
+  [#606](https://github.com/vegandevs/vegan/issues/606).
+
 ## New Features
 
 * `plot.cca` graphics can be configured. `plot.cca` had hard-coded
@@ -77,6 +84,10 @@
 * `anova.cca(..., by="margin")` failed when a constraint was
   completely aliased by conditions. See
   [#701](https://github.com/vegandevs/vegan/pull/701).
+
+* `envfit` failed when ordination scores were given in a plain matrix
+  instead of a complex ordination result object. Issue
+  [#713](https://github.com/vegandevs/vegan/issues/713).
 
 ## Deprecated and Defunct
 
