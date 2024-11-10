@@ -49,6 +49,7 @@
 <p>A set of functions to add new points to an existing NMDS ordination from <code>metaMDS</code> or <code>monoMDS</code>. This serves the same purpose as adding new points to an existing eigenvector ordination (for instance, <code>predict.rda</code>). The main function is <code>MDSaddpoints</code>. This needs as an input rectangular matrix of dissimilarities of all new points (rows) to all old points (columns). Support function <code>dist2xy</code> can extract needed matrices from dissimilarities of all (old and new) points, and function <code>designdist2</code> can directly find the needed dissimilarities between two data matrices. In addition, <strong>analogue</strong> package can calculate such rectangular dissimilarities, including many indices that cannot be defined with <code>designdist2</code>.</p>
 <p>The function is still experimental. In particular the user interface may need development. Comments are welcome.</p>
 </li>
+<li><p><code>centredist</code>: new functions to find distances of points to their group centroids in <code>betadisper</code> or in several ordination methods (<code>cca</code>, <code>rda</code>, <code>dbrda</code>, <code>wcmdscale</code>). Functions can find (weighted) Euclidean or Mahalanobis distances. See (<a href="https://stackoverflow.com/questions/77391007/" class="external-link uri">https://stackoverflow.com/questions/77391007/</a>) and issue <a href="https://github.com/vegandevs/vegan/issues/606" class="external-link">#606</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-7-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-7-0"></a></h3>
@@ -67,8 +68,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-7-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-0"></a></h3>
-<ul><li>
-<code>anova.cca(..., by="margin")</code> failed when a constraint was completely aliased by conditions. See <a href="https://github.com/vegandevs/vegan/pull/701" class="external-link">#701</a>.</li>
+<ul><li><p><code>anova.cca(..., by="margin")</code> failed when a constraint was completely aliased by conditions. See <a href="https://github.com/vegandevs/vegan/pull/701" class="external-link">#701</a>.</p></li>
+<li><p><code>envfit</code> failed when ordination scores were given in a plain matrix instead of a complex ordination result object. Issue <a href="https://github.com/vegandevs/vegan/issues/713" class="external-link">#713</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-and-defunct-2-7-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-0"></a></h3>
