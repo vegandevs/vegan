@@ -1,8 +1,8 @@
 `text.ordiplot`  <-
-    function (x, what, labels, select, arrows = FALSE, length = 0.05,
-              arr.mul, bg, ...)
+    function (x, what, labels, select, optimize = FALSE, arrows = FALSE,
+              length = 0.05, arr.mul, bg, ...)
 {
-    sco <- scores(x, what)
+    sco <- scores(x, display = what)
     if (!missing(labels))
         rownames(sco) <- labels
     if (!missing(select))
@@ -21,7 +21,12 @@
         arrows(0, 0, sco[,1], sco[,2], length = length, ...)
         sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE, ...)
     }
-    if (missing(bg))
+    if (optimize) {
+        if (missing(bg))
+            ordipointlabel(sco, display = what, add = TRUE, ...)
+        else
+            ordipointlabel(sco, display = what, bg = bg, add = TRUE, ...)
+    } else if (missing(bg))
         text(sco, labels = rownames(sco), ...)
     else
         ordilabel(sco, labels = rownames(sco), fill = bg, ...)

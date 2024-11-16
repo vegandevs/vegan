@@ -2,7 +2,7 @@
     function (x, what, select, arrows = FALSE, length = 0.05,
               arr.mul, ...)
 {
-    sco <- scores(x, what)
+    sco <- scores(x, display = what)
     if (!missing(select))
         sco <- .checkSelect(select, sco)
     if (!missing(arr.mul)) {

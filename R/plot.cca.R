@@ -72,29 +72,34 @@
                       if (length(g$centroids) > 0 && all(is.na(g$centroids))) NA else g$centroids[, 2],
                       na.rm = TRUE)
     }
-    plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
-         ...)
+    ordiArgAbsorber(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
+         FUN = plot, ...)
     abline(h = 0, lty = 3)
     abline(v = 0, lty = 3)
     ## set up lists for graphical parameters
     GlobalPar <- list("type" = type)
     dots <- match.call(expand.dots = FALSE)$...
-    if (!is.null(dots))
+    if (!is.null(dots)) {
+        ## dots par optimize must be eval'ed to force it logical
+        if (!is.null(dots$optimize))
+            dots$optimize <- eval(dots$optimize)
         GlobalPar <- modifyList(GlobalPar, dots)
+    }
     ## Default graphical parameters
     defParText <- list("species" = list("col" = 2, "cex" = 0.7),
                        "sites" = list("cex" = 0.7),
                        "constraints" = list("col" = "darkgreen", "cex" = 0.7),
-                       "biplot" = list("col" = "blue"),
-                       "regression" = list("col" = "purple4"),
-                       "centroids" = list("col" = "blue"))
+                       "biplot" = list("col" = "blue", "cex" = 1.0),
+                       "regression" = list("col" = "purple4", "cex" = 1.0),
+                       "centroids" = list("col" = "blue", "cex" = 1.0))
     defParPoints <- list("species" = list("col" = 2, "cex" = 0.7, "pch" = "+"),
                          "sites" = list("cex" = 0.7, pch = 1),
                          "constraints" = list("col" = "darkgreen", "cex" = 0.7,
                                               "pch" = 2),
                          "biplot" = list("col" = "blue"),
                          "regression" = list("col" = "purple4"),
-                         "centroids" = list("col" = "blue", "pch" = "x"))
+                         "centroids" = list("col" = "blue", "pch" = "x",
+                                            "cex" = 1.0))
     UserPar <- list("species" = spe.par,
                     "sites" = sit.par,
                     "constraints" = con.par,
@@ -111,6 +116,7 @@
         score <- if (!is.null(UserPar[[kind]]$type))
                      UserPar[[kind]]$type
                  else type
+        score <- match.arg(score, TYPES)
         if (score == "none") next
         par <- switch(score,
                       "text" = defParText[[kind]],
@@ -118,6 +124,17 @@
         par <- modifyList(par, GlobalPar)
         if (!is.null(UserPar[[kind]]))
             par <- modifyList(par, UserPar[[kind]])
+        ## sanitize par combinations
+        if (score == "points") # points cannot be optimized
+            par <- modifyList(par, list(optimize = NULL))
+        else if (score == "text") {
+            if (isTRUE(par$optimize)) {
+                if (isTRUE(par$arrows) || kind %in% c("biplot", "regression"))
+                    message("'optimize = TRUE' and arrows do not mix nicely")
+                if (is.null(par$pch)) # optimize=TRUE needs points
+                    par <- modifyList(par, list(pch = defParPoints[[kind]]$pch))
+            }
+        }
         ## add arguments for text/points.ordiplot, remove type
         par <- modifyList(par, list("x" = g, "what" = kind, "type" = NULL))
         do.call(score, par)

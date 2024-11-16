@@ -6,10 +6,9 @@
 ### function is modelled after ordiellipse.
 `ordibar` <-
     function (ord, groups, display = "sites", kind = c("sd", "se"),
-              conf,  w = weights(ord, display), col = 1,
-              show.groups, label = FALSE, lwd = NULL, length = 0,  ...)
+              conf,  w, col = 1, show.groups, label = FALSE, lwd = NULL,
+              length = 0,  ...)
 {
-    weights.default <- function(object, ...) NULL
     kind <- match.arg(kind)
     pts <- scores(ord, display = display, ...)
     ## ordibar only works with 2D data (2 columns)
@@ -18,10 +17,10 @@
         pts <- pts[ , 1:2, drop = FALSE]
     if (ncol(pts) < 2)
         stop("needs two dimensions")
-    w <- eval(w)
-    if (length(w) == 1)
-        w <- rep(1, nrow(pts))
-    if (is.null(w))
+    if (missing(w))
+        w <- if(is.atomic(ord)) attr(ord, "weights")
+             else weights(ord, display = display)
+    if (is.null(w) || length(w) == 1)
         w <- rep(1, nrow(pts))
     if (!missing(show.groups)) {
         take <- groups %in% show.groups

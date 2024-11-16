@@ -5,6 +5,8 @@
 {
     display <- match.arg(display)
     model <- match.arg(model)
+    if (is.null(object[[model]]))
+        stop(gettextf("model '%s' does not exist", model))
     if (!inherits(object, "cca"))
         stop("can be used only with objects inheriting from 'cca'")
     ## See stressplot.capscale for a model to implement goodness() --

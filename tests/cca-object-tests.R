@@ -61,7 +61,7 @@ goodness(m1rda)       # fails in 2.5-3
 ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 ## head(goodness(mancap, display="sites")) # currently disabled
 ## head(goodness(mandb, display="sites")) # not implemneted for partial dbrda
-head(goodness(m0cca))
+## head(goodness(m0cca)) # now an error: no goodness without constraints
 
 head(inertcomp(mcca))
 head(inertcomp(mrda))

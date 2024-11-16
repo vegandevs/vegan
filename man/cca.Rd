@@ -174,7 +174,7 @@ pca(X, scale=FALSE, ...)
   The unconstrained ordination methods, Principal Components Analysis (PCA) and
   Correspondence Analysis (CA), may be performed using \code{pca()} and
   \code{ca()}, which are simple wrappers around \code{rda()} and \code{cca()},
-  respectively. Functions \code{pca()} and \code{ca} can only be called with
+  respectively. Functions \code{pca()} and \code{ca()} can only be called with
   matrix-like objects.
   
   The functions have \code{summary} and \code{plot} methods which are
@@ -189,6 +189,11 @@ pca(X, scale=FALSE, ...)
   inherits from class \code{cca} and is described in \code{\link{cca.object}}.
   The scaling used in \code{rda} scores is described in a separate
   vignette with this package.
+
+  Functions \code{pca()} and \code{ca()} return objects of class
+  \code{"vegan_pca"} and \code{"vegan_ca"} respectively to avoid
+  clashes with other packages. These classes inherit from \code{"rda"}
+  and \code{"cca"} respectively.
 }
 \references{ The original method was by ter Braak, but the current
   implementation follows Legendre and Legendre.

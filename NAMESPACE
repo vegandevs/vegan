@@ -6,12 +6,12 @@ useDynLib(vegan, .registration = TRUE)
 export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason,
 SSlomolino, adipart, adonis2, anosim, beals, betadisper, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, ca, calibrate, capscale,
-cascadeKM, cca, chaodist, contribdiv, clamtest, commsim, cutreeord,
-dbrda, decobackstand, decorana, decostand, designdist, designdist2,
+cascadeKM, cca, centerdist, centredist, chaodist, contribdiv, clamtest, commsim,
+cutreeord, dbrda, decobackstand, decorana, decostand, designdist, designdist2,
 dist2xy, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
 estaccumR, estimateR, eventstar, factorfit, fisherfit, fitspecaccum,
-gdispweight,goodness, hiersimu, humpfit, indpower, inertcomp, initMDS,
+gdispweight,goodness, hiersimu, indpower, inertcomp, initMDS,
 intersetcor, isomapdist, isomap, linestack, mantel, meandist,
 metaMDSdist, metaMDSiter, metaMDSredist, MDSaddpoints, MDSrotate, metaMDS,
 monoMDS, mrpp, msoplot, mso, multipart, make.commsim, nestedbetajac,
@@ -82,11 +82,11 @@ importFrom(stats, .getXlevels, add.scope, aggregate, aov, approx,
            complete.cases, cor, cov, cov.wt, cutree, delete.response,
            dendrapply, dist, dnorm, drop.scope, estVar, factor.scope,
            family, formula, glm, glm.fit, hclust, heatmap, integrate,
-           is.ts, kmeans, lm, median, na.action, na.fail, na.pass,
-           napredict, naprint, nlm, nls, optim, optimize, p.adjust,
+           is.ts, kmeans, lm, mahalanobis, median, na.action, na.fail,
+           na.pass, napredict, naprint, nlm, nls, optim, optimize, p.adjust,
            p.adjust.methods, pchisq, pf, plogis, pnorm, poisson,
            ppoints, prcomp, printCoefmat, pt, qchisq, qf, qlogis,
-           qnorm, quantile, quasipoisson, r2dtable, reformulate,
+           qnorm, qt, quantile, quasipoisson, r2dtable, reformulate,
            rmultinom, rnorm, runif, sd, spline, summary.lm, terms, ts,
            uniroot, update.formula, var, weighted.mean)
 ## S3methods for these
@@ -100,8 +100,8 @@ importFrom(graphics, abline, arrows, axis, barplot, box, contour,
 import(permute) ## vegan depends on permute: import everything
 importFrom(utils, news, vignette, combn, flush.console, modifyList,
            object.size, read.fortran, read.fwf, str)
-importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.off,
-           heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
+importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.hold, dev.flush,
+           dev.off, heat.colors, jpeg, palette, pdf, png, postscript, rainbow,
            rgb, svg, tiff, xfig, xy.coords)
 ## import(grDevices) ## too many functions to be listed separately
 ## import(lattice) # vegan depends on lattice: import all
@@ -176,6 +176,13 @@ S3method(calibrate, ordisurf)
 # cca: vegan
 S3method(cca, default)
 S3method(cca, formula)
+# centredist: vegan
+S3method(centredist, betadisper)
+S3method(centredist, cca)
+S3method(centredist, dbrda)
+S3method(centredist, default)
+S3method(centredist, rda)
+S3method(centredist, wcmdscale)
 # coef: stats
 S3method(coef, cca)
 S3method(coef, radfit)
@@ -249,6 +256,7 @@ S3method(identify, ordiplot)
 # labels: base
 S3method(labels, cca)
 S3method(labels, envfit)
+S3method(labels, ordipointlabel)
 # lines: graphics
 S3method(lines, fitspecaccum)
 S3method(lines, permat)
@@ -387,6 +395,7 @@ S3method(print, rad)
 S3method(print, betadisper)
 S3method(print, bioenv)
 S3method(print, cca)
+S3method(print, centredist)
 S3method(print, commsim)
 S3method(print, decorana)
 S3method(print, eigenvals)
@@ -478,6 +487,7 @@ S3method(scores, ordihull)
 S3method(scores, ordiplot)
 S3method(scores, pcnm)
 S3method(scores, rda)
+S3method(scores, wascores)
 S3method(scores, wcmdscale)
 # screeplot: stats
 S3method(screeplot, cca)
@@ -499,6 +509,8 @@ S3method(specslope, fitspecaccum)
 S3method("sppscores<-", capscale)
 S3method("sppscores<-", dbrda)
 S3method("sppscores<-", metaMDS)
+S3method("sppscores<-", monoMDS)
+S3method("sppscores<-", wcmdscale)
 # SSD: stats
 S3method(SSD, cca)
 # str: utils

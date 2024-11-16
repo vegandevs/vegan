@@ -199,8 +199,19 @@
     if (rank == 0)
         return(list(Y = Y, result = NULL))
     ## check for aliased terms
-    if (length(Q$pivot) > Q$rank)
+    if (length(Q$pivot) > Q$rank) {
         alias <- colnames(Q$qr)[-seq_len(Q$rank)]
+        # print a message to highlight this aliasing
+        #msg <- "Some model terms were linearly dependent and their effects
+#cannot be uniquely estimated. See '?alias.cca' for more detail and use
+#'vif.cca()' to identify these terms."
+        #message(strwrap(msg, prefix = "\n", initial = "\n",
+        #    width = 0.95 * getOption("width")))
+        aliased <- paste(sQuote(alias), collapse = ", ")
+        msg <- paste("Some constraints or conditions were aliased because they were redundant.",
+        "This can happen if terms are linearly dependent (collinear):", aliased)
+        message(strwrap(msg, width = getOption("width"), prefix = "\n", initial = "\n"))
+    }
     else
         alias <- NULL
     ## kept constraints and their means
@@ -259,12 +270,14 @@
                            "CAPSCALE" = "CAP",
                            "DISTBASED" = "dbRDA"),
                     seq_len(sum(posev)))
+    if (!any(posev)) # issue #670: no positive eigenvalues in dbrda
+        axnam <- NULL
     if (DISTBASED && any(!posev))
         negnam <- paste0("idbRDA", seq_len(sum(!posev)))
     else
         negnam <- NULL
     dnam <- dimnames(Y)
-    if (any(posev))
+    if (any(posev) || any(!posev))
         names(lambda) <- c(axnam, negnam)
     if (ncol(u))
         dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
@@ -416,9 +429,11 @@
     }
     ## Residuals
     resid <- ordResid(Y)
-    if (resid$rank < 1)
-        warning("overfitted model with no unconstrained component",
-                call. = FALSE)
+    if (resid$rank < 1) {
+        msg <- "The model is overfitted with no unconstrained (residual) component"
+        message(strwrap(msg, prefix = "\n", initial = "\n",
+            width = 0.95 * getOption("width")))
+    }
     ## return a CCA object
     out <- c(head,
              call = match.call(),

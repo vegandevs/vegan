@@ -7,30 +7,32 @@
         pcex <- cex
     if (missing(pcol))
         pcol <- col
-    x <- scores(x, display = display, choices = choices, ...)
-    kk <- complete.cases(x)
+    if (inherits(x, "ordiplot"))
+        display <- match.arg(display, names(x))
+    sco <- scores(x, display = display, choices = choices, ...)
+    kk <- complete.cases(sco)
     if (missing(labels))
-        labels <- rownames(x)
+        labels <- rownames(sco)
     if (missing(priority))
-        priority <- rowSums((scale(x)^2))
+        priority <- rowSums((scale(sco)^2))
     if (!missing(select)) {
-        x <- .checkSelect(select, x)
+        sco <- .checkSelect(select, sco)
         labels <- .checkSelect(select, labels)
         priority <- .checkSelect(select, priority)
         kk <- .checkSelect(select, kk)
     }
     ## remove NA scores
-    x <- x[kk,]
+    sco <- sco[kk,]
     priority <- priority[kk]
     labels <- labels[kk]
     w <- abs(strwidth(labels, cex = cex))/2 * air
     h <- abs(strheight(labels, cex = cex))/2 * air
-    xx <- cbind(x[, 1] - w, x[, 1] + w, x[, 2] - h, x[, 2] +
+    xx <- cbind(sco[, 1] - w, sco[, 1] + w, sco[, 2] - h, sco[, 2] +
                 h)
     is.na(priority) <- w == 0
     ord <- rev(order(priority, na.last = FALSE))
     xx <- xx[ord, ]
-    x <- x[ord, ]
+    sco <- sco[ord, ]
     labels <- labels[ord]
     tt <- logical(nrow(xx))
     tt[1] <- TRUE
@@ -47,15 +49,20 @@
             pcex <- (pcex[ord])[!tt]
         if (length(pcol) > 1)
             pcol <- (pcol[ord])[!tt]
-        ordiArgAbsorber(x[!tt, , drop = FALSE], pch = pch, cex = pcex,
+        ordiArgAbsorber(sco[!tt, , drop = FALSE], pch = pch, cex = pcex,
                         col = pcol, FUN = points, ...)
     }
     if (length(cex) > 1)
         cex <- (cex[ord])[tt]
     if (length(col) > 1)
         col <- (col[ord])[tt]
-    ordiArgAbsorber(x[tt, , drop = FALSE], labels = labels[tt], cex = cex,
+    ordiArgAbsorber(sco[tt, , drop = FALSE], labels = labels[tt], cex = cex,
                     col = col, FUN = text, ...)
     names(tt) <- labels
-    invisible(tt[order(ord)])
+    if (inherits(x, "ordiplot")) {
+        attr(x[[display]], "orditorp") <- tt[order(ord)]
+        invisible(x)
+    } else {
+        invisible(tt[order(ord)])
+    }
 }

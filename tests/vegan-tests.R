@@ -42,7 +42,7 @@ anova(m, by="term", permutations=99) # failed before 2.5-0
 anova(m, by="margin", permutations=99) # works since 2.5-0
 anova(m, by="axis", permutations=99)
 ## adonis
-adonis2(fla, data = dune.env)
+adonis2(fla, data = dune.env, by = "terms")
 ## capscale
 p <- capscale(fla, data=df, na.action=na.exclude, subset = Use != "Pasture" & spno > 7)
 anova(p, permutations=99)
@@ -80,10 +80,10 @@ foo("capscale", dune, Management, na.action = na.omit) # fails in 2.2-1
 ## adonis must be done with detached 'df' or it will be used instead
 ## of with(dune.env, ...)
 detach(df)
-with(dune.env, foo("adonis2", dune, Management))
+with(dune.env, foo("adonis2", dune, Management, by = "terms"))
 ## the test case reported in github issue #285 by @ktmbiome
 var <- "Moisture"
-adonis2(dune ~ dune.env[, var])
+adonis2(dune ~ dune.env[, var], by = "terms")
 rm(var)
 ###
 
@@ -287,3 +287,45 @@ ev <- summary(eigenvals(mod))
 stopifnot(inherits(ev, "matrix"))
 stopifnot(!is.list(ev))
 ev
+
+### validation tests for centredist: sum of squared Euclidean distances
+### to the centroids equal (residual) eigenvalue
+data(dune, dune.env)
+## cca
+m <- cca(dune)
+stopifnot(all.equal(m$tot.chi,
+    sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2),
+    m$tot.chi))
+stopifnot(all.equal(m$tot.chi,
+    sum(centredist(m, rep("a", ncol(dune)), rank="full",
+                         display = "species")$distances^2)))
+## rda
+m <- pca(dune) ## variance/covariance
+stopifnot(all.equal(m$tot.chi,
+    sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
+m <- rda(dune, scale = TRUE) ## correlation
+stopifnot(all.equal(m$tot.chi,
+    sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
+## capscale
+m <- capscale(dune ~ 1) # Euclidean distance
+stopifnot(all.equal(m$tot.chi,
+    sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
+d <- vegdist(dune)
+m <- capscale(d ~ 1) # Bray-Curtis
+stopifnot(all.equal(m$CA$tot.chi,
+    sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
+## dbrda
+m <- pco(dune) # Euclidean distance
+stopifnot(all.equal(m$tot.chi,
+    sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
+m <- pco(d) # Bray-Curtis
+stopifnot(all.equal(m$tot.chi,
+    sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
+## betadisper(..., type="centroid") is equal to dbrda() and wcmdscale()
+bp <- betadisper(d, dune.env$Management, type = "centroid")
+stopifnot(all.equal(centredist(bp),
+          centredist(m, dune.env$Management, rank = "full"),
+          check.attributes = FALSE))
+stopifnot(all.equal(centredist(bp),
+          centredist(wcmdscale(d, eig=TRUE), dune.env$Management,
+                     rank="full"), check.attributes = FALSE))

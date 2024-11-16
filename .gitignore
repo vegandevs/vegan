@@ -11,3 +11,6 @@
 # compiled source files
 src/*.o
 src/*.so
+
+# Apple stuff
+.DS_Store

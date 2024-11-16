@@ -50,8 +50,8 @@
         if (missing(xlim)) xlim <- range(sp.x, st.x)
         if (missing(ylim)) ylim <- range(sp.y, st.y)
     })
-    plot(sites, type = "n", xlim = xlim, ylim = ylim, asp = 1,
-         ...)
+    ordiArgAbsorber(sites, type = "n", xlim = xlim, ylim = ylim, asp = 1,
+         FUN = plot, ...)
     if (origin) {
         abline(h = 0, lty = 3)
         abline(v = 0, lty = 3)
@@ -62,13 +62,15 @@
     }
     if (type != "none" && (display == "both" || display == "sites")) {
         if (type == "text" && !is.null(sitnam))
-            text(sites, sitnam, cex = cex, col = cols[1])
-        else points(sites, cex = cex, col = cols[1])
+            text.ordiplot(sites, what="sites", labels=sitnam, cex = cex,
+                          col = cols[1], ...)
+        else points.ordiplot(sites, cex = cex, col = cols[1], ...)
     }
     if (type != "none" && (display == "both" || display == "species")) {
         if (type == "text" && !is.null(spenam))
-            text(specs, spenam, cex = cex, col = cols[2])
-        else points(specs, pch = "+", cex = cex, col = cols[2])
+            text.ordiplot(specs, what="species", labels=spenam, cex = cex,
+                          col = cols[2], ...)
+        else points.ordiplot(specs, pch = "+", cex = cex, col = cols[2], ...)
     }
     out <- list(sites = sites, species = specs)
     class(out) <- "ordiplot"

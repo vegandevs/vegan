@@ -14,10 +14,9 @@
 \method{ordisurf}{default}(x, y, choices = c(1, 2), knots = 10,
          family = "gaussian", col = "red", isotropic = TRUE,
          thinplate = TRUE, bs = "tp", fx = FALSE, add = FALSE,
-         display = "sites", w = weights(x, display), main, nlevels = 10,
-         levels, npoints = 31, labcex = 0.6, bubble = FALSE,
-         cex = 1, select = TRUE, method = "REML", gamma = 1,
-         plot = TRUE, lwd.cl = par("lwd"), ...)
+         display = "sites", w, main, nlevels = 10, levels, npoints = 31,
+         labcex = 0.6, bubble = FALSE, cex = 1, select = TRUE, method = "REML",
+         gamma = 1, plot = TRUE, lwd.cl = par("lwd"), ...)
 
 \method{ordisurf}{formula}(formula, data, ...)
 
@@ -66,9 +65,14 @@
     fitting continues using \code{select = FALSE}.}
   \item{add}{Add contours to an existing diagram or draw a new plot?}
   \item{display}{Type of scores known by \code{\link{scores}}: typically
-    "sites" for ordinary site scores or "lc" for linear combination scores.}
-  \item{w}{Prior weights on the data. Concerns mainly \code{\link{cca}}
-    and \code{\link{decorana}} results which have nonconstant weights.}
+    "sites" for ordinary site scores or "lc" for linear combination
+    scores.}
+  
+  \item{w}{Prior weights on the data. Weights of the ordination object
+    will be used if the object has attribute \code{weights} or a
+    \code{weights} function. Concerns mainly \code{\link{cca}} and
+    \code{\link{decorana}} results which have nonconstant weights.}
+  
   \item{main}{The main title for the plot, or as default the name of
     plotted variable in a new plot.}
   \item{nlevels, levels}{Either a vector of \code{levels} for which contours

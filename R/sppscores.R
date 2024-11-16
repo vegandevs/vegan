@@ -57,6 +57,51 @@
     object
 }
 
+## monoMDS
+
+`sppscores<-.monoMDS` <-
+    function(object, value)
+{
+    wa <- wascores(object$points, value, expand = TRUE)
+    attr(wa, "data") <- deparse(substitute(value))
+    object$species <- wa
+    object
+}
+
+
+## sppscores<-.wcmdscale works with the simple case of row
+## weights. Verified to give the same result as RDA with duplicated
+## rows when using the number of duplicates as row weights in
+## wcmdscale of Eucliden distances (per sqrt(n-1)). However, does not
+## give the same results as CA in wcmdscale(vegdist(x, "chisq"),
+## w=rowSums(x)/sum(x)).
+
+`sppscores<-.wcmdscale` <-
+    function(object, value)
+{
+    value <- as.matrix(value)
+    w <- weights(object)
+    spp <- crossprod(value, w * object$points)
+    spp <- decostand(spp, "normalize", MARGIN = 2)
+    attr(spp, "vdata") <- deparse(substitute(value))
+    object$species <- spp
+    object
+}
+
+## This code would give CA species scores for
+##    wcmdscale(vegdist(x, "chisq"), w = rowSums(x)/sum(x), eig=TRUE)
+## or CA as weighted PCoA of Chi-square distances
+
+## `sppscores<-.wcmdscale` <-
+##     function(object, value)
+## {
+##     value <- as.matrix(value)
+##     value <- decostand(value, "total", MARGIN=2) # for sum(w) = 1
+##     spp <- crossprod(value, object$points) # wa: sum(w*x) with sum(w)=1
+##     spp <- sweep(spp, 2, object$eig, "/") # for wascores(..., expand=T)
+##     object$species <- spp
+##     object
+## }
 ## the main purpose of accessor function is to provide nicer command
 ## autocompletion and cross-references in help, and of course, to tell
 ## that it is not implemented (and may never be)

@@ -26,7 +26,7 @@ function (x, method, thin = 1)
 "permuted.index" <-
     function (n, strata)
 {
-    .Defunct("use permute package (shuffle or shuffleSet)")
+    .Defunct("permute package (shuffle or shuffleSet)")
 }
 
 ### deprecated in 2.5-3, declared defunct and removed in 2.6-2 (but
@@ -34,7 +34,7 @@ function (x, method, thin = 1)
 `humpfit` <-
     function (mass, spno, family = poisson, start)
 {
-    .Defunct("use natto::humpfit() from https://github.com/jarioksa/natto/")
+    .Defunct("natto::humpfit() from https://github.com/jarioksa/natto/")
 }
 
 ### deprecated in 2.6-2 with alternative toCoda, make defunct in 2.6-5

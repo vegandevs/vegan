@@ -30,11 +30,11 @@ metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20,
     noshare = (engine == "isoMDS"), wascores = TRUE, expand = TRUE, 
     trace = 1, plot = FALSE, previous.best,  ...)
 \method{plot}{metaMDS}(x, display = c("sites", "species"), choices = c(1, 2),
-    type = "p", shrink = FALSE, ...)
+    type = "p", shrink = FALSE, cex = 0.7, ...)
 \method{points}{metaMDS}(x, display = c("sites", "species"),
-    choices = c(1,2), shrink = FALSE, select, ...)
+    choices = c(1,2), shrink = FALSE, select, cex = 0.7, ...)
 \method{text}{metaMDS}(x, display = c("sites", "species"), labels, 
-    choices = c(1,2), shrink = FALSE, select, ...)
+    choices = c(1,2), shrink = FALSE, select, cex = 0.7, ...)
 \method{scores}{metaMDS}(x, display = c("sites", "species"), shrink = FALSE, 
     choices, tidy = FALSE, ...)
 metaMDSdist(comm, distance = "bray", autotransform = TRUE, 
@@ -64,7 +64,7 @@ metaMDSredist(object, ...)
     \code{trymax} was reached.}
   \item{engine}{The function used for MDS. The default is to use the
     \code{\link{monoMDS}} function in \pkg{vegan}, but for backward
-    compatibility it is also possible to use \code{\link{isoMDS}} of
+    compatibility it is also possible to use \code{\link[MASS]{isoMDS}} of
     \pkg{MASS}.}
 
   \item{autotransform}{Use simple heuristics for possible data
@@ -93,7 +93,8 @@ metaMDSredist(object, ...)
     more voluminous.}
   \item{plot}{Graphical tracing: plot interim results. You may want to set
     \code{par(ask = TRUE)} with this option.}
-  \item{previous.best}{Start searches from a previous solution.}
+  \item{previous.best}{Start searches from a previous solution. This can
+    also be a \code{\link{monoMDS}} solution or a matrix of coordinates.}
 
   \item{x}{\code{metaMDS} result (or a dissimilarity structure for
   \code{initMDS}).}
@@ -104,6 +105,7 @@ metaMDSredist(object, ...)
  \item{display}{Display \code{"sites"} or \code{"species"}.}
  \item{shrink}{Shrink back species scores if they were expanded
    originally.}
+ \item{cex}{Character expansion for plotting symbols.}
  \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
    all scores are in a single \code{data.frame}, score type is
    identified by factor variable \code{code} (\code{"sites"} or

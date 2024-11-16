@@ -8,6 +8,8 @@
     ZEROEIG <- 1e-7 # same limit as in the C function do_decorana
     ## data
     veg <- as.matrix(veg)
+    if (!is.numeric(veg))
+        stop("data 'veg' must be numeric (not factors or characters)")
     if (any(veg < 0))
         stop("'decorana' cannot handle negative data entries")
     ## optional data transformation

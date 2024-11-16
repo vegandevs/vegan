@@ -1,6 +1,6 @@
 `adonis2` <-
     function(formula, data, permutations = 999, method = "bray",
-             sqrt.dist = FALSE, add = FALSE, by = "terms",
+             sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
              strata = NULL, ...)
 {
@@ -8,7 +8,7 @@
     if (missing(data))
         data <- model.frame(delete.response(terms(formula)),
                             na.action = na.action)
-    ## we accept only by = "terms", "margin" or NULL
+    ## we accept only by = "terms", "margin", "onedf" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin", "onedf"))
     ## evaluate lhs

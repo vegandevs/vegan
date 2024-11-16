@@ -1,64 +1,78 @@
 \name{make.cepnames}
 \alias{make.cepnames}
 
-\title{Abbreviates a Botanical or Zoological Latin Name into an Eight-character Name} 
-\description{
-  A standard CEP name has four first letters of the generic name and
-  four first letters of the specific epithet of a Latin name. The last
-  epithet, that may be a subspecific name, is used in the current
-  function. If the name has only one component, it is abbreviated to
-  eight characters (see \code{\link{abbreviate}}).
-  The returned names are made unique with function
-  \code{\link{make.unique}} which adds numbers to the end of CEP names if needed.
-}
+\title{Abbreviates a Two-Part Botanical or Zoological Latin Name into
+  Character String}
+
+\description{ Function is based on \code{\link{abbreviate}}, and will
+  take given number of characters from the first (genus) and last
+  (epithet) component of botanical or zoological Latin name and combine
+  these into one shorter character string. The names will be unique and
+  more characters will be used if needed. The default usage makes names
+  with 4+4 characters popularized in Cornell Ecology Programs (CEP) and
+  often known as CEP names. Abbreviated names are useful in ordination
+  plots and other graphics to reduce clutter.  }
+
 \usage{
-make.cepnames(names, seconditem = FALSE)
-}
-\arguments{
-  \item{names}{The names to be formatted into CEP names. }
-  \item{seconditem}{Take always the second item of the original name
-    to the abbreviated name instead of the last original item
-    (default).}
+make.cepnames(names, minlengths = c(4,4), seconditem = FALSE,
+   uniqgenera = FALSE, named = FALSE, method)
 }
 
-\details{ Cornell Ecology Programs (CEP) used eight-letter
-  abbreviations for species and site names. In species, the names were
-  formed by taking four first letters of the generic name and four
-  first letters of the specific or subspecific epithet. The current
-  function first makes valid \R names using \code{\link{make.names}},
-  and then splits these into elements. The CEP name is made by taking
-  the four first letters of the first element, and four first letters
-  of the last (default) or the second element (with 
-  \code{seconditem = TRUE}). If there was only one name element, it is
-  \code{\link{abbreviate}}d to eight letters. Finally, the names are
-  made unique which may add numbers to duplicated names.
-  
-  The CEP names were originally used, because old \code{FORTRAN IV}
-  did not have \code{CHARACTER} data type, but text had to be stored
-  in numerical variables, which in popular computers could hold four
-  characters. In modern times, there is no reason for this limitation,
-  but ecologists are used to these names, and they may be practical to
-  avoid congestion in ordination plots.  
+\arguments{
+  \item{names}{The names to be abbreviated into a vector abbreviated names.}
+  \item{minlengths}{The minimum lengths of first and second part of the
+    abbreviation. If abbreviations are not unique, the parts can be
+    longer.}
+  \item{seconditem}{Take always the second part of the original name
+    to the abbreviated name instead of the last part.}
+  \item{uniqgenera}{Should the first part of the abbreviation (genus)
+    also be unique. Unique genus can take space from the second part
+    (epithet).}
+  \item{method}{The \code{\link{abbreviate}} argument in last attempt to
+    abbreviate the abbreviation. The default \code{method} tries
+    to drop character from the end, but \code{"both.sides"} can remove
+    characters from any position, including the genus part, and same
+    genus can be abbreviated differently.}
+  \item{named}{Should the result vector be named by original
+    \code{names}.}
 }
+
+\details{ Cornell Ecology Programs (CEP) used eight-letter abbreviations
+  for species and site names. In species, the names were formed by
+  taking four first letters of the generic name and four first letters
+  of the specific or subspecific epithet. The current function produces
+  CEP names as default, but it can also use other lengths. The function
+  is based on \code{\link{abbreviate}} and can produce longer names if
+  basic names are not unique. If generic name is shorter than specified
+  minimun length, more characters can be used by the epithet. If
+  \code{uniqgenera = TRUE} genus can use more characters, and these
+  reduce the number of characters available for the epithet. The
+  function drops characters from the end, but with \code{method =
+  "both.sides"} the function tries to drop characters from other
+  positions, starting with lower-case wovels, in the final attempt to
+  abbreviate abbreviations.  }
 
 \value{
-  Function returns CEP names.
+  Function returns a vector of abbreviated names.
 }
 \author{ Jari Oksanen }
-\note{
-  The function is simpleminded and rigid. You must write a better one if
-  you need.  
-}
+
 \seealso{
-  \code{\link{make.names}}, \code{\link{strsplit}},
-  \code{\link{substring}}, \code{\link{paste}}, \code{\link{abbreviate}}.
-  }
+ \code{\link{abbreviate}}.
+}
+
+\note{The function does not handle Author names except strictly
+  two-part names with \code{seconditem = TRUE}. It is often useful to
+  edit abbreviations manually.}
+
 \examples{
-make.cepnames(c("Aa maderoi", "Poa sp.", "Cladina rangiferina",
-"Cladonia cornuta", "Cladonia cornuta var. groenlandica",
-"Cladonia rangiformis", "Bryoerythrophyllum"))
-data(BCI)
-colnames(BCI) <- make.cepnames(colnames(BCI))
+names <- c("Aa maderoi", "Capsella bursa-pastoris", "Taraxacum",
+  "Cladina rangiferina", "Cladonia rangiformis", "Cladonia cornuta",
+  "Cladonia cornuta var. groenlandica", "Rumex acetosa",
+  "Rumex acetosella")
+make.cepnames(names)
+make.cepnames(names, uniqgenera = TRUE)
+make.cepnames(names, method = "both.sides")
 }
 \keyword{ character }
 

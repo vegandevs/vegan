@@ -6,6 +6,6 @@
   ord <- rda(X = X, scale = scale, ...)
   # change the call to be from pca()
   ord$call <- match.call()
-  class(ord) <- append(class(ord), "pca", after = 0)
+  class(ord) <- append(class(ord), "vegan_pca", after = 0)
   ord
 }
