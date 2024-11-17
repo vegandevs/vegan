@@ -124,7 +124,7 @@ decobackstand(x, zap = TRUE)
      0). The OptSpace algorithm is then used for matrix completion of
      the missing values that result from log transformation of the
      zero entries in the original input data. The vegan implementation
-     has been modified from the original implementation
+     was adapted from the original implementation
      ROptSpace::OptSpace (version 0.2.3) following Keshavan et
      al. (2010). The na.rm argument is required; this determines
      whether the transformation will include the matrix completion

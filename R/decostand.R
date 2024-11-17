@@ -123,24 +123,24 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_alr(x, na.rm, ...)
-	else x <- t(.calc_alr(t(x), na.rm, ...))
+            x <- .calc_alr(x, na.rm=na.rm, ...)
+	else x <- t(.calc_alr(t(x), na.rm=na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, clr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_clr(x, na.rm, ...)
-	else x <- t(.calc_clr(t(x), na.rm, ...))
+            x <- .calc_clr(x, na.rm=na.rm, ...)
+	else x <- t(.calc_clr(t(x), na.rm=na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_rclr(x, ...)
-	else x <- t(.calc_rclr(t(x), ...))
+            x <- .calc_rclr(x, na.rm=na.rm, ...)
+	else x <- t(.calc_rclr(t(x), na.rm=na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     })
