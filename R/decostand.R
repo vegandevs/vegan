@@ -192,7 +192,7 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm, ropt=3, niter=5, tol=1e-5, showprogress=FALSE, ...)
+    function(x, na.rm, ropt=3, niter=5, tol=1e-5, verbose=FALSE, ...)
 {
     # Error with negative values
     # Always na.rm=TRUE at this step!
@@ -224,7 +224,7 @@
      dimnams <- dimnames(xx)
      # xx <- filling::OptSpace(xx)$X
      # run OptSpace and pick the completed matrix
-     xx <- OptSpace(xx, ropt=ropt, niter=niter, tol=tol, showprogress=showprogress)$X
+     xx <- OptSpace(xx, ropt=ropt, niter=niter, tol=tol, verbose=verbose)$X
      # add back dim names
      dimnames(xx) <- dimnams
    } 
@@ -308,41 +308,8 @@
     x
 }
 
-# 
-# OptSpace : algorithm for matrix reconstruction from a partially revealed set
-# This function has been adapted from the original source code in the ROptSpace
-# R package (version 0.2.3; MIT License) by
-# Raghunandan H. Keshavan, Andrea Montanari, Sewoong Oh (2010).
-# See the ROptSpace::OptSpace for more information.
-# Let's assume an ideal matrix \eqn{M} with \eqn{(m\times n)} entries with rank \eqn{r} and
-# we are given a partially observed matrix \eqn{M\_E} which contains many missing entries.
-# Matrix reconstruction - or completion - is the task of filling in such entries.
-# OptSpace is an efficient algorithm that reconstructs \eqn{M} from \eqn{|E|=O(rn)}
-# observed elements with relative root mean square error (RMSE)
-# \deqn{RMSE \le C(\alpha)\sqrt{nr/|E|}}.
-# This implementation removes the "trimming" of the original OptSpace code in order to
-# leave feature filtering to the user. Moreover, some of the defaults have been adjusted to
-# better fit ecological data. 
-#
-# @param A an \eqn{(n\times m)} matrix whose missing entries should be flaged as NA.
-# @param ropt \code{NA} to guess the rank, or a positive integer as a pre-defined rank.
-# @param niter maximum number of iterations allowed.
-# @param tol stopping criterion for reconstruction in Frobenius norm.
-# @param showprogress a logical value; \code{TRUE} to show progress, \code{FALSE} otherwise.
-#
-# @return a named list containing
-# \describe{
-# \item{X}{an \eqn{(n \times r)} matrix as left singular vectors.}
-# \item{S}{an \eqn{(r \times r)} matrix as singular values.}
-# \item{Y}{an \eqn{(m \times r)} matrix as right singular vectors.}
-# \item{dist}{a vector containing reconstruction errors at each successive iteration.}
-# }
-# @references
-# Raghunandan H. Keshavan, Andrea Montanari, Sewoong Oh (2010).
-# Matrix Completion From a Few Entries.
-# IEEE Transactions on Information Theory 56(6):2980--2998.
-#
-OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, showprogress=FALSE){
+
+OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, verbose=FALSE){
 
   ## Preprocessing : A     : partially revelaed matrix
   if (!is.matrix(A)){
@@ -369,11 +336,11 @@ OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, showprogress=FALSE){
   
   ## Preprocessing : ropt  : implied rank
   if (is.na(ropt)){
-    if (showprogress){
+    if (verbose){
       message("* OptSpace: Guessing an implicit rank.")
     }
     r <- min(max(round(.guess_rank(M_E, nnZ.E)), 2), m-1)
-    if (showprogress){
+    if (verbose){
       message(paste0('* OptSpace: Guessing an implicit rank: Estimated rank : ',r))
     }
   } else {
@@ -397,7 +364,7 @@ OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, showprogress=FALSE){
   M_E <- M_E*rescal_param
   
   # 1. SVD
-  if (showprogress){
+  if (verbose){
     message("* OptSpace: Step 2: SVD ...")
   }
   svdEt <- svd(M_E)
@@ -408,7 +375,7 @@ OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, showprogress=FALSE){
   Y0 <- Y0[, rev(seq_len(ncol(Y0)))]
   
   # 3. Initial Guess
-  if (showprogress){
+  if (verbose){
     message("* OptSpace: Step 3: Initial Guess ...")
   }
   X0 <- X0*sqrt(n)
@@ -416,7 +383,7 @@ OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, showprogress=FALSE){
   S0 <- S0/eps
   
   # 4. Gradient Descent
-  if (showprogress){
+  if (verbose){
     message("* OptSpace: Step 4: Gradient Descent ...")
   }
   X <- X0
@@ -455,7 +422,7 @@ OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, showprogress=FALSE){
   out$S <- S
   out$Y <- Y
   out$dist <- dist
-  if (showprogress){
+  if (verbose){
     message('* OptSpace: estimation finished.')
   }
   return(out)
