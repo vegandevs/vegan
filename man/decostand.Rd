@@ -89,7 +89,7 @@ decobackstand(x, zap = TRUE)
        alr = [log(x_i/x_D), ..., log(x_{-D}/x_D)]}
      where the denominator sample \eqn{x_D} can be chosen
      arbitrarily. This transformation is often used with pH and other
-     chemistry measurenments. It is also commonly used as multinomial
+     chemistry measurements. It is also commonly used as multinomial
      logistic regression. Default \code{MARGIN = 1} uses row as the
      \code{reference}.
 
@@ -106,29 +106,36 @@ decobackstand(x, zap = TRUE)
      (e.g. the smallest positive value in the data), either by
      adding it manually to the input data, or by using the argument
      \code{pseudocount} as in
-     \code{decostand(x, method = "clr", pseudocount = 1)}. Adding
+     \code{decostand(x, method = "clr", na.rm=TRUE, pseudocount = 1)}. Adding
      pseudocount will inevitably introduce some bias; see
-     the \code{rclr} method for one available solution.
+     the \code{rclr} method for an alternative.
 
    \item \code{rclr}: robust clr ("rclr") is similar to regular clr
-     (see above) but allows data with zeroes. This method can avoid the use of pseudocounts,
-     unlike the standard clr. The robust clr (rclr) divides the values by geometric mean
-     of the observed features and then performs matrix completion for the zero entries.
-     In high dimensional data the geometric mean of rclr approximates the true
-     geometric mean; see e.g. Martino et al. (2019)
-     The \code{rclr} transformation is defined formally as follows:
-     \deqn{rclr = log\frac{x}{g(x > 0)}}{%
-     rclr = log(x/g(x > 0))}
-     where \eqn{x} is a single value, and \eqn{g(x > 0)} is the geometric 
-     mean of sample-wide values \eqn{x} that are positive (> 0). The OptSpace algorithm is
-     used for matrix completion of the missing values that result from log transformation of
-     the zero entries in the original input data. The vegan  implementation has been
-     modified from the original implementation ROptSpace::OptSpace (version 0.2.3) following
-     Keshavan et al. (2010). The following parameters can be passed to OptSpace through decostand:
-     "ropt" NA to guess the rank, or a positive integer as a pre-defined rank (default: NA);
-     "niter" maximum number of iterations allowed (default: 50);
-     "tol" stopping criterion for reconstruction in Frobenius norm (default: 1e-6);
-     "showprogress" a logical value; TRUE to show progress, FALSE otherwise (default: FALSE).
+     (see above) but it allows data with zeroes. This method can avoid
+     the use of pseudocounts, unlike the standard clr. The robust clr
+     (rclr) divides the values by geometric mean of the observed
+     features within each sample and then performs matrix completion
+     for the zero entries. In high dimensional data the geometric mean
+     of rclr approximates the true geometric mean; see e.g. Martino et
+     al. (2019). The \code{rclr} transformation is defined formally as
+     follows: \deqn{rclr = log\frac{x}{g(x > 0)}}{% rclr = log(x/g(x >
+     0))} where \eqn{x} is a single value, and \eqn{g(x > 0)} is the
+     geometric mean of sample-wide values \eqn{x} that are positive (>
+     0). The OptSpace algorithm is then used for matrix completion of
+     the missing values that result from log transformation of the
+     zero entries in the original input data. The vegan implementation
+     has been modified from the original implementation
+     ROptSpace::OptSpace (version 0.2.3) following Keshavan et
+     al. (2010). The na.rm argument is required; this determines
+     whether the transformation will include the matrix completion
+     step for the 0/NA entries (na.rm=TRUE). The following parameters
+     can be passed to OptSpace through decostand: "ropt" NA to guess
+     the rank, or a positive integer as a pre-defined rank (default:
+     3); "niter" maximum number of iterations allowed (default: 5);
+     "tol" stopping criterion for reconstruction in Frobenius norm
+     (default: 1e-5); "showprogress" a logical value; TRUE to show
+     progress, FALSE otherwise (default: FALSE). 
+
   }
 
   Standardization, as contrasted to transformation, means that the
@@ -215,7 +222,7 @@ sptrans <- wisconsin(varespec)
 varespec.clr <- decostand(varespec, "clr", pseudocount=1)
 
 # Robust CLR transformation for rows, no pseudocount necessary
-varespec.rclr <- decostand(varespec, "rclr")
+varespec.rclr <- decostand(varespec, "rclr", na.rm=TRUE)
 
 # ALR transformation for rows, with pseudocount and reference sample
 varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
