@@ -49,6 +49,14 @@
         x <- decostand(x, "clr", ...)  # dots to pass possible pseudocount
     if (method == 22)  # robust.aitchison
         x <- decostand(x, "rclr", ...) # No pseudocount for rclr
+        # Matrix completion with OptSpace
+	if (anyNA(x)) {
+          if (na.rm) {
+            x <- OptSpace(x, ...)$X
+	  } else {
+            stop("missing values or zeroes are not allowed with argument 'na.rm = FALSE'")
+          }
+	}
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)

@@ -17,12 +17,19 @@ relative <- decostand(testdata, "total")
 testdata.with.pseudo <- testdata + 1
 relative.with.pseudo <- decostand(testdata+1, "total")
 
+# NAs correcly assigned
+a1 <- testdata
+a2 <- decostand(a1, "rclr", na.rm=FALSE)
+a3 <- decostand(a1, "rclr", na.rm=TRUE)
+all(is.na(a2[a1==0]))
+all(!is.na(a3[a1==0]))
+
 # aitchison equals to CLR + Euclid (pseudocount is necessary with clr)
 a1 <- vegdist(testdata+1, method = "aitchison", na.rm=TRUE)
 a2 <- vegdist(decostand(testdata+1, "clr"), method = "euclidean", na.rm=TRUE)
 max(abs(a1-a2)) < 1e-6 # Tolerance
 
-# Robust aitchison equals to rCLR + Euclid
+# Robust aitchison equals to rCLR + Euclid when na.rm=TRUE (matrix completion applied)
 # and works without pseudocount
 a1 <- vegdist(testdata, method = "robust.aitchison", na.rm=TRUE)
 a2 <- vegdist(decostand(testdata, "rclr"), method = "euclidean", na.rm=TRUE)
@@ -44,8 +51,8 @@ d2 <- vegdist(testdata, "robust.aitchison", na.rm=TRUE)
 max(abs(d1-d2))<1e-6 # Tolerance
 
 # Robust rclr+Euclid should give same result than robust.aitchison
-d1 <- vegdist(decostand(testdata, "rclr"), "euclidean", na.rm=FALSE)
-d2 <- vegdist(testdata, "robust.aitchison", na.rm=FALSE)
+d1 <- vegdist(decostand(testdata+1, "rclr"), "euclidean", na.rm=FALSE)
+d2 <- vegdist(testdata+1, "robust.aitchison", na.rm=FALSE)
 max(abs(d1-d2))<1e-6 # Tolerance
 
 # Compare the outcomes with an external package that also provides compositional transformations

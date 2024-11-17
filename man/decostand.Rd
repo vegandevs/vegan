@@ -222,7 +222,7 @@ sptrans <- wisconsin(varespec)
 varespec.clr <- decostand(varespec, "clr", pseudocount=1)
 
 # Robust CLR transformation for rows, no pseudocount necessary
-varespec.rclr <- decostand(varespec, "rclr", na.rm=TRUE)
+varespec.rclr <- decostand(varespec, "rclr")
 
 # ALR transformation for rows, with pseudocount and reference sample
 varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)

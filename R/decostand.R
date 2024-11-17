@@ -217,16 +217,11 @@
    xx <- clog - means
    attr(xx, "parameters") <- list("means" = means)
 
-   # Add the matrix completion step if na.rm=TRUE
+   # Replace NAs with zeroes if na.rm=TRUE
    # Otherwise return the transformation with NAs
-   # (this is needed in some downstream methods)
+   # (to be completed separately)
    if (na.rm && any(is.na(xx))) {
-     dimnams <- dimnames(xx)
-     # xx <- filling::OptSpace(xx)$X
-     # run OptSpace and pick the completed matrix
-     xx <- OptSpace(xx, ropt=ropt, niter=niter, tol=tol, verbose=verbose)$X
-     # add back dim names
-     dimnames(xx) <- dimnams
+     xx[is.na(xx)] <- 0
    } 
 
    return(xx)
@@ -309,29 +304,32 @@
 }
 
 
-OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, verbose=FALSE){
+OptSpace <- function(x, ropt=3, niter=5, tol=1e-5, verbose=FALSE){
 
-  ## Preprocessing : A     : partially revelaed matrix
-  if (!is.matrix(A)){
-    stop("* OptSpace : an input A should be a matrix.")
+  ## Preprocessing : x     : partially revealed matrix
+  if (is.data.frame(x)) {
+    x <- as.matrix(x)
   }
-  if (any(is.infinite(A))){
-    stop("* OptSpace : no infinite value in A is allowed.")
+  if (!is.matrix(x)){
+    stop("* OptSpace : an input x should be a matrix.")
   }
-  if (!any(is.na(A))){
+  if (any(is.infinite(x))){
+    stop("* OptSpace : no infinite value in x is allowed.")
+  }
+  if (!any(is.na(x))){
     stop("* OptSpace : there is no unobserved values as NA.")
   }
-  idxna <- (is.na(A))
-  M_E <- array(0, c(nrow(A), ncol(A)))
-  M_E[!idxna] <- A[!idxna]
+  idxna <- (is.na(x))
+  M_E <- array(0, c(nrow(x), ncol(x)))
+  M_E[!idxna] <- x[!idxna]
   
   ## Preprocessing : size information
-  n <- nrow(A)
-  m <- ncol(A)
+  n <- nrow(x)
+  m <- ncol(x)
   
   ## Preprocessing : other sparse-related concepts
   nnZ.E <- sum(!idxna)
-  E <- array(0,c(nrow(A), ncol(A))); E[!idxna] <- 1
+  E <- array(0,c(nrow(x), ncol(x))); E[!idxna] <- 1
   eps <- nnZ.E/sqrt(m*n)
   
   ## Preprocessing : ropt  : implied rank
@@ -346,7 +344,7 @@ OptSpace <- function(A, ropt=3, niter=5, tol=1e-5, verbose=FALSE){
   } else {
     r <- round(ropt)
     if ((!is.numeric(r)) || (r<1) || (r>m) || (r>n)){
-      stop("* OptSpace: ropt should be an integer in [1,min(nrow(A),ncol(A))].")
+      stop("* OptSpace: ropt should be an integer in [1,min(nrow(x),ncol(x))].")
     }
   }
   
