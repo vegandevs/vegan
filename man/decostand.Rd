@@ -129,11 +129,11 @@ decobackstand(x, zap = TRUE)
      al. (2010). The na.rm argument is required; this determines
      whether the transformation will include the matrix completion
      step for the 0/NA entries (na.rm=TRUE). The following parameters
-     can be passed to OptSpace through decostand: "ropt" NA to guess
+     can be passed to OptSpace through decostand: "ROPT" NA to guess
      the rank, or a positive integer as a pre-defined rank (default:
-     3); "niter" maximum number of iterations allowed (default: 5);
-     "tol" stopping criterion for reconstruction in Frobenius norm
-     (default: 1e-5); "showprogress" a logical value; TRUE to show
+     3); "NITER" maximum number of iterations allowed (default: 5);
+     "TOL" stopping criterion for reconstruction in Frobenius norm
+     (default: 1e-5); "verbose" a logical value; TRUE to show
      progress, FALSE otherwise (default: FALSE). 
 
   }

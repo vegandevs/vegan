@@ -16,14 +16,14 @@ relative root mean square error (RMSE) \deqn{RMSE \le
 C(\alpha)\sqrt{nr/|E|}}.
 }
 \usage{
-OptSpace(x, ropt=3, niter=5, tol=1e-5, verbose=FALSE)
+OptSpace(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
 }
 
 \arguments{
   \item{x}{An \eqn{(n\times m)} matrix whose missing entries should be flagged as NA.}
-  \item{ropt}{\code{NA} to guess the rank, or a positive integer as a pre-defined rank.}
-  \item{niter}{Maximum number of iterations allowed.}
-  \item{tol}{Stopping criterion for reconstruction in Frobenius norm.}
+  \item{ROPT}{\code{NA} to guess the rank, or a positive integer as a pre-defined rank.}
+  \item{NITER}{Maximum number of iterations allowed.}
+  \item{TOL}{Stopping criterion for reconstruction in Frobenius norm.}
   \item{verbose}{a logical value; \code{TRUE} to show progress, \code{FALSE} otherwise.}
 }
 
@@ -68,7 +68,7 @@ data(varespec)
 # rclr transformation with no matrix completion for the 0/NA entries
 x <- decostand(varespec, method="rclr", na.rm=FALSE)
 # Matrix completion for the missing values
-res <- OptSpace(x, ropt=3, niter=5, tol=1e-5, verbose=FALSE)
+res <- OptSpace(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
 }
 \keyword{ multivariate}
 \keyword{ manip }
