@@ -92,10 +92,10 @@
         site.ind <- site.ind[!is.na(site.ind)]
     }
     else {
-        stake <- colSums(x[site.ind, ]) > 0
+        stake <- colSums(x[site.ind,, drop = FALSE ]) > 0
     }
     sp.ind <- sp.ind[stake[sp.ind]]
-    x <- x[site.ind, sp.ind]
+    x <- x[site.ind, sp.ind, drop = FALSE]
     if (!missing(scale))
         x <- coverscale(x, scale, ...)
     usedscale <- attr(x, "scale")
