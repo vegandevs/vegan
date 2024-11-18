@@ -12,6 +12,9 @@
   instead of a complex ordination result object. Issue
   [#713](https://github.com/vegandevs/vegan/issues/713).
 
+* `vegemite` dropped dimensions when only one site or species was
+  requested.
+
 ### Changes in version 2\.6-8
 
 #### New Features
