@@ -1,6 +1,7 @@
 `plot.cca` <- function (x, choices = c(1, 2), display = c("sp", "wa", "cn"),
                         scaling = "species", type, xlim, ylim, const,
                         correlation = FALSE, hill = FALSE,
+                        optimize = FALSE, arrows = FALSE,
                         spe.par = list(), sit.par = list(), con.par = list(),
                         bip.par = list(), cen.par = list(), reg.par = list(),
                         ...)
@@ -77,12 +78,9 @@
     abline(h = 0, lty = 3)
     abline(v = 0, lty = 3)
     ## set up lists for graphical parameters
-    GlobalPar <- list("type" = type)
+    GlobalPar <- list("type" = type, "optimize" = optimize, "arrows" = arrows)
     dots <- match.call(expand.dots = FALSE)$...
     if (!is.null(dots)) {
-        ## dots par optimize must be eval'ed to force it logical
-        if (!is.null(dots$optimize))
-            dots$optimize <- eval(dots$optimize)
         GlobalPar <- modifyList(GlobalPar, dots)
     }
     ## Default graphical parameters
