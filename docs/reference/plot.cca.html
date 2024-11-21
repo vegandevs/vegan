@@ -55,9 +55,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sp"</span>, <span class="st">"wa"</span>, <span class="st">"cn"</span><span class="op">)</span>,</span>
 <span>     scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">type</span>, <span class="va">xlim</span>, <span class="va">ylim</span>, <span class="va">const</span>,</span>
-<span>     correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, sit.par <span class="op">=</span></span>
-<span>     <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, con.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, bip.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, cen.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>     reg.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>     correlation <span class="op">=</span> <span class="cn">FALSE</span>, hill <span class="op">=</span> <span class="cn">FALSE</span>, optimize <span class="op">=</span> <span class="cn">FALSE</span>, arrows <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>     spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, sit.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, con.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, bip.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>     cen.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, reg.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">labels</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
 <span>     scaling <span class="op">=</span> <span class="st">"species"</span>, <span class="va">arrow.mul</span>, head.arrow <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">select</span>, <span class="va">const</span>,</span>
@@ -125,6 +125,21 @@
     are used to select the corresponding negative scaling type; either
     correlation-like scores or Hill's scaling for PCA/RDA and CA/CCA
     respectively. See argument <code>scaling</code> for details.</p></dd>
+
+
+  <dt id="arg-optimize">optimize<a class="anchor" aria-label="anchor" href="#arg-optimize"></a></dt>
+<dd><p>Optimize locations of text to reduce overlap and plot
+    point in the actual locations of the scores. Uses
+    <code><a href="ordipointlabel.html">ordipointlabel</a></code>.</p></dd>
+
+
+  <dt id="arg-arrows">arrows<a class="anchor" aria-label="anchor" href="#arg-arrows"></a></dt>
+<dd><p>Draw arrows from the origin. This will always be
+    <code>TRUE</code> for biplot and regression scores in constrained
+    ordination (<code><a href="cca.html">cca</a></code> etc.). Setting this <code>TRUE</code> will
+    draw arrows for any type of scores. This allows, e.g, using biplot
+    arrows for species. The arrow head will be at the value of scores,
+    and possible text is moved outwards.</p></dd>
 
 
   <dt id="arg-spe-par-sit-par-con-par-bip-par-cen-par-reg-par">spe.par, sit.par, con.par, bip.par, cen.par, reg.par<a class="anchor" aria-label="anchor" href="#arg-spe-par-sit-par-con-par-bip-par-cen-par-reg-par"></a></dt>
