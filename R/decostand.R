@@ -192,11 +192,11 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE, ...)
+    function(x, na.rm, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE, impute=TRUE, ...)
 {
     # Error with negative values
     # Always na.rm=TRUE at this step!
-    if (any(x < 0, na.rm = TRUE)) {
+    if (any(x < 0, na.rm = na.rm)) {
         stop("'rclr' cannot be used with negative data", call. = FALSE)
     }
 
@@ -208,22 +208,37 @@
 
    # Calculate log of geometric mean for every sample, ignoring the NAs
    # Always na.rm=TRUE at this step!   
-   means <- rowMeans(clog, na.rm = TRUE)
-   if (any(is.na(means))) {
-     stop("some samples do not contain (any) observations and thus rclr cannot be calculated")
-   }
+   means <- rowMeans(clog, na.rm = na.rm)
 
-   ## Divide (or in log-space, reduce) all values by their sample-wide geometric means
+   # TODO
+   #if (any(is.na(means))) {
+   #  stop("some samples do not contain (any) observations and thus rclr cannot be calculated")
+   #}
+
+   ## Divide (or in log-space, reduce) all values by their sample-wide
+   ## geometric means
    xx <- clog - means
    attr(xx, "parameters") <- list("means" = means)
 
-   # Replace NAs with zeroes if na.rm=TRUE
+   # Impute NAs if impute=TRUE
    # Otherwise return the transformation with NAs
-   # (to be completed separately)
-   if (na.rm && any(is.na(xx))) {
-     xx[is.na(xx)] <- 0
-   } 
+   if (impute && any(is.na(xx))){
+   
+     opt_res <- OptSpace(xx, ROPT=ROPT, NITER=NITER, TOL=TOL, verbose=verbose)
+     
+     # recenter the data (the means of rclr can get thrown off since we work on only missing)
+     M_I <- opt_res$X %*% opt_res$S %*% t(opt_res$Y)
 
+     # Center cols to 0
+     M_I <- as.matrix(scale(M_I, center=TRUE, scale=FALSE))
+
+     # Center rows to 0
+     M_I <- as.matrix(t(scale(t(M_I), center=TRUE, scale=FALSE)))
+
+     # Imputed matrix
+     xx <- M_I
+   }
+  
    return(xx)
    
 }
