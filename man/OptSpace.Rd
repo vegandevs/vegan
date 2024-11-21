@@ -65,10 +65,25 @@ al. (2010).}
 
 \examples{
 data(varespec)
+
 # rclr transformation with no matrix completion for the 0/NA entries
-x <- decostand(varespec, method="rclr", na.rm=FALSE)
-# Matrix completion for the missing values
+x <- decostand(varespec, method="rclr", impute=FALSE)
+
+# rclr transformation with no matrix completion for the 0/NA entries
 res <- OptSpace(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
+
+# recenter the data (the means of rclr can get thrown off since we work on only missing)
+M_I <- res$X %*% res$S %*% t(res$Y)
+
+# Center cols to 0
+M_I <- as.matrix(scale(M_I, center=TRUE, scale=FALSE))
+
+# Center rows to 0
+M_I <- as.matrix(t(scale(t(M_I), center=TRUE, scale=FALSE)))
+
+# Imputed matrix
+xx <- M_I
+
 }
 \keyword{ multivariate}
 \keyword{ manip }

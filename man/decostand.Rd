@@ -76,7 +76,7 @@ decobackstand(x, zap = TRUE)
      \code{\link{vegdist}}), but the standardization can be used 
      independently of distance indices.
 
-     \item \code{alr}: Additive log ratio ("alr") transformation
+    \item \code{alr}: Additive log ratio ("alr") transformation
      (Aitchison 1986) reduces data skewness and compositionality
      bias. The transformation assumes positive values, pseudocounts can
      be added with the argument \code{pseudocount}. One of the
@@ -93,7 +93,7 @@ decobackstand(x, zap = TRUE)
      logistic regression. Default \code{MARGIN = 1} uses row as the
      \code{reference}.
 
-     \item \code{clr}: centered log ratio ("clr") transformation proposed by
+    \item \code{clr}: centered log ratio ("clr") transformation proposed by
      Aitchison (1986) and it is used to reduce data skewness and compositionality bias.
      This transformation has frequent applications in microbial ecology
      (see e.g. Gloor et al., 2017). The clr transformation is defined as:
@@ -110,18 +110,19 @@ decobackstand(x, zap = TRUE)
      pseudocount will inevitably introduce some bias; see
      the \code{rclr} method for an alternative.
 
-   \item \code{rclr}: robust clr ("rclr") is similar to regular clr
+    \item \code{rclr}: robust clr ("rclr") is similar to regular clr
      (see above) but it allows data with zeroes. This method can avoid
      the use of pseudocounts, unlike the standard clr. The robust clr
      (rclr) the logarithmizes the data and divides it by the geometric
      mean of the observed features within each sample. In high
      dimensional data the geometric mean of rclr approximates the true
      geometric mean; see e.g. Martino et al. (2019). The \code{rclr}
-     transformation is defined formally as follows: \deqn{rclr =
-     log\frac{x}{g(x > 0)}}{% rclr = log(x/g(x > 0))} where \eqn{x} is
+     transformation is defined formally as follows:
+     \deqn{rclr = log\frac{x}{g(x > 0)}}{%
+           rclr = log(x/g(x > 0))} where \eqn{x} is
      a single value, and \eqn{g(x > 0)} is the geometric mean of
      sample-wide values \eqn{x} that are positive (> 0). The OptSpace
-     algorithm performs the matrix completion for the missing values
+     algorithm performs matrix completion for the missing values
      that result from log transformation of the zero entries in the
      original input data. The vegan implementation of the matrix
      completion was adapted from the original implementation
@@ -132,7 +133,7 @@ decobackstand(x, zap = TRUE)
      number of iterations allowed (default: 5); "TOL" stopping
      criterion for reconstruction in Frobenius norm (default: 1e-5);
      "verbose" a logical value; TRUE to show progress, FALSE otherwise
-     (default: FALSE). "impute" to switch on/off the matrix completion
+     (default: FALSE); "impute" to switch on/off the matrix completion
      (default: impute=TRUE).
   }
 
