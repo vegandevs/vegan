@@ -11,9 +11,10 @@
     if (inherits(ord, "decorana") || inherits(ord, "cca")) {
         if (missing(display))
             out <- plot(ord, choices = choices, type = type, xlim = xlim,
-                        ylim = ylim, ...)
+                        ylim = ylim, optimize = optimize, arrows = arrows, ...)
         else out <- plot(ord, choices = choices, type = type, display = display,
-                         xlim = xlim, ylim = ylim, ...)
+                         xlim = xlim, ylim = ylim, optimize = optimize,
+                         arrows = arrows, ...)
     }
     else {
         type <- match.arg(type, c("points", "text", "none"))

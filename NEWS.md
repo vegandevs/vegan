@@ -89,6 +89,9 @@
   instead of a complex ordination result object. Issue
   [#713](https://github.com/vegandevs/vegan/issues/713).
 
+* `vegemite` dropped dimensions when only one site or species was
+  requested.
+
 ## Deprecated and Defunct
 
 * Disabled use of `summary` to get ordination scores: use `scores`!

@@ -20,9 +20,9 @@
 \usage{
 \method{plot}{cca}(x, choices = c(1, 2), display = c("sp", "wa", "cn"),
      scaling = "species", type, xlim, ylim, const,
-     correlation = FALSE, hill = FALSE, spe.par = list(), sit.par =
-     list(), con.par = list(), bip.par = list(), cen.par = list(),
-     reg.par = list(), ...)
+     correlation = FALSE, hill = FALSE, optimize = FALSE, arrows = FALSE,
+     spe.par = list(), sit.par = list(), con.par = list(), bip.par = list(),
+     cen.par = list(), reg.par = list(), ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2),
      scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
      axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
@@ -75,6 +75,17 @@
     are used to select the corresponding negative scaling type; either
     correlation-like scores or Hill's scaling for PCA/RDA and CA/CCA
     respectively. See argument \code{scaling} for details.}
+
+  \item{optimize}{Optimize locations of text to reduce overlap and plot
+    point in the actual locations of the scores. Uses
+    \code{\link{ordipointlabel}}. }
+
+  \item{arrows}{Draw arrows from the origin. This will always be
+    \code{TRUE} for biplot and regression scores in constrained
+    ordination (\code{\link{cca}} etc.). Setting this \code{TRUE} will
+    draw arrows for any type of scores. This allows, e.g, using biplot
+    arrows for species. The arrow head will be at the value of scores,
+    and possible text is moved outwards.}
   
   \item{spe.par, sit.par, con.par, bip.par, cen.par, reg.par}{
     Lists of graphical parameters for species, sites, constraints (lc
