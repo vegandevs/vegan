@@ -113,28 +113,26 @@ decobackstand(x, zap = TRUE)
    \item \code{rclr}: robust clr ("rclr") is similar to regular clr
      (see above) but it allows data with zeroes. This method can avoid
      the use of pseudocounts, unlike the standard clr. The robust clr
-     (rclr) divides the values by geometric mean of the observed
-     features within each sample and then performs matrix completion
-     for the zero entries. In high dimensional data the geometric mean
-     of rclr approximates the true geometric mean; see e.g. Martino et
-     al. (2019). The \code{rclr} transformation is defined formally as
-     follows: \deqn{rclr = log\frac{x}{g(x > 0)}}{% rclr = log(x/g(x >
-     0))} where \eqn{x} is a single value, and \eqn{g(x > 0)} is the
-     geometric mean of sample-wide values \eqn{x} that are positive (>
-     0). The OptSpace algorithm is then used for matrix completion of
-     the missing values that result from log transformation of the
-     zero entries in the original input data. The vegan implementation
-     was adapted from the original implementation
-     ROptSpace::OptSpace (version 0.2.3) following Keshavan et
-     al. (2010). The na.rm argument is required; this determines
-     whether the transformation will include the matrix completion
-     step for the 0/NA entries (na.rm=TRUE). The following parameters
-     can be passed to OptSpace through decostand: "ROPT" NA to guess
-     the rank, or a positive integer as a pre-defined rank (default:
-     3); "NITER" maximum number of iterations allowed (default: 5);
-     "TOL" stopping criterion for reconstruction in Frobenius norm
-     (default: 1e-5); "verbose" a logical value; TRUE to show
-     progress, FALSE otherwise (default: FALSE). 
+     (rclr) the logarithmizes the data and divides it by the geometric
+     mean of the observed features within each sample. In high
+     dimensional data the geometric mean of rclr approximates the true
+     geometric mean; see e.g. Martino et al. (2019). The \code{rclr}
+     transformation is defined formally as follows: \deqn{rclr =
+     log\frac{x}{g(x > 0)}}{% rclr = log(x/g(x > 0))} where \eqn{x} is
+     a single value, and \eqn{g(x > 0)} is the geometric mean of
+     sample-wide values \eqn{x} that are positive (> 0). The OptSpace
+     algorithm is used for matrix completion of the missing values
+     that result from log transformation of the zero entries in the
+     original input data (this can be switched off with
+     impute=FALSE). The vegan implementation of the matrix completion
+     was adapted from the original implementation ROptSpace::OptSpace
+     (version 0.2.3) following Keshavan et al. (2010). The following
+     parameters can be passed to OptSpace through decostand: "ROPT" NA
+     to guess the rank, or a positive integer as a pre-defined rank
+     (default: 3); "NITER" maximum number of iterations allowed
+     (default: 5); "TOL" stopping criterion for reconstruction in
+     Frobenius norm (default: 1e-5); "verbose" a logical value; TRUE
+     to show progress, FALSE otherwise (default: FALSE).
 
   }
 
