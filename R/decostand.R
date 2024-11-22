@@ -139,8 +139,8 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_rclr(x, ...)
-	else x <- t(.calc_rclr(t(x), ...))
+            x <- .calc_rclr(x, na.rm=na.rm, ...)
+	else x <- t(.calc_rclr(t(x), na.rm=na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     })
@@ -192,10 +192,10 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE, impute=TRUE, ...)
+    function(x, na.rm, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE, impute=TRUE, ...)
 {
     # Error with negative values
-    if (any(x < 0)) {
+    if (any(x < 0, na.rm=na.rm)) {
         stop("'rclr' cannot be used with negative data", call. = FALSE)
     }
 
@@ -208,11 +208,6 @@
    # Calculate log of geometric mean for every sample, ignoring the NAs
    # Always na.rm=TRUE at this step!   
    means <- rowMeans(clog, na.rm = TRUE)
-
-   # TODO
-   #if (any(is.na(means))) {
-   #  stop("some samples do not contain (any) observations and thus rclr cannot be calculated")
-   #}
 
    ## Divide (or in log-space, reduce) all values by their sample-wide
    ## geometric means
@@ -438,6 +433,27 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   if (verbose){
     cat('* OptSpace: estimation finished.')
   }
+
+  # -------------------------------------------
+
+  # This part is not in the Python/Gemelli implementation
+  # but has been added in R to provide more direct access
+  # to the imputed matrix.
+
+  # Reconstruct the matrix
+  M <- X %*% S %*% t(Y)
+
+  # Centering is common operation supporting output visualization
+  # Center cols to 0
+  M <- as.matrix(scale(M, center=TRUE, scale=FALSE))
+  # Center rows to 0
+  M <- as.matrix(t(scale(t(M), center=TRUE, scale=FALSE)))
+
+  # Imputed matrix; add to the output
+  out$M <- M
+
+  # -------------------------------------------
+
   return(out)
 }
 

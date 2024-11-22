@@ -5,7 +5,7 @@ suppressPackageStartupMessages(require(vegan))
 # Calculates clr-transformation. Should be equal.
 
 # Test data
-# data(varespec)
+data(varespec)
 testdata <- matrix(round(runif(1000, 0, 100)), nrow=20)
 testdata <- testdata - 50
 testdata[testdata < 0] <- 0
@@ -85,6 +85,15 @@ test2 <- test2[, -1]
 
 # Expect high correlation
 cor(unlist(test), unlist(test2)) > 0.99
+
+# Compare rclr with imputation to without imputation + matrix completion
+# rclr transformation with matrix completion for the 0/NA entries
+x1 <- decostand(varespec, method="rclr", impute=TRUE)
+# rclr transformation with no matrix completion for the 0/NA entries
+x2 <- decostand(varespec, method="rclr", impute=FALSE)
+# Matrix completion
+x2c <- OptSpace(x2, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)$M
+all(as.matrix(x1) == as.matrix(x2c))
 
 ############################# NAMES ####################################
 

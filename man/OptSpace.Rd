@@ -34,15 +34,18 @@ This implementation removes the trimming step of the original
 ROptSpace::OptSpace code in order to leave feature filtering to the
 user. Some of the defaults have been adjusted to better reflect
 ecological data. The implementation has been adjusted for ecological
-applications as in Martino et al. (2019).
+applications as in Martino et al. (2019). The imputed matrix (M) in
+the OptSpace output includes matrix reconstruction (XSY'), with
+subsequcnt centering for the columns and rows.
 }
 
 \value{Returns a named list containing:
   \itemize{
     \item{X}{an \eqn{(n \times r)} matrix as left singular vectors.}
     \item{S}{an \eqn{(r \times r)} matrix as singular values.}
-    \item{Y}{an \eqn{(m \times r)} matrix as right singular vectors.}
+    \item{Y}{an \eqn{(m \times r)} matrix as right singular vectors.}    
     \item{dist}{a vector containing reconstruction errors at each successive iteration.}
+    \item{M}{an \eqn{(n \times m)} imputed matrix, with columns and rows centered to zero.}        
   }
 }
 
@@ -65,25 +68,10 @@ al. (2010).}
 
 \examples{
 data(varespec)
-
 # rclr transformation with no matrix completion for the 0/NA entries
 x <- decostand(varespec, method="rclr", impute=FALSE)
-
-# rclr transformation with no matrix completion for the 0/NA entries
-res <- OptSpace(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
-
-# recenter the data (the means of rclr can get thrown off since we work on only missing)
-M_I <- res$X %*% res$S %*% t(res$Y)
-
-# Center cols to 0
-M_I <- as.matrix(scale(M_I, center=TRUE, scale=FALSE))
-
-# Center rows to 0
-M_I <- as.matrix(t(scale(t(M_I), center=TRUE, scale=FALSE)))
-
-# Imputed matrix
-xx <- M_I
-
+# Add matrix completion
+xc <- OptSpace(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)$M
 }
 \keyword{ multivariate}
 \keyword{ manip }
