@@ -43,13 +43,16 @@
         }
     }
     segments(at, x[1], at, x[n])
+    ## plot text in the original order for correct matching of vectors
+    ## of graphical parameters (...).
+    o <- order(ord)
     if (side == "right") {
-        text(at + hoff, pos, labels, pos = 4, cex = cex, offset = 0.2,
+        text(at + hoff, pos[o], labels[o], pos = 4, cex = cex, offset = 0.2,
              ...)
         segments(at, x, at + hoff, pos)
     }
     else if (side == "left") {
-        text(at - hoff, pos, labels, pos = 2, cex = cex, offset = 0.2,
+        text(at - hoff, pos[o], labels[o], pos = 2, cex = cex, offset = 0.2,
              ...)
         segments(at, x, at - hoff, pos)
     }
@@ -57,5 +60,5 @@
         axis(if (side == "right")
              2
         else 4, pos = at, las = 2)
-    invisible(pos[order(ord)])
+    invisible(pos[o])
 }
