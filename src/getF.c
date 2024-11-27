@@ -337,7 +337,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	resid = (double *) R_alloc(nr * nc, sizeof(double));
     /* work array and variables for QR decomposition */
     double *qty = (double *) R_alloc(nr, sizeof(double));
-    double dummy;
+    double dummy = 0.0;
     int info, qrkind;
     /* Weighted methods currently need re-evaluation of QR
        decomposition (probably changed in the future, but now for the
