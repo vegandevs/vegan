@@ -37,20 +37,6 @@ jobs:
       with:
         config: ${{ github.event.inputs.config }}
       id: rhub-setup
-    - uses: r-lib/actions/setup-tinytex@v2
-    - run: tlmgr --version
-    - run: tlmgr update --self
-
-    - name: Install additional LaTeX packages
-        run: |
-          tlmgr install ae babel-english pdflscape pdfpages sidecap
-          tlmgr list --only-installed
-      
-    - name: Install ghostscript
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install ghostscript
 
   linux-containers:
     needs: setup
