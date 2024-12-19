@@ -180,7 +180,7 @@ static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
     double *w, int nr, int nc, int discard)
 {
     int i, j, ij, len = nr*nc, info = 0, qrkind;
-    double dummy = 0, wsqrt;
+    double dummy[1] = {0.0}, wsqrt;
     double *xwork = (double *) R_alloc(len, sizeof(double));
     /* Extract  R from qr into upper triangle of X */
     for(i = 0; i < len; i++)
@@ -201,7 +201,7 @@ static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
     for(j = 0; j < nc; j++) {
 	if (pivot[j] >= 0)
 	    F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, xwork + j*nr,
-			    X + pivot[j]*nr, &dummy, &dummy, &dummy, &dummy,
+			    X + pivot[j]*nr, dummy, dummy, dummy, dummy,
 			    &qrkind, &info);
     }
 
