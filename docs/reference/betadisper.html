@@ -486,27 +486,27 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-in"><span><span class="va">scrs</span> <span class="op">&lt;-</span> <span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">scrs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sites    : num [1:24, 1:2] 0.0946 -0.3125 -0.3511 -0.3291 -0.1926 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ sites    : num [1:24, 1:2] -0.0946 0.3125 0.3511 0.3291 0.1926 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:24] "18" "15" "24" "27" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "PCoA1" "PCoA2"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ centroids: num [1:2, 1:2] -0.1455 0.2786 0.0758 -0.2111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ centroids: num [1:2, 1:2] 0.1455 -0.2786 0.0758 -0.2111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "dimnames")=List of 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "grazed" "ungrazed"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ : chr [1:2] "PCoA1" "PCoA2"</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"sites"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          PCoA1       PCoA2        PCoA3        PCoA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  0.09459373  0.15914576  0.074400844 -0.202466025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 -0.31248809  0.10032751 -0.062243360  0.110844864</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24 -0.35106507 -0.05954096 -0.038079447  0.095060928</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 -0.32914546 -0.17019348  0.231623720  0.019110623</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23 -0.19259443 -0.01459250 -0.005679372 -0.209718312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19 -0.06794575 -0.14501690 -0.085645653  0.002431355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 -0.09459373  0.15914576  0.074400844 -0.202466025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  0.31248809  0.10032751 -0.062243360  0.110844864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  0.35106507 -0.05954096 -0.038079447  0.095060928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27  0.32914546 -0.17019348  0.231623720  0.019110623</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  0.19259443 -0.01459250 -0.005679372 -0.209718312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  0.06794575 -0.14501690 -0.085645653  0.002431355</span>
 <span class="r-in"><span><span class="co"># group centroids/medians </span></span></span>
 <span class="r-in"><span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, display <span class="op">=</span> <span class="st">"centroids"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               PCoA1       PCoA2       PCoA3      PCoA4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> grazed   -0.1455200  0.07584572 -0.01366220 -0.0178990</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed  0.2786095 -0.21114993 -0.03475586  0.0220129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> grazed    0.1455200  0.07584572 -0.01366220 -0.0178990</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ungrazed -0.2786095 -0.21114993 -0.03475586  0.0220129</span>
 <span class="r-in"><span><span class="co"># eigenvalues from the underlying principal coordinates analysis</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eigenvals.html">eigenvals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      PCoA1      PCoA2      PCoA3      PCoA4      PCoA5      PCoA6      PCoA7 </span>
