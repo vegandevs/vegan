@@ -89,6 +89,10 @@
   instead of a complex ordination result object. Issue
   [#713](https://github.com/vegandevs/vegan/issues/713).
 
+* `envfit` could fail when it was called with only one environmental
+  variable *without* formula interface. Formula interface worked
+  correctly. Issue [#720](https://github.com/vegandevs/vegan/issues/720).
+
 * `vegemite` dropped dimensions when only one site or species was
   requested.
 
