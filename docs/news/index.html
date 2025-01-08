@@ -70,6 +70,7 @@
 <h3 id="bug-fixes-2-7-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-0"></a></h3>
 <ul><li><p><code>anova.cca(..., by="margin")</code> failed when a constraint was completely aliased by conditions. See <a href="https://github.com/vegandevs/vegan/pull/701" class="external-link">#701</a>.</p></li>
 <li><p><code>envfit</code> failed when ordination scores were given in a plain matrix instead of a complex ordination result object. Issue <a href="https://github.com/vegandevs/vegan/issues/713" class="external-link">#713</a>.</p></li>
+<li><p><code>envfit</code> could fail when it was called with only one environmental variable <em>without</em> formula interface. Formula interface worked correctly. Issue <a href="https://github.com/vegandevs/vegan/issues/720" class="external-link">#720</a>.</p></li>
 <li><p><code>vegemite</code> dropped dimensions when only one site or species was requested.</p></li>
 </ul></div>
 <div class="section level3">
