@@ -195,8 +195,8 @@
 * `simulate.rda` failed with univariate response.
 
 * `vegemite` returned only the last page of multi-page table in its
-  (invisible) return object.
-
+  (invisible) return object. `vegemite` could fail with variable
+  lengths of SU names (row names).
 
 # vegan 2.6-6.1
 
