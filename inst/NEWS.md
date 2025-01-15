@@ -19,6 +19,9 @@
 * `vegemite` dropped dimensions when only one site or species was
   requested.
 
+* `vegemite` could fail with variable lengths of row names (SU
+  names).
+
 ### Changes in version 2\.6-8
 
 #### New Features
