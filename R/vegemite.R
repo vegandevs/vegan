@@ -106,6 +106,7 @@
     sp.nam <- rownames(x)
     sp.len <- max(nchar(sp.nam))
     nst <- ncol(x)
+    nlen <- max(nchar(colnames(x)))
     page.width <- getOption("width")
     per.page <- page.width - sp.len - 3
     istart <- seq(1, nst, by = per.page)
@@ -117,7 +118,6 @@
         tbl <- gsub("0", zero, tbl)
         tbl <- cbind(sp.nam, tbl)
         st.nam <- colnames(x)[istart[st]:iend[st]]
-        nlen <- max(nchar(st.nam))
         mathead <- matrix(" ", nrow = length(st.nam), ncol = nlen)
         for (i in seq_along(st.nam)) {
             tmp <- unlist(strsplit(st.nam[i], NULL))
