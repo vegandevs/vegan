@@ -1,5 +1,5 @@
 
-R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
 Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
@@ -5010,7 +5010,7 @@ alternative hypothesis: statistic is greater than simulated values
 
 
 Call:
-nestfun(veg = comm) 
+decorana(veg = comm) 
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
@@ -9142,7 +9142,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.737 0.321 9.075 0 0 
+Time elapsed:  8.684 0.353 9.056 0 0 
 > grDevices::dev.off()
 null device 
           1 
