@@ -66,13 +66,18 @@
     }
     if (nbatch == 1)
         batches <- nsimul
-
+    ## evaluate observed statistic
     ind <- nestfun(comm, ...)
     indstat <-
         if (is.list(ind))
             ind[[statistic]]
         else
             ind
+    ## if observed statistic has a call component, use original
+    ## function name instead of "nestfun"
+    if (is.list(ind) && !is.null(ind$call) && ind$call[[1]] == "nestfun")
+        ind$call[[1]] <- match.call()$nestfun
+
     ## burnin of sequential models
     if (!simmat_in && nm$commsim$isSeq) {
         ## estimate thinning for "tswap" (trial swap)
