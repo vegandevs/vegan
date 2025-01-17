@@ -41,7 +41,8 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
     number of columns (species) or in \code{chaodist} it can use terms
     \code{U} and \code{V}. The equation can also contain any \R
     functions that accepts vector arguments and returns vectors of the
-    same length. }
+    same length. It can also include functions of input \code{x} that
+    return a scalar or a \code{dist} vector.}
   \item{terms}{How shared and total components are found. For vectors
     \code{x} and \code{y} the  \code{"quadratic"} terms are \code{J = sum(x*y)},
     \code{A = sum(x^2)}, \code{B = sum(y^2)}, and \code{"minimum"} terms
@@ -162,18 +163,22 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
   large when the number of columns is high, and particularly large with
   quadratic terms. For precise calculations it is better to use
   functions like \code{\link{dist}} and \code{\link{vegdist}} which are
-  more robust against numerical problems.
+  moqre robust against numerical problems.
 }
 
 \seealso{ \code{\link{vegdist}}, \code{\link{betadiver}}, \code{\link{dist}},
   \code{\link{raupcrick}}.}
 \examples{
 data(BCI)
-## Four ways of calculating the same Sørensen dissimilarity
+## Five ways of calculating the same Sørensen dissimilarity
 d0 <- vegdist(BCI, "bray", binary = TRUE)
 d1 <- designdist(BCI, "(A+B-2*J)/(A+B)")
 d2 <- designdist(BCI, "(b+c)/(2*a+b+c)", abcd = TRUE)
 d3 <- designdist(BCI, "gamma/alpha - 1", alphagamma = TRUE)
+d4 <- designdist(BCI, "dist(x, 'manhattan')/(A+B)")
+## Zero-adjusted Bray-Curtis of Clarke et al. (J Exp Marine Biol & Ecol
+## 330:55-80; 2006)
+dbr0 <- designdist(BCI, "(A+B-2*J)/(A+B+2*min(x[x>0]))", terms = "minimum")
 ## Arrhenius dissimilarity: the value of z in the species-area model
 ## S = c*A^z when combining two sites of equal areas, where S is the
 ## number of species, A is the area, and c and z are model parameters.
