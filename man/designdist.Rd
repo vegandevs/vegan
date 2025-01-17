@@ -163,7 +163,7 @@ chaodist(x, method = "1 - 2*U*V/(U+V)", name)
   large when the number of columns is high, and particularly large with
   quadratic terms. For precise calculations it is better to use
   functions like \code{\link{dist}} and \code{\link{vegdist}} which are
-  moqre robust against numerical problems.
+  more robust against numerical problems.
 }
 
 \seealso{ \code{\link{vegdist}}, \code{\link{betadiver}}, \code{\link{dist}},
