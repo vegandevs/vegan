@@ -17,13 +17,13 @@
     if (terms == "binary")
         x <- ifelse(x > 0, 1, 0)
     if (terms == "binary" || terms == "quadratic")
-        x <- tcrossprod(x)
+        XX <- tcrossprod(x)
     if (terms == "minimum")
-        x <- .Call(do_minterms, as.matrix(x))
-    d <- diag(x)
+        XX <- .Call(do_minterms, as.matrix(x))
+    d <- diag(XX)
     A <- as.dist(outer(rep(1, N), d))
     B <- as.dist(outer(d, rep(1, N)))
-    J <- as.dist(x)
+    J <- as.dist(XX)
     ## 2x2 contingency table notation
     if (abcd) {
         a <- J
