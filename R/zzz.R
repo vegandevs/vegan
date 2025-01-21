@@ -1,6 +1,7 @@
 .onAttach <- function(lib, pkg)  {
-    packageStartupMessage("This is vegan ",
-                          utils::packageDescription("vegan",
-                                                    fields="Version"),
-                          appendLF = TRUE)
+    if(interactive())
+        packageStartupMessage(
+            "This is vegan ",
+            utils::packageDescription("vegan", fields="Version"),
+            appendLF = TRUE)
 }
