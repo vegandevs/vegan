@@ -170,8 +170,9 @@ mod <- adonis2(dune ~ Management + A1, data = dune.env)
 ## use permustats
 perm <- permustats(mod)
 summary(perm)
-densityplot(perm)
-qqmath(perm)
+## lattice graphics
+lattice::densityplot(perm)
+lattice::qqmath(perm)
 boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
 abline(h=0, col="skyblue")
 ## example of multiple types of statistic
