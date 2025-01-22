@@ -245,8 +245,8 @@ out
 plot(as.ts(out))
 lag.plot(as.ts(out))
 acf(as.ts(out))
-## Density plot
-densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
+## Density plot in lattice graphics
+lattice::densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
 ## Use quantitative null models to compare
 ## mean Bray-Curtis dissimilarities
 data(dune)

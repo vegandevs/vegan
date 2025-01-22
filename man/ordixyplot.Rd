@@ -139,7 +139,7 @@ ordixyplot(ord, data=dune.env, form = CA1 ~ CA2 | Management,
 ## Choose a different scaling
 ordixyplot(ord, scaling = "symmetric")
 ## ... Slices of third axis
-ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4),
+ordixyplot(ord, form = CA1 ~ CA2 | lattice::equal.count(CA3, 4),
    type = c("g","p", "polygon"))
 ## Display environmental variables
 ordixyplot(ord, envfit = envfit(ord ~ Management + A1, dune.env, choices=1:3))
