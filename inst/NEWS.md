@@ -1,6 +1,12 @@
 ## vegan News
 
-### Changes in verstion 2\.6-9
+### Changes in version 2\.6-10
+
+#### Startup
+
+* Prints startup message ("This is vegan <version number>") only in
+  interactive sessions. Version number is no longer shown in
+  package checks and other scripts.
 
 #### Bug Fixes
 
