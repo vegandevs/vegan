@@ -67,18 +67,26 @@
 <li><p><code>wascores</code> can now calculate (unbiased) weighted standard deviation of weighted averages with argument <code>stdev = TRUE</code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-2-7-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-0"></a></h3>
-<ul><li><p><code>anova.cca(..., by="margin")</code> failed when a constraint was completely aliased by conditions. See <a href="https://github.com/vegandevs/vegan/pull/701" class="external-link">#701</a>.</p></li>
-<li><p><code>envfit</code> failed when ordination scores were given in a plain matrix instead of a complex ordination result object. Issue <a href="https://github.com/vegandevs/vegan/issues/713" class="external-link">#713</a>.</p></li>
-<li><p><code>envfit</code> could fail when it was called with only one environmental variable <em>without</em> formula interface. Formula interface worked correctly. Issue <a href="https://github.com/vegandevs/vegan/issues/720" class="external-link">#720</a>.</p></li>
-<li><p><code>vegemite</code> dropped dimensions when only one site or species was requested.</p></li>
-</ul></div>
-<div class="section level3">
 <h3 id="deprecated-and-defunct-2-7-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-0"></a></h3>
 <ul><li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code>! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
 <li><p><code>summary.decorana</code> is defunct. It did nothing useful, but you can extract the same information with <code>scores</code> and <code>weights</code>.</p></li>
 <li><p><code>orditkplot</code> code was removed, but we try to launch <code><a href="https://rdrr.io/pkg/vegan3d/man/orditkplot.html" class="external-link">vegan3d::orditkplot</a></code> loudly (with a deprecation message to go to <strong>vegan3d</strong>). <em>This is experimental, and we may go to direct error, depending on user experience: please comment!</em></p></li>
 <li><p>relic function <code>vegandocs</code> is officially defunct. Better tools to read <strong>vegan</strong> documentation are <code>browseVignettes("vegan")</code> and <code>news(package="vegan")</code>.</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.6-10" id="vegan-26-10">vegan 2.6-10<a class="anchor" aria-label="anchor" href="#vegan-26-10"></a></h2><p class="text-muted">CRAN release: 2025-01-29</p>
+<div class="section level3">
+<h3 id="startup-2-6-10">Startup<a class="anchor" aria-label="anchor" href="#startup-2-6-10"></a></h3>
+<ul><li>Prints startup message (“This is vegan <version number>”) only in interactive sessions. Version number is no longer shown in package checks and other scripts.</version></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-6-10">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-10"></a></h3>
+<ul><li><p><code>anova.cca(..., by="margin")</code> failed when a constraint was completely aliased by conditions. See <a href="https://github.com/vegandevs/vegan/pull/701" class="external-link">#701</a>.</p></li>
+<li><p><code>envfit</code> failed when ordination scores were given in a plain matrix instead of a complex ordination result object. Issue <a href="https://github.com/vegandevs/vegan/issues/713" class="external-link">#713</a>.</p></li>
+<li><p><code>envfit</code> could fail when it was called with only one environmental variable <em>without</em> formula interface. Formula interface worked correctly. Issue <a href="https://github.com/vegandevs/vegan/issues/720" class="external-link">#720</a>.</p></li>
+<li><p><code>vegemite</code> dropped dimensions when only one site or species was requested.</p></li>
+<li><p><code>vegemite</code> could fail with variable lengths of row names (SU names).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
