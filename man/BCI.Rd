@@ -14,13 +14,14 @@ data(BCI.env)
 }
 \format{
   
-  A data frame with 50 plots (rows) of 1 hectare with counts of trees on
-  each plot with total of 225 species (columns). Full Latin names are
-  used for tree species. The names were updated against
-  \url{http://www.theplantlist.org} and Kress et al. (2009) which allows
-  matching 207 of species against \doi{10.5061/dryad.63q27} (Zanne et
-  al., 2014). The original species names are available as attribute
-  \code{original.names} of \code{BCI}. See Examples for changed names.
+  A data frame with 50 plots (rows) of 1 hectare with counts of trees
+  on each plot with total of 225 species (columns). Full Latin names
+  are used for tree species. The names were updated with The Plant
+  List web service (now phased out) and Kress et al. (2009) which
+  allows matching 207 of species against \doi{10.5061/dryad.63q27}
+  (Zanne et al., 2014). The original species names are available as
+  attribute \code{original.names} of \code{BCI}. See Examples for
+  changed names.
 
   For \code{BCI.env}, a data frame with 50 plots (rows) and nine site
   variables derived from Pyke et al. (2001) and Harms et al. (2001):
