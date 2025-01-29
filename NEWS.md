@@ -77,24 +77,6 @@
 
 * `wascores` can now calculate (unbiased) weighted standard deviation
   of weighted averages with argument `stdev = TRUE`.
-  
-
-## Bug Fixes
-
-* `anova.cca(..., by="margin")` failed when a constraint was
-  completely aliased by conditions. See
-  [#701](https://github.com/vegandevs/vegan/pull/701).
-
-* `envfit` failed when ordination scores were given in a plain matrix
-  instead of a complex ordination result object. Issue
-  [#713](https://github.com/vegandevs/vegan/issues/713).
-
-* `envfit` could fail when it was called with only one environmental
-  variable *without* formula interface. Formula interface worked
-  correctly. Issue [#720](https://github.com/vegandevs/vegan/issues/720).
-
-* `vegemite` dropped dimensions when only one site or species was
-  requested.
 
 ## Deprecated and Defunct
 
@@ -113,6 +95,34 @@
 * relic function `vegandocs` is officially defunct. Better tools to
   read **vegan** documentation are `browseVignettes("vegan")` and
   `news(package="vegan")`.
+
+# vegan 2\.6-10
+
+## Startup
+
+* Prints startup message ("This is vegan <version number>") only in
+  interactive sessions. Version number is no longer shown in
+  package checks and other scripts.
+
+## Bug Fixes
+
+* `anova.cca(..., by="margin")` failed when a constraint was
+  completely aliased by conditions. See
+  [#701](https://github.com/vegandevs/vegan/pull/701).
+
+* `envfit` failed when ordination scores were given in a plain matrix
+  instead of a complex ordination result object. Issue
+  [#713](https://github.com/vegandevs/vegan/issues/713).
+
+* `envfit` could fail when it was called with only one environmental
+  variable *without* formula interface. Formula interface worked
+  correctly. Issue [#720](https://github.com/vegandevs/vegan/issues/720).
+
+* `vegemite` dropped dimensions when only one site or species was
+  requested.
+
+* `vegemite` could fail with variable lengths of row names (SU
+  names).
 
 # vegan 2.6-8
 
