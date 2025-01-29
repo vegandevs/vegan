@@ -30,9 +30,6 @@ Most important changes in \pkg{vegan} documents can be read with
 \code{browseVignettes("vegan")}. The vignettes include a \pkg{vegan}
 FAQ, discussion on design decisions, short introduction to ordination
 and discussion on diversity methods.
-%A tutorial of the package at
-%\url{http://cc.oulu.fi/~jarioksa/opetus/metodi/vegantutor.pdf} provides
-%a more thorough introduction to the package.
 
 To see the preferable citation of the package, type
 \code{citation("vegan")}.  
