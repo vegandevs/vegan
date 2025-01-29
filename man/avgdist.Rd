@@ -50,7 +50,7 @@ avgdist(x, sample, distfun = vegdist, meanfun = mean,
   subsampled datasets by presenting the average of multiple random
   iterations. This function runs using the \code{\link{vegdist}}. This
   functionality has been utilized in the Mothur standalone microbial
-  ecology toolkit \href{https://mothur.org/wiki/Dist.shared}{here}.
+  ecology toolkit, see https://mothur.org/wiki/Dist.shared.
 
 }
 
