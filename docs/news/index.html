@@ -62,7 +62,7 @@
 </li>
 <li><p><code>ordipointlabel</code> can be used in pipe. Function gained argument <code>label</code> that allows changing plotted text, and a function <code>labels</code> that return the current labels. The optimization rules were changed to give a slight preference for putting labels outwards from origin but avoiding corner positions.</p></li>
 <li><p><code>orditorp</code> can be used in pipe.</p></li>
-<li><p><code>vegemite</code> and <code>tabasco</code> can now <code>use</code> a factor to show a classification. The factor levels and sites within levels can be reordered to give a diagonal pattern, as default in code <code>tabasco</code> and in <code>vegemite</code> with new argument <code>diagonalize = TRUE</code> (defaults <code>FALSE</code>). With the same argument, <code>vegemite</code> can also reorder dendrogram (or tree) to give a diagonal pattern. If <code>coverscale</code> is used, all internal calculations for ordering rows and columns will be based on scaled data.</p></li>
+<li><p><code>vegemite</code> and <code>tabasco</code> can now <code>use</code> a factor to show a classification. The factor levels and sites within levels can be reordered to give a diagonal pattern, as default in <code>tabasco</code> and in <code>vegemite</code> with new argument <code>diagonalize = TRUE</code> (defaults <code>FALSE</code>). With the same argument, <code>vegemite</code> can also reorder dendrogram (or tree) to give a diagonal pattern. If <code>coverscale</code> is used, all internal calculations for ordering rows and columns will be based on scaled data.</p></li>
 <li><p><code>make.cepnames</code> was completely re-designed and is much more flexible with enhanced user-control. The function is now based solely on <code>abbreviate</code>.</p></li>
 <li><p><code>wascores</code> can now calculate (unbiased) weighted standard deviation of weighted averages with argument <code>stdev = TRUE</code>.</p></li>
 </ul></div>
@@ -78,15 +78,19 @@
 <h2 class="pkg-version" data-toc-text="2.6-10" id="vegan-26-10">vegan 2.6-10<a class="anchor" aria-label="anchor" href="#vegan-26-10"></a></h2><p class="text-muted">CRAN release: 2025-01-29</p>
 <div class="section level3">
 <h3 id="startup-2-6-10">Startup<a class="anchor" aria-label="anchor" href="#startup-2-6-10"></a></h3>
-<ul><li>Prints startup message (“This is vegan <version number>”) only in interactive sessions. Version number is no longer shown in package checks and other scripts.</version></li>
+<ul><li>Prints startup message (“This is vegan 2.6-10”) only in interactive sessions. Version number is no longer shown in package checks and other scripts.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-6-10">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-6-10"></a></h3>
 <ul><li><p><code>anova.cca(..., by="margin")</code> failed when a constraint was completely aliased by conditions. See <a href="https://github.com/vegandevs/vegan/pull/701" class="external-link">#701</a>.</p></li>
-<li><p><code>envfit</code> failed when ordination scores were given in a plain matrix instead of a complex ordination result object. Issue <a href="https://github.com/vegandevs/vegan/issues/713" class="external-link">#713</a>.</p></li>
-<li><p><code>envfit</code> could fail when it was called with only one environmental variable <em>without</em> formula interface. Formula interface worked correctly. Issue <a href="https://github.com/vegandevs/vegan/issues/720" class="external-link">#720</a>.</p></li>
-<li><p><code>vegemite</code> dropped dimensions when only one site or species was requested.</p></li>
-<li><p><code>vegemite</code> could fail with variable lengths of row names (SU names).</p></li>
+<li>
+<p><code>envfit</code> failed when ordination scores were given in a plain matrix instead of a complex ordination result object. Issue <a href="https://github.com/vegandevs/vegan/issues/713" class="external-link">#713</a>.</p>
+<p><code>envfit</code> could fail when it was called with only one environmental variable <em>without</em> formula interface. Formula interface worked correctly. Issue <a href="https://github.com/vegandevs/vegan/issues/720" class="external-link">#720</a>.</p>
+</li>
+<li>
+<p><code>vegemite</code> dropped dimensions when only one site or species was requested.</p>
+<p><code>vegemite</code> could fail with variable lengths of row names (SU names).</p>
+</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -113,7 +117,7 @@
 <li><p><code>metaMDS</code>: half-change scaling failed when <code>maxdist</code> was fixed, but was not 1.</p></li>
 <li><p><code>summary.ordihull</code> (and hence <code>ordiareatest</code> for convex hulls) failed if input had more than two dimensions.</p></li>
 <li><p><code>simulate.rda</code> failed with univariate response.</p></li>
-<li><p><code>vegemite</code> returned only the last page of multi-page table in its (invisible) return object. <code>vegemite</code> could fail with variable lengths of SU names (row names).</p></li>
+<li><p><code>vegemite</code> returned only the last page of multi-page table in its (invisible) return object.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
