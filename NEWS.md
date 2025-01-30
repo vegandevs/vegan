@@ -64,7 +64,7 @@
 
 * `vegemite` and `tabasco` can now `use` a factor to show a
   classification. The factor levels and sites within levels can be
-  reordered to give a diagonal pattern, as default in code `tabasco`
+  reordered to give a diagonal pattern, as default in `tabasco`
   and in `vegemite` with new argument `diagonalize = TRUE` (defaults
   `FALSE`). With the same argument, `vegemite` can also reorder
   dendrogram (or tree) to give a diagonal pattern. If `coverscale` is
@@ -100,7 +100,7 @@
 
 ## Startup
 
-* Prints startup message ("This is vegan <version number>") only in
+* Prints startup message ("This is vegan 2.6-10") only in
   interactive sessions. Version number is no longer shown in
   package checks and other scripts.
 
@@ -114,14 +114,14 @@
   instead of a complex ordination result object. Issue
   [#713](https://github.com/vegandevs/vegan/issues/713).
 
-* `envfit` could fail when it was called with only one environmental
+  `envfit` could fail when it was called with only one environmental
   variable *without* formula interface. Formula interface worked
   correctly. Issue [#720](https://github.com/vegandevs/vegan/issues/720).
 
 * `vegemite` dropped dimensions when only one site or species was
   requested.
 
-* `vegemite` could fail with variable lengths of row names (SU
+  `vegemite` could fail with variable lengths of row names (SU
   names).
 
 # vegan 2.6-8
@@ -205,8 +205,7 @@
 * `simulate.rda` failed with univariate response.
 
 * `vegemite` returned only the last page of multi-page table in its
-  (invisible) return object. `vegemite` could fail with variable
-  lengths of SU names (row names).
+  (invisible) return object.
 
 # vegan 2.6-6.1
 
