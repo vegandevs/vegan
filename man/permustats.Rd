@@ -37,7 +37,8 @@
 \usage{
 permustats(x, ...)
 \method{summary}{permustats}(object, interval = 0.95, alternative, ...)
-\method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
+\method{densityplot}{permustats}(x, data, observed = TRUE,
+    xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
 \method{qqmath}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
@@ -171,8 +172,8 @@ mod <- adonis2(dune ~ Management + A1, data = dune.env)
 perm <- permustats(mod)
 summary(perm)
 ## lattice graphics
-lattice::densityplot(perm)
-lattice::qqmath(perm)
+permulattice(perm, "densityplot")
+permulattice(perm, "qqmath")
 boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
 abline(h=0, col="skyblue")
 ## example of multiple types of statistic
