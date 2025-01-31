@@ -2,6 +2,11 @@
 
 ## Installation
 
+* **vegan** no longer depends on **lattice**, but only imports
+  **lattice** functions. The **lattice** package is no longer
+  automatically loaded. To use **lattice** functions directly, you
+  must first attach the package with `library(lattice)`.
+
 * **vegan** no longer suggests **tcltk**, but suggests **vegan3d**
   (version 1.3-0). See `orditkplot` in section Deprecated and Defunct.
 
@@ -28,6 +33,9 @@
   Euclidean or Mahalanobis distances. See
   (https://stackoverflow.com/questions/77391007/) and issue
   [#606](https://github.com/vegandevs/vegan/issues/606).
+
+* `permulattice`: new function to use lattice graphics for
+  `permustats` results without need to first issue `library(lattice)`.
 
 ## New Features
 
@@ -61,6 +69,9 @@
   but avoiding corner positions.
   
 * `orditorp` can be used in pipe.
+
+* `densityplot.permustats` did not know argument `observed` to control
+  including and showing the observed statistic.
 
 * `vegemite` and `tabasco` can now `use` a factor to show a
   classification. The factor levels and sites within levels can be
