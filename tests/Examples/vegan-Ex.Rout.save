@@ -5034,7 +5034,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > lag.plot(as.ts(out))
 > acf(as.ts(out))
 > ## Density plot in lattice graphics
-> lattice::densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
+> permulattice(permustats(out), "densityplot", as.table = TRUE, layout = c(1,4))
 > ## Use quantitative null models to compare
 > ## mean Bray-Curtis dissimilarities
 > data(dune)
@@ -6153,7 +6153,7 @@ X-squared = 0.40156, df = 1, p-value = 0.5263
 > ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
 > ###   permustats.ordiareatest permustats.permutest.betadisper
 > ###   permustats.permutest.cca permustats.protest permustats.vectorfit
-> ###   summary.permustats c.permustats densityplot.permustats
+> ###   summary.permustats c.permustats permulattice densityplot.permustats
 > ###   density.permustats qqnorm.permustats qqmath.permustats
 > ###   boxplot.permustats pairs.permustats
 > ### Keywords: distribution smooth
@@ -6173,8 +6173,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 (Interval (Upper - Lower) = 0.95)
 > ## lattice graphics
-> lattice::densityplot(perm)
-> lattice::qqmath(perm)
+> permulattice(perm, "densityplot")
+> permulattice(perm, "qqmath")
 > boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
 > abline(h=0, col="skyblue")
 > ## example of multiple types of statistic
@@ -6269,8 +6269,8 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > 
 > ## lattice graphics with permustats
 > pstat <- permustats(pmod)
-> lattice::densityplot(pstat, scales = list(x = list(relation = "free")))
-> lattice::qqmath(pstat, scales = list(relation = "free"))
+> permulattice(pstat, "densityplot", scale = list(x=list(relation="free")))
+> permulattice(pstat, "qqmath", scales = list(relation = "free"))
 > 
 > 
 > 
@@ -9142,7 +9142,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.748 0.349 9.109 0 0 
+Time elapsed:  8.636 0.317 8.972 0 0 
 > grDevices::dev.off()
 null device 
           1 
