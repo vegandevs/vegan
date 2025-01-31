@@ -1,5 +1,12 @@
 ## vegan News
 
+### Changes in version 2\.6-11
+
+#### New Features
+
+* `densityplot.permustats` did not know argument `observed` to control
+  including and showing the observed statistic.
+
 ### Changes in version 2\.6-10
 
 #### Startup
