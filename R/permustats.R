@@ -124,19 +124,22 @@
               class = "permustats")
 }
 
-### densityplot
+### lattice::densityplot
 
 `densityplot.permustats` <-
-    function(x, data, xlab = "Permutations", ...)
+    function(x, data, observed = TRUE, xlab = "Permutations", ...)
 {
     obs <- x$statistic
-    sim <- rbind(x$statistic, as.matrix(x$permutations))
+    sim <- as.matrix(x$permutations)
+    if (observed)
+        sim <- rbind(x$statistic, sim)
     nm <- names(obs)[col(sim)]
     densityplot( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
                 xlab = xlab,
                 panel = function(x, ...) {
                     panel.densityplot(x, ...)
-                    panel.abline(v = obs[panel.number()], ...)
+                    if (observed)
+                        panel.abline(v = obs[panel.number()], ...)
                 },
                 ...)
 }
@@ -178,6 +181,8 @@
         abline(h = y$statistic, ...)
     invisible(q)
 }
+
+## lattice::qqmath
 
 `qqmath.permustats` <-
     function(x, data, observed = TRUE, sd.scale = FALSE,

@@ -37,7 +37,8 @@
 \usage{
 permustats(x, ...)
 \method{summary}{permustats}(object, interval = 0.95, alternative, ...)
-\method{densityplot}{permustats}(x, data, xlab = "Permutations", ...)
+\method{densityplot}{permustats}(x, data, observed = TRUE,
+    xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
 \method{qqmath}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
