@@ -31,7 +31,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-10</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,6 @@ TukeyHSD.betadisper creates a set of confidence intervals on
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes"><li><a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a></li>
   </ul></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/vegandevs/vegan/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -280,8 +279,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
   note the statement about using the function with
   unbalanced designs.</p>
 <p>The results of the analysis can be visualised using the <code>plot</code>
-  and <code>boxplot</code> methods. The distances of points to all centroids
-  (<code>group</code>) can be found with function <code><a href="centredist.html">centredist</a></code>.</p>
+  and <code>boxplot</code> methods.</p>
 <p>One additional use of these functions is in assessing beta diversity
   (Anderson <em>et al</em> 2006). Function <code><a href="betadiver.html">betadiver</a></code>
   provides some popular dissimilarity measures for this purpose.</p>
@@ -376,8 +374,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="permutest.betadisper.html">permutest.betadisper</a></code>, <code><a href="centredist.html">centredist</a></code>,
-  <code><a href="https://rdrr.io/r/stats/anova.lm.html" class="external-link">anova.lm</a></code>,
+    <div class="dont-index"><p><code><a href="permutest.betadisper.html">permutest.betadisper</a></code>, <code><a href="https://rdrr.io/r/stats/anova.lm.html" class="external-link">anova.lm</a></code>,
   <code><a href="scores.html">scores</a></code>, <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>,
   <code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></code>. Further measure of beta diversity
   can be found in <code><a href="betadiver.html">betadiver</a></code>.</p></div>
@@ -433,7 +430,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.07 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.06 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.37801 0.017182                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -628,7 +625,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495                     </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
@@ -698,7 +695,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Tuomas Borman, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon, Tuomas Borman.</p>
 </div>
 
 <div class="pkgdown-footer-right">
