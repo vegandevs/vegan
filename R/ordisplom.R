@@ -2,6 +2,7 @@
     function(x, data=NULL, formula = NULL,  display = "sites", choices = 1:3,
              panel = "panel.ordi", type = "p", ...)
 {
+  message("ordisplom is deprecated because it has bad design\nif you need something like this, roll your own code")
   localSplom <- function(..., shrink, origin, scaling) splom(...)
   x <- as.data.frame(scores(x, display = display, choices = choices, ...))
   if (is.null(data))
