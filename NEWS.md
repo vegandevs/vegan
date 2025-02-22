@@ -96,7 +96,7 @@
   [#644](https://github.com/vegandevs/vegan/discussions/644).
 
 * lattice function `ordicloud` is deprecated. It is still available in
-  CRAN package **vegan3d** (version 1.4-0).
+  CRAN package **vegan3d** (version 1.4-0) as function `ordilattice3d`.
 
 * lattice function `ordisplom` is deprecated: it had bad design and
   was not very useful.
