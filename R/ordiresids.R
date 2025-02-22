@@ -3,6 +3,7 @@
              residuals = "working",
              type = c("p", "smooth", "g"), formula, ...)
 {
+    message("ordiresids is deprecated:\nuse directly fitted, residuals, rstandard, rstudent etc.")
     kind <- match.arg(kind)
     if (!inherits(x, "cca") || is.null(x$CCA) || x$CCA$rank == 0)
         stop("function is only available for constrained ordination")

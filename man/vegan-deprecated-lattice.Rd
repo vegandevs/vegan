@@ -3,8 +3,9 @@
 \alias{ordisplom}
 \alias{panel.ordi3d}
 \alias{prepanel.ordi3d}
+\alias{ordiresids}
 
-\title{Deprecated lattice Functions}
+\title{Deprecated lattice Functions in vegan}
 
 \description{Lattice functions are going to be deprecated and removed
   from vegan as soon as viable alternatives are available (or if they
@@ -15,11 +16,19 @@
     panel = "panel.ordi3d", prepanel = "prepanel.ordi3d", ...)
   ordisplom(x, data = NULL, formula = NULL, display = "sites", choices = 1:3, 
     panel = "panel.ordi", type = "p", ...)
+  ordiresids(x, kind = c("residuals", "scale", "qqmath"),
+    residuals = "working", type = c("p", "smooth", "g"),
+    formula, ...)
 }
 
 \arguments{
   \item{x, data, formula, display, choices, panel, prepanel, type,
     \dots}{Similar parameters as in \code{\link{ordixyplot}}.}
+  \item{kind}{The type of plot: residuals or absolute values of
+    residuals against fitted values, or quantile plot of residuals with
+    \code{\link[lattice]{qqmath}}.}
+  \item{residuals}{The type of residuals with choices \code{"working"},
+    \code{"response"}, \code{"standardized"} and \code{"studentized"}.}
 }
 
 \details{
@@ -38,6 +47,10 @@
       \code{ordilattice3d}.
     \item \code{ordisplom} design is bad and deficient. If you want to
       have something similar, write your own code.
+    \item \code{ordiresids} is not very useful, but you can directly
+      access ordination results with \code{\link{fitted.cca}},
+      \code{\link{residuals.cca}}, \code{\link{rstandard.cca}},
+      \code{\link{rstudent.cca}} and other functions that were not
+      available in \code{ordiresids}.
     }
 }
-  
