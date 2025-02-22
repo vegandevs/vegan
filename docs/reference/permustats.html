@@ -11,7 +11,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.6-10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,6 +24,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes"><li><a class="dropdown-item" href="../articles/FAQ-vegan.html">Vegan FAQ</a></li>
   </ul></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/vegandevs/vegan/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -51,14 +52,17 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">permustats</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, interval <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">alternative</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">permulattice</span><span class="op">(</span><span class="va">x</span>, plot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"densityplot"</span>, <span class="st">"qqmath"</span><span class="op">)</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    axislab <span class="op">=</span> <span class="st">"Permutations"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, xlab <span class="op">=</span> <span class="st">"Permutations"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">densityplot</span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    xlab <span class="op">=</span> <span class="st">"Permutations"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">x</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="va">y</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, sd.scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span><span class="fu">qqmath</span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, sd.scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>    ylab <span class="op">=</span> <span class="st">"Permutations"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">x</span>, scale <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">names</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -83,10 +87,13 @@
     (lower limit). Usually <code>alternative</code> is given in the result
     object, but it can be specified with this argument.</p></dd>
 
-  <dt id="arg-xlab-ylab">xlab, ylab<a class="anchor" aria-label="anchor" href="#arg-xlab-ylab"></a></dt>
-<dd><p>Arguments of
-    <code><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></code> and
-    <code><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></code> functions.</p></dd>
+  <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
+<dd><p>Use <span class="pkg">lattice</span> function
+    <code><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></code> or <code><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></code>.</p></dd>
+
+  <dt id="arg-xlab-ylab-axislab">xlab, ylab, axislab<a class="anchor" aria-label="anchor" href="#arg-xlab-ylab-axislab"></a></dt>
+<dd><p>Label for the axis displaying permutation
+    values.</p></dd>
 
   <dt id="arg-observed">observed<a class="anchor" aria-label="anchor" href="#arg-observed"></a></dt>
 <dd><p>Add observed statistic among permutations.</p></dd>
@@ -133,13 +140,22 @@
   argument <code>alternative</code>. Several <code>permustats</code> objects can
   be combined with <code>c</code> function. The <code>c</code> function checks
   that statistics are equal, but performs no other sanity tests.</p>
+<p>The results can be displayed either as conventional graphics or
+  <span class="pkg">lattice</span> graphics. Lattice graphics can be used either with
+  function <code>permulattice</code> or directly with lattice functions
+  <code>densityplot</code> or <code>qqmath</code>. Function <code>permulattice</code> can
+  be used directly, but for <code>densityplot</code> and <code>qqmath</code>
+  <span class="pkg">lattice</span> must be first loaded and attached with
+  <code><a href="https://lattice.r-forge.r-project.org/" class="external-link">library(lattice)</a></code></p>
 <p>The <code>density</code> and <code>densityplot</code> methods display the
   kernel density estimates of permuted values. When observed value of
   the statistic is included in the permuted values, the
   <code>densityplot</code> method marks the observed statistic as a vertical
   line. However the <code>density</code> method uses its standard <code>plot</code>
-  method and cannot mark the observed value.</p>
-<p>The <code>qqnorm</code> and <code>qqmath</code> display Q-Q plots of
+  method and cannot mark the observed value. Only one statistic can be
+  displayed with <code>density</code> and for several statistics
+  <code>permulattice</code> or <code>densityplot</code> must be used.</p>
+<p>The <code>qqnorm</code> and <code>qqmath</code> methods display Q-Q plots of
   permutations, optionally together with the observed value (default)
   which is shown as horizontal line in plots. <code>qqnorm</code> plots
   permutation values against standard Normal variate. <code>qqmath</code>
@@ -148,19 +164,9 @@
   <code>qqmath</code> function can also plot observed statistic as
   standardized effect size (SES) with standandized permutations
   (argument <code>sd.scale</code>). The permutations are standardized
-  without the observed statistic, similarly as in <code>summary</code>.</p>
-<p>Functions <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code> and <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code> are based
-  on standard <span style="R">R</span> methods and accept their arguments. They only handle
-  one statistic, and cannot be used when several test statistic were
-  evaluated. The <code><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></code> and
-  <code><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></code> are <span class="pkg">lattice</span> graphics, and can be
-  used either for one or for several statistics.  All these functions
-  pass arguments to their underlying functions; see their
-  documentation. Functions <code><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></code> and
-  <code><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></code> default to use same axis scaling
-  in all subplots of the lattice. You can use argument <code>scales</code> to
-  set independent scaling for subplots when this is appropriate (see
-  <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html" class="external-link">xyplot</a></code> for an exhaustive list of arguments).</p>
+  without the observed statistic, similarly as in <code>summary</code>.
+  Only one statistic can be shown with <code>qqnorm</code> and for several
+  statistics <code>permulattice</code> or <code>qqmath</code> must be used.</p>
 <p>Function <code>boxplot</code> draws the box-and-whiskers plots of effect
   size, or the difference of permutations and observed statistic. If
   <code>scale = TRUE</code>, permutations are standardized to unit standard
@@ -196,7 +202,7 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code>, <code><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></code>,
-  <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code>, <code><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></code>.</p></div>
+  <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code>, <code><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></code>, <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>.</p></div>
     </div>
 
     <div class="section level2">
@@ -213,9 +219,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Interval (Upper - Lower) = 0.95)</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/histogram.html" class="external-link">densityplot</a></span><span class="op">(</span><span class="va">perm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## lattice graphics</span></span></span>
+<span class="r-in"><span><span class="fu">permulattice</span><span class="op">(</span><span class="va">perm</span>, <span class="st">"densityplot"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permustats-1.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/lattice/man/qqmath.html" class="external-link">qqmath</a></span><span class="op">(</span><span class="va">perm</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">permulattice</span><span class="op">(</span><span class="va">perm</span>, <span class="st">"qqmath"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="permustats-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">perm</span>, scale<span class="op">=</span><span class="cn">TRUE</span>, lty<span class="op">=</span><span class="fl">1</span>, pch<span class="op">=</span><span class="fl">16</span>, cex<span class="op">=</span><span class="fl">0.6</span>, col<span class="op">=</span><span class="st">"hotpink"</span>, ylab<span class="op">=</span><span class="st">"SES"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span>h<span class="op">=</span><span class="fl">0</span>, col<span class="op">=</span><span class="st">"skyblue"</span><span class="op">)</span></span></span>
@@ -245,7 +252,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon, Tuomas Borman.</p>
+  <p>Developed by Jari Oksanen, Gavin L. Simpson, F. Guillaume Blanchet, Roeland Kindt, Pierre Legendre, Peter R. Minchin, R.B. O’Hara, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs, Helene Wagner, Matt Barbour, Michael Bedward, Ben Bolker, Daniel Borcard, Tuomas Borman, Gustavo Carvalho, Michael Chirico, Miquel De Caceres, Sebastien Durand, Heloisa Beatriz Antoniazi Evangelista, Rich FitzJohn, Michael Friendly, Brendan Furneaux, Geoffrey Hannigan, Mark O. Hill, Leo Lahti, Dan McGlinn, Marie-Helene Ouellette, Eduardo Ribeiro Cunha, Tyler Smith, Adrian Stier, Cajo J.F. Ter Braak, James Weedon.</p>
 </div>
 
 <div class="pkgdown-footer-right">

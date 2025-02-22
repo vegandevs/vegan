@@ -5,8 +5,10 @@
 <url><loc>https://vegandevs.github.io/vegan/articles/index.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/authors.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/index.html</loc></url>
+<url><loc>https://vegandevs.github.io/vegan/news/index.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/BCI.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/CCorA.html</loc></url>
+<url><loc>https://vegandevs.github.io/vegan/reference/MDSaddpoints.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/MDSrotate.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/MOStest.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/RsquareAdj.html</loc></url>
@@ -26,6 +28,7 @@
 <url><loc>https://vegandevs.github.io/vegan/reference/cascadeKM.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/cca.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/cca.object.html</loc></url>
+<url><loc>https://vegandevs.github.io/vegan/reference/centredist.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/clamtest.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/commsim.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/contribdiv.html</loc></url>
@@ -71,7 +74,6 @@
 <url><loc>https://vegandevs.github.io/vegan/reference/ordilabel.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/ordiplot.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/ordipointlabel.html</loc></url>
-<url><loc>https://vegandevs.github.io/vegan/reference/ordiresids.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/ordistep.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/ordisurf.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/orditorp.html</loc></url>
@@ -111,6 +113,7 @@
 <url><loc>https://vegandevs.github.io/vegan/reference/varechem.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/varpart.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/vegan-defunct.html</loc></url>
+<url><loc>https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/vegan-deprecated.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/vegan-internal.html</loc></url>
 <url><loc>https://vegandevs.github.io/vegan/reference/vegan-package.html</loc></url>

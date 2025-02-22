@@ -71,6 +71,9 @@
 <div class="section level3">
 <h3 id="deprecated-and-defunct-2-7-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-0"></a></h3>
 <ul><li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code>! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
+<li><p>lattice function <code>ordicloud</code> is deprecated. It is still available in CRAN package <strong>vegan3d</strong> (version 1.4-0) as function <code>ordilattice3d</code>.</p></li>
+<li><p>lattice function <code>ordisplom</code> is deprecated: it had bad design and was not very useful.</p></li>
+<li><p>lattice function <code>ordiresids</code> is deprecated: you can access the same items using <code>fitted</code>, <code>residuals</code>, <code>rstandard</code>, <code>rstudent</code> <em>etc</em> and design your own plots.</p></li>
 <li><p><code>summary.decorana</code> is defunct. It did nothing useful, but you can extract the same information with <code>scores</code> and <code>weights</code>.</p></li>
 <li><p><code>orditkplot</code> code was removed, but we try to launch <code><a href="https://rdrr.io/pkg/vegan3d/man/orditkplot.html" class="external-link">vegan3d::orditkplot</a></code> loudly (with a deprecation message to go to <strong>vegan3d</strong>). <em>This is experimental, and we may go to direct error, depending on user experience: please comment!</em></p></li>
 <li><p>relic function <code>vegandocs</code> is officially defunct. Better tools to read <strong>vegan</strong> documentation are <code>browseVignettes("vegan")</code> and <code>news(package="vegan")</code>.</p></li>
