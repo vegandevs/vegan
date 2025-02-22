@@ -135,10 +135,6 @@
 
 \author{Jari Oksanen}
 
-\seealso{Corresponding \code{\link{lm}} methods and
-  \code{\link{as.mlm.cca}}. Function \code{\link{ordiresids}} provides
-  lattice graphics for residuals.}
-
 \examples{
 
 data(varespec, varechem)

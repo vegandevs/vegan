@@ -169,10 +169,11 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   \code{\link{capscale}}. The basic class is \code{"cca"} for all
   methods, and the following functions are defined for this class:
   \Sexpr[results=rd,stage=build]{require(vegan, quietly=TRUE);
-  paste0("\\\\code{\\\\link{", methods(class="cca"), "}}", collapse=", ")}.
-  Other functions handling \code{"cca"} objects include \code{\link{inertcomp}},
-  \code{\link{intersetcor}}, \code{\link{mso}}, \code{\link{ordiresids}},
-  \code{\link{ordistep}} and \code{\link{ordiR2step}}.
+  paste0("\\\\code{\\\\link{", methods(class="cca"), "}}",
+  collapse=", ")}.  Other functions handling \code{"cca"} objects
+  include \code{\link{inertcomp}}, \code{\link{intersetcor}},
+  \code{\link{mso}}, \code{\link{ordistep}} and
+  \code{\link{ordiR2step}}.
 }
 
 \note{

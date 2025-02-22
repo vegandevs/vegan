@@ -95,6 +95,16 @@
   For `summary.cca` see
   [#644](https://github.com/vegandevs/vegan/discussions/644).
 
+* lattice function `ordicloud` is deprecated. It is still available in
+  CRAN package **vegan3d** (version 1.4-0).
+
+* lattice function `ordisplom` is deprecated: it had bad design and
+  was not very useful.
+
+* lattice function `ordiresids` is deprecated: you can access the same
+  items using `fitted`, `residuals`, `rstandard`, `rstudent` _etc_ and
+  design your own plots.
+
 * `summary.decorana` is defunct. It did nothing useful, but you can
   extract the same information with `scores` and `weights`.
 

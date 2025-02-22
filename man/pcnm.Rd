@@ -99,8 +99,6 @@ ordisurf(mite.xy, scores(pcnm1, choi=1), bubble = 4, main = "PCNM 1")
 ordisurf(mite.xy, scores(pcnm1, choi=2), bubble = 4, main = "PCNM 2")
 ordisurf(mite.xy, scores(pcnm1, choi=3), bubble = 4, main = "PCNM 3")
 par(op)
-## Plot first PCNMs against each other
-ordisplom(pcnm1, choices=1:4)
 ## Weighted PCNM for CCA
 data(mite)
 rs <- rowSums(mite)/sum(mite)
