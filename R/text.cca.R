@@ -16,7 +16,7 @@
         labels <- labels.cca(x, display)
     if (!missing(select)) {
         pts <- .checkSelect(select, pts)
-        labels <- labels[select]
+        labels <- rownames(pts)
     }
     ## centroids ("cn") have special treatment: also plot biplot
     ## arrows ("bp") for continuous variables and ordered factors.
