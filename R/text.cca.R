@@ -5,6 +5,15 @@
 {
     if (length(display) > 1)
         stop("only one 'display' item can be added in one command")
+
+    display <- match.arg(display, c("species", "sites", "wa", "lc", "bp", "cn", "reg", "all"))
+
+    if(missing(labels)) {
+        custom_labels <- FALSE
+    } else {
+        custom_labels <- TRUE
+    }
+
     pts <- scores(x, choices = choices, display = display, scaling = scaling,
                   const, correlation = correlation, hill = hill, tidy=FALSE,
                   droplist = TRUE)
@@ -12,12 +21,19 @@
     ## labels, the checks in "cn" branch fail and "bp" branch will
     ## be entered even if there should be no "bp" plotting
     cnam <- rownames(pts)
-    if (missing(labels))
+    if (!custom_labels)
         labels <- labels.cca(x, display)
     if (!missing(select)) {
         pts <- .checkSelect(select, pts)
-        labels <- rownames(pts)
+        if(custom_labels) {
+            if(class(select) %in% c("numeric", "logical") & length(labels) == length(cnam)) {
+                labels <- labels[select]
+            }
+        } else {
+            labels = rownames(pts)
+        }
     }
+    
     ## centroids ("cn") have special treatment: also plot biplot
     ## arrows ("bp") for continuous variables and ordered factors.
     if (display == "cn") {
