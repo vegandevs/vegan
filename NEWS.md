@@ -5,7 +5,11 @@
 * **vegan** no longer depends on **lattice**, but only imports
   **lattice** functions. The **lattice** package is no longer
   automatically loaded. To use **lattice** functions directly, you
-  must first attach the package with `library(lattice)`.
+  must first attach the package with `library(lattice)`. Longer-term
+  plan is to remove **lattice** functions as soon as more modern
+  alternatives in **ggplot2** are made available. See Discussion
+  [#727](https://github.com/vegandevs/vegan/discussions/727) and
+  section Deprecated and Defunct for the changes in this release.
 
 * **vegan** no longer suggests **tcltk**, but suggests **vegan3d**
   (version 1.3-0). See `orditkplot` in section Deprecated and Defunct.
@@ -58,6 +62,11 @@
   `text` can use opaque background label, and `text` and `points`
   function (for `ordiplot`) gained argument for adjusting arrow
   lengths similarly as these functions for `cca`.
+
+  `text.cca` and `points.cca` were completely redesigned because of
+  the concerns raised in PR
+  [#729](https://github.com/vegandevs/vegan/pull/729). Support
+  function `labels.cca` now accepts abbreviated names of score types.
 
   The new features are more extensively described in help pages of
   `plot.cca`, `ordiplot` and `biplot.rda`.
