@@ -23,6 +23,8 @@
 `labels.cca` <-
     function(object, display, ...)
 {
+    display <- match.arg(display,
+               c("sp", "species", "wa", "sites", "lc", "reg", "bp", "cn"))
     if (is.null(object$CCA))
         CCA <- "CA"
     else
