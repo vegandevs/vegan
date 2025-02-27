@@ -8,16 +8,7 @@
     ## Some 'scores' accept only one 'display': a workaround
     for (nm in display)
         xy[[nm]] <- scores(x, display = nm, choices = choices, ...)
-    ##xy <- scores(x, display = display, choices = choices, ...)
-    ## remove `select`ed observations from scores as per text.cca
-    ## only useful if we are displaying only one set of scores
-    if(!missing(select)) {
-        if(isTRUE(all.equal(length(display), 1L))) {
-            xy[[1]] <- .checkSelect(select, xy[[1]])
-        } else {
-            warning("'select' does not apply when plotting more than one set of scores--\n'select' was ignored")
-        }
-    }
+
     if (length(display) > 1) {
         ld <- length(display)
         col <- rep(rep(col, length=ld), sapply(xy, nrow))
@@ -44,12 +35,29 @@
     if (!add)
         pl <- ordiplot(xy, display = "sites", type="n")
     if (!missing(labels)) {
-        if (length(labels) != nrow(xy))
+            if (length(labels) != nrow(xy)) {
             stop(gettextf(
                 "you need  %d labels but arg 'labels' only had %d: arg ignored",
                 nrow(xy), length(labels)))
+        }
+        rownames(xy) <- labels
     } else {
         labels <- rownames(xy)
+    }
+    ## keep only 'select': applicable only if there was only one
+    ## set of scores
+    if(!missing(select)) {
+        if(identical(length(display), 1L)) {
+            xy <- .checkSelect(select, xy)
+            labels <- rownames(xy)
+        } else
+            warning("'select' can be used only with one set of scores: ignoring 'select'")
+    }
+    ## our algorithm needs at least three items
+    if (nrow(xy) < 3) {
+        warning(gettextf("optimization needs at least three items, you got %d",
+                         nrow(xy)))
+        return(invisible(x))
     }
     em <- strwidth("m", cex = min(cex), font = min(font))
     ex <- strheight("x", cex = min(cex), font = min(font))
