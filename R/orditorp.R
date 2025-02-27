@@ -7,7 +7,7 @@
         pcex <- cex
     if (missing(pcol))
         pcol <- col
-    if (inherits(x, "ordiplot"))
+    if (PIPE <- inherits(x, "ordiplot")) # PIPE returns x
         display <- match.arg(display, names(x))
     sco <- scores(x, display = display, choices = choices, ...)
     kk <- complete.cases(sco)
@@ -28,12 +28,21 @@
     ## remove NA scores
     sco <- sco[kk,, drop = FALSE]
     ## Handle pathological cases of no data and one label
-    if (identical(nrow(sco), 0L))
-        stop("nothing to plot")
+    if (identical(nrow(sco), 0L)) {
+        if (PIPE)
+            return(invisible(x))
+        else
+            stop("nothing to plot")
+    }
     else if (identical(nrow(sco), 1L)) {
         ordiArgAbsorber(sco, labels = labels, cex = cex,
                         col = col, FUN = text, ...)
-        return(invisible(structure(TRUE, names = labels)))
+        tt <- structure(TRUE, names = labels)
+        if (PIPE) {
+            attr(x[[display]], "orditorp") <- tt
+            return(invisible(x))
+        } else
+            return(invisible(tt))
     }
     priority <- priority[kk]
     labels <- labels[kk]
@@ -71,7 +80,7 @@
     ordiArgAbsorber(sco[tt, , drop = FALSE], labels = labels[tt], cex = cex,
                     col = col, FUN = text, ...)
     names(tt) <- labels
-    if (inherits(x, "ordiplot")) {
+    if (PIPE) {
         attr(x[[display]], "orditorp") <- tt[order(ord)]
         invisible(x)
     } else {
