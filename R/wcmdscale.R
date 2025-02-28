@@ -12,7 +12,7 @@
         options(op)
     }
     ## handle add constant to make d Euclidean
-    if (is.logical(add) && isTRUE(add))
+    if (is.logical(add) && add)
         add <- "lingoes"
     if (is.character(add)) {
         add <- match.arg(add, c("lingoes", "cailliez"))
