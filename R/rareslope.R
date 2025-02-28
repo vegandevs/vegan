@@ -13,8 +13,9 @@
     function(x, sample)
 {
     ## 'x' must be integers ('sample' need not be)
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("community data 'x' must be integers (counts)")
+    x <- round(x) # to be sure as x may not exact integer
     minobs <- min(x[x > 0])
     if (minobs > 1)
         warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))

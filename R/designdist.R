@@ -135,8 +135,9 @@
 {
     x <- as.matrix(x)
     ## need integer data
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")
+    x <- round(x) # to be sure since as.integer(sqrt(3)^2) == 2
     N <- nrow(x)
     ## do_chaoterms returns a list with U, V which are non-classed
     ## vectors where the order of terms matches 'dist' objects
