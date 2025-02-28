@@ -11,7 +11,7 @@
     Z <- x$grid$z
     force(col)
     force(cex)
-    if(isTRUE(all.equal(what, "contour"))) {
+    if(what == "contour") {
         if(!add) {
             if(bubble) {
                 if (is.numeric(bubble))
@@ -26,7 +26,7 @@
                 levels = levels, labcex = labcex,
                 drawlabels = !is.null(labcex) && labcex > 0,
                 lwd = lwd.cl)
-    } else if(isTRUE(all.equal(what, "persp"))) {
+    } else if(what == "persp") {
         persp(X, Y, Z, col = col, cex = cex, ...)
     } else {
         class(x) <- class(x)[-1]

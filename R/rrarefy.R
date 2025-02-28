@@ -4,7 +4,7 @@
     function(x, sample)
 {
     x <- as.matrix(x)
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function is meaningful only for integers (counts)")
     ## x may not be exactly integer, since, e.g., sqrt(2)^2 != 2
     if (!is.integer(x))
@@ -32,8 +32,9 @@
 `drarefy` <-
     function(x, sample)
 {
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")
+    x <- round(x)
     minobs <- min(x[x > 0])
     if (minobs > 1)
         warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))

@@ -5,8 +5,9 @@
     ## as.matrix changes an n-vector to a n x 1 matrix
     if (ncol(x) == 1 && MARGIN == 1)
         x <- t(x)
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")
+    x <- round(x) # safety first: x may not be exact integer
     minobs <- min(x[x > 0])
     if (minobs > 1)
         warning(gettextf("most observed count data have counts 1, but smallest count is %d", minobs))

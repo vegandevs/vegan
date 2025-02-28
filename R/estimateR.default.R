@@ -27,7 +27,7 @@
         Grad
     }
     ## we need integers
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")
     ## and they must be exact
     if (!is.integer(x))

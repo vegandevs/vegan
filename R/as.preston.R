@@ -4,7 +4,7 @@
     if (inherits(x, "preston"))
         return(x)
     ## practically integer
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")
     ## need exact integers, since, e.g., sqrt(2)^2 - 2 = 4.4e-16 and
     ## tie breaks fail
