@@ -75,7 +75,8 @@
 
   <dt id="arg-labels">labels<a class="anchor" aria-label="anchor" href="#arg-labels"></a></dt>
 <dd><p>Optional text used for labels. Row names of scores will
-    be used if this is missing.</p></dd>
+    be used if this is missing. If <code>labels</code> are given, they will
+    also be used in <code>select</code>.</p></dd>
 
   <dt id="arg-choices">choices<a class="anchor" aria-label="anchor" href="#arg-choices"></a></dt>
 <dd><p>Axes shown.</p></dd>
@@ -87,9 +88,10 @@
 
   <dt id="arg-select">select<a class="anchor" aria-label="anchor" href="#arg-select"></a></dt>
 <dd><p>Items to be displayed.  This can either be a logical
-    vector which is <code>TRUE</code> for displayed items or a vector of indices
-    of displayed items. If a logical vector is used, it must have the
-    same length as the scores plotted.</p></dd>
+    vector which is <code>TRUE</code> for displayed items or a vector of
+    indices, or <code>labels</code> and if these are missing, row names of
+    scores. If a logical vector is used, it must have the same length as
+    the scores plotted.</p></dd>
 
   <dt id="arg-cex-pcex">cex, pcex<a class="anchor" aria-label="anchor" href="#arg-cex-pcex"></a></dt>
 <dd><p>Text and point sizes, see <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot.default</a></code>..</p></dd>
