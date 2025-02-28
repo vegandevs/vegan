@@ -71,6 +71,21 @@
   The new features are more extensively described in help pages of
   `plot.cca`, `ordiplot` and `biplot.rda`.
 
+* `text` and `points` functions have arguments `labels` to rename
+  `text`and `select` to show only some `points` and `text`. Now these
+  functions are consistent and use first `labels` and then `select`
+  using optionally changed labels. Concerns functions `ordilabel`,
+  `ordipointlabel`, `orditorp` as well as `text` and `points`
+  functions for `cca` and friends, `decorana`, `monoMDS`, `metaMDS`
+  and `ordiplot`.
+
+  `orditorp`, `points.cca` and `text.cca` did not accept row names or
+  `labels` in `select`. PR
+  [#729](https://github.com/vegandevs/vegan/pull/729).
+
+  Species scores can be added to `monoMDS` with `sppscores` function,
+  and now these can be accessed in `points` and `text` functions.
+
 * `ordipointlabel` can be used in pipe. Function gained argument
   `label` that allows changing plotted text, and a function `labels`
   that return the current labels. The optimization rules were changed
