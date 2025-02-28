@@ -52,7 +52,7 @@ tolerance.cca <- function(x, choices = 1:2,
     doN2 <- isTRUE(useN2) && ((which == "species" && abs(scaling) == 2) ||
                               (which == "sites" && abs(scaling) == 1))
     siteScrs <- which(names(scrs) %in% c("sites","constraints"))
-    if(isTRUE(all.equal(which, "sites"))) {
+    if(which == "sites") {
         res <- matrix(ncol = length(choices), nrow = nrow(scrs[[siteScrs]]))
         Ytot <- rowSums(Y)
         for (i in seq_len(NROW(res))) {
