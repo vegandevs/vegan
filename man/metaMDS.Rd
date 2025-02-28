@@ -112,7 +112,8 @@ metaMDSredist(object, ...)
    \code{"species"}), the names by variable \code{label}. These scores
    are incompatible with conventional \code{plot} functions, but they can
    be used in \pkg{ggplot2}.}
- \item{labels}{Optional test to be used instead of row names.}
+ \item{labels}{Optional test to be used instead of row names. If
+   \code{labels} are given, they will also be used in \code{select}.}
  \item{select}{Items to be displayed.  This can either be a logical
    vector which is \code{TRUE} for displayed items or a vector of indices
    of displayed items.}

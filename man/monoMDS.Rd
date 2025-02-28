@@ -91,7 +91,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
           vector which is \code{TRUE} for displayed items or a vector of
           indices of displayed items.}
 
-  \item{labels}{Labels to be use used instead of row names.}
+  \item{labels}{Labels to be use used instead of row names. If
+    \code{labels} are given, they will also be used in \code{select}.}
 
   \item{\dots}{Other parameters to the functions (ignored in
     \code{monoMDS}, passed to graphical functions in \code{plot}.).}

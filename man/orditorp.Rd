@@ -23,7 +23,8 @@ orditorp(x, display, labels, choices = c(1, 2), priority,
     alternative is allowed. Typically this is \code{"sites"} or
     \code{"species"}.  }
   \item{labels}{ Optional text used for labels. Row names of scores will
-    be used if this is missing. }
+    be used if this is missing. If \code{labels} are given, they will
+    also be used in \code{select}. }
   \item{choices}{ Axes shown.}
   \item{priority}{ Text will be used for items with higher priority
     if labels overlap.  This should be vector of the same

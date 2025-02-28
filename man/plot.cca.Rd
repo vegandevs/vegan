@@ -113,7 +113,8 @@
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
   \item{labels}{Optional text to be used instead of row names. If you
     use this, it is good to check the default labels and their order
-    using \code{labels} command.}
+    using \code{labels} command. If \code{labels} are given, they will
+    also be used in \code{select}.}
   \item{arrow.mul}{Factor to expand arrows in the graph.  Arrows will be
     scaled automatically to fit the graph if this is missing.}
   \item{head.arrow}{Default length of arrow heads.}
