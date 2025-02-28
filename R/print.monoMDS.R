@@ -53,9 +53,9 @@
 }
 
 `points.monoMDS` <-
-    function(x, choices = c(1,2), select, ...)
+    function(x, display = "sites", choices = c(1,2), select, ...)
 {
-    x <- scores(x, choices = choices)
+    x <- scores(x, display = display, choices = choices)
     if (!missing(select))
         x <- .checkSelect(select, x)
     points (x, ...)
@@ -63,9 +63,9 @@
 }
 
 `text.monoMDS` <-
-    function(x, labels, choices = c(1,2), select, ...)
+    function(x, display = "sites", labels, choices = c(1,2), select, ...)
 {
-    x <- scores(x, choices = choices)
+    x <- scores(x, display = display, choices = choices)
     if (!missing(labels))
         rownames(x) <- labels
     if (!missing(select))

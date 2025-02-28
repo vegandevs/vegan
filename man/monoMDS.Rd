@@ -23,8 +23,9 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
 \method{scores}{monoMDS}(x, display = "sites", shrink = FALSE, choices,
     tidy = FALSE, ...)
 \method{plot}{monoMDS}(x, display = "sites", choices = c(1,2), type = "t", ...)
-\method{points}{monoMDS}(x, choices = c(1,2), select, ...)
-\method{text}{monoMDS}(x, labels, choices = c(1,2), select, ...)
+\method{points}{monoMDS}(x, display = "sites", choices = c(1,2), select, ...)
+\method{text}{monoMDS}(x, display = "sites", labels, choices = c(1,2),
+    select, ...)
 }
 
 \arguments{
