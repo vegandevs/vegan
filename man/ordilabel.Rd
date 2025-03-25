@@ -20,8 +20,8 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
     \code{\link{scores}}. }
   \item{display}{Kind of scores displayed (passed to
     \code{\link{scores}}). }
-  \item{labels}{Optional text used in plots. If this is not given, the
-     text is found from the ordination object.}
+  \item{labels}{Optional text used in plots instead of the default.  If
+    this is given, these labels are also used in \code{select}.}
 
   \item{choices}{Axes shown (passed to \code{\link{scores}}). }
 

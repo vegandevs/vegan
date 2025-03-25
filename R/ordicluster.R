@@ -39,7 +39,7 @@
     colnames(seg.coords) <- c("x1","y1","x2","y2")
     ## are we plotting?
     draw <- match.arg(draw)
-    if (isTRUE(all.equal(draw, "segments"))) {
+    if (draw == "segments") {
         ordiArgAbsorber(seg.coords[,1L], seg.coords[,2L],
                         seg.coords[,3L], seg.coords[,4L],
                         col = rgb(nodecol),

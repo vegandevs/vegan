@@ -47,7 +47,8 @@ ordiplot(ord, choices = c(1, 2), type="points", display, optimize = FALSE,
     and \code{regression}, and \code{\link{plot.procrustes}} ordination
     plot has \code{heads} and \code{points}.}
   \item{labels}{Optional text used for labels. Row names of scores will
-    be used if this is missing.}
+    be used if this is missing. If \code{labels} are given, they will
+    also be used in \code{select}.}
   \item{optimize}{Optimize locations of text to reduce overlap and plot
     point in the actual locations of the scores. Uses
     \code{\link{ordipointlabel}}. }

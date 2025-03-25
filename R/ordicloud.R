@@ -3,6 +3,7 @@
              panel = "panel.ordi3d",
              prepanel = "prepanel.ordi3d", ...)
 {
+  message("ordicloud is deprecated:\nuse ordilattice3d in CRAN package vegan3d (1.4-0)")
   localCloud <- function(..., shrink, origin, scaling) cloud(...)
   x <- as.data.frame(scores(x, display = display, choices = choices, ...))
   if (!is.null(data))

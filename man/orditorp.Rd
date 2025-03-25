@@ -23,15 +23,17 @@ orditorp(x, display, labels, choices = c(1, 2), priority,
     alternative is allowed. Typically this is \code{"sites"} or
     \code{"species"}.  }
   \item{labels}{ Optional text used for labels. Row names of scores will
-    be used if this is missing. }
+    be used if this is missing. If \code{labels} are given, they will
+    also be used in \code{select}. }
   \item{choices}{ Axes shown.}
   \item{priority}{ Text will be used for items with higher priority
     if labels overlap.  This should be vector of the same
     length as the number of items plotted.}
   \item{select}{Items to be displayed.  This can either be a logical
-    vector which is \code{TRUE} for displayed items or a vector of indices
-    of displayed items. If a logical vector is used, it must have the
-    same length as the scores plotted.}
+    vector which is \code{TRUE} for displayed items or a vector of
+    indices, or \code{labels} and if these are missing, row names of
+    scores. If a logical vector is used, it must have the same length as
+    the scores plotted.} 
   \item{cex, pcex}{Text and point sizes, see \code{\link{plot.default}}..}
   \item{col, pcol}{Text and point colours, see \code{\link{plot.default}}.}
   \item{pch}{Plotting character, see \code{\link{points}}.}

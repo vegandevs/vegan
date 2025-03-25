@@ -1,5 +1,5 @@
 
-R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
 Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
@@ -22,8 +22,6 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
-Loading required package: lattice
-This is vegan 2.7-0
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -811,9 +809,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > Agropyron <- with(dat, as.numeric(field) + as.numeric(NO3)+2) +rnorm(12)/2
 > Schizachyrium <- with(dat, as.numeric(field) - as.numeric(NO3)+2) +rnorm(12)/2
 > total <- Agropyron + Schizachyrium
-> dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
-+         type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
-> 
 > Y <- data.frame(Agropyron, Schizachyrium)
 > mod <- metaMDS(Y, trace = FALSE)
 > plot(mod)
@@ -2480,11 +2475,15 @@ Icmaeric Cladcerv Claddefo Cladphyl
 > ### ** Examples
 > 
 > data(BCI)
-> ## Four ways of calculating the same Sørensen dissimilarity
+> ## Five ways of calculating the same Sørensen dissimilarity
 > d0 <- vegdist(BCI, "bray", binary = TRUE)
 > d1 <- designdist(BCI, "(A+B-2*J)/(A+B)")
 > d2 <- designdist(BCI, "(b+c)/(2*a+b+c)", abcd = TRUE)
 > d3 <- designdist(BCI, "gamma/alpha - 1", alphagamma = TRUE)
+> d4 <- designdist(BCI, "dist(x, 'manhattan')/(A+B)")
+> ## Zero-adjusted Bray-Curtis of Clarke et al. (J Exp Marine Biol & Ecol
+> ## 330:55-80; 2006)
+> dbr0 <- designdist(BCI, "(A+B-2*J)/(A+B+2*min(x[x>0]))", terms = "minimum")
 > ## Arrhenius dissimilarity: the value of z in the species-area model
 > ## S = c*A^z when combining two sites of equal areas, where S is the
 > ## number of species, A is the area, and c and z are model parameters.
@@ -5010,7 +5009,7 @@ alternative hypothesis: statistic is greater than simulated values
 
 
 Call:
-nestfun(veg = comm) 
+decorana(veg = comm) 
 
 Detrended correspondence analysis with 26 segments.
 Rescaling of axes with 4 iterations.
@@ -5034,8 +5033,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > plot(as.ts(out))
 > lag.plot(as.ts(out))
 > acf(as.ts(out))
-> ## Density plot
-> densityplot(permustats(out), as.table = TRUE, layout = c(1,4))
+> ## Density plot in lattice graphics
+> permulattice(permustats(out), "densityplot", as.table = TRUE, layout = c(1,4))
 > ## Use quantitative null models to compare
 > ## mean Bray-Curtis dissimilarities
 > data(dune)
@@ -5366,28 +5365,6 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 +   ordipointlabel(c("sites","species","centroids"), cex=c(0.7,0.7,1),
 +       col = c("black","red","blue"), font = c(1,3,1), pch=c(1,3,4), xpd=TRUE) |>
 +   text("biplot", col = "blue", bg = "white", cex=1)
-> 
-> 
-> 
-> cleanEx()
-> nameEx("ordiresids")
-> ### * ordiresids
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: ordiresids
-> ### Title: Plots of Residuals and Fitted Values for Constrained Ordination
-> ### Aliases: ordiresids
-> ### Keywords: hplot
-> 
-> ### ** Examples
-> 
-> data(varespec)
-> data(varechem)
-> mod <- cca(varespec ~ Al + P + K, varechem)
-> ordiresids(mod)
-> ordiresids(mod, formula = Residuals ~ Fitted | Species, residuals="standard",
-+    cex = 0.5)
 > 
 > 
 > 
@@ -5828,32 +5805,23 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > 
 > ### Name: ordixyplot
 > ### Title: Trellis (Lattice) Plots for Ordination
-> ### Aliases: ordixyplot ordisplom ordicloud panel.ordi panel.ordiarrows
-> ###   panel.ordi3d prepanel.ordi3d ordilattice.getEnvfit
+> ### Aliases: ordixyplot panel.ordi panel.ordiarrows ordilattice.getEnvfit
 > ### Keywords: hplot
 > 
 > ### ** Examples
 > 
 > data(dune, dune.env)
 > ord <- cca(dune)
-> ## Pairs plots
-> ordisplom(ord)
-> ordisplom(ord, data=dune.env, choices=1:2)
-> ordisplom(ord, data=dune.env, form = ~ . | Management, groups=Manure)
 > ## Scatter plot with polygons
 > ordixyplot(ord, data=dune.env, form = CA1 ~ CA2 | Management,
 +   groups=Manure, type = c("p","polygon"))
 > ## Choose a different scaling
-> ordixyplot(ord, scaling = "symmetric")
+> ordixyplot(ord, scaling = "sites")
 > ## ... Slices of third axis
-> ordixyplot(ord, form = CA1 ~ CA2 | equal.count(CA3, 4),
+> ordixyplot(ord, form = CA1 ~ CA2 | lattice::equal.count(CA3, 4),
 +    type = c("g","p", "polygon"))
 > ## Display environmental variables
 > ordixyplot(ord, envfit = envfit(ord ~ Management + A1, dune.env, choices=1:3))
-> ## 3D Scatter plots
-> ordicloud(ord, form = CA2 ~ CA3*CA1, groups = Manure, data = dune.env)
-> ordicloud(ord, form = CA2 ~ CA3*CA1 | Management, groups = Manure,
-+    data = dune.env, auto.key = TRUE, type = c("p","h"))
 > 
 > 
 > 
@@ -5912,8 +5880,6 @@ Estimated degrees of freedom:
 
 REML score: -94.19053     
 > par(op)
-> ## Plot first PCNMs against each other
-> ordisplom(pcnm1, choices=1:4)
 > ## Weighted PCNM for CCA
 > data(mite)
 > rs <- rowSums(mite)/sum(mite)
@@ -6154,7 +6120,7 @@ X-squared = 0.40156, df = 1, p-value = 0.5263
 > ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
 > ###   permustats.ordiareatest permustats.permutest.betadisper
 > ###   permustats.permutest.cca permustats.protest permustats.vectorfit
-> ###   summary.permustats c.permustats densityplot.permustats
+> ###   summary.permustats c.permustats permulattice densityplot.permustats
 > ###   density.permustats qqnorm.permustats qqmath.permustats
 > ###   boxplot.permustats pairs.permustats
 > ### Keywords: distribution smooth
@@ -6173,8 +6139,9 @@ Model    2.9966 5.3815 1.0184       0.9625 1.6979    0.002 **
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Interval (Upper - Lower) = 0.95)
-> densityplot(perm)
-> qqmath(perm)
+> ## lattice graphics
+> permulattice(perm, "densityplot")
+> permulattice(perm, "qqmath")
 > boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
 > abline(h=0, col="skyblue")
 > ## example of multiple types of statistic
@@ -6267,10 +6234,10 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 
 > plot(mod.HSD)
 > 
-> ## Has permustats() method
+> ## lattice graphics with permustats
 > pstat <- permustats(pmod)
-> densityplot(pstat, scales = list(x = list(relation = "free")))
-> qqmath(pstat, scales = list(relation = "free"))
+> permulattice(pstat, "densityplot", scale = list(x=list(relation="free")))
+> permulattice(pstat, "qqmath", scales = list(relation = "free"))
 > 
 > 
 > 
@@ -9142,7 +9109,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.737 0.321 9.075 0 0 
+Time elapsed:  8.242 0.309 8.563 0 0 
 > grDevices::dev.off()
 null device 
           1 

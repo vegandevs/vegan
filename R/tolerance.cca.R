@@ -49,10 +49,10 @@ tolerance.cca <- function(x, choices = 1:2,
     scrs <- scores(x, display = c(siteScrTypes, "species"),
                    choices = choices, scaling = scaling, ...)
     ## compute N2 if useN2 == TRUE & only if
-    doN2 <- isTRUE(useN2) && ((which == "species" && abs(scaling) == 2) ||
-                              (which == "sites" && abs(scaling) == 1))
+    doN2 <- useN2 && ((which == "species" && abs(scaling) == 2) ||
+                      (which == "sites" && abs(scaling) == 1))
     siteScrs <- which(names(scrs) %in% c("sites","constraints"))
-    if(isTRUE(all.equal(which, "sites"))) {
+    if(which == "sites") {
         res <- matrix(ncol = length(choices), nrow = nrow(scrs[[siteScrs]]))
         Ytot <- rowSums(Y)
         for (i in seq_len(NROW(res))) {

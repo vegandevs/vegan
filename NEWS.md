@@ -2,6 +2,15 @@
 
 ## Installation
 
+* **vegan** no longer depends on **lattice**, but only imports
+  **lattice** functions. The **lattice** package is no longer
+  automatically loaded. To use **lattice** functions directly, you
+  must first attach the package with `library(lattice)`. Longer-term
+  plan is to remove **lattice** functions as soon as more modern
+  alternatives in **ggplot2** are made available. See Discussion
+  [#727](https://github.com/vegandevs/vegan/discussions/727) and
+  section Deprecated and Defunct for the changes in this release.
+
 * **vegan** no longer suggests **tcltk**, but suggests **vegan3d**
   (version 1.3-0). See `orditkplot` in section Deprecated and Defunct.
 
@@ -29,6 +38,9 @@
   (https://stackoverflow.com/questions/77391007/) and issue
   [#606](https://github.com/vegandevs/vegan/issues/606).
 
+* `permulattice`: new function to use lattice graphics for
+  `permustats` results without need to first issue `library(lattice)`.
+
 ## New Features
 
 * `plot.cca` graphics can be configured. `plot.cca` had hard-coded
@@ -51,8 +63,28 @@
   function (for `ordiplot`) gained argument for adjusting arrow
   lengths similarly as these functions for `cca`.
 
+  `text.cca` and `points.cca` were completely redesigned because of
+  the concerns raised in PR
+  [#729](https://github.com/vegandevs/vegan/pull/729). Support
+  function `labels.cca` now accepts abbreviated names of score types.
+
   The new features are more extensively described in help pages of
   `plot.cca`, `ordiplot` and `biplot.rda`.
+
+* `text` and `points` functions have arguments `labels` to rename
+  `text`and `select` to show only some `points` and `text`. Now these
+  functions are consistent and use first `labels` and then `select`
+  using optionally changed labels. Concerns functions `ordilabel`,
+  `ordipointlabel`, `orditorp` as well as `text` and `points`
+  functions for `cca` and friends, `decorana`, `monoMDS`, `metaMDS`
+  and `ordiplot`.
+
+  `orditorp`, `points.cca` and `text.cca` did not accept row names or
+  `labels` in `select`. PR
+  [#729](https://github.com/vegandevs/vegan/pull/729).
+
+  Species scores can be added to `monoMDS` with `sppscores` function,
+  and now these can be accessed in `points` and `text` functions.
 
 * `ordipointlabel` can be used in pipe. Function gained argument
   `label` that allows changing plotted text, and a function `labels`
@@ -62,9 +94,12 @@
   
 * `orditorp` can be used in pipe.
 
+* `densityplot.permustats` did not know argument `observed` to control
+  including and showing the observed statistic.
+
 * `vegemite` and `tabasco` can now `use` a factor to show a
   classification. The factor levels and sites within levels can be
-  reordered to give a diagonal pattern, as default in code `tabasco`
+  reordered to give a diagonal pattern, as default in `tabasco`
   and in `vegemite` with new argument `diagonalize = TRUE` (defaults
   `FALSE`). With the same argument, `vegemite` can also reorder
   dendrogram (or tree) to give a diagonal pattern. If `coverscale` is
@@ -77,26 +112,22 @@
 
 * `wascores` can now calculate (unbiased) weighted standard deviation
   of weighted averages with argument `stdev = TRUE`.
-  
-
-## Bug Fixes
-
-* `anova.cca(..., by="margin")` failed when a constraint was
-  completely aliased by conditions. See
-  [#701](https://github.com/vegandevs/vegan/pull/701).
-
-* `envfit` failed when ordination scores were given in a plain matrix
-  instead of a complex ordination result object. Issue
-  [#713](https://github.com/vegandevs/vegan/issues/713).
-
-* `vegemite` dropped dimensions when only one site or species was
-  requested.
 
 ## Deprecated and Defunct
 
 * Disabled use of `summary` to get ordination scores: use `scores`!
   For `summary.cca` see
   [#644](https://github.com/vegandevs/vegan/discussions/644).
+
+* lattice function `ordicloud` is deprecated. It is still available in
+  CRAN package **vegan3d** (version 1.4-0) as function `ordilattice3d`.
+
+* lattice function `ordisplom` is deprecated: it had bad design and
+  was not very useful.
+
+* lattice function `ordiresids` is deprecated: you can access the same
+  items using `fitted`, `residuals`, `rstandard`, `rstudent` _etc_ and
+  design your own plots.
 
 * `summary.decorana` is defunct. It did nothing useful, but you can
   extract the same information with `scores` and `weights`.
@@ -109,6 +140,34 @@
 * relic function `vegandocs` is officially defunct. Better tools to
   read **vegan** documentation are `browseVignettes("vegan")` and
   `news(package="vegan")`.
+
+# vegan 2\.6-10
+
+## Startup
+
+* Prints startup message ("This is vegan 2.6-10") only in
+  interactive sessions. Version number is no longer shown in
+  package checks and other scripts.
+
+## Bug Fixes
+
+* `anova.cca(..., by="margin")` failed when a constraint was
+  completely aliased by conditions. See
+  [#701](https://github.com/vegandevs/vegan/pull/701).
+
+* `envfit` failed when ordination scores were given in a plain matrix
+  instead of a complex ordination result object. Issue
+  [#713](https://github.com/vegandevs/vegan/issues/713).
+
+  `envfit` could fail when it was called with only one environmental
+  variable *without* formula interface. Formula interface worked
+  correctly. Issue [#720](https://github.com/vegandevs/vegan/issues/720).
+
+* `vegemite` dropped dimensions when only one site or species was
+  requested.
+
+  `vegemite` could fail with variable lengths of row names (SU
+  names).
 
 # vegan 2.6-8
 
@@ -192,7 +251,6 @@
 
 * `vegemite` returned only the last page of multi-page table in its
   (invisible) return object.
-
 
 # vegan 2.6-6.1
 

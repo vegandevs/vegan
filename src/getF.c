@@ -180,7 +180,7 @@ static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
     double *w, int nr, int nc, int discard)
 {
     int i, j, ij, len = nr*nc, info = 0, qrkind;
-    double dummy = 0, wsqrt;
+    double dummy[1] = {0.0}, wsqrt;
     double *xwork = (double *) R_alloc(len, sizeof(double));
     /* Extract  R from qr into upper triangle of X */
     for(i = 0; i < len; i++)
@@ -201,7 +201,7 @@ static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
     for(j = 0; j < nc; j++) {
 	if (pivot[j] >= 0)
 	    F77_CALL(dqrsl)(qr, &nr, &nr, &rank, qraux, xwork + j*nr,
-			    X + pivot[j]*nr, &dummy, &dummy, &dummy, &dummy,
+			    X + pivot[j]*nr, dummy, dummy, dummy, dummy,
 			    &qrkind, &info);
     }
 
@@ -331,13 +331,10 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     }
     
     double *fitted = (double *) R_alloc(nr * nc, sizeof(double));
-    /* separate resid needed only in some cases */
-    double *resid;
-    if (PARTIAL || FIRST)
-	resid = (double *) R_alloc(nr * nc, sizeof(double));
+    double *resid = (double *) R_alloc(nr * nc, sizeof(double));
     /* work array and variables for QR decomposition */
     double *qty = (double *) R_alloc(nr, sizeof(double));
-    double dummy;
+    double dummy[1] = {0.0};
     int info, qrkind;
     /* Weighted methods currently need re-evaluation of QR
        decomposition (probably changed in the future, but now for the
@@ -414,7 +411,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	    qrkind = RESID;
 	    for(i = 0; i < nc; i++)
 		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux, rY + i*nr,
-	                        &dummy, qty, &dummy, rY + i*nr, &dummy,
+	                        dummy, qty, dummy, rY + i*nr, dummy,
 				&qrkind, &info);
 	    /* distances need symmetric residuals */
 	    if (DISTBASED) {
@@ -422,8 +419,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		qrkind = RESID;
 		for(i = 0; i < nc; i++)
 		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
-				    transY + i*nr, &dummy, qty, &dummy,
-				    rY + i*nr, &dummy, &qrkind, &info);
+				    transY + i*nr, dummy, qty, dummy,
+				    rY + i*nr, dummy, &qrkind, &info);
 	    }
 
 	}
@@ -438,8 +435,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		qrkind = RESID;
 		for (i = 0; i < nx; i++)
 	            F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
-	                qr + i*nr, &dummy, qty, &dummy, qr + i*nr,
-	                &dummy, &qrkind, &info);
+	                qr + i*nr, dummy, qty, dummy, qr + i*nr,
+	                dummy, &qrkind, &info);
 	    }
 	    for(i = 0; i < nx; i++)
 		pivot[i] = i + 1;
@@ -456,7 +453,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	    for (p = 0; p < (nterms - 1); p++) {
 		for (i = 0; i < nc; i++)
 		    F77_CALL(dqrsl)(qr, &nr, &nr, term + p, qraux, rY + i*nr,
-				    &dummy, qty, &dummy, &dummy, fitted + i*nr,
+				    dummy, qty, dummy, dummy, fitted + i*nr,
 				    &qrkind, &info);
 		ev = getEV(fitted, nr, nc, DISTBASED);
 		rans[k + p*nperm] = ev - ev0;
@@ -469,8 +466,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	else
 	    qrkind = FIT;
 	for (i = 0; i < nc; i++)
-	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, &dummy,
-			    qty, &dummy, resid + i*nr, fitted + i*nr,
+	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, dummy,
+			    qty, dummy, resid + i*nr, fitted + i*nr,
 			    &qrkind, &info);
 
 	/* Eigenvalues: either sum of all or the first If the sum of
@@ -485,8 +482,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		qrkind = FIT;
 		for(i = 0; i < nc; i++)
 		    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux,
-				    transY + i*nr, &dummy, qty, &dummy,
-				    &dummy, fitted + i*nr, &qrkind, &info);
+				    transY + i*nr, dummy, qty, dummy,
+				    dummy, fitted + i*nr, &qrkind, &info);
 		ev1 = eigenfirst(fitted, nr);
 	    } else {
 		ev1 = svdfirst(fitted, nr, nc);

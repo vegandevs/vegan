@@ -23,8 +23,9 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
 \method{scores}{monoMDS}(x, display = "sites", shrink = FALSE, choices,
     tidy = FALSE, ...)
 \method{plot}{monoMDS}(x, display = "sites", choices = c(1,2), type = "t", ...)
-\method{points}{monoMDS}(x, choices = c(1,2), select, ...)
-\method{text}{monoMDS}(x, labels, choices = c(1,2), select, ...)
+\method{points}{monoMDS}(x, display = "sites", choices = c(1,2), select, ...)
+\method{text}{monoMDS}(x, display = "sites", labels, choices = c(1,2),
+    select, ...)
 }
 
 \arguments{
@@ -90,7 +91,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
           vector which is \code{TRUE} for displayed items or a vector of
           indices of displayed items.}
 
-  \item{labels}{Labels to be use used instead of row names.}
+  \item{labels}{Labels to be use used instead of row names. If
+    \code{labels} are given, they will also be used in \code{select}.}
 
   \item{\dots}{Other parameters to the functions (ignored in
     \code{monoMDS}, passed to graphical functions in \code{plot}.).}

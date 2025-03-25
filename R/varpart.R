@@ -23,7 +23,7 @@
         else
             inert <- paste("squared", inert)
         ## additive constant to euclidify distances?
-        if (is.logical(add) && isTRUE(add))
+        if (is.logical(add) && add)
             add <- "lingoes"
         if (is.character(add)) {
             add <- match.arg(add, c("lingoes", "cailliez"))

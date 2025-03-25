@@ -5,8 +5,9 @@
     ## matrix is faster than data.frame
     x <- as.matrix(x)
     ## check input data: must be counts
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")
+    x <- round(x) # x may not be exact integer
     ## should be observed counts
     minobs <- min(x[x > 0])
     if (minobs > 1)

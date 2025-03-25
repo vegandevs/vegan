@@ -93,12 +93,12 @@ Cummings Publishers.  }
 
 \author{\enc{Péter Sólymos}{Peter Solymos}, \email{solymos@ualberta.ca}}
 
-\note{ A common error found in several papers is that when standardizing
-as in the case (b), the denominator is given as \code{Muni - 1}. This
-results in a hiatus in the [0, 0.5] interval of the standardized
-index. The root of this typo is the book of Krebs (1999), see the Errata
-for the book (Page 217,
-\url{https://www.zoology.ubc.ca/~krebs/downloads/errors_2nd_printing.pdf}).
+\note{ A common error found in several papers is that when
+standardizing as in the case (b), the denominator is given as
+\code{Muni - 1}. This results in a hiatus in the [0, 0.5] interval of
+the standardized index. The root of this typo is the book of Krebs
+(1999), see the Errata for the book (Page 217, currently
+https://www.zoology.ubc.ca/~krebs/downloads/errors_2nd_printing.pdf).
 }
 
 \examples{

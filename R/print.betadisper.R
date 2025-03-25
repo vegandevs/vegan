@@ -14,8 +14,7 @@
     cat(paste("\nNo. of Positive Eigenvalues:", sum(eig > 0)))
     cat(paste("\nNo. of Negative Eigenvalues:", sum(eig < 0)))
     cat("\n\n")
-    type <- ifelse(isTRUE(all.equal(attr(x, "type"), "median")),
-                   "median", "centroid")
+    type <- ifelse(attr(x, "type") == "median", "median", "centroid")
     writeLines(strwrap(paste0("Average distance to ", type, ":\n")))
     print.default(format(x$group.distances, digits = digits), quote = FALSE)
     cat("\n")

@@ -17,13 +17,13 @@
     if (terms == "binary")
         x <- ifelse(x > 0, 1, 0)
     if (terms == "binary" || terms == "quadratic")
-        x <- tcrossprod(x)
+        XX <- tcrossprod(x)
     if (terms == "minimum")
-        x <- .Call(do_minterms, as.matrix(x))
-    d <- diag(x)
+        XX <- .Call(do_minterms, as.matrix(x))
+    d <- diag(XX)
     A <- as.dist(outer(rep(1, N), d))
     B <- as.dist(outer(d, rep(1, N)))
-    J <- as.dist(x)
+    J <- as.dist(XX)
     ## 2x2 contingency table notation
     if (abcd) {
         a <- J
@@ -135,8 +135,9 @@
 {
     x <- as.matrix(x)
     ## need integer data
-    if (!identical(all.equal(x, round(x)), TRUE))
+    if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")
+    x <- round(x) # to be sure since as.integer(sqrt(3)^2) == 2
     N <- nrow(x)
     ## do_chaoterms returns a list with U, V which are non-classed
     ## vectors where the order of terms matches 'dist' objects

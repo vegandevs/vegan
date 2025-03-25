@@ -52,7 +52,7 @@
     if (binary)
         x <- decostand(x, "pa")
     N <- nrow(x)
-    if (method %in% c(7, 13, 15) && !identical(all.equal(x, round(x)), TRUE))
+    if (method %in% c(7, 13, 15) && !isTRUE(all.equal(x, round(x))))
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
     d <- .Call(do_vegdist, x, as.integer(method))

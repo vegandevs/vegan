@@ -92,10 +92,10 @@ pmod <- permutest(mod, permutations = 99, pairwise = TRUE)
 (mod.HSD <- TukeyHSD(mod))
 plot(mod.HSD)
 
-## Has permustats() method
+## lattice graphics with permustats
 pstat <- permustats(pmod)
-densityplot(pstat, scales = list(x = list(relation = "free")))
-qqmath(pstat, scales = list(relation = "free"))
+permulattice(pstat, "densityplot", scale = list(x=list(relation="free")))
+permulattice(pstat, "qqmath", scales = list(relation = "free"))
 }
 \keyword{methods}
 \keyword{multivariate}

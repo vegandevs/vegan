@@ -50,10 +50,11 @@ downweight(veg, fraction = 5)
   \item{cols}{Colours used for sites and species.}
   \item{type}{Type of plots, partial match to \code{"text"},
     \code{"points"} or \code{"none"}.}
-  \item{labels}{Optional text to be used instead of row names.}
+  \item{labels}{Optional text to be used instead of row names. If
+    \code{labels} are given, they will also be used in \code{select}.}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
-    of displayed items.}
+    or names (labels) of scores.}
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
   \item{fraction}{Abundance fraction where downweighting begins.}
   \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:

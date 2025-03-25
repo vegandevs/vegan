@@ -19,7 +19,7 @@
         head <- paste0(head, paste("plot permutation:", ptype))
         if(getMirror(x, which = "plots"))
             head <- paste(head, "mirrored")
-        if (isTRUE(all.equal(ptype, "grid"))) {
+        if (ptype == "grid") {
             nr <- getRow(x, which = "plots")
             nc <- getCol(x, which = "plots")
             head <- paste0(head, sprintf(ngettext(nr, " %d row", " %d rows"),
@@ -32,13 +32,13 @@
     ## the fine level (within plots if any)
     type <- getType(x, which = "within")
     head <- paste0(head, "Permutation: ", type)
-    if (isTRUE(type %in% c("series", "grid"))) {
+    if (type %in% c("series", "grid")) {
         if(getMirror(x, which = "within"))
             head <- paste(head, "mirrored")
         if(getConstant(x))
             head <- paste0(head, " constant permutation within each Plot")
     }
-    if (isTRUE(all.equal(type, "grid"))) {
+    if (type == "grid") {
         nr <- getRow(x, which = "within")
         nc <- getCol(x, which = "within")
         head <- paste0(head, sprintf(ngettext(nr, " %d row", " %d rows"),

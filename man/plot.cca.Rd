@@ -25,16 +25,16 @@
      cen.par = list(), reg.par = list(), ...)
 \method{text}{cca}(x, display = "sites", labels, choices = c(1, 2),
      scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
-     axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
+     correlation = FALSE, hill = FALSE, ...)
 \method{points}{cca}(x, display = "sites", choices = c(1, 2),
-       scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
-       axis.bp = FALSE, correlation = FALSE, hill = FALSE, ...)
+     scaling = "species", arrow.mul, head.arrow = 0.05, select, const,
+     correlation = FALSE, hill = FALSE, ...)
 \method{scores}{cca}(x, choices = c(1,2), display = "all",
-       scaling = "species", hill = FALSE, tidy = FALSE, droplist = TRUE,
-       ...)
+     scaling = "species", hill = FALSE, tidy = FALSE, droplist = TRUE,
+     ...)
 \method{scores}{rda}(x, choices = c(1,2), display = "all",
-       scaling = "species", const, correlation = FALSE, tidy = FALSE,
-       droplist = TRUE, ...)
+     scaling = "species", const, correlation = FALSE, tidy = FALSE,
+     droplist = TRUE, ...)
 \method{summary}{cca}(object, digits = max(3, getOption("digits") - 3), ...)
 \method{labels}{cca}(object, display, ...)
 }
@@ -113,7 +113,8 @@
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
   \item{labels}{Optional text to be used instead of row names. If you
     use this, it is good to check the default labels and their order
-    using \code{labels} command.}
+    using \code{labels} command. If \code{labels} are given, they will
+    also be used in \code{select}.}
   \item{arrow.mul}{Factor to expand arrows in the graph.  Arrows will be
     scaled automatically to fit the graph if this is missing.}
   \item{head.arrow}{Default length of arrow heads.}
@@ -129,7 +130,6 @@
     scores.}
   \item{droplist}{Return a matrix instead of a named list when only one
     kind of scores were requested.}
-  \item{axis.bp}{Draw \code{\link{axis}} for biplot arrows.}
   \item{digits}{Number of digits in output.}
 
   \item{...}{Parameters passed to graphical functions. These will be

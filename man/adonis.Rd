@@ -160,9 +160,6 @@ dat
 Agropyron <- with(dat, as.numeric(field) + as.numeric(NO3)+2) +rnorm(12)/2
 Schizachyrium <- with(dat, as.numeric(field) - as.numeric(NO3)+2) +rnorm(12)/2
 total <- Agropyron + Schizachyrium
-dotplot(total ~ NO3, dat, jitter.x=TRUE, groups=field,
-        type=c('p','a'), xlab="NO3", auto.key=list(columns=3, lines=TRUE) )
-
 Y <- data.frame(Agropyron, Schizachyrium)
 mod <- metaMDS(Y, trace = FALSE)
 plot(mod)
