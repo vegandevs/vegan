@@ -123,24 +123,24 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_alr(x, na.rm=na.rm, ...)
-	else x <- t(.calc_alr(t(x), na.rm=na.rm, ...))
+            x <- .calc_alr(x, na.rm = na.rm, ...)
+	else x <- t(.calc_alr(t(x), na.rm = na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, clr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_clr(x, na.rm=na.rm, ...)
-	else x <- t(.calc_clr(t(x), na.rm=na.rm, ...))
+            x <- .calc_clr(x, na.rm = na.rm, ...)
+	else x <- t(.calc_clr(t(x), na.rm = na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_rclr(x, na.rm=na.rm, ...)
-	else x <- t(.calc_rclr(t(x), na.rm=na.rm, ...))
+            x <- .calc_rclr(x, na.rm = na.rm, ...)
+	else x <- t(.calc_rclr(t(x), na.rm = na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     })
@@ -156,15 +156,16 @@
 
 ## Modified from the original version in mia R package
 .calc_clr <-
-    function(x, na.rm, pseudocount=0, ...)
+    function(x, na.rm, pseudocount = 0, ...)
 {
 
     # Add pseudocount
     x <- x + pseudocount
     # Error with negative values (note: at this step we always use na.rm=TRUE)
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("'clr' cannot be used with non-positive data: use pseudocount > ",
-             -min(x, na.rm = TRUE) + pseudocount, call. = FALSE)
+        stop("'method = \"clr\"' cannot be used with non-positive data: 
+              use pseudocount '> -min(x, na.rm = TRUE) + pseudocount'",
+	      call. = FALSE)
     }
 
     # In every sample, calculate the log of individual entries.
@@ -181,9 +182,10 @@
 
     # Replace missing values with 0
     if (na.rm && any(is.na(clog))) {
-        cat("Replacing missing values with zero for clr. You can disable this with na.rm=FALSE.")    
+        warning("replacing missing values with zero for `method = \"clr\"`
+	         - disable this with `na.rm = FALSE`")
         clog[is.na(clog)] <- 0
-    } 
+    }
     
     attr(clog, "parameters") <- list("means" = means,
                                      "pseudocount" = pseudocount)
@@ -192,11 +194,12 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE, impute=TRUE, ...)
+    function(x, na.rm, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE, impute = TRUE, ...)
 {
     # Error with negative values
-    if (any(x < 0, na.rm=na.rm)) {
-        stop("'rclr' cannot be used with negative data", call. = FALSE)
+    if (any(x < 0, na.rm = na.rm)) {
+        stop("the 'method = \"rclr\"' cannot be used with negative data",
+	     call. = FALSE)
     }
 
    # Log transform
@@ -206,7 +209,7 @@
    clog[is.infinite(clog)] <- NA
 
    # Calculate log of geometric mean for every sample, ignoring the NAs
-   # Always na.rm=TRUE at this step!   
+   # Always na.rm = TRUE at this step!   
    means <- rowMeans(clog, na.rm = TRUE)
 
    ## Divide (or in log-space, reduce) all values by their sample-wide
@@ -218,16 +221,17 @@
    # Otherwise return the transformation with NAs
    if (impute && any(is.na(xx))){
    
-     opt_res <- OptSpace(xx, ROPT=ROPT, NITER=NITER, TOL=TOL, verbose=verbose)
+     opt_res <- OptSpace(xx, ROPT = ROPT, NITER = NITER, TOL = TOL, verbose = verbose)
      
-     # recenter the data (the means of rclr can get thrown off since we work on only missing)
+     # recenter the data
+     # (the means of rclr can get thrown off since we work on only missing)
      M_I <- opt_res$X %*% opt_res$S %*% t(opt_res$Y)
 
      # Center cols to 0
-     M_I <- as.matrix(scale(M_I, center=TRUE, scale=FALSE))
+     M_I <- as.matrix(scale(M_I, center = TRUE, scale = FALSE))
 
      # Center rows to 0
-     M_I <- as.matrix(t(scale(t(M_I), center=TRUE, scale=FALSE)))
+     M_I <- as.matrix(t(scale(t(M_I), center = TRUE, scale = FALSE)))
 
      # Imputed matrix
      xx <- M_I
@@ -243,27 +247,32 @@
     # Add pseudocount
     x <- x + pseudocount
     # If there is negative values, gives an error.
-    # Always na.rm=TRUE at this step
+    # Always na.rm = TRUE at this step
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("'alr' cannot be used with non-positive data: use pseudocount > ",
-             -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
+        stop("the 'method = \"alr\"' cannot be used with non-positive data: ",
+              "use pseudocount '> -min(x, na.rm = na.rm) + pseudocount'",
+	      call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
     if (is.character(reference)) {
         reference <- which(reference == colnames(x))
         if (!length(reference)) # found it?
-            stop("'reference' name was not found in data", call. = FALSE)
+            stop("sample name specified in the 'reference' argument
+	          was not found in data",
+	          call. = FALSE)
     }
     if (reference > ncol(x) || reference < 1)
-        stop("'reference' should be a name or index 1 to ",
-             ncol(x), call. = FALSE)
+        stop("sample name specified in 'reference' argument
+	      should be a name (string) or an index 1 to ", ncol(x),
+	      call. = FALSE)
     clog <- log(x)
     refvector <- clog[, reference]
     clog <- clog[, -reference] - refvector
 
     # Replace missing values with 0
     if (na.rm && any(is.na(clog))) {
-        cat("Replacing missing values with zero for alr. You can disable this with na.rm=FALSE.")
+        warning("replacing missing values with zero for `method = \"alr\"`
+	         - disable this with `na.rm = FALSE`")
         clog[is.na(clog)] <- 0
     } 
 
@@ -313,7 +322,8 @@
 }
 
 
-OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
+
+OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 {
 
   ## Preprocessing : x     : partially revealed matrix
@@ -345,35 +355,36 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   ## Preprocessing : ROPT  : implied rank
   if (is.na(ROPT)){
     if (verbose){
-      cat("* OptSpace: Guessing an implicit rank.")
+      message("* OptSpace: Guessing an implicit rank.")
     }
     r <- min(max(round(.guess_rank(M_E, nnZ.E)), 2), m-1)
     if (verbose){
-      cat(paste0('* OptSpace: Guessing an implicit rank: Estimated rank : ',r))
+      message(paste0('* OptSpace: Guessing an implicit rank: Estimated rank : ',r))
     }
   } else {
     r <- round(ROPT)
-    if ((!is.numeric(r)) || (r<1) || (r>m) || (r>n)){
-      stop("* OptSpace: ROPT should be an integer in [1,min(nrow(x),ncol(x))]")
+    if ((!is.numeric(r)) || (r < 1) || (r > m) || (r > n)){
+      stop("* OptSpace: value of argument 'ROPT' should be an integer
+            in [1, min(nrow(x), ncol(x))]")
     }
   }
   
   ## Preprocessing : NITER : maximum number of iterations
-  if ((is.infinite(NITER))||(NITER<=1)||(!is.numeric(NITER))){
-    stop("* OptSpace: invalid NITER number")
+  if ((is.infinite(NITER))|| (NITER <= 1) || (!is.numeric(NITER))){
+    stop("* OptSpace: invalid number provided for argument 'NITER'")
   }
   NITER <- round(NITER)
   
   m0 <- 10000
-  rho <-  eps*n
+  rho <-  eps * n
   
   ## Main Computation
-  rescal_param <- sqrt(nnZ.E*r/(norm(M_E,'f')^2))
-  M_E <- M_E*rescal_param
+  rescal_param <- sqrt(nnZ.E * r/(norm(M_E,'f')^2))
+  M_E <- M_E * rescal_param
   
   # 1. SVD
   if (verbose){
-    cat("* OptSpace: Step 2: SVD ...")
+    message("* OptSpace: Step 2: SVD ...")
   }
   svdEt <- svd(M_E)
   X0 <- svdEt$u[,1:r]
@@ -384,21 +395,21 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   
   # 3. Initial Guess
   if (verbose){
-    cat("* OptSpace: Step 3: Initial Guess ...")
+    message("* OptSpace: Step 3: Initial Guess ...")
   }
-  X0 <- X0*sqrt(n)
-  Y0 <- Y0*sqrt(m)
-  S0 <- S0/eps
+  X0 <- X0 * sqrt(n)
+  Y0 <- Y0 * sqrt(m)
+  S0 <- S0 / eps
   
   # 4. Gradient Descent
   if (verbose){
-    cat("* OptSpace: Step 4: Gradient Descent ...")
+    message("* OptSpace: Step 4: Gradient Descent ...")
   }
   X <- X0
   Y <- Y0
   S <- .aux_getoptS(X, Y, M_E, E)
   # initialize
-  dist <- array(0, c(1, (NITER+1)))
+  dist <- array(0, c(1, (NITER + 1)))
   dist[1] <- norm((M_E - (X %*% S %*% t(Y)))*E, 'f') / sqrt(nnZ.E)
   for (i in seq_len(NITER)){
     # compute the gradient
@@ -413,11 +424,11 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
     # compute the distortion
     dist[i+1] <- norm(((M_E - X %*% S %*% t(Y))*E),'f') / sqrt(nnZ.E)
     if (dist[i+1] < TOL){
-      dist <- dist[1:(i+1)]
+      dist <- dist[1:(i + 1)]
       break
     }
   }
-  S <- S/rescal_param  
+  S <- S / rescal_param  
   # Return Results
   out <- list()
   
@@ -431,7 +442,7 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   out$Y <- Y
   out$dist <- dist
   if (verbose){
-    cat('* OptSpace: estimation finished.')
+    message('* OptSpace: estimation finished.')
   }
 
   # -------------------------------------------
@@ -445,9 +456,9 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
 
   # Centering is common operation supporting output visualization
   # Center cols to 0
-  M <- as.matrix(scale(M, center=TRUE, scale=FALSE))
+  M <- as.matrix(scale(M, center = TRUE, scale = FALSE))
   # Center rows to 0
-  M <- as.matrix(t(scale(t(M), center=TRUE, scale=FALSE)))
+  M <- as.matrix(t(scale(t(M), center = TRUE, scale = FALSE)))
 
   # Imputed matrix; add to the output
   out$M <- M
@@ -464,34 +475,34 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   maxiter <- 10000
   n <- nrow(X)
   m <- ncol(X)
-  epsilon <- nnz/sqrt(m*n)
+  epsilon <- nnz / sqrt(m * n)
   svdX <- svd(X)
   S0 <- svdX$d
   
   nsval0 <- length(S0)
-  S1 <- S0[seq_len(nsval0-1)]-S0[seq(2, nsval0)]  
+  S1 <- S0[seq_len(nsval0 - 1)] - S0[seq(2, nsval0)]  
   nsval1 <- length(S1)
   if (nsval1 > 10){
-    S1_ <- S1/mean(S1[seq((nsval1-10), nsval1)])
+    S1_ <- S1 / mean(S1[seq((nsval1 - 10), nsval1)])
   } else {
-    S1_ <- S1/mean(S1[seq_len(nsval1)])
+    S1_ <- S1 / mean(S1[seq_len(nsval1)])
   }
   r1 <- 0
   lam <- 0.05
   
   itcounter <- 0
-  while (r1<=0){
+  while (r1 <= 0){
     itcounter <- itcounter+1
     cost <- array(0, c(1, length(S1_)))
     for (idx in seq_len(length(S1_))) {
-      cost[idx] <- lam*max(S1_[seq(idx, length(S1_))]) + idx
+      cost[idx] <- lam * max(S1_[seq(idx, length(S1_))]) + idx
     }
     v2 <- min(cost)
-    i2 <- which(cost==v2)
-    if (length(i2)==1){
-      r1 <- i2-1
+    i2 <- which(cost == v2)
+    if (length(i2) == 1){
+      r1 <- i2 - 1
     } else {
-      r1 <- max(i2)-1
+      r1 <- max(i2) - 1
     }
     lam <- lam + 0.05
     if (itcounter > maxiter){
@@ -499,20 +510,20 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
     }
   }
   
-  if (itcounter<=maxiter){
-    cost2 <- array(0, c(1, (length(S0)-1)))
-    for (idx in seq_len(length(S0)-1)){
-      cost2[idx] <- (S0[idx+1]+sqrt(idx * epsilon) * S0[1]/epsilon)/S0[idx]
+  if (itcounter <= maxiter){
+    cost2 <- array(0, c(1, (length(S0) - 1)))
+    for (idx in seq_len(length(S0) - 1)){
+      cost2[idx] <- (S0[idx + 1] + sqrt(idx * epsilon) * S0[1] / epsilon) / S0[idx]
     }
     v2 <- min(cost2)
-    i2 <- which(cost2==v2)
-    if (length(i2)==1){
+    i2 <- which(cost2 == v2)
+    if (length(i2) == 1){
       r2 <- i2
     } else {
       r2 <- max(i2)
     }
     
-    if (r1>r2){
+    if (r1 > r2){
       r <- r1
     } else {
       r <- r2
@@ -528,8 +539,8 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
 # @keywords internal
 .aux_G <- function(X, m0, r)
 {
-  z <- rowSums(X^2)/(2*m0*r)
-  y <- exp((z-1)^2) - 1
+  z <- rowSums(X^2) / (2*m0*r)
+  y <- exp((z - 1)^2) - 1
   idxfind <- (z < 1)
   y[idxfind] <- 0
   out <- sum(y)
@@ -541,23 +552,23 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
 {
   n <- nrow(X)
   r <- ncol(X)
-  out1 <- (sum((((X %*% S %*% t(Y)) - M_E)*E)^2))/2
-  out2 <- rho*.aux_G(Y,m0,r)
-  out3 <- rho*.aux_G(X,m0,r)
-  out  <- out1+out2+out3
+  out1 <- (sum((((X %*% S %*% t(Y)) - M_E) * E)^2)) / 2
+  out2 <- rho * .aux_G(Y, m0, r)
+  out3 <- rho * .aux_G(X, m0, r)
+  out  <- out1 + out2 + out3
   return(out)
 }
 
 
 # Aux 3 : compute the gradient --------------------------------------------
 # @keywords internal
-.aux_Gp <- function(X,m0,r)
+.aux_Gp <- function(X, m0, r)
 {
-  z <- rowSums(X^2)/(2*m0*r)
-  z <- 2*exp((z-1)^2)/(z-1)
-  idxfind <- (z<0)
+  z <- rowSums(X^2)/(2 * m0 * r)
+  z <- 2*exp((z - 1)^2) / (z - 1)
+  idxfind <- (z < 0)
   z[idxfind] <- 0  
-  out <- (X * matrix(z, nrow=nrow(X), ncol=ncol(X), byrow=FALSE))/(m0*r)
+  out <- (X * matrix(z, nrow = nrow(X), ncol = ncol(X), byrow = FALSE)) / (m0 * r)
 }
 # @keywords internal
 .aux_gradF_t <- function(X, Y, S, M_E, E, m0, rho)
@@ -565,19 +576,19 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   n <- nrow(X)
   r <- ncol(X)
   m <- nrow(Y)
-  if (ncol(Y)!=r){
-    stop("dimension error from .aux_gradF_t")
+  if (ncol(Y) != r){
+    stop("dimension error from the internal function .aux_gradF_t")
   }
   
   XS  <- (X %*% S)
   YS  <- (Y %*% t(S))
   XSY <- (XS %*% t(Y))
   
-  Qx <- ((t(X) %*% ((M_E-XSY)*E) %*% YS)/n)
-  Qy <- ((t(Y) %*% t((M_E-XSY)*E) %*% XS)/m)
+  Qx <- ((t(X) %*% ((M_E - XSY) * E) %*% YS) / n)
+  Qy <- ((t(Y) %*% t((M_E - XSY) * E) %*% XS) / m)
   
-  W <- (((XSY-M_E)*E) %*% YS)  + (X %*% Qx) + rho*.aux_Gp(X, m0, r)
-  Z <- (t((XSY-M_E)*E) %*% XS) + (Y %*% Qy) + rho*.aux_Gp(Y, m0, r)
+  W <- (((XSY - M_E)*E) %*% YS)  + (X %*% Qx) + rho * .aux_Gp(X, m0, r)
+  Z <- (t((XSY - M_E)*E) %*% XS) + (Y %*% Qy) + rho * .aux_Gp(Y, m0, r)
   
   resgrad <- list()
   resgrad$W <- W
@@ -595,19 +606,19 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   r <- ncol(X)  
   C <- (t(X) %*% (M_E) %*% Y)
   C <- matrix(as.vector(C))  
-  nnrow <- ncol(X)*ncol(Y)
-  A <- matrix(NA, nrow=nnrow, ncol=(r^2))
+  nnrow <- ncol(X) * ncol(Y)
+  A <- matrix(NA, nrow = nnrow, ncol = (r^2))
   
   for (i in seq_len(r)){
     for (j in seq_len(r)){
-      ind <- ((j-1)*r+i)
-      tmp <- t(X) %*% (outer(X[,i], Y[,j])*E) %*% Y      
-      A[,ind] <- as.vector(tmp)
+      ind <- ((j - 1) * r + i)
+      tmp <- t(X) %*% (outer(X[,i], Y[,j]) * E) %*% Y      
+      A[, ind] <- as.vector(tmp)
     }
   }
   
   S <- solve(A, C)
-  out <- matrix(S, nrow=r)
+  out <- matrix(S, nrow = r)
   return(out)
 }
 
@@ -620,12 +631,12 @@ OptSpace <- function(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
   f[1] <- .aux_F_t(X, Y, S, M_E, E, m0, rho)
   t <- -1e-1
   for (i in seq_len(21)){
-    f[i+1] <- .aux_F_t(X+t*W, Y+t*Z, S, M_E, E, m0, rho)
-    if ((f[i+1]-f[1]) <= 0.5*t*norm2WZ){
+    f[i + 1] <- .aux_F_t(X + t * W, Y + t * Z, S, M_E, E, m0, rho)
+    if ((f[i + 1] - f[1]) <= 0.5 * t * norm2WZ){
       out <- t
       break
     }
-    t <- t/2
+    t <- t / 2
   }
   out <- t
   return(t)

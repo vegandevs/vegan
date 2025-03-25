@@ -1,7 +1,9 @@
 \encoding{UTF-8}
 \name{OptSpace}
 \alias{OptSpace}
+
 \title{OptSpace: algorithm for matrix reconstruction from a partially revealed set}
+
 \description{
 This function was adapted from the original source code in the
 ROptSpace R package (version 0.2.3; MIT License) by Raghunandan
@@ -15,8 +17,9 @@ reconstructs \eqn{M} from \eqn{|E|=O(rn)} observed elements with
 relative root mean square error (RMSE) \deqn{RMSE \le
 C(\alpha)\sqrt{nr/|E|}}.
 }
+
 \usage{
-OptSpace(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)
+OptSpace(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 }
 
 \arguments{
@@ -36,7 +39,7 @@ user. Some of the defaults have been adjusted to better reflect
 ecological data. The implementation has been adjusted for ecological
 applications as in Martino et al. (2019). The imputed matrix (M) in
 the OptSpace output includes matrix reconstruction (XSY'), with
-subsequcnt centering for the columns and rows.
+subsequent centering for the columns and rows.
 }
 
 \value{Returns a named list containing:
@@ -67,11 +70,12 @@ al. (2010).}
   }
 
 \examples{
+
 data(varespec)
 # rclr transformation with no matrix completion for the 0/NA entries
-x <- decostand(varespec, method="rclr", impute=FALSE)
+x <- decostand(varespec, method = "rclr", impute = FALSE)
 # Add matrix completion
-xc <- OptSpace(x, ROPT=3, NITER=5, TOL=1e-5, verbose=FALSE)$M
+xc <- OptSpace(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)$M
 }
 \keyword{ multivariate}
 \keyword{ manip }

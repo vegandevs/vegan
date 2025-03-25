@@ -106,7 +106,7 @@ decobackstand(x, zap = TRUE)
      (e.g. the smallest positive value in the data), either by
      adding it manually to the input data, or by using the argument
      \code{pseudocount} as in
-     \code{decostand(x, method = "clr", na.rm=TRUE, pseudocount = 1)}. Adding
+     \code{decostand(x, method = "clr", na.rm = TRUE, pseudocount = 1)}. Adding
      pseudocount will inevitably introduce some bias; see
      the \code{rclr} method for an alternative.
 
@@ -124,10 +124,8 @@ decobackstand(x, zap = TRUE)
      sample-wide values \eqn{x} that are positive (> 0). The OptSpace
      algorithm performs matrix completion for the missing values
      that result from log transformation of the zero entries in the
-     original input data. The vegan implementation of the matrix
-     completion was adapted from the original implementation
-     ROptSpace::OptSpace (version 0.2.3) following Keshavan et
-     al. (2010). The following parameters can be passed to OptSpace
+     original input data. See \link[vegan]{OptSpace} for more details.
+     The following parameters can be passed to OptSpace
      through decostand: "ROPT" NA to guess the rank, or a positive
      integer as a pre-defined rank (default: 3); "NITER" maximum
      number of iterations allowed (default: 5); "TOL" stopping
@@ -218,13 +216,13 @@ apply(sptrans, 2, max)
 sptrans <- wisconsin(varespec)
 
 # CLR transformation for rows, with pseudocount
-varespec.clr <- decostand(varespec, "clr", pseudocount=1)
+varespec.clr <- decostand(varespec, "clr", pseudocount = 1)
 
 # Robust CLR (rclr) transformation for rows, no pseudocount necessary
-varespec.rclr <- decostand(varespec, "rclr", impute=TRUE)
+varespec.rclr <- decostand(varespec, "rclr", impute = TRUE)
 
 # ALR transformation for rows, with pseudocount and reference sample
-varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
+varespec.alr <- decostand(varespec, "alr", pseudocount = 1, reference = 1)
 
 ## Chi-square: PCA similar but not identical to CA.
 ## Use wcmdscale for weighted analysis and identical results.
