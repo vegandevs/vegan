@@ -237,7 +237,7 @@
      xx <- M_I
    }
   
-   return(xx)
+   xx
    
 }
 
@@ -465,7 +465,7 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 
   # -------------------------------------------
 
-  return(out)
+  out
 }
 
 
@@ -528,10 +528,10 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
     } else {
       r <- r2
     }
-    return(r)
   } else {
     r <- min(nrow(X), ncol(X))
   }
+  r
 }
 
 
@@ -544,7 +544,7 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   idxfind <- (z < 1)
   y[idxfind] <- 0
   out <- sum(y)
-  return(out)
+  out
 }
 
 # @keywords internal
@@ -556,7 +556,7 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   out2 <- rho * .aux_G(Y, m0, r)
   out3 <- rho * .aux_G(X, m0, r)
   out  <- out1 + out2 + out3
-  return(out)
+  out
 }
 
 
@@ -593,7 +593,7 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   resgrad <- list()
   resgrad$W <- W
   resgrad$Z <- Z
-  return(resgrad)
+  resgrad
   
 }
 
@@ -619,7 +619,7 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   
   S <- solve(A, C)
   out <- matrix(S, nrow = r)
-  return(out)
+  out
 }
 
 # Aux 5 : optimal line search ---------------------------------------------
@@ -639,6 +639,6 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
     t <- t / 2
   }
   out <- t
-  return(t)
+  t
 }
 
