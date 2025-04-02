@@ -1,3 +1,14 @@
+# Summary of arguments, for details, see man/optspace.Rd
+#
+# x: an \eqn{(n\times m)} matrix whose missing entries should be flagged as NA.
+#
+# ropt: pre-defined rank, positive integer (default: 3); or logical (FALSE to guess the rank)
+#
+# niter: maximum number of iterations allowed
+#
+# tol: Stopping criterion for reconstruction in Frobenius norm.
+#
+# verbose: a logical value; \code{TRUE} to show progress, \code{FALSE} otherwise.
 `optspace`  <-
   function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 {
@@ -47,16 +58,14 @@
   }
   
   ## Preprocessing : niter : maximum number of iterations
-  if ((is.infinite(niter))|| (niter <= 1) || (!is.numeric(niter))) {
+  if ((is.infinite(niter)) || (niter <= 1) || (!is.numeric(niter))) {
     stop("* optspace: invalid number provided for argument 'niter'")
   }
   niter <- round(niter)
-  
-  m0 <- 10000
   rho <-  eps * n
   
   ## Main Computation
-  rescal_param <- sqrt(nnz_e * r / (norm(m_e,'f')^2))
+  rescal_param <- sqrt(nnz_e * r / (norm(m_e, 'f')^2))
   m_e <- m_e * rescal_param
   
   # 1. SVD
@@ -64,7 +73,7 @@
     message("* optspace: Step 2: SVD ...")
   }
   svdEt <- svd(m_e)
-  X0 <- svdEt$u[, 1:r]
+  X0 <- svdEt$u[, seq_len(r)]
   X0 <- X0[, rev(seq_len(ncol(X0)))]
   S0 <- diag(rev(svdEt$d[seq_len(r)]))
   Y0 <- svdEt$v[, seq_len(r)]
@@ -88,6 +97,10 @@
   # initialize
   dist <- array(0, c(1, (niter + 1)))
   dist[1] <- norm((m_e - (X %*% S %*% t(Y))) * E, 'f') / sqrt(nnz_e)
+
+  # Resolution/regularization for gradient calculation
+  m0 <- 10000
+  
   for (i in seq_len(niter)) {
     # compute the gradient
     tmpgrad <- .aux_gradF_t(X, Y, S, m_e, E, m0, rho)
@@ -101,7 +114,7 @@
     # compute the distortion
     dist[i + 1] <- norm(((m_e - X %*% S %*% t(Y)) * E), 'f') / sqrt(nnz_e)
     if (dist[i + 1] < tol) {
-      dist <- dist[1:(i + 1)]
+      dist <- dist[seq_len(i + 1)]
       break
     }
   }
@@ -145,7 +158,14 @@
   out
 }
 
-# @keywords internal
+
+# Estimate Matrix Rank 
+#
+# x: numeric matrix for which the rank is to be estimated
+#
+# nnz: estimated number of non-zero entries to derive noise threshold
+#
+# keywords internal
 .guess_rank <- function(x, nnz)
 {
   maxiter <- 10000
@@ -211,8 +231,21 @@
 }
 
 
-# Aux 2 : compute the distortion ------------------------------------------
-# @keywords internal
+# Auxiliary Gradient Contribution Function
+#
+# Compute distortion. Computes nonlinear transformation of the squared
+# row norms of a matrix, with thresholding based on scaled values.
+# Typically used as part of a gradient computation or optimization routine,
+# where it selectively activates rows based on their scaled magnitude.
+#
+# x: numeric matrix; the function computes the squared norm of each row.
+#
+# m0 positive scalar that acts as a scaling parameter in the nonlinear regularization term
+#
+# r: numeric scalar; another scaling factor applied alongside m0 in the normalization of row norms.
+#' Its effect is similar to m0, the two are often coupled in optimization problems.
+#
+# keywords internal
 .aux_G <- function(x, m0, r)
 {
   z <- rowSums(x^2) / (2 * m0 * r)
@@ -223,7 +256,28 @@
   out
 }
 
-# @keywords internal
+# Total Loss Function with Regularization
+#
+# Composite loss function combining a weighted squared error term and 
+# nonlinear regularization penalties based on the row norms of the input matrices. 
+# This function is commonly used in matrix factorization or low-rank modeling 
+# frameworks where latent matrices are learned under structural constraints.
+#
+# x numeric matrix, typically representing latent factors or components.
+#
+# y numeric matrix, typically representing latent factors or components.
+#
+# s numeric matrix used for linear transformation between \code{x} and \code{y}.
+#
+# m_e numeric matrix of size representing observed or target values to approximate.
+#
+# e numeric matrix of the same dimension as \code{m_e}, used as a weight or mask matrix. Values typically range from 0 to 1.
+#
+# m0 positive scalar that acts as a scaling parameter in the nonlinear regularization term
+#
+# rho positive scalar controlling the strength of the regularization terms
+#
+# keywords internal
 .aux_F_t <- function(x, y, s, m_e, e, m0, rho)
 {
   n <- nrow(x)
@@ -236,9 +290,21 @@
 }
 
 
-# Aux 3 : compute the gradient --------------------------------------------
 
-# @keywords internal
+# Gradient of Auxiliary Regularization Term
+#
+# Computes the gradient of the nonlinear regularization function \code{.aux_G} 
+# with respect to its matrix input \code{x}. 
+#
+# x numeric matrix of size \code{n x r}. Each row is treated as a vector
+# whose squared norm determines the activation of the gradient.
+#
+# m0 positive scalar that acts as a scaling parameter in the nonlinear regularization term
+#
+# r: numeric scalar; another scaling factor applied alongside m0 in the normalization of row norms.
+# Its effect is similar to m0, the two are often coupled in optimization problems.
+#
+# keywords internal
 .aux_Gp <- function(x, m0, r)
 {
   z <- rowSums(x^2) / (2 * m0 * r)
@@ -248,6 +314,28 @@
   out <- x * matrix(z, nrow = nrow(x), ncol = ncol(x), byrow = FALSE) / (m0 * r)
 }
 
+
+# Gradient of Composite Loss Function
+#
+# Computes the gradient of the total loss. The result includes both the data 
+# reconstruction gradient and the nonlinear regularization gradient.
+#
+# x numeric matrix of size \code{n x r}, representing one set of latent 
+# variables or factor matrix.
+#
+# y numeric matrix of size \code{m x r}, representing the counterpart latent 
+# variable matrix.
+#
+# s numeric matrix used in the bilinear transformation between \code{x} and \code{y}.
+#
+# m_e A numeric matrix representing the observed data or target matrix 
+#
+# e numeric matrix used as a weighting or masking matrix.
+#
+# m0 positive scalar for gradient regularization 
+#
+# rho weight applied to the regularization gradient terms.
+#
 # @keywords internal
 .aux_gradF_t <- function(x, y, s, m_e, e, m0, rho)
 {
@@ -260,7 +348,7 @@
   
   XS  <- x %*% s
   YS  <- y %*% t(s)
-  XSY <- xS %*% t(y)
+  XSY <- XS %*% t(y)
   
   Qx <- t(x) %*% ((m_e - XSY) * e) %*% YS / n
   Qy <- t(y) %*% t((m_e - XSY) * e) %*% XS / m
@@ -276,8 +364,21 @@
 }
 
 
-# Aux 4 : Sopt given x and y ----------------------------------------------
-# @keywords internal
+# Solve for Optimal Transformation Matrix S
+#
+# Computes the optimal transformation matrix that minimizes the squared 
+# error, optionally weighted by importance matrix \code{e}.
+# This function forms and solves a linear least-squares problem.
+#
+# x A numeric matrix representing one side of the bilinear transformation.
+#
+# y A numeric matrix representing the other side of the transformation.
+#
+# m_e A numeric matrix representing the observed data or target matrix to approximate.
+#
+# e numeric matrix used as a weighting or masking matrix.
+#
+# # @keywords internal
 .aux_getoptS <- function(x, y, m_e, e)
 {
   n <- nrow(x)
@@ -300,8 +401,33 @@
   out
 }
 
-# Aux 5 : optimal line search ---------------------------------------------
-# @keywords internal
+
+
+# Backtracking Line Search for Step Size Optimization
+#
+# Optimal line search.
+# Determines an optimal step size \code{t} for descending along a direction 
+# defined by perturbations \code{w} and \code{z} for the matrices \code{x} and \code{y}. 
+#
+# x numeric matrix representing current values of one latent factor.
+#
+# w numeric matrix representing the search direction (gradient or descent vector) for \code{x}.
+#
+# y numeric matrix representing current values of the second latent factor.
+#
+# z numeric matrix representing the search direction for \code{y}.
+#
+# s numeric matrix used in the bilinear product in \code{.aux_F_t}.
+#
+# m_e numeric the observed or target matrix.
+#
+# e numeric mask or weighting matrix.
+#
+# m0 positive scalar regularization parameter.
+#
+# rho positive scalar weighting the regularization term in the total loss function.
+#
+# keywords internal
 .aux_getoptT <- function(x, w, y, z, s, m_e, e, m0, rho)
 {
   norm2WZ <- norm(w, 'f')^2 + norm(z, 'f')^2
