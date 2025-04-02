@@ -98,7 +98,7 @@ x1 <- decostand(varespec, method = "rclr", impute = TRUE)
 # rclr transformation with no matrix completion for the 0/NA entries
 x2 <- decostand(varespec, method = "rclr", impute = FALSE)
 # Matrix completion
-x2c <- OptSpace(x2, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)$M
+x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
 all(as.matrix(x1) == as.matrix(x2c))
 
 ############################# NAMES ####################################

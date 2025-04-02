@@ -121,14 +121,14 @@ decobackstand(x, zap = TRUE)
      \deqn{rclr = log\frac{x}{g(x > 0)}}{%
            rclr = log(x/g(x > 0))} where \eqn{x} is
      a single value, and \eqn{g(x > 0)} is the geometric mean of
-     sample-wide values \eqn{x} that are positive (> 0). The OptSpace
+     sample-wide values \eqn{x} that are positive (> 0). The optspace
      algorithm performs matrix completion for the missing values
      that result from log transformation of the zero entries in the
-     original input data. See \link[vegan]{OptSpace} for more details.
-     The following parameters can be passed to OptSpace
-     through decostand: "ROPT" NA to guess the rank, or a positive
-     integer as a pre-defined rank (default: 3); "NITER" maximum
-     number of iterations allowed (default: 5); "TOL" stopping
+     original input data. See \link[vegan]{optspace} for more details.
+     The following parameters can be passed to optspace
+     through decostand: "ropt" NA to guess the rank, or a positive
+     integer as a pre-defined rank (default: 3); "niter" maximum
+     number of iterations allowed (default: 5); "tol" stopping
      criterion for reconstruction in Frobenius norm (default: 1e-5);
      "verbose" a logical value; TRUE to show progress, FALSE otherwise
      (default: FALSE); "impute" to switch on/off the matrix completion
