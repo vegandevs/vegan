@@ -31,7 +31,8 @@ max(abs(x.clr - alt.clr)) < 1e-6
 all((x.rclr == 0) == (testdata == 0))
 
 # Test that NAs are handled as expected in CLR
-x <- testdata; x[sample(prod(dim(x)), 50)] <- NA # insert some NAs in the data
+x <- testdata
+x[sample(prod(dim(x)), 50)] <- NA # insert some NAs in the data
 # NAs in the original data remain NAs in the returned data
 all(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[is.na(x)])) == TRUE # NAs
 # For the other (non-NA) values, we get non-NA values back
@@ -54,7 +55,9 @@ max(abs(decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[inds] -
 
 # Test that NAs are handled as expected in ALR
 set.seed(4354353)
-x <- testdata; x[sample(prod(dim(x)), 50)] <- NA; x[4, c(2, 10)] <- NA  # insert some NAs in the data
+x <- testdata
+x[sample(prod(dim(x)), 50)] <- NA
+x[4, c(2, 10)] <- NA  # insert some NAs in the data
 # NAs in the output share NAs with the reference vector
 all(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1, reference = 4))[which(is.na(x[,4])),])
 # Output vector has same NAs than the original vector and reference vector
@@ -69,13 +72,14 @@ decostand(testdata, method = "rclr")
 decostand(testdata, method = "clr", pseudocount = 1)
 # Expect error
 #class(try(decostand(testdata, method = "clr"))) == "try-error"
-#class(try(decostand(testdata, method = "clr", pseudocount=0))) == "try-error"
+#class(try(decostand(testdata, method = "clr", pseudocount = 0))) == "try-error"
 
 # Tests that clr robust gives values that are approximately same if only 
 # one value per sample are changed to zero
 # Adds pseudocount
 test <- testdata + 1 
-test2 <- test; test2[,1] <- 0
+test2 <- test
+test2[,1] <- 0
 
 # clr robust transformations
 test <- decostand(test, method = "rclr")

@@ -194,7 +194,7 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE, impute = TRUE, ...)
+    function(x, na.rm, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE, impute = TRUE, ...)
 {
     # Error with negative values
     if (any(x < 0, na.rm = na.rm)) {
@@ -221,7 +221,7 @@
    # Otherwise return the transformation with NAs
    if (impute && any(is.na(xx))){
    
-     opt_res <- OptSpace(xx, ROPT = ROPT, NITER = NITER, TOL = TOL, verbose = verbose)
+     opt_res <- OptSpace(xx, ropt = ropt, niter = niter, tol = tol, verbose = verbose)
      
      # recenter the data
      # (the means of rclr can get thrown off since we work on only missing)
@@ -323,7 +323,7 @@
 
 
 
-OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
+OptSpace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 {
 
   ## Preprocessing : x     : partially revealed matrix
@@ -340,8 +340,8 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
     stop("* OptSpace : there is no unobserved values as NA")
   }
   idxna <- (is.na(x))
-  M_E <- array(0, c(nrow(x), ncol(x)))
-  M_E[!idxna] <- x[!idxna]
+  m_e <- array(0, c(nrow(x), ncol(x)))
+  m_e[!idxna] <- x[!idxna]
   
   ## Preprocessing : size information
   n <- nrow(x)
@@ -353,41 +353,41 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   E[!idxna] <- 1
   eps <- nnZ.E / sqrt(m * n)
   
-  ## Preprocessing : ROPT  : implied rank
-  if (is.na(ROPT)){
+  ## Preprocessing : ropt  : implied rank
+  if (is.na(ropt)){
     if (verbose){
       message("* OptSpace: Guessing an implicit rank.")
     }
-    r <- min(max(round(.guess_rank(M_E, nnZ.E)), 2), m-1)
+    r <- min(max(round(.guess_rank(m_e, nnZ.E)), 2), m-1)
     if (verbose){
       message(paste0('* OptSpace: Guessing an implicit rank: Estimated rank : ',r))
     }
   } else {
-    r <- round(ROPT)
+    r <- round(ropt)
     if ((!is.numeric(r)) || (r < 1) || (r > m) || (r > n)){
-      stop("* OptSpace: value of argument 'ROPT' should be an integer
+      stop("* OptSpace: value of argument 'ropt' should be an integer
             in [1, min(nrow(x), ncol(x))]")
     }
   }
   
-  ## Preprocessing : NITER : maximum number of iterations
-  if ((is.infinite(NITER))|| (NITER <= 1) || (!is.numeric(NITER))){
-    stop("* OptSpace: invalid number provided for argument 'NITER'")
+  ## Preprocessing : niter : maximum number of iterations
+  if ((is.infinite(niter))|| (niter <= 1) || (!is.numeric(niter))){
+    stop("* OptSpace: invalid number provided for argument 'niter'")
   }
-  NITER <- round(NITER)
+  niter <- round(niter)
   
   m0 <- 10000
   rho <-  eps * n
   
   ## Main Computation
-  rescal_param <- sqrt(nnZ.E * r/(norm(M_E,'f')^2))
-  M_E <- M_E * rescal_param
+  rescal_param <- sqrt(nnZ.E * r/(norm(m_e,'f')^2))
+  m_e <- m_e * rescal_param
   
   # 1. SVD
   if (verbose){
     message("* OptSpace: Step 2: SVD ...")
   }
-  svdEt <- svd(M_E)
+  svdEt <- svd(m_e)
   X0 <- svdEt$u[,1:r]
   X0 <- X0[, rev(seq_len(ncol(X0)))]
   S0 <- diag(rev(svdEt$d[seq_len(r)]))
@@ -408,23 +408,23 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   }
   X <- X0
   Y <- Y0
-  S <- .aux_getoptS(X, Y, M_E, E)
+  S <- .aux_getoptS(X, Y, m_e, E)
   # initialize
-  dist <- array(0, c(1, (NITER + 1)))
-  dist[1] <- norm((M_E - (X %*% S %*% t(Y)))*E, 'f') / sqrt(nnZ.E)
-  for (i in seq_len(NITER)){
+  dist <- array(0, c(1, (niter + 1)))
+  dist[1] <- norm((m_e - (X %*% S %*% t(Y)))*E, 'f') / sqrt(nnZ.E)
+  for (i in seq_len(niter)){
     # compute the gradient
-    tmpgrad <- .aux_gradF_t(X, Y, S, M_E, E, m0, rho)
+    tmpgrad <- .aux_gradF_t(X, Y, S, m_e, E, m0, rho)
     W <- tmpgrad$W
     Z <- tmpgrad$Z
     # line search for the optimum jump length
-    t <- .aux_getoptT(X, W, Y, Z, S, M_E, E, m0, rho)
+    t <- .aux_getoptT(X, W, Y, Z, S, m_e, E, m0, rho)
     X <- X + t*W
     Y <- Y + t*Z
-    S <- .aux_getoptS(X, Y, M_E, E)
+    S <- .aux_getoptS(X, Y, m_e, E)
     # compute the distortion
-    dist[i+1] <- norm(((M_E - X %*% S %*% t(Y))*E),'f') / sqrt(nnZ.E)
-    if (dist[i+1] < TOL){
+    dist[i+1] <- norm(((m_e - X %*% S %*% t(Y))*E),'f') / sqrt(nnZ.E)
+    if (dist[i + 1] < tol){
       dist <- dist[1:(i + 1)]
       break
     }
@@ -471,13 +471,13 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 
 
 # @keywords internal
-.guess_rank <- function(X, nnz)
+.guess_rank <- function(x, nnz)
 {
   maxiter <- 10000
-  n <- nrow(X)
-  m <- ncol(X)
+  n <- nrow(x)
+  m <- ncol(x)
   epsilon <- nnz / sqrt(m * n)
-  svdX <- svd(X)
+  svdX <- svd(x)
   S0 <- svdX$d
   
   nsval0 <- length(S0)
@@ -530,7 +530,7 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
       r <- r2
     }
   } else {
-    r <- min(nrow(X), ncol(X))
+    r <- min(nrow(x), ncol(x))
   }
   r
 }
@@ -538,9 +538,9 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 
 # Aux 2 : compute the distortion ------------------------------------------
 # @keywords internal
-.aux_G <- function(X, m0, r)
+.aux_G <- function(x, m0, r)
 {
-  z <- rowSums(X^2) / (2*m0*r)
+  z <- rowSums(x^2) / (2*m0*r)
   y <- exp((z - 1)^2) - 1
   idxfind <- (z < 1)
   y[idxfind] <- 0
@@ -549,13 +549,13 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 }
 
 # @keywords internal
-.aux_F_t <- function(X, Y, S, M_E, E, m0, rho)
+.aux_F_t <- function(x, y, s, m_e, e, m0, rho)
 {
-  n <- nrow(X)
-  r <- ncol(X)
-  out1 <- (sum((((X %*% S %*% t(Y)) - M_E) * E)^2)) / 2
-  out2 <- rho * .aux_G(Y, m0, r)
-  out3 <- rho * .aux_G(X, m0, r)
+  n <- nrow(x)
+  r <- ncol(x)
+  out1 <- (sum((((x %*% s %*% t(y)) - m_e) * e)^2)) / 2
+  out2 <- rho * .aux_G(y, m0, r)
+  out3 <- rho * .aux_G(x, m0, r)
   out  <- out1 + out2 + out3
   out
 }
@@ -563,33 +563,33 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 
 # Aux 3 : compute the gradient --------------------------------------------
 # @keywords internal
-.aux_Gp <- function(X, m0, r)
+.aux_Gp <- function(x, m0, r)
 {
-  z <- rowSums(X^2)/(2 * m0 * r)
+  z <- rowSums(x^2)/(2 * m0 * r)
   z <- 2*exp((z - 1)^2) / (z - 1)
   idxfind <- (z < 0)
   z[idxfind] <- 0  
-  out <- (X * matrix(z, nrow = nrow(X), ncol = ncol(X), byrow = FALSE)) / (m0 * r)
+  out <- (x * matrix(z, nrow = nrow(x), ncol = ncol(x), byrow = FALSE)) / (m0 * r)
 }
 # @keywords internal
-.aux_gradF_t <- function(X, Y, S, M_E, E, m0, rho)
+.aux_gradF_t <- function(x, y, s, m_e, e, m0, rho)
 {
-  n <- nrow(X)
-  r <- ncol(X)
-  m <- nrow(Y)
-  if (ncol(Y) != r){
+  n <- nrow(x)
+  r <- ncol(x)
+  m <- nrow(y)
+  if (ncol(y) != r){
     stop("dimension error from the internal function .aux_gradF_t")
   }
   
-  XS  <- (X %*% S)
-  YS  <- (Y %*% t(S))
-  XSY <- (XS %*% t(Y))
+  XS  <- (x %*% s)
+  YS  <- (y %*% t(s))
+  XSY <- (xS %*% t(y))
   
-  Qx <- ((t(X) %*% ((M_E - XSY) * E) %*% YS) / n)
-  Qy <- ((t(Y) %*% t((M_E - XSY) * E) %*% XS) / m)
+  Qx <- ((t(x) %*% ((m_e - XSY) * e) %*% YS) / n)
+  Qy <- ((t(y) %*% t((m_e - XSY) * e) %*% XS) / m)
   
-  W <- (((XSY - M_E)*E) %*% YS)  + (X %*% Qx) + rho * .aux_Gp(X, m0, r)
-  Z <- (t((XSY - M_E)*E) %*% XS) + (Y %*% Qy) + rho * .aux_Gp(Y, m0, r)
+  W <- (((XSY - m_e)*e) %*% YS)  + (x %*% Qx) + rho * .aux_Gp(x, m0, r)
+  Z <- (t((XSY - m_e)*e) %*% XS) + (y %*% Qy) + rho * .aux_Gp(y, m0, r)
   
   resgrad <- list()
   resgrad$W <- W
@@ -599,21 +599,21 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 }
 
 
-# Aux 4 : Sopt given X and Y ----------------------------------------------
+# Aux 4 : Sopt given x and y ----------------------------------------------
 # @keywords internal
-.aux_getoptS <- function(X, Y, M_E, E)
+.aux_getoptS <- function(x, y, m_e, e)
 {
-  n <- nrow(X)
-  r <- ncol(X)  
-  C <- (t(X) %*% (M_E) %*% Y)
+  n <- nrow(x)
+  r <- ncol(x)  
+  C <- (t(x) %*% (m_e) %*% y)
   C <- matrix(as.vector(C))  
-  nnrow <- ncol(X) * ncol(Y)
+  nnrow <- ncol(x) * ncol(y)
   A <- matrix(NA, nrow = nnrow, ncol = (r^2))
   
   for (i in seq_len(r)){
     for (j in seq_len(r)){
       ind <- ((j - 1) * r + i)
-      tmp <- t(X) %*% (outer(X[,i], Y[,j]) * E) %*% Y      
+      tmp <- t(x) %*% (outer(x[,i], y[,j]) * e) %*% y      
       A[, ind] <- as.vector(tmp)
     }
   }
@@ -625,14 +625,14 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
 
 # Aux 5 : optimal line search ---------------------------------------------
 # @keywords internal
-.aux_getoptT <- function(X, W, Y, Z, S, M_E, E, m0, rho)
+.aux_getoptT <- function(x, w, y, z, s, m_e, e, m0, rho)
 {
-  norm2WZ <- (norm(W, 'f')^2) + (norm(Z, 'f')^2)
+  norm2WZ <- (norm(w, 'f')^2) + (norm(z, 'f')^2)
   f <- array(0, c(1, 21))
-  f[1] <- .aux_F_t(X, Y, S, M_E, E, m0, rho)
+  f[1] <- .aux_F_t(x, y, s, m_e, e, m0, rho)
   t <- -1e-1
   for (i in seq_len(21)){
-    f[i + 1] <- .aux_F_t(X + t * W, Y + t * Z, S, M_E, E, m0, rho)
+    f[i + 1] <- .aux_F_t(x + t * w, y + t * z, s, m_e, e, m0, rho)
     if ((f[i + 1] - f[1]) <= 0.5 * t * norm2WZ){
       out <- t
       break

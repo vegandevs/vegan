@@ -56,8 +56,8 @@ d2 <- vegdist(testdata + 1, "robust.aitchison", na.rm = FALSE)
 max(abs(d1 - d2)) < 1e-6 # Tolerance
 
 # Compare the outcomes with an external package that also provides compositional transformations
-# Adding these would demand adding Suggested packages in DESCRIPTION; skipped for now but can be
-# useful for manual testing.
+# Adding these would demand adding Suggested packages in DESCRIPTION
+# skipped for now but can be useful for manual testing.
 #skip <- TRUE
 #if (!skip) {
 #
