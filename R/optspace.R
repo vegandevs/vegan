@@ -9,13 +9,13 @@
   
   idxna <- is.na(x)
 
-  if (!is.matrix(x)){
+  if (!is.matrix(x)) {
     stop("* optspace : input 'x' should be a matrix")
   }
-  if (!any(idxna)){
+  if (!any(idxna)) {
     x # no NAs to be filled in and can be returned immediately
   }  
-  if (any(is.infinite(x))){
+  if (any(is.infinite(x))) {
     stop("* optspace : infinite values are not allowed in 'x'")
   }
   
@@ -33,21 +33,21 @@
   eps <- nnz_e / sqrt(m * n)
   
   ## Preprocessing : ropt  : implied rank
-  if (ropt){
+  if (ropt) {
     r <- round(ropt)
-    if ((!is.numeric(r)) || (r < 1) || (r > m) || (r > n)){
+    if ((!is.numeric(r)) || (r < 1) || (r > m) || (r > n)) {
       stop("* optspace: value of argument 'ropt' should be an integer
             in [1, min(nrow(x), ncol(x))]")
     }
   } else {
     r <- min(max(round(.guess_rank(m_e, nnz_e)), 2), m - 1)
-    if (verbose){
+    if (verbose) {
       message(paste0("* optspace: Guessing an implicit rank: Estimated rank 'ropt': ", r))
     }
   }
   
   ## Preprocessing : niter : maximum number of iterations
-  if ((is.infinite(niter))|| (niter <= 1) || (!is.numeric(niter))){
+  if ((is.infinite(niter))|| (niter <= 1) || (!is.numeric(niter))) {
     stop("* optspace: invalid number provided for argument 'niter'")
   }
   niter <- round(niter)
@@ -60,7 +60,7 @@
   m_e <- m_e * rescal_param
   
   # 1. SVD
-  if (verbose){
+  if (verbose) {
     message("* optspace: Step 2: SVD ...")
   }
   svdEt <- svd(m_e)
@@ -71,7 +71,7 @@
   Y0 <- Y0[, rev(seq_len(ncol(Y0)))]
   
   # 3. Initial Guess
-  if (verbose){
+  if (verbose) {
     message("* optspace: Step 3: Initial Guess ...")
   }
   X0 <- X0 * sqrt(n)
@@ -79,7 +79,7 @@
   S0 <- S0 / eps
   
   # 4. Gradient Descent
-  if (verbose){
+  if (verbose) {
     message("* optspace: Step 4: Gradient Descent ...")
   }
   X <- X0
@@ -88,7 +88,7 @@
   # initialize
   dist <- array(0, c(1, (niter + 1)))
   dist[1] <- norm((m_e - (X %*% S %*% t(Y))) * E, 'f') / sqrt(nnz_e)
-  for (i in seq_len(niter)){
+  for (i in seq_len(niter)) {
     # compute the gradient
     tmpgrad <- .aux_gradF_t(X, Y, S, m_e, E, m0, rho)
     W <- tmpgrad$W
@@ -100,7 +100,7 @@
     S <- .aux_getoptS(X, Y, m_e, E)
     # compute the distortion
     dist[i + 1] <- norm(((m_e - X %*% S %*% t(Y)) * E), 'f') / sqrt(nnz_e)
-    if (dist[i + 1] < tol){
+    if (dist[i + 1] < tol) {
       dist <- dist[1:(i + 1)]
       break
     }
@@ -118,7 +118,7 @@
   out$S <- S
   out$Y <- Y
   out$dist <- dist
-  if (verbose){
+  if (verbose) {
     message('* optspace: estimation finished.')
   }
 
@@ -158,7 +158,7 @@
   nsval0 <- length(S0)
   S1 <- S0[seq_len(nsval0 - 1)] - S0[seq(2, nsval0)]  
   nsval1 <- length(S1)
-  if (nsval1 > 10){
+  if (nsval1 > 10) {
     S1_ <- S1 / mean(S1[seq((nsval1 - 10), nsval1)])
   } else {
     S1_ <- S1 / mean(S1[seq_len(nsval1)])
@@ -167,7 +167,7 @@
   lam <- 0.05
   
   itcounter <- 0
-  while (r1 <= 0){
+  while (r1 <= 0) {
     itcounter <- itcounter + 1
     cost <- array(0, c(1, length(S1_)))
     for (idx in seq_len(length(S1_))) {
@@ -175,31 +175,31 @@
     }
     v2 <- min(cost)
     i2 <- which(cost == v2)
-    if (length(i2) == 1){
+    if (length(i2) == 1) {
       r1 <- i2 - 1
     } else {
       r1 <- max(i2) - 1
     }
     lam <- lam + 0.05
-    if (itcounter > maxiter){
+    if (itcounter > maxiter) {
       break
     }
   }
   
-  if (itcounter <= maxiter){
+  if (itcounter <= maxiter) {
     cost2 <- array(0, c(1, (length(S0) - 1)))
-    for (idx in seq_len(length(S0) - 1)){
+    for (idx in seq_len(length(S0) - 1)) {
       cost2[idx] <- (S0[idx + 1] + sqrt(idx * epsilon) * S0[1] / epsilon) / S0[idx]
     }
     v2 <- min(cost2)
     i2 <- which(cost2 == v2)
-    if (length(i2) == 1){
+    if (length(i2) == 1) {
       r2 <- i2
     } else {
       r2 <- max(i2)
     }
     
-    if (r1 > r2){
+    if (r1 > r2) {
       r <- r1
     } else {
       r <- r2
@@ -254,7 +254,7 @@
   n <- nrow(x)
   r <- ncol(x)
   m <- nrow(y)
-  if (ncol(y) != r){
+  if (ncol(y) != r) {
     stop("dimension error from the internal function .aux_gradF_t")
   }
   
@@ -287,8 +287,8 @@
   nnrow <- ncol(x) * ncol(y)
   A <- matrix(NA, nrow = nnrow, ncol = (r^2))
   
-  for (i in seq_len(r)){
-    for (j in seq_len(r)){
+  for (i in seq_len(r)) {
+    for (j in seq_len(r)) {
       ind <- (j - 1) * r + i
       tmp <- t(x) %*% (outer(x[, i], y[, j]) * e) %*% y      
       A[, ind] <- as.vector(tmp)
@@ -308,9 +308,9 @@
   f <- array(0, c(1, 21))
   f[1] <- .aux_F_t(x, y, s, m_e, e, m0, rho)
   t <- -1e-1
-  for (i in seq_len(21)){
+  for (i in seq_len(21)) {
     f[i + 1] <- .aux_F_t(x + t * w, y + t * z, s, m_e, e, m0, rho)
-    if ((f[i + 1] - f[1]) <= 0.5 * t * norm2WZ){
+    if ((f[i + 1] - f[1]) <= 0.5 * t * norm2WZ) {
       out <- t
       break
     }

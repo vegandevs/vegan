@@ -219,7 +219,7 @@
 
    # Impute NAs if impute=TRUE
    # Otherwise return the transformation with NAs
-   if (impute && any(is.na(xx))){
+   if (impute && any(is.na(xx))) {
    
      opt_res <- optspace(xx, ropt = ropt, niter = niter, tol = tol, verbose = verbose)
      
