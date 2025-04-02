@@ -1,21 +1,24 @@
-
-optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
+`optspace`  <-
+  function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 {
 
   ## Preprocessing : x : partially revealed matrix
   if (is.data.frame(x)) {
     x <- as.matrix(x)
   }
+  
+  idxna <- is.na(x)
+
   if (!is.matrix(x)){
     stop("* optspace : input 'x' should be a matrix")
   }
+  if (!any(idxna)){
+    x # no NAs to be filled in and can be returned immediately
+  }  
   if (any(is.infinite(x))){
     stop("* optspace : infinite values are not allowed in 'x'")
   }
-  if (!any(is.na(x))){
-    stop("* optspace : there are no unobserved values as NA")
-  }
-  idxna <- (is.na(x))
+  
   m_e <- array(0, c(nrow(x), ncol(x)))
   m_e[!idxna] <- x[!idxna]
   
@@ -24,25 +27,22 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
   m <- ncol(x)
   
   ## Preprocessing : other sparse-related concepts
-  nnZ.E <- sum(!idxna)
+  nnz_e <- sum(!idxna)
   E <- array(0, c(nrow(x), ncol(x)))
   E[!idxna] <- 1
-  eps <- nnZ.E / sqrt(m * n)
+  eps <- nnz_e / sqrt(m * n)
   
   ## Preprocessing : ropt  : implied rank
-  if (is.na(ropt)){
-    if (verbose){
-      message("* optspace: Guessing an implicit rank.")
-    }
-    r <- min(max(round(.guess_rank(m_e, nnZ.E)), 2), m-1)
-    if (verbose){
-      message(paste0('* optspace: Guessing an implicit rank: Estimated rank : ',r))
-    }
-  } else {
+  if (ropt){
     r <- round(ropt)
     if ((!is.numeric(r)) || (r < 1) || (r > m) || (r > n)){
       stop("* optspace: value of argument 'ropt' should be an integer
             in [1, min(nrow(x), ncol(x))]")
+    }
+  } else {
+    r <- min(max(round(.guess_rank(m_e, nnz_e)), 2), m - 1)
+    if (verbose){
+      message(paste0("* optspace: Guessing an implicit rank: Estimated rank 'ropt': ", r))
     }
   }
   
@@ -56,7 +56,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
   rho <-  eps * n
   
   ## Main Computation
-  rescal_param <- sqrt(nnZ.E * r/(norm(m_e,'f')^2))
+  rescal_param <- sqrt(nnz_e * r / (norm(m_e,'f')^2))
   m_e <- m_e * rescal_param
   
   # 1. SVD
@@ -64,7 +64,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
     message("* optspace: Step 2: SVD ...")
   }
   svdEt <- svd(m_e)
-  X0 <- svdEt$u[,1:r]
+  X0 <- svdEt$u[, 1:r]
   X0 <- X0[, rev(seq_len(ncol(X0)))]
   S0 <- diag(rev(svdEt$d[seq_len(r)]))
   Y0 <- svdEt$v[, seq_len(r)]
@@ -87,7 +87,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
   S <- .aux_getoptS(X, Y, m_e, E)
   # initialize
   dist <- array(0, c(1, (niter + 1)))
-  dist[1] <- norm((m_e - (X %*% S %*% t(Y)))*E, 'f') / sqrt(nnZ.E)
+  dist[1] <- norm((m_e - (X %*% S %*% t(Y))) * E, 'f') / sqrt(nnz_e)
   for (i in seq_len(niter)){
     # compute the gradient
     tmpgrad <- .aux_gradF_t(X, Y, S, m_e, E, m0, rho)
@@ -95,11 +95,11 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
     Z <- tmpgrad$Z
     # line search for the optimum jump length
     t <- .aux_getoptT(X, W, Y, Z, S, m_e, E, m0, rho)
-    X <- X + t*W
-    Y <- Y + t*Z
+    X <- X + t * W
+    Y <- Y + t * Z
     S <- .aux_getoptS(X, Y, m_e, E)
     # compute the distortion
-    dist[i+1] <- norm(((m_e - X %*% S %*% t(Y))*E),'f') / sqrt(nnZ.E)
+    dist[i + 1] <- norm(((m_e - X %*% S %*% t(Y)) * E), 'f') / sqrt(nnz_e)
     if (dist[i + 1] < tol){
       dist <- dist[1:(i + 1)]
       break
@@ -124,7 +124,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 
   # -------------------------------------------
 
-  # This part is not in the Python/Gemelli implementation
+  # This part is not in the Python / Gemelli implementation
   # but has been added in R to provide more direct access
   # to the imputed matrix.
 
@@ -168,7 +168,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
   
   itcounter <- 0
   while (r1 <= 0){
-    itcounter <- itcounter+1
+    itcounter <- itcounter + 1
     cost <- array(0, c(1, length(S1_)))
     for (idx in seq_len(length(S1_))) {
       cost[idx] <- lam * max(S1_[seq(idx, length(S1_))]) + idx
@@ -215,7 +215,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 # @keywords internal
 .aux_G <- function(x, m0, r)
 {
-  z <- rowSums(x^2) / (2*m0*r)
+  z <- rowSums(x^2) / (2 * m0 * r)
   y <- exp((z - 1)^2) - 1
   idxfind <- (z < 1)
   y[idxfind] <- 0
@@ -228,7 +228,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 {
   n <- nrow(x)
   r <- ncol(x)
-  out1 <- (sum((((x %*% s %*% t(y)) - m_e) * e)^2)) / 2
+  out1 <- sum((((x %*% s %*% t(y)) - m_e) * e)^2) / 2
   out2 <- rho * .aux_G(y, m0, r)
   out3 <- rho * .aux_G(x, m0, r)
   out  <- out1 + out2 + out3
@@ -241,11 +241,11 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 # @keywords internal
 .aux_Gp <- function(x, m0, r)
 {
-  z <- rowSums(x^2)/(2 * m0 * r)
-  z <- 2*exp((z - 1)^2) / (z - 1)
+  z <- rowSums(x^2) / (2 * m0 * r)
+  z <- 2 * exp((z - 1)^2) / (z - 1)
   idxfind <- (z < 0)
   z[idxfind] <- 0  
-  out <- (x * matrix(z, nrow = nrow(x), ncol = ncol(x), byrow = FALSE)) / (m0 * r)
+  out <- x * matrix(z, nrow = nrow(x), ncol = ncol(x), byrow = FALSE) / (m0 * r)
 }
 
 # @keywords internal
@@ -258,15 +258,15 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
     stop("dimension error from the internal function .aux_gradF_t")
   }
   
-  XS  <- (x %*% s)
-  YS  <- (y %*% t(s))
-  XSY <- (xS %*% t(y))
+  XS  <- x %*% s
+  YS  <- y %*% t(s)
+  XSY <- xS %*% t(y)
   
-  Qx <- ((t(x) %*% ((m_e - XSY) * e) %*% YS) / n)
-  Qy <- ((t(y) %*% t((m_e - XSY) * e) %*% XS) / m)
+  Qx <- t(x) %*% ((m_e - XSY) * e) %*% YS / n
+  Qy <- t(y) %*% t((m_e - XSY) * e) %*% XS / m
   
-  W <- (((XSY - m_e)*e) %*% YS)  + (x %*% Qx) + rho * .aux_Gp(x, m0, r)
-  Z <- (t((XSY - m_e)*e) %*% XS) + (y %*% Qy) + rho * .aux_Gp(y, m0, r)
+  W <- ((XSY - m_e) * e) %*% YS  + (x %*% Qx) + rho * .aux_Gp(x, m0, r)
+  Z <- t((XSY - m_e) * e) %*% XS + (y %*% Qy) + rho * .aux_Gp(y, m0, r)
   
   resgrad <- list()
   resgrad$W <- W
@@ -282,15 +282,15 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 {
   n <- nrow(x)
   r <- ncol(x)  
-  C <- (t(x) %*% (m_e) %*% y)
+  C <- t(x) %*% (m_e) %*% y
   C <- matrix(as.vector(C))  
   nnrow <- ncol(x) * ncol(y)
   A <- matrix(NA, nrow = nnrow, ncol = (r^2))
   
   for (i in seq_len(r)){
     for (j in seq_len(r)){
-      ind <- ((j - 1) * r + i)
-      tmp <- t(x) %*% (outer(x[,i], y[,j]) * e) %*% y      
+      ind <- (j - 1) * r + i
+      tmp <- t(x) %*% (outer(x[, i], y[, j]) * e) %*% y      
       A[, ind] <- as.vector(tmp)
     }
   }
@@ -304,7 +304,7 @@ optspace <- function(x, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)
 # @keywords internal
 .aux_getoptT <- function(x, w, y, z, s, m_e, e, m0, rho)
 {
-  norm2WZ <- (norm(w, 'f')^2) + (norm(z, 'f')^2)
+  norm2WZ <- norm(w, 'f')^2 + norm(z, 'f')^2
   f <- array(0, c(1, 21))
   f[1] <- .aux_F_t(x, y, s, m_e, e, m0, rho)
   t <- -1e-1
