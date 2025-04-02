@@ -349,8 +349,9 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   
   ## Preprocessing : other sparse-related concepts
   nnZ.E <- sum(!idxna)
-  E <- array(0, c(nrow(x), ncol(x))); E[!idxna] <- 1
-  eps <- nnZ.E/sqrt(m*n)
+  E <- array(0, c(nrow(x), ncol(x)))
+  E[!idxna] <- 1
+  eps <- nnZ.E / sqrt(m * n)
   
   ## Preprocessing : ROPT  : implied rank
   if (is.na(ROPT)){
@@ -418,8 +419,8 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
     Z <- tmpgrad$Z
     # line search for the optimum jump length
     t <- .aux_getoptT(X, W, Y, Z, S, M_E, E, m0, rho)
-    X <- X + t*W;
-    Y <- Y + t*Z;
+    X <- X + t*W
+    Y <- Y + t*Z
     S <- .aux_getoptS(X, Y, M_E, E)
     # compute the distortion
     dist[i+1] <- norm(((M_E - X %*% S %*% t(Y))*E),'f') / sqrt(nnZ.E)
@@ -460,7 +461,7 @@ OptSpace <- function(x, ROPT = 3, NITER = 5, TOL = 1e-5, verbose = FALSE)
   # Center rows to 0
   M <- as.matrix(t(scale(t(M), center = TRUE, scale = FALSE)))
 
-  # Imputed matrix; add to the output
+  # Add imputed matrix to the output
   out$M <- M
 
   # -------------------------------------------
