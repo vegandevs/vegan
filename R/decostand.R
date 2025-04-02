@@ -221,7 +221,7 @@
    # Otherwise return the transformation with NAs
    if (impute && any(is.na(xx))){
    
-     opt_res <- OptSpace(xx, ropt = ropt, niter = niter, tol = tol, verbose = verbose)
+     opt_res <- optspace(xx, ropt = ropt, niter = niter, tol = tol, verbose = verbose)
      
      # recenter the data
      # (the means of rclr can get thrown off since we work on only missing)
