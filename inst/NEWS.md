@@ -7,6 +7,10 @@
 * `densityplot.permustats` did not know argument `observed` to control
   including and showing the observed statistic.
 
+#### Bug Fixes
+
+* `ordistep` never dropped aliased terms.
+
 ### Changes in version 2\.6-10
 
 #### Startup
