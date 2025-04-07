@@ -2,6 +2,7 @@
 \alias{mrpp}
 \alias{meandist}
 \alias{summary.meandist}
+\alias{summary.mrpp}
 \alias{plot.meandist}
 
 \title{Multi Response Permutation Procedure and Mean Dissimilarity Matrix}
@@ -15,6 +16,7 @@ and between block dissimilarities.}
 mrpp(dat, grouping, permutations = 999, distance = "euclidean",
      weight.type = 1, strata = NULL, parallel = getOption("mc.cores"))
 meandist(dist, grouping, ...)
+\method{summary}{mrpp}(object, ...)
 \method{summary}{meandist}(object, ...)
 \method{plot}{meandist}(x, kind = c("dendrogram", "histogram"),  cluster = "average", 
      ylim, axes = TRUE, ...)
@@ -45,7 +47,7 @@ meandist(dist, grouping, ...)
   \item{dist}{A \code{\link{dist}} object of dissimilarities, such as
     produced by functions \code{\link{dist}}, \code{\link{vegdist}} or
     \code{\link{designdist}}.}.
-  \item{object, x}{A \code{meandist} result object.}
+  \item{object, x}{A \code{mrpp} or \code{meandist} result object.}
   \item{kind}{Draw a dendrogram or a histogram; see Details.}
   \item{cluster}{A clustering method for the \code{\link{hclust}}
     function for \code{kind = "dendrogram"}. 
@@ -90,7 +92,8 @@ meandist(dist, grouping, ...)
   with a small sample correction. The function also calculates the
   change-corrected within-group agreement \eqn{A = 1 -\delta/E(\delta)},
   where \eqn{E(\delta)} is the expected \eqn{\delta} assessed as the
-  average of dissimilarities.
+  average of dissimilarities. The \code{summary} method is based on
+  \code{\link{summary.permustats}}.
 
   If the first argument \code{dat} can be interpreted as
   dissimilarities, they will be used directly. In other cases the

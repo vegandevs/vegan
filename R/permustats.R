@@ -267,6 +267,8 @@
               class = "permustats")
 }
 
+## summary: see file R/summary.anosim.R
+
 `permustats.mantel` <-
     function(x, ...)
 {
@@ -275,6 +277,12 @@
         "permutations" = x$perm,
         "alternative" = "greater"),
               class = "permustats")
+}
+
+`summary.mantel` <-
+    function(object, ...)
+{
+    summary(permustats(object, ...))
 }
 
 `permustats.mrpp` <-
@@ -287,6 +295,12 @@
               class = "permustats")
 }
 
+`summary.mrpp` <-
+    function(object, ...)
+{
+    summary(permustats(object, ...))
+}
+
 `permustats.oecosimu` <-
     function(x, ...)
 {
@@ -295,6 +309,12 @@
         "permutations" = t(x$oecosimu$simulated),
         "alternative" = x$oecosimu$alternative),
               class = "permustats")
+}
+
+`summary.oecosimu` <-
+    function(object, ...)
+{
+    summary(permustats(object, ...))
 }
 
 `permustats.ordiareatest` <-
@@ -307,6 +327,12 @@
               class = "permustats")
 }
 
+`summary.ordiareatest` <-
+    function(object, ...)
+{
+    summary(permustats(object, ...))
+}
+
 `permustats.permutest.cca` <-
     function(x, ...)
 {
@@ -317,6 +343,8 @@
               class = "permustats")
 }
 
+## no summary: test is a summary by itself
+
 `permustats.protest` <-
     function(x, ...)
 {
@@ -326,6 +354,8 @@
         "alternative" = "greater"),
               class = "permustats")
 }
+
+## uses summary.procrustes
 
 ### the following do not return permutation data
 `permustats.CCorA` <-
@@ -373,6 +403,8 @@
               class = "permustats")
 }
 
+## no summary: print is sufficient
+
 `permustats.anova.cca` <-
     function(x, ...)
 {
@@ -387,3 +419,5 @@
        "alternative" = "greater"),
        class = "permustats")
 }
+
+## no summary: anova is a summary by itself
