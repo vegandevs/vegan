@@ -123,24 +123,24 @@
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- t(.calc_alr(t(x), ...))
-	else x <- .calc_alr(x, ...)
+            x <- .calc_alr(x, na.rm = na.rm, ...)
+	else x <- t(.calc_alr(t(x), na.rm = na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, clr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_clr(x, ...)
-	else x <- t(.calc_clr(t(x), ...))
+            x <- .calc_clr(x, na.rm = na.rm, ...)
+	else x <- t(.calc_clr(t(x), na.rm = na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     }, rclr = {
         if (missing(MARGIN))
 	    MARGIN <- 1
         if (MARGIN == 1)
-            x <- .calc_rclr(x, ...)
-	else x <- t(.calc_rclr(t(x), ...))
+            x <- .calc_rclr(x, na.rm = na.rm, ...)
+	else x <- t(.calc_rclr(t(x), na.rm = na.rm, ...))
         attr <- attr(x, "parameters")
         attr$margin <- MARGIN
     })
@@ -156,14 +156,16 @@
 
 ## Modified from the original version in mia R package
 .calc_clr <-
-    function(x, pseudocount=0, na.rm = TRUE)
+    function(x, na.rm, pseudocount = 0, ...)
 {
+
     # Add pseudocount
     x <- x + pseudocount
-    # Error with negative values
-    if (any(x <= 0, na.rm = na.rm)) {
-        stop("'clr' cannot be used with non-positive data: use pseudocount > ",
-             -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
+    # Error with negative values (note: at this step we always use na.rm = TRUE)
+    if (any(x <= 0, na.rm = TRUE)) {
+        stop("'method = \"clr\"' cannot be used with non-positive data: 
+              use pseudocount '> -min(x, na.rm = TRUE) + pseudocount'",
+	      call. = FALSE)
     }
 
     # In every sample, calculate the log of individual entries.
@@ -171,8 +173,20 @@
     # the sample-specific mean value and subtract every entries'
     # value with that.
     clog <- log(x)
-    means <- rowMeans(clog, na.rm = na.rm)
+
+    # Calculate sample-wise log means (note: here we always set na.rm = TRUE !)
+    means <- rowMeans(clog, na.rm = TRUE)
+
+    # CLR transformation
     clog <- clog - means
+
+    # Replace missing values with 0
+    if (na.rm && any(is.na(clog))) {
+        warning("replacing missing values with zero for `method = \"clr\"`
+	         - disable this with `na.rm = FALSE`")
+        clog[is.na(clog)] <- 0
+    }
+    
     attr(clog, "parameters") <- list("means" = means,
                                      "pseudocount" = pseudocount)
     clog
@@ -180,51 +194,89 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm = TRUE)
+    function(x, na.rm, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE, impute = TRUE, ...)
 {
     # Error with negative values
     if (any(x < 0, na.rm = na.rm)) {
-        stop("'rclr' cannot be used with negative data", call. = FALSE)
+        stop("the 'method = \"rclr\"' cannot be used with negative data",
+	     call. = FALSE)
     }
+
    # Log transform
    clog <- log(x)
+   
    # Convert zeros to NAs in rclr
    clog[is.infinite(clog)] <- NA
+
    # Calculate log of geometric mean for every sample, ignoring the NAs
-   mean_clog <- rowMeans(clog, na.rm = na.rm)
-   # Divide all values by their sample-wide geometric means
-   # Log and transpose back to original shape
-   xx <- log(x) - mean_clog
-   # If there were zeros, there are infinite values after logarithmic transform.
-   # Convert those to zero.
-   xx[is.infinite(xx)] <- 0
-   attr(xx, "parameters") <- list("means" = mean_clog)
+   # Always na.rm = TRUE at this step!   
+   means <- rowMeans(clog, na.rm = TRUE)
+
+   ## Divide (or in log-space, reduce) all values by their sample-wide
+   ## geometric means
+   xx <- clog - means
+   attr(xx, "parameters") <- list("means" = means)
+
+   # Impute NAs if impute=TRUE
+   # Otherwise return the transformation with NAs
+   if (impute && any(is.na(xx))) {
+   
+     opt_res <- optspace(xx, ropt = ropt, niter = niter, tol = tol, verbose = verbose)
+     
+     # recenter the data
+     # (the means of rclr can get thrown off since we work on only missing)
+     M_I <- opt_res$X %*% opt_res$S %*% t(opt_res$Y)
+
+     # Center cols to 0
+     M_I <- as.matrix(scale(M_I, center = TRUE, scale = FALSE))
+
+     # Center rows to 0
+     M_I <- as.matrix(t(scale(t(M_I), center = TRUE, scale = FALSE)))
+
+     # Imputed matrix
+     xx <- M_I
+   }
+  
    xx
+   
 }
 
-
 .calc_alr <-
-    function (x, reference = 1, pseudocount = 0, na.rm = TRUE)
+    function (x, na.rm, pseudocount = 0, reference = 1, ...)
 {
     # Add pseudocount
     x <- x + pseudocount
+
     # If there is negative values, gives an error.
-    if (any(x < 0, na.rm = na.rm)) {
-        stop("'alr' cannot be used with negative data: use pseudocount >= ",
-             -min(x, na.rm = na.rm) + pseudocount, call. = FALSE)
+    # Always na.rm = TRUE at this step
+    if (any(x <= 0, na.rm = TRUE)) {
+        stop("the 'method = \"alr\"' cannot be used with non-positive data: ",
+              "use pseudocount '> -min(x, na.rm = na.rm) + pseudocount'",
+	      call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
     if (is.character(reference)) {
         reference <- which(reference == colnames(x))
         if (!length(reference)) # found it?
-            stop("'reference' name was not found in data", call. = FALSE)
+            stop("sample name specified in the 'reference' argument
+	          was not found in data",
+	          call. = FALSE)
     }
     if (reference > ncol(x) || reference < 1)
-        stop("'reference' should be a name or index 1 to ",
-             ncol(x), call. = FALSE)
+        stop("sample name specified in 'reference' argument
+	      should be a name (string) or an index 1 to ", ncol(x),
+	      call. = FALSE)
     clog <- log(x)
     refvector <- clog[, reference]
     clog <- clog[, -reference] - refvector
+
+    # Replace missing values with 0
+    if (na.rm && any(is.na(clog))) {
+        warning("replacing missing values with zero for `method = \"alr\"`
+	         - disable this with `na.rm = FALSE`")
+        clog[is.na(clog)] <- 0
+    } 
+
     attr(clog, "parameters") <- list("reference" = refvector,
                                      "index" = reference,
                                      "pseudocount" = pseudocount)
@@ -269,3 +321,5 @@
         x[abs(x) < sqrt(.Machine$double.eps)] <- 0
     x
 }
+
+
