@@ -46,8 +46,8 @@
   ## Preprocessing : ropt  : implied rank
   if (ropt) {
     r <- round(ropt)
-    if ((!is.numeric(r)) || (r < 1) || (r > m) || (r > n)) {
-      stop("* optspace: value of argument 'ropt' should be an integer
+    if (!is.numeric(ropt) || (!is.numeric(r)) || (r < 1) || (r > m) || (r > n)) {
+      stop("* optspace: value of argument 'ropt' should be integer
             in [1, min(nrow(x), ncol(x))]")
     }
   } else {
@@ -56,7 +56,7 @@
       message(paste0("* optspace: Guessing an implicit rank: Estimated rank 'ropt': ", r))
     }
   }
-  
+
   ## Preprocessing : niter : maximum number of iterations
   if ((is.infinite(niter)) || (niter <= 1) || (!is.numeric(niter))) {
     stop("* optspace: invalid number provided for argument 'niter'")
@@ -67,18 +67,19 @@
   ## Main Computation
   rescal_param <- sqrt(nnz_e * r / (norm(m_e, 'f')^2))
   m_e <- m_e * rescal_param
-  
+
   # 1. SVD
   if (verbose) {
     message("* optspace: Step 2: SVD ...")
   }
+
   svdEt <- svd(m_e)
-  X0 <- svdEt$u[, seq_len(r)]
-  X0 <- X0[, rev(seq_len(ncol(X0)))]
+  X0 <- matrix(svdEt$u[, seq_len(r)], ncol=r)
+  X0 <- matrix(X0[, rev(seq_len(ncol(X0)))], ncol=r)
   S0 <- diag(rev(svdEt$d[seq_len(r)]))
-  Y0 <- svdEt$v[, seq_len(r)]
-  Y0 <- Y0[, rev(seq_len(ncol(Y0)))]
-  
+  Y0 <- matrix(svdEt$v[, seq_len(r)], ncol=r)
+  Y0 <- matrix(Y0[, rev(seq_len(ncol(Y0)))], ncol=r)
+
   # 3. Initial Guess
   if (verbose) {
     message("* optspace: Step 3: Initial Guess ...")
@@ -86,7 +87,7 @@
   X0 <- X0 * sqrt(n)
   Y0 <- Y0 * sqrt(m)
   S0 <- S0 / eps
-  
+
   # 4. Gradient Descent
   if (verbose) {
     message("* optspace: Step 4: Gradient Descent ...")
@@ -97,7 +98,6 @@
   # initialize
   dist <- array(0, c(1, (niter + 1)))
   dist[1] <- norm((m_e - (X %*% S %*% t(Y))) * E, 'f') / sqrt(nnz_e)
-
   # Resolution/regularization for gradient calculation
   m0 <- 10000
   
@@ -112,7 +112,7 @@
     Y <- Y + t * Z
     S <- .aux_getoptS(X, Y, m_e, E)
     # compute the distortion
-    dist[i + 1] <- norm(((m_e - X %*% S %*% t(Y)) * E), 'f') / sqrt(nnz_e)
+    dist[i + 1] <- norm(((m_e - X %*% S %*% t(Y)) * E), 'f') / sqrt(nnz_e)    
     if (dist[i + 1] < tol) {
       dist <- dist[seq_len(i + 1)]
       break
@@ -121,12 +121,12 @@
   S <- S / rescal_param  
   # Return Results
   out <- list()
-  
+
   # re-order Optspace may change order during iters
   index_order <- order(diag(S), decreasing = TRUE)
-  X <- X[, index_order]
-  Y <- Y[, index_order]
-  S <- S[index_order, index_order]
+  X <- matrix(X[, index_order], ncol=length(index_order))
+  Y <- matrix(Y[, index_order], ncol=length(index_order))
+  S <- matrix(S[index_order, index_order], ncol=length(index_order))
   out$X <- X
   out$S <- S
   out$Y <- Y

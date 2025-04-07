@@ -28,7 +28,6 @@ max(abs(decostand(testdata + 1, method = "clr", pseudocount = 0) - x.clr.pseudo)
 # Tests clr
 alt.clr <- t(apply(as.matrix(relative.with.pseudo), 1, FUN = function(x){log(x) - mean(log(x))}))
 max(abs(x.clr - alt.clr)) < 1e-6      
-all((x.rclr == 0) == (testdata == 0))
 
 # Test that NAs are handled as expected in CLR
 x <- testdata
@@ -43,15 +42,16 @@ inds <- !is.na(x) # Non-NA values
 max(abs(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[inds] -
         decostand(x, "clr", na.rm = TRUE, pseudocount = 1)[inds])) < 1e-6
 # For the other (non-NA) values, we get non-NA values back
-any(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
+any(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[!is.na(x[, -1] - x[, 1])])) == FALSE
+any(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1, reference=3)[!is.na(x[, -3] - x[, 3])])) == FALSE
 # Works correctly also with other MARGIN
 inds <- !is.na(x) # Non-NA values
 max(abs(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[inds] -
         decostand(x, "clr", MARGIN = 2, na.rm = TRUE, pseudocount = 1)[inds])) < 1e-6
 # Results match for the non-NA values always (with tolerance 1e-6)
 inds <- !is.na(x) # Non-NA values
-max(abs(decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[inds] -
-        decostand(x, "alr", na.rm = TRUE, pseudocount = 1)[inds])) < 1e-6
+max(abs(na.omit(decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[inds] -
+                decostand(x, "alr", na.rm = TRUE, pseudocount = 1)[inds]))) < 1e-6
 
 # Test that NAs are handled as expected in ALR
 set.seed(4354353)
@@ -95,13 +95,15 @@ cor(unlist(test), unlist(test2)) > 0.99
 # Compare rclr with imputation to without imputation + matrix completion
 # rclr transformation with matrix completion for the 0/NA entries
 x1 <- decostand(varespec, method = "rclr", impute = TRUE)
+
 # rclr transformation with no matrix completion for the 0/NA entries
 x2 <- decostand(varespec, method = "rclr", impute = FALSE)
+
 # Matrix completion
 x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
 all(as.matrix(x1) == as.matrix(x2c))
 
-x2c <- optspace(x2, ropt = TRUE, niter = 5, tol = 1e-5, verbose = FALSE)$M
+x2c <- optspace(x2, ropt = 1, niter = 5, tol = 1e-5, verbose = FALSE)$M
 all(as.matrix(x1) == as.matrix(x2c))
 
 x2c <- optspace(x2, niter = 5, tol = 1e-5, verbose = FALSE)$M

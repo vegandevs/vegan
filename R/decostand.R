@@ -246,6 +246,7 @@
 {
     # Add pseudocount
     x <- x + pseudocount
+
     # If there is negative values, gives an error.
     # Always na.rm = TRUE at this step
     if (any(x <= 0, na.rm = TRUE)) {
