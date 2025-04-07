@@ -113,6 +113,10 @@
 * `wascores` can now calculate (unbiased) weighted standard deviation
   of weighted averages with argument `stdev = TRUE`.
 
+## Bug Fixes
+
+* `ordistep` never dropped aliased terms.
+
 ## Deprecated and Defunct
 
 * Disabled use of `summary` to get ordination scores: use `scores`!
@@ -154,8 +158,6 @@
 * `anova.cca(..., by="margin")` failed when a constraint was
   completely aliased by conditions. See
   [#701](https://github.com/vegandevs/vegan/pull/701).
-
-* `ordistep` never dropped aliased terms.
 
 * `envfit` failed when ordination scores were given in a plain matrix
   instead of a complex ordination result object. Issue
