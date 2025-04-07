@@ -61,7 +61,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mantel</span><span class="op">(</span><span class="va">xdis</span>, <span class="va">ydis</span>, method<span class="op">=</span><span class="st">"pearson"</span>, permutations<span class="op">=</span><span class="fl">999</span>, strata <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    na.rm <span class="op">=</span> <span class="cn">FALSE</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">mantel.partial</span><span class="op">(</span><span class="va">xdis</span>, <span class="va">ydis</span>, <span class="va">zdis</span>, method <span class="op">=</span> <span class="st">"pearson"</span>, permutations <span class="op">=</span> <span class="fl">999</span>, </span>
-<span>    strata <span class="op">=</span> <span class="cn">NULL</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>    strata <span class="op">=</span> <span class="cn">NULL</span>, na.rm <span class="op">=</span> <span class="cn">FALSE</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'mantel'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -98,6 +100,12 @@
     cluster.  With <code>parallel = 1</code> uses ordinary, non-parallel
     processing. The parallel processing is done with <span class="pkg">parallel</span>
     package.</p></dd>
+
+  <dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
+<dd><p>Result object.</p></dd>
+
+  <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>Arguments passed to <code><a href="permustats.html">summary.permustats</a></code>.</p></dd>
 
 
 </dl></div>

@@ -55,6 +55,8 @@ and between block dissimilarities.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mrpp</span><span class="op">(</span><span class="va">dat</span>, <span class="va">grouping</span>, permutations <span class="op">=</span> <span class="fl">999</span>, distance <span class="op">=</span> <span class="st">"euclidean"</span>,</span>
 <span>     weight.type <span class="op">=</span> <span class="fl">1</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">meandist</span><span class="op">(</span><span class="va">dist</span>, <span class="va">grouping</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'mrpp'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'meandist'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'meandist'</span></span>
@@ -106,7 +108,7 @@ and between block dissimilarities.</p>
     <code><a href="designdist.html">designdist</a></code>.</p></dd>
 </dl><p>.</p>
 <dl><dt id="arg-object-x">object, x<a class="anchor" aria-label="anchor" href="#arg-object-x"></a></dt>
-<dd><p>A <code>meandist</code> result object.</p></dd>
+<dd><p>A <code>mrpp</code> or <code>meandist</code> result object.</p></dd>
 
   <dt id="arg-kind">kind<a class="anchor" aria-label="anchor" href="#arg-kind"></a></dt>
 <dd><p>Draw a dendrogram or a histogram; see Details.</p></dd>
@@ -161,7 +163,8 @@ and between block dissimilarities.</p>
   with a small sample correction. The function also calculates the
   change-corrected within-group agreement \(A = 1 -\delta/E(\delta)\),
   where \(E(\delta)\) is the expected \(\delta\) assessed as the
-  average of dissimilarities.</p>
+  average of dissimilarities. The <code>summary</code> method is based on
+  <code><a href="permustats.html">summary.permustats</a></code>.</p>
 <p>If the first argument <code>dat</code> can be interpreted as
   dissimilarities, they will be used directly. In other cases the
   function treats <code>dat</code> as observations, and uses

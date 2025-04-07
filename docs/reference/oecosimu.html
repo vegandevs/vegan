@@ -89,6 +89,8 @@ Function evaluates a statistic or a vector of statistics in
 <span>   statistic <span class="op">=</span> <span class="st">"statistic"</span>, alternative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"two.sided"</span>, <span class="st">"less"</span>, <span class="st">"greater"</span><span class="op">)</span>, </span>
 <span>   batchsize <span class="op">=</span> <span class="cn">NA</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'oecosimu'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'oecosimu'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html" class="external-link">as.ts</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'oecosimu'</span></span>
 <span><span class="fu">toCoda</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
@@ -165,7 +167,7 @@ Function evaluates a statistic or a vector of statistics in
     <span style="R">R</span> packages than <span class="pkg">vegan</span> or <span class="pkg">permute</span>, you must set up a
     socket cluster before the call.</p></dd>
 
-  <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
+  <dt id="arg-x-object">x, object<a class="anchor" aria-label="anchor" href="#arg-x-object"></a></dt>
 <dd><p>An <code>oecosimu</code> result object.</p></dd>
 
 
@@ -230,7 +232,9 @@ Function evaluates a statistic or a vector of statistics in
   memory needs.  The parallel processing is only used for evaluating
   <code>nestfun</code>.  The main load may be in simulation of the
   <code><a href="nullmodel.html">nullmodel</a></code>, and <code>parallel</code> argument does not help
-  there.</p>
+  there. Function <code>summary</code> is based on
+  <code><a href="permustats.html">summary.permustats</a></code> and returns information on
+  permutations.</p>
 <p>Function <code>as.ts</code> transforms the simulated results of sequential
   methods into a time series or a <code><a href="https://rdrr.io/r/stats/ts.html" class="external-link">ts</a></code> object. This allows
   using analytic tools for time series in studying the sequences (see

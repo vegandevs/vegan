@@ -70,7 +70,9 @@
 <span><span class="co"># S3 method for class 'ordiellipse'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">ordiareatest</span><span class="op">(</span><span class="va">ord</span>, <span class="va">groups</span>, area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hull"</span>, <span class="st">"ellipse"</span><span class="op">)</span>, kind <span class="op">=</span> <span class="st">"sd"</span>,</span>
-<span>         permutations <span class="op">=</span> <span class="fl">999</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>         permutations <span class="op">=</span> <span class="fl">999</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'ordiareatest'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -173,9 +175,9 @@
 
 
   <dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p>A result object from <code>ordihull</code> or
-    <code>ordiellipse</code>. The result is <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code>, but it
-    can be saved, and used for summaries (areas etc. of hulls and
+<dd><p>A result object from <code>ordihull</code>, <code>ordiellipse</code>
+    or <code>ordiareatest</code>. The result is <code><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a></code>, but
+    it can be saved, and used for summaries (areas etc. of hulls and
     ellipses).</p></dd>
 
 
@@ -211,8 +213,7 @@
 
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Parameters passed to graphical functions or to
-    <code><a href="scores.html">scores</a></code> to select axes and scaling etc.</p></dd>
+<dd><p>Parameters passed to other functions.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -283,7 +284,9 @@
   object that has a <code>summary</code> method that returns the coordinates
   of centroids and areas of the hulls or ellipses. Function
   <code>ordiareatest</code> studies the one-sided hypothesis that these
-  areas are smaller than with randomized <code>groups</code>.</p>
+  areas are smaller than with randomized <code>groups</code>, and its
+  <code>summary</code> is based on <code><a href="permustats.html">summary.permustats</a></code> with a
+  summary of permutations.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
