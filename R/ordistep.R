@@ -48,11 +48,12 @@
         change <- NULL
         ## Consider dropping
         if (backward && length(scope$drop)) {
-            aod <- drop1(object, scope = scope$drop, test="perm",
-                         permutations = permutations,
-                         alpha = Pout, trace = trace, ...)
+            aod <- suppressMessages(
+                drop1(object, scope = scope$drop, test="perm",
+                      permutations = permutations,
+                      alpha = Pout, trace = trace, ...))
             aod <- aod[-1,]
-            o <- order(-aod[,4], aod[,2])
+            o <- order(-aod[,4], aod[,2], na.last = FALSE)
             aod <- aod[o,]
             rownames(aod) <- paste("-", rownames(aod), sep = " ")
             if (trace) {
@@ -62,7 +63,8 @@
             if (is.na(aod[1,4]) || aod[1,4] > Pout) {
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
-                object <- eval.parent(update(object, paste("~  .", change)))
+                object <- suppressMessages(
+                    eval.parent(update(object, paste("~  .", change))))
                 scope <- factor.scope(attr(terms(object), "factors"),
                                       list(add = fadd, drop = fdrop))
                 if (trace) {
@@ -73,9 +75,10 @@
         }
         ## Consider adding
         if (forward && length(scope$add)) {
-            aod <- add1(object, scope = scope$add, test = "perm",
-                        permutations = permutations,
-                        alpha = Pin, trace = trace, ...)
+            aod <- suppressMessages(
+                add1(object, scope = scope$add, test = "perm",
+                     permutations = permutations,
+                     alpha = Pin, trace = trace, ...))
             aod <- aod[-1,]
             o <- order(aod[,4], aod[,2])
             aod <- aod[o,]
@@ -87,7 +90,8 @@
             if (!is.na(aod[1,4]) && aod[1,4] <= Pin) {
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
-                object <- eval.parent(update(object, paste( "~  .",change)))
+                object <- suppressMessages(
+                    eval.parent(update(object, paste( "~  .",change))))
                 scope <- factor.scope(attr(terms(object), "factors"),
                                       list(add = fadd, drop = fdrop))
                 if (trace) {
