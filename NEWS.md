@@ -155,6 +155,8 @@
   completely aliased by conditions. See
   [#701](https://github.com/vegandevs/vegan/pull/701).
 
+* `ordistep` never dropped aliased terms.
+
 * `envfit` failed when ordination scores were given in a plain matrix
   instead of a complex ordination result object. Issue
   [#713](https://github.com/vegandevs/vegan/issues/713).
