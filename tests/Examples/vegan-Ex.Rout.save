@@ -3943,7 +3943,7 @@ attr(,"class")
 > 
 > ### Name: mantel
 > ### Title: Mantel and Partial Mantel Tests for Dissimilarity Matrices
-> ### Aliases: mantel mantel.partial
+> ### Aliases: mantel mantel.partial summary.mantel
 > ### Keywords: multivariate htest
 > 
 > ### ** Examples
@@ -4430,7 +4430,7 @@ Stopped after 80 iterations: Stress nearly unchanged (ratio > sratmax)
 > ### Name: mrpp
 > ### Title: Multi Response Permutation Procedure and Mean Dissimilarity
 > ###   Matrix
-> ### Aliases: mrpp meandist summary.meandist plot.meandist
+> ### Aliases: mrpp meandist summary.meandist summary.mrpp plot.meandist
 > ### Keywords: multivariate nonparametric htest
 > 
 > ### ** Examples
@@ -4969,7 +4969,8 @@ Start = 55, End = 100, Thin = 5 (3 chains)
 > 
 > ### Name: oecosimu
 > ### Title: Evaluate Statistics with Null Models of Biological Communities
-> ### Aliases: oecosimu as.ts.oecosimu toCoda toCoda.oecosimu
+> ### Aliases: oecosimu summary.oecosimu as.ts.oecosimu toCoda
+> ###   toCoda.oecosimu
 > ### Keywords: multivariate datagen nonparametric
 > 
 > ### ** Examples
@@ -5221,7 +5222,8 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ### Name: ordihull
 > ### Title: Display Groups or Factor Levels in Ordination Diagrams
 > ### Aliases: ordihull ordispider ordiellipse ordibar ordicluster
-> ###   summary.ordihull scores.ordihull summary.ordiellipse ordiareatest
+> ###   summary.ordihull scores.ordihull summary.ordiellipse
+> ###   summary.ordiareatest ordiareatest
 > ### Keywords: aplot
 > 
 > ### ** Examples
@@ -9094,7 +9096,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.308 0.278 8.598 0 0 
+Time elapsed:  8.285 0.293 8.587 0 0 
 > grDevices::dev.off()
 null device 
           1 

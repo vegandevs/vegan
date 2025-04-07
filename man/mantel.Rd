@@ -1,6 +1,7 @@
 \name{mantel}
 \alias{mantel}
 \alias{mantel.partial}
+\alias{summary.mantel}
 
 \title{Mantel and Partial Mantel Tests for Dissimilarity Matrices }
 \description{
@@ -17,6 +18,7 @@ mantel(xdis, ydis, method="pearson", permutations=999, strata = NULL,
     na.rm = FALSE, parallel = getOption("mc.cores"))
 mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999, 
     strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores"))
+\method{summary}{mantel}(object, ...)
 }
 
 \arguments{
@@ -40,6 +42,8 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
     package.}
+  \item{object}{Result object.}
+  \item{\dots}{Arguments passed to \code{\link{summary.permustats}}.}
 
 }
 

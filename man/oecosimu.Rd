@@ -1,6 +1,7 @@
 \encoding{UTF-8}
 \name{oecosimu}
 \alias{oecosimu}
+\alias{summary.oecosimu}
 \alias{as.ts.oecosimu}
 \alias{toCoda}
 \alias{toCoda.oecosimu}
@@ -29,6 +30,7 @@
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
    statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
    batchsize = NA, parallel = getOption("mc.cores"), ...)
+\method{summary}{oecosimu}(object, ...)
 \method{as.ts}{oecosimu}(x, ...)
 \method{toCoda}{oecosimu}(x)
 }
@@ -82,7 +84,7 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
     package.  If you define a \code{nestfun} in Windows that needs other
     \R packages than \pkg{vegan} or \pkg{permute}, you must set up a
     socket cluster before the call. }
-  \item{x}{An \code{oecosimu} result object.}
+  \item{x, object}{An \code{oecosimu} result object.}
 
   \item{\dots}{Other arguments to functions.}
 }
@@ -148,7 +150,9 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   memory needs.  The parallel processing is only used for evaluating
   \code{nestfun}.  The main load may be in simulation of the
   \code{\link{nullmodel}}, and \code{parallel} argument does not help
-  there.
+  there. Function \code{summary} is based on
+  \code{\link{summary.permustats}} and returns information on
+  permutations.
 
   Function \code{as.ts} transforms the simulated results of sequential
   methods into a time series or a \code{\link{ts}} object. This allows

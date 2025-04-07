@@ -7,6 +7,7 @@
 \alias{summary.ordihull}
 \alias{scores.ordihull}
 \alias{summary.ordiellipse}
+\alias{summary.ordiareatest}
 \alias{ordiareatest}
 
 \title{Display Groups or Factor Levels in Ordination Diagrams}
@@ -34,6 +35,7 @@ ordicluster(ord, cluster, prune = 0, display = "sites",
 \method{summary}{ordiellipse}(object, ...)
 ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
          permutations = 999, parallel = getOption("mc.cores"), ...)
+\method{summary}{ordiareatest}(object, ...)
 }
 
 \arguments{
@@ -105,9 +107,9 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
     dendrogram. If \code{prune} \eqn{>0}, dendrogram will be
     disconnected.}
 
-  \item{object}{A result object from \code{ordihull} or
-    \code{ordiellipse}. The result is \code{\link{invisible}}, but it
-    can be saved, and used for summaries (areas etc. of hulls and
+  \item{object}{A result object from \code{ordihull}, \code{ordiellipse}
+    or \code{ordiareatest}. The result is \code{\link{invisible}}, but
+    it can be saved, and used for summaries (areas etc. of hulls and
     ellipses). }
 
   \item{area}{Evaluate the area of convex hulls of \code{ordihull}, or of
@@ -131,8 +133,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   \item{length}{Width (in inches) of the small (\dQuote{caps}) at the
     ends of the bar segment (passed to \code{\link{arrows}}).}
 
-  \item{\dots}{Parameters passed to graphical functions or to
-    \code{\link{scores}} to select axes and scaling etc. }
+  \item{\dots}{Parameters passed to other functions. }
 }
 
 \details{
@@ -205,7 +206,9 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   object that has a \code{summary} method that returns the coordinates
   of centroids and areas of the hulls or ellipses. Function
   \code{ordiareatest} studies the one-sided hypothesis that these
-  areas are smaller than with randomized \code{groups}.
+  areas are smaller than with randomized \code{groups}, and its
+  \code{summary} is based on \code{\link{summary.permustats}} with a
+  summary of permutations.
 
 }
 
