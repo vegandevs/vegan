@@ -52,7 +52,7 @@
                          permutations = permutations,
                          alpha = Pout, trace = trace, ...)
             aod <- aod[-1,]
-            o <- order(-aod[,4], aod[,2])
+            o <- order(-aod[,4], aod[,2], na.last = FALSE)
             aod <- aod[o,]
             rownames(aod) <- paste("-", rownames(aod), sep = " ")
             if (trace) {
