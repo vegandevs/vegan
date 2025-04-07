@@ -113,6 +113,9 @@
 * `wascores` can now calculate (unbiased) weighted standard deviation
   of weighted averages with argument `stdev = TRUE`.
 
+* `mantel`, `mrpp`, `oecosimu` and `ordiareatest` gained `summary`
+  methods based on `summary.permustats`.
+
 ## Bug Fixes
 
 * `ordistep` never dropped aliased terms.
