@@ -5429,9 +5429,6 @@ Step: dune ~ Moisture + Management
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
-
          Df    AIC      F Pr(>F)
 + Manure  3 85.762 1.1225  0.300
 + A1      1 86.220 0.8359  0.685
@@ -5483,9 +5480,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
 Step: dune ~ Management 
 
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
-
            Df    AIC      F Pr(>F)   
 + Moisture  3 85.567 1.9764  0.005 **
 + Manure    3 87.517 1.3902  0.095 . 
@@ -5495,9 +5489,6 @@ can happen if terms are linearly dependent (collinear): ‘Manure^4’
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management + Moisture 
-
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
 
          Df    AIC      F Pr(>F)
 + Manure  3 85.762 1.1225  0.315
@@ -5687,7 +5678,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.
+This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -8573,9 +8564,6 @@ Step: dune ~ Management
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
-
            Df    AIC      F Pr(>F)   
 + Moisture  3 85.567 1.9764  0.005 **
 + Manure    3 87.517 1.3902  0.095 . 
@@ -8591,9 +8579,6 @@ Step: dune ~ Management + Moisture
 - Management  3 87.707 2.1769  0.010 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
 
          Df    AIC      F Pr(>F)
 + Manure  3 85.762 1.1225  0.365
@@ -9109,7 +9094,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.242 0.309 8.563 0 0 
+Time elapsed:  8.308 0.278 8.598 0 0 
 > grDevices::dev.off()
 null device 
           1 
