@@ -2,7 +2,7 @@
     function(object, dis, ...)
 {
     if (inherits(object, "monoMDS"))
-        return(NextMethod("goodness", object, ...))
+        return(NextMethod("goodness"))
     if (missing(dis))
         dis <- metaMDSredist(object)
     if(attr(dis, "Size") != nrow(object$points))

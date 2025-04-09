@@ -9,13 +9,13 @@
     test <- match.arg(test)
     ## Default add1
     # don't show messages about aliased terms
-    out <- suppressMessages(NextMethod("add1", object, test = "none", ...))
+    out <- suppressMessages(NextMethod("add1", object, test = "none"))
     cl <- class(out)
     ## Loop over terms in 'scope' and do anova.cca
     if (test == "permutation") {
         ## Avoid nested Condition(Condition(x) + z)
         hasfla <- update(terms(object$terminfo), . ~  Condition(.))
-        if (!is.character(scope)) 
+        if (!is.character(scope))
             scope <- add.scope(object, update.formula(object, scope))
         ns <- length(scope)
         adds <- matrix(0, ns+1, 2)

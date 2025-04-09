@@ -19,6 +19,6 @@
         object <- eval(call, parent.frame())
         anova(object, ...)
     } else {
-        NextMethod("anova", object, ...)
-    }    
+        NextMethod("anova")
+    }
 }
