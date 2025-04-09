@@ -9,7 +9,7 @@
     if (!inherits(x, "rda"))
         stop("biplot can be used only with linear ordination (e.g., PCA)")
     else
-        NextMethod("biplot", x, ...)
+        NextMethod("biplot")
 }
 
 `biplot.rda` <- function(x, choices = c(1, 2), scaling = "species",

@@ -1,7 +1,7 @@
 `print.mso` <-
     function(x,  digits = max(3, getOption("digits") - 3), ...)
 {
-    NextMethod("print", x, digits = digits, ...)
+    NextMethod("print")
     cat("mso variogram:\n\n")
     print(x$vario, digits = digits, ...)
     if(!is.null(attr(x$vario, "control")))
