@@ -4,7 +4,7 @@ function(m, method="quasiswap", fixedmar="both", shuffle="both", strata=NULL,
 mtype="count", times=99, burnin = 0, thin = 1, ...)
 {
     mtype <- match.arg(mtype, c("prab", "count"))
-    fixedmar <- match.arg(fixedmar, c("rows", "columns", "both"))
+    fixedmar <- match.arg(fixedmar, c("none", "rows", "columns", "both"))
     shuffle <- match.arg(shuffle, c("samp", "both"))
     count <- mtype == "count"
     m <- as.matrix(m)
@@ -51,12 +51,12 @@ mtype="count", times=99, burnin = 0, thin = 1, ...)
     } else {
         if (fixedmar != "both")
             stop("if 'mtype=\"prab\"', 'fixedmar' must be \"both\"")
-        method <- match.arg(method, c("swap", "quasiswap", "tswap", "backtracking"))
+        method <- match.arg(method, c("swap", "quasiswap", "tswap", "backtrack"))
         isSeq <- method != "quasiswap"
         ALGO <- method
     }
     if (is.null(strata)) {
-        tmp <- simulate(nullmodel(m, ALGO), 
+        tmp <- simulate(nullmodel(m, ALGO),
             nsim=times, burnin=burnin, thin=thin, ...)
         perm <- vector("list", times)
         for (i in seq_len(times))
@@ -65,7 +65,7 @@ mtype="count", times=99, burnin = 0, thin = 1, ...)
         perm <- vector("list", times)
         tmp <- vector("list", length(unique(strata)))
         for (j in seq_len(nstr)) {
-            tmp[[j]] <- simulate(nullmodel(m[strata==levstr[j],], ALGO), 
+            tmp[[j]] <- simulate(nullmodel(m[strata==levstr[j],], ALGO),
                 nsim=times, burnin=burnin, thin=thin, ...)
         }
         for (i in seq_len(times)) {
