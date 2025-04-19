@@ -419,5 +419,8 @@ vare.dist <- vegdist(decostand(varespec, "norm"), "euclidean")
 vare.dist <- vegdist(decostand(varespec, "log"), "altGower")
 # Range standardization with "altGower" (that excludes double-zeros)
 vare.dist <- vegdist(decostand(varespec, "range"), "altGower")
+# Robust Aitchison distance equals to Euclidean distance for rclr transformed data
+vare.dist <- vegdist(decostand(varespec, "rclr"), method = "euclidean")
+vare.dist <- vegdist(varespec, "robust.aitchison")
 }
 \keyword{ multivariate }
