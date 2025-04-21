@@ -94,6 +94,8 @@
   
 * `orditorp` can be used in pipe.
 
+* `ordiR2step` calls current model `<model>` instead of `<none>`.
+
 * `densityplot.permustats` did not know argument `observed` to control
   including and showing the observed statistic.
 
