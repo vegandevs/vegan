@@ -562,9 +562,6 @@ Manure      4 89.232 1.9539  0.025 *
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Management)
 > add1(m0, scope=formula(mbig), test="perm")
-
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
          Df    AIC      F Pr(>F)   
 <none>      87.082                 
 A1        1 87.424 1.2965  0.195   
@@ -583,9 +580,6 @@ Moisture    3 87.082 1.9764  0.025 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > add1(m0, scope=formula(mbig), test="perm")
-
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
        Df    AIC      F Pr(>F)
 <none>    85.567              
 A1      1 86.220 0.8359  0.610
@@ -5522,9 +5516,6 @@ Eigenvalues for unconstrained axes:
 > ## Example of ordiR2step (always forward)
 > ## stops because R2 of 'mod1' exceeded
 > ordiR2step(mod0, mod1)
-
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
 Step: R2.adj= 0 
 Call: dune ~ 1 
  
@@ -5535,7 +5526,7 @@ Call: dune ~ 1
 + Manure         0.16723149
 + A1             0.04626579
 + Use            0.01799755
-<none>           0.00000000
+<model>          0.00000000
 
              Df    AIC    F Pr(>F)   
 + Management  3 87.082 2.84  0.002 **
@@ -5545,16 +5536,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Step: R2.adj= 0.2251241 
 Call: dune ~ Management 
  
-
-Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
                 R2.adjusted
 + Moisture        0.3450334
 <All variables>   0.3250882
 + Manure          0.2779515
 + A1              0.2392216
 + Use             0.2300349
-<none>            0.2251241
+<model>           0.2251241
 
 Call: rda(formula = dune ~ Management, data = dune.env)
 
@@ -9096,7 +9084,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.285 0.293 8.587 0 0 
+Time elapsed:  8.267 0.328 8.608 0 0 
 > grDevices::dev.off()
 null device 
           1 

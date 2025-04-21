@@ -28,8 +28,9 @@
         stop("needs upper 'scope': no terms can be added")
     ## Get R2 of the scope
     if (R2scope)
-        R2.all <- RsquareAdj(update(object, delete.response(formula(scope))),
-                             permutations = R2permutations, ...)
+        R2.all <- suppressMessages(
+            RsquareAdj(update(object, delete.response(formula(scope))),
+                             permutations = R2permutations, ...))
     else
         R2.all <- list(adj.r.squared = NA)
     ## Check that the full model can be evaluated
@@ -56,15 +57,15 @@
         ## Loop over add scope
         for (trm in seq_along(R2.adds)) {
             fla <- paste(". ~ .", names(R2.adds[trm]))
-            R2.tmp <- RsquareAdj(update(object, fla),
-                                 permutations = R2permutations, ...)$adj.r.squared
+            R2.tmp <- suppressMessages(RsquareAdj(update(object, fla),
+                                 permutations = R2permutations, ...)$adj.r.squared)
             if (!length(R2.tmp) || is.na(R2.tmp))
                 R2.tmp <- 0
             R2.adds[trm] <- R2.tmp
         }
         best <- which.max(R2.adds)
         if (trace) {
-            out <- sort(c("<All variables>" = R2.all, "<none>" = R2.previous,
+            out <- sort(c("<All variables>" = R2.all, "<model>" = R2.previous,
                           R2.adds), decreasing = TRUE)
             out <- as.matrix(out)
             colnames(out) <- "R2.adjusted"
@@ -77,9 +78,10 @@
         if (R2.adds[best] > R2.previous &&
             (!R2scope || R2scope && R2.adds[best] <= R2.all)) {
             ## Second criterion: added variable is significant
-            tst <- add1(object, scope = adds[best], test="permu",
-                        permutations = permutations,
-                        alpha = Pin, trace = FALSE, ...)
+            tst <- suppressMessages(
+                add1(object, scope = adds[best], test="permu",
+                     permutations = permutations,
+                     alpha = Pin, trace = FALSE, ...))
             if (trace) {
                 print(tst[-1,])
                 cat("\n")
