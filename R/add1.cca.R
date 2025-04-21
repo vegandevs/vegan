@@ -25,7 +25,7 @@
             ## Condition(.) previous terms (if present)
             if (!is.null(object$CCA)) {
                 fla <- update(hasfla, paste("~ . +", tt))
-                nfit <- update(object, fla)
+                nfit <- suppressMessages(update(object, fla))
             }
             else
                 nfit <- update(object,
