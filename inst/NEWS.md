@@ -7,6 +7,8 @@
 * `densityplot.permustats` did not know argument `observed` to control
   including and showing the observed statistic.
 
+* `ordiR2step` calls current model `<model>` instead of `<none>`.
+
 #### Bug Fixes
 
 * `ordistep` never dropped aliased terms.
