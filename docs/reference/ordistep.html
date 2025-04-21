@@ -352,9 +352,6 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-in"><span><span class="co">## Example of ordiR2step (always forward)</span></span></span>
 <span class="r-in"><span><span class="co">## stops because R2 of 'mod1' exceeded</span></span></span>
 <span class="r-in"><span><span class="fu">ordiR2step</span><span class="op">(</span><span class="va">mod0</span>, <span class="va">mod1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: R2.adj= 0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: dune ~ 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
@@ -365,7 +362,7 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure         0.16723149</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + A1             0.04626579</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Use            0.01799755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;           0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;model&gt;          0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC    F Pr(&gt;F)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.84  0.002 **</span>
@@ -375,16 +372,13 @@ Automatic stepwise model building for constrained ordination methods
 <span class="r-out co"><span class="r-pr">#&gt;</span> Step: R2.adj= 0.2251241 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: dune ~ Management </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                 R2.adjusted</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture        0.3450334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;All variables&gt;   0.3250882</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure          0.2779515</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + A1              0.2392216</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Use             0.2300349</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;            0.2251241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;model&gt;           0.2251241</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
