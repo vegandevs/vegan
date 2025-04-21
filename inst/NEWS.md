@@ -11,6 +11,9 @@
 
 * `ordistep` never dropped aliased terms.
 
+* `permatswap` failed to set some null models (`swsh_samp`,
+  `swsh_both`, `backtrack`).
+
 ### Changes in version 2\.6-10
 
 #### Startup
