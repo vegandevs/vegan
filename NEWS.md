@@ -120,6 +120,9 @@
 
 * `ordistep` never dropped aliased terms.
 
+* `permatswap` failed to set some null models (`swsh_samp`,
+  `swsh_both`, `backtrack`).
+
 ## Deprecated and Defunct
 
 * Disabled use of `summary` to get ordination scores: use `scores`!
