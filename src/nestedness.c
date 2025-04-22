@@ -866,7 +866,7 @@ SEXP do_swap(SEXP x, SEXP nsim, SEXP thin, SEXP method)
 
     /* sequential trialswap of ix and save result to the iout
        array */
-    memcpy(ix, INTEGER(x), N * sizeof(int));
+    if (N) memcpy(ix, INTEGER_RO(x), N * sizeof(int));
     GetRNGstate();
     for(i = 0; i < ny; i++) {
 	swap_fun(ix, &nr, &nc, &ithin);
@@ -899,7 +899,7 @@ SEXP do_curveball(SEXP x, SEXP nsim, SEXP thin)
 
     /* sequential trialswap of ix and save result to the iout
        array */
-    memcpy(ix, INTEGER(x), N * sizeof(int));
+    if (N) memcpy(ix, INTEGER_RO(x), N * sizeof(int));
     GetRNGstate();
     for(i = 0; i < ny; i++) {
 	/* different call than in do_swap */
@@ -930,7 +930,7 @@ SEXP do_abuswap(SEXP x, SEXP nsim, SEXP thin, SEXP direct)
     double *rx = (double *) R_alloc(N, sizeof(double));
 
     /* sequential swap as in do_swap */
-    memcpy(rx, REAL(x), N * sizeof(double));
+    if (N) memcpy(rx, REAL_RO(x), N * sizeof(double));
     GetRNGstate();
     for(i = 0; i < ny; i++) {
 	abuswap(rx, &nr, &nc, &ithin, &idirect);
