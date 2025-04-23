@@ -160,7 +160,7 @@ and must take some of the following arguments:
     code is experimental and it is provided here for further scrutiny,
     and should be tested for bias before use.}
 
-  \item{\code{"backtracking"}: }{non-sequential algorithm for binary
+  \item{\code{"backtrack"}: }{non-sequential algorithm for binary
     matrices that implements a filling method with constraints both for
     row and column frequencies (Gotelli & Entsminger 2001).  The matrix
     is first filled randomly, but typically row and column sums are
