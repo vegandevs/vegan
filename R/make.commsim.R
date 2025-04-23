@@ -6,8 +6,8 @@
 ## NOTE 2: storage mode coercions are avoided here
 ## (with no apparent effect on speed), it should be
 ## handled by nullmodel and commsim characteristics
-make.commsim <-
-function(method)
+`make.commsim` <-
+    function(method)
 {
     algos <- list(
         "r00" = commsim(method="r00", binary=TRUE, isSeq=FALSE,
@@ -65,16 +65,16 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             .Call(do_qswap, out, n, thin, "quasiswap")
         }),
         "greedyqswap" = commsim(method="greedyqswap", binary=TRUE,
-        isSeq=FALSE, mode="integer",
-        fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+               isSeq=FALSE, mode="integer",
+               fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             .Call(do_greedyqswap, out, n, thin, fill)
@@ -82,16 +82,25 @@ function(method)
         "swap" = commsim(method="swap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            if (nr < 2L || nc < 2L)
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
+            ## no checkerboard 2x2 matrices: infinite loop
+            if (nestedchecker(x)$statistic == 0)
+                stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
             .Call(do_swap, as.matrix(x), n, thin, "swap")
         }),
         "tswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            if (nr < 2L || nc < 2L)
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             .Call(do_swap, as.matrix(x), n, thin, "trialswap")
         }),
         "curveball" = commsim(method="curveball", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            if (nrow(x) < 2)
+                stop(sQuote(method), " needs at least two rows", call. = FALSE)
             .Call(do_curveball, as.matrix(x), n, thin)
         }),
         "backtrack" = commsim(method="backtrack", binary = TRUE,
@@ -103,7 +112,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             out
@@ -111,13 +120,21 @@ function(method)
         "swap_count" = commsim(method="swap_count", binary = FALSE,
         isSeq=TRUE, mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
+            if (nr < 2L || nc < 2L)
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
+            ## no checkerboard 2x2 matrices: infinite loop
+            if (nestedchecker(x)$statistic == 0)
+                stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
             .Call(do_swap, as.matrix(x), n, thin, "swapcount")
         }),
         "quasiswap_count" = commsim(method="quasiswap_count", binary=FALSE,
         isSeq=FALSE, mode="integer",
         fun=function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
+            ## no checkerboard 2x2 matrices: infinite loop
+            if (nestedchecker(x)$statistic == 0)
+                stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
             .Call(do_qswap, out, n, fill, "rswapcount")
@@ -126,7 +143,7 @@ function(method)
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             nz <- x[x > 0]
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             ## do_qswap changes 'out' within the function
@@ -141,7 +158,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             indshuffle <- function(x) {
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
@@ -158,7 +175,7 @@ function(method)
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             .Call(do_qswap, out, n, thin, "quasiswap")
             storage.mode(out) <- "double"
@@ -178,7 +195,7 @@ function(method)
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             .Call(do_qswap, out, n, thin, "quasiswap")
             storage.mode(out) <- "double"
@@ -198,7 +215,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             indshuffle <- function(x) {
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
@@ -221,7 +238,7 @@ function(method)
         mode="integer",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
-                stop("needs at least two items")
+                stop(sQuote(method)," needs at least two items", call. = FALSE)
             indshuffle <- function(x) {
                 drop(rmultinom(1, sum(x), rep(1, length(x))))
             }
@@ -243,11 +260,17 @@ function(method)
         "abuswap_r" = commsim(method="abuswap_r", binary=FALSE, isSeq=TRUE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
+            ## no checkerboard 2x2 matrices: infinite loop
+            if (nestedchecker(x)$statistic == 0)
+                stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
             .Call(do_abuswap, as.matrix(x), n, thin, 1L)
         }),
         "abuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
         mode="double",
         fun=function(x, n, nr, nc, cs, rs, rf, cf, s, fill, thin) {
+            ## no checkerboard 2x2 matrices: infinite loop
+            if (nestedchecker(x)$statistic == 0)
+                stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
             .Call(do_abuswap, as.matrix(x), n, thin, 0L)
         }),
         "r00_samp" = commsim(method="r00_samp", binary=FALSE, isSeq=FALSE,
