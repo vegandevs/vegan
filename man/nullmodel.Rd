@@ -11,7 +11,7 @@
 Null Model and Simulation
 }
 \description{
-The \code{nullmodel} function creates an object,
+The \code{nullmodel} function creates an object
 which can serve as a basis for Null Model simulation
 via the \code{\link{simulate}} method.
 The \code{\link{update}} method updates the nullmodel
@@ -111,7 +111,7 @@ tests on the returned \code{simmat} object,
 and make further simulations, or use
 increased thinning value if desired.
 
-The \code{update} method makes burnin steps in case
+The \code{update} method makes \code{burnin}  steps in case
 of sequential algorithms to update the status of the
 input model without any attempt to return matrices.
 For non-sequential algorithms the method does nothing.
@@ -180,12 +180,17 @@ Jari Oksanen and Peter Solymos
 \code{\link{commsim}}, \code{\link{make.commsim}},
 \code{\link{permatfull}}, \code{\link{permatswap}}
 }
-\note{
-Care must be taken when the input matrix only contains a single
-row or column. Such input is invalid for swapping and hypergeometric
-distribution (calling \code{\link{r2dtable}}) based algorithms.
-This also applies to cases when the input is stratified into subsets.
+
+\note{ Care must be taken when the input matrix only contains a single
+row or column. Such input is invalid for swapping and several other
+methods. This also applies to cases when the input is stratified into
+subsets. In particular, subsetting can generate small or degenerate
+matrices that cannot be analysed with the selected (or any) null
+model. These cases are usually detected in \code{\link{commsim}} and
+give an error. If you want to handle smoothly error cases, you should
+wrap \code{simulate} in \code{\link{try}} or \code{\link{tryCatch}}.
 }
+
 \examples{
 data(mite)
 x <- as.matrix(mite)[1:12, 21:30]
