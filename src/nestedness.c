@@ -1132,17 +1132,9 @@ SEXP do_rcfill(SEXP n, SEXP rs, SEXP cs)
  *  of items dropped in backtracking, RESET chooses between restoring
  *  old solution if fill decreases in backtracking, and LOUD prints
  *  information on every step. These can be set at compile time using
- *  preprocessor switches, e.g., -D BACKSTEP=6 */
-#ifndef BACKSTEP
-#define BACKSTEP (4)
-#endif /* BACKSTEP depth */
-#ifndef RESET
-#define RESET 1
-#endif /* RESET */
-#ifndef LOUD
-#define LOUD 0
-#endif /* LOUD */
+ *  preprocessor switches, e.g., -D BACKSTEP=6  or editing backtrack.h */
 
+#include "backtrack.h" /* MACRO defs for compilation */
 
 #if RESET
 /* return index of val in set or EMPTY if not found -- support
