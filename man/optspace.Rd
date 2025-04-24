@@ -43,13 +43,11 @@ subsequent centering for the columns and rows.
 }
 
 \value{Returns a named list containing:
-  \itemize{
-    \item{X}{an \eqn{(n \times r)} matrix as left singular vectors.}
-    \item{S}{an \eqn{(r \times r)} matrix as singular values.}
-    \item{Y}{an \eqn{(m \times r)} matrix as right singular vectors.}    
-    \item{dist}{a vector containing reconstruction errors at each successive iteration.}
-    \item{M}{an \eqn{(n \times m)} imputed matrix, with columns and rows centered to zero.}        
-  }
+  \item{X}{an \eqn{(n \times r)} matrix as left singular vectors.}
+  \item{S}{an \eqn{(r \times r)} matrix as singular values.}
+  \item{Y}{an \eqn{(m \times r)} matrix as right singular vectors.}    
+  \item{dist}{a vector containing reconstruction errors at each successive iteration.}
+  \item{M}{an \eqn{(n \times m)} imputed matrix, with columns and rows centered to zero.}        
 }
 
 \author{Leo Lahti and Cameron Martino, with adaptations of the method
