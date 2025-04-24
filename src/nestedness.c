@@ -1154,9 +1154,9 @@ static int imatch(int val, int *set, int len)
 static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 		      int nr, int nc, int *rfill, int *cfill, int *ind)
 {
-    int tmp, i, j, k, ir, ic;
+    int tmp, i, j, ir, ic;
     int izero = nr * nc - 1, ielig = nr * nc - 1, npick = 0, oldpick = 0,
-	ndrop = 1, dropouts[BACKSTEP], idrop = 0, lastpick = 0;
+	ndrop = 1, dropouts[BACKSTEP], idrop = 0;
 
     /* initialize */
     for(i = 0; i < nr * nc; i++)
@@ -1233,6 +1233,8 @@ static void backtrack(int *out, int *rowsum, int *colsum, int fill,
 	
 	/* if we did worse than previously, undo: remove picked items
 	 * and put back the ones removed as dropouts */
+
+	int k, lastpick = 0;
 
 	if (npick < oldpick) {
 #if LOUD
