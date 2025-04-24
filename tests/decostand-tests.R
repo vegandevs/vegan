@@ -6,6 +6,7 @@ suppressPackageStartupMessages(require(vegan))
 
 # Test data
 data(varespec)
+set.seed(42)
 testdata <- matrix(round(runif(1000, 0, 100)), nrow = 20)
 testdata <- testdata - 50
 testdata[testdata < 0] <- 0
@@ -27,16 +28,17 @@ max(abs(decostand(testdata + 1, method = "clr", pseudocount = 0) - x.clr.pseudo)
 
 # Tests clr
 alt.clr <- t(apply(as.matrix(relative.with.pseudo), 1, FUN = function(x){log(x) - mean(log(x))}))
-max(abs(x.clr - alt.clr)) < 1e-6      
+max(abs(x.clr - alt.clr)) < 1e-6
 
 # Test that NAs are handled as expected in CLR
 x <- testdata
+set.seed(24)
 x[sample(prod(dim(x)), 50)] <- NA # insert some NAs in the data
 # NAs in the original data remain NAs in the returned data
 all(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[is.na(x)])) == TRUE # NAs
 # For the other (non-NA) values, we get non-NA values back
 any(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
-any(is.na(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[!is.na(t(x))])) == FALSE 
+any(is.na(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE 
 # Results match for the non-NA values always (with tolerance 1e-6)
 inds <- !is.na(x) # Non-NA values
 max(abs(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[inds] -
@@ -77,7 +79,7 @@ decostand(testdata, method = "clr", pseudocount = 1)
 # Tests that clr robust gives values that are approximately same if only 
 # one value per sample are changed to zero
 # Adds pseudocount
-test <- testdata + 1 
+test <- testdata + 1
 test2 <- test
 test2[,1] <- 0
 
@@ -138,9 +140,3 @@ max(abs(a1 - a2)) < 1e-6 # Tolerance
 
 ####### # ALR transformation drops one feature ################
 ncol(decostand(testdata.with.pseudo, "alr")) == ncol(testdata.with.pseudo) - 1
-
-
-
-
-
-

@@ -17,7 +17,7 @@ relative <- decostand(testdata, "total")
 testdata.with.pseudo <- testdata + 1
 relative.with.pseudo <- decostand(testdata + 1, "total")
 
-# NAs correcly assigned
+# NAs correctly assigned
 a1 <- testdata
 a2 <- decostand(a1, "rclr", na.rm = FALSE)
 a3 <- decostand(a1, "rclr", na.rm = TRUE)
@@ -74,4 +74,3 @@ max(abs(d1 - d2)) < 1e-6 # Tolerance
 #}
 
 # --------------------------------------------------------------------------------------------------------------
-
