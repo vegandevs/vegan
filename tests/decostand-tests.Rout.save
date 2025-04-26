@@ -835,10 +835,6 @@ col50 FALSE
 > all(as.matrix(x1) == as.matrix(x2c))
 [1] TRUE
 > 
-> x2c <- optspace(x2, ropt = 1, niter = 5, tol = 1e-5, verbose = FALSE)$M
-> all(as.matrix(x1) == as.matrix(x2c))
-[1] FALSE
-> 
 > x2c <- optspace(x2, niter = 5, tol = 1e-5, verbose = FALSE)$M
 > all(as.matrix(x1) == as.matrix(x2c))
 [1] TRUE
@@ -883,4 +879,4 @@ col50 FALSE
 > 
 > proc.time()
    user  system elapsed 
-  0.380   0.037   0.412 
+  0.378   0.038   0.412 
