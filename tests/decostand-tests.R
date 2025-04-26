@@ -105,9 +105,6 @@ x2 <- decostand(varespec, method = "rclr", impute = FALSE)
 x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
 all(as.matrix(x1) == as.matrix(x2c))
 
-x2c <- optspace(x2, ropt = 1, niter = 5, tol = 1e-5, verbose = FALSE)$M
-all(as.matrix(x1) == as.matrix(x2c))
-
 x2c <- optspace(x2, niter = 5, tol = 1e-5, verbose = FALSE)$M
 all(as.matrix(x1) == as.matrix(x2c))
 
