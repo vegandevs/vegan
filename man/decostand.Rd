@@ -76,7 +76,7 @@ decobackstand(x, zap = TRUE)
      \code{\link{vegdist}}), but the standardization can be used 
      independently of distance indices.
 
-     \item \code{alr}: Additive log ratio ("alr") transformation
+    \item \code{alr}: Additive log ratio ("alr") transformation
      (Aitchison 1986) reduces data skewness and compositionality
      bias. The transformation assumes positive values, pseudocounts can
      be added with the argument \code{pseudocount}. One of the
@@ -89,11 +89,11 @@ decobackstand(x, zap = TRUE)
        alr = [log(x_i/x_D), ..., log(x_{-D}/x_D)]}
      where the denominator sample \eqn{x_D} can be chosen
      arbitrarily. This transformation is often used with pH and other
-     chemistry measurenments. It is also commonly used as multinomial
+     chemistry measurements. It is also commonly used as multinomial
      logistic regression. Default \code{MARGIN = 1} uses row as the
      \code{reference}.
 
-     \item \code{clr}: centered log ratio ("clr") transformation proposed by
+    \item \code{clr}: centered log ratio ("clr") transformation proposed by
      Aitchison (1986) and it is used to reduce data skewness and compositionality bias.
      This transformation has frequent applications in microbial ecology
      (see e.g. Gloor et al., 2017). The clr transformation is defined as:
@@ -106,25 +106,35 @@ decobackstand(x, zap = TRUE)
      (e.g. the smallest positive value in the data), either by
      adding it manually to the input data, or by using the argument
      \code{pseudocount} as in
-     \code{decostand(x, method = "clr", pseudocount = 1)}. Adding
+     \code{decostand(x, method = "clr", na.rm = TRUE, pseudocount = 1)}. Adding
      pseudocount will inevitably introduce some bias; see
-     the \code{rclr} method for one available solution.
+     the \code{rclr} method for an alternative.
 
-     \item \code{rclr}: robust clr ("rclr") is similar to regular clr
-     (see above) but allows data that contains zeroes. This method
-     does not use pseudocounts, unlike the standard clr.
-     The robust clr (rclr) divides the values by geometric mean
-     of the observed features; zero values are kept as zeroes, and not
-     taken into account. In high dimensional data,
-     the geometric mean of rclr approximates the true
-     geometric mean; see e.g. Martino et al. (2019)
-     The \code{rclr} transformation is defined formally as follows:
+    \item \code{rclr}: robust clr ("rclr") is similar to regular clr
+     (see above) but it allows data with zeroes. This method can avoid
+     the use of pseudocounts, unlike the standard clr. The robust clr
+     (rclr) the logarithmizes the data and divides it by the geometric
+     mean of the observed features within each sample. In high
+     dimensional data the geometric mean of rclr approximates the true
+     geometric mean; see e.g. Martino et al. (2019). The \code{rclr}
+     transformation is defined formally as follows:
      \deqn{rclr = log\frac{x}{g(x > 0)}}{%
-     rclr = log(x/g(x > 0))}
-     where \eqn{x} is a single value, and \eqn{g(x > 0)} is the geometric 
-     mean of sample-wide values \eqn{x} that are positive (> 0).
+           rclr = log(x/g(x > 0))} where \eqn{x} is
+     a single value, and \eqn{g(x > 0)} is the geometric mean of
+     sample-wide values \eqn{x} that are positive (> 0). The optspace
+     algorithm performs matrix completion for the missing values
+     that result from log transformation of the zero entries in the
+     original input data. See \link[vegan]{optspace} for more details.
+     The following parameters can be passed to optspace
+     through decostand: "ropt" NA to guess the rank, or a positive
+     integer as a pre-defined rank (default: 3); "niter" maximum
+     number of iterations allowed (default: 5); "tol" stopping
+     criterion for reconstruction in Frobenius norm (default: 1e-5);
+     "verbose" a logical value; TRUE to show progress, FALSE otherwise
+     (default: FALSE); "impute" to switch on/off the matrix completion
+     (default: impute=TRUE).
   }
-  
+
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.
 
@@ -181,6 +191,10 @@ decobackstand(x, zap = TRUE)
   Microbiome Datasets Are Compositional: And This Is Not Optional.
   \emph{Frontiers in Microbiology} \strong{8}, 2224. 
 
+  Keshavan, R. H., Montanari, A., Oh, S. (2010).
+  Matrix Completion From a Few Entries.
+  \emph{IEEE Transactions on Information Theory} \strong{56}, 2980--2998.
+
   Legendre, P. & Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. \emph{Oecologia}
   \strong{129}, 271--280.
@@ -202,15 +216,19 @@ apply(sptrans, 2, max)
 sptrans <- wisconsin(varespec)
 
 # CLR transformation for rows, with pseudocount
-varespec.clr <- decostand(varespec, "clr", pseudocount=1)
+varespec.clr <- decostand(varespec, "clr", pseudocount = 1)
+
+# Robust CLR (rclr) transformation for rows, no pseudocount necessary
+varespec.rclr <- decostand(varespec, "rclr", impute = TRUE)
 
 # ALR transformation for rows, with pseudocount and reference sample
-varespec.alr <- decostand(varespec, "alr", pseudocount=1, reference=1)
+varespec.alr <- decostand(varespec, "alr", pseudocount = 1, reference = 1)
 
 ## Chi-square: PCA similar but not identical to CA.
 ## Use wcmdscale for weighted analysis and identical results.
 sptrans <- decostand(varespec, "chi.square")
 plot(procrustes(rda(sptrans), cca(varespec)))
+
 }
 \keyword{ multivariate}
 \keyword{ manip }
