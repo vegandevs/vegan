@@ -138,7 +138,7 @@ methods for community ecologists.</p>
      $$alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]$$
      where the denominator sample \(x_D\) can be chosen
      arbitrarily. This transformation is often used with pH and other
-     chemistry measurenments. It is also commonly used as multinomial
+     chemistry measurements. It is also commonly used as multinomial
      logistic regression. Default <code>MARGIN = 1</code> uses row as the
      <code>reference</code>.</p></li>
 <li><p><code>clr</code>: centered log ratio ("clr") transformation proposed by
@@ -153,21 +153,31 @@ methods for community ecologists.</p>
      (e.g. the smallest positive value in the data), either by
      adding it manually to the input data, or by using the argument
      <code>pseudocount</code> as in
-     <code>decostand(x, method = "clr", pseudocount = 1)</code>. Adding
+     <code>decostand(x, method = "clr", na.rm = TRUE, pseudocount = 1)</code>. Adding
      pseudocount will inevitably introduce some bias; see
-     the <code>rclr</code> method for one available solution.</p></li>
+     the <code>rclr</code> method for an alternative.</p></li>
 <li><p><code>rclr</code>: robust clr ("rclr") is similar to regular clr
-     (see above) but allows data that contains zeroes. This method
-     does not use pseudocounts, unlike the standard clr.
-     The robust clr (rclr) divides the values by geometric mean
-     of the observed features; zero values are kept as zeroes, and not
-     taken into account. In high dimensional data,
-     the geometric mean of rclr approximates the true
-     geometric mean; see e.g. Martino et al. (2019)
-     The <code>rclr</code> transformation is defined formally as follows:
-     $$rclr = log\frac{x}{g(x &gt; 0)}$$
-     where \(x\) is a single value, and \(g(x &gt; 0)\) is the geometric
-     mean of sample-wide values \(x\) that are positive (&gt; 0).</p></li>
+     (see above) but it allows data with zeroes. This method can avoid
+     the use of pseudocounts, unlike the standard clr. The robust clr
+     (rclr) the logarithmizes the data and divides it by the geometric
+     mean of the observed features within each sample. In high
+     dimensional data the geometric mean of rclr approximates the true
+     geometric mean; see e.g. Martino et al. (2019). The <code>rclr</code>
+     transformation is defined formally as follows:
+     $$rclr = log\frac{x}{g(x &gt; 0)}$$ where \(x\) is
+     a single value, and \(g(x &gt; 0)\) is the geometric mean of
+     sample-wide values \(x\) that are positive (&gt; 0). The optspace
+     algorithm performs matrix completion for the missing values
+     that result from log transformation of the zero entries in the
+     original input data. See <a href="optspace.html">optspace</a> for more details.
+     The following parameters can be passed to optspace
+     through decostand: "ropt" NA to guess the rank, or a positive
+     integer as a pre-defined rank (default: 3); "niter" maximum
+     number of iterations allowed (default: 5); "tol" stopping
+     criterion for reconstruction in Frobenius norm (default: 1e-5);
+     "verbose" a logical value; TRUE to show progress, FALSE otherwise
+     (default: FALSE); "impute" to switch on/off the matrix completion
+     (default: impute=TRUE).</p></li>
 </ul><p>Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.</p>
 <p>All methods have a default margin. <code>MARGIN=1</code> means rows (sites
@@ -222,6 +232,9 @@ methods for community ecologists.</p>
 <p>Gloor, G.B., Macklaim, J.M., Pawlowsky-Glahn, V. &amp; Egozcue, J.J. (2017)
   Microbiome Datasets Are Compositional: And This Is Not Optional.
   <em>Frontiers in Microbiology</em> <strong>8</strong>, 2224.</p>
+<p>Keshavan, R. H., Montanari, A., Oh, S. (2010).
+  Matrix Completion From a Few Entries.
+  <em>IEEE Transactions on Information Theory</em> <strong>56</strong>, 2980–2998.</p>
 <p>Legendre, P. &amp; Gallagher, E.D. (2001) Ecologically meaningful
   transformations for ordination of species data. <em>Oecologia</em>
   <strong>129</strong>, 271–280.</p>
@@ -254,16 +267,20 @@ methods for community ecologists.</p>
 <span class="r-in"><span><span class="va">sptrans</span> <span class="op">&lt;-</span> <span class="fu">wisconsin</span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># CLR transformation for rows, with pseudocount</span></span></span>
-<span class="r-in"><span><span class="va">varespec.clr</span> <span class="op">&lt;-</span> <span class="fu">decostand</span><span class="op">(</span><span class="va">varespec</span>, <span class="st">"clr"</span>, pseudocount<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">varespec.clr</span> <span class="op">&lt;-</span> <span class="fu">decostand</span><span class="op">(</span><span class="va">varespec</span>, <span class="st">"clr"</span>, pseudocount <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Robust CLR (rclr) transformation for rows, no pseudocount necessary</span></span></span>
+<span class="r-in"><span><span class="va">varespec.rclr</span> <span class="op">&lt;-</span> <span class="fu">decostand</span><span class="op">(</span><span class="va">varespec</span>, <span class="st">"rclr"</span>, impute <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ALR transformation for rows, with pseudocount and reference sample</span></span></span>
-<span class="r-in"><span><span class="va">varespec.alr</span> <span class="op">&lt;-</span> <span class="fu">decostand</span><span class="op">(</span><span class="va">varespec</span>, <span class="st">"alr"</span>, pseudocount<span class="op">=</span><span class="fl">1</span>, reference<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">varespec.alr</span> <span class="op">&lt;-</span> <span class="fu">decostand</span><span class="op">(</span><span class="va">varespec</span>, <span class="st">"alr"</span>, pseudocount <span class="op">=</span> <span class="fl">1</span>, reference <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Chi-square: PCA similar but not identical to CA.</span></span></span>
 <span class="r-in"><span><span class="co">## Use wcmdscale for weighted analysis and identical results.</span></span></span>
 <span class="r-in"><span><span class="va">sptrans</span> <span class="op">&lt;-</span> <span class="fu">decostand</span><span class="op">(</span><span class="va">varespec</span>, <span class="st">"chi.square"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="procrustes.html">procrustes</a></span><span class="op">(</span><span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">sptrans</span><span class="op">)</span>, <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="decostand-1.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
