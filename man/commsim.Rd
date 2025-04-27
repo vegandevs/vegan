@@ -63,20 +63,20 @@ and must take some of the following arguments:
   \item{\code{...}: }{additional arguments.}
 }
 
-  You can define your own null model, but
-  several null model algorithm are pre-defined and can be called by
-  their name. The predefined algorithms are described in detail in the
-  following chapters. The binary null models produce matrices of zeros
-  (absences) and ones (presences) also when input matrix is
-  quantitative. There are two types of quantitative data: Counts are
-  integers with a natural unit so that individuals can be shuffled, but
-  abundances can have real (floating point) values and do not have a
-  natural subunit for shuffling. All quantitative models can handle
-  counts, but only some are able to handle real values. Some of the null
-  models are sequential so that the next matrix is derived from the
-  current one. This makes models dependent from previous models, and usually
+  You can define your own null model, but several null model algorithm
+  are pre-defined and can be called by their name. The predefined
+  algorithms are described in detail in the following chapters. The
+  binary null models produce matrices of zeros (absences) and ones
+  (presences) also when input matrix is quantitative. There are two
+  types of quantitative data: Counts are integers with a natural unit
+  so that individuals can be shuffled, but abundances can have real
+  (floating point) values and do not have a natural subunit for
+  shuffling. All quantitative models can handle counts (integers), but
+  only some are able to handle real values. Some of the null models
+  are sequential so that the next matrix is derived from the current
+  one. This makes models dependent from previous models, and usually
   you must thin these matrices and study the sequences for stability:
-  see \code{oecosimu} for details and instructions.
+  see \code{\link{oecosimu}} for details and instructions.
 
   See Examples for structural constraints imposed by each algorithm and
   defining your own null model.
@@ -92,7 +92,7 @@ and must take some of the following arguments:
   or species richness of each site (\code{r0}) and take into account
   commonness and rarity of species (\code{r1}, \code{r2}).  Algorithms
   \code{swap}, \code{tswap}, \code{curveball}, \code{quasiswap} and
-  \code{backtracking} preserve both row and column frequencies. Three
+  \code{backtrack} preserve both row and column frequencies. Three
   first ones are sequential but the two latter are non-sequential
   and produce independent matrices. Basic algorithms are reviewed by
   Wright et al. (1998).
@@ -118,7 +118,10 @@ and must take some of the following arguments:
   \item{\code{"swap"}: }{sequential algorithm for binary matrices that
     changes the matrix structure, but does not influence marginal sums
     (Gotelli & Entsminger 2003).  This inspects \eqn{2 \times 2}{2 by
-    2} submatrices so long that a swap can be done.}
+    2} submatrices so long that a swap can be done. Some arbitrary
+    matrix with (nearly) complete fill cannot be swapped; function
+    \code{\link{nestedchecker}} gives the number of swappable
+    submatrices. This also applies to other \code{swap} models.}
 
   \item{\code{"tswap"}: }{sequential algorithm for binary matrices.
     Same as the \code{"swap"} algorithm, but it tries a fixed
@@ -160,15 +163,15 @@ and must take some of the following arguments:
     code is experimental and it is provided here for further scrutiny,
     and should be tested for bias before use.}
 
-  \item{\code{"backtracking"}: }{non-sequential algorithm for binary
-    matrices that implements a filling method with constraints both for
-    row and column frequencies (Gotelli & Entsminger 2001).  The matrix
-    is first filled randomly, but typically row and column sums are
-    reached before all incidences are filled in. After this begins
-    "backtracking", where some of the incidences are removed, and
-    filling is started again, and this backtracking is done so many
-    times that all incidences will be filled into matrix.  The results
-    may be biased and should be inspected carefully before use.}
+  \item{\code{"backtrack"}: }{non-sequential algorithm for binary
+    matrices that implements a filling method with constraints both
+    for row and column frequencies (Gotelli & Entsminger 2001).  The
+    matrix is first filled randomly, but typically row and column sums
+    are reached before all incidences are filled in. After this the
+    function \dQuote{backtracks} removing some incidences and starting
+    to fill again.  This backtracking is done so many times that all
+    incidences will be filled into matrix.  The results may be biased
+    and should be inspected carefully before use.}
 
 }
 }
