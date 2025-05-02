@@ -11,8 +11,8 @@
   [#727](https://github.com/vegandevs/vegan/discussions/727) and
   section Deprecated and Defunct for the changes in this release.
 
-* **vegan** no longer suggests **tcltk**, but suggests **vegan3d**
-  (version 1.3-0). See `orditkplot` in section Deprecated and Defunct.
+* **vegan** no longer suggests **tcltk**. See `orditkplot` in section
+  Deprecated and Defunct.
 
 ## New Functions
 
@@ -144,10 +144,8 @@
 * `summary.decorana` is defunct. It did nothing useful, but you can
   extract the same information with `scores` and `weights`.
 
-* `orditkplot` code was removed, but we try to launch
-  `vegan3d::orditkplot` loudly (with a deprecation message to go to
-  **vegan3d**). _This is experimental, and we may go to direct error,
-  depending on user experience: please comment!_
+* `orditkplot` was moved to **vega3d** package and is defunct in
+  **vegan**.
 
 * relic function `vegandocs` is officially defunct. Better tools to
   read **vegan** documentation are `browseVignettes("vegan")` and
