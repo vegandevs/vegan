@@ -23,7 +23,6 @@ as.mcmc.permat(x)
 \arguments{
 
   \item{x}{object to be transformed.}
-  \item{\dots}{Other arguments passed to the functions.}
 
 }
 
