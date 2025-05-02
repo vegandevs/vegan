@@ -23,7 +23,7 @@ ordiarrows, ordiArrowMul, ordiArrowTextXY, ordibar, ordicloud,
 ordicluster, ordiellipse, ordigrid,
 ordihull, ordilabel, ordiplot, ordipointlabel, ordiresids,
 ordisegments, ordispider, ordisplom, ordistep, ordisurf,
-orditkplot, orditorp, ordixyplot, ordiYbar,
+orditorp, ordixyplot, ordiYbar,
 pca, pco, pcnm, permatfull, permatswap, permulattice, permustats, permutest,
 poolaccum, postMDS, prc, prestondistr, prestonfit, procrustes,
 protest, radfit, radlattice, rankindex, rarefy, rarecurve, rareslope,
@@ -53,6 +53,7 @@ export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 ## Export .Defunct functions (to be removed later)
 export(commsimulator)
 export(as.mlm)
+export{orditkplot}
 S3method(as.mlm, cca)
 
 ## Deprecated functions & methods

@@ -7,6 +7,7 @@
 \alias{metaMDSrotate}
 \alias{density.adonis}
 \alias{density.anosim}
+\alias{orditkplot}
 \alias{density.mantel}
 \alias{density.mrpp}
 \alias{density.permutest.cca}
@@ -31,10 +32,11 @@
   \pkg{vegan} as they are no longer needed.
 }
 \usage{
-## defunct in vegan 2.7-0 (development 2.6-7)
+## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
+orditkplot(...)
 
 ## defunct in vegan 2.6-0
 as.mlm(x)
@@ -67,6 +69,9 @@ permuted.index2(n, control = permControl())
   of \code{adonis} are similar as in \code{\link{adonis2}}, but
   arguments \code{contr.unordered} and \code{contr.ordered} can set the
   contrasts within \code{adonis}.
+
+  \code{orditkplot} was moved to CRAN package \CRANpkg{vegan3d} version
+  1.3-0. Install \pkg{vegan3d} and use the function in the old way.
  
   \code{as.mlm} function is replaced with a set functions that can
   find the same statistics directly from the ordination result object:
