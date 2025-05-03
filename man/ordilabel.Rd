@@ -52,8 +52,8 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
 
   Other alternatives for cluttered plots are
   \code{\link{identify.ordiplot}}, \code{\link{orditorp}},
-  \code{\link{ordipointlabel}} and \code{\link[vegan3d]{orditkplot}}
-  (in \pkg{vegan3d} package).
+  \code{\link{ordipointlabel}} and \code{orditkplot} in \CRANpkg{vegan3d}
+  package.
 }
 
 \author{ Jari Oksanen }
