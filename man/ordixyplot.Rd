@@ -104,7 +104,7 @@ ordixyplot(x, data = NULL, formula, display = "sites", choices = 1:3,
   \pkg{vegan} releases 2.6-10 and earlier had lattice functions
   \code{\link{ordicloud}} and \code{\link{ordisplom}} which are now
   deprecated. However, \CRANpkg{vegan3d} (version 1.4-0 and later) has
-  function \code{\link[vegan3d]{ordilattice3d}} which is equal to
+  function \code{ordilattice3d} which is equal to
   \code{ordicloud}.
 }
 
