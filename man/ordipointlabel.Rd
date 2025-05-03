@@ -84,10 +84,10 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   There is a \code{plot} method based on \code{orditkplot} but it
   does not alter or reset the graphical parameters via \code{par}.
   
-  The result object from \code{ordipointlabel} inherits from
-  \code{\link[vegan3d]{orditkplot}} of \pkg{vegan3d} package, and it may
+  The result object from \code{ordipointlabel} is similar as the
+  \code{orditkplot} object of \CRANpkg{vegan3d} package, and it may
   be possible to further edit the result object with
-  \code{\link[vegan3d]{orditkplot}}, but for good results it is
+  \code{orditkplot}, but for good results it is
   necessary that the points span the whole horizontal axis without empty
   margins.
 }
