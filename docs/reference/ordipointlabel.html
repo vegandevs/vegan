@@ -146,10 +146,10 @@
   smallest alternative.</p>
 <p>There is a <code>plot</code> method based on <code>orditkplot</code> but it
   does not alter or reset the graphical parameters via <code>par</code>.</p>
-<p>The result object from <code>ordipointlabel</code> inherits from
-  <code><a href="https://rdrr.io/pkg/vegan3d/man/orditkplot.html" class="external-link">orditkplot</a></code> of <span class="pkg">vegan3d</span> package, and it may
+<p>The result object from <code>ordipointlabel</code> is similar as the
+  <code>orditkplot</code> object of <a href="https://CRAN.R-project.org/package=vegan3d" class="external-link"><span class="pkg">vegan3d</span></a> package, and it may
   be possible to further edit the result object with
-  <code><a href="https://rdrr.io/pkg/vegan3d/man/orditkplot.html" class="external-link">orditkplot</a></code>, but for good results it is
+  <code>orditkplot</code>, but for good results it is
   necessary that the points span the whole horizontal axis without empty
   margins.</p>
     </div>
@@ -178,7 +178,6 @@
 <span class="r-in"><span>      col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"blue"</span><span class="op">)</span>, font <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span>, pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, xpd<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="st">"biplot"</span>, col <span class="op">=</span> <span class="st">"blue"</span>, bg <span class="op">=</span> <span class="st">"white"</span>, cex<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordipointlabel-2.png" alt="" width="700" height="1133"></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in text.default(x$labels, labels = rownames(x$labels), cex = cex,     col = col, font = font, ...):</span> invalid font specification</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -190,7 +189,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>

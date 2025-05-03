@@ -41,7 +41,7 @@
 <div class="section level3">
 <h3 id="installation-2-7-0">Installation<a class="anchor" aria-label="anchor" href="#installation-2-7-0"></a></h3>
 <ul><li><p><strong>vegan</strong> no longer depends on <strong>lattice</strong>, but only imports <strong>lattice</strong> functions. The <strong>lattice</strong> package is no longer automatically loaded. To use <strong>lattice</strong> functions directly, you must first attach the package with <code><a href="https://lattice.r-forge.r-project.org/" class="external-link">library(lattice)</a></code>. Longer-term plan is to remove <strong>lattice</strong> functions as soon as more modern alternatives in <strong>ggplot2</strong> are made available. See Discussion <a href="https://github.com/vegandevs/vegan/discussions/727" class="external-link">#727</a> and section Deprecated and Defunct for the changes in this release.</p></li>
-<li><p><strong>vegan</strong> no longer suggests <strong>tcltk</strong>, but suggests <strong>vegan3d</strong> (version 1.3-0). See <code>orditkplot</code> in section Deprecated and Defunct.</p></li>
+<li><p><strong>vegan</strong> no longer suggests <strong>tcltk</strong>. See <code>orditkplot</code> in section Deprecated and Defunct.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-functions-2-7-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-7-0"></a></h3>
@@ -88,7 +88,7 @@
 <li><p>lattice function <code>ordisplom</code> is deprecated: it had bad design and was not very useful.</p></li>
 <li><p>lattice function <code>ordiresids</code> is deprecated: you can access the same items using <code>fitted</code>, <code>residuals</code>, <code>rstandard</code>, <code>rstudent</code> <em>etc</em> and design your own plots.</p></li>
 <li><p><code>summary.decorana</code> is defunct. It did nothing useful, but you can extract the same information with <code>scores</code> and <code>weights</code>.</p></li>
-<li><p><code>orditkplot</code> code was removed, but we try to launch <code><a href="https://rdrr.io/pkg/vegan3d/man/orditkplot.html" class="external-link">vegan3d::orditkplot</a></code> loudly (with a deprecation message to go to <strong>vegan3d</strong>). <em>This is experimental, and we may go to direct error, depending on user experience: please comment!</em></p></li>
+<li><p><code>orditkplot</code> was moved to <strong>vega3d</strong> package and is defunct in <strong>vegan</strong>.</p></li>
 <li><p>relic function <code>vegandocs</code> is officially defunct. Better tools to read <strong>vegan</strong> documentation are <code>browseVignettes("vegan")</code> and <code>news(package="vegan")</code>.</p></li>
 </ul></div>
 </div>
@@ -1096,7 +1096,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer></div>
