@@ -109,7 +109,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span></span>
 <span><span class="co"># S3 method for class 'betadisper'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"digits"</span><span class="op">)</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>                           neigen <span class="op">=</span> <span class="fl">8</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>                           neigen <span class="op">=</span> <span class="fl">8</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">betadistances</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -263,7 +265,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
   the real part, then we would be taking the square root of a negative
   value, resulting in NaN, and these cases are changed to zero distances
   (with a warning). This is in line with the behaviour of Marti Anderson's
-  PERMDISP2 programme.</p>
+  PERMDISP2 programme. Function <code>betadistances</code> returns distances
+  from all points to all centroids. Moreover, it gives the original
+  <code>group</code> and nearest group for each point.</p>
 <p>To test if one or more groups is more variable than the others, ANOVA
   of the distances to group centroids can be performed and parametric
   theory used to interpret the significance of \(F\). An alternative is to
@@ -281,7 +285,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
   unbalanced designs.</p>
 <p>The results of the analysis can be visualised using the <code>plot</code>
   and <code>boxplot</code> methods. The distances of points to all centroids
-  (<code>group</code>) can be found with function <code><a href="centredist.html">centredist</a></code>.</p>
+  (<code>group</code>) can be found with function <code>betadistances</code>.</p>
 <p>One additional use of these functions is in assessing beta diversity
   (Anderson <em>et al</em> 2006). Function <code><a href="betadiver.html">betadiver</a></code>
   provides some popular dissimilarity measures for this purpose.</p>
@@ -376,7 +380,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="permutest.betadisper.html">permutest.betadisper</a></code>, <code><a href="centredist.html">centredist</a></code>,
+    <div class="dont-index"><p><code><a href="permutest.betadisper.html">permutest.betadisper</a></code>,
   <code><a href="https://rdrr.io/r/stats/anova.lm.html" class="external-link">anova.lm</a></code>,
   <code><a href="scores.html">scores</a></code>, <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>,
   <code><a href="https://rdrr.io/r/stats/TukeyHSD.html" class="external-link">TukeyHSD</a></code>. Further measure of beta diversity
@@ -458,10 +462,36 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod.HSD</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Plot the groups and distances to centroids on the</span></span></span>
+<span class="r-in"><span><span class="co">## Plot  and show the groups and distances to centroids on the</span></span></span>
 <span class="r-in"><span><span class="co">## first two PCoA axes</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="betadisper-2.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu">betadistances</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       group  nearest    grazed  ungrazed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18   grazed   grazed 0.3314940 0.4876932</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   grazed   grazed 0.2448593 0.6867177</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24   grazed   grazed 0.4087618 0.7202852</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27   grazed   grazed 0.4055027 0.6716925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23   grazed   grazed 0.2711717 0.5859224</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19   grazed   grazed 0.3235683 0.4226658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22   grazed   grazed 0.3540192 0.7143106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   grazed   grazed 0.3052699 0.6567417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28   grazed   grazed 0.5804799 0.8350802</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13   grazed   grazed 0.4573620 0.5496107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   grazed   grazed 0.4346688 0.7480122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   grazed   grazed 0.2458315 0.5795502</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   grazed   grazed 0.3544958 0.7270236</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7    grazed   grazed 0.5019108 0.6344208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5    grazed   grazed 0.6029360 0.7048208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    grazed   grazed 0.4590746 0.5195341</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  ungrazed ungrazed 0.5810524 0.2147308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  ungrazed ungrazed 0.5626172 0.4286653</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  ungrazed ungrazed 0.6254225 0.1301314</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  ungrazed ungrazed 0.6461171 0.2223194</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 ungrazed ungrazed 0.5079965 0.0761938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 ungrazed ungrazed 0.6247805 0.1748861</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 ungrazed ungrazed 0.3611882 0.3359708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 ungrazed   grazed 0.5694430 0.5822677</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## with data ellipses instead of hulls</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, ellipse <span class="op">=</span> <span class="cn">TRUE</span>, hull <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="co"># 1 sd data ellipse</span></span></span>
