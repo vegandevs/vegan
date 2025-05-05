@@ -7,6 +7,7 @@
 \alias{boxplot.betadisper}
 \alias{TukeyHSD.betadisper}
 \alias{eigenvals.betadisper}
+\alias{betadistances}
 \alias{print.betadisper}
 \alias{ordimedian}
 
@@ -52,6 +53,8 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
 
 \method{print}{betadisper}(x, digits = max(3, getOption("digits") - 3),
                            neigen = 8, \dots)
+
+betadistances(x, \dots)
 }
 
 \arguments{
@@ -154,7 +157,9 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   the real part, then we would be taking the square root of a negative
   value, resulting in NaN, and these cases are changed to zero distances
   (with a warning). This is in line with the behaviour of Marti Anderson's
-  PERMDISP2 programme.
+  PERMDISP2 programme. Function \code{betadistances} returns distances
+  from all points to all centroids. Moreover, it gives the original
+  \code{group} and nearest group for each point.
   
   To test if one or more groups is more variable than the others, ANOVA
   of the distances to group centroids can be performed and parametric
@@ -175,7 +180,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
 
   The results of the analysis can be visualised using the \code{plot}
   and \code{boxplot} methods. The distances of points to all centroids
-  (\code{group}) can be found with function \code{\link{centredist}}.
+  (\code{group}) can be found with function \code{betadistances}.
 
   One additional use of these functions is in assessing beta diversity
   (Anderson \emph{et al} 2006). Function \code{\link{betadiver}}
@@ -259,7 +264,7 @@ betadisper(d, group, type = c("median","centroid"), bias.adjust = FALSE,
   assembly. \emph{Ecology} \strong{94}, 1057--1068.
 }
 \author{Gavin L. Simpson; bias correction by Adrian Stier and Ben Bolker.}
-\seealso{\code{\link{permutest.betadisper}}, \code{\link{centredist}},
+\seealso{\code{\link{permutest.betadisper}},
   \code{\link[stats]{anova.lm}},
   \code{\link{scores}}, \code{\link{boxplot}},
   \code{\link{TukeyHSD}}. Further measure of beta diversity
@@ -287,9 +292,10 @@ permutest(mod, pairwise = TRUE, permutations = 99)
 (mod.HSD <- TukeyHSD(mod))
 plot(mod.HSD)
 
-## Plot the groups and distances to centroids on the
+## Plot  and show the groups and distances to centroids on the
 ## first two PCoA axes
 plot(mod)
+betadistances(mod)
 
 ## with data ellipses instead of hulls
 plot(mod, ellipse = TRUE, hull = FALSE) # 1 sd data ellipse
