@@ -1,5 +1,5 @@
 
-R version 4.5.0 (2025-04-11) -- "How About a Twenty-Six"
+R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
 Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
@@ -1306,7 +1306,7 @@ Warning in avgdist(BCI, sample = 450, iterations = 10) :
 > ### Title: Multivariate homogeneity of groups dispersions (variances)
 > ### Aliases: betadisper scores.betadisper anova.betadisper plot.betadisper
 > ###   boxplot.betadisper TukeyHSD.betadisper eigenvals.betadisper
-> ###   print.betadisper ordimedian
+> ###   betadistances print.betadisper ordimedian
 > ### Keywords: methods multivariate hplot
 > 
 > ### ** Examples
@@ -1383,9 +1383,35 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 
 > plot(mod.HSD)
 > 
-> ## Plot the groups and distances to centroids on the
+> ## Plot  and show the groups and distances to centroids on the
 > ## first two PCoA axes
 > plot(mod)
+> betadistances(mod)
+      group  nearest    grazed  ungrazed
+18   grazed   grazed 0.3314940 0.4876932
+15   grazed   grazed 0.2448593 0.6867177
+24   grazed   grazed 0.4087618 0.7202852
+27   grazed   grazed 0.4055027 0.6716925
+23   grazed   grazed 0.2711717 0.5859224
+19   grazed   grazed 0.3235683 0.4226658
+22   grazed   grazed 0.3540192 0.7143106
+16   grazed   grazed 0.3052699 0.6567417
+28   grazed   grazed 0.5804799 0.8350802
+13   grazed   grazed 0.4573620 0.5496107
+14   grazed   grazed 0.4346688 0.7480122
+20   grazed   grazed 0.2458315 0.5795502
+25   grazed   grazed 0.3544958 0.7270236
+7    grazed   grazed 0.5019108 0.6344208
+5    grazed   grazed 0.6029360 0.7048208
+6    grazed   grazed 0.4590746 0.5195341
+3  ungrazed ungrazed 0.5810524 0.2147308
+4  ungrazed ungrazed 0.5626172 0.4286653
+2  ungrazed ungrazed 0.6254225 0.1301314
+9  ungrazed ungrazed 0.6461171 0.2223194
+12 ungrazed ungrazed 0.5079965 0.0761938
+10 ungrazed ungrazed 0.6247805 0.1748861
+11 ungrazed ungrazed 0.3611882 0.3359708
+21 ungrazed   grazed 0.5694430 0.5822677
 > 
 > ## with data ellipses instead of hulls
 > plot(mod, ellipse = TRUE, hull = FALSE) # 1 sd data ellipse
@@ -1958,56 +1984,6 @@ Eigenvalues for unconstrained axes:
 > data(dune.env)
 > dune.Manure <- rda(dune ~ Manure, dune.env)
 > plot(dune.Manure) 
-> 
-> 
-> 
-> cleanEx()
-> nameEx("centredist")
-> ### * centredist
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: centredist
-> ### Title: Distances of Points to Class Centroids
-> ### Aliases: centredist centerdist centredist.betadisper centredist.dbrda
-> ###   centredist.default centredist.cca centredist.rda centredist.wcmdscale
-> 
-> ### ** Examples
-> 
->   data(dune, dune.env)
->   d <- vegdist(dune) # Bray-Curtis
->   mod <- with(dune.env, betadisper(d, Management))
->   centredist(mod)
-
-distances:  bray 
-
-   centre nearest         BF        HF        NM        SF
-1      SF      BF 0.49644568 0.5418457 0.8517511 0.5644371
-2      BF      BF 0.25251672 0.3780172 0.7075570 0.4114648
-3      SF      SF 0.41470128 0.3855665 0.6204737 0.1110907
-4      SF      SF 0.42624976 0.4393619 0.6358864 0.2266270
-5      HF      HF 0.37738597 0.2087227 0.6498706 0.5146204
-6      HF      HF 0.34039792 0.2456723 0.6126336 0.5642756
-7      HF      HF 0.29310989 0.1150411 0.6612193 0.4818030
-8      HF      SF 0.50164812 0.4375138 0.4274640 0.2449894
-9      HF      SF 0.53148596 0.3887899 0.5918427 0.2614780
-10     BF      BF 0.03881034 0.2868014 0.6154078 0.5175787
-11     BF      BF 0.36741961 0.4427340 0.5443921 0.5525589
-12     SF      SF 0.67759762 0.5249557 0.5627151 0.3810054
-13     SF      SF 0.67165475 0.5651190 0.5987912 0.3495776
-14     NM      NM 0.75201600 0.7713289 0.4241926 0.6703521
-15     NM      NM 0.81690124 0.7245346 0.3013518 0.6254642
-16     SF      NM 0.86797919 0.7654150 0.4951610 0.5510415
-17     NM      NM 0.66496238 0.6792701 0.6563399 0.8377509
-18     NM      BF 0.44376561 0.5052147 0.5074504 0.6320749
-19     NM      NM 0.67278867 0.6880656 0.5126987 0.7579196
-20     NM      NM 0.86808311 0.7719325 0.3037948 0.6683067
->   ## equal to metric scaling when using centroids instead of medians
->   modc <- with(dune.env, betadisper(d, Management, type = "centroid"))
->   ord <- pco(d)
->   all.equal(centredist(modc), centredist(ord, dune.env$Management, rank="full"),
-+      check.attributes = FALSE)
-[1] TRUE
 > 
 > 
 > 
@@ -4118,7 +4094,7 @@ Run 2 stress 0.1192678
 ... Procrustes: rmse 5.822837e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
-... Procrustes: rmse 6.697235e-06  max resid 2.061976e-05 
+... Procrustes: rmse 6.697236e-06  max resid 2.061976e-05 
 ... Similar to previous best
 Run 4 stress 0.1183186 
 ... New best solution
@@ -4128,11 +4104,11 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651365e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651369e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505921e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505924e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
@@ -4142,13 +4118,13 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 5.869597e-06  max resid 1.970358e-05 
+... Procrustes: rmse 5.869596e-06  max resid 1.970358e-05 
 ... Similar to previous best
 Run 17 stress 0.2075713 
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 7.276517e-06  max resid 1.734809e-05 
+... Procrustes: rmse 7.276516e-06  max resid 1.734809e-05 
 ... Similar to previous best
 *** Best solution repeated 5 times
 > sol
@@ -4176,20 +4152,20 @@ Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 6.592554e-06  max resid 2.026403e-05 
+... Procrustes: rmse 6.592555e-06  max resid 2.026403e-05 
 ... Similar to previous best
 Run 2 stress 0.1812935 
 Run 3 stress 0.1183186 
-... Procrustes: rmse 4.276814e-06  max resid 1.352647e-05 
+... Procrustes: rmse 4.276812e-06  max resid 1.352647e-05 
 ... Similar to previous best
 Run 4 stress 0.1192678 
 Run 5 stress 0.1192678 
 Run 6 stress 0.1183186 
-... Procrustes: rmse 2.276083e-06  max resid 7.260292e-06 
+... Procrustes: rmse 2.276086e-06  max resid 7.260292e-06 
 ... Similar to previous best
 Run 7 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 2.111216e-06  max resid 6.785766e-06 
+... Procrustes: rmse 2.111214e-06  max resid 6.785766e-06 
 ... Similar to previous best
 Run 8 stress 0.1192678 
 Run 9 stress 0.1183186 
@@ -4199,7 +4175,7 @@ Run 10 stress 0.1183186
 ... Procrustes: rmse 3.222973e-05  max resid 9.837238e-05 
 ... Similar to previous best
 Run 11 stress 0.1183186 
-... Procrustes: rmse 9.836664e-06  max resid 3.27482e-05 
+... Procrustes: rmse 9.836666e-06  max resid 3.27482e-05 
 ... Similar to previous best
 Run 12 stress 0.1183186 
 ... Procrustes: rmse 2.659083e-05  max resid 8.216893e-05 
@@ -4210,7 +4186,7 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 1.230098e-05  max resid 4.079838e-05 
+... Procrustes: rmse 1.230099e-05  max resid 4.079838e-05 
 ... Similar to previous best
 Run 17 stress 0.1192679 
 Run 18 stress 0.1192678 
@@ -4310,10 +4286,10 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 5.139262e-06  max resid 1.72906e-05 
+... Procrustes: rmse 5.139263e-06  max resid 1.72906e-05 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 4.498736e-06  max resid 1.408227e-05 
+... Procrustes: rmse 4.498738e-06  max resid 1.408227e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1653484 
@@ -4324,7 +4300,7 @@ Run 8 stress 0.1067169
 Run 9 stress 0.1073148 
 Run 10 stress 0.1073148 
 Run 11 stress 0.1067169 
-... Procrustes: rmse 3.364988e-06  max resid 7.105337e-06 
+... Procrustes: rmse 3.364993e-06  max resid 7.105337e-06 
 ... Similar to previous best
 Run 12 stress 0.107471 
 Run 13 stress 0.107471 
@@ -4341,7 +4317,7 @@ Run 19 stress 0.1067169
 ... Procrustes: rmse 2.356109e-06  max resid 5.608413e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175769e-07  max resid 1.839172e-06 
+... Procrustes: rmse 8.175701e-07  max resid 1.839172e-06 
 ... Similar to previous best
 *** Best solution repeated 3 times
 > sol
@@ -6630,8 +6606,8 @@ Rotation matrix:
 [2,] 0.1160491  0.9932435
 
 Translation of averages:
-              [,1]         [,2]
-[1,] -6.263448e-17 4.517172e-18
+              [,1]          [,2]
+[1,] -4.459436e-17 -2.305714e-17
 
 Scaling of target:
 [1] 0.6725743
@@ -9077,13 +9053,13 @@ Protopl 248.4969
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--8.881784e-16 -8.881784e-16 -1.110223e-16 -1.110223e-16 -5.551115e-17 
+-1.110223e-15  0.000000e+00  0.000000e+00 -2.220446e-16  3.608225e-16 
           CA6           CA7           CA8           CA9          CA10 
- 1.249001e-16 -2.220446e-16  0.000000e+00  0.000000e+00  6.245005e-17 
+ 3.469447e-16  2.220446e-16  5.551115e-17  3.608225e-16  1.179612e-16 
          CA11          CA12          CA13          CA14          CA15 
- 9.020562e-17  2.775558e-17  1.387779e-17  2.081668e-17 -1.734723e-17 
+ 9.020562e-17  4.163336e-17  9.020562e-17  6.938894e-18  3.642919e-17 
          CA16          CA17          CA18          CA19 
--2.428613e-17 -1.387779e-17 -6.591949e-17 -2.949030e-17 
+ 2.255141e-17  6.938894e-18 -1.214306e-17  3.686287e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9092,7 +9068,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
-1.421e-14 
+-4.263e-14 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9114,7 +9090,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.606 0.251 7.974 0 0 
+Time elapsed:  8.252 0.284 8.545 0 0 
 > grDevices::dev.off()
 null device 
           1 

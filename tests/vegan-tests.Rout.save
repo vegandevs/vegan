@@ -1,6 +1,6 @@
 
-R version 4.4.1 (2024-06-14) -- "Race for Your Life"
-Copyright (C) 2024 The R Foundation for Statistical Computing
+R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -1071,48 +1071,6 @@ Eigenvalue            0.0018068 0.0009945
 Proportion Explained  0.0009326 0.0005133
 Cumulative Proportion 0.9994867 1.0000000
 > 
-> ### validation tests for centredist: sum of squared Euclidean distances
-> ### to the centroids equal (residual) eigenvalue
-> data(dune, dune.env)
-> ## cca
-> m <- cca(dune)
-> stopifnot(all.equal(m$tot.chi,
-+     sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2),
-+     m$tot.chi))
-> stopifnot(all.equal(m$tot.chi,
-+     sum(centredist(m, rep("a", ncol(dune)), rank="full",
-+                          display = "species")$distances^2)))
-> ## rda
-> m <- pca(dune) ## variance/covariance
-> stopifnot(all.equal(m$tot.chi,
-+     sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
-> m <- rda(dune, scale = TRUE) ## correlation
-> stopifnot(all.equal(m$tot.chi,
-+     sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
-> ## capscale
-> m <- capscale(dune ~ 1) # Euclidean distance
-> stopifnot(all.equal(m$tot.chi,
-+     sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
-> d <- vegdist(dune)
-> m <- capscale(d ~ 1) # Bray-Curtis
-> stopifnot(all.equal(m$CA$tot.chi,
-+     sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
-> ## dbrda
-> m <- pco(dune) # Euclidean distance
-> stopifnot(all.equal(m$tot.chi,
-+     sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
-> m <- pco(d) # Bray-Curtis
-> stopifnot(all.equal(m$tot.chi,
-+     sum(centredist(m, rep("a", nrow(dune)), rank="full")$distances^2)))
-> ## betadisper(..., type="centroid") is equal to dbrda() and wcmdscale()
-> bp <- betadisper(d, dune.env$Management, type = "centroid")
-> stopifnot(all.equal(centredist(bp),
-+           centredist(m, dune.env$Management, rank = "full"),
-+           check.attributes = FALSE))
-> stopifnot(all.equal(centredist(bp),
-+           centredist(wcmdscale(d, eig=TRUE), dune.env$Management,
-+                      rank="full"), check.attributes = FALSE))
-> 
 > proc.time()
    user  system elapsed 
-  1.173   0.049   1.224 
+  1.245   0.049   1.291 

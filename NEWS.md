@@ -31,10 +31,8 @@
   The function is still experimental. In particular the user interface
   may need development. Comments are welcome.
 
-* `centredist`: new functions to find distances of points to their
-  group centroids in `betadisper` or in several ordination methods
-  (`cca`, `rda`, `dbrda`, `wcmdscale`). Functions can find (weighted)
-  Euclidean or Mahalanobis distances. See
+* `betadistances`: new functions to find distances of points to
+  group centroids in `betadisper`.  See
   (https://stackoverflow.com/questions/77391007/) and issue
   [#606](https://github.com/vegandevs/vegan/issues/606).
 
