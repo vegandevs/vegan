@@ -328,9 +328,8 @@
 <span class="r-in"><span><span class="co">## environmental data matrix</span></span></span>
 <span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">vare.cca</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(X = varespec, Y = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(X = varespec, Y = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.0832     1.0000     </span>
@@ -338,8 +337,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  0.6417     0.3080    9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 </span>
@@ -356,9 +353,8 @@
 <span class="r-in"><span><span class="co">## Formula interface and a better model</span></span></span>
 <span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span><span class="op">*</span><span class="op">(</span><span class="va">K</span> <span class="op">+</span> <span class="va">Baresoil</span><span class="op">)</span>, data<span class="op">=</span><span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">vare.cca</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total           2.083      1.000     </span>
@@ -366,8 +362,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained   1.038      0.498   17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 </span>
@@ -382,9 +376,8 @@
 <span class="r-plt img"><img src="cca-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Partialling out and negative components of variance</span></span></span>
 <span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca, data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca, data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         2.08320    1.00000     </span>
@@ -392,8 +385,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 1.92598    0.92453   22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    CCA1 </span>
@@ -405,9 +396,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 22 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">pH</span><span class="op">)</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca + Condition(pH), data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = varespec ~ Ca + Condition(pH), data = varechem)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.0832     1.0000     </span>
@@ -416,8 +406,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  1.7547     0.8423   21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    CCA1 </span>

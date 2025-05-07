@@ -154,17 +154,14 @@ individual functions: see credits in function help pages.</p>
 <span class="r-in"><span><span class="co">## No constraints: PCA</span></span></span>
 <span class="r-in"><span><span class="va">mod0</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod0</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ 1, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ 1, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total           84.12     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained   84.12   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8 </span>
@@ -179,10 +176,9 @@ individual functions: see credits in function help pages.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-in"><span><span class="va">mod1</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
@@ -191,12 +187,9 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Note --</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -- NOTE:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> This can happen if terms are linearly dependent (collinear): ‘Manure^4’</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 </span>
@@ -253,9 +246,8 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.775</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">mod</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
@@ -263,8 +255,6 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 37.6988     0.4481   13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 </span>

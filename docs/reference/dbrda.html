@@ -321,10 +321,9 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## dbrda</span></span></span>
 <span class="r-in"><span><span class="fu">dbrda</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">N</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">Al</span><span class="op">)</span>, <span class="va">varechem</span>, dist<span class="op">=</span><span class="st">"bray"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varechem, distance = "bray")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank RealDims</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          4.5444     1.0000              </span>
@@ -333,8 +332,6 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  2.5987     0.5718   19       13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is squared Bray distance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dbRDA1 dbRDA2 dbRDA3 </span>
@@ -348,10 +345,9 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
 <span class="r-in"><span><span class="co">## avoid negative eigenvalues with sqrt distances</span></span></span>
 <span class="r-in"><span><span class="fu">dbrda</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">N</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">Al</span><span class="op">)</span>, <span class="va">varechem</span>, dist<span class="op">=</span><span class="st">"bray"</span>,</span></span>
 <span class="r-in"><span>     sqrt.dist <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varechem, distance = "bray", sqrt.dist = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          6.9500     1.0000     </span>
@@ -360,8 +356,6 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  4.7698     0.6863   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is Bray distance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dbRDA1 dbRDA2 dbRDA3 </span>
@@ -374,10 +368,9 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## avoid negative eigenvalues also with Jaccard distances</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">dbrda</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">N</span> <span class="op">+</span> <span class="va">P</span> <span class="op">+</span> <span class="va">K</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">Al</span><span class="op">)</span>, <span class="va">varechem</span>, dist<span class="op">=</span><span class="st">"jaccard"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varechem, distance = "jaccard")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total          6.5044     1.0000     </span>
@@ -386,8 +379,6 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  4.2646     0.6557   19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is squared Jaccard distance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dbRDA1 dbRDA2 dbRDA3 </span>
@@ -402,17 +393,14 @@ Distance-based redundancy analysis (dbRDA) is an ordination method
 <span class="r-in"><span><span class="fu"><a href="sppscores.html">sppscores</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">wisconsin</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## pco</span></span></span>
 <span class="r-in"><span><span class="fu">pco</span><span class="op">(</span><span class="va">varespec</span>, dist <span class="op">=</span> <span class="st">"bray"</span>, sqrt.dist <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: pco(X = varespec, dist = "bray", sqrt.dist = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Model Summary --</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: pco(X = varespec, dist = "bray", sqrt.dist = TRUE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total            6.95     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained    6.95   23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is Bray distance</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -- Eigenvalues --</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 </span>
