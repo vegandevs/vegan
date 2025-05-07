@@ -1,6 +1,6 @@
 
-R version 4.4.1 (2024-06-14) -- "Race for Your Life"
-Copyright (C) 2024 The R Foundation for Statistical Computing
+R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -62,10 +62,9 @@ can happen if terms are linearly dependent (collinear): 'Manure^4'
 > 
 > ## general appearance
 > mcca
+
 Call: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total           2.115      1.000     
@@ -75,12 +74,9 @@ Unconstrained   1.062      0.502   12
 
 Inertia is scaled Chi-square
 
--- Note --
-
+-- NOTE:
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): 'Manure^4'
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4 
@@ -91,10 +87,9 @@ Eigenvalues for unconstrained axes:
 0.318 0.159 0.140 0.116 0.079 0.075 0.045 0.040 0.038 0.028 0.013 0.012 
 
 > mrda
+
 Call: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total          84.124      1.000     
@@ -104,12 +99,9 @@ Unconstrained  38.102      0.453   12
 
 Inertia is variance
 
--- Note --
-
+-- NOTE:
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): 'Manure^4'
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
 RDA1 RDA2 RDA3 RDA4 
@@ -120,10 +112,9 @@ Eigenvalues for unconstrained axes:
 10.25  8.21  4.95  3.36  3.12  2.49  1.87  1.26  1.02  0.74  0.48  0.35 
 
 > mcap
+
 Call: capscale(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, distance = "bray")
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total           4.299                
@@ -135,14 +126,11 @@ Imaginary      -0.295
 
 Inertia is squared Bray distance
 
--- Note --
-
+-- NOTE:
 Species scores projected from 'dune'
 
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): 'Manure^4'
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
  CAP1  CAP2  CAP3  CAP4 
@@ -153,10 +141,9 @@ Eigenvalues for unconstrained axes:
 0.749 0.338 0.308 0.213 0.137 0.136 0.062 0.039 0.017 0.011 0.006 0.004 
 
 > mdb
+
 Call: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, distance = "bray")
-
--- Model Summary --
 
               Inertia Proportion Rank RealDims
 Total           4.299      1.000              
@@ -166,12 +153,9 @@ Unconstrained   1.796      0.418   12        9
 
 Inertia is squared Bray distance
 
--- Note --
-
+-- NOTE:
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): 'Manure^4'
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 dbRDA4 
@@ -184,10 +168,9 @@ Eigenvalues for unconstrained axes:
 -0.059 
 
 > mancap
+
 Call: capscale(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, distance = "manhattan")
-
--- Model Summary --
 
                Inertia Proportion Rank
 Total          994.092                
@@ -199,14 +182,11 @@ Imaginary      -83.555
 
 Inertia is mean squared Manhattan distance
 
--- Note --
-
+-- NOTE:
 Species scores projected from 'dune'
 
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): 'Manure^4'
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
  CAP1  CAP2  CAP3  CAP4 
@@ -217,10 +197,9 @@ Eigenvalues for unconstrained axes:
 163.7  97.1  59.0  40.2  34.9  24.9  12.7  10.9   4.7   1.9   1.5   0.8 
 
 > mandb
+
 Call: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, distance = "manhattan")
-
--- Model Summary --
 
               Inertia Proportion Rank RealDims
 Total         994.092      1.000              
@@ -230,12 +209,9 @@ Unconstrained 387.447      0.390   12        8
 
 Inertia is mean squared Manhattan distance
 
--- Note --
-
+-- NOTE:
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): 'Manure^4'
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 dbRDA4 
@@ -246,10 +222,9 @@ Eigenvalues for unconstrained axes:
 161.5  96.1  58.8  38.5  33.4  24.6   9.6   6.0  -0.6  -6.3 -13.3 -20.8 
 
 > m0cca
+
 Call: cca(formula = dune ~ Condition(Management) + Management, data =
 dune.env)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total           2.115      1.000     
@@ -258,8 +233,6 @@ Unconstrained   1.511      0.715   16
 
 Inertia is scaled Chi-square
 
--- Eigenvalues --
-
 Eigenvalues for unconstrained axes:
   CA1   CA2   CA3   CA4   CA5   CA6   CA7   CA8   CA9  CA10  CA11  CA12  CA13 
 0.447 0.203 0.163 0.135 0.129 0.095 0.079 0.065 0.050 0.043 0.039 0.024 0.018 
@@ -267,9 +240,8 @@ Eigenvalues for unconstrained axes:
 0.009 0.008 0.004 
 
 > m1rda
-Call: rda(formula = H ~ A1, data = dune.env)
 
--- Model Summary --
+Call: rda(formula = H ~ A1, data = dune.env)
 
               Inertia Proportion Rank
 Total         0.07321    1.00000     
@@ -277,8 +249,6 @@ Constrained   0.00294    0.04020    1
 Unconstrained 0.07027    0.95980    1
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
     RDA1 
@@ -2335,4 +2305,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  0.917   0.078   1.543 
+  0.860   0.069   1.494 

@@ -304,9 +304,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +     bar(Y ~ X, ...)
 + }
 > foo("cca", dune, Management, na.action = na.omit)
-Call: cca(formula = Y ~ X, na.action = ..1)
 
--- Model Summary --
+Call: cca(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
 Total          2.0949     1.0000     
@@ -315,11 +314,8 @@ Unconstrained  1.4713     0.7023   14
 
 Inertia is scaled Chi-square
 
--- Note --
-
+-- NOTE:
 2 observations deleted due to missingness
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3 
@@ -332,9 +328,8 @@ Eigenvalues for unconstrained axes:
 0.0181 0.0104 0.0098 
 
 > foo("rda", dune, Management, na.action = na.omit)
-Call: rda(formula = Y ~ X, na.action = ..1)
 
--- Model Summary --
+Call: rda(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
 Total         85.1176     1.0000     
@@ -343,11 +338,8 @@ Unconstrained 52.3412     0.6149   14
 
 Inertia is variance
 
--- Note --
-
+-- NOTE:
 2 observations deleted due to missingness
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3 
@@ -360,9 +352,8 @@ Eigenvalues for unconstrained axes:
  0.779  0.501  0.255 
 
 > foo("capscale", dune, Management, dist="jaccard", na.action = na.omit)
-Call: bar(formula = Y ~ X, distance = "jaccard", na.action = ..2)
 
--- Model Summary --
+Call: bar(formula = Y ~ X, distance = "jaccard", na.action = ..2)
 
               Inertia Proportion Rank
 Total          5.1432     1.0000     
@@ -371,13 +362,10 @@ Unconstrained  3.4979     0.6801   14
 
 Inertia is squared Jaccard distance
 
--- Note --
-
+-- NOTE:
 Species scores projected from 'Y'
 
 2 observations deleted due to missingness
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -390,9 +378,8 @@ Eigenvalues for unconstrained axes:
 0.0603 0.0436 0.0120 
 
 > foo("capscale", vegdist(dune), Management, na.action = na.omit)
-Call: bar(formula = Y ~ X, na.action = ..1)
 
--- Model Summary --
+Call: bar(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
 Total          3.7652                
@@ -403,11 +390,8 @@ Imaginary     -0.1841
 
 Inertia is squared Bray distance
 
--- Note --
-
+-- NOTE:
 2 observations deleted due to missingness
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -420,9 +404,8 @@ Eigenvalues for unconstrained axes:
 0.0011 0.0001 
 
 > foo("capscale", dune, Management, na.action = na.omit) # fails in 2.2-1
-Call: bar(formula = Y ~ X, na.action = ..1)
 
--- Model Summary --
+Call: bar(formula = Y ~ X, na.action = ..1)
 
               Inertia Proportion Rank
 Total         85.1176     1.0000     
@@ -431,13 +414,10 @@ Unconstrained 52.3412     0.6149   14
 
 Inertia is mean squared Euclidean distance
 
--- Note --
-
+-- NOTE:
 Species scores projected from 'Y'
 
 2 observations deleted due to missingness
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2   CAP3 
@@ -487,10 +467,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > m <- cca(dune ~ A1 + Moisture + Condition(Management), dune.env, subset = A1 > 3)
 > tab <- anova(m, by = "axis", permutations = 99)
 > m
+
 Call: cca(formula = dune ~ A1 + Moisture + Condition(Management), data =
 dune.env, subset = A1 > 3)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total          2.0976     1.0000     
@@ -499,8 +478,6 @@ Constrained    0.5555     0.2648    4
 Unconstrained  0.9170     0.4372   10
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4 
@@ -959,9 +936,8 @@ Species: expanded scores based on 'wisconsin(sqrt(subset(varespec, select = colS
 > ## the following three should be all equal
 > data(varespec, varechem)
 > (mr <- rda(varespec ~ Al + P + Condition(pH), varechem))
-Call: rda(formula = varespec ~ Al + P + Condition(pH), data = varechem)
 
--- Model Summary --
+Call: rda(formula = varespec ~ Al + P + Condition(pH), data = varechem)
 
                 Inertia Proportion Rank
 Total         1825.6594     1.0000     
@@ -970,8 +946,6 @@ Constrained    424.4375     0.2325    2
 Unconstrained 1167.1258     0.6393   20
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2 
@@ -983,9 +957,8 @@ Eigenvalues for unconstrained axes:
 (Showing 8 of 20 unconstrained eigenvalues)
 
 > (md <- dbrda(varespec ~ Al + P + Condition(pH), varechem))
-Call: dbrda(formula = varespec ~ Al + P + Condition(pH), data = varechem)
 
--- Model Summary --
+Call: dbrda(formula = varespec ~ Al + P + Condition(pH), data = varechem)
 
                 Inertia Proportion Rank
 Total         1825.6594     1.0000     
@@ -994,8 +967,6 @@ Constrained    424.4375     0.2325    2
 Unconstrained 1167.1258     0.6393   20
 
 Inertia is mean squared Euclidean distance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 
@@ -1007,10 +978,9 @@ Eigenvalues for unconstrained axes:
 (Showing 8 of 20 unconstrained eigenvalues)
 
 > (mc <- capscale(varespec ~ Al + P + Condition(pH), varechem))
+
 Call: capscale(formula = varespec ~ Al + P + Condition(pH), data =
 varechem)
-
--- Model Summary --
 
                 Inertia Proportion Rank
 Total         1825.6594     1.0000     
@@ -1020,11 +990,8 @@ Unconstrained 1167.1258     0.6393   20
 
 Inertia is mean squared Euclidean distance
 
--- Note --
-
+-- NOTE:
 Species scores projected from 'varespec'
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CAP1   CAP2 
@@ -1073,4 +1040,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.245   0.049   1.291 
+  1.254   0.044   1.298 
