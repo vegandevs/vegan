@@ -514,9 +514,8 @@ dune ~ Moisture
 - Moisture    3 87.657 2.2536  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-Call: cca(formula = dune ~ Moisture, data = dune.env)
 
--- Model Summary --
+Call: cca(formula = dune ~ Moisture, data = dune.env)
 
               Inertia Proportion Rank
 Total          2.1153     1.0000     
@@ -524,8 +523,6 @@ Constrained    0.6283     0.2970    3
 Unconstrained  1.4870     0.7030   16
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3 
@@ -1881,9 +1878,8 @@ log(N) P K Ca pH Al    6      0.2822
 > ## environmental data matrix
 > vare.cca <- cca(varespec, varechem)
 > vare.cca
-Call: cca(X = varespec, Y = varechem)
 
--- Model Summary --
+Call: cca(X = varespec, Y = varechem)
 
               Inertia Proportion Rank
 Total          2.0832     1.0000     
@@ -1891,8 +1887,6 @@ Constrained    1.4415     0.6920   14
 Unconstrained  0.6417     0.3080    9
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
@@ -1908,9 +1902,8 @@ Eigenvalues for unconstrained axes:
 > ## Formula interface and a better model
 > vare.cca <- cca(varespec ~ Al + P*(K + Baresoil), data=varechem)
 > vare.cca
-Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data = varechem)
 
--- Model Summary --
+Call: cca(formula = varespec ~ Al + P * (K + Baresoil), data = varechem)
 
               Inertia Proportion Rank
 Total           2.083      1.000     
@@ -1918,8 +1911,6 @@ Constrained     1.046      0.502    6
 Unconstrained   1.038      0.498   17
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 
@@ -1933,9 +1924,8 @@ Eigenvalues for unconstrained axes:
 > plot(vare.cca)
 > ## Partialling out and negative components of variance
 > cca(varespec ~ Ca, varechem)
-Call: cca(formula = varespec ~ Ca, data = varechem)
 
--- Model Summary --
+Call: cca(formula = varespec ~ Ca, data = varechem)
 
               Inertia Proportion Rank
 Total         2.08320    1.00000     
@@ -1943,8 +1933,6 @@ Constrained   0.15722    0.07547    1
 Unconstrained 1.92598    0.92453   22
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1 
@@ -1956,9 +1944,8 @@ Eigenvalues for unconstrained axes:
 (Showing 8 of 22 unconstrained eigenvalues)
 
 > cca(varespec ~ Ca + Condition(pH), varechem)
-Call: cca(formula = varespec ~ Ca + Condition(pH), data = varechem)
 
--- Model Summary --
+Call: cca(formula = varespec ~ Ca + Condition(pH), data = varechem)
 
               Inertia Proportion Rank
 Total          2.0832     1.0000     
@@ -1967,8 +1954,6 @@ Constrained    0.1827     0.0877    1
 Unconstrained  1.7547     0.8423   21
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1 
@@ -2226,10 +2211,9 @@ C     0  0.00000000  0.00000000
 > data(varespec, varechem)
 > ## dbrda
 > dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray")
+
 Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray")
-
--- Model Summary --
 
               Inertia Proportion Rank RealDims
 Total          4.5444     1.0000              
@@ -2238,8 +2222,6 @@ Constrained    0.9731     0.2141    3        3
 Unconstrained  2.5987     0.5718   19       13
 
 Inertia is squared Bray distance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 
@@ -2253,10 +2235,9 @@ Eigenvalues for unconstrained axes:
 > ## avoid negative eigenvalues with sqrt distances
 > dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="bray",
 +      sqrt.dist = TRUE)
+
 Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "bray", sqrt.dist = TRUE)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total          6.9500     1.0000     
@@ -2265,8 +2246,6 @@ Constrained    1.2267     0.1765    3
 Unconstrained  4.7698     0.6863   19
 
 Inertia is Bray distance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 
@@ -2279,10 +2258,9 @@ Eigenvalues for unconstrained axes:
 
 > ## avoid negative eigenvalues also with Jaccard distances
 > (m <- dbrda(varespec ~ N + P + K + Condition(Al), varechem, dist="jaccard"))
+
 Call: dbrda(formula = varespec ~ N + P + K + Condition(Al), data =
 varechem, distance = "jaccard")
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total          6.5044     1.0000     
@@ -2291,8 +2269,6 @@ Constrained    1.2068     0.1855    3
 Unconstrained  4.2646     0.6557   19
 
 Inertia is squared Jaccard distance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 
@@ -2307,17 +2283,14 @@ Eigenvalues for unconstrained axes:
 > sppscores(m) <- wisconsin(varespec)
 > ## pco
 > pco(varespec, dist = "bray", sqrt.dist = TRUE)
-Call: pco(X = varespec, dist = "bray", sqrt.dist = TRUE)
 
--- Model Summary --
+Call: pco(X = varespec, dist = "bray", sqrt.dist = TRUE)
 
               Inertia Rank
 Total            6.95     
 Unconstrained    6.95   23
 
 Inertia is Bray distance
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
@@ -2529,9 +2502,8 @@ dune ~ Moisture
 + Use         2 87.259
 + Manure      4 87.342
 - Moisture    3 87.657
-Call: cca(formula = dune ~ Moisture, data = dune.env)
 
--- Model Summary --
+Call: cca(formula = dune ~ Moisture, data = dune.env)
 
               Inertia Proportion Rank
 Total          2.1153     1.0000     
@@ -2539,8 +2511,6 @@ Constrained    0.6283     0.2970    3
 Unconstrained  1.4870     0.7030   16
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3 
@@ -2700,9 +2670,8 @@ Based on 99 simulations on 'c0_ind' nullmodel
 > ## generalized dispersion weighting
 > mite.dw <- gdispweight(mite ~ Shrub + WatrCont, data = mite.env)
 > rda(mite.dw ~ Shrub + WatrCont, data = mite.env)
-Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
 
--- Model Summary --
+Call: rda(formula = mite.dw ~ Shrub + WatrCont, data = mite.env)
 
               Inertia Proportion Rank
 Total         38.1640     1.0000     
@@ -2710,8 +2679,6 @@ Constrained    9.2129     0.2414    3
 Unconstrained 28.9511     0.7586   35
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
  RDA1  RDA2  RDA3 
@@ -3283,10 +3250,9 @@ ManagementSF
 Some constraints or conditions were aliased because they were redundant. This
 can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > mod
+
 Call: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data
 = dune.env)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total          2.1153     1.0000     
@@ -3295,12 +3261,9 @@ Unconstrained  0.6121     0.2894    7
 
 Inertia is scaled Chi-square
 
--- Note --
-
+-- NOTE:
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): ‘Manure^4’
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
@@ -4526,18 +4489,15 @@ Set of permutations < 'minperm'. Generating entire set.
 > mite.cca <- mso(mite.cca, mite.xy, grain =  1, permutations = 99)
 > msoplot(mite.cca)
 > mite.cca
+
 Call: mso(object.cca = mite.cca, object.xy = mite.xy, grain = 1,
 permutations = 99)
-
--- Model Summary --
 
               Inertia Rank
 Total           1.164     
 Unconstrained   1.164   34
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8 
@@ -4566,9 +4526,8 @@ Number of permutations: 99
 > msoplot(mite.cca)
 Error variance of regression model underestimated by 0.4 percent 
 > mite.cca
-Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations = 99)
 
--- Model Summary --
+Call: mso(object.cca = mite.cca, object.xy = mite.xy, permutations = 99)
 
               Inertia Proportion Rank
 Total          1.1638     1.0000     
@@ -4576,8 +4535,6 @@ Constrained    0.5211     0.4478   11
 Unconstrained  0.6427     0.5522   34
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4    CCA5    CCA6    CCA7    CCA8    CCA9   CCA10 
@@ -5434,9 +5391,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 + Use     2 86.842 0.8027  0.710
 
 > mod
-Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
 
--- Model Summary --
+Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
@@ -5444,8 +5400,6 @@ Constrained   46.4249     0.5519    6
 Unconstrained 37.6988     0.4481   13
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -5494,9 +5448,8 @@ Step: dune ~ Management + Moisture
 + A1      1 86.220 0.8359  0.605
 + Use     2 86.842 0.8027  0.695
 
-Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
--- Model Summary --
+Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
@@ -5504,8 +5457,6 @@ Constrained   46.4249     0.5519    6
 Unconstrained 37.6988     0.4481   13
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -5547,9 +5498,8 @@ Call: dune ~ Management
 + Use             0.2300349
 <model>           0.2251241
 
-Call: rda(formula = dune ~ Management, data = dune.env)
 
--- Model Summary --
+Call: rda(formula = dune ~ Management, data = dune.env)
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
@@ -5557,8 +5507,6 @@ Constrained   29.2307     0.3475    3
 Unconstrained 54.8930     0.6525   16
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3 
@@ -6310,9 +6258,8 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ## PRC
 > mod <- prc(pyrifos, dose, week)
 > mod            # RDA
-Call: prc(response = pyrifos, treatment = dose, time = week)
 
--- Model Summary --
+Call: prc(response = pyrifos, treatment = dose, time = week)
 
                Inertia Proportion Rank
 Total         288.9920     1.0000     
@@ -6321,8 +6268,6 @@ Constrained    96.6837     0.3346   44
 Unconstrained 128.9589     0.4462   77
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
@@ -6446,10 +6391,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
 > # Definition of the concepts 'fitted' and 'residuals'
 > mod
+
 Call: cca(formula = dune ~ A1 + Management + Condition(Moisture), data =
 dune.env)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total          2.1153     1.0000     
@@ -6458,8 +6402,6 @@ Constrained    0.5109     0.2415    4
 Unconstrained  0.9761     0.4615   12
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
    CCA1    CCA2    CCA3    CCA4 
@@ -6472,9 +6414,8 @@ Eigenvalues for unconstrained axes:
 0.01254 0.00928 
 
 > cca(fitted(mod))
-Call: cca(X = fitted(mod))
 
--- Model Summary --
+Call: cca(X = fitted(mod))
 
               Inertia Rank
 Total          0.5109     
@@ -6482,24 +6423,19 @@ Unconstrained  0.5109    4
 
 Inertia is scaled Chi-square
 
--- Eigenvalues --
-
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4 
 0.24932 0.12090 0.08160 0.05904 
 
 > cca(residuals(mod))
-Call: cca(X = residuals(mod))
 
--- Model Summary --
+Call: cca(X = residuals(mod))
 
               Inertia Rank
 Total          0.9761     
 Unconstrained  0.9761   12
 
 Inertia is scaled Chi-square
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9    CA10 
@@ -7240,9 +7176,8 @@ Number of permutations: 99
 > mod <- rda(dune ~  Moisture + Management, dune.env)
 > ## One simulation
 > update(mod, simulate(mod) ~  .)
-Call: rda(formula = simulate(mod) ~ Moisture + Management, data = dune.env)
 
--- Model Summary --
+Call: rda(formula = simulate(mod) ~ Moisture + Management, data = dune.env)
 
               Inertia Proportion Rank
 Total         82.8232     1.0000     
@@ -7250,8 +7185,6 @@ Constrained   52.6966     0.6363    6
 Unconstrained 30.1266     0.3637   13
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -7957,17 +7890,14 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > tabasco(dune, hclust(dtree), cl)
 > ## Use tree distances in distance-based RDA
 > dbrda(dtree ~ 1)
-Call: dbrda(formula = dtree ~ 1)
 
--- Model Summary --
+Call: dbrda(formula = dtree ~ 1)
 
               Inertia Rank RealDims
 Total           2.183              
 Unconstrained   2.183   19       10
 
 Inertia is squared Treedist distance
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
   MDS1   MDS2   MDS3   MDS4   MDS5   MDS6   MDS7   MDS8 
@@ -8482,17 +8412,14 @@ Number of permutations: 999
 > ## No constraints: PCA
 > mod0 <- rda(dune ~ 1, dune.env)
 > mod0
-Call: rda(formula = dune ~ 1, data = dune.env)
 
--- Model Summary --
+Call: rda(formula = dune ~ 1, data = dune.env)
 
               Inertia Rank
 Total           84.12     
 Unconstrained   84.12   19
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for unconstrained axes:
    PC1    PC2    PC3    PC4    PC5    PC6    PC7    PC8 
@@ -8506,10 +8433,9 @@ Eigenvalues for unconstrained axes:
 Some constraints or conditions were aliased because they were redundant. This
 can happen if terms are linearly dependent (collinear): ‘Manure^4’
 > mod1
+
 Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data
 = dune.env)
-
--- Model Summary --
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
@@ -8518,12 +8444,9 @@ Unconstrained 20.9175     0.2487    7
 
 Inertia is variance
 
--- Note --
-
+-- NOTE:
 Some constraints or conditions were aliased because they were redundant.
 This can happen if terms are linearly dependent (collinear): ‘Manure^4’
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
@@ -8579,9 +8502,8 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 + Use     2 86.842 0.8027  0.690
 
 > mod
-Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
--- Model Summary --
+Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 
               Inertia Proportion Rank
 Total         84.1237     1.0000     
@@ -8589,8 +8511,6 @@ Constrained   46.4249     0.5519    6
 Unconstrained 37.6988     0.4481   13
 
 Inertia is variance
-
--- Eigenvalues --
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
@@ -9090,7 +9010,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.252 0.284 8.545 0 0 
+Time elapsed:  8.271 0.249 8.524 0 0 
 > grDevices::dev.off()
 null device 
           1 
