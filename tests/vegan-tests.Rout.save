@@ -1,6 +1,6 @@
 
-R version 4.4.1 (2024-06-14) -- "Race for Your Life"
-Copyright (C) 2024 The R Foundation for Statistical Computing
+R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -674,7 +674,7 @@ Residual 26   5.2565
 > m <- cca(cca ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > anova(m, by="term")
 Permutation test for cca under reduced model
 Terms added sequentially (first to last)
@@ -694,7 +694,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > m <- capscale(cca ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > anova(m, by="term")
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -1073,4 +1073,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.246   0.041   1.289 
+  1.244   0.057   1.299 
