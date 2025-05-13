@@ -25,37 +25,41 @@ Type 'q()' to quit R.
 > mcca <- cca(dune ~ Condition(Management) + Manure + A1, dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mrda <- rda(dune ~ Condition(Management) + Manure + A1, dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mrda1 <- rda(dune ~ Condition(Management) + Manure + A1, dune.env, scale=TRUE)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mcap <- capscale(dune ~ Condition(Management) + Manure + A1, dune.env,
 +           dist = "bray")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mdb <- dbrda(dune ~ Condition(Management) + Manure + A1, dune.env,
 +              dist = "bray")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mancap <- capscale(dune ~ Condition(Management) + Manure + A1, dune.env,
 +           dist = "manhattan")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mandb <- dbrda(dune ~ Condition(Management) + Manure + A1, dune.env,
 +                dist = "manhattan")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > ## 0-rank constraints
 > m0cca <- cca(dune ~ Condition(Management) + Management, dune.env)
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are constant or linearly dependent (collinear):
+'ManagementHF', 'ManagementNM', 'ManagementSF'
 > ## univariate model, rank-1 constraint
 > H <- diversity(dune)
 > m1rda <- rda(H ~  A1, dune.env)
@@ -76,7 +80,8 @@ Inertia is scaled Chi-square
 
 -- NOTE:
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): 'Manure^4'
+This can happen if terms are constant or linearly dependent (collinear):
+'Manure^4'
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4 
@@ -101,7 +106,8 @@ Inertia is variance
 
 -- NOTE:
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): 'Manure^4'
+This can happen if terms are constant or linearly dependent (collinear):
+'Manure^4'
 
 Eigenvalues for constrained axes:
 RDA1 RDA2 RDA3 RDA4 
@@ -130,7 +136,8 @@ Inertia is squared Bray distance
 Species scores projected from 'dune'
 
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): 'Manure^4'
+This can happen if terms are constant or linearly dependent (collinear):
+'Manure^4'
 
 Eigenvalues for constrained axes:
  CAP1  CAP2  CAP3  CAP4 
@@ -155,7 +162,8 @@ Inertia is squared Bray distance
 
 -- NOTE:
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): 'Manure^4'
+This can happen if terms are constant or linearly dependent (collinear):
+'Manure^4'
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 dbRDA4 
@@ -186,7 +194,8 @@ Inertia is mean squared Manhattan distance
 Species scores projected from 'dune'
 
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): 'Manure^4'
+This can happen if terms are constant or linearly dependent (collinear):
+'Manure^4'
 
 Eigenvalues for constrained axes:
  CAP1  CAP2  CAP3  CAP4 
@@ -211,7 +220,8 @@ Inertia is mean squared Manhattan distance
 
 -- NOTE:
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): 'Manure^4'
+This can happen if terms are constant or linearly dependent (collinear):
+'Manure^4'
 
 Eigenvalues for constrained axes:
 dbRDA1 dbRDA2 dbRDA3 dbRDA4 
@@ -229,9 +239,15 @@ dune.env)
               Inertia Proportion Rank
 Total           2.115      1.000     
 Conditional     0.604      0.285    3
+Constrained     0.000      0.000    0
 Unconstrained   1.511      0.715   16
 
 Inertia is scaled Chi-square
+
+-- NOTE:
+Some constraints or conditions were aliased because they were redundant.
+This can happen if terms are constant or linearly dependent (collinear):
+'ManagementHF', 'ManagementNM', 'ManagementSF'
 
 Eigenvalues for unconstrained axes:
   CA1   CA2   CA3   CA4   CA5   CA6   CA7   CA8   CA9  CA10  CA11  CA12  CA13 
@@ -521,13 +537,13 @@ Bellpere 0.19546 0.275055 0.52949
 5 16.995  5.4240 16.8238
 6 16.995  8.3251 22.2002
 > zapsmall(head(inertcomp(m0cca)))
-             pCCA       CA
-Achimill 0.015343 0.035359
-Agrostol 0.038102 0.044009
-Airaprae 0.025813 0.078285
-Alopgeni 0.048789 0.046417
-Anthodor 0.014147 0.079696
-Bellpere 0.006974 0.030769
+             pCCA CCA       CA
+Achimill 0.015343   0 0.035359
+Agrostol 0.038102   0 0.044009
+Airaprae 0.025813   0 0.078285
+Alopgeni 0.048789   0 0.046417
+Anthodor 0.014147   0 0.079696
+Bellpere 0.006974   0 0.030769
 > inertcomp(m1rda)
            CCA       CA
 col1 0.0029428 0.070268
@@ -2009,31 +2025,31 @@ Residual 18   0.0703
 > mcca <- cca(dune ~ Management + Manure + A1, dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mrda <- rda(dune ~ Management + Manure + A1, dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mrda1 <- rda(dune ~ Management + Manure + A1, dune.env, scale = TRUE)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mcap <- capscale(dune ~ Management + Manure + A1, dune.env, dist = "bray")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mdb <- dbrda(dune ~ Management + Manure + A1, dune.env, dist = "bray")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mancap <- capscale(dune ~ Management + Manure + A1, dune.env, dist = "man")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > mandb <- dbrda(dune ~ Management + Manure + A1, dune.env, dist = "man")
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > 
 > head(calibrate(mcca))
   ManagementHF ManagementNM ManagementSF   Manure.L Manure.Q Manure.C     A1
@@ -2305,4 +2321,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  0.860   0.069   1.494 
+  0.865   0.068   1.491 

@@ -543,7 +543,7 @@ Eigenvalues for unconstrained axes:
 > mbig <- rda(dune ~  ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 > ## -- define an empty model to start with
 > m0 <- rda(dune ~ 1, dune.env)
 > ## -- manual selection and updating
@@ -960,7 +960,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > anova(mod, cca(dune ~ ., dune.env))
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 Permutation tests for cca under reduced model
 Permutation: free
 Number of permutations: 999
@@ -2479,7 +2479,7 @@ X-squared = 1449, df = 551, p-value < 2.2e-16
 > ord <- cca(dune ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 > step(cca(dune ~ 1, dune.env), scope = formula(ord))
 Start:  AIC=87.66
 dune ~ 1
@@ -3248,7 +3248,7 @@ ManagementSF
 > mod <- cca(dune ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 > mod
 
 Call: cca(formula = dune ~ A1 + Moisture + Management + Use + Manure, data
@@ -3263,7 +3263,8 @@ Inertia is scaled Chi-square
 
 -- NOTE:
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): ‘Manure^4’
+This can happen if terms are constant or linearly dependent (collinear):
+‘Manure^4’
 
 Eigenvalues for constrained axes:
   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6   CCA7   CCA8   CCA9  CCA10  CCA11 
@@ -5346,7 +5347,7 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > mod1 <- rda(dune ~ ., dune.env)  # Model with all explanatory variables
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 > 
 > ## With scope present, the default direction is "both"
 > mod <- ordistep(mod0, scope = formula(mod1))
@@ -7729,7 +7730,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > mod <- cca(dune ~ ., data = dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 > 
 > ## defaults to species tolerances
 > tolerance(mod)
@@ -8431,7 +8432,7 @@ Eigenvalues for unconstrained axes:
 > mod1 <- rda(dune ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): ‘Manure^4’
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 > mod1
 
 Call: rda(formula = dune ~ A1 + Moisture + Management + Use + Manure, data
@@ -8446,7 +8447,8 @@ Inertia is variance
 
 -- NOTE:
 Some constraints or conditions were aliased because they were redundant.
-This can happen if terms are linearly dependent (collinear): ‘Manure^4’
+This can happen if terms are constant or linearly dependent (collinear):
+‘Manure^4’
 
 Eigenvalues for constrained axes:
   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6   RDA7   RDA8   RDA9  RDA10  RDA11 
@@ -9010,7 +9012,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.271 0.249 8.524 0 0 
+Time elapsed:  8.315 0.274 8.602 0 0 
 > grDevices::dev.off()
 null device 
           1 

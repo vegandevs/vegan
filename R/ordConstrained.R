@@ -142,7 +142,7 @@
     ## QR decomposition
     Q <- qr(Z)
     if (Q$rank == 0) # nothing partialled out
-        return(list(Y = Y, result = NULL))
+        return(list(Y = Y, result = list(rank = 0, tot.chi = 0, QR = Q)))
     ## partialled out variation as a trace of Yfit
     Yfit <- qr.fitted(Q, Y)
     if (DISTBASED) {
@@ -195,12 +195,12 @@
     Q <- qr(X)
     ## we need to see how much rank grows over rank of conditions
     rank <- sum(Q$pivot[seq_len(Q$rank)] > zcol)
-    ## nothing explained (e.g., constant constrain)
-    if (rank == 0)
-        return(list(Y = Y, result = NULL))
     ## check for aliased terms
     if (length(Q$pivot) > Q$rank) {
-        alias <- colnames(Q$qr)[-seq_len(Q$rank)]
+        if (Q$rank > 0)
+            alias <- colnames(Q$qr)[-seq_len(Q$rank)] # Q$rank 0, then alias ""
+        else
+            alias <- colnames(Q$qr)
         # print a message to highlight this aliasing
         #msg <- "Some model terms were linearly dependent and their effects
 #cannot be uniquely estimated. See '?alias.cca' for more detail and use
@@ -209,11 +209,18 @@
         #    width = 0.95 * getOption("width")))
         aliased <- paste(sQuote(alias), collapse = ", ")
         msg <- paste("Some constraints or conditions were aliased because they were redundant.",
-        "This can happen if terms are linearly dependent (collinear):", aliased)
+        "This can happen if terms are constant or linearly dependent (collinear):", aliased)
         message(strwrap(msg, width = getOption("width"), prefix = "\n", initial = "\n"))
     }
     else
         alias <- NULL
+
+    ## nothing explained: constant constrain, complete alias by Conditions...
+    if (rank == 0) {
+        return(list(Y = Y, result = list(rank = 0, tot.chi = 0,
+                                         QR = Q, alias = alias)))
+    }
+
     ## kept constraints and their means
     kept <- seq_along(Q$pivot) <= Q$rank & Q$pivot > zcol
     if (zcol > 0)

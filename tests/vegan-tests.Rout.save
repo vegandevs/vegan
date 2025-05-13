@@ -651,7 +651,7 @@ Residual 26   5.2565
 > m <- cca(cca ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > anova(m, by="term")
 Permutation test for cca under reduced model
 Terms added sequentially (first to last)
@@ -671,7 +671,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > m <- capscale(cca ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
-can happen if terms are linearly dependent (collinear): 'Manure^4'
+can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 > anova(m, by="term")
 Permutation test for capscale under reduced model
 Terms added sequentially (first to last)
@@ -1040,4 +1040,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.254   0.044   1.298 
+  1.252   0.045   1.295 
