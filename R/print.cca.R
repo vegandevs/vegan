@@ -62,7 +62,7 @@
         vif_msg <- sQuote(paste0("vif.cca(", ord_obj, ")"))
         aliased <- paste(sQuote(alias(x, names.only = TRUE)), collapse = ", ")
         msg <- paste("Some constraints or conditions were aliased because they were redundant.",
-        "This can happen if terms are linearly dependent (collinear):", aliased)
+        "This can happen if terms are constant or linearly dependent (collinear):", aliased)
         writeLines(strwrap(msg, width = msg_w, initial = "\n"))
     }
     if (x$CA$rank < 1) {
