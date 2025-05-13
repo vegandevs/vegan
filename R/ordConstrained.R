@@ -195,9 +195,6 @@
     Q <- qr(X)
     ## we need to see how much rank grows over rank of conditions
     rank <- sum(Q$pivot[seq_len(Q$rank)] > zcol)
-    ## nothing explained (e.g., constant constrain)
-    if (rank == 0)
-        return(list(Y = Y, result = NULL))
     ## check for aliased terms
     if (length(Q$pivot) > Q$rank) {
         alias <- colnames(Q$qr)[-seq_len(Q$rank)]
@@ -209,11 +206,17 @@
         #    width = 0.95 * getOption("width")))
         aliased <- paste(sQuote(alias), collapse = ", ")
         msg <- paste("Some constraints or conditions were aliased because they were redundant.",
-        "This can happen if terms are linearly dependent (collinear):", aliased)
+        "This can happen if terms are constant or linearly dependent (collinear):", aliased)
         message(strwrap(msg, width = getOption("width"), prefix = "\n", initial = "\n"))
     }
     else
         alias <- NULL
+
+    ## nothing explained: constant constrain, complete alias by Conditions...
+    if (rank == 0) {
+        return(list(Y = Y, result = NULL))
+    }
+
     ## kept constraints and their means
     kept <- seq_along(Q$pivot) <= Q$rank & Q$pivot > zcol
     if (zcol > 0)
