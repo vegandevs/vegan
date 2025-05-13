@@ -165,15 +165,19 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 \seealso{
 
   The core function is \code{\link{ordConstrained}} which is called by
-  \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} and
-  \code{\link{capscale}}. The basic class is \code{"cca"} for all
-  methods, and the following functions are defined for this class:
-  \Sexpr[results=rd,stage=build]{require(vegan, quietly=TRUE);
-  paste0("\\\\code{\\\\link{", methods(class="cca"), "}}",
-  collapse=", ")}.  Other functions handling \code{"cca"} objects
+  \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}},
+  \code{\link{capscale}} as well as by unconstrained methods
+  \code{\link{pca}}, \code{\link{ca}} and \code{\link{pco}}. The basic
+  class is \code{"cca"} for all methods, and the following functions are
+  defined for this class: \Sexpr[results=rd,stage=build]{require(vegan,
+  quietly=TRUE); paste0("\\\\code{\\\\link{", methods(class="cca"),
+  "}}", collapse=", ")}.  Other functions handling \code{"cca"} objects
   include \code{\link{inertcomp}}, \code{\link{intersetcor}},
-  \code{\link{mso}}, \code{\link{ordistep}} and
-  \code{\link{ordiR2step}}.
+  \code{\link{mso}}, \code{\link{ordistep}}, \code{\link{ordiR2step}}
+  and \code{\link{vif.cca}}. Functions that can be regarded as special
+  cases of \code{"cca"} methods include \code{\link{adonis2}} and
+  \code{\link{varpart}}.
+
 }
 
 \note{
