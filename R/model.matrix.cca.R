@@ -3,9 +3,9 @@
 {
     X <- Z <- NULL
     w <- 1/sqrt(object$rowsum)
-    if (!is.null(object$pCCA))
+    if (!is.null(object$pCCA) && object$pCCA$rank > 0)
         Z <- w * qr.X(object$pCCA$QR, ncol = length(object$pCCA$QR$pivot))
-    if (!is.null(object$CCA)) {
+    if (!is.null(object$CCA) && object$CCA$rank > 0) {
         X <- qr.X(object$CCA$QR, ncol = length(object$CCA$QR$pivot))
         ## First columns come from Z
         if (!is.null(Z))
@@ -26,9 +26,9 @@
     function(object, ...)
 {
     X <- Z <- NULL
-    if (!is.null(object$pCCA))
+    if (!is.null(object$pCCA) && object$pCCA$rank > 0)
         Z <- qr.X(object$pCCA$QR, ncol = length(object$pCCA$QR$pivot))
-    if (!is.null(object$CCA)) {
+    if (!is.null(object$CCA) && object$CCA$rank > 0) {
         X <- qr.X(object$CCA$QR, ncol = length(object$CCA$QR$pivot))
         if (!is.null(Z))
             X <- X[, -seq_len(ncol(Z)), drop=FALSE]

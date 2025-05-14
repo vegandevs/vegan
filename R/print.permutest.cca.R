@@ -3,9 +3,13 @@
 {
     EPS <- sqrt(.Machine$double.eps)
     cat("\nPermutation test for", x$method, "under", x$model, "model", "\n\n")
-    cat(howHead(x$control), "\n")
+    if (x$nperm > 0)
+        cat(howHead(x$control), "\n")
     writeLines(strwrap(pasteCall(x$testcall, prefix = "Model:")))
-    Pval <- (colSums(sweep(x$F.perm, 2, x$F.0 - EPS, ">=")) + 1)/(x$nperm + 1)
+    if (x$nperm > 0)
+        Pval <- (colSums(sweep(x$F.perm, 2, x$F.0 - EPS, ">=")) + 1)/(x$nperm + 1)
+    else
+        Pval <- NA
     cat("Permutation test for ")
     if (x$first)
         cat("first constrained eigenvalue\n")
