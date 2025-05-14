@@ -1,8 +1,8 @@
 `coef.rda` <-
     function (object, norm = FALSE, ...)
 {
-    if(is.null(object$CCA))
-        stop("unconstrained models do not have coefficients")
+    if(is.null(object$CCA) || object$CCA$rank == 0)
+        stop("unconstrained or empty models do not have coefficients")
     Q <- object$CCA$QR
     u <- object$CCA$u
     ## scores.cca uses na.predict and may add missing NA rows to u,

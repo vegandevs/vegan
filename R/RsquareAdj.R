@@ -24,7 +24,7 @@
         R2 <- x$CCA$tot.chi/x$tot.chi
     m <- x$CCA$qrank
     n <- nrow(x$CCA$u)
-    if (is.null(x$pCCA)) {
+    if (is.null(x$pCCA) || x$pCCA$rank == 0) {
         radj <- RsquareAdj(R2, n, m)
     } else {
         ## Partial model: same adjusted R2 as for component [a] in two
@@ -44,9 +44,9 @@
     function (x, permutations = 1000, ...)
 {
     r2 <- x$CCA$tot.chi / x$tot.chi
-    if (df.residual(x) == 0) {
-        radj <- NA
-    } else if (is.null(x$pCCA)) {
+    if (df.residual(x) == 0 || is.null(x$CCA) || x$CCA$rank == 0) {
+        radj <- numeric(0)
+    } else if (is.null(x$pCCA) || x$pCCA$rank == 0) {
         p <- permutest(x, permutations, ...)
         radj <- 1 - ((1 - r2) / (1 - mean(p$num / x$tot.chi)))
     } else {

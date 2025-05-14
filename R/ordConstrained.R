@@ -142,7 +142,7 @@
     ## QR decomposition
     Q <- qr(Z)
     if (Q$rank == 0) # nothing partialled out
-        return(list(Y = Y, result = list(rank = 0, tot.chi = 0, QR = Q)))
+        return(list(Y = Y, result = list(rank = 0, tot.chi = 0)))
     ## partialled out variation as a trace of Yfit
     Yfit <- qr.fitted(Q, Y)
     if (DISTBASED) {
@@ -218,7 +218,7 @@
     ## nothing explained: constant constrain, complete alias by Conditions...
     if (rank == 0) {
         return(list(Y = Y, result = list(rank = 0, tot.chi = 0,
-                                         QR = Q, alias = alias)))
+                                         qrank = Q$rank, alias = alias)))
     }
 
     ## kept constraints and their means
