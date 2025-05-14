@@ -537,13 +537,13 @@ Bellpere 0.19546 0.275055 0.52949
 5 16.995  5.4240 16.8238
 6 16.995  8.3251 22.2002
 > zapsmall(head(inertcomp(m0cca)))
-             pCCA CCA       CA
-Achimill 0.015343   0 0.035359
-Agrostol 0.038102   0 0.044009
-Airaprae 0.025813   0 0.078285
-Alopgeni 0.048789   0 0.046417
-Anthodor 0.014147   0 0.079696
-Bellpere 0.006974   0 0.030769
+             pCCA       CA
+Achimill 0.015343 0.035359
+Agrostol 0.038102 0.044009
+Airaprae 0.025813 0.078285
+Alopgeni 0.048789 0.046417
+Anthodor 0.014147 0.079696
+Bellpere 0.006974 0.030769
 > inertcomp(m1rda)
            CCA       CA
 col1 0.0029428 0.070268
@@ -2321,4 +2321,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  0.865   0.068   1.491 
+  0.867   0.079   1.516 
