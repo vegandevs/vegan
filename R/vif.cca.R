@@ -1,7 +1,7 @@
 `vif.cca` <-
     function(object)
 {
-    if (is.null(object$CCA))
+    if (is.null(object$CCA) || object$CCA$rank == 0)
         stop("can be used only with constrained ordination")
     Q <- object$CCA$QR
     out <- rep(NA, NCOL(Q$qr))

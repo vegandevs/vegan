@@ -15,7 +15,7 @@
 `df.residual.cca` <-
     function(object, ...)
 {
-    nobs(object) - object$CCA$qrank - 1
+    nobs(object) - max(object$pCCA$rank, 0) - max(object$CCA$qrank, 0) - 1
 }
 
 ## hat values need adjustment, because QR ignores Intercept

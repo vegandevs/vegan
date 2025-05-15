@@ -25,7 +25,7 @@
 {
     display <- match.arg(display,
                c("sp", "species", "wa", "sites", "lc", "reg", "bp", "cn"))
-    if (is.null(object$CCA))
+    if (is.null(object$CCA) || object$CCA$rank == 0)
         CCA <- "CA"
     else
         CCA <- "CCA"

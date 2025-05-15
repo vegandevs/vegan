@@ -10,13 +10,13 @@ permutest.default <- function(x, ...)
               strata = NULL, parallel = getOption("mc.cores"), ...)
 {
     ## do something sensible with insensible input (no constraints)
-    if (is.null(x$CCA)) {
+    if (is.null(x$CCA) || x$CCA$rank == 0) {
         sol <- list(call = match.call(), testcall = x$call, model = NA,
-                    F.0 = NA, F.perm = NA, chi = c(0, x$CA$tot.chi),
+                    F.0 = NA, F.perm = NA, chi = c(0, max(x$CA$tot.chi,0)),
                     num = 0, den = x$CA$tot.chi,
-                    df = c(0, nrow(x$CA$u) - max(x$pCCA$QR$rank,0) - 1),
+                    df = c(0, nobs(x) - max(x$pCCA$QR$rank,0) - 1),
                     nperm = 0, method = x$method, first = FALSE,
-                    Random.seed = NA)
+                    termlabels = "<none>", Random.seed = NA)
         class(sol) <- "permutest.cca"
         return(sol)
     }
@@ -35,7 +35,7 @@ permutest.default <- function(x, ...)
         w <- x$rowsum # works with any na.action, weights(x) won't
     else
         w <- NULL
-    isPartial <- !is.null(x$pCCA)   # handle conditions
+    isPartial <- !is.null(x$pCCA) && x$pCCA$rank > 0   # handle conditions
     isDB <- inherits(x, c("dbrda")) # only dbrda is distance-based
     ## C function to get the statististics in one loop
     getF <- function(indx, E, Q, QZ, effects, w, first, isPartial, isCCA,
