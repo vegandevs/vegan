@@ -35,7 +35,7 @@ permutest.default <- function(x, ...)
         w <- x$rowsum # works with any na.action, weights(x) won't
     else
         w <- NULL
-    isPartial <- !is.null(x$pCCA)   # handle conditions
+    isPartial <- !is.null(x$pCCA) && x$pCCA$rank > 0   # handle conditions
     isDB <- inherits(x, c("dbrda")) # only dbrda is distance-based
     ## C function to get the statististics in one loop
     getF <- function(indx, E, Q, QZ, effects, w, first, isPartial, isCCA,
