@@ -218,7 +218,7 @@
     ## nothing explained: constant constrain, complete alias by Conditions...
     if (rank == 0) {
         return(list(Y = Y, result = list(rank = 0, tot.chi = 0,
-                                         qrank = Q$rank, alias = alias)))
+                                         qrank = 0, alias = alias)))
     }
 
     ## kept constraints and their means
@@ -303,8 +303,8 @@
         wa = wa,
         alias = alias,
         biplot = bp,
-        rank = length(lambda),
-        qrank = rank,
+        rank = length(lambda),  # no. of positive eigenvalues
+        qrank = rank,           # rank of constraints after conditions
         tot.chi = sum(lambda),
         QR = Q,
         envcentre = envcentre)
