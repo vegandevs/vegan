@@ -69,6 +69,7 @@
 </li>
 <li><p><code>ordipointlabel</code> can be used in pipe. Function gained argument <code>label</code> that allows changing plotted text, and a function <code>labels</code> that return the current labels. The optimization rules were changed to give a slight preference for putting labels outwards from origin but avoiding corner positions.</p></li>
 <li><p><code>orditorp</code> can be used in pipe.</p></li>
+<li><p>Constrained ordination models (<code>cca</code>, <code>rda</code>, <code>dbrda</code>) inform users on completely aliased conditions or constraints, and behave more robustly with these degenerate cases. If a model component (condition, constrained) is completely aliased, it still appears in summary table with rank and inertia 0. See <a href="https://stackoverflow.com/questions/79613784/" class="external-link uri">https://stackoverflow.com/questions/79613784/</a> and issue <a href="https://stackoverflow.com/questions/79613784/" class="external-link">#682</a>.</p></li>
 <li><p><code>ordiR2step</code> calls current model <code>&lt;model&gt;</code> instead of <code>&lt;none&gt;</code>.</p></li>
 <li><p><code>densityplot.permustats</code> did not know argument <code>observed</code> to control including and showing the observed statistic.</p></li>
 <li><p><code>vegemite</code> and <code>tabasco</code> can now <code>use</code> a factor to show a classification. The factor levels and sites within levels can be reordered to give a diagonal pattern, as default in <code>tabasco</code> and in <code>vegemite</code> with new argument <code>diagonalize = TRUE</code> (defaults <code>FALSE</code>). With the same argument, <code>vegemite</code> can also reorder dendrogram (or tree) to give a diagonal pattern. If <code>coverscale</code> is used, all internal calculations for ordering rows and columns will be based on scaled data.</p></li>
@@ -80,6 +81,7 @@
 <h3 id="bug-fixes-2-7-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-0"></a></h3>
 <ul><li><p><code>ordistep</code> never dropped aliased terms.</p></li>
 <li><p><code>permatswap</code> failed to set some null models (<code>swsh_samp</code>, <code>swsh_both</code>, <code>backtrack</code>).</p></li>
+<li><p><code>df.residual.cca</code> ignored conditions (partial component). This influences many diagnostic statistics documented together with <code>cooks.distance.cca</code> and <code>rstandard.cca</code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-and-defunct-2-7-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-0"></a></h3>
