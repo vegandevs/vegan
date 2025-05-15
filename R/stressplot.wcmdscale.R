@@ -13,7 +13,7 @@
         stop("observed distances cannot be reconstructed: all axes were not calculated")
     ## Get the ordination distances in k dimensions
     if (k > NCOL(object$points))
-        warning(gettextf("max allowed rank is k = %d", NCOL(object$points)))
+        message(gettextf("max allowed rank is k = %d", NCOL(object$points)))
     k <- min(NCOL(object$points), k)
     w <- sqrt(object$weights)
     u <- diag(w) %*% object$points
@@ -52,7 +52,7 @@
     ev <- c(object$CCA$eig, object$CA$eig)
     ## check that k does not exceed rank
     if (k > length(ev)) {
-        warning(gettextf("max allowed rank is k = %d", length(ev)))
+        message(gettextf("max allowed rank is k = %d", length(ev)))
         k <- min(k, length(ev))
     }
     ## normalizing constant
@@ -94,7 +94,7 @@
     v <- diag(sqrt(object$colsum)) %*% v
     ## check that k <= rank
     if (k > length(sev)) {
-        warning(gettextf("max allowed rank is k = %d", length(sev)))
+        message(gettextf("max allowed rank is k = %d", length(sev)))
         k <- min(k, length(sev))
     }
     ## Distances
@@ -126,7 +126,7 @@
     u <- cbind(object$CCA$u, object$CA$u)
     ## check rank
     if (k > NCOL(u))
-        warning(gettextf("max allowed rank is k = %d", ncol(u)))
+        message(gettextf("max allowed rank is k = %d", ncol(u)))
     k <- min(k, ncol(u))
     ev <- c(object$CCA$eig, object$CA$eig)
     u <- u %*% diag(sqrt(ev) * object$adjust, length(ev))
@@ -230,7 +230,7 @@
     }
     U <- U %*% diag(sqrt(eig), nrow = kmax)
     if (k > kmax) {
-        warning(gettextf("max allowed rank is k = %d", kmax))
+        message(gettextf("max allowed rank is k = %d", kmax))
         k <- kmax
     }
     if (k > 0) {
