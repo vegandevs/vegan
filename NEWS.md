@@ -92,6 +92,14 @@
   
 * `orditorp` can be used in pipe.
 
+* Constrained ordination models (`cca`, `rda`, `dbrda`) inform users
+  on completely aliased conditions or constraints, and behave more
+  robustly with these degenerate cases. If a model component
+  (condition, constrained) is completely aliased, it still appears in
+  summary table with rank and inertia 0. See
+  https://stackoverflow.com/questions/79613784/ and issue
+  [#682](https://stackoverflow.com/questions/79613784/).
+
 * `ordiR2step` calls current model `<model>` instead of `<none>`.
 
 * `densityplot.permustats` did not know argument `observed` to control
@@ -122,6 +130,10 @@
 
 * `permatswap` failed to set some null models (`swsh_samp`,
   `swsh_both`, `backtrack`).
+
+* `df.residual.cca` ignored conditions (partial component). This
+  influences many diagnostic statistics documented together with
+  `cooks.distance.cca` and `rstandard.cca`.
 
 ## Deprecated and Defunct
 
