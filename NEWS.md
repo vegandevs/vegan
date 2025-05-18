@@ -98,7 +98,7 @@
   (condition, constrained) is completely aliased, it still appears in
   summary table with rank and inertia 0. See
   https://stackoverflow.com/questions/79613784/ and issue
-  [#682](https://stackoverflow.com/questions/79613784/).
+  [#682](https://github.com/vegandevs/vegan/issues/682).
 
 * `ordiR2step` calls current model `<model>` instead of `<none>`.
 
