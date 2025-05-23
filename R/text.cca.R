@@ -9,10 +9,10 @@
                   const, correlation = correlation, hill = hill, tidy=FALSE,
                   droplist = FALSE)
     class(pts) <- "ordiplot"
-    if (!missing(labels))
-        rownames(pts[[1]]) <- labels
     if (!missing(select))
         pts[[1]] <- .checkSelect(select, pts[[1]])
+    if (!missing(labels))
+        rownames(pts[[1]]) <- labels
     text.ordiplot(pts, what = names(pts), ...)
     invisible()
 }

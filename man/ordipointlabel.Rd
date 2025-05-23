@@ -36,10 +36,14 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
      they can be a vector of the length of number items.}
   \item{add}{ Add to an existing plot. Default is \code{add = TRUE} when
      the function is used in a pipe, and \code{FALSE} usually. }
-  \item{labels}{Labels used in graph. Species (variable) and SU (row)
+
+   \item{labels}{Labels used in graph. Species (variable) and SU (row)
     names are used if this is missing. Labels must be given in one
     vector for all scores of \code{display}. Function \code{labels} can
-    extract the current name from a saved \code{ordipointlabel} object.}
+    extract the current name from a saved \code{ordipointlabel}
+    object. If \code{select} is used, labels are given only for the
+    selected items.}
+  
   \item{bg}{Background colour for labels. If this is given, texts is
     drawn over non-transparent background. Either a single colour or
     vector of colours for each \code{display}, or with one display, for
