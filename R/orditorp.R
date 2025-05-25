@@ -16,7 +16,7 @@
         sco <- .checkSelect(select, sco)
         kk <- .checkSelect(select, kk)
         if (!missing(priority) && length(priority) > NROW(sco))
-            priority <- priority[kk]
+            priority <- .checkSelect(select, priority)
     }
     if (missing(labels))
         labels <- rownames(sco)
