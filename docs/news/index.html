@@ -63,7 +63,7 @@
 <p>The new features are more extensively described in help pages of <code>plot.cca</code>, <code>ordiplot</code> and <code>biplot.rda</code>.</p>
 </li>
 <li>
-<p><code>text</code> and <code>points</code> functions have arguments <code>labels</code> to rename <code>text</code>and <code>select</code> to show only some <code>points</code> and <code>text</code>. Now these functions are consistent and use first <code>labels</code> and then <code>select</code> using optionally changed labels. Concerns functions <code>ordilabel</code>, <code>ordipointlabel</code>, <code>orditorp</code> as well as <code>text</code> and <code>points</code> functions for <code>cca</code> and friends, <code>decorana</code>, <code>monoMDS</code>, <code>metaMDS</code> and <code>ordiplot</code>.</p>
+<p><code>text</code> functions for ordination graphics have arguments <code>labels</code> to rename <code>text</code>and <code>select</code> to show only some items. Now these functions are consistent and use first <code>select</code> and then <code>labels</code> for the selected subset. Concerns functions <code>ordilabel</code>, <code>ordipointlabel</code>, <code>orditorp</code> as well as <code>text</code> functions for <code>cca</code> and friends, <code>decorana</code>, <code>monoMDS</code>, <code>metaMDS</code> and <code>ordiplot</code>. See issue <a href="https://github.com/vegandevs/vegan/pull/730" class="external-link">#730</a>.</p>
 <p><code>orditorp</code>, <code>points.cca</code> and <code>text.cca</code> did not accept row names or <code>labels</code> in <code>select</code>. PR <a href="https://github.com/vegandevs/vegan/pull/729" class="external-link">#729</a>.</p>
 <p>Species scores can be added to <code>monoMDS</code> with <code>sppscores</code> function, and now these can be accessed in <code>points</code> and <code>text</code> functions.</p>
 </li>
@@ -1098,7 +1098,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer></div>
