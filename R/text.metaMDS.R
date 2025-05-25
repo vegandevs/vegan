@@ -4,10 +4,10 @@
 {
     display <- match.arg(display)
     x <- scores(x, display = display, choices = choices, shrink = shrink)
-    if (!missing(labels))
-        rownames(x) <- labels
     if (!missing(select))
         x <- .checkSelect(select, x)
+    if (!missing(labels))
+        rownames(x) <- labels
     text.ordiplot(x, what = display, labels = rownames(x), cex = cex, ...)
     invisible()
 }
