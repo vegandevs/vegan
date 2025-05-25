@@ -11,20 +11,19 @@
         display <- match.arg(display, names(x))
     sco <- scores(x, display = display, choices = choices, ...)
     kk <- complete.cases(sco)
+    if (!missing(select)) {
+        names(kk) <- rownames(sco)
+        sco <- .checkSelect(select, sco)
+        kk <- .checkSelect(select, kk)
+        if (!missing(priority) && length(priority) > NROW(sco))
+            priority <- priority[kk]
+    }
     if (missing(labels))
         labels <- rownames(sco)
     else
         rownames(sco) <- labels
     if (missing(priority))
         priority <- rowSums((scale(sco)^2))
-    if (!missing(select)) {
-        names(labels) <- labels
-        names(kk) <- labels
-        sco <- .checkSelect(select, sco)
-        labels <- .checkSelect(select, labels)
-        priority <- .checkSelect(select, priority)
-        kk <- .checkSelect(select, kk)
-    }
     ## remove NA scores
     sco <- sco[kk,, drop = FALSE]
     ## Handle pathological cases of no data and one label
