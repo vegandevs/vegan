@@ -92,7 +92,8 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
           indices of displayed items.}
 
   \item{labels}{Labels to be use used instead of row names. If
-    \code{labels} are given, they will also be used in \code{select}.}
+    \code{select} is used, labels are given only the selected items in
+    the order they occur in the scores.}
 
   \item{\dots}{Other parameters to the functions (ignored in
     \code{monoMDS}, passed to graphical functions in \code{plot}.).}

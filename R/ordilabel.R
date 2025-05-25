@@ -6,15 +6,14 @@
     if (missing(display))
         display <- "sites"
     sco <- scores(x, choices = choices, display = display, ...)
-    if (missing(labels))
-        labels <- rownames(sco)
     if (!missing(select)) {
         sco <- .checkSelect(select, sco)
-        labels <- .checkSelect(select, labels)
+        if (!missing(priority) && length(priority) > NROW(sco))
+            priority <- .checkSelect(select, priority)
     }
+    if (missing(labels))
+        labels <- rownames(sco)
     if (!missing(priority)) {
-        if (!missing(select))
-            priority <- priority[select]
         ord <- order(priority)
         sco <- sco[ord, ]
         labels <- labels[ord]

@@ -20,13 +20,16 @@ ordilabel(x, display, labels, choices = c(1, 2), priority, select,
     \code{\link{scores}}. }
   \item{display}{Kind of scores displayed (passed to
     \code{\link{scores}}). }
-  \item{labels}{Optional text used in plots instead of the default.  If
-    this is given, these labels are also used in \code{select}.}
+  
+  \item{labels}{Optional text used in plots instead of the default. If
+    \code{select} is given, the labels are given only to selected items
+    in the order they occur in the scores.}
 
   \item{choices}{Axes shown (passed to \code{\link{scores}}). }
 
-  \item{priority}{Vector of the same length as the number of
-    labels. The items with high priority will be plotted uppermost.}
+  \item{priority}{Vector of the same length as the number of scores or
+    selected items. The items with high priority will be plotted
+    uppermost.}
 
   \item{select}{Items to be displayed. This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of

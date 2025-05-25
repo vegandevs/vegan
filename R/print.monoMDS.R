@@ -66,10 +66,10 @@
     function(x, display = "sites", labels, choices = c(1,2), select, ...)
 {
     x <- scores(x, display = display, choices = choices)
-    if (!missing(labels))
-        rownames(x) <- labels
     if (!missing(select))
         x <- .checkSelect(select, x)
+    if (!missing(labels))
+        rownames(x) <- labels
     text.ordiplot(x, what = "sites", labels = rownames(x), ...)
     invisible()
 }

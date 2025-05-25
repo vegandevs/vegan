@@ -51,7 +51,8 @@ downweight(veg, fraction = 5)
   \item{type}{Type of plots, partial match to \code{"text"},
     \code{"points"} or \code{"none"}.}
   \item{labels}{Optional text to be used instead of row names. If
-    \code{labels} are given, they will also be used in \code{select}.}
+    \code{select} is used, labels are given only to selected items in
+    the order they occur in the scores.}
   \item{select}{Items to be displayed.  This can either be a logical
     vector which is \code{TRUE} for displayed items or a vector of indices
     or names (labels) of scores.}

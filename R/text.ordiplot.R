@@ -3,10 +3,10 @@
               length = 0.05, arr.mul, bg, ...)
 {
     sco <- scores(x, display = what)
-    if (!missing(labels))
-        rownames(sco) <- labels
     if (!missing(select))
         sco <- .checkSelect(select, sco)
+    if (!missing(labels))
+        rownames(sco) <- labels
     if (!missing(arr.mul)) {
         arrows <- TRUE
         sco <- sco * arr.mul

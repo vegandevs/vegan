@@ -34,6 +34,15 @@
     }
     if (!add)
         pl <- ordiplot(xy, display = "sites", type="n")
+
+    ## keep only 'select': applicable only if there was only one
+    ## set of scores
+    if(!missing(select)) {
+        if(identical(length(display), 1L)) {
+            xy <- .checkSelect(select, xy)
+        } else
+            warning("'select' can be used only with one set of scores: ignoring 'select'")
+    }
     if (!missing(labels)) {
             if (length(labels) != nrow(xy)) {
             stop(gettextf(
@@ -43,15 +52,6 @@
         rownames(xy) <- labels
     } else {
         labels <- rownames(xy)
-    }
-    ## keep only 'select': applicable only if there was only one
-    ## set of scores
-    if(!missing(select)) {
-        if(identical(length(display), 1L)) {
-            xy <- .checkSelect(select, xy)
-            labels <- rownames(xy)
-        } else
-            warning("'select' can be used only with one set of scores: ignoring 'select'")
     }
     ## our algorithm needs at least three items
     if (nrow(xy) < 3) {

@@ -111,10 +111,10 @@
     setting frames only.  If omitted, \code{text} is selected for
     smaller data sets, and \code{points} for larger.}
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
-  \item{labels}{Optional text to be used instead of row names. If you
-    use this, it is good to check the default labels and their order
-    using \code{labels} command. If \code{labels} are given, they will
-    also be used in \code{select}.}
+    \item{labels}{Optional text to be used for selected items instead of
+    row names. If you use this, it is good to check the default labels
+    and their order using \code{labels} command. If \code{select} is
+    given, give \code{labels} only to the selected items.}
   \item{arrow.mul}{Factor to expand arrows in the graph.  Arrows will be
     scaled automatically to fit the graph if this is missing.}
   \item{head.arrow}{Default length of arrow heads.}
