@@ -69,13 +69,13 @@
   The new features are more extensively described in help pages of
   `plot.cca`, `ordiplot` and `biplot.rda`.
 
-* `text` and `points` functions have arguments `labels` to rename
-  `text`and `select` to show only some `points` and `text`. Now these
-  functions are consistent and use first `labels` and then `select`
-  using optionally changed labels. Concerns functions `ordilabel`,
-  `ordipointlabel`, `orditorp` as well as `text` and `points`
-  functions for `cca` and friends, `decorana`, `monoMDS`, `metaMDS`
-  and `ordiplot`.
+* `text` functions for ordination graphics have arguments `labels` to
+  rename `text`and `select` to show only some items. Now these
+  functions are consistent and use first `select` and then `labels`
+  for the selected subset. Concerns functions `ordilabel`,
+  `ordipointlabel`, `orditorp` as well as `text` functions for `cca`
+  and friends, `decorana`, `monoMDS`, `metaMDS` and `ordiplot`. See
+  issue [#730](https://github.com/vegandevs/vegan/pull/730).
 
   `orditorp`, `points.cca` and `text.cca` did not accept row names or
   `labels` in `select`. PR
