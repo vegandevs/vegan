@@ -24,7 +24,7 @@ orditorp(x, display, labels, choices = c(1, 2), priority,
     \code{"species"}.  }
   \item{labels}{ Optional text used for labels. Row names of scores will
     be used if this is missing. If \code{select} is used, labels are
-    given only selected items. }
+    given only selected items in the order they occur in the scores. }
   \item{choices}{ Axes shown.}
   \item{priority}{ Text will be used for items with higher priority
     if labels overlap.  This should be vector of the same
@@ -83,14 +83,16 @@ plot(mod, dis="sp", type="t")
 cnam <- make.cepnames(names(BCI))
 plot(mod, dis="sp", type="n")
 stems <- colSums(BCI)
-orditorp(mod, "sp", label = cnam, priority=stems, pch="+", pcol="grey")
+orditorp(mod, "sp", labels = cnam, priority=stems, pch="+", pcol="grey")
 
 ## show select in action
 set.seed(1)
 take <- sample(ncol(BCI), 50)
 plot(mod, dis="sp", type="n")
 stems <- colSums(BCI)
-orditorp(mod, "sp", label = cnam, priority=stems, select = take,
+## only selected items are labelled, and the labels must be in the some
+## order as in the scores
+orditorp(mod, "sp", labels = cnam[sort(take)], priority=stems, select = take,
          pch="+", pcol="grey")
 \dontshow{
 ## example(orditorp) should not set random seed in the user session
