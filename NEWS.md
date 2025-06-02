@@ -16,20 +16,17 @@
 
 ## New Functions
 
-* A set of functions to add new points to an existing NMDS ordination
-  from `metaMDS` or `monoMDS`. This serves the same purpose as adding
-  new points to an existing eigenvector ordination (for instance,
-  `predict.rda`). The main function is `MDSaddpoints`. This needs as
-  an input rectangular matrix of dissimilarities of all new points
-  (rows) to all old points (columns). Support function `dist2xy` can
-  extract needed matrices from dissimilarities of all (old and new)
-  points, and function `designdist2` can directly find the needed
-  dissimilarities between two data matrices. In addition, **analogue**
-  package can calculate such rectangular dissimilarities, including
-  many indices that cannot be defined with `designdist2`.
-  
-  The function is still experimental. In particular the user interface
-  may need development. Comments are welcome.
+* Added a set of functions to add new points to an existing NMDS
+  ordination from `metaMDS` or `monoMDS`. This serves the same purpose
+  as adding new points to an existing eigenvector ordination (for
+  instance, `predict.rda`). The main function is `MDSaddpoints`. This
+  needs an input of rectangular matrix of dissimilarities of all new
+  points (rows) to all old points (columns). Support function
+  `dist2xy` can extract needed matrices from dissimilarities of all
+  (old and new) points, and function `designdist2` can directly find
+  the needed dissimilarities between two data matrices. In addition,
+  **analogue** package can calculate such rectangular dissimilarities,
+  including many indices that cannot be defined with `designdist2`.
 
 * `betadistances`: new functions to find distances of points to
   group centroids in `betadisper`.  See
@@ -49,7 +46,7 @@
 
   `text.ordiplot` and hence `plot.cca` gained argument `optimize` that
   will call `ordipointlabel` to optimize the location of the text to
-  minimize over-writing, but mark the real scores with a point.
+  minimize over-writing, but mark the exact score with a point.
 
   `text.ordiplot` and hence `plot.cca` gained argument `bg=<colour>`
   that will plot text over non-transparent label using `ordilabel`.
@@ -103,11 +100,12 @@
 * Robust Aitchison distance uses matrix completion to estimate the
   missing values (`-Inf`) that result from log transformation of the
   zero entries of the original input data. Earlier we used only above
-  zero values, or in simple Aithcison distance replaced zeros with an
+  zero values, or in simple Aitchison distance replaced zeros with an
   arbitrary pseudocount. For matrix completion **vegan** adds new
-  function `optspace` which also can be used independently. The
-  Robust Aitchison distance is directly evaluated in `vegdist`, and
-  the needed transformation can be performed in `decostand`. 
+  function `optspace` which also can be used independently. The Robust
+  Aitchison distance is directly evaluated in `vegdist`, and the
+  needed transformation can be performed in `decostand`. PR
+  [667](https://github.com/vegandevs/vegan/pull/667).
 
 * `ordiR2step` calls current model `<model>` instead of `<none>`.
 
@@ -124,8 +122,7 @@
   be based on scaled data.
 
 * `make.cepnames` was completely re-designed and is much more flexible
-  with enhanced user-control. The function is now based solely on
-  `abbreviate`.
+  with enhanced user-control.
 
 * `wascores` can now calculate (unbiased) weighted standard deviation
   of weighted averages with argument `stdev = TRUE`.
@@ -163,7 +160,7 @@
 * `summary.decorana` is defunct. It did nothing useful, but you can
   extract the same information with `scores` and `weights`.
 
-* `orditkplot` was moved to **vega3d** package and is defunct in
+* `orditkplot` was moved to **vegan3d** package and is defunct in
   **vegan**.
 
 * relic function `vegandocs` is officially defunct. Better tools to
