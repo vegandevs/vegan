@@ -100,6 +100,15 @@
   https://stackoverflow.com/questions/79613784/ and issue
   [#682](https://github.com/vegandevs/vegan/issues/682).
 
+* Robust Aitchison distance uses matrix completion to estimate the
+  missing values (`-Inf`) that result from log transformation of the
+  zero entries of the original input data. Earlier we used only above
+  zero values, or in simple Aithcison distance replaced zeros with an
+  arbitrary pseudocount. For matrix completion **vegan** adds new
+  function `optspace` which also can be used independently. The
+  Robust Aitchison distance is directly evaluated in `vegdist`, and
+  the needed transformation can be performed in `decostand`. 
+
 * `ordiR2step` calls current model `<model>` instead of `<none>`.
 
 * `densityplot.permustats` did not know argument `observed` to control
