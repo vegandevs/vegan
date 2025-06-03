@@ -46,7 +46,7 @@
 <div class="section level3">
 <h3 id="new-functions-2-7-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-7-0"></a></h3>
 <ul><li><p>Added a set of functions to add new points to an existing NMDS ordination from <code>metaMDS</code> or <code>monoMDS</code>. This serves the same purpose as adding new points to an existing eigenvector ordination (for instance, <code>predict.rda</code>). The main function is <code>MDSaddpoints</code>. This needs an input of rectangular matrix of dissimilarities of all new points (rows) to all old points (columns). Support function <code>dist2xy</code> can extract needed matrices from dissimilarities of all (old and new) points, and function <code>designdist2</code> can directly find the needed dissimilarities between two data matrices. In addition, <strong>analogue</strong> package can calculate such rectangular dissimilarities, including many indices that cannot be defined with <code>designdist2</code>.</p></li>
-<li><p><code>betadistances</code>: new functions to find distances of points to group centroids in <code>betadisper</code>. See (<a href="https://stackoverflow.com/questions/77391007/" class="external-link uri">https://stackoverflow.com/questions/77391007/</a>) and issue <a href="https://github.com/vegandevs/vegan/issues/606" class="external-link">#606</a>.</p></li>
+<li><p><code>betadistances</code>: new functions to find distances of points to group centroids in <code>betadisper</code>. See <a href="https://stackoverflow.com/questions/77391007/" class="external-link uri">https://stackoverflow.com/questions/77391007/</a> and issue <a href="https://github.com/vegandevs/vegan/issues/606" class="external-link">#606</a>.</p></li>
 <li><p><code>permulattice</code>: new function to use lattice graphics for <code>permustats</code> results without need to first issue <code><a href="https://lattice.r-forge.r-project.org/" class="external-link">library(lattice)</a></code>.</p></li>
 </ul></div>
 <div class="section level3">
@@ -357,7 +357,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-5-3">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-5-3"></a></h3>
-<ul><li><p><code>anosim</code> checks its input to avoid confusing error messages like that reported in <a href="https://stackoverflow.com/questions/52082743/" class="external-link">StackOverflow question 52082743</a>.</p></li>
+<ul><li><p><code>anosim</code> checks its input to avoid confusing error messages like that reported in <a href="https://stackoverflow.com/questions/52082743/" class="external-link uri">https://stackoverflow.com/questions/52082743/</a>.</p></li>
 <li><p>Broken-stick distribution (function <code>bstick</code>) is no longer calculated for distance-based Redundancy Analysis (<code>dbrda</code>) with negative eigenvalues, because it is not clear how this should be done. Now <code>dbrda</code> and <code>capscale</code> are similar with this respect.</p></li>
 <li><p><code>print</code> function for <code>betadisper</code> results gained new argument <code>neigen</code> to select the number of eigenvalues shown. The <code>print</code> is more robust when the number of eigenvalues is lower than the requested <code>neigen</code>.</p></li>
 </ul></div>
@@ -372,11 +372,11 @@
 <h3 id="installation-and-compatibility-2-5-2">Installation and Compatibility<a class="anchor" aria-label="anchor" href="#installation-and-compatibility-2-5-2"></a></h3>
 <ul><li><p>Vegan declares dependence on <strong>R</strong> version 3.2.0. This dependence was not yet noticed in the previous vegan release. However, the generic <code>sigma</code> function was only defined in <strong>R</strong>-3.3.0, and therefore <code>sigma.cca</code> of vegan must be spelt out completely when using <strong>R</strong>-3.2.x. See discussion in issue <a href="https://github.com/vegandevs/vegan/issues/274" class="external-link">#274</a>.</p></li>
 <li><p>CRAN package <a href="https://CRAN.R-project.org/package=klaR" class="external-link">klaR</a> has function <code>rda</code>, and when loaded together with vegan this clashes with vegan <code>rda</code> for Redundancy Analysis. Vegan tries to mitigate the problem. In most cases vegan functions will be used if vegan was loaded after klaR, and an error message is issued if klaR objects are handled with vegan functions. klaR is also tricked to print an informative message if it handles vegan objects. However, vegan namespace can be attached automatically at the start-up and then klaR functions will take precedence. This was reported as issue <a href="https://github.com/vegandevs/vegan/issues/277" class="external-link">#277</a>.</p></li>
-<li><p>Bioconductor package phyloseq has a problem with <code>vegdist</code> function for dissimilarities. The problem can be fixed by re-installing phyloseq from its <em>source package</em>. If you cannot do this, you must either downgrade to vegan version 2.4-6 or wait till Bioconductor binary packages are upgraded. This was reported in <a href="https://stackoverflow.com/questions/49882886/" class="external-link">Stackoverflow</a>, and as vegan issue <a href="https://github.com/vegandevs/vegan/issues/272" class="external-link">#272</a>, and as phyloseq issues <a href="https://github.com/joey711/phyloseq/issues/918" class="external-link">#918</a> and <a href="https://github.com/joey711/phyloseq/issues/921" class="external-link">#921</a>.</p></li>
+<li><p>Bioconductor package phyloseq has a problem with <code>vegdist</code> function for dissimilarities. The problem can be fixed by re-installing phyloseq from its <em>source package</em>. If you cannot do this, you must either downgrade to vegan version 2.4-6 or wait till Bioconductor binary packages are upgraded. This was reported in <a href="https://stackoverflow.com/questions/49882886/" class="external-link uri">https://stackoverflow.com/questions/49882886/</a>, and as vegan issue <a href="https://github.com/vegandevs/vegan/issues/272" class="external-link">#272</a>, and as phyloseq issues <a href="https://github.com/joey711/phyloseq/issues/918" class="external-link">#918</a> and <a href="https://github.com/joey711/phyloseq/issues/921" class="external-link">#921</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-5-2">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-5-2"></a></h3>
-<ul><li><p>Plotting <code>betadisper</code> failed if any of the <code>groups</code> had only one member. Reported in Stackoverflow as <a href="https://stackoverflow.com/questions/50267430/" class="external-link">“Error: Incorrect no.of dimensions” when plotting multivariate data in Vegan</a>.</p></li>
+<ul><li><p>Plotting <code>betadisper</code> failed if any of the <code>groups</code> had only one member. Reported in <a href="https://stackoverflow.com/questions/50267430/" class="external-link uri">https://stackoverflow.com/questions/50267430/</a>.</p></li>
 <li><p>Permutation tests for constrained ordination (<code>anova.cca</code>, <code>permutest.cca</code>) could fail in parallel processing with socket clusters. Socket clusters are always used in Windows and they can also be used in other operating systems when created with <code>makeCluster</code>. See issue <a href="https://github.com/vegandevs/vegan/issues/276" class="external-link">#276</a>.</p></li>
 </ul></div>
 </div>
@@ -437,7 +437,7 @@
 <li><p><code>ordicluster</code> gained option to suppress drawing in plots so that it can be more easily embedded in other functions for calculations.</p></li>
 <li><p><code>as.rad</code> returns the index of included taxa as an attribute.</p></li>
 <li><p>Random rarefaction (function <code>rrarefy</code>) uses compiled C code and is much faster.</p></li>
-<li><p><code>plot</code> of <code>specaccum</code> can draw short horizontal bars to vertical error bars. See StackOverflow question <a href="https://stackoverflow.com/questions/45378751" class="external-link">45378751</a>.</p></li>
+<li><p><code>plot</code> of <code>specaccum</code> can draw short horizontal bars to vertical error bars. See <a href="https://stackoverflow.com/questions/45378751" class="external-link uri">https://stackoverflow.com/questions/45378751</a>.</p></li>
 <li><p><code>decostand</code> gained new standardization methods <code>rank</code> and <code>rrank</code> which replace abundance values by their ranks or relative ranks. See github issue <a href="https://github.com/vegandevs/vegan/issues/225" class="external-link">#225</a>.</p></li>
 <li><p>Clark dissimilarity was added to <code>vegdist</code> (this cannot be calculated with <code>designdist</code>).</p></li>
 <li><p><code>designdist</code> evaluates minimum terms in compiled code, and the function is faster than <code>vegdist</code> also for dissimilarities using minimum terms. Although <code>designdist</code> is usually faster than <code>vegdist</code>, it is numerically less stable, in particular with large data sets.</p></li>
@@ -448,8 +448,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-5-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-5-1"></a></h3>
-<ul><li><p>Very long <code>Condition()</code> statements (&gt; 500 characters) failed in partial constrained ordination models (<code>cca</code>, <code>rda</code>, <code>dbrda</code>, <code>capscale</code>). The problem was detected in StackOverflow question <a href="https://stackoverflow.com/questions/49249816" class="external-link">49249816</a>.</p></li>
-<li><p>Labels were not adjusted when arrows were rescaled in <code>envfit</code> plots. See StackOverflow question <a href="https://stackoverflow.com/questions/49259747" class="external-link">49259747</a>.</p></li>
+<ul><li><p>Very long <code>Condition()</code> statements (&gt; 500 characters) failed in partial constrained ordination models (<code>cca</code>, <code>rda</code>, <code>dbrda</code>, <code>capscale</code>). The problem was detected in <a href="https://stackoverflow.com/questions/49249816" class="external-link uri">https://stackoverflow.com/questions/49249816</a>.</p></li>
+<li><p>Labels were not adjusted when arrows were rescaled in <code>envfit</code> plots. See <a href="https://stackoverflow.com/questions/49259747" class="external-link uri">https://stackoverflow.com/questions/49259747</a>.</p></li>
 <li><p><code>ordiArrowMul</code> failed if there was only one arrow to be plotted in <code>envfit</code>.</p></li>
 </ul></div>
 <div class="section level3">
@@ -485,7 +485,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-4-5">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-4-5"></a></h3>
-<ul><li><p><code>ordistep</code> has improved interpretation of <code>scope</code>: if the lower scope is missing, the formula of the starting solution is taken as the lower scope instead of using an empty model. See Stackoverflow question <a href="https://stackoverflow.com/questions/46985029/" class="external-link">46985029</a>.</p></li>
+<ul><li><p><code>ordistep</code> has improved interpretation of <code>scope</code>: if the lower scope is missing, the formula of the starting solution is taken as the lower scope instead of using an empty model. See <a href="https://stackoverflow.com/questions/46985029/" class="external-link uri">https://stackoverflow.com/questions/46985029/</a>.</p></li>
 <li><p><code>fitspecaccum</code> gained new support functions <code>nobs</code> and <code>logLik</code> which allow better co-operation with other packages and functions. See GitHub issue <a href="https://github.com/vegandevs/vegan/issues/250" class="external-link">#250</a>.</p></li>
 <li><p>The “backtracking” null model for community simulation is faster. However, “backtracking” is a biased legacy model that should not be used except in comparative studies.</p></li>
 </ul></div>
@@ -500,7 +500,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-2-4-4">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-4-4"></a></h3>
 <ul><li><p><code>anova(..., by = "axis")</code> for constrained ordination (<code>cca</code>, <code>rda</code>, <code>dbrda</code>) ignored partial terms in <code>Condition()</code>.</p></li>
-<li><p><code>inertcomp</code> and <code>summary.cca</code> failed if the constrained component was defined, but explained nothing and had zero rank. See StackOverflow: <a href="https://stackoverflow.com/questions/43683699/" class="external-link">R - Error message in doing RDA analysis - vegan package</a>.</p></li>
+<li><p><code>inertcomp</code> and <code>summary.cca</code> failed if the constrained component was defined, but explained nothing and had zero rank. See <a href="https://stackoverflow.com/questions/43683699/" class="external-link uri">https://stackoverflow.com/questions/43683699/</a>.</p></li>
 <li><p>Labels are no longer cropped in the <code>meandist</code> plots.</p></li>
 </ul></div>
 <div class="section level3">
@@ -676,7 +676,7 @@
 <ul><li><p><code>metaMDS</code> and <code>monoMDS</code> could fail if input dissimilarities were huge: in the reported case they were of magnitude 1E85. Fixes issue <a href="https://github.com/vegandevs/vegan/issues/152" class="external-link">#152</a> in Github.</p></li>
 <li><p>Permutations failed if they were defined as <a href="https://CRAN.R-project.org/package=permute" class="external-link">permute</a> control structures in <code>estaccum</code>, <code>ordiareatest</code>, <code>renyiaccum</code> and <code>tsallisaccum</code>. Reported by Dan Gafta (Cluj-Napoca) for <code>renyiaccum</code>.</p></li>
 <li><p><code>rarefy</code> gave false warnings if input was a vector or a single sampling unit.</p></li>
-<li><p>Some extrapolated richness indices in <code>specpool</code> needed the number of doubletons (= number of species occurring in two sampling units), and these failed when only one sampling unit was supplied. The extrapolated richness cannot be estimated from a single sampling unit, but now such cases are handled smoothly instead of failing: observed non-extrapolated richness with zero standard error will be reported. The issue was reported in <a href="https://stackoverflow.com/questions/34027496/" class="external-link">StackOverflow</a>.</p></li>
+<li><p>Some extrapolated richness indices in <code>specpool</code> needed the number of doubletons (= number of species occurring in two sampling units), and these failed when only one sampling unit was supplied. The extrapolated richness cannot be estimated from a single sampling unit, but now such cases are handled smoothly instead of failing: observed non-extrapolated richness with zero standard error will be reported. The issue was reported in <a href="https://stackoverflow.com/questions/34027496/" class="external-link uri">https://stackoverflow.com/questions/34027496/</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-3-3">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-3-3"></a></h3>
@@ -710,7 +710,7 @@
 <li><p>Constrained ordination methods <code>cca</code>, <code>rda</code> and <code>capscale</code> treat character variables as factors in analysis, but did not return their centroids for plotting.</p></li>
 <li><p>Recovery of original data in <code>metaMDS</code> when computing WA scores for species would fail if the expression supplied to argument <code>comm</code> was long &amp; got deparsed to multiple strings. <code>metaMDSdist</code> now returns the (possibly modified) data frame of community data <code>comm</code> as attribute <code>"comm"</code> of the returned <code>dist</code> object. <code>metaMDS</code> now uses this to compute the WA species scores for the NMDS. In addition, the deparsed expression for <code>comm</code> is now robust to long expressions. Reported by Richard Telford.</p></li>
 <li><p><code>metaMDS</code> and <code>monoMDS</code> rejected dissimilarities with missing values.</p></li>
-<li><p>Function <code>rarecurve</code> did not check its input and this could cause confusing error messages. Now function checks that input data are integers that can be interpreted as counts on individuals and all sampling units have some species. Unchecked bad inputs were the reason for problems reported in <a href="https://stackoverflow.com/questions/30856909/" class="external-link">Stackoverflow</a>.</p></li>
+<li><p>Function <code>rarecurve</code> did not check its input and this could cause confusing error messages. Now function checks that input data are integers that can be interpreted as counts on individuals and all sampling units have some species. Unchecked bad inputs were the reason for problems reported in <a href="https://stackoverflow.com/questions/30856909/" class="external-link uri">https://stackoverflow.com/questions/30856909/</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-and-functions-2-3-1">New Features and Functions<a class="anchor" aria-label="anchor" href="#new-features-and-functions-2-3-1"></a></h3>
