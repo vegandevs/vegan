@@ -30,7 +30,7 @@
 
 * `betadistances`: new functions to find distances of points to
   group centroids in `betadisper`.  See
-  (https://stackoverflow.com/questions/77391007/) and issue
+  https://stackoverflow.com/questions/77391007/ and issue
   [#606](https://github.com/vegandevs/vegan/issues/606).
 
 * `permulattice`: new function to use lattice graphics for
@@ -540,7 +540,7 @@
   there is an attempt to keep original zeros exact. Back-transformation
   is not possible for methods `pa`, `rank` and `rrank` and it is not
   implemented for `alr`. Back-transformation queried in
-  <https://stackoverflow.com/questions/73263526/>
+  https://stackoverflow.com/questions/73263526/
 
 * Rarefaction and rarefaction-based methods make sense only with
   original observed counts and give misleading results if data are
@@ -568,7 +568,7 @@
 
 * `scores` failed when `metaMDS` result had no species scores. Bug was
   introduced in release 2\.6-2\. Issue raised in
-  <https://stackoverflow.com/questions/72483924/>
+  https://stackoverflow.com/questions/72483924/
 
 * `tolerance.cca` failed when only one axis (`choice`) was requested.
 
@@ -630,7 +630,7 @@
 
 * `metaMDS` adopted a more user-friendly policy, and `trymax` will
   always be the maximum number of tries. See dicussion in
-  <https://stackoverflow.com/questions/66748605/>.
+  https://stackoverflow.com/questions/66748605/.
 
 * `adonis2` accepts `strata`. `adonis2` is the new main function that
   replaces old `adonis`. See issue
@@ -668,13 +668,13 @@
   [\#369](https://github.com/vegandevs/vegan/issues/369).
 
 * `orditorp` failed if numeric labels were supplied. Reported in
-  <https://stackoverflow.com/questions/69272366/>.
+  https://stackoverflow.com/questions/69272366/.
 
 * Argument `summarize` was accidentally dropped from `goodness.cca` in
   2017\.
 
 * `taxa2dist` failed if there was only one usable taxonomic level. See
-  <https://stackoverflow.com/questions/67231431/>.
+  https://stackoverflow.com/questions/67231431/.
 
 ## Deprecated and Defunct
 
@@ -878,8 +878,7 @@
 ## New Features
 
 * `anosim` checks its input to avoid confusing error messages like that
-  reported in [StackOverflow question
-  52082743](https://stackoverflow.com/questions/52082743/).
+  reported in https://stackoverflow.com/questions/52082743/.
 
 * Broken-stick distribution (function `bstick`) is no longer calculated
   for distance-based Redundancy Analysis (`dbrda`) with negative
@@ -923,7 +922,7 @@
   phyloseq from its *source package*. If you cannot do this, you must
   either downgrade to vegan version 2\.4-6 or wait till Bioconductor
   binary packages are upgraded. This was reported in
-  [Stackoverflow](https://stackoverflow.com/questions/49882886/), and as
+  https://stackoverflow.com/questions/49882886/, and as
   vegan issue [\#272](https://github.com/vegandevs/vegan/issues/272),
   and as phyloseq issues
   [\#918](https://github.com/joey711/phyloseq/issues/918) and
@@ -932,9 +931,7 @@
 ## Bug Fixes
 
 * Plotting `betadisper` failed if any of the `groups` had only one
-  member. Reported in Stackoverflow as [“Error: Incorrect no.of
-  dimensions” when plotting multivariate data in
-  Vegan](https://stackoverflow.com/questions/50267430/).
+  member. Reported in https://stackoverflow.com/questions/50267430/.
 
 * Permutation tests for constrained ordination (`anova.cca`,
   `permutest.cca`) could fail in parallel processing with socket
@@ -1135,8 +1132,7 @@
   much faster.
 
 * `plot` of `specaccum` can draw short horizontal bars to vertical error
-  bars. See StackOverflow question
-  [45378751](https://stackoverflow.com/questions/45378751).
+  bars. See https://stackoverflow.com/questions/45378751.
 
 * `decostand` gained new standardization methods `rank` and `rrank`
   which replace abundance values by their ranks or relative ranks. See
@@ -1172,12 +1168,11 @@
 
 * Very long `Condition()` statements (\> 500 characters) failed in
   partial constrained ordination models (`cca`, `rda`, `dbrda`,
-  `capscale`). The problem was detected in StackOverflow question
-  [49249816](https://stackoverflow.com/questions/49249816).
+  `capscale`). The problem was detected in
+  https://stackoverflow.com/questions/49249816.
 
 * Labels were not adjusted when arrows were rescaled in `envfit` plots.
-  See StackOverflow question
-  [49259747](https://stackoverflow.com/questions/49259747).
+  See https://stackoverflow.com/questions/49259747.
 
 * `ordiArrowMul` failed if there was only one arrow to be plotted in
   `envfit`.
@@ -1246,8 +1241,8 @@
 
 * `ordistep` has improved interpretation of `scope`: if the lower scope
   is missing, the formula of the starting solution is taken as the lower
-  scope instead of using an empty model. See Stackoverflow question
-  [46985029](https://stackoverflow.com/questions/46985029/).
+  scope instead of using an empty model. See
+  https://stackoverflow.com/questions/46985029/.
 
 * `fitspecaccum` gained new support functions `nobs` and `logLik` which
   allow better co-operation with other packages and functions. See
@@ -1269,9 +1264,8 @@
   `dbrda`) ignored partial terms in `Condition()`.
 
 * `inertcomp` and `summary.cca` failed if the constrained component was
-  defined, but explained nothing and had zero rank. See StackOverflow:
-  [R - Error message in doing RDA analysis - vegan
-  package](https://stackoverflow.com/questions/43683699/).
+  defined, but explained nothing and had zero rank. See
+  https://stackoverflow.com/questions/43683699/.
 
 * Labels are no longer cropped in the `meandist` plots.
 
@@ -1685,8 +1679,7 @@
   extrapolated richness cannot be estimated from a single sampling unit,
   but now such cases are handled smoothly instead of failing: observed
   non-extrapolated richness with zero standard error will be reported.
-  The issue was reported in
-  [StackOverflow](https://stackoverflow.com/questions/34027496/).
+  The issue was reported in https://stackoverflow.com/questions/34027496/.
 
 ## New Features
 
@@ -1778,8 +1771,7 @@
   confusing error messages. Now function checks that input data are
   integers that can be interpreted as counts on individuals and all
   sampling units have some species. Unchecked bad inputs were the reason
-  for problems reported in
-  [Stackoverflow](https://stackoverflow.com/questions/30856909/).
+  for problems reported in https://stackoverflow.com/questions/30856909/.
 
 ## New Features and Functions
 
