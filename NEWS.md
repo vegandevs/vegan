@@ -1,4 +1,4 @@
-# vegan 2.7-0 (in development)
+# vegan 2.7-0 (release candidate)
 
 ## Installation
 
@@ -36,7 +36,10 @@
 * `permulattice`: new function to use lattice graphics for
   `permustats` results without need to first issue `library(lattice)`.
 
-## New Features
+* `optspace`: a new function for matrix completion. The function is
+  used in robust Aitchison distance (see below).
+
+## New Features in Ordination Graphics
 
 * `plot.cca` graphics can be configured. `plot.cca` had hard-coded
   graphical parameters and user arguments were ignored (see issue
@@ -88,6 +91,8 @@
   but avoiding corner positions.
   
 * `orditorp` can be used in pipe.
+
+## New Features in Other Functions
 
 * Constrained ordination models (`cca`, `rda`, `dbrda`) inform users
   on completely aliased conditions or constraints, and behave more
