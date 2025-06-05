@@ -1,4 +1,4 @@
-# vegan 2.7-0 (release candidate)
+# vegan 2.7-1
 
 ## Installation
 
@@ -36,8 +36,9 @@
 * `permulattice`: new function to use lattice graphics for
   `permustats` results without need to first issue `library(lattice)`.
 
-* `optspace`: a new function for matrix completion. The function is
-  used in robust Aitchison distance (see below).
+* `optspace`: a new function for matrix completion or filling a matrix
+  with missing elements. The function is used in robust Aitchison
+  distance (see below).
 
 ## New Features in Ordination Graphics
 
@@ -47,27 +48,27 @@
   graphical parameters can be given either for all score types, or
   with a list of graphical parameters for a specific score.
 
-  `text.ordiplot` and hence `plot.cca` gained argument `optimize` that
+  The new features are more extensively described in help pages of
+  `plot.cca`, `ordiplot` and `biplot.rda`.
+
+* `text.ordiplot` and hence `plot.cca` gained argument `optimize` that
   will call `ordipointlabel` to optimize the location of the text to
   minimize over-writing, but mark the exact score with a point.
 
-  `text.ordiplot` and hence `plot.cca` gained argument `bg=<colour>`
+* `text.ordiplot` and hence `plot.cca` gained argument `bg=<colour>`
   that will plot text over non-transparent label using `ordilabel`.
 
-  Alternatively ordination plots can be built up adding each score
-  type in piped commands. Pipes were available since release 2.5-1,
+* Alternatively ordination plots can be built up adding each score
+  type in piped commands. Pipes were available since **vegan** 2.5-1,
   but their use is now improved: `ordilabel` can be used in a pipe,
   `text` can use opaque background label, and `text` and `points`
   function (for `ordiplot`) gained argument for adjusting arrow
-  lengths similarly as these functions for `cca`.
+  lengths similarly as in `cca`.
 
-  `text.cca` and `points.cca` were completely redesigned because of
+* `text.cca` and `points.cca` were completely redesigned because of
   the concerns raised in PR
   [#729](https://github.com/vegandevs/vegan/pull/729). Support
   function `labels.cca` now accepts abbreviated names of score types.
-
-  The new features are more extensively described in help pages of
-  `plot.cca`, `ordiplot` and `biplot.rda`.
 
 * `text` functions for ordination graphics have arguments `labels` to
   rename `text`and `select` to show only some items. Now these
@@ -97,10 +98,10 @@
 * Constrained ordination models (`cca`, `rda`, `dbrda`) inform users
   on completely aliased conditions or constraints, and behave more
   robustly with these degenerate cases. If a model component
-  (condition, constrained) is completely aliased, it still appears in
-  summary table with rank and inertia 0. See
-  https://stackoverflow.com/questions/79613784/ and issue
-  [#682](https://github.com/vegandevs/vegan/issues/682).
+  (condition, constrained, residual unconstrained) is completely
+  aliased, it still appears in summary table with rank and
+  inertia 0. See https://stackoverflow.com/questions/79613784/ and
+  issue [#682](https://github.com/vegandevs/vegan/issues/682).
 
 * Robust Aitchison distance uses matrix completion to estimate the
   missing values (`-Inf`) that result from log transformation of the
@@ -110,12 +111,9 @@
   function `optspace` which also can be used independently. The Robust
   Aitchison distance is directly evaluated in `vegdist`, and the
   needed transformation can be performed in `decostand`. PR
-  [667](https://github.com/vegandevs/vegan/pull/667).
+  [#667](https://github.com/vegandevs/vegan/pull/667).
 
 * `ordiR2step` calls current model `<model>` instead of `<none>`.
-
-* `densityplot.permustats` did not know argument `observed` to control
-  including and showing the observed statistic.
 
 * `vegemite` and `tabasco` can now `use` a factor to show a
   classification. The factor levels and sites within levels can be
@@ -146,10 +144,13 @@
   influences many diagnostic statistics documented together with
   `cooks.distance.cca` and `rstandard.cca`.
 
+* `densityplot.permustats` did not know argument `observed` to display
+  the observed statistic.
+
 ## Deprecated and Defunct
 
-* Disabled use of `summary` to get ordination scores: use `scores`!
-  For `summary.cca` see
+* Disabled use of `summary` to get ordination scores: use `scores` to
+  get scores!  For `summary.cca` see
   [#644](https://github.com/vegandevs/vegan/discussions/644).
 
 * lattice function `ordicloud` is deprecated. It is still available in
@@ -170,7 +171,8 @@
 
 * relic function `vegandocs` is officially defunct. Better tools to
   read **vegan** documentation are `browseVignettes("vegan")` and
-  `news(package="vegan")`.
+  `news(package="vegan")`. The function was deprecated in **vegan**
+  2\.3-4.
 
 # vegan 2\.6-10
 
