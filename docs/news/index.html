@@ -37,29 +37,29 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7-0" id="vegan-27-0-release-candidate">vegan 2.7-0 (release candidate)<a class="anchor" aria-label="anchor" href="#vegan-27-0-release-candidate"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.7-1" id="vegan-27-1">vegan 2.7-1<a class="anchor" aria-label="anchor" href="#vegan-27-1"></a></h2>
 <div class="section level3">
-<h3 id="installation-2-7-0">Installation<a class="anchor" aria-label="anchor" href="#installation-2-7-0"></a></h3>
+<h3 id="installation-2-7-1">Installation<a class="anchor" aria-label="anchor" href="#installation-2-7-1"></a></h3>
 <ul><li><p><strong>vegan</strong> no longer depends on <strong>lattice</strong>, but only imports <strong>lattice</strong> functions. The <strong>lattice</strong> package is no longer automatically loaded. To use <strong>lattice</strong> functions directly, you must first attach the package with <code><a href="https://lattice.r-forge.r-project.org/" class="external-link">library(lattice)</a></code>. Longer-term plan is to remove <strong>lattice</strong> functions as soon as more modern alternatives in <strong>ggplot2</strong> are made available. See Discussion <a href="https://github.com/vegandevs/vegan/discussions/727" class="external-link">#727</a> and section Deprecated and Defunct for the changes in this release.</p></li>
 <li><p><strong>vegan</strong> no longer suggests <strong>tcltk</strong>. See <code>orditkplot</code> in section Deprecated and Defunct.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-functions-2-7-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-7-0"></a></h3>
+<h3 id="new-functions-2-7-1">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-7-1"></a></h3>
 <ul><li><p>Added a set of functions to add new points to an existing NMDS ordination from <code>metaMDS</code> or <code>monoMDS</code>. This serves the same purpose as adding new points to an existing eigenvector ordination (for instance, <code>predict.rda</code>). The main function is <code>MDSaddpoints</code>. This needs an input of rectangular matrix of dissimilarities of all new points (rows) to all old points (columns). Support function <code>dist2xy</code> can extract needed matrices from dissimilarities of all (old and new) points, and function <code>designdist2</code> can directly find the needed dissimilarities between two data matrices. In addition, <strong>analogue</strong> package can calculate such rectangular dissimilarities, including many indices that cannot be defined with <code>designdist2</code>.</p></li>
 <li><p><code>betadistances</code>: new functions to find distances of points to group centroids in <code>betadisper</code>. See <a href="https://stackoverflow.com/questions/77391007/" class="external-link uri">https://stackoverflow.com/questions/77391007/</a> and issue <a href="https://github.com/vegandevs/vegan/issues/606" class="external-link">#606</a>.</p></li>
 <li><p><code>permulattice</code>: new function to use lattice graphics for <code>permustats</code> results without need to first issue <code><a href="https://lattice.r-forge.r-project.org/" class="external-link">library(lattice)</a></code>.</p></li>
-<li><p><code>optspace</code>: a new function for matrix completion. The function is used in robust Aitchison distance (see below).</p></li>
+<li><p><code>optspace</code>: a new function for matrix completion or filling a matrix with missing elements. The function is used in robust Aitchison distance (see below).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-in-ordination-graphics-2-7-0">New Features in Ordination Graphics<a class="anchor" aria-label="anchor" href="#new-features-in-ordination-graphics-2-7-0"></a></h3>
+<h3 id="new-features-in-ordination-graphics-2-7-1">New Features in Ordination Graphics<a class="anchor" aria-label="anchor" href="#new-features-in-ordination-graphics-2-7-1"></a></h3>
 <ul><li>
 <p><code>plot.cca</code> graphics can be configured. <code>plot.cca</code> had hard-coded graphical parameters and user arguments were ignored (see issue <a href="https://github.com/vegandevs/vegan/issues/656" class="external-link">#656</a>). Now graphical parameters can be given either for all score types, or with a list of graphical parameters for a specific score.</p>
-<p><code>text.ordiplot</code> and hence <code>plot.cca</code> gained argument <code>optimize</code> that will call <code>ordipointlabel</code> to optimize the location of the text to minimize over-writing, but mark the exact score with a point.</p>
-<p><code>text.ordiplot</code> and hence <code>plot.cca</code> gained argument <code>bg=&lt;colour&gt;</code> that will plot text over non-transparent label using <code>ordilabel</code>.</p>
-<p>Alternatively ordination plots can be built up adding each score type in piped commands. Pipes were available since release 2.5-1, but their use is now improved: <code>ordilabel</code> can be used in a pipe, <code>text</code> can use opaque background label, and <code>text</code> and <code>points</code> function (for <code>ordiplot</code>) gained argument for adjusting arrow lengths similarly as these functions for <code>cca</code>.</p>
-<p><code>text.cca</code> and <code>points.cca</code> were completely redesigned because of the concerns raised in PR <a href="https://github.com/vegandevs/vegan/pull/729" class="external-link">#729</a>. Support function <code>labels.cca</code> now accepts abbreviated names of score types.</p>
 <p>The new features are more extensively described in help pages of <code>plot.cca</code>, <code>ordiplot</code> and <code>biplot.rda</code>.</p>
 </li>
+<li><p><code>text.ordiplot</code> and hence <code>plot.cca</code> gained argument <code>optimize</code> that will call <code>ordipointlabel</code> to optimize the location of the text to minimize over-writing, but mark the exact score with a point.</p></li>
+<li><p><code>text.ordiplot</code> and hence <code>plot.cca</code> gained argument <code>bg=&lt;colour&gt;</code> that will plot text over non-transparent label using <code>ordilabel</code>.</p></li>
+<li><p>Alternatively ordination plots can be built up adding each score type in piped commands. Pipes were available since <strong>vegan</strong> 2.5-1, but their use is now improved: <code>ordilabel</code> can be used in a pipe, <code>text</code> can use opaque background label, and <code>text</code> and <code>points</code> function (for <code>ordiplot</code>) gained argument for adjusting arrow lengths similarly as in <code>cca</code>.</p></li>
+<li><p><code>text.cca</code> and <code>points.cca</code> were completely redesigned because of the concerns raised in PR <a href="https://github.com/vegandevs/vegan/pull/729" class="external-link">#729</a>. Support function <code>labels.cca</code> now accepts abbreviated names of score types.</p></li>
 <li>
 <p><code>text</code> functions for ordination graphics have arguments <code>labels</code> to rename <code>text</code>and <code>select</code> to show only some items. Now these functions are consistent and use first <code>select</code> and then <code>labels</code> for the selected subset. Concerns functions <code>ordilabel</code>, <code>ordipointlabel</code>, <code>orditorp</code> as well as <code>text</code> functions for <code>cca</code> and friends, <code>decorana</code>, <code>monoMDS</code>, <code>metaMDS</code> and <code>ordiplot</code>. See issue <a href="https://github.com/vegandevs/vegan/pull/730" class="external-link">#730</a>.</p>
 <p><code>orditorp</code>, <code>points.cca</code> and <code>text.cca</code> did not accept row names or <code>labels</code> in <code>select</code>. PR <a href="https://github.com/vegandevs/vegan/pull/729" class="external-link">#729</a>.</p>
@@ -69,31 +69,31 @@
 <li><p><code>orditorp</code> can be used in pipe.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-in-other-functions-2-7-0">New Features in Other Functions<a class="anchor" aria-label="anchor" href="#new-features-in-other-functions-2-7-0"></a></h3>
-<ul><li><p>Constrained ordination models (<code>cca</code>, <code>rda</code>, <code>dbrda</code>) inform users on completely aliased conditions or constraints, and behave more robustly with these degenerate cases. If a model component (condition, constrained) is completely aliased, it still appears in summary table with rank and inertia 0. See <a href="https://stackoverflow.com/questions/79613784/" class="external-link uri">https://stackoverflow.com/questions/79613784/</a> and issue <a href="https://github.com/vegandevs/vegan/issues/682" class="external-link">#682</a>.</p></li>
-<li><p>Robust Aitchison distance uses matrix completion to estimate the missing values (<code>-Inf</code>) that result from log transformation of the zero entries of the original input data. Earlier we used only above zero values, or in simple Aitchison distance replaced zeros with an arbitrary pseudocount. For matrix completion <strong>vegan</strong> adds new function <code>optspace</code> which also can be used independently. The Robust Aitchison distance is directly evaluated in <code>vegdist</code>, and the needed transformation can be performed in <code>decostand</code>. PR <a href="https://github.com/vegandevs/vegan/pull/667" class="external-link">667</a>.</p></li>
+<h3 id="new-features-in-other-functions-2-7-1">New Features in Other Functions<a class="anchor" aria-label="anchor" href="#new-features-in-other-functions-2-7-1"></a></h3>
+<ul><li><p>Constrained ordination models (<code>cca</code>, <code>rda</code>, <code>dbrda</code>) inform users on completely aliased conditions or constraints, and behave more robustly with these degenerate cases. If a model component (condition, constrained, residual unconstrained) is completely aliased, it still appears in summary table with rank and inertia 0. See <a href="https://stackoverflow.com/questions/79613784/" class="external-link uri">https://stackoverflow.com/questions/79613784/</a> and issue <a href="https://github.com/vegandevs/vegan/issues/682" class="external-link">#682</a>.</p></li>
+<li><p>Robust Aitchison distance uses matrix completion to estimate the missing values (<code>-Inf</code>) that result from log transformation of the zero entries of the original input data. Earlier we used only above zero values, or in simple Aitchison distance replaced zeros with an arbitrary pseudocount. For matrix completion <strong>vegan</strong> adds new function <code>optspace</code> which also can be used independently. The Robust Aitchison distance is directly evaluated in <code>vegdist</code>, and the needed transformation can be performed in <code>decostand</code>. PR <a href="https://github.com/vegandevs/vegan/pull/667" class="external-link">#667</a>.</p></li>
 <li><p><code>ordiR2step</code> calls current model <code>&lt;model&gt;</code> instead of <code>&lt;none&gt;</code>.</p></li>
-<li><p><code>densityplot.permustats</code> did not know argument <code>observed</code> to control including and showing the observed statistic.</p></li>
 <li><p><code>vegemite</code> and <code>tabasco</code> can now <code>use</code> a factor to show a classification. The factor levels and sites within levels can be reordered to give a diagonal pattern, as default in <code>tabasco</code> and in <code>vegemite</code> with new argument <code>diagonalize = TRUE</code> (defaults <code>FALSE</code>). With the same argument, <code>vegemite</code> can also reorder dendrogram (or tree) to give a diagonal pattern. If <code>coverscale</code> is used, all internal calculations for ordering rows and columns will be based on scaled data.</p></li>
 <li><p><code>make.cepnames</code> was completely re-designed and is much more flexible with enhanced user-control.</p></li>
 <li><p><code>wascores</code> can now calculate (unbiased) weighted standard deviation of weighted averages with argument <code>stdev = TRUE</code>.</p></li>
 <li><p><code>mantel</code>, <code>mrpp</code>, <code>oecosimu</code> and <code>ordiareatest</code> gained <code>summary</code> methods based on <code>summary.permustats</code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-2-7-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-0"></a></h3>
+<h3 id="bug-fixes-2-7-1">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-1"></a></h3>
 <ul><li><p><code>ordistep</code> never dropped aliased terms.</p></li>
 <li><p><code>permatswap</code> failed to set some null models (<code>swsh_samp</code>, <code>swsh_both</code>, <code>backtrack</code>).</p></li>
 <li><p><code>df.residual.cca</code> ignored conditions (partial component). This influences many diagnostic statistics documented together with <code>cooks.distance.cca</code> and <code>rstandard.cca</code>.</p></li>
+<li><p><code>densityplot.permustats</code> did not know argument <code>observed</code> to display the observed statistic.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="deprecated-and-defunct-2-7-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-0"></a></h3>
-<ul><li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code>! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
+<h3 id="deprecated-and-defunct-2-7-1">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-1"></a></h3>
+<ul><li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code> to get scores! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
 <li><p>lattice function <code>ordicloud</code> is deprecated. It is still available in CRAN package <strong>vegan3d</strong> (version 1.4-0) as function <code>ordilattice3d</code>.</p></li>
 <li><p>lattice function <code>ordisplom</code> is deprecated: it had bad design and was not very useful.</p></li>
 <li><p>lattice function <code>ordiresids</code> is deprecated: you can access the same items using <code>fitted</code>, <code>residuals</code>, <code>rstandard</code>, <code>rstudent</code> <em>etc</em> and design your own plots.</p></li>
 <li><p><code>summary.decorana</code> is defunct. It did nothing useful, but you can extract the same information with <code>scores</code> and <code>weights</code>.</p></li>
 <li><p><code>orditkplot</code> was moved to <strong>vegan3d</strong> package and is defunct in <strong>vegan</strong>.</p></li>
-<li><p>relic function <code>vegandocs</code> is officially defunct. Better tools to read <strong>vegan</strong> documentation are <code>browseVignettes("vegan")</code> and <code>news(package="vegan")</code>.</p></li>
+<li><p>relic function <code>vegandocs</code> is officially defunct. Better tools to read <strong>vegan</strong> documentation are <code>browseVignettes("vegan")</code> and <code>news(package="vegan")</code>. The function was deprecated in <strong>vegan</strong> 2.3-4.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
