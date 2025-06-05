@@ -36,8 +36,8 @@
 * `permulattice`: new function to use lattice graphics for
   `permustats` results without need to first issue `library(lattice)`.
 
-* `optspace`: a new function for matrix completion or filling a matrix
-  with missing elements. The function is used in robust Aitchison
+* `optspace`: a new function for matrix completion or filling missing
+  elements in a matrix.  The function is used in robust Aitchison
   distance (see below).
 
 ## New Features in Ordination Graphics
@@ -78,7 +78,7 @@
   and friends, `decorana`, `monoMDS`, `metaMDS` and `ordiplot`. See
   issue [#730](https://github.com/vegandevs/vegan/pull/730).
 
-  `orditorp`, `points.cca` and `text.cca` did not accept row names or
+* `orditorp`, `points.cca` and `text.cca` did not accept row names or
   `labels` in `select`. PR
   [#729](https://github.com/vegandevs/vegan/pull/729).
 
@@ -104,11 +104,11 @@
   issue [#682](https://github.com/vegandevs/vegan/issues/682).
 
 * Robust Aitchison distance uses matrix completion to estimate the
-  missing values (`-Inf`) that result from log transformation of the
-  zero entries of the original input data. Earlier we used only above
-  zero values, or in simple Aitchison distance replaced zeros with an
-  arbitrary pseudocount. For matrix completion **vegan** adds new
-  function `optspace` which also can be used independently. The Robust
+  missing values (`-Inf`) that result from log transformation of zeros
+  of the original input data. Earlier we used only above zero values,
+  or in simple Aitchison distance replaced zeros with an arbitrary
+  pseudocount. For matrix completion **vegan** adds new function
+  `optspace` which also can be used independently. The Robust
   Aitchison distance is directly evaluated in `vegdist`, and the
   needed transformation can be performed in `decostand`. PR
   [#667](https://github.com/vegandevs/vegan/pull/667).
