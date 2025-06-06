@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/vegandevs/vegan/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/vegandevs/vegan/blob/v2.7-1/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -61,8 +61,10 @@
 <li><p>Alternatively ordination plots can be built up adding each score type in piped commands. Pipes were available since <strong>vegan</strong> 2.5-1, but their use is now improved: <code>ordilabel</code> can be used in a pipe, <code>text</code> can use opaque background label, and <code>text</code> and <code>points</code> function (for <code>ordiplot</code>) gained argument for adjusting arrow lengths similarly as in <code>cca</code>.</p></li>
 <li><p><code>text.cca</code> and <code>points.cca</code> were completely redesigned because of the concerns raised in PR <a href="https://github.com/vegandevs/vegan/pull/729" class="external-link">#729</a>. Support function <code>labels.cca</code> now accepts abbreviated names of score types.</p></li>
 <li><p><code>text</code> functions for ordination graphics have arguments <code>labels</code> to rename <code>text</code>and <code>select</code> to show only some items. Now these functions are consistent and use first <code>select</code> and then <code>labels</code> for the selected subset. Concerns functions <code>ordilabel</code>, <code>ordipointlabel</code>, <code>orditorp</code> as well as <code>text</code> functions for <code>cca</code> and friends, <code>decorana</code>, <code>monoMDS</code>, <code>metaMDS</code> and <code>ordiplot</code>. See issue <a href="https://github.com/vegandevs/vegan/pull/730" class="external-link">#730</a>.</p></li>
-<li><p><code>orditorp</code>, <code>points.cca</code> and <code>text.cca</code> did not accept row names or <code>labels</code> in <code>select</code>. PR <a href="https://github.com/vegandevs/vegan/pull/729" class="external-link">#729</a>.</p></li>
-<li><p>Species scores can be added to <code>monoMDS</code> with <code>sppscores</code> function, and now these can be accessed in <code>points</code> and <code>text</code> functions.</p></li>
+<li>
+<p><code>orditorp</code>, <code>points.cca</code> and <code>text.cca</code> did not accept row names or <code>labels</code> in <code>select</code>. PR <a href="https://github.com/vegandevs/vegan/pull/729" class="external-link">#729</a>.</p>
+<p>Species scores can be added to <code>monoMDS</code> with <code>sppscores</code> function, and now these can be accessed in <code>points</code> and <code>text</code> functions.</p>
+</li>
 <li><p><code>ordipointlabel</code> can be used in pipe. Function gained argument <code>label</code> that allows changing plotted text, and a function <code>labels</code> that return the current labels. The optimization rules were changed to give a slight preference for putting labels outwards from origin but avoiding corner positions.</p></li>
 <li><p><code>orditorp</code> can be used in pipe.</p></li>
 </ul></div>
@@ -85,8 +87,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-and-defunct-2-7-1">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-7-1"></a></h3>
-<ul><li><p><code>adonis</code> is defunct in favour of <code>adonis2</code>. See announcement <a href="https://github.com/vegandevs/vegan/discussions/641" class="external-link">#641</a> for fixing your code.</p></li>
-<li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code> to get scores! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
+<ul><li><p>Disabled use of <code>summary</code> to get ordination scores: use <code>scores</code> to get scores! For <code>summary.cca</code> see <a href="https://github.com/vegandevs/vegan/discussions/644" class="external-link">#644</a>.</p></li>
 <li><p>lattice function <code>ordicloud</code> is deprecated. It is still available in CRAN package <strong>vegan3d</strong> (version 1.4-0) as function <code>ordilattice3d</code>.</p></li>
 <li><p>lattice function <code>ordisplom</code> is deprecated: it had bad design and was not very useful.</p></li>
 <li><p>lattice function <code>ordiresids</code> is deprecated: you can access the same items using <code>fitted</code>, <code>residuals</code>, <code>rstandard</code>, <code>rstudent</code> <em>etc</em> and design your own plots.</p></li>
