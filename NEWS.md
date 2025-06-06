@@ -82,7 +82,7 @@
   `labels` in `select`. PR
   [#729](https://github.com/vegandevs/vegan/pull/729).
 
-  Species scores can be added to `monoMDS` with `sppscores` function,
+* Species scores can be added to `monoMDS` with `sppscores` function,
   and now these can be accessed in `points` and `text` functions.
 
 * `ordipointlabel` can be used in pipe. Function gained argument
@@ -148,6 +148,10 @@
   the observed statistic.
 
 ## Deprecated and Defunct
+
+* `adonis` is defunct in favour of `adonis2`. See announcement
+  [#641](https://github.com/vegandevs/vegan/discussions/641) for
+  fixing your code.
 
 * Disabled use of `summary` to get ordination scores: use `scores` to
   get scores!  For `summary.cca` see
