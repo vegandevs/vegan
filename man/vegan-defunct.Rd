@@ -23,6 +23,9 @@
 \alias{as.mlm.rda}
 \alias{humpfit}
 \alias{adonis}
+\alias{ordicloud}
+\alias{ordiresids}
+\alias{ordisplom}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -32,6 +35,15 @@
   \pkg{vegan} as they are no longer needed.
 }
 \usage{
+## defunct in vegan 2.8-0
+ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
+    panel = "panel.ordi3d", prepanel = "prepanel.ordi3d", ...)
+ordisplom(x, data = NULL, formula = NULL, display = "sites", choices = 1:3, 
+    panel = "panel.ordi", type = "p", ...)
+ordiresids(x, kind = c("residuals", "scale", "qqmath"),
+    residuals = "working", type = c("p", "smooth", "g"),
+    formula, ...)
+
 ## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
@@ -63,6 +75,10 @@ permuted.index2(n, control = permControl())
 }
 
 \details{
+
+  Lattice function\code{ordicloud} was moved to \CRANpkg{vegan3d} as
+  \code{ordilattice3d}. \code{ordiresids} and \code{ordisplom} were
+  unsatisfactory.
 
   \code{\link{adonis2}} replaces \code{adonis} with extended
   functionality and completely new internal design. The shared arguments

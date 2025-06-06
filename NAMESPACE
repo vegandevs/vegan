@@ -48,7 +48,7 @@ rad.preempt, rad.zipf, rad.zipfbrot, read.cep,
 vif.cca)
 
 ## Export panel functions
-export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
+export(panel.ordi, panel.ordiarrows)
 
 ## Export .Defunct functions (to be removed later)
 export(commsimulator)
