@@ -1,3 +1,15 @@
+## adonis: replaced by adonis2
+## adonis2 added in 2.4-0
+## adonis message on future deprecation in 2.6-2, deprecated in 2.6-6
+##        defunct in 2.7-1
+`adonis` <-
+    function(formula, data=NULL, permutations=999, method="bray", strata=NULL,
+             contr.unordered="contr.sum", contr.ordered="contr.poly",
+             parallel = getOption("mc.cores"), ...)
+{
+    .Defunct("adonis2", package="vegan")
+}
+
 ## as.mlm: deprecated in 2.5-0, defunct in 2.6-0
 
 `as.mlm` <-
