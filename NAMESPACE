@@ -53,7 +53,6 @@ export(panel.ordi, panel.ordiarrows, panel.ordi3d, prepanel.ordi3d)
 ## Export .Defunct functions (to be removed later)
 export(commsimulator)
 export(as.mlm)
-export(orditkplot)
 S3method(as.mlm, cca)
 
 ## Deprecated functions & methods
