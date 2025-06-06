@@ -1,3 +1,8 @@
+# vegan 2.8-0
+
+* Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
+  defunct.
+
 # vegan 2.7-1
 
 ## Installation
