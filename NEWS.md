@@ -1,5 +1,14 @@
 # vegan 2.8-0
 
+## New Features
+
+* `biplot.rda` draws arrows of same lengths both with `"points"` and
+  `"text"`. Earlier shorter arrwos were drawn with `"text"`. Now the
+  arrow head is at the actual species scores and points to the text
+  label similarly as in `plot` functions for `rda` and `envfit`.
+
+## Defunct
+
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
   defunct.
 
