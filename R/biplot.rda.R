@@ -24,48 +24,16 @@
   display <- match.arg(display, several.ok = TRUE)
   if (length(col) == 1)
       col <- c(col,col)
-  g <- scores(x, choices = choices, display = display,
-              scaling = scaling, correlation = correlation, const)
-  if (!is.list(g)) {
-      g <- list(default = g)
-      names(g) <- display
+  spe.par <- list(col = col[2], arrows = TRUE)
+  sit.par <- list(col = col[1])
+  if (!missing(type)) {
+      type <- match.arg(type, TYPES, several.ok = TRUE)
+      if(length(type) < 2)
+          type <- rep(type, 2)
+      spe.par <- modifyList(spe.par, list(type = type[1]))
+      sit.par <- modifyList(sit.par, list(type = type[2]))
   }
-  if (missing(type)) {
-      nitlimit <- 80
-      nit <- max(nrow(g$species), nrow(g$sites))
-      if (nit > nitlimit)
-          type <- rep("points", 2)
-      else type <- rep("text", 2)
-  }
-  else type <- match.arg(type, TYPES, several.ok = TRUE)
-  if(length(type) < 2)
-      type <- rep(type, 2)
-  if (missing(xlim))
-      xlim <- range(g$species[, 1], g$sites[, 1], na.rm = TRUE)
-  if (missing(ylim))
-      ylim <- range(g$species[, 2], g$sites[, 2], na.rm = TRUE)
-  plot(g[[1]], xlim = xlim, ylim = ylim, type = "n", asp = 1,
-       ...)
-  abline(h = 0, lty = 3)
-  abline(v = 0, lty = 3)
-  if (!is.null(g$species)) {
-      if (type[1] == "points")
-          arrlen <- 1
-      else
-          arrlen <- 0.85
-      if (type[1] != "none")
-          arrows(0, 0, g$species[,1] * arrlen, g$species[, 2] * arrlen,
-                 col = col[2], length = 0.05)
-      if (type[1] == "text")
-          text(g$species, rownames(g$species),
-               col = col[2], cex = 0.7)
-  }
-  if (!is.null(g$sites)) {
-      if (type[2] == "text")
-          text(g$sites, rownames(g$sites), cex = 0.7, col = col[1])
-      else if (type[2] == "points")
-          points(g$sites, pch = 1, cex = 0.7, col = col[1])
-  }
-  class(g) <- "ordiplot"
-  invisible(g)
+  plot(x, choices = choices, scaling = scaling, display = display,
+       xlim = xlim, ylim = ylim, const = const, correlation = correlation,
+       spe.par = spe.par, sit.par = sit.par, ...)
 }

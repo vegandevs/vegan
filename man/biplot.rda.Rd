@@ -62,22 +62,22 @@
   \code{\link{biplot.rda}} is only suitable for unconstrained models. If
   used on an ordination object with constraints, an error is issued.
 
-  If species scores are drawn using \code{"text"}, the arrows are drawn
-  from the origin to 0.85 * species score, whilst the labels are
-  drawn at the species score. If the type used is \code{"points"}, then
-  no labels are drawn and therefore the arrows are drawn from the origin
-  to the actual species score.
+  Arrow heads are at the actual species scores, and the possible text is
+  projected to direction of the arrow.
+
 }
 \value{
   The \code{plot} function returns invisibly a plotting structure which
   can be used by \code{\link{identify.ordiplot}} to identify
   the points or other functions in the \code{\link{ordiplot}} family.
 }
-\author{Gavin Simpson, based on \code{\link{plot.cca}} by Jari Oksanen.}
-\seealso{\code{\link{plot.cca}}, \code{\link{rda}} for something to
-  plot, \code{\link{ordiplot}} for an alternative plotting routine
-  and more support functions, and \code{\link{text}},
-  \code{\link{points}} and \code{\link{arrows}} for the basic routines.}
+\author{Gavin Simpson and Jari Oksanen.}
+
+\note{Prior to \pkg{vegan} 2.8-0 the species \code{text} was at the
+  actual location and arrows were shorter than with \code{points}.}
+
+\seealso{\code{\link{plot.cca}} can also draw biplot arrows since
+  \pkg{vegan} 2.7-0.}
 \examples{
 data(dune)
 mod <- rda(dune, scale = TRUE)
