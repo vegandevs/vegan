@@ -118,11 +118,8 @@
   plot.</p>
 <p><code>biplot.rda</code> is only suitable for unconstrained models. If
   used on an ordination object with constraints, an error is issued.</p>
-<p>If species scores are drawn using <code>"text"</code>, the arrows are drawn
-  from the origin to 0.85 * species score, whilst the labels are
-  drawn at the species score. If the type used is <code>"points"</code>, then
-  no labels are drawn and therefore the arrows are drawn from the origin
-  to the actual species score.</p>
+<p>Arrow heads are at the actual species scores, and the possible text is
+  projected to direction of the arrow.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -132,14 +129,17 @@
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Gavin Simpson, based on <code><a href="plot.cca.html">plot.cca</a></code> by Jari Oksanen.</p>
+    <p>Gavin Simpson and Jari Oksanen.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p>Prior to <span class="pkg">vegan</span> 2.8-0 the species <code>text</code> was at the
+  actual location and arrows were shorter than with <code>points</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code><a href="plot.cca.html">plot.cca</a></code>, <code><a href="cca.html">rda</a></code> for something to
-  plot, <code><a href="ordiplot.html">ordiplot</a></code> for an alternative plotting routine
-  and more support functions, and <code><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></code>,
-  <code><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></code> and <code><a href="https://rdrr.io/r/graphics/arrows.html" class="external-link">arrows</a></code> for the basic routines.</p></div>
+    <div class="dont-index"><p><code><a href="plot.cca.html">plot.cca</a></code> can also draw biplot arrows since
+  <span class="pkg">vegan</span> 2.7-0.</p></div>
     </div>
 
     <div class="section level2">
