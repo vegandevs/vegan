@@ -30,7 +30,7 @@
    choices=c(1,2),  display = "sites", w, na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
 \method{plot}{envfit}(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
-   axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
+   axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg, add = TRUE, ...)
 \method{scores}{envfit}(x, display, choices, arrow.mul=1, tidy = FALSE, ...)
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
 factorfit(X, P, permutations = 0, strata = NULL, w, ...)
@@ -88,9 +88,9 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
     in other places then origin, you probably have to specify
     \code{arrrow.mul}.}
   \item{axis}{Plot axis showing the scaling of fitted arrows.}
-  \item{p.max}{Maximum estimated \eqn{P} value for displayed
-    variables.  You must calculate \eqn{P} values with setting
-    \code{permutations} to use this option. }
+  \item{p.max, r2.min}{Maximum estimated \eqn{P} value and minimum
+    \eqn{r^2} for displayed variables.  You must calculate \eqn{P}
+    values with setting \code{permutations} to use \code{p.max}. }
   \item{col}{Colour in plotting.}
   \item{bg}{Background colour for labels. If \code{bg} is set, the
     labels are displayed with \code{\link{ordilabel}} instead of
