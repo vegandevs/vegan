@@ -83,7 +83,7 @@ The function fits environmental vectors or factors onto an
 <span><span class="fu">envfit</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'envfit'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">labels</span>, <span class="va">arrow.mul</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, </span>
-<span>   axis <span class="op">=</span> <span class="cn">FALSE</span>, p.max <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="st">"blue"</span>, <span class="va">bg</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>   axis <span class="op">=</span> <span class="cn">FALSE</span>, p.max <span class="op">=</span> <span class="cn">NULL</span>, r2.min <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="st">"blue"</span>, <span class="va">bg</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'envfit'</span></span>
 <span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span>, <span class="va">choices</span>, arrow.mul<span class="op">=</span><span class="fl">1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">vectorfit</span><span class="op">(</span><span class="va">X</span>, <span class="va">P</span>, permutations <span class="op">=</span> <span class="fl">0</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">w</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -172,10 +172,10 @@ The function fits environmental vectors or factors onto an
   <dt id="arg-axis">axis<a class="anchor" aria-label="anchor" href="#arg-axis"></a></dt>
 <dd><p>Plot axis showing the scaling of fitted arrows.</p></dd>
 
-  <dt id="arg-p-max">p.max<a class="anchor" aria-label="anchor" href="#arg-p-max"></a></dt>
-<dd><p>Maximum estimated \(P\) value for displayed
-    variables.  You must calculate \(P\) values with setting
-    <code>permutations</code> to use this option.</p></dd>
+  <dt id="arg-p-max-r-min">p.max, r2.min<a class="anchor" aria-label="anchor" href="#arg-p-max-r-min"></a></dt>
+<dd><p>Maximum estimated \(P\) value and minimum
+    \(r^2\) for displayed variables.  You must calculate \(P\)
+    values with setting <code>permutations</code> to use <code>p.max</code>.</p></dd>
 
   <dt id="arg-col">col<a class="anchor" aria-label="anchor" href="#arg-col"></a></dt>
 <dd><p>Colour in plotting.</p></dd>
