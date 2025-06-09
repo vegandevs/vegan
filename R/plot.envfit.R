@@ -1,6 +1,7 @@
 `plot.envfit` <-
     function (x, choices = c(1, 2), labels, arrow.mul, at = c(0, 0),
-              axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
+              axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg,
+              add = TRUE, ...)
 {
     ## get labels
     labs <- list("v" = rownames(x$vectors$arrows),
@@ -27,9 +28,10 @@
         }
     }
     vect <- NULL
-    if (!is.null(p.max)) {
+    if (!is.null(p.max) || !is.null(r2.min)) {
         if (!is.null(x$vectors)) {
-            take <- x$vectors$pvals <= p.max
+            take <- x$vectors$pvals <= min(p.max, 1) &
+                x$vectors$r >= max(r2.min, 0)
             x$vectors$arrows <- x$vectors$arrows[take, , drop = FALSE]
             labs$v <- labs$v[take]
             x$vectors$r <- x$vectors$r[take]
@@ -37,7 +39,8 @@
                 x$vectors <- vect <- NULL
         }
         if (!is.null(x$factors)) {
-            tmp <- x$factors$pvals <= p.max
+            tmp <- x$factors$pvals <= min(p.max, 1) &
+                x$factors$r >= max(r2.min, 0)
             nam <- names(tmp)[tmp]
             take <- x$factors$var.id %in% nam
             x$factors$centroids <- x$factors$centroids[take,
