@@ -3,9 +3,13 @@
 ## New Features
 
 * `biplot.rda` draws arrows of same lengths both with `"points"` and
-  `"text"`. Earlier shorter arrwos were drawn with `"text"`. Now the
+  `"text"`. Earlier shorter arrows were drawn with `"text"`. Now the
   arrow head is at the actual species scores and points to the text
   label similarly as in `plot` functions for `rda` and `envfit`.
+
+* `plot.envfit` can use criterion `r2.min` for lower threshold of
+  $R^2$ of displayed variables. Both `p.max` and `r2.min` must be
+  satisfied for displayed items.
 
 ## Defunct
 
