@@ -117,6 +117,7 @@
 `SSD.cca` <-
     function(object, type = "canoco", ...)
 {
+    type <- match.arg(type)
     w <- sqrt(weights(object))
     SSD <- crossprod(w * (object$CCA$wa - object$CCA$u))
     structure(list(SSD = SSD, call = object$call, df = df.residual(object)),
@@ -132,6 +133,7 @@
 `vcov.cca` <-
     function(object, type = "canoco", ...)
 {
+    type <- match.arg(type)
     QR <- qr(object)
     p <- 1L:QR$rank
     ## we do not give the (Intercept): it is neither in coef()
