@@ -84,6 +84,7 @@
     res <- res / sqrt(1 - hat)
     res <- sweep(res, 2, sd, "/")
     res[is.infinite(res)] <- NaN
+    attributes(res) <- list(dim = dim(res), dimnames = dimnames(res))
     res
 }
 
@@ -97,6 +98,7 @@
     res <- rstandard(model, type = type)
     res <- res / sqrt(pmax.int(np-res^2, 0)/(np-1))
     res[is.infinite(res)] <- NaN
+    attributes(res) <- list(dim = dim(res), dimnames = dimnames(res))
     res
 }
 
@@ -109,6 +111,7 @@
     p <- model$CCA$qrank
     d <- rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
     d[is.infinite(d)] <- NaN
+    attributes(d) <- list(dim = dim(d), dimnames = dimnames(d))
     d
 }
 
