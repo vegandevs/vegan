@@ -145,3 +145,27 @@
     ssd <- estVar(SSD(object, type = type))
     kronecker(ssd, cov.unscaled, make.dimnames = TRUE)
 }
+
+## influence.cca: call residuals, hatvalues & cook.distances.
+
+`influence.cca` <-
+    function(model, type = c("response", "canoco"), addFit = FALSE,
+             tidy = FALSE, ...)
+{
+    type <- match.arg(type)
+    out <- list("hatvalues" = hatvalues(model),
+                "rstandard" = rstandard(model, type = type),
+                "rstudent" = rstudent(model, type = type),
+                "cooks.distance" = cooks.distance(model, type = type))
+    if (addFit)
+        out$fitted <- fitted(model, type = "working")
+    if (tidy) {
+        colnam <- rep(colnames(out$rstudent), each = nrow(out$rstudent))
+        rownam <- rep(rownames(out$rstudent), ncol(out$rstudent))
+        out$hatvalues <- rep(out$hatvalues, ncol(out$rstudent))
+        out <- data.frame(rownam, colnam, lapply(out, as.vector))
+        colnames(out)[1:2] <- c("site",
+                                if(type == "response") "species" else "axis")
+    }
+    out
+}

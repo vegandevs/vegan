@@ -83,7 +83,7 @@ importFrom(stats, .getXlevels, add.scope, aggregate, aov, approx,
            complete.cases, cor, cov, cov.wt, cutree, delete.response,
            dendrapply, dist, dnorm, drop.scope, estVar, factor.scope,
            family, formula, glm, glm.fit, hclust, heatmap, integrate,
-           is.ts, kmeans, lm, median, na.action, na.fail,
+           influence, is.ts, kmeans, lm, median, na.action, na.fail,
            na.pass, napredict, naprint, nlm, nls, optim, optimize, p.adjust,
            p.adjust.methods, pchisq, pf, plogis, pnorm, poisson,
            ppoints, prcomp, printCoefmat, pt, qchisq, qf, qlogis,
@@ -247,6 +247,8 @@ S3method(reorder, hclust)
 S3method(rev, hclust)
 # identify: graphics
 S3method(identify, ordiplot)
+# influence: stats
+S3method(influence, cca)
 # labels: base
 S3method(labels, cca)
 S3method(labels, envfit)

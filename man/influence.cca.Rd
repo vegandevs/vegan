@@ -1,4 +1,5 @@
 \name{influence.cca}
+\alias{influence.cca}
 \alias{hatvalues.cca}
 \alias{hatvalues.rda}
 \alias{sigma.cca}
@@ -24,10 +25,11 @@
   leverage values (\code{\link{hatvalues}}), standardized residuals
   (\code{\link{rstandard}}), studentized or leave-one-out residuals
   (\code{\link{rstudent}}), and Cook's distance
-  (\code{\link{cooks.distance}}).  In addition, \code{\link{vcov}}
-  returns the variance-covariance matrix of coefficients, and its
-  diagonal values the variances of coefficients. Other functions are
-  mainly support functions for these, but they can be used directly.
+  (\code{\link{cooks.distance}}). Function \code{influence} returns all
+  these. In addition, \code{\link{vcov}} returns the variance-covariance
+  matrix of coefficients, and its diagonal values the variances of
+  coefficients. Other functions are mainly support functions for these,
+  but they can be used directly.
 
 }
 
@@ -37,6 +39,8 @@
 \method{rstandard}{cca}(model, type = c("response", "canoco"), ...)
 \method{rstudent}{cca}(model, type = c("response", "canoco"), ...)
 \method{cooks.distance}{cca}(model, type = c("response", "canoco"), ...)
+\method{influence}{cca}(model, type = c("response", "canoco"),
+    addFit = FALSE, tidy = FALSE, ...)
 
 \method{sigma}{cca}(object, type = c("response", "canoco"), ...)
 \method{vcov}{cca}(object, type = "canoco", ...)
@@ -55,6 +59,13 @@
     residual standard deviation (\code{sigma}). Either
     \code{"response"} for species data or difference of WA and LC
     scores for \code{"canoco"}.}
+
+  \item{addFit}{Add fit in working scale to the result.}
+
+  \item{tidy}{Return a data frame suitable for \CRANpkg{ggplot2} or
+    \CRANpkg{lattice}. Each statistic is in one long vector with added
+    columns \code{site} and \code{species} or \code{axis} depending on
+    \code{type}}.
 
   \item{\dots}{Other arguments to functions (ignored).}
 
@@ -91,9 +102,16 @@
   and the residual standard deviation (\code{\link{sigma}}) is taken to
   be the axis sum of squared WA scores minus one. These quantities have
   no relationship to residual component of ordination, but they rather
-  are methodological artefacts of an algorithm that is not used in
-  \pkg{vegan}. The result is a matrix with dimensions no. of
-  observations times no. of constrained axes.
+  show the influence of each site on axes. The result is a matrix with
+  dimensions no. of observations times no. of constrained axes.
+
+  Function \code{influence} returns either a list of the matrices
+  discussed above, or a data frame where each matrix is in a variable,
+  with variables \code{site} and \code{species} or \code{axis}
+  (depending on \code{type}) identifying the original rows and columns
+  of matrices. \code{influence} can also add fitted values in working
+  scale as a variable. Such data can be used as input in
+  \CRANpkg{ggplot2} or \CRANpkg{lattice}.
 
   Function \code{\link{vcov}} returns the matrix of variances and
   covariances of regression coefficients. The diagonal values of this
