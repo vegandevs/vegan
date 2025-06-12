@@ -1,5 +1,13 @@
 # vegan 2.8-0
 
+## New Functions
+
+* `influence.cca`: a new wrapper function to return `hatvalues`,
+  `rstandard`, `rstudent` and `cooks.distance`. The result can be
+  amended with working fitted values, and returned in `tidy` format
+  that can be used as input in **ggplot2** (or **lattice**) graphics
+  to substitute defunct `ordiresids` function.
+
 ## New Features
 
 * `biplot.rda` draws arrows of same lengths both with `"points"` and
@@ -14,7 +22,10 @@
 ## Defunct
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
-  defunct.
+  defunct. `ordicloud` is available in CRAN package **vegan3d** as
+  `ordilattice3d`. New function `influence.cca` can prepare data to be
+  used in similar graphics as `ordiresids` using **ggplot2** or
+  **lattice**.
 
 # vegan 2.7-1
 

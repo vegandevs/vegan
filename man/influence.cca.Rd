@@ -1,4 +1,5 @@
 \name{influence.cca}
+\alias{influence.cca}
 \alias{hatvalues.cca}
 \alias{hatvalues.rda}
 \alias{sigma.cca}
@@ -24,10 +25,11 @@
   leverage values (\code{\link{hatvalues}}), standardized residuals
   (\code{\link{rstandard}}), studentized or leave-one-out residuals
   (\code{\link{rstudent}}), and Cook's distance
-  (\code{\link{cooks.distance}}).  In addition, \code{\link{vcov}}
-  returns the variance-covariance matrix of coefficients, and its
-  diagonal values the variances of coefficients. Other functions are
-  mainly support functions for these, but they can be used directly.
+  (\code{\link{cooks.distance}}). Function \code{influence} returns all
+  these. In addition, \code{\link{vcov}} returns the variance-covariance
+  matrix of coefficients, and its diagonal values the variances of
+  coefficients. Other functions are mainly support functions for these,
+  but they can be used directly.
 
 }
 
@@ -37,6 +39,8 @@
 \method{rstandard}{cca}(model, type = c("response", "canoco"), ...)
 \method{rstudent}{cca}(model, type = c("response", "canoco"), ...)
 \method{cooks.distance}{cca}(model, type = c("response", "canoco"), ...)
+\method{influence}{cca}(model, type = c("response", "canoco"),
+    addFit = FALSE, tidy = FALSE, ...)
 
 \method{sigma}{cca}(object, type = c("response", "canoco"), ...)
 \method{vcov}{cca}(object, type = "canoco", ...)
@@ -55,6 +59,13 @@
     residual standard deviation (\code{sigma}). Either
     \code{"response"} for species data or difference of WA and LC
     scores for \code{"canoco"}.}
+
+  \item{addFit}{Add fit in working scale to the result.}
+
+  \item{tidy}{Return a data frame suitable for \CRANpkg{ggplot2} or
+    \CRANpkg{lattice}. Each statistic is in one long vector with added
+    columns \code{site} and \code{species} or \code{axis} depending on
+    \code{type}}.
 
   \item{\dots}{Other arguments to functions (ignored).}
 
@@ -91,9 +102,17 @@
   and the residual standard deviation (\code{\link{sigma}}) is taken to
   be the axis sum of squared WA scores minus one. These quantities have
   no relationship to residual component of ordination, but they rather
-  are methodological artefacts of an algorithm that is not used in
-  \pkg{vegan}. The result is a matrix with dimensions no. of
-  observations times no. of constrained axes.
+  show the influence of each site on axes. The result is a matrix with
+  dimensions no. of observations times no. of constrained axes.
+
+  Function \code{influence} returns either a list of the matrices
+  \code{hatvalues}, \code{rstandard}, \code{rstudent} and
+  \code{cooks.distance}, or a data frame where each matrix is single
+  variable, with new variables \code{site} and \code{species} or
+  \code{axis} (depending on \code{type}) identifying the original rows
+  and columns of matrices. \code{influence} can also add fitted values
+  in working scale as a variable. Such data can be used as input for
+  \CRANpkg{ggplot2} or \CRANpkg{lattice}.
 
   Function \code{\link{vcov}} returns the matrix of variances and
   covariances of regression coefficients. The diagonal values of this
@@ -117,20 +136,6 @@
   analysis and redundancy analysis. \emph{TNO Inst. of Applied Computer
   Sci., Stat. Dept. Wageningen, The Netherlands}.
 
-  
-}
-
-\note{
-
-  Function \code{\link{as.mlm}} casts an ordination object to a multiple
-  linear model of class \code{"mlm"} (see \code{\link{lm}}), and similar
-  statistics can be derived from that modified object as with this set
-  of functions. However, there are some problems in the \R{}
-  implementation of the further analysis of multiple linear model
-  objects. When the results differ, the current set of functions is more
-  probable to be correct. The use of \code{as.mlm} objects should be
-  avoided.
-  
 }
 
 \author{Jari Oksanen}
@@ -152,6 +157,8 @@ text(mod, dis="bp", col=4)
 ## deviation and influence
 head(rstandard(mod))
 head(cooks.distance(mod))
+tabasco(cooks.distance(mod), site.ind = order(hatvalues(mod)))
+tabasco(cooks.distance(mod, type="canoco"), site.ind = order(hatvalues(mod)))
 
 ## Influence measures from lm
 y <- decostand(varespec, "chi.square") # needed in cca

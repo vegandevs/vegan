@@ -84,6 +84,7 @@
     res <- res / sqrt(1 - hat)
     res <- sweep(res, 2, sd, "/")
     res[is.infinite(res)] <- NaN
+    attributes(res) <- list(dim = dim(res), dimnames = dimnames(res))
     res
 }
 
@@ -97,6 +98,7 @@
     res <- rstandard(model, type = type)
     res <- res / sqrt(pmax.int(np-res^2, 0)/(np-1))
     res[is.infinite(res)] <- NaN
+    attributes(res) <- list(dim = dim(res), dimnames = dimnames(res))
     res
 }
 
@@ -109,6 +111,7 @@
     p <- model$CCA$qrank
     d <- rstandard(model, type = type)^2 * hat / (1 - hat) / (p + 1)
     d[is.infinite(d)] <- NaN
+    attributes(d) <- list(dim = dim(d), dimnames = dimnames(d))
     d
 }
 
@@ -117,6 +120,7 @@
 `SSD.cca` <-
     function(object, type = "canoco", ...)
 {
+    type <- match.arg(type)
     w <- sqrt(weights(object))
     SSD <- crossprod(w * (object$CCA$wa - object$CCA$u))
     structure(list(SSD = SSD, call = object$call, df = df.residual(object)),
@@ -132,6 +136,7 @@
 `vcov.cca` <-
     function(object, type = "canoco", ...)
 {
+    type <- match.arg(type)
     QR <- qr(object)
     p <- 1L:QR$rank
     ## we do not give the (Intercept): it is neither in coef()
@@ -139,4 +144,28 @@
     dimnames(cov.unscaled) <- list(colnames(QR$qr)[p], colnames(QR$qr)[p])
     ssd <- estVar(SSD(object, type = type))
     kronecker(ssd, cov.unscaled, make.dimnames = TRUE)
+}
+
+## influence.cca: call residuals, hatvalues & cook.distances.
+
+`influence.cca` <-
+    function(model, type = c("response", "canoco"), addFit = FALSE,
+             tidy = FALSE, ...)
+{
+    type <- match.arg(type)
+    out <- list("hatvalues" = hatvalues(model),
+                "rstandard" = rstandard(model, type = type),
+                "rstudent" = rstudent(model, type = type),
+                "cooks.distance" = cooks.distance(model, type = type))
+    if (addFit)
+        out$fitted <- fitted(model, type = "working")
+    if (tidy) {
+        colnam <- rep(colnames(out$rstudent), each = nrow(out$rstudent))
+        rownam <- rep(rownames(out$rstudent), ncol(out$rstudent))
+        out$hatvalues <- rep(out$hatvalues, ncol(out$rstudent))
+        out <- data.frame(rownam, colnam, lapply(out, as.vector))
+        colnames(out)[1:2] <- c("site",
+                                if(type == "response") "species" else "axis")
+    }
+    out
 }
