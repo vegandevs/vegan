@@ -77,8 +77,10 @@ permuted.index2(n, control = permControl())
 \details{
 
   Lattice function\code{ordicloud} was moved to \CRANpkg{vegan3d} as
-  \code{ordilattice3d}. \code{ordiresids} and \code{ordisplom} were
-  unsatisfactory.
+  \code{ordilattice3d}. To substitute \code{ordiresids}, use
+  \code{\link{influence.cca}} to extract data that you can use to design
+  your own graphics. \code{ordisplom} was unsatisfactory and there is no
+  replacement
 
   \code{\link{adonis2}} replaces \code{adonis} with extended
   functionality and completely new internal design. The shared arguments
@@ -91,9 +93,7 @@ permuted.index2(n, control = permControl())
  
   \code{as.mlm} function is replaced with a set functions that can
   find the same statistics directly from the ordination result object:
-  see \code{\link{hatvalues.cca}}, \code{\link{rstandard.cca}},
-  \code{\link{rstudent.cca}}, \code{\link{cooks.distance.cca}},
-  \code{\link{vcov.cca}}.
+  see \code{\link{influence.cca}}.
 
   Function \code{humpfit} was transferred to the \pkg{natto} package and
   is still available from \url{https://github.com/jarioksa/natto/}.

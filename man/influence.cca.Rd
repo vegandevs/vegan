@@ -106,11 +106,12 @@
   dimensions no. of observations times no. of constrained axes.
 
   Function \code{influence} returns either a list of the matrices
-  discussed above, or a data frame where each matrix is in a variable,
-  with variables \code{site} and \code{species} or \code{axis}
-  (depending on \code{type}) identifying the original rows and columns
-  of matrices. \code{influence} can also add fitted values in working
-  scale as a variable. Such data can be used as input in
+  \code{hatvalues}, \code{rstandard}, \code{rstudent} and
+  \code{cooks.distance}, or a data frame where each matrix is single
+  variable, with new variables \code{site} and \code{species} or
+  \code{axis} (depending on \code{type}) identifying the original rows
+  and columns of matrices. \code{influence} can also add fitted values
+  in working scale as a variable. Such data can be used as input for
   \CRANpkg{ggplot2} or \CRANpkg{lattice}.
 
   Function \code{\link{vcov}} returns the matrix of variances and
@@ -135,20 +136,6 @@
   analysis and redundancy analysis. \emph{TNO Inst. of Applied Computer
   Sci., Stat. Dept. Wageningen, The Netherlands}.
 
-  
-}
-
-\note{
-
-  Function \code{\link{as.mlm}} casts an ordination object to a multiple
-  linear model of class \code{"mlm"} (see \code{\link{lm}}), and similar
-  statistics can be derived from that modified object as with this set
-  of functions. However, there are some problems in the \R{}
-  implementation of the further analysis of multiple linear model
-  objects. When the results differ, the current set of functions is more
-  probable to be correct. The use of \code{as.mlm} objects should be
-  avoided.
-  
 }
 
 \author{Jari Oksanen}
@@ -170,6 +157,8 @@ text(mod, dis="bp", col=4)
 ## deviation and influence
 head(rstandard(mod))
 head(cooks.distance(mod))
+tabasco(cooks.distance(mod), site.ind = order(hatvalues(mod)))
+tabasco(cooks.distance(mod, type="canoco"), site.ind = order(hatvalues(mod)))
 
 ## Influence measures from lm
 y <- decostand(varespec, "chi.square") # needed in cca

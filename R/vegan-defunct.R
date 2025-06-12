@@ -12,7 +12,7 @@
              residuals = "working",
              type = c("p", "smooth", "g"), formula, ...)
 {
-    .Defunct("see ?hatvalues to extract residuals etc.", package="vegan")
+    .Defunct("influence.cca to extract residuals etc.", package="vegan")
 }
 
 `ordisplom` <-
@@ -39,13 +39,13 @@
 `as.mlm` <-
     function(x)
 {
-    .Defunct("see ?hatvalues.cca for new alternatives")
+    .Defunct("influence.cca", package = "vegan")
 }
 
 `as.mlm.cca` <-
     function(x)
 {
-    .Defunct("see ?hatvalues.cca for new alternatives")
+    .Defunct("influence.cca", package = "vegan")
 }
 
 ### commsimulator was deprecated in 2.4-0, defunct in 2.6-0
