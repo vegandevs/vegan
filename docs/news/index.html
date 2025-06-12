@@ -39,13 +39,18 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.8-0" id="vegan-28-0">vegan 2.8-0<a class="anchor" aria-label="anchor" href="#vegan-28-0"></a></h2>
 <div class="section level3">
+<h3 id="new-functions-2-8-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-8-0"></a></h3>
+<ul><li>
+<code>influence.cca</code>: a new wrapper function to return <code>hatvalues</code>, <code>rstandard</code>, <code>rstudent</code> and <code>cooks.distance</code>. The result can be amended with working fitted values, and returned in <code>tidy</code> format that can be used as input in <strong>ggplot2</strong> (or <strong>lattice</strong>) graphics to substitute defunct <code>ordiresids</code> function.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="new-features-2-8-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-8-0"></a></h3>
 <ul><li><p><code>biplot.rda</code> draws arrows of same lengths both with <code>"points"</code> and <code>"text"</code>. Earlier shorter arrows were drawn with <code>"text"</code>. Now the arrow head is at the actual species scores and points to the text label similarly as in <code>plot</code> functions for <code>rda</code> and <code>envfit</code>.</p></li>
 <li><p><code>plot.envfit</code> can use criterion <code>r2.min</code> for lower threshold of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math> of displayed variables. Both <code>p.max</code> and <code>r2.min</code> must be satisfied for displayed items.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="defunct-2-8-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-2-8-0"></a></h3>
-<ul><li>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct.</li>
+<ul><li>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</li>
 </ul></div>
 </div>
     <div class="section level2">

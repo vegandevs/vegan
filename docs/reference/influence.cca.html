@@ -11,10 +11,11 @@ This set of function extracts influence statistics and some other
   leverage values (hatvalues), standardized residuals
   (rstandard), studentized or leave-one-out residuals
   (rstudent), and Cook's distance
-  (cooks.distance).  In addition, vcov
-  returns the variance-covariance matrix of coefficients, and its
-  diagonal values the variances of coefficients. Other functions are
-  mainly support functions for these, but they can be used directly."><meta property="og:description" content="
+  (cooks.distance). Function influence returns all
+  these. In addition, vcov returns the variance-covariance
+  matrix of coefficients, and its diagonal values the variances of
+  coefficients. Other functions are mainly support functions for these,
+  but they can be used directly."><meta property="og:description" content="
 
 This set of function extracts influence statistics and some other
   linear model statistics directly from a constrained ordination result
@@ -26,10 +27,11 @@ This set of function extracts influence statistics and some other
   leverage values (hatvalues), standardized residuals
   (rstandard), studentized or leave-one-out residuals
   (rstudent), and Cook's distance
-  (cooks.distance).  In addition, vcov
-  returns the variance-covariance matrix of coefficients, and its
-  diagonal values the variances of coefficients. Other functions are
-  mainly support functions for these, but they can be used directly."></head><body>
+  (cooks.distance). Function influence returns all
+  these. In addition, vcov returns the variance-covariance
+  matrix of coefficients, and its diagonal values the variances of
+  coefficients. Other functions are mainly support functions for these,
+  but they can be used directly."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -80,10 +82,11 @@ This set of function extracts influence statistics and some other
   leverage values (<code><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">hatvalues</a></code>), standardized residuals
   (<code><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">rstandard</a></code>), studentized or leave-one-out residuals
   (<code><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">rstudent</a></code>), and Cook's distance
-  (<code><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">cooks.distance</a></code>).  In addition, <code><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></code>
-  returns the variance-covariance matrix of coefficients, and its
-  diagonal values the variances of coefficients. Other functions are
-  mainly support functions for these, but they can be used directly.</p>
+  (<code><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">cooks.distance</a></code>). Function <code>influence</code> returns all
+  these. In addition, <code><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></code> returns the variance-covariance
+  matrix of coefficients, and its diagonal values the variances of
+  coefficients. Other functions are mainly support functions for these,
+  but they can be used directly.</p>
     </div>
 
     <div class="section level2">
@@ -96,6 +99,9 @@ This set of function extracts influence statistics and some other
 <span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">rstudent</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"response"</span>, <span class="st">"canoco"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">cooks.distance</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"response"</span>, <span class="st">"canoco"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'cca'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/lm.influence.html" class="external-link">influence</a></span><span class="op">(</span><span class="va">model</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"response"</span>, <span class="st">"canoco"</span><span class="op">)</span>,</span>
+<span>    addFit <span class="op">=</span> <span class="cn">FALSE</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></span><span class="op">(</span><span class="va">object</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"response"</span>, <span class="st">"canoco"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -126,7 +132,18 @@ This set of function extracts influence statistics and some other
     scores for <code>"canoco"</code>.</p></dd>
 
 
-  <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+  <dt id="arg-addfit">addFit<a class="anchor" aria-label="anchor" href="#arg-addfit"></a></dt>
+<dd><p>Add fit in working scale to the result.</p></dd>
+
+
+  <dt id="arg-tidy">tidy<a class="anchor" aria-label="anchor" href="#arg-tidy"></a></dt>
+<dd><p>Return a data frame suitable for <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a> or
+    <a href="https://CRAN.R-project.org/package=lattice" class="external-link"><span class="pkg">lattice</span></a>. Each statistic is in one long vector with added
+    columns <code>site</code> and <code>species</code> or <code>axis</code> depending on
+    <code>type</code></p></dd>
+</dl><p>.</p>
+<p></p>
+<dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other arguments to functions (ignored).</p></dd>
 
 
@@ -163,9 +180,16 @@ This set of function extracts influence statistics and some other
   and the residual standard deviation (<code><a href="https://rdrr.io/r/stats/sigma.html" class="external-link">sigma</a></code>) is taken to
   be the axis sum of squared WA scores minus one. These quantities have
   no relationship to residual component of ordination, but they rather
-  are methodological artefacts of an algorithm that is not used in
-  <span class="pkg">vegan</span>. The result is a matrix with dimensions no. of
-  observations times no. of constrained axes.</p>
+  show the influence of each site on axes. The result is a matrix with
+  dimensions no. of observations times no. of constrained axes.</p>
+<p>Function <code>influence</code> returns either a list of the matrices
+  <code>hatvalues</code>, <code>rstandard</code>, <code>rstudent</code> and
+  <code>cooks.distance</code>, or a data frame where each matrix is single
+  variable, with new variables <code>site</code> and <code>species</code> or
+  <code>axis</code> (depending on <code>type</code>) identifying the original rows
+  and columns of matrices. <code>influence</code> can also add fitted values
+  in working scale as a variable. Such data can be used as input for
+  <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a> or <a href="https://CRAN.R-project.org/package=lattice" class="external-link"><span class="pkg">lattice</span></a>.</p>
 <p>Function <code><a href="https://rdrr.io/r/stats/vcov.html" class="external-link">vcov</a></code> returns the matrix of variances and
   covariances of regression coefficients. The diagonal values of this
   matrix are the variances, and their square roots give the standard
@@ -186,21 +210,6 @@ This set of function extracts influence statistics and some other
   [detrended] [canonical] correspondence analysis, principal components
   analysis and redundancy analysis. <em>TNO Inst. of Applied Computer
   Sci., Stat. Dept. Wageningen, The Netherlands</em>.</p>
-
-
-    </div>
-    <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-
-
-<p>Function <code><a href="vegan-defunct.html">as.mlm</a></code> casts an ordination object to a multiple
-  linear model of class <code>"mlm"</code> (see <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></code>), and similar
-  statistics can be derived from that modified object as with this set
-  of functions. However, there are some problems in the <span style="R">R</span>
-  implementation of the further analysis of multiple linear model
-  objects. When the results differ, the current set of functions is more
-  probable to be correct. The use of <code>as.mlm</code> objects should be
-  avoided.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -347,6 +356,10 @@ This set of function extracts influence statistics and some other
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27 9.528504e-05 6.579101e-02 0.0140785723</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23 7.797221e-05 1.817802e-01 0.0046131462</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19 9.905729e-06 9.587131e-05 0.0003866237</span>
+<span class="r-in"><span><span class="fu"><a href="vegemite.html">tabasco</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">cooks.distance</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>, site.ind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">hatvalues</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="influence.cca-3.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu"><a href="vegemite.html">tabasco</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">cooks.distance</a></span><span class="op">(</span><span class="va">mod</span>, type<span class="op">=</span><span class="st">"canoco"</span><span class="op">)</span>, site.ind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html" class="external-link">hatvalues</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="influence.cca-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Influence measures from lm</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="st">"chi.square"</span><span class="op">)</span> <span class="co"># needed in cca</span></span></span>
