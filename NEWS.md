@@ -7,6 +7,9 @@
   head is at the actual species scores and points to the text label
   similarly as in plot functions for rda and envfit.
 
+* `ordilabel` can use variable character expansion (`cex`) and with
+  this `plot.cca`, `ordiplot` _etc._ gained the same ability.
+
 # vegan 2.7-1
 
 ## Installation
