@@ -13,17 +13,24 @@
     }
     if (missing(labels))
         labels <- rownames(sco)
+    cex <- rep(cex, length.out = nrow(sco))
     if (!missing(priority)) {
         ord <- order(priority)
         sco <- sco[ord, ]
         labels <- labels[ord]
+        cex <- cex[ord]
     } else {
         ord <- seq_along(labels)
     }
-    em <- strwidth("m", cex = cex, ...)
-    ex <- strheight("x", cex = cex, ...)
-    w <- (strwidth(labels, cex=cex,...) + em/1.5)/2
-    h <- (strheight(labels, cex = cex, ...) + ex/1.5)/2
+    ## allow variable cex
+    w <- numeric(nrow(sco))
+    h <- numeric(nrow(sco))
+    for(i in seq_along(cex)) {
+        em <- strwidth("m", cex = cex[i], ...)
+        ex <- strheight("x", cex = cex[i], ...)
+        w[i] <- (strwidth(labels[i], cex=cex[i],...) + em/1.5)/2
+        h[i] <- (strheight(labels[i], cex = cex[i], ...) + ex/1.5)/2
+    }
     if (is.null(col))
         col <- par("fg")
     col <- rep(col, length=nrow(sco))[ord]
@@ -37,7 +44,7 @@
                         sco[i,2] + c(-1,-1,1,1)*h[i],
                         col = fill[i], border = border[i], xpd = xpd,
                         FUN = polygon, ...)
-        ordiArgAbsorber(sco[i,1], sco[i,2], labels = labels[i], cex = cex,
+        ordiArgAbsorber(sco[i,1], sco[i,2], labels = labels[i], cex = cex[i],
                         col = col[i], xpd = xpd, FUN = text, ...)
     }
     dev.flush()
