@@ -73,7 +73,7 @@
 }
 \author{Gavin Simpson and Jari Oksanen.}
 
-\note{Prior to \pkg{vegan} 2.8-0 the species \code{text} was at the
+\note{Prior to \pkg{vegan} 2.7-2 the species \code{text} was at the
   actual location and arrows were shorter than with \code{points}.}
 
 \seealso{\code{\link{plot.cca}} can also draw biplot arrows since
