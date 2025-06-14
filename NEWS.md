@@ -19,6 +19,9 @@
   $R^2$ of displayed variables. Both `p.max` and `r2.min` must be
   satisfied for displayed items.
 
+* `ordilabel` can use variable character expansion (`cex`) and with
+  this `plot.cca`, `ordiplot` _etc._ gained the same ability.
+
 ## Defunct
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
