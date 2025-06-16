@@ -55,6 +55,14 @@
     Y
 }
 
+`initWPCA` <-
+    function(Y, w)
+{
+    Y <- .Call(do_wcentre, Y, w)
+    attr(Y, "RW") <- w
+    attr(Y, "METHOD") <- "WPCA"
+    Y
+}
 `initCAP` <-
     function(Y)
 {
@@ -103,6 +111,7 @@
     headmethod <- switch(method,
                          "CA" = "cca",
                          "PCA" = "rda",
+                         "WPCA" = "wrda",
                          "CAPSCALE" = "capscale",
                          "DISTBASED" = "dbrda")
     if (method == "DISTBASED")
@@ -118,6 +127,8 @@
     else if (method == "PCA")
         head <- c(list("colsum" = sqrt(colSums(Y^2))),
                   head)
+    else if (method == "WPCA")
+        head <- c(list("w" = attr(Y, "RW")), head)
     head
 }
 
@@ -273,6 +284,7 @@
     ## set names
     axnam <- paste0(switch(attr(Y, "METHOD"),
                            "PCA" = "RDA",
+                           "WPCA" = "RDA",
                            "CA" = "CCA",
                            "CAPSCALE" = "CAP",
                            "DISTBASED" = "dbRDA"),
@@ -362,6 +374,7 @@
     ## set names
     axnam <- paste0(switch(attr(Y, "METHOD"),
                            "PCA" = "PC",
+                           "WPCA" = "PC",
                            "CA" = "CA",
                            "CAPSCALE" = "MDS",
                            "DISTBASED" = "MDS"),
@@ -393,7 +406,7 @@
 
 `ordConstrained` <-
     function(Y, X = NULL, Z = NULL,
-             method = c("cca", "rda", "capscale", "dbrda", "pass"),
+             method = c("cca", "rda", "wrda", "capscale", "dbrda", "pass"),
              arg = FALSE)
 {
     method = match.arg(method)
@@ -402,6 +415,7 @@
     Y <- switch(method,
                 "cca" = initCA(Y),
                 "rda" = initPCA(Y, scale = arg),
+                "wrda" = initWPCA(Y, w = arg),
                 "capscale" = initCAP(Y),
                 "dbrda" = initDBRDA(Y),
                 "pass" = Y)
@@ -448,6 +462,7 @@
     class(out) <- switch(attr(Y, "METHOD"),
                          "CA" = "cca",
                          "PCA" = c("rda", "cca"),
+                         "WPCA" = c("wrda", "rda", "cca"),
                          "CAPSCALE" = c("capscale", "rda", "cca"),
                          "DISTBASED" = c("dbrda", "rda", "cca"))
     out
