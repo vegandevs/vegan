@@ -1,6 +1,6 @@
 \name{cca.object}
 \alias{cca.object}
-\alias{ordConstrained} % a common interface, not really documented
+\alias{ordConstrained}
 \alias{ordiYbar}
 \alias{model.matrix.cca}
 \alias{model.matrix.rda}
@@ -44,6 +44,8 @@
 
 \usage{
 
+ordConstrained(Y, X = NULL, Z = NULL, method = c("cca", "rda", "wrda",
+    "capscale", "dbrda", "pass"), arg = FALSE)
 ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 \method{model.frame}{cca}(formula, ...)
 \method{model.matrix}{cca}(object, ...)
@@ -53,6 +55,13 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 
 \arguments{
 
+  \item{Y, X, Z}{Input matrix of responses (\code{Y}) and model matrices
+    of constraints (\code{X}) and conditions (\code{Z}). \code{NULL}
+    matrices are ignored.}
+  \item{method}{Ordination method.}
+  \item{arg}{Possible extra argument for the method. For \code{"rda"}
+    this can be scale (see \code{\link{rda}}) and for \code{"wrda"}
+    weights.}
   \item{object, x, formula}{A result object from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{dbrda}}, or
     \code{\link{capscale}}. }
