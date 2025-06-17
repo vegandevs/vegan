@@ -128,7 +128,7 @@
         head <- c(list("colsum" = sqrt(colSums(Y^2))),
                   head)
     else if (method == "WPCA")
-        head <- c(list("w" = attr(Y, "RW")), head)
+        head <- c(list("rowsum" = attr(Y, "RW")), head)
     head
 }
 
