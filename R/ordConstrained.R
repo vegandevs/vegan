@@ -462,7 +462,7 @@
     class(out) <- switch(attr(Y, "METHOD"),
                          "CA" = "cca",
                          "PCA" = c("rda", "cca"),
-                         "WPCA" = c("wrda", "rda", "cca"),
+                         "WPCA" = c("wrda", "cca"),
                          "CAPSCALE" = c("capscale", "rda", "cca"),
                          "DISTBASED" = c("dbrda", "rda", "cca"))
     out
