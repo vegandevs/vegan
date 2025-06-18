@@ -47,7 +47,8 @@ static void goffactor(double *ord, int *f, double *w, int *nrow, int *ndim,
 
 #include <math.h> /* sqrt */
 
-void wcentre(double *x, double *retx, double *w, int *nr, int *nc)
+void wcentre(double *x, double *retx, double *w, double *centre,
+     int *nr, int *nc)
 {
      int i, j, ij;
      double sw, swx;
@@ -60,6 +61,7 @@ void wcentre(double *x, double *retx, double *w, int *nr, int *nc)
 	       swx += w[i] * x[ij];
 	  }
 	  swx /= sw;
+	  centre[j] = swx;
 	  for (i = 0,  ij = (*nr)*j; i < (*nr); i++, ij++) {
 	       retx[ij] = x[ij] - swx;
 	       retx[ij] *= sqrt(w[i]);
@@ -85,7 +87,8 @@ SEXP do_wcentre(SEXP x, SEXP w)
     PROTECT(w);
     SEXP rw = PROTECT(duplicate(w));
     SEXP retx = PROTECT(allocMatrix(REALSXP, nr, nc));
-    wcentre(REAL(rx), REAL(retx), REAL(rw), &nr, &nc);
+    SEXP centre = PROTECT(allocVector(REALSXP, nc));
+    wcentre(REAL(rx), REAL(retx), REAL(rw), REAL(centre), &nr, &nc);
     /* set dimnames */
     SEXP dnames = getAttrib(x, R_DimNamesSymbol);
     if (!isNull(dnames)) {
@@ -95,7 +98,9 @@ SEXP do_wcentre(SEXP x, SEXP w)
         setAttrib(retx, R_DimNamesSymbol, dimnames);
         UNPROTECT(1);
     }
-    UNPROTECT(5);
+    /* attribute scaled:center */
+    Rf_setAttrib(retx, Rf_install("scaled:center"), centre);
+    UNPROTECT(6);
     return retx;
 }
 

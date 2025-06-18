@@ -25,7 +25,7 @@
 
 /* The following file is in goffactor.c file in vegan */
 extern
-void wcentre(double *, double *, double *, int *, int *);
+void wcentre(double *, double *, double *, double *, int *, int *);
 
 /* LINPACK uses the same function (dqrsl) to find derived results from
  * the QR decomposition. It uses decimal coding to define the kind of
@@ -341,7 +341,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
        compatibility with the current code). For this we need to
        reconstruct constraints and conditions. */
     int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *zpivot;
-    double *wperm, *Xorig, *Zorig, *Zperm, *qrwork, *zqrwork, qrtol=1e-7;
+    double *wperm, *centre, *Xorig, *Zorig, *Zperm, *qrwork, *zqrwork,
+	    qrtol=1e-7;
     if (WEIGHTED) {
 	if (PARTIAL) {
 	    nz = ncols(VECTOR_ELT(QZ, 0));
@@ -357,6 +358,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	    zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
 	}
 	wperm = (double *) R_alloc(nr, sizeof(double));
+	centre = (double *) R_alloc(nc, sizeof(double));
 	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
 	memset(Xorig, 0, nr * nx * sizeof(double));
 	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, nz);
@@ -430,7 +432,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	/* Re-weight & residualize constraints and re-do QR */
 	if (WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
-	    wcentre(Xorig, qr, wperm, &nr, &nx);
+	    wcentre(Xorig, qr, wperm, centre, &nr, &nx);
 	    if (PARTIAL) {
 		qrkind = RESID;
 		for (i = 0; i < nx; i++)
