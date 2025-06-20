@@ -23,6 +23,7 @@
   ...)
 \method{rda}{formula}(formula, data, scale=FALSE, na.action = na.fail,
   subset = NULL, ...)
+wrda(formula, data, w, na.action = na.fail, subset = NULL, ...)
 \method{cca}{default}(X, Y, Z, ...)
 \method{rda}{default}(X, Y, Z, scale=FALSE, ...)
 ca(X, ...)
@@ -47,7 +48,7 @@ pca(X, scale=FALSE, ...)
     (\dQuote{partialled out}) before next step. Can be missing. If this is a
     \code{data.frame}, it is expanded similarly as constraining
     matrix.}
-\item{scale}{Scale species to unit variance (like correlations).}
+  \item{scale}{Scale species to unit variance (like correlations).}
   \item{na.action}{Handling of missing values in constraints or
     conditions. The default (\code{\link{na.fail}}) is to stop with
     missing value. Choice \code{\link{na.omit}} removes all rows with
@@ -56,6 +57,7 @@ pca(X, scale=FALSE, ...)
     calculated. The WA scores of rows may be found also for missing
     values in constraints. Missing values are never allowed in
     dependent community data. }
+  \item{w}{Prior row weights.}
   \item{subset}{Subset of data rows. This can be a logical vector which
     is \code{TRUE} for kept observations, or a logical expression which
     can contain variables in the working environment, \code{data} or

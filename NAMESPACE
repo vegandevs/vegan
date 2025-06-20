@@ -32,7 +32,7 @@ specnumber, specpool2vect, specpool, spenvcor, "sppscores<-", sppscores,
 stepacross, stressplot, swan, tabasco, taxa2dist, taxondive, tolerance,
 treedist, treedive, treeheight, tsallisaccum, tsallis, varpart,
 vectorfit, vegandocs, vegdist, avgdist, vegemite, veiledspec, wascores,
-wcmdscale, wisconsin)
+wcmdscale, wisconsin, wrda)
 ## export pasteCall for 'permute'
 export(pasteCall)
 ## export anova.cca for 'BiodiversityR': this should be fixed there

@@ -58,11 +58,13 @@
 `initWPCA` <-
     function(Y, w)
 {
+    Y <- as.matrix(Y)
     Y <- .Call(do_wcentre, Y, w)
     attr(Y, "RW") <- w
     attr(Y, "METHOD") <- "WPCA"
     Y
 }
+
 `initCAP` <-
     function(Y)
 {
@@ -214,8 +216,8 @@
             alias <- colnames(Q$qr)
         # print a message to highlight this aliasing
         #msg <- "Some model terms were linearly dependent and their effects
-#cannot be uniquely estimated. See '?alias.cca' for more detail and use
-#'vif.cca()' to identify these terms."
+        #cannot be uniquely estimated. See '?alias.cca' for more detail and use
+        #'vif.cca()' to identify these terms."
         #message(strwrap(msg, prefix = "\n", initial = "\n",
         #    width = 0.95 * getOption("width")))
         aliased <- paste(sQuote(alias), collapse = ", ")
@@ -462,7 +464,7 @@
     class(out) <- switch(attr(Y, "METHOD"),
                          "CA" = "cca",
                          "PCA" = c("rda", "cca"),
-                         "WPCA" = c("wrda", "cca"),
+                         "WPCA" = c("wrda", "rda", "cca"),
                          "CAPSCALE" = c("capscale", "rda", "cca"),
                          "DISTBASED" = c("dbrda", "rda", "cca"))
     out
