@@ -1,14 +1,31 @@
 `mantel.partial` <-
-  function (xdis, ydis, zdis, method = "pearson", permutations = 999, 
-            strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores")) 
+  function (xdis, ydis, zdis, method = "pearson", permutations = 999,
+            strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores"))
 {
     EPS <- sqrt(.Machine$double.eps)
     part.cor <- function(rxy, rxz, ryz) {
         (rxy - rxz * ryz)/sqrt(1-rxz*rxz)/sqrt(1-ryz*ryz)
     }
+    if ((is.matrix(xdis) || is.data.frame(xdis)) &&
+               isSymmetric(unname(as.matrix(xdis))))
+        xdis <- as.dist(xdis)
+    if (!inherits(xdis, "dist"))
+        stop("'xdis' must be a 'dist' object or a symmetric square matrix")
+    if ((is.matrix(ydis) || is.data.frame(ydis)) &&
+               isSymmetric(unname(as.matrix(ydis))))
+        ydis <- as.dist(ydis)
+    if (!inherits(ydis, "dist"))
+        stop("'ydis' must be a 'dist' object or a symmetric square matrix")
+    if ((is.matrix(zdis) || is.data.frame(zdis)) &&
+               isSymmetric(unname(as.matrix(zdis))))
+        zdis <- as.dist(zdis)
+    if (!inherits(zdis, "dist"))
+        stop("'zdis' must be a 'dist' object or a symmetric square matrix")
+
+        ydis <- as.dist(ydis)
     xdis <- as.dist(xdis)
-    ydis <- as.vector(as.dist(ydis))
-    zdis <- as.vector(as.dist(zdis))
+    ydis <- as.vector(ydis)
+    zdis <- as.vector(zdis)
     ## Handle missing values
     if (na.rm)
         use <- "complete.obs"
@@ -69,7 +86,7 @@
         signif <- NA
         perm <- NULL
     }
-    res <- list(call = match.call(), method = variant, statistic = statistic, 
+    res <- list(call = match.call(), method = variant, statistic = statistic,
                 signif = signif, perm = perm, permutations = permutations,
                 control = attr(permat, "control"))
     if (!missing(strata)) {
