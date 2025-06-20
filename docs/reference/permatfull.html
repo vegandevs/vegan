@@ -332,17 +332,17 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Matrix fill retained: 100 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Row sums retained:    100 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Column sums retained: 100 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Row incidences retained:    1.01 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Column incidences retained: 13.13 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Row incidences retained:    5.05 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Column incidences retained: 11.11 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bray-Curtis dissimilarities among original and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2000  0.3667  0.4333  0.4145  0.4667  0.6000 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2000  0.3333  0.4000  0.4027  0.4667  0.6000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared for original matrix: 18.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   16.27   19.59   21.10   21.51   23.36   31.69 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   15.75   19.04   21.17   21.44   23.43   29.19 </span>
 <span class="r-in"><span><span class="co">## Unrestricted permutation retaining</span></span></span>
 <span class="r-in"><span><span class="co">## row/columns sums but not matrix fill:</span></span></span>
 <span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></span>
@@ -363,20 +363,20 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices: 99 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Matrix sums retained: 100 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Matrix fill retained: 16.16 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Matrix fill retained: 12.12 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Row sums retained:    100 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Column sums retained: 100 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Row incidences retained:    0 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Column incidences retained: 1.01 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Row incidences retained:    1.01 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Column incidences retained: 0 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bray-Curtis dissimilarities among original and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2000  0.3333  0.3667  0.3865  0.4333  0.6333 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2333  0.3333  0.4000  0.3919  0.4333  0.6000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared for original matrix: 18.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   7.824  12.046  15.660  16.015  19.413  28.132 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   9.003  12.193  14.586  15.420  18.217  26.153 </span>
 <span class="r-in"><span><span class="co">## Unrestricted permutation of presence-absence type</span></span></span>
 <span class="r-in"><span><span class="co">## not retaining row/columns sums:</span></span></span>
 <span class="r-in"><span><span class="va">x3</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, <span class="st">"none"</span>, mtype<span class="op">=</span><span class="st">"prab"</span><span class="op">)</span></span></span>
@@ -412,12 +412,12 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bray-Curtis dissimilarities among original and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2000  0.3333  0.4000  0.3852  0.4000  0.5333 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.2000  0.3333  0.4000  0.3818  0.4000  0.5333 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared for original matrix: 8.4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   8.812  13.583  15.208  15.295  17.083  21.896 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   8.812  13.562  15.188  15.275  17.083  21.896 </span>
 <span class="r-in"><span><span class="co">## Restricted permutation,</span></span></span>
 <span class="r-in"><span><span class="co">## check sums within strata:</span></span></span>
 <span class="r-in"><span><span class="va">x4</span> <span class="op">&lt;-</span> <span class="fu">permatfull</span><span class="op">(</span><span class="va">m</span>, strata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -438,21 +438,21 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permuted matrices: 99 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Matrix sums retained: 100 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Matrix fill retained: 38.38 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Matrix fill retained: 36.36 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Row sums retained:    100 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Column sums retained: 100 %</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Row incidences retained:    1.01 %</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Row incidences retained:    0 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Column incidences retained: 2.02 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sums within strata retained: 100 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bray-Curtis dissimilarities among original and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.06667 0.20000 0.26667 0.23502 0.26667 0.46667 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.06667 0.20000 0.20000 0.23098 0.26667 0.40000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared for original matrix: 18.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Chi-squared values among expected and permuted matrices:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   14.21   18.68   21.05   22.09   25.26   36.50 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   14.21   18.84   21.26   22.18   25.67   35.09 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## NOTE: 'times' argument usually needs to be &gt;= 99</span></span></span>
 <span class="r-in"><span><span class="co">## here much lower value is used for demonstration</span></span></span>
@@ -485,17 +485,17 @@ Details section.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          ar1  intercept</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       0.9915     0.1850</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s.e.  0.0120     0.1374</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       0.9914     0.1848</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s.e.  0.0121     0.1387</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sigma^2 estimated as 0.000346:  log likelihood = 46.71,  aic = -87.42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sigma^2 estimated as 0.0003542:  log likelihood = 46.49,  aic = -86.98</span>
 <span class="r-in"><span><span class="co">## Ljung-Box test of residuals</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/box.test.html" class="external-link">Box.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">mar</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	Box-Pierce test</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> data:  residuals(mar)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.35725, df = 1, p-value = 0.55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X-squared = 0.36966, df = 1, p-value = 0.5432</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## Graphical diagnostics</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/tsdiag.html" class="external-link">tsdiag</a></span><span class="op">(</span><span class="va">mar</span><span class="op">)</span></span></span>

@@ -50,6 +50,11 @@
 <li><p><code>ordilabel</code> can use variable character expansion (<code>cex</code>) and with this <code>plot.cca</code>, <code>ordiplot</code> <em>etc.</em> gained the same ability.</p></li>
 </ul></div>
 <div class="section level3">
+<h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
+<ul><li>
+<code>summary</code> for <code>mantel</code>, <code>mrpp</code>, <code>oecosimu</code> and <code>ordiareatest</code> did not pass dot arguments (<code>...</code>) to underlying <code>summary.permustats</code>. These arguments allow changing sidedness or critical <em>P</em>-value of the summary.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="defunct-2-8-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-2-8-0"></a></h3>
 <ul><li>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</li>
 </ul></div>

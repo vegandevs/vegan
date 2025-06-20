@@ -4,12 +4,14 @@
   mantel.partial finds the partial Mantel statistic as the
   partial matrix correlation between three dissimilarity matrices.  The
   significance of the statistic is evaluated by permuting rows and
-  columns of the first dissimilarity matrix."><meta property="og:description" content="Function mantel  finds the Mantel statistic as a matrix
+  columns of the first dissimilarity matrix. Test is one-sided and only
+  tests that distances are positively correlated."><meta property="og:description" content="Function mantel  finds the Mantel statistic as a matrix
   correlation between two dissimilarity matrices, and function
   mantel.partial finds the partial Mantel statistic as the
   partial matrix correlation between three dissimilarity matrices.  The
   significance of the statistic is evaluated by permuting rows and
-  columns of the first dissimilarity matrix."></head><body>
+  columns of the first dissimilarity matrix. Test is one-sided and only
+  tests that distances are positively correlated."></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -53,7 +55,8 @@
   <code>mantel.partial</code> finds the partial Mantel statistic as the
   partial matrix correlation between three dissimilarity matrices.  The
   significance of the statistic is evaluated by permuting rows and
-  columns of the first dissimilarity matrix.</p>
+  columns of the first dissimilarity matrix. Test is one-sided and only
+  tests that distances are positively correlated.</p>
     </div>
 
     <div class="section level2">
@@ -68,11 +71,14 @@
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <p></p>
+
+
+<p></p>
 <dl><dt id="arg-xdis-ydis-zdis">xdis, ydis, zdis<a class="anchor" aria-label="anchor" href="#arg-xdis-ydis-zdis"></a></dt>
-<dd><p>Dissimilarity matrices or<code>dist</code>
-    objects. The first object <code>xdis</code> will be permuted in
-    permutation tests.</p></dd>
+<dd><p>Distance object of class <code>"dist"</code> or
+    symmetric square matrices of distances. Only the lower triangle of
+    square matrices is used.  The first object <code>xdis</code> will be
+    permuted in permutation tests.</p></dd>
 
   <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>Correlation method, as accepted by <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></code>:
@@ -105,7 +111,9 @@
 <dd><p>Result object.</p></dd>
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Arguments passed to <code><a href="permustats.html">summary.permustats</a></code>.</p></dd>
+<dd><p>Arguments passed to <code><a href="permustats.html">summary.permustats</a></code>
+    These include <code>alternative</code> to select the sidedness of the
+    test.</p></dd>
 
 
 </dl></div>
@@ -201,7 +209,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Upper quantiles of permutations (null model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   90%   95% 97.5%   99% </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.116 0.147 0.176 0.210 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.114 0.151 0.182 0.208 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -217,7 +225,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Upper quantiles of permutations (null model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   90%   95% 97.5%   99% </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.123 0.162 0.182 0.208 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.117 0.153 0.172 0.202 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
