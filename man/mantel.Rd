@@ -10,7 +10,8 @@
   \code{mantel.partial} finds the partial Mantel statistic as the
   partial matrix correlation between three dissimilarity matrices.  The
   significance of the statistic is evaluated by permuting rows and
-  columns of the first dissimilarity matrix. 
+  columns of the first dissimilarity matrix. Test is one-sided and only
+  tests that distances are positively correlated.
 
 }
 \usage{
@@ -22,9 +23,11 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
 }
 
 \arguments{
-  \item{xdis, ydis, zdis}{ Dissimilarity matrices or\code{dist}
-    objects. The first object \code{xdis} will be permuted in
-    permutation tests. }
+
+  \item{xdis, ydis, zdis}{Distance object of class \code{"dist"} or
+    symmetric square matrices of distances. Only the lower triangle of
+    square matrices is used.  The first object \code{xdis} will be
+    permuted in permutation tests. }
   \item{method}{ Correlation method, as accepted by \code{\link{cor}}:
     \code{"pearson"}, \code{"spearman"} or \code{"kendall"}. }
   \item{permutations}{a list of control values for the permutations
@@ -43,7 +46,9 @@ mantel.partial(xdis, ydis, zdis, method = "pearson", permutations = 999,
     processing. The parallel processing is done with \pkg{parallel}
     package.}
   \item{object}{Result object.}
-  \item{\dots}{Arguments passed to \code{\link{summary.permustats}}.}
+  \item{\dots}{Arguments passed to \code{\link{summary.permustats}}
+    These include \code{alternative} to select the sidedness of the
+    test.}
 
 }
 
