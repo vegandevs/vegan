@@ -282,7 +282,7 @@
 `summary.mantel` <-
     function(object, ...)
 {
-    summary(permustats(object, ...))
+    summary(permustats(object), ...)
 }
 
 `permustats.mrpp` <-
@@ -298,7 +298,7 @@
 `summary.mrpp` <-
     function(object, ...)
 {
-    summary(permustats(object, ...))
+    summary(permustats(object), ...)
 }
 
 `permustats.oecosimu` <-
@@ -314,7 +314,7 @@
 `summary.oecosimu` <-
     function(object, ...)
 {
-    summary(permustats(object, ...))
+    summary(permustats(object), ...)
 }
 
 `permustats.ordiareatest` <-
@@ -330,7 +330,7 @@
 `summary.ordiareatest` <-
     function(object, ...)
 {
-    summary(permustats(object, ...))
+    summary(permustats(object), ...)
 }
 
 `permustats.permutest.cca` <-
