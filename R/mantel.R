@@ -1,10 +1,19 @@
 `mantel` <-
-  function (xdis, ydis, method = "pearson", permutations = 999, 
-            strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores")) 
+  function (xdis, ydis, method = "pearson", permutations = 999,
+            strata = NULL, na.rm = FALSE, parallel = getOption("mc.cores"))
 {
     EPS <- sqrt(.Machine$double.eps)
-    xdis <- as.dist(xdis)
-    ydis <- as.vector(as.dist(ydis))
+    if ((is.matrix(xdis) || is.data.frame(xdis)) &&
+               isSymmetric(unname(as.matrix(xdis))))
+        xdis <- as.dist(xdis)
+    if (!inherits(xdis, "dist"))
+        stop("'xdis' must be a 'dist' object or a symmetric square matrix")
+    if ((is.matrix(ydis) || is.data.frame(ydis)) &&
+               isSymmetric(unname(as.matrix(ydis))))
+        ydis <- as.dist(ydis)
+    if (!inherits(ydis, "dist"))
+        stop("'ydis' must be a 'dist' object or a symmetric square matrix")
+    ydis <- as.vector(ydis)
     ## Handle missing values
     if (na.rm)
         use <- "complete.obs"
@@ -61,7 +70,7 @@
         signif <- NA
         perm <- NULL
     }
-    res <- list(call = match.call(), method = variant, statistic = statistic, 
+    res <- list(call = match.call(), method = variant, statistic = statistic,
                 signif = signif, perm = perm, permutations = permutations,
                 control = attr(permat, "control"))
     class(res) <- "mantel"
