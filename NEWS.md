@@ -22,6 +22,13 @@
 * `ordilabel` can use variable character expansion (`cex`) and with
   this `plot.cca`, `ordiplot` _etc._ gained the same ability.
 
+## Bug Fixes
+
+* `summary` for `mantel`, `mrpp`, `oecosimu` and `ordiareatest` did
+  not pass dot arguments (`...`) to underlying `summary.permustats`.
+  These arguments allow changing sidedness or critical _P_-value of
+  the summary.
+
 ## Defunct
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
