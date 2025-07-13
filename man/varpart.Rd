@@ -28,9 +28,10 @@
 varpart(Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
     add = FALSE, sqrt.dist = FALSE, permutations)
 \method{summary}{varpart}(object, ...)
+\method{plot}{varpart}(x, Xnames = x$tables, ...)
+\method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     id.size = 1.2,  ...)
-\method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
 }
 
 \arguments{
@@ -55,7 +56,8 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   omitted.  }
 
 \item{...}{Other parameters passed to functions. NB, arguments after
-  dots cannot be abbreviated but they must be spelt out completely.}
+  dots cannot be abbreviated but they must be spelt out completely.
+  \code{plot} functions pass arguments \code{showvarparts}.}
 
 \item{data}{The data frame with the variables used in the formulae in
   \code{X}.}
@@ -101,13 +103,10 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     are more transparent.  Transparency is not available in all
     graphics devices or file formats.}
   
-\item{Xnames}{Names for sources of variation. Default names are \code{X1},
-  \code{X2}, \code{X3} and \code{X4}. \code{Xnames=NA},
-  \code{Xnames=NULL} and \code{Xnames=""} produce no names. The names
-  can be changed to other names. It is often best to use short names. }
-
-\item{id.size}{A numerical value giving the character expansion factor
-  for the names of circles or ellipses. }
+\item{Xnames, id.size}{Names for sources of variation. \code{Xnames=NA},
+  \code{Xnames=NULL} and \code{Xnames=""} produce no names. It is often
+  best to use short names. \code{id.size} is a numerical value for the
+  character expansion of \code{Xnames}. }
 
 \item{x, object}{The \code{varpart} result.}
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}

@@ -1,5 +1,5 @@
-"plot.varpart234" <-
-function(x, cutoff = 0, digits = 1,  ...)
+`plot.varpart234` <-
+    function(x, cutoff = 0, digits = 1, ...)
 {
     vals <- x$indfract[, 3]
     is.na(vals) <- vals < cutoff
