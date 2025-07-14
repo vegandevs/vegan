@@ -131,7 +131,8 @@
     inpoly <- numeric(np)
     inpoly <- .C(pnpoly, as.integer(npol), as.double(xhull1),
                  as.double(xhull2), as.integer(np), as.double(newd[,1]),
-                 as.double(newd[,2]), inpoly = as.integer(inpoly))$inpoly
+                 as.double(newd[,2]), inpoly = as.integer(inpoly),
+                 PACKAGE = "vegan")$inpoly
     is.na(fit) <- inpoly == 0
     if(plot) {
         if (!add) {

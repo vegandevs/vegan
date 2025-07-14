@@ -120,7 +120,7 @@
                  sfgrmn = as.double(sfgrmin), dist = double(ndis),
                  dhat = double(ndis), points = double(k*nobj),
                  stress = double(1), grstress = double(ngrp),
-                 iters = integer(1), icause = integer(1))
+                 iters = integer(1), icause = integer(1), PACKAGE = "vegan")
     sol$call <- match.call()
     sol$model <- model
     sol$points <- matrix(sol$points, nobj, k)

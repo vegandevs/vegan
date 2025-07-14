@@ -38,7 +38,7 @@
     Y <- initCA(Y)
     if(missing(SS.Y)) SS.Y <- sum(Y^2)
     w <- attr(Y, "RW")
-    X <- .Call(do_wcentre, X, w)
+    X <- .Call(do_wcentre, X, w, PACKAGE = "vegan")
     Q <- qr(X, tol=1e-6)
     Yfit.X <- qr.fitted(Q, Y)
     SS <- sum(Yfit.X^2)
