@@ -9,9 +9,10 @@
     if (path == "shortest")
         dis <- .C(dykstrapath, dist = as.double(dis), n = as.integer(n),
                   as.double(toolong), as.integer(trace),
-                  out = double(length(dis)), NAOK = TRUE)$out
+                  out = double(length(dis)), NAOK = TRUE, PACKAGE = "vegan")$out
     else dis <- .C(C_stepacross, dis = as.double(dis), as.integer(n),
-                   as.double(toolong), as.integer(trace), NAOK = TRUE)$dis
+                   as.double(toolong), as.integer(trace), NAOK = TRUE,
+                   PACKAGE = "vegan")$dis
     if("maxdist" %in% oldatt)
         oldatt$maxdist <- NA
     attributes(dis) <- oldatt

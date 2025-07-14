@@ -89,7 +89,8 @@
            stress=as.double(stress),
            strs=as.double(1),
            iters=as.integer(iters),
-           cause=as.integer(icause))
+           cause=as.integer(icause),
+           PACKAGE = "vegan")
     dim(out$points) <- c(totn, ndim)
     newpoints <- out$points[(oldn+1):totn,, drop=FALSE]
     dimnames(newpoints) <- list(rownames(dis), colnames(nmds$points))

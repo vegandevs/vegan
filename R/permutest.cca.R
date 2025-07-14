@@ -46,7 +46,7 @@ permutest.default <- function(x, ...)
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow = 1)
         out <- .Call(do_getF, indx, E, Q, QZ, effects, w, first, isPartial,
-                     isCCA, isDB)
+                     isCCA, isDB, PACKAGE = "vegan")
         p <- length(effects)
         if (!isPartial && !first)
             out[, p + 1] <- Chi.tot - rowSums(out[,seq_len(p), drop=FALSE])

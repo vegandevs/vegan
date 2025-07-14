@@ -4,7 +4,7 @@
     n <- attr(dis, "Size")
     out <- .C(stepabyss, dis = as.double(dis), n = as.integer(n),
               toolong = as.double(toolong), val = integer(n),
-              NAOK = TRUE)$val
+              NAOK = TRUE, PACKAGE = "vegan")$val
     if (trace) {
         cat("Connectivity of distance matrix with threshold dissimilarity",
             toolong,"\n")
