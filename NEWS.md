@@ -29,6 +29,9 @@
   These arguments allow changing sidedness or critical _P_-value of
   the summary.
 
+* `ordilabel`, `ordipointlabel` froze graphical device if function
+  stopped with error.
+
 ## Defunct
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
