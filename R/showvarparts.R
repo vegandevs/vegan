@@ -59,7 +59,8 @@
     ## plot
     plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n",
          xlim = xlim, ylim = ylim)
-    text(pos.names, labels=Xnames[seq_len(parts)], cex=id.size, pos = pos)
+    text(pos.names, labels=Xnames[seq_len(parts)], cex=id.size, pos = pos,
+         xpd = TRUE)
     box()
     if (parts < 4) {
         symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE,
