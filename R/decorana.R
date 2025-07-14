@@ -38,7 +38,7 @@
         iresc <- 0
     ## Start analysis
     CA <- .Call(do_decorana, veg, ira, iresc, short, mk, as.double(aidot),
-                as.double(adotj))
+                as.double(adotj), PACKAGE = "vegan")
     if (ira)
         dnames <- paste("RA", 1:4, sep = "")
     else dnames <- paste("DCA", 1:4, sep = "")

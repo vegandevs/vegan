@@ -9,8 +9,8 @@
     P <- as.matrix(P)
     if (nrow(P) != nrow(X))
         stop("input data have non-matching numbers of observations")
-    Xw <- .Call(do_wcentre, X, w)
-    Pw <- .Call(do_wcentre, P, w)
+    Xw <- .Call(do_wcentre, X, w, PACKAGE = "vegan")
+    Pw <- .Call(do_wcentre, P, w, PACKAGE = "vegan")
     colnames(Pw) <- colnames(P)
     nc <- ncol(X)
     Q <- qr(Xw)
@@ -34,7 +34,7 @@
     if (permutations) {
         ptest <- function(indx, ...) {
             take <- P[indx, , drop = FALSE]
-            take <- .Call(do_wcentre, take, w)
+            take <- .Call(do_wcentre, take, w, PACKAGE = "vegan")
             Hperm <- qr.fitted(Q, take)
             diag(cor(Hperm, take))^2
         }

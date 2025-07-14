@@ -68,7 +68,7 @@
                 stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
-            .Call(do_qswap, out, n, thin, "quasiswap")
+            .Call(do_qswap, out, n, thin, "quasiswap", PACKAGE = "vegan")
         }),
         "greedyqswap" = commsim(method="greedyqswap", binary=TRUE,
                isSeq=FALSE, mode="integer",
@@ -77,7 +77,7 @@
                 stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
-            .Call(do_greedyqswap, out, n, thin, fill)
+            .Call(do_greedyqswap, out, n, thin, fill, PACKAGE = "vegan")
         }),
         "swap" = commsim(method="swap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
@@ -87,26 +87,26 @@
             ## no checkerboard 2x2 matrices: infinite loop
             if (nestedchecker(x)$statistic == 0)
                 stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
-            .Call(do_swap, as.matrix(x), n, thin, "swap")
+            .Call(do_swap, as.matrix(x), n, thin, "swap", PACKAGE = "vegan")
         }),
         "tswap" = commsim(method="tswap", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nr < 2L || nc < 2L)
                 stop(sQuote(method)," needs at least two items", call. = FALSE)
-            .Call(do_swap, as.matrix(x), n, thin, "trialswap")
+            .Call(do_swap, as.matrix(x), n, thin, "trialswap", PACKAGE = "vegan")
         }),
         "curveball" = commsim(method="curveball", binary = TRUE, isSeq=TRUE,
         mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
             if (nrow(x) < 2)
                 stop(sQuote(method), " needs at least two rows", call. = FALSE)
-            .Call(do_curveball, as.matrix(x), n, thin)
+            .Call(do_curveball, as.matrix(x), n, thin, PACKAGE = "vegan")
         }),
         "backtrack" = commsim(method="backtrack", binary = TRUE,
                                isSeq = FALSE, mode = "integer",
         fun = function(x, n, nr, nc, rs, cs, rf, cf, s, fill, thin) {
-            .Call(do_backtrack, n, rs, cs)
+            .Call(do_backtrack, n, rs, cs, PACKAGE = "vegan")
         }),
         "r2dtable" = commsim(method="r2dtable", binary=FALSE, isSeq=FALSE,
         mode="integer",
@@ -125,7 +125,7 @@
             ## no checkerboard 2x2 matrices: infinite loop
             if (nestedchecker(x)$statistic == 0)
                 stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
-            .Call(do_swap, as.matrix(x), n, thin, "swapcount")
+            .Call(do_swap, as.matrix(x), n, thin, "swapcount", PACKAGE = "vegan")
         }),
         "quasiswap_count" = commsim(method="quasiswap_count", binary=FALSE,
         isSeq=FALSE, mode="integer",
@@ -137,7 +137,7 @@
                 stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
             out <- array(unlist(r2dtable(n, rs, cs)), c(nr, nc, n))
             storage.mode(out) <- "integer"
-            .Call(do_qswap, out, n, fill, "rswapcount")
+            .Call(do_qswap, out, n, fill, "rswapcount", PACKAGE = "vegan")
         }),
         "swsh_samp" = commsim(method="swsh_samp", binary=FALSE, isSeq=FALSE,
         mode="double",
@@ -147,7 +147,7 @@
             nz <- x[x > 0]
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
             ## do_qswap changes 'out' within the function
-            .Call(do_qswap, out, n, thin, "quasiswap")
+            .Call(do_qswap, out, n, thin, "quasiswap", PACKAGE = "vegan")
             storage.mode(out) <- "double"
             for (k in seq_len(n)) {
                 out[,,k][out[,,k] > 0] <- sample(nz) # we assume that length(nz)>1
@@ -164,7 +164,7 @@
             }
             nz <- as.integer(x[x > 0])
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
-            .Call(do_qswap, out, n, thin, "quasiswap")
+            .Call(do_qswap, out, n, thin, "quasiswap", PACKAGE = "vegan")
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 out[,,k][out[,,k] > 0] <- indshuffle(nz - 1L) + 1L  # we assume that length(nz)>1
@@ -177,7 +177,7 @@
             if (nr < 2L || nc < 2L)
                 stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
-            .Call(do_qswap, out, n, thin, "quasiswap")
+            .Call(do_qswap, out, n, thin, "quasiswap", PACKAGE = "vegan")
             storage.mode(out) <- "double"
             I <- seq_len(nr)
             for (k in seq_len(n)) {
@@ -197,7 +197,7 @@
             if (nr < 2L || nc < 2L)
                 stop(sQuote(method)," needs at least two items", call. = FALSE)
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
-            .Call(do_qswap, out, n, thin, "quasiswap")
+            .Call(do_qswap, out, n, thin, "quasiswap", PACKAGE = "vegan")
             storage.mode(out) <- "double"
             J <- seq_len(nc)
             for (k in seq_len(n)) {
@@ -221,7 +221,7 @@
             }
             I <- seq_len(nr)
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
-            .Call(do_qswap, out, n, thin, "quasiswap")
+            .Call(do_qswap, out, n, thin, "quasiswap", PACKAGE = "vegan")
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 for (i in I) {
@@ -244,7 +244,7 @@
             }
             J <- seq_len(nc)
             out <- array(unlist(r2dtable(n, rf, cf)), c(nr, nc, n))
-            .Call(do_qswap, out, n, thin, "quasiswap")
+            .Call(do_qswap, out, n, thin, "quasiswap", PACKAGE = "vegan")
             storage.mode(out) <- "integer"
             for (k in seq_len(n)) {
                 for (j in J) {
@@ -263,7 +263,7 @@
             ## no checkerboard 2x2 matrices: infinite loop
             if (nestedchecker(x)$statistic == 0)
                 stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
-            .Call(do_abuswap, as.matrix(x), n, thin, 1L)
+            .Call(do_abuswap, as.matrix(x), n, thin, 1L, PACKAGE = "vegan")
         }),
         "abuswap_c" = commsim(method="abuswap_c", binary=FALSE, isSeq=TRUE,
         mode="double",
@@ -271,7 +271,7 @@
             ## no checkerboard 2x2 matrices: infinite loop
             if (nestedchecker(x)$statistic == 0)
                 stop(sQuote(method), " needs checkerboard data: check with nestedchecker(x)", call. = FALSE)
-            .Call(do_abuswap, as.matrix(x), n, thin, 0L)
+            .Call(do_abuswap, as.matrix(x), n, thin, 0L, PACKAGE = "vegan")
         }),
         "r00_samp" = commsim(method="r00_samp", binary=FALSE, isSeq=FALSE,
         mode="double",

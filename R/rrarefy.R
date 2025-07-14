@@ -22,7 +22,7 @@
     if (any(rowSums(x) < sample))
         warning("some row sums < 'sample' and are not rarefied")
     for (i in 1:nrow(x)) {
-        x[i,] <- .Call(do_rrarefy, x[i,], sample[i])
+        x[i,] <- .Call(do_rrarefy, x[i,], sample[i], PACKAGE = "vegan")
     }
     x
 }

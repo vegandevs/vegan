@@ -31,8 +31,8 @@
     n <- nrow(m)
     if (missing(w))
         w <- rep(1, n)
-    m <- .Call(do_wcentre, m, w)
-    m <- t(.Call(do_wcentre, t(m), w))
+    m <- .Call(do_wcentre, m, w, PACKAGE = "vegan")
+    m <- t(.Call(do_wcentre, t(m), w, PACKAGE = "vegan"))
     e <- eigen(-m/2, symmetric = TRUE)
     ## Remove zero eigenvalues, keep negative
     keep <- abs(e$values) > max(ZERO, ZERO * e$values[1L])

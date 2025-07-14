@@ -17,7 +17,7 @@
         w <- rep(w, NR)
     r <- NULL
     pval <- NULL
-    totvar <- .Call(do_goffactor, X, rep(1L, NR), 1L, w)
+    totvar <- .Call(do_goffactor, X, rep(1L, NR), 1L, w, PACKAGE = "vegan")
     sol <- centroids.cca(X, P, w)
     var.id <- rep(names(P), sapply(P, nlevels))
     ## make permutation matrix for all variables handled in the next loop
@@ -27,7 +27,7 @@
     for (i in seq_along(P)) {
         A <- as.integer(P[[i]])
         NL <- nlevels(P[[i]])
-        invar <- .Call(do_goffactor, X, A, NL, w)
+        invar <- .Call(do_goffactor, X, A, NL, w, PACKAGE = "vegan")
         r.this <- 1 - invar/totvar
         r <- c(r, r.this)
         if (permutations) {
@@ -35,7 +35,7 @@
             NL <- nlevels(P[[i]])
             ptest <- function(indx, ...) {
                 take <- A[indx]
-                invar <- .Call(do_goffactor, X, take, NL, w)
+                invar <- .Call(do_goffactor, X, take, NL, w, PACKAGE = "vegan")
                 1 - invar/totvar
             }
             tmp <- sapply(seq_len(permutations),
