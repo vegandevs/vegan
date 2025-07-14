@@ -27,10 +27,15 @@
     pos.names <-
         switch(parts,
                matrix(c(0,0), ncol=2, byrow=TRUE),
-               matrix(c(-0.65,1.65,0.65,0.65),2,2),
-               matrix(c(-0.65,1.65,-0.16,0.65,0.65,-1.5), 3, 2),
-               matrix(c(-1.62,-1.10,1.10,1.62,0.54,1.00,1.00,0.54),4,2)
+               matrix(c(-0.1,1.1,0.75,0.75),2,2),
+               matrix(c(-0.4,1.4,0.05,0.65,0.65,-1.5), 3, 2),
+               matrix(c(-1.25,-0.85,0.85,1.25,0.55,1,1,0.55),4,2)
                )
+    pos <- switch(parts,
+                  0,
+                  c(2, 4),
+                  c(2, 4, 2),
+                  c(2, 2, 4, 4))
     ## plot limits
     if (parts < 4) {
         xlim <- range(cp[,1]) + c(-rad, rad)
@@ -42,7 +47,7 @@
     ## plot
     plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n",
          xlim = xlim, ylim = ylim)
-    text(pos.names, labels=Xnames[1:parts], cex=id.size)
+    text(pos.names, labels=Xnames[seq_len(parts)], cex=id.size, pos = pos)
     box()
     if (parts < 4) {
         symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE,
