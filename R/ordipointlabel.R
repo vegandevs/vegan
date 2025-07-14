@@ -121,6 +121,7 @@
                  control=list(maxit=nit))
     lab <- xy + makeoff(sol$par, box)
     dev.hold()
+    on.exit(dev.flush())
     ## draw optional lab background first so it does not cover points
     if (!missing(bg)) {
         for(i in seq_len(nrow(lab))) {
@@ -140,7 +141,6 @@
     ordiArgAbsorber(xy, pch = pch, col = col, cex = cex, FUN = points,
                         ...)
     ##text(lab, labels=labels, col = col, cex = cex, font = font,  ...)
-    dev.flush()
     if (!inherits(x, "ordiplot"))
         pl <- list(points = xy)
     else
