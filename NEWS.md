@@ -17,6 +17,9 @@
   These arguments allow changing sidedness or critical _P_-value of
   the summary.
 
+* `ordilabel`, `ordipointlabel` froze graphical device if function
+  stopped with error.
+
 # vegan 2.7-1
 
 ## Installation
