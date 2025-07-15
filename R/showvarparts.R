@@ -49,7 +49,7 @@
          xlim = xlim, ylim = ylim)
     ## See if text fits the space
     xspace <- par("usr")[1:2]
-    sw <- strwidth(Xnames, cex = id.size)
+    sw <- strwidth(Xnames, cex = id.size) + strwidth("m", cex = id.size)
     pt <- pos.names[,1]
     pt <- ifelse(pos == 2, pt - sw, pt + sw)
     if (any(pt < xspace[1]) || any(pt > xspace[2])) {
