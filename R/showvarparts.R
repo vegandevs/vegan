@@ -44,18 +44,6 @@
         xlim <- c(-1.7, 1.7)
         ylim <- c(-1.7, 1.1)
     }
-    ## is longer xlim needed for labels?
-    px <- par("plt")[1:2] * par("fin")
-    b1 <- diff(px)/diff(xlim)
-    b0 <- px[1] - b1 * xlim[1]
-    pt <- b0 + b1 * pos.names[,1]
-    sw <- strwidth(Xnames, cex = id.size, units = "inches") +
-        strwidth("m", cex = id.size, units = "inches")
-    pt <- ifelse(pos == 2, pt - sw, pt + sw)
-    if (any(pt < px[1]))
-        xlim[1] <- xlim[1] * (b0 - min(pt))/(b0 - px[1])
-    if (any(pt > px[2]))
-        xlim[2] <- xlim[2] * (max(pt) - b0)/(px[2] - b0)
     ## plot
     plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n",
          xlim = xlim, ylim = ylim)
