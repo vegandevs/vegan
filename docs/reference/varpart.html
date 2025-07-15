@@ -71,10 +71,12 @@ The function partitions the variation in community data or community
 <span>    add <span class="op">=</span> <span class="cn">FALSE</span>, sqrt.dist <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">permutations</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'varpart'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="fu">showvarparts</span><span class="op">(</span><span class="va">parts</span>, <span class="va">labels</span>, bg <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">63</span>, <span class="va">Xnames</span>,</span>
-<span>    id.size <span class="op">=</span> <span class="fl">1.2</span>,  <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'varpart'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, Xnames <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">tables</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'varpart234'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, cutoff <span class="op">=</span> <span class="fl">0</span>, digits <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, cutoff <span class="op">=</span> <span class="fl">0</span>, digits <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">showvarparts</span><span class="op">(</span><span class="va">parts</span>, <span class="va">labels</span>, bg <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">63</span>, <span class="va">Xnames</span>,</span>
+<span>    id.size <span class="op">=</span> <span class="fl">1.2</span>,  <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -107,7 +109,8 @@ The function partitions the variation in community data or community
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other parameters passed to functions. NB, arguments after
-  dots cannot be abbreviated but they must be spelt out completely.</p></dd>
+  dots cannot be abbreviated but they must be spelt out completely.
+  <code>plot</code> functions pass arguments <code>showvarparts</code>.</p></dd>
 
 
 <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
@@ -176,16 +179,11 @@ The function partitions the variation in community data or community
     graphics devices or file formats.</p></dd>
 
 
-<dt id="arg-xnames">Xnames<a class="anchor" aria-label="anchor" href="#arg-xnames"></a></dt>
-<dd><p>Names for sources of variation. Default names are <code>X1</code>,
-  <code>X2</code>, <code>X3</code> and <code>X4</code>. <code>Xnames=NA</code>,
-  <code>Xnames=NULL</code> and <code>Xnames=""</code> produce no names. The names
-  can be changed to other names. It is often best to use short names.</p></dd>
-
-
-<dt id="arg-id-size">id.size<a class="anchor" aria-label="anchor" href="#arg-id-size"></a></dt>
-<dd><p>A numerical value giving the character expansion factor
-  for the names of circles or ellipses.</p></dd>
+<dt id="arg-xnames-id-size">Xnames, id.size<a class="anchor" aria-label="anchor" href="#arg-xnames-id-size"></a></dt>
+<dd><p>Names for sources of variation. <code>Xnames=""</code>
+  or <code>Xnames=NA</code> plot  no names. If the specified names do not fit
+  the figure space, names <code>X1</code> etc will be used. <code>id.size</code> is
+  a numerical value for the character expansion of <code>Xnames</code>.</p></dd>
 
 
 <dt id="arg-x-object">x, object<a class="anchor" aria-label="anchor" href="#arg-x-object"></a></dt>
@@ -539,8 +537,8 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Topo, mite.pcnm, data = mite.env, transfo = "hel")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species transformation:  hellinger</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Explanatory tables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1:  ~SubsDens + WatrCont</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2:  ~Substrate + Shrub + Topo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1:  SubsDens + WatrCont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2:  Substrate + Shrub + Topo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X3:  mite.pcnm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> No. of explanatory tables: 3 </span>
@@ -579,10 +577,10 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unique fractions and total with shared fractions equally allocated:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Unique Contributed                 Component</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 0.0391       0.144      ~SubsDens + WatrCont</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.0382       0.148 ~Substrate + Shrub + Topo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.1012       0.245                 mite.pcnm</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unique Contributed                Component</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 0.0391       0.144      SubsDens + WatrCont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.0382       0.148 Substrate + Shrub + Topo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.1012       0.245                mite.pcnm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Contributions of fractions to sets:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -597,6 +595,7 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-in"><span><span class="fu">showvarparts</span><span class="op">(</span><span class="fl">3</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="varpart-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> labels do not fit the space, switching to X1...</span>
 <span class="r-plt img"><img src="varpart-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Use RDA to test fraction [a]</span></span></span>
@@ -628,8 +627,8 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> "hel")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species transformation:  hellinger</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Explanatory tables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1:  ~SubsDens + WatrCont</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2:  ~Substrate + Shrub + Topo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1:  SubsDens + WatrCont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2:  Substrate + Shrub + Topo</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X3:  mite.pcnm[, 1:11]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> X4:  mite.pcnm[, 12:22] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -704,11 +703,11 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Unique fractions and total with shared fractions equally allocated:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Unique Contributed                 Component</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X1 0.0391      0.1456      ~SubsDens + WatrCont</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.0382      0.1594 ~Substrate + Shrub + Topo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.1024      0.2511         mite.pcnm[, 1:11]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> X4 0.0085     -0.0181        mite.pcnm[, 12:22]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Unique Contributed                Component</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X1 0.0391      0.1456      SubsDens + WatrCont</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X2 0.0382      0.1594 Substrate + Shrub + Topo</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X3 0.1024      0.2511        mite.pcnm[, 1:11]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> X4 0.0085     -0.0181       mite.pcnm[, 12:22]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Contributions of fractions to sets:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -729,9 +728,11 @@ Montreal, Canada.  Further developed by Jari Oksanen.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [n]  0.00910           0.00910  0.00910</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [o] -0.01690 -0.01690 -0.01690 -0.01690</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> labels do not fit the space, switching to X1...</span>
 <span class="r-plt img"><img src="varpart-5.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Show values for all partitions by putting 'cutoff' low enough:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, cutoff <span class="op">=</span> <span class="op">-</span><span class="cn">Inf</span>, cex <span class="op">=</span> <span class="fl">0.7</span>, bg<span class="op">=</span><span class="fl">2</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> labels do not fit the space, switching to X1...</span>
 <span class="r-plt img"><img src="varpart-6.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
