@@ -103,10 +103,10 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     are more transparent.  Transparency is not available in all
     graphics devices or file formats.}
   
-\item{Xnames, id.size}{Names for sources of variation. \code{Xnames=NA},
-  \code{Xnames=NULL} and \code{Xnames=""} produce no names. It is often
-  best to use short names. \code{id.size} is a numerical value for the
-  character expansion of \code{Xnames}. }
+\item{Xnames, id.size}{Names for sources of variation. \code{Xnames=""}
+  or \code{Xnames=NA} plot  no names. If the specified names do not fit
+  the figure space, names \code{X1} etc will be used. \code{id.size} is
+  a numerical value for the character expansion of \code{Xnames}. }
 
 \item{x, object}{The \code{varpart} result.}
 \item{cutoff}{The values below \code{cutoff} will not be displayed.}
