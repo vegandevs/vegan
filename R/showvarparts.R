@@ -23,6 +23,19 @@
                        -0.6,-1.2, -0.6, 0.3, -0.7, 0, 0, -0.7, -0.4),
                      .Dim = c(15L, 2L))
                  )
+    ## positions of labels for cp (circles, ellipses)
+    pos.names <-
+        switch(parts,
+               matrix(c(0,0), ncol=2, byrow=TRUE),
+               matrix(c(0,1,0.8,0.8),2,2),
+               matrix(c(-0.4,1.4,0.05,0.65,0.65,-1.5), 3, 2),
+               matrix(c(-1.25,-0.85,0.85,1.25,0.6,1.05,1.05,0.6),4,2)
+               )
+    pos <- switch(parts,
+                  0,
+                  c(2, 4),
+                  c(2, 4, 2),
+                  c(2, 2, 4, 4))
     ## plot limits
     if (parts < 4) {
         xlim <- range(cp[,1]) + c(-rad, rad)
@@ -34,17 +47,20 @@
     ## plot
     plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n",
          xlim = xlim, ylim = ylim)
+    ## See if text fits the space
+    xspace <- par("usr")[1:2]
+    sw <- strwidth(Xnames, cex = id.size)
+    pt <- pos.names[,1]
+    pt <- ifelse(pos == 2, pt - sw, pt + sw)
+    if (any(pt < xspace[1]) || any(pt > xspace[2])) {
+        message("labels do not fit the space, switching to X1...")
+        Xnames <- paste0("X", seq_len(parts))
+    }
+    text(pos.names, labels=Xnames[seq_len(parts)], cex=id.size, pos = pos)
     box()
     if (parts < 4) {
         symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE,
                 add=TRUE, bg = bg, ...)
-        ## Explanatory data set names added by PL
-        if(parts==2) {
-            pos.names = matrix(c(-0.65,1.65,0.65,0.65),2,2)
-        } else if(parts==3) {
-            pos.names = matrix(c(-0.65,1.65,-0.16,0.65,0.65,-1.5),3,2)
-        }
-        text(pos.names,labels=Xnames[1:parts], cex=id.size)
     } else {
         ## Draw ellipses with veganCovEllipse. Supply 2x2
         ## matrix(c(d,a,a,d), 2, 2) which defines an ellipse of
@@ -63,9 +79,6 @@
         e1 <- veganCovEllipse(matrix(c(d,-a,-a,d), 2, 2), c(-cnt, -cnt))
         e4 <- veganCovEllipse(matrix(c(d, a, a,d), 2, 2), c( cnt, -cnt))
         polygon(rbind(e1,NA,e2,NA,e3,NA,e4), col = bg, ...)
-        ## Explanatory data set names added by PL
-        pos.names = matrix(c(-1.62,-1.10,1.10,1.62,0.54,1.00,1.00,0.54),4,2)
-        text(pos.names,labels=Xnames[1:4], cex=id.size)
     }
 
     ## label fractions

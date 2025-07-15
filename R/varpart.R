@@ -109,6 +109,7 @@
     out$call <- match.call()
     mx <- rep(" ", length(X))
     for (i in seq_along(X)) mx[i] <- deparse(out$call[[i+2]], width.cutoff = 500)
+    mx <- gsub("~", "", mx) # strip tilde
     out$tables <- mx
     class(out) <- c("varpart", class(out))
     out

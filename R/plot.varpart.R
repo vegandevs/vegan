@@ -1,7 +1,7 @@
-"plot.varpart" <-
-function(x, ...)
+`plot.varpart` <-
+    function(x, Xnames = x$tables, ...)
 {
-    plot(x$part, ...)
+    plot(x$part, Xnames = Xnames, ...)
     invisible()
 }
 
