@@ -27,9 +27,9 @@
     pos.names <-
         switch(parts,
                matrix(c(0,0), ncol=2, byrow=TRUE),
-               matrix(c(-0.1,1.1,0.75,0.75),2,2),
+               matrix(c(0,1,0.8,0.8),2,2),
                matrix(c(-0.4,1.4,0.05,0.65,0.65,-1.5), 3, 2),
-               matrix(c(-1.25,-0.85,0.85,1.25,0.55,1,1,0.55),4,2)
+               matrix(c(-1.25,-0.85,0.85,1.25,0.6,1.05,1.05,0.6),4,2)
                )
     pos <- switch(parts,
                   0,
@@ -47,8 +47,16 @@
     ## plot
     plot(cp, axes=FALSE, xlab="", ylab="", asp=1, type="n",
          xlim = xlim, ylim = ylim)
-    text(pos.names, labels=Xnames[seq_len(parts)], cex=id.size, pos = pos,
-         xpd = TRUE)
+    ## See if text fits the space
+    xspace <- par("usr")[1:2]
+    sw <- strwidth(Xnames, cex = id.size)
+    pt <- pos.names[,1]
+    pt <- ifelse(pos == 2, pt - sw, pt + sw)
+    if (any(pt < xspace[1]) || any(pt > xspace[2])) {
+        message("labels do not fit the space, switching to X1...")
+        Xnames <- paste0("X", seq_len(parts))
+    }
+    text(pos.names, labels=Xnames[seq_len(parts)], cex=id.size, pos = pos)
     box()
     if (parts < 4) {
         symbols(cp, circles = rep(rad, min(parts,3)), inches = FALSE,
