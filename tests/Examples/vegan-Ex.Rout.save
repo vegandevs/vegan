@@ -3479,8 +3479,8 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > 
 > ### Name: influence.cca
 > ### Title: Linear Model Diagnostics for Constrained Ordination
-> ### Aliases: hatvalues.cca hatvalues.rda sigma.cca rstandard.cca
-> ###   rstudent.cca cooks.distance.cca SSD.cca vcov.cca qr.cca
+> ### Aliases: influence.cca hatvalues.cca hatvalues.rda sigma.cca
+> ###   rstandard.cca rstudent.cca cooks.distance.cca SSD.cca vcov.cca qr.cca
 > ###   df.residual.cca
 > ### Keywords: models multivariate
 > 
@@ -3622,6 +3622,8 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 27 9.528504e-05 6.579101e-02 0.0140785723
 23 7.797221e-05 1.817802e-01 0.0046131462
 19 9.905729e-06 9.587131e-05 0.0003866237
+> tabasco(cooks.distance(mod), site.ind = order(hatvalues(mod)))
+> tabasco(cooks.distance(mod, type="canoco"), site.ind = order(hatvalues(mod)))
 > 
 > ## Influence measures from lm
 > y <- decostand(varespec, "chi.square") # needed in cca
@@ -8139,8 +8141,8 @@ Call: varpart(Y = mite, X = ~SubsDens + WatrCont, ~Substrate + Shrub +
 Topo, mite.pcnm, data = mite.env, transfo = "hel")
 Species transformation:  hellinger
 Explanatory tables:
-X1:  ~SubsDens + WatrCont
-X2:  ~Substrate + Shrub + Topo
+X1:  SubsDens + WatrCont
+X2:  Substrate + Shrub + Topo
 X3:  mite.pcnm 
 
 No. of explanatory tables: 3 
@@ -8179,10 +8181,10 @@ Use function ‘rda’ to test significance of fractions of interest
 
 Unique fractions and total with shared fractions equally allocated:
 
-   Unique Contributed                 Component
-X1 0.0391       0.144      ~SubsDens + WatrCont
-X2 0.0382       0.148 ~Substrate + Shrub + Topo
-X3 0.1012       0.245                 mite.pcnm
+   Unique Contributed                Component
+X1 0.0391       0.144      SubsDens + WatrCont
+X2 0.0382       0.148 Substrate + Shrub + Topo
+X3 0.1012       0.245                mite.pcnm
 
 Contributions of fractions to sets:
 
@@ -8196,6 +8198,7 @@ Contributions of fractions to sets:
 [g] 0.05682 0.05682 0.05682
 > showvarparts(3, bg=2:4)
 > plot(mod, bg=2:4)
+labels do not fit the space, switching to X1...
 > 
 > ## Use RDA to test fraction [a]
 > ## Matrix can be an argument in formula
@@ -8226,8 +8229,8 @@ Topo, mite.pcnm[, 1:11], mite.pcnm[, 12:22], data = mite.env, transfo =
 "hel")
 Species transformation:  hellinger
 Explanatory tables:
-X1:  ~SubsDens + WatrCont
-X2:  ~Substrate + Shrub + Topo
+X1:  SubsDens + WatrCont
+X2:  Substrate + Shrub + Topo
 X3:  mite.pcnm[, 1:11]
 X4:  mite.pcnm[, 12:22] 
 
@@ -8302,11 +8305,11 @@ Use function ‘rda’ to test significance of fractions of interest
 
 Unique fractions and total with shared fractions equally allocated:
 
-   Unique Contributed                 Component
-X1 0.0391      0.1456      ~SubsDens + WatrCont
-X2 0.0382      0.1594 ~Substrate + Shrub + Topo
-X3 0.1024      0.2511         mite.pcnm[, 1:11]
-X4 0.0085     -0.0181        mite.pcnm[, 12:22]
+   Unique Contributed                Component
+X1 0.0391      0.1456      SubsDens + WatrCont
+X2 0.0382      0.1594 Substrate + Shrub + Topo
+X3 0.1024      0.2511        mite.pcnm[, 1:11]
+X4 0.0085     -0.0181       mite.pcnm[, 12:22]
 
 Contributions of fractions to sets:
 
@@ -8327,8 +8330,10 @@ Contributions of fractions to sets:
 [n]  0.00910           0.00910  0.00910
 [o] -0.01690 -0.01690 -0.01690 -0.01690
 > plot(mod, bg=2:5)
+labels do not fit the space, switching to X1...
 > ## Show values for all partitions by putting 'cutoff' low enough:
 > plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
+labels do not fit the space, switching to X1...
 > 
 > 
 > 
@@ -9014,7 +9019,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.538 0.316 8.888 0 0 
+Time elapsed:  8.28 0.366 8.662 0 0 
 > grDevices::dev.off()
 null device 
           1 
