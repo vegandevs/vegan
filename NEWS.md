@@ -22,6 +22,10 @@
 * `ordilabel` can use variable character expansion (`cex`) and with
   this `plot.cca`, `ordiplot` _etc._ gained the same ability.
 
+* `varpart` plots default to label the sources of variation by the
+  full definition of the term, but switches to `X1` _etc_ if this does
+  not fit the graphics space. Tilde is stripped from term definition.
+
 ## Bug Fixes
 
 * `summary` for `mantel`, `mrpp`, `oecosimu` and `ordiareatest` did
