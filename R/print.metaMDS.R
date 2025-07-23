@@ -7,6 +7,8 @@
         cat(x$model, "Multidimensional Scaling using monoMDS\n\n")
     else if (x$engine == "isoMDS")
         cat("non-metric Multidimensional Scaling using isoMDS (MASS package)\n\n")
+    else
+        cat("Multidimensional Scaling using custom engine", x$engine, "\n\n")
     cat("Data:    ", x$data, "\n")
     cat("Distance:", x$distance, "\n\n")
     cat("Dimensions:", x$ndim, "\n")

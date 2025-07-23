@@ -51,6 +51,8 @@
                        trace = trace,
                        plot = plot, previous.best = previous.best,
                        engine = engine, customengine, ...)
+    if (!is.null(customengine)) # using customengine
+        out$engine <- deparse(substitute(customengine))
     ## Nearly zero stress is usually not a good thing but a symptom of
     ## a problem: you may have insufficient data for NMDS
     if (out$stress < 1e-3) {
