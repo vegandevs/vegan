@@ -1,9 +1,13 @@
 `metaMDSiter` <-
     function (dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE,
-              previous.best, engine = "monoMDS", maxit = 200,
+              previous.best, engine = "monoMDS", customengine=NULL, maxit = 200,
               parallel = getOption("mc.cores"), ...)
 {
     engine <- match.arg(engine, c("monoMDS", "isoMDS"))
+    if(!missing(customengine) && !is.null(customengine)) {
+        MyNMDS <- match.fun(customengine)
+        engine <- "custom"
+    }
     EPS <- 0.05
     if (engine == "monoMDS")
         EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100)
@@ -59,7 +63,8 @@
         ## evaluate stress
         s0 <- switch(engine,
                      "monoMDS" = monoMDS(dist, y = init, k = k, maxit = 0, ...),
-                     "isoMDS" = isoMDS(dist, y = init, k = k, maxit = 0))
+                     "isoMDS" = isoMDS(dist, y = init, k = k, maxit = 0),
+                      MyNMDS(dist, init, k, ...))
         ## Check whether model changed
         if (is.list(previous.best) && !is.null(previous.best$stress) &&
             !isTRUE(all.equal(previous.best$stress, s0$stress))) {
@@ -73,7 +78,8 @@
                  "monoMDS" = monoMDS(dist, y = cmdscale(dist, k = k), k = k,
                  maxit = maxit, ...),
                  "isoMDS" = isoMDS(dist, k = k, trace = isotrace,
-                                   maxit = maxit))
+                                   maxit = maxit),
+                 MyNMDS(dist, cmdscale(dist, k = k) , k = k, ...))
         bestry <- 0
         trybase <- 0
     }
@@ -110,7 +116,8 @@
                                     maxit = maxit, ...),
                                     "isoMDS" = isoMDS(dist, init[,,i], k = k,
                                     maxit = maxit, tol = 1e-07,
-                                    trace = isotrace)),
+                                    trace = isotrace),
+                                    MyNMDS(dist, init[,,i], k = k, ...)),
                              mc.cores = parallel)
             } else {
                 stry <-
@@ -119,14 +126,16 @@
                                      "monoMDS" = monoMDS(dist, init[,,i], k = k,
                                      maxit = maxit, ...),
                                      "isoMDS" = isoMDS(dist, init[,,i], k = k,
-                                     maxit = maxit, tol = 1e-07, trace = isotrace)))
+                                     maxit = maxit, tol = 1e-07, trace = isotrace),
+                                     MyNMDS(dist, init[,,i], k = k, ...)))
             }
         } else {
             stry <- list(switch(engine,
                                 "monoMDS" = monoMDS(dist, init[,,1], k = k,
                                 maxit = maxit, ...),
                                 "isoMDS" = isoMDS(dist, init[,,1], k = k,
-                                maxit = maxit, tol = 1e-07, trace = isotrace)))
+                                maxit = maxit, tol = 1e-07, trace = isotrace),
+                                NyNMDS(dist, init[,,1], k = k, ...)))
         }
         ## analyse results of 'nclus' tries
         for (i in 1:nclus) {

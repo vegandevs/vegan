@@ -1,6 +1,6 @@
 `metaMDS` <-
     function (comm, distance = "bray", k = 2, try = 20, trymax = 20,
-              engine = c("monoMDS", "isoMDS"),
+              engine = c("monoMDS", "isoMDS"), customengine = NULL,
               autotransform = TRUE, noshare = (engine == "isoMDS"),
               wascores = TRUE, expand = TRUE, trace = 1,
               plot = FALSE, previous.best,  ...)
@@ -50,7 +50,7 @@
     out <- metaMDSiter(dis, k = k, try = try, trymax = trymax,
                        trace = trace,
                        plot = plot, previous.best = previous.best,
-                       engine = engine, ...)
+                       engine = engine, customengine, ...)
     ## Nearly zero stress is usually not a good thing but a symptom of
     ## a problem: you may have insufficient data for NMDS
     if (out$stress < 1e-3) {
@@ -60,7 +60,7 @@
         cat(">>> Post-processing NMDS\n")
     points <- postMDS(out$points, dis, plot = max(0, plot - 1), ...)
     ## rescale monoMDS scaling if postMDS scaled 'points'
-    if (engine == "monoMDS" &&
+    if (is.null(customengine) && engine == "monoMDS" &&
         !is.null(scl <- attr(points, "internalscaling"))) {
         out$dist <- out$dist/scl
         out$dhat <- out$dhat/scl
