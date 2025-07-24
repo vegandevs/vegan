@@ -86,7 +86,7 @@ importFrom(stats, .getXlevels, add.scope, aggregate, aov, approx,
            influence, is.ts, kmeans, lm, median, na.action, na.fail,
            na.pass, napredict, naprint, nlm, nls, optim, optimize, p.adjust,
            p.adjust.methods, pchisq, pf, plogis, pnorm, poisson,
-           ppoints, prcomp, printCoefmat, pt, qchisq, qf, qlogis,
+           ppoints, printCoefmat, pt, qchisq, qf, qlogis,
            qnorm, qt, quantile, quasipoisson, r2dtable, reformulate,
            rmultinom, rnorm, runif, sd, spline, summary.lm, terms, ts,
            uniroot, update.formula, var, weighted.mean)

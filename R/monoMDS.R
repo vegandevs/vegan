@@ -125,7 +125,7 @@
     sol$model <- model
     sol$points <- matrix(sol$points, nobj, k)
     if (pc)
-        sol$points <- prcomp(sol$points)$x
+        sol$points <- sol$points %*% svd(sol$points, nu = 0)$v
     attr(sol$points, "pc") <- pc
     rownames(sol$points) <- nm
     colnames(sol$points) <- paste("MDS", 1:k, sep="")
