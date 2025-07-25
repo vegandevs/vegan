@@ -114,7 +114,7 @@ importFrom(lattice, densityplot, qqmath, bwplot, cloud, lpolygon, panel.abline,
 importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
            parApply, parLapply, parSapply, parRapply, parCapply,
            splitIndices)
-importFrom(MASS, isoMDS, sammon, Shepard, mvrnorm, lda)
+importFrom(MASS, sammon, Shepard, mvrnorm, lda)
 importFrom(cluster, daisy, ellipsoidhull)
 ## 's' must be imported in mgcv < 1.8-0 (not needed later)
 importFrom(mgcv, gam, s, te, predict.gam, summary.gam)

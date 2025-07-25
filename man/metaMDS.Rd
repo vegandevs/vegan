@@ -26,9 +26,8 @@
 
 \usage{
 metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20, 
-    engine = c("monoMDS", "isoMDS"), autotransform =TRUE,
-    noshare = (engine == "isoMDS"), wascores = TRUE, expand = TRUE, 
-    trace = 1, plot = FALSE, previous.best,  ...)
+    engine = monoMDS, autotransform =TRUE, noshare = FALSE, wascores = TRUE,
+    expand = TRUE, trace = 1, plot = FALSE, previous.best,  ...)
 \method{plot}{metaMDS}(x, display = c("sites", "species"), choices = c(1, 2),
     type = "p", shrink = FALSE, cex = 0.7, ...)
 \method{points}{metaMDS}(x, display = c("sites", "species"),
@@ -41,7 +40,7 @@ metaMDSdist(comm, distance = "bray", autotransform = TRUE,
     noshare = TRUE, trace = 1, commname, zerodist = "ignore", 
     distfun = vegdist, ...)
 metaMDSiter(dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE, 
-    previous.best, engine = "monoMDS", maxit = 200,
+    previous.best, engine = monoMDS, maker, maxit = 200,
     parallel = getOption("mc.cores"), ...)   
 initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
@@ -63,9 +62,12 @@ metaMDSredist(object, ...)
     iteration will stop when similar solutions were repeated or
     \code{trymax} was reached.}
   \item{engine}{The function used for MDS. The default is to use the
-    \code{\link{monoMDS}} function in \pkg{vegan}, but for backward
-    compatibility it is also possible to use \code{\link[MASS]{isoMDS}} of
-    \pkg{MASS}.}
+    \code{\link{monoMDS}} function in \pkg{vegan}. It is also possible
+    to use any MDS function which takes as three first arguments (in this
+    order) input dissimilarities, matrix of initial configuration and
+    number of dimensions, and returns a list with items \code{stress} and
+    \code{points} for final configuration. See Examples for wrapping a
+    compatible function.}
 
   \item{autotransform}{Use simple heuristics for possible data
     transformation of typical community data (see below). If you do
@@ -131,6 +133,10 @@ metaMDSredist(object, ...)
  \item{distfun}{Dissimilarity function. Any function returning a
    \code{dist} object and accepting argument \code{method} can be used
    (but some extra arguments may cause name conflicts).}
+
+ \item{maker}{The name (character) of the \code{engine}. Only
+   \code{"monoMDS"} has an effect and triggers some actions that are
+   not known to be available with other engines.}
 
  \item{maxit}{Maximum number of iterations in the single NMDS run;
    passed to the \code{engine} function \code{\link{monoMDS}} or
@@ -473,5 +479,12 @@ sol2
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 sol
 ## IGNORE_RDIFF_END
+## Wrap package smacof function mds as engine
+smacof <- function(dist, y, k, maxit, ...) {
+   m <- smacof::mds(delta = dist, init = y, ndim = k, itmax = maxit, ...)
+   m$points <- m$conf
+   m
+}
+## use this as metaMDS(..., engine = smacof, type = "ordinal")
 }
 \keyword{ multivariate }

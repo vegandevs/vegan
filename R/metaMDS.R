@@ -1,11 +1,9 @@
 `metaMDS` <-
     function (comm, distance = "bray", k = 2, try = 20, trymax = 20,
-              engine = c("monoMDS", "isoMDS"), customengine = NULL,
-              autotransform = TRUE, noshare = (engine == "isoMDS"),
+              engine = monoMDS, autotransform = TRUE, noshare = FALSE,
               wascores = TRUE, expand = TRUE, trace = 1,
               plot = FALSE, previous.best,  ...)
 {
-    engine <- match.arg(engine)
     ## take care that try (minimum) is not larger than trymax (maximum)
     if (try > trymax)
         try <- trymax
@@ -47,12 +45,12 @@
         previous.best <- NULL
     if (trace > 2)
         cat(">>> NMDS iterations\n")
+    maker <- deparse1(substitute(engine))
     out <- metaMDSiter(dis, k = k, try = try, trymax = trymax,
                        trace = trace,
                        plot = plot, previous.best = previous.best,
-                       engine = engine, customengine, ...)
-    if (!is.null(customengine)) # using customengine
-        out$engine <- deparse(substitute(customengine))
+                       engine = engine, maker = maker, ...)
+    out$engine <- maker
     ## Nearly zero stress is usually not a good thing but a symptom of
     ## a problem: you may have insufficient data for NMDS
     if (out$stress < 1e-3) {
@@ -62,7 +60,7 @@
         cat(">>> Post-processing NMDS\n")
     points <- postMDS(out$points, dis, plot = max(0, plot - 1), ...)
     ## rescale monoMDS scaling if postMDS scaled 'points'
-    if (is.null(customengine) && engine == "monoMDS" &&
+    if (out$engine == "monoMDS" &&
         !is.null(scl <- attr(points, "internalscaling"))) {
         out$dist <- out$dist/scl
         out$dhat <- out$dhat/scl
