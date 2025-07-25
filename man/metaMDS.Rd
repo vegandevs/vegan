@@ -40,8 +40,8 @@ metaMDSdist(comm, distance = "bray", autotransform = TRUE,
     noshare = TRUE, trace = 1, commname, zerodist = "ignore", 
     distfun = vegdist, ...)
 metaMDSiter(dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE, 
-    previous.best, engine = monoMDS, maker, maxit = 200,
-    parallel = getOption("mc.cores"), ...)   
+    previous.best, engine = monoMDS, maker, parallel = getOption("mc.cores"),
+    ...)
 initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
     nthreshold=10, plot=FALSE, ...)
@@ -137,10 +137,6 @@ metaMDSredist(object, ...)
  \item{maker}{The name (character) of the \code{engine}. Only
    \code{"monoMDS"} has an effect and triggers some actions that are
    not known to be available with other engines.}
-
- \item{maxit}{Maximum number of iterations in the single NMDS run;
-   passed to the \code{engine} function \code{\link{monoMDS}} or
-   \code{\link[MASS]{isoMDS}}.}
 
  \item{parallel}{Number of parallel processes or a predefined socket
    cluster.  If you use pre-defined socket clusters (say,
@@ -480,8 +476,8 @@ sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 sol
 ## IGNORE_RDIFF_END
 ## Wrap package smacof function mds as engine
-smacof <- function(dist, y, k, maxit, ...) {
-   m <- smacof::mds(delta = dist, init = y, ndim = k, itmax = maxit, ...)
+smacof <- function(dist, y, k, ...) {
+   m <- smacof::mds(delta = dist, init = y, ndim = k, ...)
    m$points <- m$conf
    m
 }

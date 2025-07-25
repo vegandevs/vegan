@@ -1,6 +1,6 @@
 `metaMDSiter` <-
     function (dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE,
-              previous.best, engine = monoMDS, maker, maxit = 200,
+              previous.best, engine = monoMDS, maker,
               parallel = getOption("mc.cores"), ...)
 {
     engine <- match.fun(engine)
@@ -65,7 +65,7 @@
         }
     } else {
         ## no previous.best: start with cmdscale
-        s0 <- engine(dist, cmdscale(dist, k = k), k, maxit = maxit, ...)
+        s0 <- engine(dist, cmdscale(dist, k = k), k, ...)
         bestry <- 0
         trybase <- 0
     }
@@ -97,15 +97,15 @@
             if (isMulticore) {
                 stry <-
                     mclapply(1:nclus, function(i)
-                             engine(dist, init[,,i], k, maxit = maxit, ...),
+                             engine(dist, init[,,i], k, ...),
                              mc.cores = parallel)
             } else {
                 stry <-
                     parLapply(parallel, 1:nclus, function(i)
-                              engine(dist, init[,,i], k,  maxit = maxit, ...))
+                              engine(dist, init[,,i], k, ...))
             }
         } else {
-            stry <- list(engine(dist, init[,,1], k, maxit = maxit, ...))
+            stry <- list(engine(dist, init[,,1], k, ...))
         }
         ## analyse results of 'nclus' tries
         for (i in 1:nclus) {

@@ -1,7 +1,7 @@
 `monoMDS` <-
     function(dist, y, k = 2,
              model = c("global", "local", "linear", "hybrid"),
-             threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
+             threshold = 0.8, maxit = 500, weakties = TRUE, stress = 1,
              scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7,
              sratmax=0.999999, ...)
 {
