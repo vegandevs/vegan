@@ -261,7 +261,7 @@ variables onto ordination:
   correlation between the variable and the ordination.
 \item \code{ordisurf} (which requires package \pkg{mgcv}) fits
   smooth surfaces for continuous variables onto ordination using
-  thinplate splines with cross-validatory selection of smoothness.
+  isotropic spline surfaces with cross-validatory selection of smoothness.
 \end{itemize}
 
 Function \code{envfit} can be called with a \code{formula}
@@ -279,7 +279,7 @@ plot(ord.fit)
 @
 
 Function \code{ordisurf} directly adds a fitted surface onto
-ordination, but it returns the result of the fitted thinplate spline
+ordination, but it returns the result of the fitted spline
 \code{gam} (Fig. \ref{fig:envfit}):
 <<b,fig=false>>=
 ordisurf(ord, A1, add=TRUE)
