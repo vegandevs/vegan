@@ -10,6 +10,15 @@
 
 ## New Features
 
+* `metaMDS` can use any MDS function as an `engine` if the function
+  takes as input dissimilarities, initial configuration and number of
+  axes, and returns a list with elements stress and points for final
+  solution. `MASS::isoMDS` is such a function, but other MDS functions
+  can be easily wrapped to make a compatible function. The Examples in
+  the help page shows how to wrap `smacof::mds`. The default engine is
+  still `vegan::monoMDS`, and the user experience with this default
+  choice is unchanged.
+
 * `biplot.rda` draws arrows of same lengths both with `"points"` and
   `"text"`. Earlier shorter arrows were drawn with `"text"`. Now the
   arrow head is at the actual species scores and points to the text
