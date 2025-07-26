@@ -13,9 +13,9 @@
 \usage{
 \method{ordisurf}{default}(x, y, choices = c(1, 2), knots = 10,
          family = "gaussian", col = "red", isotropic = TRUE,
-         thinplate = TRUE, bs = "tp", fx = FALSE, add = FALSE,
-         display = "sites", w, main, nlevels = 10, levels, npoints = 31,
-         labcex = 0.6, bubble = FALSE, cex = 1, select = TRUE, method = "REML",
+         bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
+         nlevels = 10, levels, npoints = 31, labcex = 0.6,
+         bubble = FALSE, cex = 1, select = TRUE, method = "REML",
          gamma = 1, plot = TRUE, lwd.cl = par("lwd"), ...)
 
 \method{ordisurf}{formula}(formula, data, ...)
@@ -45,10 +45,9 @@
     dimensions (as indicated by \code{choices}) respectively.}
   \item{family}{Error distribution in \code{\link[mgcv]{gam}}.}
   \item{col}{ Colour of contours. }
-  \item{isotropic, thinplate}{Fit an isotropic smooth surface (i.e. same
+  \item{isotropic}{Fit an isotropic smooth surface (i.e. same
     smoothness in both ordination dimensions) via
-    \code{\link[mgcv]{gam}}. Use of \code{thinplate} is deprecated and
-    will be removed in a future version of the package.}
+    \code{\link[mgcv]{gam}}.}
   \item{bs}{a two letter character string indicating the smoothing basis
     to use. (e.g. \code{"tp"} for thin plate regression spline,
     \code{"cr"} for cubic regression spline). One of \code{c("tp", "ts",

@@ -53,6 +53,10 @@
   used in similar graphics as `ordiresids` using **ggplot2** or
   **lattice**.
 
+* Argument `thinplate` is finally defunct in `ordisurf`: use
+  `isotropic`. The argument was deprecated in 2013 (CRAN release
+  2.0-8).
+
 # vegan 2.7-1
 
 ## Installation
