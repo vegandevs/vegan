@@ -1,18 +1,16 @@
 `metaMDSiter` <-
     function (dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE,
-              previous.best, engine = "monoMDS", maxit = 200,
+              previous.best, engine = monoMDS, maker,
               parallel = getOption("mc.cores"), ...)
 {
-    engine <- match.arg(engine, c("monoMDS", "isoMDS"))
-    EPS <- 0.05
-    if (engine == "monoMDS")
-        EPS <- EPS/100 # monoMDS stress (0,1), isoMDS (0,100)
+    engine <- match.fun(engine)
+    EPS <- 0.005
     RESLIM <- 0.01
     RMSELIM <- 0.005
     converged <- 0
     ## set tracing for engines
     isotrace <- max(0, trace - 1)
-    monotrace <- engine == "monoMDS" && trace > 1
+    monotrace <- maker == "monoMDS" && trace > 1
     ## explain monoMDS convergence codes (sol$icause)
     monomsg <- c("no. of iterations >= maxit",
                  "stress < smin",
@@ -26,11 +24,11 @@
         cat("   ", mod$iters, "iterations: ", lab, "\n")
     }
     ## collect monoMDS convergence code for trace
-    if (trace && engine == "monoMDS")
+    if (trace && maker == "monoMDS")
         stopcoz <- numeric(4)
     ## Previous best or initial configuration
     if (!missing(previous.best) && !is.null(previous.best)) {
-        ## check if previous.best is from metaMDS or isoMDS
+        ## check if previous.best is from metaMDS or compatible function
         if (inherits(previous.best, c("metaMDS", "monoMDS")) ||
             is.list(previous.best) &&
             all(c("points", "stress") %in% names(previous.best))) {
@@ -57,9 +55,7 @@
             trybase <- 0
         }
         ## evaluate stress
-        s0 <- switch(engine,
-                     "monoMDS" = monoMDS(dist, y = init, k = k, maxit = 0, ...),
-                     "isoMDS" = isoMDS(dist, y = init, k = k, maxit = 0))
+        s0 <- engine(dist, init, k, ...)
         ## Check whether model changed
         if (is.list(previous.best) && !is.null(previous.best$stress) &&
             !isTRUE(all.equal(previous.best$stress, s0$stress))) {
@@ -69,11 +65,7 @@
         }
     } else {
         ## no previous.best: start with cmdscale
-        s0 <- switch(engine,
-                 "monoMDS" = monoMDS(dist, y = cmdscale(dist, k = k), k = k,
-                 maxit = maxit, ...),
-                 "isoMDS" = isoMDS(dist, k = k, trace = isotrace,
-                                   maxit = maxit))
+        s0 <- engine(dist, cmdscale(dist, k = k), k, ...)
         bestry <- 0
         trybase <- 0
     }
@@ -105,39 +97,26 @@
             if (isMulticore) {
                 stry <-
                     mclapply(1:nclus, function(i)
-                             switch(engine,
-                                    "monoMDS" = monoMDS(dist, init[,,i], k = k,
-                                    maxit = maxit, ...),
-                                    "isoMDS" = isoMDS(dist, init[,,i], k = k,
-                                    maxit = maxit, tol = 1e-07,
-                                    trace = isotrace)),
+                             engine(dist, init[,,i], k, ...),
                              mc.cores = parallel)
             } else {
                 stry <-
                     parLapply(parallel, 1:nclus, function(i)
-                              switch(engine,
-                                     "monoMDS" = monoMDS(dist, init[,,i], k = k,
-                                     maxit = maxit, ...),
-                                     "isoMDS" = isoMDS(dist, init[,,i], k = k,
-                                     maxit = maxit, tol = 1e-07, trace = isotrace)))
+                              engine(dist, init[,,i], k, ...))
             }
         } else {
-            stry <- list(switch(engine,
-                                "monoMDS" = monoMDS(dist, init[,,1], k = k,
-                                maxit = maxit, ...),
-                                "isoMDS" = isoMDS(dist, init[,,1], k = k,
-                                maxit = maxit, tol = 1e-07, trace = isotrace)))
+            stry <- list(engine(dist, init[,,1], k, ...))
         }
         ## analyse results of 'nclus' tries
         for (i in 1:nclus) {
             tries <- tries + 1
             if (trace)
                 cat("Run", tries, "stress", stry[[i]]$stress, "\n")
-            if (trace && engine == "monoMDS")
+            if (trace && maker == "monoMDS")
                 stopcoz[stry[[i]]$icause] <- stopcoz[stry[[i]]$icause] + 1L
             if (monotrace)
                 monostop(stry[[i]])
-            if ((s0$stress - stry[[i]]$stress) > -EPS) {
+            if ((s0$stress - stry[[i]]$stress) > -EPS * s0$stress) {
                 pro <- procrustes(s0, stry[[i]], symmetric = TRUE)
                 if (plot && k > 1)
                     plot(pro)
@@ -166,13 +145,15 @@
     if (trace) {
         if (converged > 0)
             cat("*** Best solution repeated", converged, "times\n")
-        else if (engine == "monoMDS") {
+        else if (maker == "monoMDS") {
             cat(sprintf(
                 "*** Best solution was not repeated -- %s stopping criteria:\n",
-                engine))
+                maker))
             for (i in seq_along(stopcoz))
                 if (stopcoz[i] > 0)
                     cat(sprintf("%6d: %s\n", stopcoz[i], monomsg[i]))
+        } else {
+            cat("*** Best solution was not repeated\n")
         }
     }
     ## stop socket cluster

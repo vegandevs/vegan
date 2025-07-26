@@ -22,7 +22,7 @@
     \code{\link{monoMDS}} or \code{\link[MASS]{isoMDS}}. }
   \item{dis}{Dissimilarities.  This should not be used with
     \code{\link{metaMDS}} or \code{\link{monoMDS}}, but must be used with
-    \code{\link[MASS]{isoMDS}}.}
+    when the dissimilarities cannot be reconstructed from the result object.}
   \item{pch}{Plotting character for points.  Default is dependent on the
     number of points. }
   \item{p.col, l.col}{Point and line colours.}
@@ -35,12 +35,7 @@
   Function \code{goodness.metaMDS} finds a goodness of fit statistic
   for observations (points).  This is defined so that sum of squared
   values is equal to squared stress.  Large values indicate poor fit.
-  The absolute values of the goodness statistic depend on the
-  definition of the stress: \code{\link[MASS]{isoMDS}} expresses
-  stress in percents, and therefore its goodness values are 100 times
-  higher than those of \code{\link{monoMDS}} which expresses the
-  stress as a proportion.
-
+ 
   Function \code{stressplot} draws a Shepard diagram which is a plot
   of ordination distances and monotone or linear fit line against
   original dissimilarities.  In addition, it displays two
@@ -54,16 +49,12 @@
   Both functions can be used with \code{\link{metaMDS}},
   \code{\link{monoMDS}} and \code{\link[MASS]{isoMDS}}.  The original
   dissimilarities should not be given for \code{\link{monoMDS}} or
-  \code{\link{metaMDS}} results (the latter tries to reconstruct the
-  dissimilarities using \code{\link{metaMDSredist}} if
-  \code{\link[MASS]{isoMDS}} was used as its engine).  With
-  \code{\link[MASS]{isoMDS}} the dissimilarities must be given.  In
-  either case, the functions inspect that dissimilarities are
-  consistent with current ordination, and refuse to analyse
-  inconsistent dissimilarities.  Function \code{goodness.metaMDS} is
-  generic in \pkg{vegan}, but you must spell its name completely with
-  \code{\link[MASS]{isoMDS}} which has no class.
-} 
+  \code{\link{metaMDS}} results, but they must given if the result
+  object has no information to reconstruct dissmilarities.  The
+  functions checks that dissimilarities are consistent with current
+  ordination, and refuses to analyse inconsistent dissimilarities.
+  Function \code{goodness.metaMDS} is generic in \pkg{vegan}, but you
+  must spell its name completely if the result has no \code{class}.  }
 
 \value{ Function \code{goodness} returns a vector of values. Function
   \code{stressplot} returns invisibly an object with items for

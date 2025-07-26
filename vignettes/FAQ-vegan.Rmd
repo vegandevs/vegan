@@ -250,19 +250,6 @@ because people use same names for different indices.
 
 ------------------------------------------------------------------------
 
-### Why NMDS stress is sometimes 0.1 and sometimes 10?
-
-Stress is a proportional measure of badness of fit. The proportions can
-be expressed either as parts of one or as percents. Function `isoMDS`
-(**MASS** package) uses percents, and function `monoMDS` (**vegan**
-package) uses proportions, and therefore the same stress is 100 times
-higher in `isoMDS`. The results of `goodness` function also depend on
-the definition of stress, and the same `goodness` is 100 times higher in
-`isoMDS` than in `monoMDS`. Both of these conventions are equally
-correct.
-
-------------------------------------------------------------------------
-
 ### I get zero stress but no repeated solutions in `metaMDS`
 
 The first (try 0) run of `metaMDS` starts from the metric scaling
@@ -295,23 +282,6 @@ limits in practice (although theoretically they could differ). However,
 higher number of dimensions can be used in metric scaling, both with
 `monoMDS` and in principal coordinates analysis (`cmdscale` in
 **stats**, `wcmdscale` in **vegan**).
-
-------------------------------------------------------------------------
-
-### Zero dissimilarities in isoMDS
-
-Function `metaMDS` uses function `monoMDS` as its default method for
-NMDS, and this function can handle zero dissimilarities. Alternative
-function `isoMDS` cannot handle zero dissimilarities. If you want to use
-`isoMDS`, you can use argument `zerodist = "add"` in `metaMDS` to handle
-zero dissimilarities. With this argument, zero dissimilarities are
-replaced with a small positive value, and they can be handled in
-`isoMDS`. This is a kluge, and some people do not like this. A more
-principal solution is to remove duplicate sites using R command
-`unique`. However, after some standardizations or with some
-dissimilarity indices, originally non-unique sites can have zero
-dissimilarity, and you have to resort to the kluge (or work harder with
-your data). Usually it is better to use `monoMDS`.
 
 ------------------------------------------------------------------------
 

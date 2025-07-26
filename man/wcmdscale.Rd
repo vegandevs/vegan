@@ -123,10 +123,7 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   weights (hence name) and handles negative eigenvalues differently.
   \code{\link{eigenvals.wcmdscale}} and
   \code{\link{stressplot.wcmdscale}} are some specific methods. Species
-  scores can be added to the result with \code{\link{sppscores}}. Other
-  multidimensional scaling methods are \code{\link{monoMDS}}, and
-  \code{\link[MASS]{isoMDS}} and \code{\link[MASS]{sammon}} in package
-  \pkg{MASS}.  }
+  scores can be added to the result with \code{\link{sppscores}}.  }
 
 \examples{
 ## Correspondence analysis as a weighted principal coordinates

@@ -1,7 +1,7 @@
 `monoMDS` <-
     function(dist, y, k = 2,
              model = c("global", "local", "linear", "hybrid"),
-             threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
+             threshold = 0.8, maxit = 500, weakties = TRUE, stress = 1,
              scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7,
              sratmax=0.999999, ...)
 {
@@ -125,7 +125,7 @@
     sol$model <- model
     sol$points <- matrix(sol$points, nobj, k)
     if (pc)
-        sol$points <- prcomp(sol$points)$x
+        sol$points <- sol$points %*% svd(sol$points, nu = 0)$v
     attr(sol$points, "pc") <- pc
     rownames(sol$points) <- nm
     colnames(sol$points) <- paste("MDS", 1:k, sep="")

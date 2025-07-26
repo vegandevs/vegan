@@ -10,7 +10,7 @@
         x <- scale(x, scale = FALSE)
     if (pc) {
         dn <- dimnames(x)
-        x <- prcomp(x, center = center)$x
+        x <- x %*% svd(x, nu = 0)$v
         dimnames(x) <- dn
     }
     ## Check halfchange scaling, if not explicitly defined

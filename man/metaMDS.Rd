@@ -21,14 +21,13 @@
   interpret, and adds species scores to the site ordination. The
   \code{metaMDS} function does not provide actual NMDS, but it calls
   another function for the purpose. Currently \code{\link{monoMDS}} is
-  the default choice, and it is also possible to call the
-  \code{\link[MASS]{isoMDS}} (\pkg{MASS} package). }
+  the default choice, but it is also possible to call other functions
+  as an \code{engine}.}
 
 \usage{
 metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20, 
-    engine = c("monoMDS", "isoMDS"), autotransform =TRUE,
-    noshare = (engine == "isoMDS"), wascores = TRUE, expand = TRUE, 
-    trace = 1, plot = FALSE, previous.best,  ...)
+    engine = monoMDS, autotransform =TRUE, noshare = FALSE, wascores = TRUE,
+    expand = TRUE, trace = 1, plot = FALSE, previous.best,  ...)
 \method{plot}{metaMDS}(x, display = c("sites", "species"), choices = c(1, 2),
     type = "p", shrink = FALSE, cex = 0.7, ...)
 \method{points}{metaMDS}(x, display = c("sites", "species"),
@@ -41,8 +40,8 @@ metaMDSdist(comm, distance = "bray", autotransform = TRUE,
     noshare = TRUE, trace = 1, commname, zerodist = "ignore", 
     distfun = vegdist, ...)
 metaMDSiter(dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE, 
-    previous.best, engine = "monoMDS", maxit = 200,
-    parallel = getOption("mc.cores"), ...)   
+    previous.best, engine = monoMDS, maker, parallel = getOption("mc.cores"),
+    ...)
 initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
     nthreshold=10, plot=FALSE, ...)
@@ -56,16 +55,19 @@ metaMDSredist(object, ...)
     starts and centring and pc rotation of axes. }
   \item{distance}{Dissimilarity index used in \code{\link{vegdist}}.}
   \item{k}{Number of dimensions.  NB., the number of points \eqn{n}
-    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher in
+    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably much  higher in
     global non-metric MDS, and still higher in local NMDS.}
   \item{try, trymax}{Minimum and maximum numbers of random starts in
     search of stable solution. After \code{try} has been reached, the
     iteration will stop when similar solutions were repeated or
     \code{trymax} was reached.}
   \item{engine}{The function used for MDS. The default is to use the
-    \code{\link{monoMDS}} function in \pkg{vegan}, but for backward
-    compatibility it is also possible to use \code{\link[MASS]{isoMDS}} of
-    \pkg{MASS}.}
+    \code{\link{monoMDS}} function in \pkg{vegan}. It is also possible
+    to use any MDS function which takes as three first arguments (in this
+    order) input dissimilarities, matrix of initial configuration and
+    number of dimensions, and returns a list with items \code{stress} and
+    \code{points} for final configuration. See Examples for wrapping a
+    compatible function.}
 
   \item{autotransform}{Use simple heuristics for possible data
     transformation of typical community data (see below). If you do
@@ -124,17 +126,18 @@ metaMDSredist(object, ...)
 
  \item{zerodist}{Handling of zero dissimilarities: either
    \code{"fail"} or \code{"add"} a small positive value, or
-   \code{"ignore"}. \code{\link{monoMDS}} accepts zero dissimilarities
-   and the default is \code{zerodist = "ignore"}, but with
-   \code{\link[MASS]{isoMDS}} you may need to set \code{zerodist = "add"}.}
+   \code{"ignore"}. \code{\link{monoMDS}} and many other functions
+   accept zero dissimilarities and the default is \code{zerodist =
+   "ignore"}, but with \code{\link[MASS]{isoMDS}} you may need to set
+   \code{zerodist = "add"}.}
 
  \item{distfun}{Dissimilarity function. Any function returning a
    \code{dist} object and accepting argument \code{method} can be used
    (but some extra arguments may cause name conflicts).}
 
- \item{maxit}{Maximum number of iterations in the single NMDS run;
-   passed to the \code{engine} function \code{\link{monoMDS}} or
-   \code{\link[MASS]{isoMDS}}.}
+ \item{maker}{The name (character) of the \code{engine}. Only
+   \code{"monoMDS"} has an effect and triggers some actions that are
+   not known to be available with other engines.}
 
  \item{parallel}{Number of parallel processes or a predefined socket
    cluster.  If you use pre-defined socket clusters (say,
@@ -145,8 +148,8 @@ metaMDSredist(object, ...)
    package.}
 
  \item{dist}{Dissimilarity matrix used in multidimensional scaling. }
-  \item{pc}{Rotate to principal components. }
-  \item{center}{Centre the configuration. }
+ \item{pc}{Rotate to principal axes. }
+ \item{center}{Centre the configuration. }
   
  \item{halfchange}{Scale axes to half-change units. This defaults
   \code{TRUE} when dissimilarities are known to have a theoretical
@@ -212,17 +215,11 @@ metaMDSredist(object, ...)
     case, the results may be improved with \code{\link{stepacross}}
     dissimilarities, or flexible shortest paths among all sites.  The
     default NMDS \code{engine} is \code{\link{monoMDS}} which is able
-    to break tied values at the maximum dissimilarity, and this often
-    is sufficient to handle cases with no shared species, and
-    therefore the default is not to use \code{\link{stepacross}} with
-    \code{\link{monoMDS}}.  Function \code{\link[MASS]{isoMDS}} does
-    not handle tied values adequately, and therefore the default is to
-    use \code{\link{stepacross}} always when there are sites with no
-    shared species with \code{engine = "isoMDS"}. The
+    to break tied values at the maximum dissimilarity, and this is
+    usually sufficient to handle cases with no shared species.
     \code{\link{stepacross}} is triggered by option \code{noshare}. If
     you do not like manipulation of original distances, you should set
-    \code{noshare = FALSE}.  This step is skipped if input data were
-    dissimilarities instead of community data. This step is performed
+    \code{noshare = FALSE}. This step is performed
     using \code{metaMDSdist}, and the step is skipped always when
     input were dissimilarities.
 
@@ -359,17 +356,20 @@ metaMDSredist(object, ...)
     metric and observed dissimilarities can be of any kind (metric or
     non-metric).
 
-    The ordination configuration is usually rotated to principal
-    components in \code{metaMDS}. The rotation is performed after
-    finding the result, and it only changes the direction of the
-    reference axes. The only important feature in the NMDS solution are
-    the ordination distances, and these do not change in
-    rotation. Similarly, the rank order of distances does not change in
-    uniform scaling or centring of configuration of points. You can also
-    rotate the NMDS solution to external environmental variables with
-    \code{\link{MDSrotate}}. This rotation will also only change the
-    orientation of axes, but will not change the configuration of points
-    or distances between points in ordination space.
+    The ordination configuration is usually rotated to principal axes
+    in \code{metaMDS}. The rotation is performed after finding the
+    result, and it only changes the direction of the reference
+    axes. Before rotation the directions of axes are arbitrary, and
+    the same solution (same configuration, same stress) the
+    orientation of axes is arbitrary. The only important feature in
+    the NMDS solution are the ordination distances, and these do not
+    change in rotation. Similarly, the rank order of distances does
+    not change in uniform scaling or centring of configuration of
+    points. You can also rotate the NMDS solution to external
+    environmental variables with \code{\link{MDSrotate}}. This
+    rotation will also only change the orientation of axes, but will
+    not change the configuration of points or distances between points
+    in ordination space.
 
     Function \code{\link{stressplot}} displays the method graphically:
     it plots the observed dissimilarities against distances in
@@ -379,20 +379,20 @@ metaMDSredist(object, ...)
 }
 
 \value{ Function \code{metaMDS} returns an object of class
-  \code{metaMDS}. The final site ordination is stored in the item
-  \code{points}, and species ordination in the item \code{species},
-  and the stress in item \code{stress} (NB, the scaling of the stress
-  depends on the \code{engine}: \code{\link[MASS]{isoMDS}} uses
-  percents, and \code{\link{monoMDS}} proportions in the range \eqn{0
-  \ldots 1}). The other items store the information on the steps taken
-  and the items returned by the \code{engine} function. The object has
-  \code{print}, \code{plot}, \code{points} and \code{text} methods.
-  Functions \code{metaMDSdist} and \code{metaMDSredist} return
-  \code{\link{vegdist}} objects.  Function \code{initMDS} returns a
-  random configuration which is intended to be used within
-  \code{\link[MASS]{isoMDS}} only.  Functions \code{metaMDSiter} and
-  \code{postMDS} returns the result of NMDS with updated
-  configuration.  }
+  \code{metaMDS} which inherits from the class of \code{engine}. The
+  final site ordination is stored in the item \code{points}, and
+  species ordination in the item \code{species}, and the stress in
+  item \code{stress} (NB, the scaling of the stress depends on the
+  \code{engine}: \code{\link[MASS]{isoMDS}} uses percents,
+  \code{\link{monoMDS}} and most other functions use proportions
+  \eqn{0 \ldots 1}). The other items store the information on the
+  steps taken and the items returned by the \code{engine}
+  function. The object has \code{print}, \code{plot}, \code{points}
+  and \code{text} methods.  Functions \code{metaMDSdist} and
+  \code{metaMDSredist} return \code{\link{vegdist}} objects.  Function
+  \code{initMDS} returns a random configuration.  Functions
+  \code{metaMDSiter} and \code{postMDS} returns the result of NMDS
+  with updated configuration.  }
 
 
 \references{
@@ -415,25 +415,24 @@ metaMDSredist(object, ...)
 \author{ Jari Oksanen }
 
 \note{ Function \code{metaMDS} is a simple wrapper for an NMDS engine
-  (either \code{\link{monoMDS}} or \code{\link[MASS]{isoMDS}}) and
-  some support functions (\code{metaMDSdist},
-  \code{\link{stepacross}}, \code{metaMDSiter}, \code{initMDS},
-  \code{postMDS}, \code{\link{wascores}}).  You can call these support
-  functions separately for better control of results.  Data
-  transformation, dissimilarities and possible
-  \code{\link{stepacross}} are made in function \code{metaMDSdist}
-  which returns a dissimilarity result. Iterative search (with
-  starting values from \code{initMDS} with \code{\link{monoMDS}}) is
-  made in \code{metaMDSiter}.  Processing of result configuration is
-  done in \code{postMDS}, and species scores added by
-  \code{\link{wascores}}.  If you want to be more certain of reaching
-  a global solution, you can compare results from several independent
-  runs. You can also continue analysis from previous results or from
-  your own configuration.  Function may not save the used
-  dissimilarity matrix (\code{\link{monoMDS}} does), but
-  \code{metaMDSredist} tries to reconstruct the used dissimilarities
-  with original data transformation and possible
-  \code{\link{stepacross}}.
+  (either \code{\link{monoMDS}} or any compatible function, and some
+  support functions (\code{metaMDSdist}, \code{\link{stepacross}},
+  \code{metaMDSiter}, \code{initMDS}, \code{postMDS},
+  \code{\link{wascores}}).  You can call these support functions
+  separately for the full control of results.  Data transformation,
+  dissimilarities and possible \code{\link{stepacross}} are made in
+  function \code{metaMDSdist} which returns a dissimilarity
+  result. Iterative search (with starting values from \code{initMDS}
+  with selected \code{engine} is made in \code{metaMDSiter}.
+  Post-processing of result configuration is done in \code{postMDS},
+  and species scores added by \code{\link{wascores}}.  If you want to
+  be more certain of reaching a global solution, you can compare
+  results from several independent runs. You can also continue
+  analysis from previous results or from your own configuration.
+  Function may not save the used dissimilarity matrix
+  (\code{\link{monoMDS}} does), but \code{metaMDSredist} tries to
+  reconstruct the used dissimilarities with original data
+  transformation and possible \code{\link{stepacross}}.
 
   The \code{metaMDS} function was designed to be used with community
   data.  If you have other type of data, you should probably set some
@@ -443,17 +442,12 @@ metaMDSredist(object, ...)
   to \code{FALSE} with a warning.  
 }
 
-\section{Warning}{\code{metaMDS} uses \code{\link{monoMDS}} as its
-  NMDS \code{engine} from \pkg{vegan} version 2.0-0, when it replaced
-  the \code{\link[MASS]{isoMDS}} function. You can set argument
-  \code{engine} to select the old engine.}
-
-\seealso{\code{\link{monoMDS}} (and \code{\link[MASS]{isoMDS}}), 
-  \code{\link{decostand}}, \code{\link{wisconsin}}, 
-  \code{\link{vegdist}}, \code{\link{rankindex}}, \code{\link{stepacross}}, 
-  \code{\link{procrustes}}, \code{\link{wascores}}, \code{\link{sppscores}},
-  \code{\link{MDSrotate}}, \code{\link{ordiplot}}, \code{\link{stressplot}}.
-}
+\seealso{\code{\link{monoMDS}}, \code{\link{decostand}},
+  \code{\link{wisconsin}}, \code{\link{vegdist}},
+  \code{\link{rankindex}}, \code{\link{stepacross}},
+  \code{\link{procrustes}}, \code{\link{wascores}},
+  \code{\link{sppscores}}, \code{\link{MDSrotate}},
+  \code{\link{ordiplot}}, \code{\link{stressplot}}.  }
 
 \examples{
 ## The recommended way of running NMDS (Minchin 1987)
@@ -473,5 +467,12 @@ sol2
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 sol
 ## IGNORE_RDIFF_END
+## Wrap package smacof function mds as engine (you must load smacof first)
+smacof <- function(dist, y, k, ...) {
+   m <- mds(delta = dist, init = y, ndim = k, ...)
+   m$points <- m$conf
+   m
+}
+## use this as metaMDS(..., engine = smacof, type = "ordinal")
 }
 \keyword{ multivariate }

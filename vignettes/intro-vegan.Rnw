@@ -90,7 +90,7 @@ automatically knows how to access the scores.
 
 Function \code{metaMDS} is a bit special case.  The actual ordination
 is performed by function \pkg{vegan} function \code{monoMDS} (or
-alternatively using \code{isoMDS} of the \pkg{MASS} package).
+alternatively a compatible MDS \code{engine} of any package).
 Function \code{metaMDS} is a wrapper to perform non-metric
 multidimensional scaling (\textsc{nmds}) like recommended in community
 ordination: it uses adequate dissimilarity measures (function
