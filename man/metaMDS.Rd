@@ -21,7 +21,7 @@
   interpret, and adds species scores to the site ordination. The
   \code{metaMDS} function does not provide actual NMDS, but it calls
   another function for the purpose. Currently \code{\link{monoMDS}} is
-  the default choice, and it is also possible to call other functions
+  the default choice, but it is also possible to call other functions
   as an \code{engine}.}
 
 \usage{
@@ -55,7 +55,7 @@ metaMDSredist(object, ...)
     starts and centring and pc rotation of axes. }
   \item{distance}{Dissimilarity index used in \code{\link{vegdist}}.}
   \item{k}{Number of dimensions.  NB., the number of points \eqn{n}
-    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably higher in
+    should be \eqn{n > 2k + 1}{n > 2*k + 1}, and preferably much  higher in
     global non-metric MDS, and still higher in local NMDS.}
   \item{try, trymax}{Minimum and maximum numbers of random starts in
     search of stable solution. After \code{try} has been reached, the
@@ -148,8 +148,8 @@ metaMDSredist(object, ...)
    package.}
 
  \item{dist}{Dissimilarity matrix used in multidimensional scaling. }
-  \item{pc}{Rotate to principal components. }
-  \item{center}{Centre the configuration. }
+ \item{pc}{Rotate to principal axes. }
+ \item{center}{Centre the configuration. }
   
  \item{halfchange}{Scale axes to half-change units. This defaults
   \code{TRUE} when dissimilarities are known to have a theoretical
@@ -356,17 +356,20 @@ metaMDSredist(object, ...)
     metric and observed dissimilarities can be of any kind (metric or
     non-metric).
 
-    The ordination configuration is usually rotated to principal
-    components in \code{metaMDS}. The rotation is performed after
-    finding the result, and it only changes the direction of the
-    reference axes. The only important feature in the NMDS solution are
-    the ordination distances, and these do not change in
-    rotation. Similarly, the rank order of distances does not change in
-    uniform scaling or centring of configuration of points. You can also
-    rotate the NMDS solution to external environmental variables with
-    \code{\link{MDSrotate}}. This rotation will also only change the
-    orientation of axes, but will not change the configuration of points
-    or distances between points in ordination space.
+    The ordination configuration is usually rotated to principal axes
+    in \code{metaMDS}. The rotation is performed after finding the
+    result, and it only changes the direction of the reference
+    axes. Before rotation the directions of axes are arbitrary, and
+    the same solution (same configuration, same stress) the
+    orientation of axes is arbitrary. The only important feature in
+    the NMDS solution are the ordination distances, and these do not
+    change in rotation. Similarly, the rank order of distances does
+    not change in uniform scaling or centring of configuration of
+    points. You can also rotate the NMDS solution to external
+    environmental variables with \code{\link{MDSrotate}}. This
+    rotation will also only change the orientation of axes, but will
+    not change the configuration of points or distances between points
+    in ordination space.
 
     Function \code{\link{stressplot}} displays the method graphically:
     it plots the observed dissimilarities against distances in
@@ -438,11 +441,6 @@ metaMDSredist(object, ...)
   you have negative data entries, \code{metaMDS} will set the previous
   to \code{FALSE} with a warning.  
 }
-
-\section{Warning}{\code{metaMDS} uses \code{\link{monoMDS}} as its
-  NMDS \code{engine} from \pkg{vegan} version 2.0-0, when it replaced
-  the \code{\link[MASS]{isoMDS}} function. You can set argument
-  \code{engine} to select other compatible functions.}
 
 \seealso{\code{\link{monoMDS}}, \code{\link{decostand}},
   \code{\link{wisconsin}}, \code{\link{vegdist}},
