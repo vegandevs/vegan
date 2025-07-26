@@ -2899,6 +2899,7 @@ Run 9 stress 0.1962451
 Run 10 stress 0.2673136 
 Run 11 stress 0.1976151 
 Run 12 stress 0.1852397 
+... Procrustes: rmse 0.05467984  max resid 0.1467147 
 Run 13 stress 0.2341081 
 Run 14 stress 0.1955837 
 Run 15 stress 0.2137396 
@@ -3386,6 +3387,7 @@ Run 9 stress 0.1962451
 Run 10 stress 0.2673136 
 Run 11 stress 0.1976151 
 Run 12 stress 0.1852397 
+... Procrustes: rmse 0.05467984  max resid 0.1467147 
 Run 13 stress 0.2341081 
 Run 14 stress 0.1955837 
 Run 15 stress 0.2137396 
@@ -4070,7 +4072,7 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651369e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651372e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
@@ -4084,7 +4086,7 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 5.869596e-06  max resid 1.970358e-05 
+... Procrustes: rmse 5.869597e-06  max resid 1.970358e-05 
 ... Similar to previous best
 Run 17 stress 0.2075713 
 Run 18 stress 0.1192678 
@@ -4131,7 +4133,7 @@ Run 6 stress 0.1183186
 ... Similar to previous best
 Run 7 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 2.111214e-06  max resid 6.785766e-06 
+... Procrustes: rmse 2.111211e-06  max resid 6.785766e-06 
 ... Similar to previous best
 Run 8 stress 0.1192678 
 Run 9 stress 0.1183186 
@@ -4141,7 +4143,7 @@ Run 10 stress 0.1183186
 ... Procrustes: rmse 3.222973e-05  max resid 9.837238e-05 
 ... Similar to previous best
 Run 11 stress 0.1183186 
-... Procrustes: rmse 9.836666e-06  max resid 3.27482e-05 
+... Procrustes: rmse 9.836664e-06  max resid 3.27482e-05 
 ... Similar to previous best
 Run 12 stress 0.1183186 
 ... Procrustes: rmse 2.659083e-05  max resid 8.216893e-05 
@@ -4152,7 +4154,7 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 1.230099e-05  max resid 4.079838e-05 
+... Procrustes: rmse 1.230098e-05  max resid 4.079838e-05 
 ... Similar to previous best
 Run 17 stress 0.1192679 
 Run 18 stress 0.1192678 
@@ -4266,7 +4268,7 @@ Run 8 stress 0.1067169
 Run 9 stress 0.1073148 
 Run 10 stress 0.1073148 
 Run 11 stress 0.1067169 
-... Procrustes: rmse 3.364993e-06  max resid 7.105337e-06 
+... Procrustes: rmse 3.364991e-06  max resid 7.105337e-06 
 ... Similar to previous best
 Run 12 stress 0.107471 
 Run 13 stress 0.107471 
@@ -4283,7 +4285,7 @@ Run 19 stress 0.1067169
 ... Procrustes: rmse 2.356109e-06  max resid 5.608413e-06 
 ... Similar to previous best
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175701e-07  max resid 1.839172e-06 
+... Procrustes: rmse 8.175633e-07  max resid 1.839172e-06 
 ... Similar to previous best
 *** Best solution repeated 3 times
 > sol
@@ -4305,6 +4307,13 @@ Scaling: centring, PC rotation, halfchange scaling
 Species: expanded scores based on ‘dune’ 
 
 > ## IGNORE_RDIFF_END
+> ## Wrap package smacof function mds as engine (you must load smacof first)
+> smacof <- function(dist, y, k, ...) {
++    m <- mds(delta = dist, init = y, ndim = k, ...)
++    m$points <- m$conf
++    m
++ }
+> ## use this as metaMDS(..., engine = smacof, type = "ordinal")
 > 
 > 
 > 
@@ -6547,8 +6556,8 @@ Rotation matrix:
 [2,] 0.1160491  0.9932435
 
 Translation of averages:
-              [,1]          [,2]
-[1,] -4.459436e-17 -2.305714e-17
+              [,1]        [,2]
+[1,] -5.406691e-17 3.10918e-18
 
 Scaling of target:
 [1] 0.6725743
@@ -8372,6 +8381,7 @@ Run 9 stress 0.1962451
 Run 10 stress 0.2673136 
 Run 11 stress 0.1976151 
 Run 12 stress 0.1852397 
+... Procrustes: rmse 0.05467984  max resid 0.1467147 
 Run 13 stress 0.2341081 
 Run 14 stress 0.1955837 
 Run 15 stress 0.2137396 
@@ -9019,7 +9029,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.28 0.366 8.662 0 0 
+Time elapsed:  8.204 0.356 8.575 0 0 
 > grDevices::dev.off()
 null device 
           1 
