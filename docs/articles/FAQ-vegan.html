@@ -327,20 +327,6 @@ because people use same names for different indices.</p>
 <hr>
 </div>
 <div class="section level4">
-<h4 id="why-nmds-stress-is-sometimes-0-1-and-sometimes-10">Why NMDS stress is sometimes 0.1 and sometimes 10?<a class="anchor" aria-label="anchor" href="#why-nmds-stress-is-sometimes-0-1-and-sometimes-10"></a>
-</h4>
-<p>Stress is a proportional measure of badness of fit. The proportions
-can be expressed either as parts of one or as percents. Function
-<code>isoMDS</code> (<strong>MASS</strong> package) uses percents, and
-function <code>monoMDS</code> (<strong>vegan</strong> package) uses
-proportions, and therefore the same stress is 100 times higher in
-<code>isoMDS</code>. The results of <code>goodness</code> function also
-depend on the definition of stress, and the same <code>goodness</code>
-is 100 times higher in <code>isoMDS</code> than in <code>monoMDS</code>.
-Both of these conventions are equally correct.</p>
-<hr>
-</div>
-<div class="section level4">
 <h4 id="i-get-zero-stress-but-no-repeated-solutions-in-metamds">I get zero stress but no repeated solutions in
 <code>metaMDS</code><a class="anchor" aria-label="anchor" href="#i-get-zero-stress-but-no-repeated-solutions-in-metamds"></a>
 </h4>
@@ -375,24 +361,6 @@ differ). However, higher number of dimensions can be used in metric
 scaling, both with <code>monoMDS</code> and in principal coordinates
 analysis (<code>cmdscale</code> in <strong>stats</strong>,
 <code>wcmdscale</code> in <strong>vegan</strong>).</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="zero-dissimilarities-in-isomds">Zero dissimilarities in isoMDS<a class="anchor" aria-label="anchor" href="#zero-dissimilarities-in-isomds"></a>
-</h4>
-<p>Function <code>metaMDS</code> uses function <code>monoMDS</code> as
-its default method for NMDS, and this function can handle zero
-dissimilarities. Alternative function <code>isoMDS</code> cannot handle
-zero dissimilarities. If you want to use <code>isoMDS</code>, you can
-use argument <code>zerodist = "add"</code> in <code>metaMDS</code> to
-handle zero dissimilarities. With this argument, zero dissimilarities
-are replaced with a small positive value, and they can be handled in
-<code>isoMDS</code>. This is a kluge, and some people do not like this.
-A more principal solution is to remove duplicate sites using R command
-<code>unique</code>. However, after some standardizations or with some
-dissimilarity indices, originally non-unique sites can have zero
-dissimilarity, and you have to resort to the kluge (or work harder with
-your data). Usually it is better to use <code>monoMDS</code>.</p>
 <hr>
 </div>
 <div class="section level4">

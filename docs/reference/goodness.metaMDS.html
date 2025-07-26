@@ -66,7 +66,7 @@
   <dt id="arg-dis">dis<a class="anchor" aria-label="anchor" href="#arg-dis"></a></dt>
 <dd><p>Dissimilarities.  This should not be used with
     <code><a href="metaMDS.html">metaMDS</a></code> or <code><a href="monoMDS.html">monoMDS</a></code>, but must be used with
-    <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code>.</p></dd>
+    when the dissimilarities cannot be reconstructed from the result object.</p></dd>
 
   <dt id="arg-pch">pch<a class="anchor" aria-label="anchor" href="#arg-pch"></a></dt>
 <dd><p>Plotting character for points.  Default is dependent on the
@@ -88,12 +88,7 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Function <code>goodness.metaMDS</code> finds a goodness of fit statistic
   for observations (points).  This is defined so that sum of squared
-  values is equal to squared stress.  Large values indicate poor fit.
-  The absolute values of the goodness statistic depend on the
-  definition of the stress: <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> expresses
-  stress in percents, and therefore its goodness values are 100 times
-  higher than those of <code><a href="monoMDS.html">monoMDS</a></code> which expresses the
-  stress as a proportion.</p>
+  values is equal to squared stress.  Large values indicate poor fit.</p>
 <p>Function <code>stressplot</code> draws a Shepard diagram which is a plot
   of ordination distances and monotone or linear fit line against
   original dissimilarities.  In addition, it displays two
@@ -106,15 +101,12 @@
 <p>Both functions can be used with <code><a href="metaMDS.html">metaMDS</a></code>,
   <code><a href="monoMDS.html">monoMDS</a></code> and <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code>.  The original
   dissimilarities should not be given for <code><a href="monoMDS.html">monoMDS</a></code> or
-  <code><a href="metaMDS.html">metaMDS</a></code> results (the latter tries to reconstruct the
-  dissimilarities using <code><a href="metaMDS.html">metaMDSredist</a></code> if
-  <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> was used as its engine).  With
-  <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> the dissimilarities must be given.  In
-  either case, the functions inspect that dissimilarities are
-  consistent with current ordination, and refuse to analyse
-  inconsistent dissimilarities.  Function <code>goodness.metaMDS</code> is
-  generic in <span class="pkg">vegan</span>, but you must spell its name completely with
-  <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> which has no class.</p>
+  <code><a href="metaMDS.html">metaMDS</a></code> results, but they must given if the result
+  object has no information to reconstruct dissmilarities.  The
+  functions checks that dissimilarities are consistent with current
+  ordination, and refuses to analyse inconsistent dissimilarities.
+  Function <code>goodness.metaMDS</code> is generic in <span class="pkg">vegan</span>, but you
+  must spell its name completely if the result has no <code>class</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
