@@ -49,9 +49,9 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># Default S3 method</span></span>
 <span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, knots <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>         family <span class="op">=</span> <span class="st">"gaussian"</span>, col <span class="op">=</span> <span class="st">"red"</span>, isotropic <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>         thinplate <span class="op">=</span> <span class="cn">TRUE</span>, bs <span class="op">=</span> <span class="st">"tp"</span>, fx <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>         display <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">w</span>, <span class="va">main</span>, nlevels <span class="op">=</span> <span class="fl">10</span>, <span class="va">levels</span>, npoints <span class="op">=</span> <span class="fl">31</span>,</span>
-<span>         labcex <span class="op">=</span> <span class="fl">0.6</span>, bubble <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">1</span>, select <span class="op">=</span> <span class="cn">TRUE</span>, method <span class="op">=</span> <span class="st">"REML"</span>,</span>
+<span>         bs <span class="op">=</span> <span class="st">"tp"</span>, fx <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, display <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">w</span>, <span class="va">main</span>,</span>
+<span>         nlevels <span class="op">=</span> <span class="fl">10</span>, <span class="va">levels</span>, npoints <span class="op">=</span> <span class="fl">31</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>         bubble <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">1</span>, select <span class="op">=</span> <span class="cn">TRUE</span>, method <span class="op">=</span> <span class="st">"REML"</span>,</span>
 <span>         gamma <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, lwd.cl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'formula'</span></span>
@@ -98,11 +98,10 @@
   <dt id="arg-col">col<a class="anchor" aria-label="anchor" href="#arg-col"></a></dt>
 <dd><p>Colour of contours.</p></dd>
 
-  <dt id="arg-isotropic-thinplate">isotropic, thinplate<a class="anchor" aria-label="anchor" href="#arg-isotropic-thinplate"></a></dt>
+  <dt id="arg-isotropic">isotropic<a class="anchor" aria-label="anchor" href="#arg-isotropic"></a></dt>
 <dd><p>Fit an isotropic smooth surface (i.e. same
     smoothness in both ordination dimensions) via
-    <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>. Use of <code>thinplate</code> is deprecated and
-    will be removed in a future version of the package.</p></dd>
+    <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>.</p></dd>
 
   <dt id="arg-bs">bs<a class="anchor" aria-label="anchor" href="#arg-bs"></a></dt>
 <dd><p>a two letter character string indicating the smoothing basis
