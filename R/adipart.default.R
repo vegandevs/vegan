@@ -1,8 +1,9 @@
 `adipart.default` <-
-    function(y, x, index=c("richness", "shannon", "simpson"),
-             weights=c("unif", "prop"), relative = FALSE, nsimul=99,
-             method = "r2dtable", ...)
+    function(y, x, index, weights=c("unif", "prop"), relative = FALSE,
+             nsimul=99, method = "r2dtable", ...)
 {
+    index <- match.arg(index, c("richness", "shannon", "simpson",
+                                "invsimpson", "hill1", "hill2"))
     ## evaluate formula
     lhs <- as.matrix(y)
     if (missing(x))
@@ -55,15 +56,20 @@
         exp(1) else list(...)$base
 
     ## evaluate other arguments
-    index <- match.arg(index)
     weights <- match.arg(weights)
-    switch(index,
-           "richness" = {
-               divfun <- function(x) rowSums(x > 0)},
-           "shannon" = {
-               divfun <- function(x) diversity(x, index = "shannon", MARGIN = 1, base=base)},
-           "simpson" = {
-               divfun <- function(x) diversity(x, index = "simpson", MARGIN = 1)})
+    divfun <-
+        switch(index,
+               "richness" = function(x) rowSums(x > 0),
+               "shannon" =  function(x) diversity(x, index = "shannon",
+                                                  MARGIN = 1, base=base),
+               "simpson" =  function(x) diversity(x, index = "simpson",
+                                                  MARGIN = 1),
+               "hill1" = function(x) exp(diversity(x, index = "shannon",
+                                                   MARGIN = 1)),
+               "invsimpson" =,
+               "hill2" = function(x) diversity(x, index = "invsimpson",
+                                               MARGIN = 1)
+               )
 
     ## this is the function passed to oecosimu
     wdivfun <- function(x) {

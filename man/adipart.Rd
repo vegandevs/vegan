@@ -16,9 +16,8 @@ according to a nested hierarchical sampling design (\code{hiersimu}).
 }
 \usage{
 adipart(...)
-\method{adipart}{default}(y, x, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
-    method = "r2dtable", ...)
+\method{adipart}{default}(y, x, index, weights=c("unif", "prop"),
+    relative = FALSE, nsimul=99, method = "r2dtable", ...)
 \method{adipart}{formula}(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99,
     method = "r2dtable", ...)
@@ -54,7 +53,12 @@ hiersimu(...)
     right hand side of \code{formula}. If missing, variables are looked
     in the global environment.}
 
-  \item{index}{Character, the diversity index to be calculated (see Details).}
+  \item{index}{Name of the diversity index, one of \code{"richness"} for
+    the number of species, \code{"shannon"}, \code{"simpson"},
+    \code{"invsimpson"} of function \code{\link{diversity}},
+    \code{"hill1"} for Hill number 1 that is the exponent of
+    \code{"shannon"}, or \code{"hill2"} for Hill number 2 that is a
+    synonym of \code{"invsimpson"}.}
 
   \item{weights}{Character, \code{"unif"} for uniform weights,
     \code{"prop"} for weighting proportional to sample abundances to use
