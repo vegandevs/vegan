@@ -35,6 +35,11 @@
   full definition of the term, but switches to `X1` _etc_ if this does
   not fit the graphics space. Tilde is stripped from term definition.
 
+* `adipart` can use Hill numbers 1 and 2 in additive diversity
+  partitioning per wish of
+  [#752](https://github.com/vegandevs/vegan/issues/752). Earlier it
+  was possible to use these only _via_ `hiersimu`.
+
 ## Bug Fixes
 
 * `summary` for `mantel`, `mrpp`, `oecosimu` and `ordiareatest` did
