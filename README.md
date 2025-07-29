@@ -7,6 +7,7 @@ vegetation ecologists.
 [![R-CMD-check](https://github.com/vegandevs/vegan/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/vegandevs/vegan/actions/workflows/R-CMD-check.yaml)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/vegan)](https://cran.r-project.org/package=vegan)
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/vegan)](https://cran.rstudio.com/web/packages/vegan/index.html)
+[![status](https://tinyverse.netlify.app/badge/vegan)](https://CRAN.R-project.org/package=vegan)
 [![R-universe](https://vegandevs.r-universe.dev/badges/vegan)](https://vegandevs.r-universe.dev/vegan)
 <!-- badges: end -->
 
