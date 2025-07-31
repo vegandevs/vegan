@@ -47,6 +47,10 @@
   These arguments allow changing sidedness or critical _P_-value of
   the summary.
 
+* `decostand` standardization `"rrank"` failed with
+  `na.rm = FALSE`. Bug report
+  [#753](https://github.com/vegandevs/vegan/issues/753).
+
 * `ordilabel`, `ordipointlabel` froze graphical device if function
   stopped with error.
 
