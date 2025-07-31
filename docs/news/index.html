@@ -55,6 +55,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
 <ul><li><p><code>summary</code> for <code>mantel</code>, <code>mrpp</code>, <code>oecosimu</code> and <code>ordiareatest</code> did not pass dot arguments (<code>...</code>) to underlying <code>summary.permustats</code>. These arguments allow changing sidedness or critical <em>P</em>-value of the summary.</p></li>
+<li><p><code>decostand</code> standardization <code>"rrank"</code> failed with <code>na.rm = FALSE</code>. Bug report <a href="https://github.com/vegandevs/vegan/issues/753" class="external-link">#753</a>.</p></li>
 <li><p><code>ordilabel</code>, <code>ordipointlabel</code> froze graphical device if function stopped with error.</p></li>
 </ul></div>
 <div class="section level3">
