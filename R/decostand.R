@@ -63,7 +63,8 @@
     }, rank = {
         wasNA <- is.na(x)
         if (any(wasNA) && !na.rm)
-            stop("missing values are not allowed with 'na.rm = FALSE'")
+            stop("missing values are not allowed with 'na.rm = FALSE'",
+                 call. = FALSE)
         if (missing(MARGIN)) MARGIN <- 1
         x[x==0] <- NA
         x <- apply(x, MARGIN, rank, na.last = "keep")
@@ -79,7 +80,7 @@
         if (na.rm && any(wasNA <- is.na(x)))
             x[wasNA] <- 0
         x <- sweep(x, MARGIN, specnumber(x, MARGIN = MARGIN), "/")
-        if (any(wasNA))
+        if (na.rm && any(wasNA))
             x[wasNA] <- NA
         attr <- list("margin" = MARGIN)
     }, standardize = {
@@ -163,7 +164,7 @@
     x <- x + pseudocount
     # Error with negative values (note: at this step we always use na.rm = TRUE)
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("'method = \"clr\"' cannot be used with non-positive data: 
+        stop("'method = \"clr\"' cannot be used with non-positive data:
               use pseudocount '> -min(x, na.rm = TRUE) + pseudocount'",
 	      call. = FALSE)
     }
@@ -186,7 +187,7 @@
 	         - disable this with `na.rm = FALSE`")
         clog[is.na(clog)] <- 0
     }
-    
+
     attr(clog, "parameters") <- list("means" = means,
                                      "pseudocount" = pseudocount)
     clog
@@ -204,12 +205,12 @@
 
    # Log transform
    clog <- log(x)
-   
+
    # Convert zeros to NAs in rclr
    clog[is.infinite(clog)] <- NA
 
    # Calculate log of geometric mean for every sample, ignoring the NAs
-   # Always na.rm = TRUE at this step!   
+   # Always na.rm = TRUE at this step!
    means <- rowMeans(clog, na.rm = TRUE)
 
    ## Divide (or in log-space, reduce) all values by their sample-wide
@@ -220,9 +221,9 @@
    # Impute NAs if impute=TRUE
    # Otherwise return the transformation with NAs
    if (impute && any(is.na(xx))) {
-   
+
      opt_res <- optspace(xx, ropt = ropt, niter = niter, tol = tol, verbose = verbose)
-     
+
      # recenter the data
      # (the means of rclr can get thrown off since we work on only missing)
      M_I <- opt_res$X %*% opt_res$S %*% t(opt_res$Y)
@@ -236,9 +237,9 @@
      # Imputed matrix
      xx <- M_I
    }
-  
+
    xx
-   
+
 }
 
 .calc_alr <-
@@ -275,7 +276,7 @@
         warning("replacing missing values with zero for `method = \"alr\"`
 	         - disable this with `na.rm = FALSE`")
         clog[is.na(clog)] <- 0
-    } 
+    }
 
     attr(clog, "parameters") <- list("reference" = refvector,
                                      "index" = reference,
