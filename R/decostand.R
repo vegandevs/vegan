@@ -63,7 +63,8 @@
     }, rank = {
         wasNA <- is.na(x)
         if (any(wasNA) && !na.rm)
-            stop("missing values are not allowed with 'na.rm = FALSE'")
+            stop("missing values are not allowed with 'na.rm = FALSE'",
+                 call. = FALSE)
         if (missing(MARGIN)) MARGIN <- 1
         x[x==0] <- NA
         x <- apply(x, MARGIN, rank, na.last = "keep")
