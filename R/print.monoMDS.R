@@ -9,7 +9,8 @@
                      global = "Non-metric",
                      local = "Local non-metric",
                      linear = "Linear",
-                     hybrid = "Hybrid")
+                     hybrid = "Hybrid",
+                     x$model)
     cat(paste(modlab, "Multidimensional Scaling\n\n"))
     cat(x$nobj, "points")
     cat(", dissimilarity", sQuote(x$distmethod))
