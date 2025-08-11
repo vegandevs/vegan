@@ -81,7 +81,7 @@ questions about R package <strong>vegan</strong>.</p>
 License. To view a copy of this license, visit <a href="https://creativecommons.org/licenses/by/3.0/" class="external-link uri">https://creativecommons.org/licenses/by/3.0/</a> or send a
 letter to Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 California, 94105, USA.</p>
-<p>Copyright © 2008-2016 vegan development team</p>
+<p>Copyright © 2008-2025 vegan development team</p>
 </blockquote>
 <hr>
 <div class="section level3">
@@ -102,19 +102,6 @@ license</a>.</p>
 <hr>
 </div>
 <div class="section level4">
-<h4 id="what-is-r">What is R?<a class="anchor" aria-label="anchor" href="#what-is-r"></a>
-</h4>
-<p>R is a system for statistical computation and graphics. It consists
-of a language plus a run-time environment with graphics, a debugger,
-access to certain system functions, and the ability to run programs
-stored in script files.</p>
-<p>R has a home page at <a href="https://www.R-project.org/" class="external-link uri">https://www.R-project.org/</a>. It is <a href="https://www.gnu.org/philosophy/free-sw.html" class="external-link">free software</a>
-distributed under a GNU-style <a href="https://www.gnu.org/copyleft/copyleft.html" class="external-link">copyleft</a>, and an
-official part of the <a href="https://www.gnu.org/" class="external-link">GNU</a> project
-(“GNU S”).</p>
-<hr>
-</div>
-<div class="section level4">
 <h4 id="how-to-obtain-vegan-and-r">How to obtain <strong>vegan</strong> and R?<a class="anchor" aria-label="anchor" href="#how-to-obtain-vegan-and-r"></a>
 </h4>
 <p>Both R and latest release version of <strong>vegan</strong> can be
@@ -122,29 +109,6 @@ obtained through <a href="https://cran.r-project.org" class="external-link">CRAN
 development version of <strong>vegan</strong> can be obtained through <a href="https://github.com/vegandevs/vegan" class="external-link">GitHub</a>. The github page
 gives further instructions for obtaining and installing development
 versions of <strong>vegan</strong>.</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="what-r-packages-vegan-depends-on">What R packages <strong>vegan</strong> depends on?<a class="anchor" aria-label="anchor" href="#what-r-packages-vegan-depends-on"></a>
-</h4>
-<p><strong>Vegan</strong> depends on the <strong>permute</strong>
-package which will provide advanced and flexible permutation routines
-for <strong>vegan</strong>. The <strong>permute</strong> package is
-developed together with <strong>vegan</strong> in <a href="https://github.com/gavinsimpson/permute" class="external-link">GitHub</a>.</p>
-<p>Some individual <strong>vegan</strong> functions depend on packages
-<strong>MASS</strong>, <strong>mgcv</strong>, <strong>parallel</strong>,
-<strong>cluster</strong> and <strong>lattice</strong>.
-<strong>Vegan</strong> dependence on <strong>tcltk</strong> is
-deprecated and will be removed in future releases. These all are base or
-recommended R packages that should be available in every R installation.
-<strong>Vegan</strong> declares these as suggested or imported packages,
-and you can install <strong>vegan</strong> and use most of its functions
-without these packages.</p>
-<p><strong>Vegan</strong> is accompanied with a supporting package
-<strong>vegan3d</strong> for three-dimensional and dynamic plotting. The
-<strong>vegan3d</strong> package needs <strong>tcltk</strong> and
-non-standard packages <strong>rgl</strong> and
-<strong>scatterplot3d</strong>.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -371,12 +335,12 @@ to NMDS results which only have rank-order scores<a class="anchor" aria-label="a
 are based on grave misunderstanding and are plainly wrong. NMDS
 ordination results are strictly metric, and in <strong>vegan</strong>
 <code>metaMDS</code> and <code>monoMDS</code> they are even strictly
-Euclidean. The method is called “non-metric” because the Euclidean
-distances in ordination space have a non-metric rank-order relationship
-to community dissimilarities. You can inspect this non-linear step curve
-using function <code>stressplot</code> in <strong>vegan</strong>.
-Because the ordination scores are strictly Euclidean, it is correct to
-use <strong>vegan</strong> functions <code>envfit</code> and
+Euclidean. The method is called “non-metric” because there is non-metric
+relation from input dissimilarities to the Euclidean ordination space.
+You can inspect this non-linear step function using function
+<code>stressplot</code> in <strong>vegan</strong>. Because the
+ordination scores are strictly Euclidean, it is correct to use
+<strong>vegan</strong> functions <code>envfit</code> and
 <code>ordisurf</code> with NMDS results.</p>
 <hr>
 </div>
@@ -404,55 +368,6 @@ packages. The scaling of RDA is such a complicated issue that it cannot
 be explained in this FAQ, but it is explained in a separate pdf document
 on “Design decision and implementation details in vegan” that you can
 read with command <code>browseVignettes("vegan")</code>.</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="i-cannot-print-and-plot-rda-results-properly">I cannot print and plot RDA results properly<a class="anchor" aria-label="anchor" href="#i-cannot-print-and-plot-rda-results-properly"></a>
-</h4>
-<p>If the RDA ordination results have a weird format or you cannot plot
-them properly, you probably have a name clash with <strong>klaR</strong>
-package which also has function <code>rda</code>, and the
-<strong>klaR</strong> <code>print</code>, <code>plot</code> or
-<code>predict</code> functions are used for <strong>vegan</strong> RDA
-results. You can choose between <code>rda</code> functions using
-<code><a href="../reference/cca.html">vegan::rda()</a></code> or <code>klaR::rda()</code>: you will get
-obscure error messages if you use the wrong function. In general,
-<strong>vegan</strong> should be able to work normally if
-<strong>vegan</strong> was loaded after <strong>klaR</strong>, but if
-<strong>klaR</strong> was loaded later, its functions will take
-precedence over <strong>vegan</strong>. Sometimes <strong>vegan</strong>
-namespace is loaded automatically when restoring a previously stored
-workspace at the start-up, and then <strong>klaR</strong> methods will
-always take precedence over <strong>vegan</strong>. You should check
-your loaded packages. <strong>klaR</strong> may be also loaded
-indirectly via other packages (in the reported cases it was most often
-loaded via <strong>agricolae</strong> package). <strong>Vegan</strong>
-and <strong>klaR</strong> both have the same function name
-(<code>rda</code>), and it may not be possible to use these packages
-simultaneously, and the safest choice is to unload one of the packages
-if only possible. See discussion in <a href="https://github.com/vegandevs/vegan/issues/277" class="external-link">vegan github
-issues</a>.</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="ordination-fails-with-error-in-la-svd">Ordination fails with “Error in La.svd”<a class="anchor" aria-label="anchor" href="#ordination-fails-with-error-in-la-svd"></a>
-</h4>
-<p>Constrained ordination (<code>cca</code>, <code>rda</code>,
-<code>dbrda</code>, <code>capscale</code>) will sometimes fail with
-error message
-<code>Error in La.svd(x, nu, nv): error code 1 from Lapack routine 'dgesdd'.</code></p>
-<p>It seems that the basic problem is in the <code>svd</code> function
-of <code>LAPACK</code> that is used for numerical analysis in R.
-<code>LAPACK</code> is an external library that is beyond the control of
-package developers and R core team so that these problems may be
-unsolvable.</p>
-<p>Reducing the range of constraints (environmental variables) helps
-sometimes. For instance, multiplying constraints by a constant &lt; 1.
-This rescaling does not influence the numerical results of constrained
-ordination, but it can complicate further analyses when values of
-constraints are needed, because the same scaling must be applied there.
-The reports on the problems are getting rare and it may that this
-problem is fixed in R and <code>LAPACK</code>.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -556,6 +471,8 @@ find scores for all points using your complete data as
 for basic eigenvector methods in <strong>vegan</strong>
 (<code>cca</code>, <code>rda</code>, <code>decorana</code>, for an
 up-to-date list, use command <code>methods("predict")</code>).</p>
+<p>You can add new points NMDS with function
+<code>MDSaddpoints</code>.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -586,47 +503,30 @@ fill the current graph. The lengths of arrows do not have fixed meaning
 with respect to the points (species, sites), but they can only compared
 against each other, and therefore only their relative lengths are
 important.</p>
-<p>If you want change the scaling of the arrows, you can use
+<p>If you want change to the scaling of the arrows, you can use
 <code>text</code> (plotting arrows and text) or <code>points</code>
 (plotting only arrows) functions for constrained ordination. These
 functions have argument <code>arrow.mul</code> which sets the
 multiplier. The <code>plot</code> function for <code>envfit</code> also
-has the <code>arrow.mul</code> argument to set the arrow multiplier. If
-you save the invisible result of the constrained ordination
-<code>plot</code> command, you can see the value of the currently used
-<code>arrow.mul</code> which is saved as an attribute of
-<code>biplot</code> scores.</p>
-<p>Function <code>ordiArrowMul</code> is used to find the scaling for
-the current plot. You can use this function to see how arrows would be
-scaled:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sol</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cca.html">cca</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span>
-<span><span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/envfit.html">envfit</a></span><span class="op">(</span><span class="va">sol</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">varechem</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sol</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/ordiArrowTextXY.html">ordiArrowMul</a></span><span class="op">(</span><span class="fu"><a href="../reference/scores.html">scores</a></span><span class="op">(</span><span class="va">ef</span>, display<span class="op">=</span><span class="st">"vectors"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+has the <code>arrow.mul</code> argument to set the arrow multiplier.</p>
 <hr>
 </div>
 <div class="section level4">
-<h4 id="i-want-to-use-helmert-or-sum-contrasts">I want to use Helmert or sum contrasts<a class="anchor" aria-label="anchor" href="#i-want-to-use-helmert-or-sum-contrasts"></a>
+<h4 id="i-cannot-see-all-variables-in-constrained-ordination">I cannot see all variables in constrained ordination<a class="anchor" aria-label="anchor" href="#i-cannot-see-all-variables-in-constrained-ordination"></a>
 </h4>
-<p><code>vegan</code> uses standard R utilities for defining contrasts.
-The default in standard installations is to use treatment contrasts, but
-you can change the behaviour globally setting <code>options</code> or
-locally by using keyword <code>contrasts</code>. Please check the R help
-pages and user manuals for details.</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="what-are-aliased-variables-and-how-to-see-them">What are aliased variables and how to see them?<a class="anchor" aria-label="anchor" href="#what-are-aliased-variables-and-how-to-see-them"></a>
-</h4>
-<p>Aliased variable has no information because it can be expressed with
-the help of other variables. Such variables are automatically removed in
-constrained ordination in <strong>vegan</strong>. The aliased variables
-can be redundant levels of factors or whole variables.</p>
+<p>You have some variables that have no use and information. These
+variables are correlated with other constraining variables and have no
+independent information. This can also concern only some levels of
+factor variables. For instance, in <strong>vegan</strong> data
+<code>dune.env</code> we know that <code>Manure</code> level is 0 in
+<code>Management</code> level <code>NM</code> and only there. If both
+are used as constraints (or conditions), one level of
+<code>Manure</code> or one level of <code>Management</code> is
+redundant. These variables or levels are aliased, and
+<strong>vegan</strong> informs about this during fitting the model and
+permanently when the short information of the result is printed.</p>
 <p><strong>Vegan</strong> function <code>alias</code> gives the defining
-equations for aliased variables. If you only want to see the names of
-aliased variables or levels in solution <code>sol</code>, use
-<code>alias(sol, names.only=TRUE)</code>.</p>
+equations for aliased variables, or optionally their names.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -635,7 +535,9 @@ aliased variables or levels in solution <code>sol</code>, use
 <p>You can fit vectors or class centroids for aliased variables using
 <code>envfit</code> function. The <code>envfit</code> function uses
 weighted fitting, and the fitted vectors are identical to the vectors in
-correspondence analysis.</p>
+correspondence analysis. In constrained analysis you must fit the
+centroids or vectors to the constrained scores (LC scores), and use
+argument <code>display = "lc"</code> in <code>envfit</code>.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -653,15 +555,15 @@ schemes is explained in the manual page <code>permutations</code> in
 <div class="section level4">
 <h4 id="how-to-use-different-plotting-symbols-in-ordination-graphics">How to use different plotting symbols in ordination graphics?<a class="anchor" aria-label="anchor" href="#how-to-use-different-plotting-symbols-in-ordination-graphics"></a>
 </h4>
-<p>The default ordination <code>plot</code> function is intended for
-fast plotting and it is not very configurable. To use different plotting
-symbols, you should first create and empty ordination plot with
-<code>plot(..., type="n")</code>, and then add <code>points</code> or
-<code>text</code> to the created empty frame (here <code>...</code>
-means other arguments you want to give to your <code>plot</code>
-command). The <code>points</code> and <code>text</code> commands are
-fully configurable, and allow different plotting symbols and
-characters.</p>
+<p>Ordination objects typically have many different kind of scores, and
+there may be limitations of changing the way how they are displayed.
+However, <code>plot</code> for constrained ordination results
+(<code>cca</code>, <code>rda</code>, <code>dbrda</code>) can be fully
+configured since <strong>vegan</strong> 2.7-1. See their help. Sometimes
+it is easier to compose the graph by layers using pipes
+(<code>|&gt;</code>) to add <code>text</code> or <code>points</code> of
+different scores. See the help of ordination plot functions for
+examples.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -673,42 +575,30 @@ impossible to have complete readable graphics with some data sets. Below
 we give a brief overview of tricks you can use. Gavin Simpson’s blog <a href="https://fromthebottomoftheheap.net" class="external-link">From the bottom of the
 heap</a> has a series of articles on “decluttering ordination plots”
 with more detailed discussion and examples.</p>
-<ul>
-<li>Use only points, possibly with different types if you do not need to
-see the labels. You may need to first create an empty plot using
-<code>plot(..., type="n")</code>, if you are not satisfied with the
-default graph. (Here and below <code>...</code> means other arguments
-you want to give to your <code>plot</code> command.)</li>
-<li>Use points and add labels to desired points using interactive
-<code>identify</code> command if you do not need to see all labels.</li>
-<li>Add labels using function <code>ordilabel</code> which uses
-non-transparent background to the text. The labels still shadow each
-other, but the uppermost labels are readable. Argument
-<code>priority</code> will help in displaying the most interesting
-labels (see <a href="https://fromthebottomoftheheap.net/2013/01/12/decluttering-ordination-plots-in-vegan-part-1-ordilabel/" class="external-link">Decluttering
-blog, part 1</a>).</li>
-<li>Use <code>orditorp</code> function that uses labels only if these
-can be added to a graph without overwriting other labels, and points
-otherwise, if you do not need to see all labels. You must first create
-an empty plot using <code>plot(..., type="n")</code>, and then add
-labels or points with <code>orditorp</code> (see <a href="https://fromthebottomoftheheap.net/2013/01/13/decluttering-ordination-plots-in-vegan-part-2-orditorp/" class="external-link">Decluttering
-blog</a>).</li>
-<li>Use <code>ordipointlabel</code> which uses points and text labels to
-the points, and tries to optimize the location of the text to minimize
-the overlap (see <a href="https://fromthebottomoftheheap.net/2013/06/27/decluttering-ordination-plots-in-vegan-part-3-ordipointlabel/" class="external-link">Decluttering
-blog</a>).</li>
-<li>Ordination <code>text</code> and <code>points</code> functions have
-argument <code>select</code> that can be used for full control of
-selecting items plotted as text or points.</li>
-<li>Use interactive <code>orditkplot</code> function
-(<strong>vegan3d</strong> package) that lets you drag labels of points
-to better positions if you need to see all labels. Only one set of
-points can be used (see <a href="https://fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/" class="external-link">Decluttering
-blog</a>).</li>
-<li>Most <code>plot</code> functions allow you to zoom to a part of the
-graph using <code>xlim</code> and <code>ylim</code> arguments to reduce
-clutter in congested areas.</li>
-</ul>
+<p>Often the easiest solution is to use only <code>points</code>. If you
+need text to identify items, most <code>text</code> and
+<code>plot</code> functions have argument <code>optimize</code> and
+<code>bg</code>. With <code>optimize = TRUE</code> the exact location of
+the score is marked with a point, and text label is written next to the
+point, and the tries to find a position that minimizes over-writing
+other labels. This is impossible in very congested areas, but often
+helps in moderate cases. Argument <code>bg</code> defines a background
+colour of labels. For instance, <code>bg = "white"</code> will write
+text on white background. These labels will cover other text below them,
+but at least the uppermost are readable instead of both being messed up.
+These arguments can be combined, and this often gives the best result.
+These arguments can also be used in <code>text</code> functions in pipe
+(<code>|&gt;</code>). Finally, <code>text</code> functions take argument
+<code>labels</code> which allows you to edit the plotted text, and
+<code>select</code> to drop completely some cases.</p>
+<p>There is a special function <code>orditorp</code> (torp for
+text-or-point) function that will use text only if it is not covered by
+other text labels and points otherwise (with argument
+<code>priority</code> to define which items are printed first).</p>
+<p>Companion CRAN package <strong>vegan3d</strong> has function
+<code>orditkplot</code> that provides editable plot where the points are
+fixed at their ordination scores, but you can move text labels with
+mouse.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -752,20 +642,6 @@ display the results.</p>
 <p>The permutation scheme influences the permutation distribution of the
 statistics and probably the significance levels, but does not influence
 the calculation of the statistics.</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="how-is-deviance-calculated">How is deviance calculated?<a class="anchor" aria-label="anchor" href="#how-is-deviance-calculated"></a>
-</h4>
-<p>Some <strong>vegan</strong> functions, such as <code>radfit</code>
-use base R facility of <code>family</code> in maximum likelihood
-estimation. This allows use of several alternative error distributions,
-among them <code>"poisson"</code> and <code>"gaussian"</code>. The R
-<code>family</code> also defines the deviance. You can see the equations
-for deviance with commands like <code>poisson()$dev</code> or
-<code>gaussian()$dev</code>.</p>
-<p>In general, deviance is 2 times log.likelihood shifted so that models
-with exact fit have zero deviance.</p>
 <hr>
 </div>
 </div>
