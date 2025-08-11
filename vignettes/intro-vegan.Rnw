@@ -52,22 +52,23 @@ introduction.
 The
 current document only describes a small part of all \pkg{vegan}
 functions.  For most functions, the canonical references are the
-\pkg{vegan} help pages, and some of the most important additional
-functions are listed at this document.
+\pkg{vegan} help pages.
 
 \section{Ordination}
 
 The \pkg{vegan} package contains all common ordination methods:
-Principal component analysis (function \code{rda}, or \code{prcomp} in
-the base \proglang{R}), correspondence analysis (\code{cca}),
-detrended correspondence analysis (\code{decorana}) and a wrapper for
-non-metric multidimensional scaling (\code{metaMDS}).  Functions
+Principal component analysis (functions \code{pca} and \code{rda}, or
+\code{prcomp} in the base \proglang{R}), correspondence analysis
+(\code{ca}, \code{cca}), detrended correspondence analysis
+(\code{decorana}), metric scaling, also known as principal coordinate
+analysis (\code{pco}, \code{wcmdscale}, or \code{cmdscale} in base
+\proglang{R}), non-metric multidimensional scaling (\code{monoMDS})
+with wrapper for common pipeline of use (\code{metaMDS}).  Functions
 \code{rda} and \code{cca} mainly are designed for constrained
 ordination, and will be discussed later.  In this chapter I describe
 functions \code{decorana} and \code{metaMDS}.
 
 \subsection{Detrended correspondence analysis}
-
 
 Detrended correspondence analysis (\textsc{dca}) is done like this:
 <<>>=
@@ -79,18 +80,17 @@ This saves ordination results in \code{ord}:
 <<>>=
 ord
 @
+
 The display of results is very brief: only eigenvalues and used
 options are listed.  Actual ordination results are not shown, but you
-can see them with command \code{summary(ord)}, or extract the scores
-with command \code{scores}.  The \code{plot} function also
-automatically knows how to access the scores.
+can extract them with command \code{scores(ord)}.  The \code{plot}
+function also automatically knows how to access the scores.
 
 \subsection{Non-metric multidimensional scaling}
 
 
 Function \code{metaMDS} is a bit special case.  The actual ordination
-is performed by function \pkg{vegan} function \code{monoMDS} (or
-alternatively a compatible MDS \code{engine} of any package).
+is performed by function \pkg{vegan} function \code{monoMDS}.
 Function \code{metaMDS} is a wrapper to perform non-metric
 multidimensional scaling (\textsc{nmds}) like recommended in community
 ordination: it uses adequate dissimilarity measures (function
@@ -132,36 +132,32 @@ a better control of ordination graphics you can first draw an empty
 plot (\code{type = "n"}) and then add species and sites separately
 using \code{points} or \code{text} functions.  In this way you can
 combine points and text, and you can select colours and character
-sizes freely (Fig. \ref{fig:plot.args}):
+sizes freely (Fig. \ref{fig:plot.args}). The easiest way is to build
+the plot in layers using pipe (\code{|>}). Pipe will pass the
+ordination object to the next command, and this allows building the
+plot in layers:
 <<a>>=
-plot(ord, type = "n")
-points(ord, display = "sites", cex = 0.8, pch=21, col="red", bg="yellow")
-text(ord, display = "species", cex=0.7, col="blue")
-@
-\begin{figure}
-<<fig=true,echo=false>>=
-<<a>>
-@
-\caption{A more colourful ordination plot where sites are points, and
-  species are text.}
-\label{fig:plot.args}
-\end{figure}
-The \code{plot} commands can be chained with pipe \code{|>}, and the previous
-can also be expressed as:
-<<<fig=false>>=
 plot(ord, type = "n") |>
-points("sites", cex = 0.8, pch=21, col="red", bg="yellow") |>
-text("species", cex=0.7, col="blue")
-@
+    points("sites", cex = 0.8, pch=21, col="red", bg="yellow") |>
+    text("species", cex=0.7, col="blue")
+@ 
 
-All \pkg{vegan} ordination methods have a specific \code{plot}
-function.  In addition, \pkg{vegan} has an alternative plotting
-function \code{ordiplot} that also knows many non-\pkg{vegan}
-ordination methods, such as \code{prcomp}, \code{cmdscale} and
-\code{isoMDS}.  All \pkg{vegan} plot functions return invisibly
-an \code{ordiplot} object, so that you can use \code{ordiplot}
-support functions with the results (\code{points}, \code{text},
-\code{identify}).
+\begin{figure}
+<<fig=true, echo=false>>=
+<<a>>
+@ 
+ \caption{A more colourful ordination plot where sites are points and
+   species are text.}
+ \label{fig:plot.args}
+ \end{figure}
+
+ All \pkg{vegan} ordination methods have a specific \code{plot}
+ function.  In addition, \pkg{vegan} has an alternative plotting
+ function \code{ordiplot} that also knows many non-\pkg{vegan}
+ ordination methods, such as \code{prcomp} and \code{cmdscale}.  All
+ \pkg{vegan} plot functions return invisibly an \code{ordiplot}
+ object, so that you can use \code{ordiplot} support functions with
+ the results (\code{points}, \code{text}, \code{identify}).
 
 Alternative plotting methods are available in two packages:
 
@@ -172,13 +168,13 @@ Alternative plotting methods are available in two packages:
       or zoomed (\code{ordirgl}) and interactive 2D plots that can be
       edited moving point labels to better position (\code{orditkplot}).
 
-   \item \pkg{ggvegan} in github provides \pkg{ggplot2} graphics for
+    \item \pkg{ggvegan} in github provides \pkg{ggplot2} graphics for
       most \pkg{vegan} objects. The \pkg{vegan} \code{scores}
       functions for ordination objects (and some others) recognize
       argument \code{tidy} which can be used to extract scores for
-      \code{ggplot2} graphics. NB., there are some \pkg{lattice}
-      graphics functions in \pkg{vegan}, but the plan is to phase out
-      these in favour of \code{ggvegan} graphics.
+      \code{ggplot2} graphics.  (There are some \pkg{lattice} graphics
+      functions in \pkg{vegan}, but the plan is to phase out these in
+      favour of \code{ggvegan} graphics.)
 
 \end{itemize}
 
@@ -191,27 +187,42 @@ plotted over each other.  \pkg{Vegan} does not have (yet?)
 automatic tools for clean plotting in these cases, but here some
 methods you can try:
 \begin{itemize}
-\item Zoom into graph setting axis limits \code{xlim} and
-  \code{ylim}.  You must typically set both, because \pkg{vegan}
-  will maintain equal aspect ratio of axes.
-\item Use points and add label only to some points with \code{identify}
-  command.
-\item Use \code{select} argument in ordination \code{text} and
-  \code{points} functions to only show the specified items.
-\item Use \code{ordilabel} function that uses opaque background to
-  the text: some text labels will be covered, but the uppermost are
-  readable.
-\item Use automatic \code{orditorp} function that uses text only if
-  this can be done without overwriting previous labels, but points in
-  other cases.
-\item Use automatic \code{ordipointlabel} function that uses both
-  points and text labels, and tries to optimize the location of the
-  text to avoid overwriting.
-\item Use interactive \code{orditkplot} function in \pkg{vegan3d} that
-  draws both points and labels for ordination scores, and allows you
-  to drag labels to better positions. You can export the edited graph
-  in several graphical formats, or return the edited positions to
-  \proglang{R} for further processing.
+  
+  \item Use only \code{points} if you do not need to identify the item
+    (and function \code{identify} can be used to add labels some of
+    the points).
+    
+  \item Most \pkg{vegan} \code{plot} and \code{text} functions know
+    arguments \code{optimize} and \code{bg}.  With
+    \code{optimize=TRUE} the exact scores are shown with labelled
+    points, and the labels are positioned to minimize
+    over-plotting. Argument \code{bg} gives the background colour of
+    labels. With background you cannot see the text or points below
+    the label, but you can read at least the uppermost text. These
+    arguments can be used together. These two arguments often help
+    with moderate cluttering.
+  
+  \item Zoom into graph setting axis limits \code{xlim} and
+    \code{ylim}.  You must typically set both, because \pkg{vegan}
+    will maintain equal aspect ratio of axes.
+
+  \item Use points and add label only to some points with
+    \code{identify} command.
+
+  \item Use \code{select} argument in ordination \code{text} and
+    \code{points} functions to only show the specified items, possibly
+    combined with argument \code{labels} for shorter names.
+
+  \item Use automatic \code{orditorp} function that uses text only if
+    this can be done without overwriting previous labels, but points
+    in other cases.
+
+  \item Use interactive \code{orditkplot} function in \pkg{vegan3d}
+    that draws both points and labels for ordination scores, and
+    allows you to drag labels to better positions. You can export the
+    edited graph in several graphical formats, or return the edited
+    positions to \proglang{R} for further processing.
+
 \end{itemize}
 
 \subsection{Adding items to ordination plots}
@@ -221,7 +232,8 @@ classification or grouping of points onto ordination diagrams.
 Function \code{ordihull} adds convex hulls, \code{ordiellipse} adds
 ellipses enclosing all points in the group (ellipsoid hulls) or
 ellipses of standard deviation, standard error or confidence areas,
-and \code{ordispider} combines items to their centroid
+\code{ordibar} draws a cross corresponding to the principal axes of
+ellipses, and \code{ordispider} combines items to their centroid
 (Fig. \ref{fig:ordihull}):
 <<>>=
 data(dune.env)
@@ -279,8 +291,8 @@ plot(ord.fit)
 @
 
 Function \code{ordisurf} directly adds a fitted surface onto
-ordination, but it returns the result of the fitted spline
-\code{gam} (Fig. \ref{fig:envfit}):
+ordination, but it returns the result of the fitted \code{gam}
+(Fig. \ref{fig:envfit}):
 <<b,fig=false>>=
 ordisurf(ord, A1, add=TRUE)
 @
@@ -313,22 +325,25 @@ ord
 @
 The results can be plotted with (Fig. \ref{fig:cca}):
 <<a>>=
-plot(ord)
+plot(ord, spe.par = list(optimize = TRUE), sit.par = list(type="p"))
 @
 \begin{figure}
 <<fig=true,echo=false>>=
 <<a>>
 @
-\caption{Default plot from constrained correspondence analysis.}
+\caption{Plot of constrained correspondence analysis showing sites as
+  points and with optimized location for species labels.}
 \label{fig:cca}
 \end{figure}
 There are three groups of items: sites, species and centroids (and
 biplot arrows) of environmental variables.  All these can be added
-individually to an empty plot, and all previously explained tricks of
-controlling graphics still apply.
+individually to an empty plot with pipes, and all previously explained tricks of
+controlling graphics still apply. If only small changes are wanted to
+default settings, it is easier to change those parameters with a list
+of new argument values like in the example.
 
 It is not recommended to perform constrained ordination with all
-environmental variables you happen to have: adding the number of
+available environmental variables: adding the number of
 constraints means slacker constraint, and you finally end up with
 solution similar to unconstrained ordination. In that case it is
 better to use unconstrained ordination with environmental fitting.
@@ -337,6 +352,16 @@ following shortcut in \code{formula}:
 <<>>=
 cca(dune ~ ., data=dune.env)
 @
+
+The model gave a message that some constraints were alaised because
+they were redundant. This means that the variable did not have unique
+explanatory power, but it can be expressed with the help of other
+variables. Such redundant variables are not shown in ordination. In
+this case \code{Manure\^4} (fourth degree polynomial of \code{Manure}
+level which was defined as an ordered factor). There is one
+\code{Manure} level (0) which only occurs in \code{Management} level
+\code{NM} (natural management), and we know that \code{Manure} level
+once we know the \code{Management}.
 
 \subsection{Significance tests}
 
@@ -354,18 +379,13 @@ ordination.
 
 It is also possible to analyse terms separately:
 <<>>=
-anova(ord, by="term", permutations=199)
+anova(ord, by="term")
 @
 This test is sequential: the terms are analysed
 in the order they happen to be in the model. You can also analyse
 significances of marginal effects (``Type III effects''):
 <<>>=
-anova(ord, by="mar", permutations=199)
-@
-
-Moreover, it is possible to analyse significance of each axis:
-<<a>>=
-anova(ord, by="axis", permutations=499)
+anova(ord, by="margin")
 @
 
 \subsection{Conditioned or partial ordination}
@@ -380,7 +400,7 @@ This partials out the effect of \code{Moisture} before analysing the
 effects of \code{A1} and \code{Management}.  This also influences
 the significances of the terms:
 <<>>=
-anova(ord, by="term", permutations=499)
+anova(ord, by="term")
 @
 If we had a designed experiment, we may wish to restrict the
 permutations so that the observations only are permuted within levels
@@ -389,7 +409,7 @@ of \code{Moisture}. Restricted permutation is based on the powerful
 permutation schemes. In the following, we set the levels with
 \code{plots} argument:
 <<>>=
-how <- how(nperm=499, plots = Plots(strata=dune.env$Moisture))
+how <- how(nperm=999, plots = Plots(strata=dune.env$Moisture))
 anova(ord, by="term", permutations = how)
 @
 
