@@ -42,8 +42,8 @@ showvarparts(2, bg = cls, Xnames=labs)
 \caption{3 regression/ canonical analyses and 3 subtraction equations
   are needed to estimate the $4\;(=2^2)$ fractions. 
   
-  [a] and [c] can be tested for significance (3 canonical analyses per
-  permutation). Fraction [b] cannot be tested singly.}
+  [a] and [b] can be tested for significance (3 canonical analyses per
+  permutation). Fraction [c] cannot be tested singly.}
 \label{fig:part2}
 \end{figure}
 %%%%%%%%%%%
