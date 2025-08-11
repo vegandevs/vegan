@@ -16,7 +16,7 @@ questions about R package **vegan**.
 > Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
 > California, 94105, USA.
 >
-> Copyright © 2008-2016 vegan development team
+> Copyright © 2008-2025 vegan development team
 
 ------------------------------------------------------------------------
 
@@ -38,19 +38,6 @@ under [GPL2 license](https://www.gnu.org/licenses/gpl.html).
 
 ------------------------------------------------------------------------
 
-### What is R?
-
-R is a system for statistical computation and graphics. It consists of a
-language plus a run-time environment with graphics, a debugger, access
-to certain system functions, and the ability to run programs stored in
-script files.
-
-R has a home page at <https://www.R-project.org/>. It is [free
-software](https://www.gnu.org/philosophy/free-sw.html) distributed under
-a GNU-style [copyleft](https://www.gnu.org/copyleft/copyleft.html), and
-an official part of the [GNU](https://www.gnu.org/) project (“GNU S”).
-
-------------------------------------------------------------------------
 
 ### How to obtain **vegan** and R?
 
@@ -60,27 +47,6 @@ Both R and latest release version of **vegan** can be obtained through
 [GitHub](https://github.com/vegandevs/vegan). The github page gives
 further instructions for obtaining and installing development versions
 of **vegan**.
-
-------------------------------------------------------------------------
-
-### What R packages **vegan** depends on?
-
-**Vegan** depends on the **permute** package which will provide advanced
-and flexible permutation routines for **vegan**. The **permute** package
-is developed together with **vegan** in
-[GitHub](https://github.com/gavinsimpson/permute).
-
-Some individual **vegan** functions depend on packages **MASS**,
-**mgcv**, **parallel**, **cluster** and **lattice**. **Vegan**
-dependence on **tcltk** is deprecated and will be removed in future
-releases. These all are base or recommended R packages that should be
-available in every R installation.  **Vegan** declares these as
-suggested or imported packages, and you can install **vegan** and use
-most of its functions without these packages.
-
-**Vegan** is accompanied with a supporting package **vegan3d** for
-three-dimensional and dynamic plotting. The **vegan3d** package needs
-**tcltk** and non-standard packages **rgl** and **scatterplot3d**.
 
 ------------------------------------------------------------------------
 
@@ -287,15 +253,16 @@ higher number of dimensions can be used in metric scaling, both with
 
 ### I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores
 
-Claims like this have indeed been at large in the Internet, but they are
-based on grave misunderstanding and are plainly wrong. NMDS ordination
-results are strictly metric, and in **vegan** `metaMDS` and `monoMDS`
-they are even strictly Euclidean. The method is called “non-metric”
-because the Euclidean distances in ordination space have a non-metric
-rank-order relationship to community dissimilarities. You can inspect
-this non-linear step curve using function `stressplot` in **vegan**.
-Because the ordination scores are strictly Euclidean, it is correct to
-use **vegan** functions `envfit` and `ordisurf` with NMDS results.
+Claims like this have indeed been at large in the Internet, but they
+are based on grave misunderstanding and are plainly wrong. NMDS
+ordination results are strictly metric, and in **vegan** `metaMDS` and
+`monoMDS` they are even strictly Euclidean. The method is called
+“non-metric” because there is non-metric relation from input
+dissimilarities to the Euclidean ordination space. You can inspect
+this non-linear step function using function `stressplot` in
+**vegan**.  Because the ordination scores are strictly Euclidean, it
+is correct to use **vegan** functions `envfit` and `ordisurf` with
+NMDS results.
 
 ------------------------------------------------------------------------
 
@@ -321,50 +288,6 @@ packages. The scaling of RDA is such a complicated issue that it cannot
 be explained in this FAQ, but it is explained in a separate pdf document
 on “Design decision and implementation details in vegan” that you can
 read with command `browseVignettes("vegan")`.
-
-------------------------------------------------------------------------
-
-### I cannot print and plot RDA results properly
-
-If the RDA ordination results have a weird format or you cannot plot
-them properly, you probably have a name clash with **klaR** package
-which also has function `rda`, and the **klaR** `print`, `plot` or
-`predict` functions are used for **vegan** RDA results. You can choose
-between `rda` functions using `vegan::rda()` or `klaR::rda()`: you
-will get obscure error messages if you use the wrong function. In
-general, **vegan** should be able to work normally if **vegan** was
-loaded after **klaR**, but if **klaR** was loaded later, its functions
-will take precedence over **vegan**. Sometimes **vegan** namespace is
-loaded automatically when restoring a previously stored workspace at
-the start-up, and then **klaR** methods will always take precedence
-over **vegan**. You should check your loaded packages. **klaR** may be
-also loaded indirectly via other packages (in the reported cases it
-was most often loaded via **agricolae** package). **Vegan** and
-**klaR** both have the same function name (`rda`), and it may not be
-possible to use these packages simultaneously, and the safest choice
-is to unload one of the packages if only possible. See discussion in
-[vegan github issues](https://github.com/vegandevs/vegan/issues/277).
-
-------------------------------------------------------------------------
-
-### Ordination fails with “Error in La.svd”
-
-Constrained ordination (`cca`, `rda`, `dbrda`, `capscale`) will
-sometimes fail with error message
-`Error in La.svd(x, nu, nv): error code 1 from Lapack routine 'dgesdd'.`
-
-It seems that the basic problem is in the `svd` function of `LAPACK`
-that is used for numerical analysis in R. `LAPACK` is an external
-library that is beyond the control of package developers and R core team
-so that these problems may be unsolvable.
-
-Reducing the range of constraints (environmental variables) helps
-sometimes. For instance, multiplying constraints by a constant \< 1.
-This rescaling does not influence the numerical results of constrained
-ordination, but it can complicate further analyses when values of
-constraints are needed, because the same scaling must be applied
-there.  The reports on the problems are getting rare and it may that
-this problem is fixed in R and `LAPACK`.
 
 ------------------------------------------------------------------------
 
@@ -465,6 +388,8 @@ data as `newdata`. The `predict` functions are available for basic
 eigenvector methods in **vegan** (`cca`, `rda`, `decorana`, for an
 up-to-date list, use command `methods("predict")`).
 
+You can add new points NMDS with function `MDSaddpoints`.
+
 ------------------------------------------------------------------------
 
 ### Class variables and dummies
@@ -494,55 +419,39 @@ of arrows do not have fixed meaning with respect to the points (species,
 sites), but they can only compared against each other, and therefore
 only their relative lengths are important.
 
-If you want change the scaling of the arrows, you can use `text`
+If you want change to the scaling of the arrows, you can use `text`
 (plotting arrows and text) or `points` (plotting only arrows) functions
 for constrained ordination. These functions have argument `arrow.mul`
 which sets the multiplier. The `plot` function for `envfit` also has the
-`arrow.mul` argument to set the arrow multiplier. If you save the
-invisible result of the constrained ordination `plot` command, you can
-see the value of the currently used `arrow.mul` which is saved as an
-attribute of `biplot` scores.
-
-Function `ordiArrowMul` is used to find the scaling for the current
-plot. You can use this function to see how arrows would be scaled:
-
-
-```{r eval=FALSE}
-sol <- cca(varespec)
-ef <- envfit(sol ~ ., varechem)
-plot(sol)
-ordiArrowMul(scores(ef, display="vectors"))
-```
+`arrow.mul` argument to set the arrow multiplier.
 
 ------------------------------------------------------------------------
 
-### I want to use Helmert or sum contrasts
+### I cannot see all variables in constrained ordination
 
-`vegan` uses standard R utilities for defining contrasts. The default in
-standard installations is to use treatment contrasts, but you can change
-the behaviour globally setting `options` or locally by using keyword
-`contrasts`. Please check the R help pages and user manuals for details.
-
-------------------------------------------------------------------------
-
-### What are aliased variables and how to see them?
-
-Aliased variable has no information because it can be expressed with the
-help of other variables. Such variables are automatically removed in
-constrained ordination in **vegan**. The aliased variables can be
-redundant levels of factors or whole variables.
+You have some variables that have no use and information. These
+variables are correlated with other constraining variables and have no
+independent information. This can also concern only some levels of
+factor variables. For instance, in **vegan** data `dune.env` we know
+that `Manure` level is 0 in `Management` level `NM` and only there. If
+both are used as constraints (or conditions), one level of `Manure` or
+one level of `Management` is redundant. These variables or levels are
+aliased, and **vegan** informs about this during fitting the model and
+permanently when the short information of the result is printed.
 
 **Vegan** function `alias` gives the defining equations for aliased
-variables. If you only want to see the names of aliased variables or
-levels in solution `sol`, use `alias(sol, names.only=TRUE)`.
+variables, or optionally their names.
 
 ------------------------------------------------------------------------
 
 ### Plotting aliased variables
 
 You can fit vectors or class centroids for aliased variables using
-`envfit` function. The `envfit` function uses weighted fitting, and the
-fitted vectors are identical to the vectors in correspondence analysis.
+`envfit` function. The `envfit` function uses weighted fitting, and
+the fitted vectors are identical to the vectors in correspondence
+analysis. In constrained analysis you must fit the centroids or
+vectors to the constrained scores (LC scores), and use argument
+`display = "lc"` in `envfit`.
 
 ------------------------------------------------------------------------
 
@@ -559,13 +468,13 @@ manual page `permutations` in **vegan** and in the documentation of the
 
 ### How to use different plotting symbols in ordination graphics?
 
-The default ordination `plot` function is intended for fast plotting and
-it is not very configurable. To use different plotting symbols, you
-should first create and empty ordination plot with
-`plot(..., type="n")`, and then add `points` or `text` to the created
-empty frame (here `...` means other arguments you want to give to your
-`plot` command). The `points` and `text` commands are fully
-configurable, and allow different plotting symbols and characters.
+Ordination objects typically have many different kind of scores, and
+there may be limitations of changing the way how they are
+displayed. However, `plot` for constrained ordination results (`cca`,
+`rda`, `dbrda`) can be fully configured since **vegan** 2.7-1. See
+their help. Sometimes it is easier to compose the graph by layers
+using pipes (`|>`) to add `text` or `points` of different scores. See
+the help of ordination plot functions for examples.
 
 ------------------------------------------------------------------------
 
@@ -579,37 +488,30 @@ bottom of the heap](https://fromthebottomoftheheap.net) has a series
 of articles on “decluttering ordination plots” with more detailed
 discussion and examples.
 
--   Use only points, possibly with different types if you do not need to
-    see the labels. You may need to first create an empty plot using
-    `plot(..., type="n")`, if you are not satisfied with the default
-    graph. (Here and below `...` means other arguments you want to give
-    to your `plot` command.)
--   Use points and add labels to desired points using interactive
-    `identify` command if you do not need to see all labels.
--   Add labels using function `ordilabel` which uses non-transparent
-    background to the text. The labels still shadow each other, but the
-    uppermost labels are readable. Argument `priority` will help in
-    displaying the most interesting labels (see [Decluttering blog, part
-    1](https://fromthebottomoftheheap.net/2013/01/12/decluttering-ordination-plots-in-vegan-part-1-ordilabel/)).
--   Use `orditorp` function that uses labels only if these can be added
-    to a graph without overwriting other labels, and points otherwise,
-    if you do not need to see all labels. You must first create an empty
-    plot using `plot(..., type="n")`, and then add labels or points with
-    `orditorp` (see [Decluttering
-    blog](https://fromthebottomoftheheap.net/2013/01/13/decluttering-ordination-plots-in-vegan-part-2-orditorp/)).
--   Use `ordipointlabel` which uses points and text labels to the
-    points, and tries to optimize the location of the text to minimize
-    the overlap (see [Decluttering
-    blog](https://fromthebottomoftheheap.net/2013/06/27/decluttering-ordination-plots-in-vegan-part-3-ordipointlabel/)).
--   Ordination `text` and `points` functions have argument `select` that
-    can be used for full control of selecting items plotted as text or
-    points.
--   Use interactive `orditkplot` function (**vegan3d** package)
-    that lets you drag labels of points to better positions if you need to see
-    all labels. Only one set of points can be used
-    (see [Decluttering blog](https://fromthebottomoftheheap.net/2013/12/31/decluttering-ordination-in-vegan-part-4-orditkplot/)).
--   Most `plot` functions allow you to zoom to a part of the graph using
-    `xlim` and `ylim` arguments to reduce clutter in congested areas.
+Often the easiest solution is to use only `points`. If you need text
+to identify items, most `text` and `plot` functions have argument
+`optimize` and `bg`. With `optimize = TRUE` the exact location of the
+score is marked with a point, and text label is written next to the
+point, and the tries to find a position that minimizes over-writing
+other labels. This is impossible in very congested areas, but often
+helps in moderate cases. Argument `bg` defines a background colour of
+labels. For instance, `bg = "white"` will write text on white
+background. These labels will cover other text below them, but at
+least the uppermost are readable instead of both being messed
+up. These arguments can be combined, and this often gives the best
+result. These arguments can also be used in `text` functions in pipe
+(`|>`). Finally, `text` functions take argument `labels` which allows
+you to edit the plotted text, and `select` to drop completely some
+cases.
+
+There is a special function `orditorp` (torp for text-or-point)
+function that will use text only if it is not covered by other text
+labels and points otherwise (with argument `priority` to define which
+items are printed first).
+
+Companion CRAN package **vegan3d** has function `orditkplot` that
+provides editable plot where the points are fixed at their ordination
+scores, but you can move text labels with mouse.
 
 ------------------------------------------------------------------------
 
@@ -655,16 +557,3 @@ the calculation of the statistics.
 
 ------------------------------------------------------------------------
 
-### How is deviance calculated?
-
-Some **vegan** functions, such as `radfit` use base R facility of
-`family` in maximum likelihood estimation. This allows use of several
-alternative error distributions, among them `"poisson"` and
-`"gaussian"`. The R `family` also defines the deviance. You can see the
-equations for deviance with commands like `poisson()$dev` or
-`gaussian()$dev`.
-
-In general, deviance is 2 times log.likelihood shifted so that models
-with exact fit have zero deviance.
-
-------------------------------------------------------------------------
