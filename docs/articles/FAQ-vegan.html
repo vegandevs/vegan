@@ -291,40 +291,53 @@ because people use same names for different indices.</p>
 <hr>
 </div>
 <div class="section level4">
-<h4 id="i-get-zero-stress-but-no-repeated-solutions-in-metamds">I get zero stress but no repeated solutions in
-<code>metaMDS</code><a class="anchor" aria-label="anchor" href="#i-get-zero-stress-but-no-repeated-solutions-in-metamds"></a>
+<h4 id="i-cannot-get-repeated-solutions-in-metamds">I cannot get repeated solutions in <code>metaMDS</code><a class="anchor" aria-label="anchor" href="#i-cannot-get-repeated-solutions-in-metamds"></a>
 </h4>
 <p>The first (try 0) run of <code>metaMDS</code> starts from the metric
 scaling solution and is usually good, and most sofware only return that
 solution. However, <code>metaMDS</code> tries to see if that standard
 solution can be repeated, or improved and the improved solution still
 repeated. In all cases, it will return the best solution found, and
-there is no burning need to do anything if you get the message tha the
+there is no burning need to do anything if you get the message that the
 solution could not be repeated. If you are keen to know that the
 solution really is the global optimum, you may follow the instructions
 in the <code>metaMDS</code> help section “Results Could Not Be Repeated”
-and try more.</p>
+and try harder.</p>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="i-get-zero-stress-but-no-repeated-solutions-in-metamds">I get zero stress but no repeated solutions in
+<code>metaMDS</code><a class="anchor" aria-label="anchor" href="#i-get-zero-stress-but-no-repeated-solutions-in-metamds"></a>
+</h4>
 <p>Most common reason is that you have too few observations for your
-NMDS. For <code>n</code> observations (points) and <code>k</code>
-dimensions you need to estimate <code>n*k</code> parameters (ordination
-scores) using <code>n*(n-1)/2</code> dissimilarities. For <code>k</code>
-dimensions you must have <code>n &gt; 2*k + 1</code>, or for two
-dimensions at least six points. In some degenerate situations you may
-need even a larger number of points. If you have a lower number of
-points, you can find an undefined number of perfect (stress is zero) but
-different solutions. Conventional wisdom due to Kruskal is that you
-should have <code>n &gt; 4*k + 1</code> points for <code>k</code>
+NMDS. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+observations (points) and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+dimensions you need to estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mi>k</mi></mrow><annotation encoding="application/x-tex">nk</annotation></semantics></math>
+parameters (ordination scores) using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>n</mi><mo>−</mo><mn>1</mn><mo stretchy="true" form="postfix">)</mo></mrow><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">n(n-1)/2</annotation></semantics></math>
+dissimilarities. For
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
+dimensions you must have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>2</mn><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n &gt; 2k + 1</annotation></semantics></math>,
+or for two dimensions at least six points. In some degenerate situations
+you may need even a larger number of points. If you have a lower number
+of points, you can find an undefined number of perfect (stress is zero)
+but different solutions. Conventional wisdom due to Kruskal is that you
+should have
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>4</mn><mi>k</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n &gt; 4k + 1</annotation></semantics></math>
+points for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>
 dimensions. A typical symptom of insufficient data is that you have
-(nearly) zero stress but no two convergent solutions. In those cases you
-should reduce the number of dimensions (<code>k</code>) and with very
-small data sets you should not use <code>NMDS</code>, but rely on metric
-methods.</p>
-<p>It seems that local and hybrid scaling with <code>monoMDS</code> have
-similar lower limits in practice (although theoretically they could
-differ). However, higher number of dimensions can be used in metric
-scaling, both with <code>monoMDS</code> and in principal coordinates
-analysis (<code>cmdscale</code> in <strong>stats</strong>,
-<code>wcmdscale</code> in <strong>vegan</strong>).</p>
+(nearly) zero stress but no repeated solutions. In those cases you
+should reduce the number of dimensions
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math>)
+and with very small data sets you should not use <code>NMDS</code>, but
+rely on metric methods (<code>pco</code> and <code>wcmdscale</code> in
+<strong>vegan</strong>, <code>cmdscale</code> in base
+<strong>R</strong>).</p>
 <hr>
 </div>
 <div class="section level4">
@@ -381,7 +394,7 @@ typically is not to explain the variance, but to find the “gradients” or
 main trends in the data. The “total variation” often is meaningless, and
 all proportions of meaningless values also are meaningless. Often a
 better solution explains a smaller part of “total variation”. For
-instance, in unstandardized principal components analysis most of the
+instance, in non-standardized principal components analysis most of the
 variance is generated by a small number of most abundant species, and
 they are easy to “explain” because data really are not very
 multivariate. If you standardize your data, all species are equally
@@ -409,8 +422,8 @@ works with <code>decorana</code> and <code>wcmdscale</code>. Function
 available) for constrained components. Function <code>goodness</code>
 gives the same statistics for individual species or sites. In addition,
 there is a special function <code>varpart</code> for unbiased
-partitioning of variance between up to four separate components in
-redundancy analysis.</p></li>
+partitioning of variance between up to four separate
+components.</p></li>
 <li><p>Nonmetric multidimensional scaling. NMDS is a method for
 nonlinear mapping, and the concept of of variation explained does not
 make sense. However, 1 - stress^2 transforms nonlinear stress into
@@ -429,8 +442,8 @@ models that respond to similar goals as random effects models, although
 they strictly speaking use only fixed effects.</p>
 <p>Constrained ordination functions <code>cca</code>, <code>rda</code>
 and <code>dbrda</code> can have <code>Condition()</code> terms in their
-formula. The <code>Condition()</code> define partial terms that are
-fitted before other constraints and can be used to remove the effects of
+formula. <code>Condition()</code> defines partial terms that are fitted
+before other constraints and can be used to remove the effects of
 background variables, and their contribution to decomposing inertia
 (variance) is reported separately. These partial terms are often
 regarded as similar to random effects, but they are still fitted in the
@@ -484,8 +497,8 @@ up-to-date list, use command <code>methods("predict")</code>).</p>
 factors. Unordered factors are internally coded as dummy variables, but
 one redundant level is removed or aliased. With default contrasts, the
 removed level is the first one. Ordered factors are expressed as
-polynomial contrasts. Both of these contrasts explained in standard R
-documentation.</p>
+polynomial contrasts. Both of these contrasts are explained in standard
+<strong>R</strong> documentation.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -553,6 +566,14 @@ schemes is explained in the manual page <code>permutations</code> in
 <hr>
 </div>
 <div class="section level4">
+<h4 id="why-restricted-permutation-does-not-influence-adonis-results">Why restricted permutation does not influence adonis results?<a class="anchor" aria-label="anchor" href="#why-restricted-permutation-does-not-influence-adonis-results"></a>
+</h4>
+<p>The permutation scheme influences the permutation distribution of the
+statistics and significance levels, but does not influence the
+calculation of the statistics.</p>
+<hr>
+</div>
+<div class="section level4">
 <h4 id="how-to-use-different-plotting-symbols-in-ordination-graphics">How to use different plotting symbols in ordination graphics?<a class="anchor" aria-label="anchor" href="#how-to-use-different-plotting-symbols-in-ordination-graphics"></a>
 </h4>
 <p>Ordination objects typically have many different kind of scores, and
@@ -580,16 +601,16 @@ need text to identify items, most <code>text</code> and
 <code>plot</code> functions have argument <code>optimize</code> and
 <code>bg</code>. With <code>optimize = TRUE</code> the exact location of
 the score is marked with a point, and text label is written next to the
-point, and the tries to find a position that minimizes over-writing
-other labels. This is impossible in very congested areas, but often
-helps in moderate cases. Argument <code>bg</code> defines a background
-colour of labels. For instance, <code>bg = "white"</code> will write
-text on white background. These labels will cover other text below them,
-but at least the uppermost are readable instead of both being messed up.
-These arguments can be combined, and this often gives the best result.
-These arguments can also be used in <code>text</code> functions in pipe
+point trying to find a position that minimizes over-writing other
+labels. This is impossible in very congested areas, but often helps in
+moderate cases. Argument <code>bg</code> defines a background colour of
+labels. For instance, <code>bg = "white"</code> will write text on white
+background. These labels will cover other text below them, but at least
+the uppermost are readable instead of both being messed up. These
+arguments can be combined, and this often gives the best result. These
+arguments can also be used in <code>text</code> functions in pipe
 (<code>|&gt;</code>). Finally, <code>text</code> functions take argument
-<code>labels</code> which allows you to edit the plotted text, and
+<code>labels</code> which allows editing plotted text, and argument
 <code>select</code> to drop completely some cases.</p>
 <p>There is a special function <code>orditorp</code> (torp for
 text-or-point) function that will use text only if it is not covered by
@@ -634,14 +655,6 @@ display the results.</p>
 <h4 id="is-there-twinspan">Is there TWINSPAN?<a class="anchor" aria-label="anchor" href="#is-there-twinspan"></a>
 </h4>
 <p>TWINSPAN for R is available in <a href="https://github.com/jarioksa/twinspan" class="external-link">github</a>.</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="why-restricted-permutation-does-not-influence-adonis-results">Why restricted permutation does not influence adonis results?<a class="anchor" aria-label="anchor" href="#why-restricted-permutation-does-not-influence-adonis-results"></a>
-</h4>
-<p>The permutation scheme influences the permutation distribution of the
-statistics and probably the significance levels, but does not influence
-the calculation of the statistics.</p>
 <hr>
 </div>
 </div>
