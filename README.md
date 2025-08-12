@@ -19,7 +19,7 @@ Vignettes are available on [R-universe](https://vegandevs.r-universe.dev/vegan)
 * [Partition of Variation](https://vegandevs.r-universe.dev/vegan/doc/partitioning.pdf)
 * [Diversity analysis in vegan](https://vegandevs.r-universe.dev/vegan/doc/diversity-vegan.pdf)
 * [Design decisions and implementation](https://vegandevs.r-universe.dev/vegan/doc/decision-vegan.pdf)
-
+* [vegan FAQ](https://vegandevs.github.io/vegan/articles/FAQ-vegan.html)
 
 
 # Installation
