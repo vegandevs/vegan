@@ -183,11 +183,32 @@ Ordination
 You are wrong! Computers are painfully pedantic, and if they find
 non-numeric or negative data entries, you really have them. Check your
 data! Most common reasons for non-numeric data are that row names were
-read as a non-numeric variable instead of being used as row names (check
-argument `row.names` in reading the data), or that the column names were
-interpreted as data (check argument `header = TRUE` in reading the
-data). Another common reason is that you had empty cells in your input
-data, and these were interpreted as missing values.
+read as a non-numeric variable instead of being used as row names
+(check argument `row.names` in reading the data), or that the column
+names were interpreted as data (check argument `header = TRUE` in
+reading the data). Another common reason is that you had empty cells
+in your input data, and these were interpreted as missing values. See
+also the next question.
+
+------------------------------------------------------------------------
+
+### Can I use tibbles in ordination?
+
+Often, but proceed with caution. For environmental data there should
+be no problem with tibbles. Problems emerge with community data.
+Tibbles may not have row names, and these will be missing in
+ordination results. Depending on the method, they will appear in plots
+and elsewhere as `sit1...sitN` or `row1...rowN`. It is also possible
+to create tibbles with row names (but this is not the default), and
+these should behave like usual data frames with no problems. Special
+care is needed if row names are saved as a column in the tibble,
+because this makes data non-numeric with guaranteed failure in
+ordination (see previous question), and that character variable should
+be removed in ordination. There are some functions that will fail
+without row names. Sometimes they are used to match two data sets
+(community, environment), and this fails without names to
+match. Problems with missing row names will not be regarded as a bug
+in **vegan**.
 
 ------------------------------------------------------------------------
 
