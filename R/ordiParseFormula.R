@@ -13,7 +13,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         specdata <- formula[[2]]
         X <- eval(specdata, environment(formula), enclos=globalenv())
     }
-    X <- as.matrix(X)
+    X <- as.matrix(X, rownames.force = TRUE)
     indPartial <- attr(Terms, "specials")$Condition
     zmf <- ymf <- Y <- Z <- NULL
     formula[[2]] <- NULL
@@ -114,17 +114,9 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         else
             attr(Y, "assign") <- assign
     }
-    X <- as.matrix(X)
-    rownames(X) <- rownames(X, do.NULL = FALSE)
-    colnames(X) <- colnames(X, do.NULL = FALSE)
-    if (!is.null(Y)) {
-        rownames(Y) <- rownames(Y, do.NULL = FALSE)
-        colnames(Y) <- colnames(Y, do.NULL = FALSE)
-    }
-    if (!is.null(Z)) {
-        rownames(Z) <- rownames(Z, do.NULL = FALSE)
-        colnames(Z) <- colnames(Z, do.NULL = FALSE)
-    }
+    X <- as.matrix(X) # if X was dist
+    rownames(X) <- rownames(X, do.NULL = FALSE, prefix = "") # if X was matrix
+    colnames(X) <- colnames(X, do.NULL = FALSE, prefix = "spe")
     list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500),
          terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
          subset = subset, na.action = nas, excluded = excluded)

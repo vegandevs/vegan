@@ -6,7 +6,7 @@
     if (inherits(X, "dist") || NCOL(X) == NROW(X) &&
         isTRUE(all.equal(X, t(X))))
         stop("function cannot be used with (dis)similarities")
-    X <- as.matrix(X)
+    X <- as.matrix(X, rownames.force = TRUE)
     if (!is.null(Y)) {
         if (is.data.frame(Y) || is.factor(Y)) { # save Y for centroids
             mframe <- as.data.frame(Y) # can be a single factor
