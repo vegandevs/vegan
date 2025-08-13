@@ -408,6 +408,8 @@
     ## sanity checks for the input
     if (!is.numeric(Y))
         stop("dependent data (community) must be numeric")
+    rownames(Y) <- rownames(Y, do.NULL = FALSE, prefix = "")
+    colnames(Y) <- colnames(Y, do.NULL = FALSE, prefix = "spe")
     if (!is.null(X)) {
         if (!is.numeric(X))
             stop("constraints must be numeric or factors")
