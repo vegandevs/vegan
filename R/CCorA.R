@@ -53,7 +53,7 @@
     }
     ## END: internal functions
     ##
-    Y <- as.matrix(Y)
+    Y <- as.matrix(Y, rownames.force = TRUE)
     var.null(Y,1)
     nY <- nrow(Y)
     p <- ncol(Y)
@@ -62,7 +62,7 @@
         } else {
         Ynoms <- colnames(Y)
         }
-    X <- as.matrix(X)
+    X <- as.matrix(X, rownames.force = TRUE)
     var.null(X,2)
     nX <- nrow(X)
     q <- ncol(X)

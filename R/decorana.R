@@ -7,7 +7,7 @@
     Const3 <- 1e-11
     ZEROEIG <- 1e-7 # same limit as in the C function do_decorana
     ## data
-    veg <- as.matrix(veg)
+    veg <- as.matrix(veg, rownames.force = TRUE)
     if (!is.numeric(veg))
         stop("data 'veg' must be numeric (not factors or characters)")
     if (any(veg < 0))
