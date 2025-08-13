@@ -20,7 +20,7 @@
         stop("ambiguous distance method")
     ## most tests are faster for matrix than for data frame, and we
     ## need matrix in .Call() anyway
-    x <- as.matrix(x)
+    x <- as.matrix(x, rownames.force = TRUE)
     if (!na.rm && anyNA(x))
         stop("missing values are not allowed with argument 'na.rm = FALSE'")
     ## all vegdist indices need numeric data (Gower included).
