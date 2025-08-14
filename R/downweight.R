@@ -10,7 +10,7 @@
     Const1 <- 1e-10
     if (fraction < 1)
         fraction <- 1/fraction
-    veg <- as.matrix(veg)
+    veg <- as.matrix(veg, rownames.force = TRUE)
     yeig1 <- colSums(veg)
     y2 <- colSums(veg^2) + Const1
     y2 <- yeig1^2/y2

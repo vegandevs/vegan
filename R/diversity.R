@@ -2,7 +2,7 @@
     function (x, index = "shannon", groups, equalize.groups = FALSE,
               MARGIN = 1, base = exp(1))
 {
-    x <- drop(as.matrix(x))
+    x <- drop(as.matrix(x, rownames.force = TRUE))
     if (!is.numeric(x))
         stop("input data must be numeric")
     if (any(x < 0, na.rm = TRUE))

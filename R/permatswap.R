@@ -7,7 +7,7 @@ mtype="count", times=99, burnin = 0, thin = 1, ...)
     fixedmar <- match.arg(fixedmar, c("none", "rows", "columns", "both"))
     shuffle <- match.arg(shuffle, c("samp", "both"))
     count <- mtype == "count"
-    m <- as.matrix(m)
+    m <- as.matrix(m, rownames.force = TRUE)
     str <- if (is.null(strata))
         1 else as.integer(as.factor(strata)[drop = TRUE])
     levstr <- unique(str)

@@ -1,7 +1,7 @@
 `poolaccum` <-
     function(x, permutations = 100, minsize = 3)
 {
-    x <- as.matrix(x)
+    x <- as.matrix(x, rownames.force = TRUE)
     n <- nrow(x)
     m <- ncol(x)
     N <- seq_len(n)

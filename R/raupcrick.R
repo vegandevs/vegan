@@ -1,7 +1,7 @@
 `raupcrick` <-
     function(comm, null = "r1", nsimul = 999, chase = FALSE, ...)
 {
-    comm <- as.matrix(comm)
+    comm <- as.matrix(comm, rownames.force = TRUE)
     comm <- ifelse(comm > 0, 1, 0)
     ## 'tri' is a faster alternative to as.dist(): it takes the lower
     ## diagonal, but does not set attributes of a "dist" object
