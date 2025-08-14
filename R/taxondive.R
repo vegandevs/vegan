@@ -2,7 +2,7 @@
     function (comm, dis, match.force = FALSE)
 {
     binary <- FALSE
-    comm <- as.matrix(comm)
+    comm <- as.matrix(comm, rownames.force = TRUE)
     if (missing(dis)) {
         n <- ncol(comm)
         dis <- structure(rep(1, n * (n - 1)/2), Size = n, class = "dist")
