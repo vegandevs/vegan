@@ -102,7 +102,10 @@
     else if (type == "sp") {
         if (!missing(newdata)) {
             nm <- rownames(u)
-            if (!is.null(nm)) {
+            automaticnames <- .row_names_info(newdata) < 0
+            if (automaticnames)
+                message("'newdata' cannot be matched with automatic rownames")
+            if (!is.null(nm) && !automaticnames) {
                 if (!all(nm %in% rownames(newdata)))
                     stop("'newdata' does not have named rows matching one or more of the original rows")
                 newdata <- newdata[nm, , drop = FALSE]
