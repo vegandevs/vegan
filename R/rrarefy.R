@@ -3,7 +3,7 @@
 `rrarefy` <-
     function(x, sample)
 {
-    x <- as.matrix(x)
+    x <- as.matrix(x, rownames.force = TRUE)
     if (!isTRUE(all.equal(x, round(x))))
         stop("function is meaningful only for integers (counts)")
     ## x may not be exactly integer, since, e.g., sqrt(2)^2 != 2
