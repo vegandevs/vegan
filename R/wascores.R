@@ -8,8 +8,8 @@
     nc <- ncol(x)
     nr <- ncol(w)
     dnam <- list(colnames(w), colnames(x))
-    wa <- t(sapply(colnames(w),
-                   function(m) apply(x, 2, weighted.mean, w = w[,m])))
+    wa <- t(sapply(seq_len(ncol(w)),
+                   function(i) apply(x, 2, weighted.mean, w = w[,i])))
     wa <- matrix(wa, nr, nc, dimnames = dnam)
     if (stdev) {
         sdwa <- sqrt(sapply(seq_len(nc), function(k)

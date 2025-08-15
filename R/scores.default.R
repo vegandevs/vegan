@@ -11,7 +11,7 @@
     }
     X <- Y <- NULL
     if (is.data.frame(x) && all(sapply(x, is.numeric)))
-        x <- as.matrix(x)
+        x <- as.matrix(x, rownames.force = TRUE)
     if (is.list(x) && display %in% c("sites", "both")) {
         if ("points" %in% att)
             X <- x$points
@@ -49,7 +49,7 @@
         }
     }
     else if (is.numeric(x)) {
-        X <- as.matrix(x)
+        X <- as.matrix(x, rownames.force = TRUE)
         ## as.matrix() changes a score vector to 1-col matrix: this is
         ## a hack which may fail sometimes (but probably less often
         ## than without this hack):

@@ -24,8 +24,8 @@
     mode <- as.numeric(match.arg(as.character(type), c("0","1","2","3")))
     spIndex <- species
     incSp <- include
-    refX <- as.matrix(refX)
-    x <- as.matrix(x)
+    refX <- as.matrix(refX, rownames.force = TRUE)
+    x <- as.matrix(x, rownames.force =TRUE)
     if (!(is.numeric(x) || is.logical(x)))
         stop("input data must be numeric")
     if(mode==0 || mode ==2) refX <- ifelse(refX > 0, 1, 0)

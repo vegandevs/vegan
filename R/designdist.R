@@ -8,7 +8,7 @@
     terms <- match.arg(terms)
     if ((abcd || alphagamma) && terms != "binary")
         warning("perhaps terms should be 'binary' with 'abcd' or 'alphagamma'?")
-    x <- as.matrix(x)
+    x <- as.matrix(x, rownames.force = TRUE)
     ## only do numeric data for which "pa", minimum and quadratic make sense
     if (!(is.numeric(x) || is.logical(x)))
         stop("input data must be numeric")
@@ -65,8 +65,8 @@
     terms <- match.arg(terms)
     if ((abcd || alphagamma) && terms != "binary")
         warning("perhaps terms should be 'binary' with 'abcd' or 'alphagamma'?")
-    x <- as.matrix(x)
-    y <- as.matrix(y)
+    x <- as.matrix(x, rownames.force = TRUE)
+    y <- as.matrix(y, rownames.force = TRUE)
     ## only do numeric data for which "pa", minimum and quadratic make sense
     if (!(is.numeric(x) || is.logical(x)))
         stop("input data must be numeric")

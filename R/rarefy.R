@@ -1,7 +1,7 @@
 `rarefy` <-
     function (x, sample, se = FALSE, MARGIN = 1)
 {
-    x <- as.matrix(x)
+    x <- as.matrix(x, rownames.force = TRUE)
     ## as.matrix changes an n-vector to a n x 1 matrix
     if (ncol(x) == 1 && MARGIN == 1)
         x <- t(x)

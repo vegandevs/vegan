@@ -2,7 +2,7 @@
     function(comm, tree, match.force = TRUE, verbose = TRUE)
 {
     EPS <- sqrt(.Machine$double.eps)
-    comm <- as.matrix(comm)
+    comm <- as.matrix(comm, rownames.force = TRUE)
     if (!inherits(tree, c("hclust", "spantree")))
         stop("'tree' must be an 'hclust' or 'spantree' result object")
     if (inherits(tree, "hclust") && any(diff(tree$height) < -EPS))

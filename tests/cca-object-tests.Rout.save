@@ -431,7 +431,7 @@ Eigenvalues for unconstrained axes:
 5 0.18947 0.03862 0.03287 0.16511
 6 0.00165 0.04011 0.03555 0.29320
 > zapsmall(head(cooks.distance(m1rda)))
-     col1
+     spe1
 1 0.47753
 2 0.00170
 3 0.00011
@@ -473,7 +473,7 @@ Eigenvalues for unconstrained axes:
 6 0.0056118
 > goodness(m1rda)       # fails in 2.5-3
          RDA1
-col1 0.040196
+spe1 0.040196
 > ## head(goodness(mcap, display = "sites")) # currently disabled
 > ## head(goodness(mdb, display="sites"))  # not implemented for partial dbrda
 > ## head(goodness(mancap, display="sites")) # currently disabled
@@ -546,7 +546,7 @@ Anthodor 0.014147 0.079696
 Bellpere 0.006974 0.030769
 > inertcomp(m1rda)
            CCA       CA
-col1 0.0029428 0.070268
+spe1 0.0029428 0.070268
 > 
 > abs(zapsmall(intersetcor(mcca)))
             CCA1    CCA2    CCA3    CCA4
@@ -2223,7 +2223,7 @@ can happen if terms are constant or linearly dependent (collinear): 'Manure^4'
 3 1.170623 8.248343         
 4 1.092581 8.201556 0.078042
 > predict(m1rda, newdata = dune.env[1:4,])
-    col1
+    spe1
 1 2.2142
 2 2.1968
 3 2.1769
@@ -2321,4 +2321,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  0.861   0.079   1.509 
+  0.857   0.078   1.510 

@@ -6,7 +6,7 @@
 `nullmodel` <-
     function(x, method)
 {
-    x <- as.matrix(x)
+    x <- as.matrix(x, rownames.force = TRUE)
     if (is.null(dim(x)) || length(dim(x)) != 2L)
         stop("'x' must be a matrix-like object")
     ## see PR #742

@@ -3,7 +3,7 @@
              label = TRUE, col, lty, tidy = FALSE, ...)
 {
     ## matrix is faster than data.frame
-    x <- as.matrix(x)
+    x <- as.matrix(x, rownames.force = TRUE)
     ## check input data: must be counts
     if (!isTRUE(all.equal(x, round(x))))
         stop("function accepts only integers (counts)")

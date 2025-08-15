@@ -10,8 +10,7 @@
         comm <- subset(comm, subset)
         w <- subset(w, subset)
     }
-    x <- comm
-    x <- as.matrix(x)
+    x <- as.matrix(comm, rownames.force = TRUE)
     x <- x[, colSums(x) > 0, drop=FALSE]
     n <- nrow(x)
     p <- ncol(x)
