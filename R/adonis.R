@@ -44,7 +44,7 @@
         data <- model.frame(delete.response(terms(formula)), data,
                             na.action = na.action)
     formula <- update(formula, lhs ~ .)
-    sol <- adonis0(formula, data = data, method = method)
+    sol <- adonis0(formula, data = data)
     ## handle permutations
     perm <- getPermuteMatrix(permutations, NROW(data), strata = strata)
     out <- anova(sol, permutations = perm, by = by,
@@ -63,7 +63,7 @@
 }
 
 `adonis0` <-
-    function(formula, data=NULL, method="bray")
+    function(formula, data=NULL)
 {
     ## First we collect info for the uppermost level of the analysed
     ## object
