@@ -64,14 +64,21 @@
 
 <p></p>
 <dl><dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
-<dd><p>Model formula. The left-hand side (LHS) of the formula
-    must be either a community data matrix or a dissimilarity matrix,
-    e.g., from <code><a href="vegdist.html">vegdist</a></code> or <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.  If the LHS
-    is a data matrix, function <code><a href="vegdist.html">vegdist</a></code> will be used to
-    find the dissimilarities. The right-hand side (RHS) of the formula
-    defines the independent variables. These can be continuous variables
-    or factors, they can be transformed within the formula, and they can
-    have interactions as in a typical <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>.</p></dd>
+<dd><p>Model formula. The function can be called only with the
+    formula interface. Most usual features of <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>
+    hold, especially as defined in <code><a href="cca.html">cca</a></code> and
+    <code><a href="cca.html">rda</a></code>. The LHS must be either a community data matrix or
+    a dissimilarity matrix, e.g., from <code><a href="vegdist.html">vegdist</a></code> or
+    <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.  If the LHS is a data matrix, function
+    <code><a href="vegdist.html">vegdist</a></code> will be used to find the dissimilarities. The
+    RHS defines the independent variables. These can be continuous
+    variables or factors, they can be transformed within the formula,
+    and they can have interactions as in a typical
+    <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>. The RHS can have a special term
+    <code>Condition</code> that defines variables to be “partialled out”
+    before constraints, just like in <code><a href="dbrda.html">dbrda</a></code> or
+    <code><a href="cca.html">cca</a></code>. This allows the use of partial `adonis2`.</p></dd>
+
 
   <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>the data frame for the independent variables, with rows
