@@ -6,21 +6,35 @@
 {
     ## handle missing data
     if (missing(data))
-        data <- model.frame(delete.response(terms(formula)),
-                            na.action = na.action)
+        data <- parent.frame()
+    else
+        data <- eval(match.call()$data, environment(formula),
+                     enclos = .GlobalEnv)
+    formula <- formula(terms(formula, data = data))
     ## we accept only by = "terms", "margin", "onedf" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin", "onedf"))
     ## evaluate lhs
-    YVAR <- formula[[2]]
-    lhs <- eval(YVAR, parent.frame(), environment(formula))
-    environment(formula) <- environment()
+    lhs <- eval(formula[[2]], envir = environment(formula),
+                enclos = globalenv())
     ## Take care that input lhs are dissimilarities
     if ((is.matrix(lhs) || is.data.frame(lhs)) &&
         isSymmetric(unname(as.matrix(lhs))))
         lhs <- as.dist(lhs)
     if (!inherits(lhs, "dist"))
         lhs <- vegdist(as.matrix(lhs), method=method, ...)
+    ## evaluate terms like in dbrda
+    d <- ordiParseFormula(formula = formula,
+                          data = data,
+                          na.action = na.action,
+                          subset = NULL,
+                          X = lhs) # do not re-evaluate lhs
+    if (is.null(d$Y))
+        stop("needs explanatory variables on the right-hand-side")
+    lhs <- d$X
+    ## handle missing data
+    if (!is.null(d$na.action))
+        lhs <- lhs[-d$na.action, -d$na.action, drop = FALSE]
     ## adjust distances if requested
     if (sqrt.dist)
         lhs <- sqrt(lhs)
@@ -37,16 +51,12 @@
             lhs <- lhs + ac
         }
     }
-    ## adonis0 & anova.cca should see only dissimilarities (lhs)
-    if (!missing(data)) # expand and check terms
-        formula <- terms(formula, data=data)
-    if (is.null(attr(data, "terms"))) # not yet a model.frame?
-        data <- model.frame(delete.response(terms(formula)), data,
-                            na.action = na.action)
-    formula <- update(formula, lhs ~ .)
-    sol <- adonis0(formula, data = data)
+    sol <- adonis0(lhs, d$Y, d$Z)
+    sol$formula <- match.call()
+    sol$terms <- d$terms
+    sol$terminfo <- ordiTerminfo(d, data)
     ## handle permutations
-    perm <- getPermuteMatrix(permutations, NROW(data), strata = strata)
+    perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
     out <- anova(sol, permutations = perm, by = by,
                  parallel = parallel)
     ## attributes will be lost when adding a new column
@@ -62,61 +72,56 @@
     out
 }
 
+## adonis0 does the same as ordConstrained, except ordination
 `adonis0` <-
-    function(formula, data=NULL)
+    function(lhs, X, Z)
 {
-    ## First we collect info for the uppermost level of the analysed
-    ## object
-    Trms <- terms(data)
-    sol <- list(call = match.call(),
-                method = "adonis",
-                terms = Trms,
-                terminfo = list(terms = Trms))
-    sol$call$formula <- formula(Trms)
-    TOL <- 1e-7
-    lhs <- formula[[2]]
-    lhs <- eval(lhs, environment(formula)) # to force evaluation
-    formula[[2]] <- NULL                # to remove the lhs
-    rhs <- model.matrix(formula, data) # and finally the model.matrix
-    assign <- attr(rhs, "assign") ## assign attribute
-    sol$terminfo$assign <- assign[assign > 0]
-    rhs <- rhs[,-1, drop=FALSE] # remove the (Intercept) to get rank right
-    rhs <- scale(rhs, scale = FALSE, center = TRUE) # center
-    qrhs <- qr(rhs)
-    ## input lhs should always be dissimilarities
-    if (!inherits(lhs, "dist"))
-        stop("internal error: contact developers")
-    if (any(lhs < -TOL))
-        stop("dissimilarities must be non-negative")
-    ## if there was an na.action for rhs, we must remove the same rows
-    ## and columns from the lhs (initDBRDA later will work similarly
-    ## for distances and matrices of distances).
-    if (!is.null(nas <- na.action(data))) {
-        lhs <- as.matrix(lhs)[-nas,-nas, drop=FALSE]
-        n <- nrow(lhs)
-    } else
-        n <- attr(lhs, "Size")
     ## G is -dmat/2 centred
     G <- initDBRDA(lhs)
-    ## preliminaries are over: start working
+    ## output object
+    sol <- list(Ybar = G,
+                tot.chi = sum(diag(G)),
+                adjust = 1,
+                method = "adonis")
+    ## partial with Condition
+    if (!is.null(Z) && ncol(Z)) {
+        Z <- scale(Z, scale = FALSE)
+        QZ <- qr(Z)
+        G <- qr.resid(QZ, G)
+        G <- qr.resid(QZ, t(G))
+        pCCA <- list(rank = QZ$rank,
+                     tot.chi = rowSums(qr.fitted(QZ, G)),
+                     QR = QZ)
+    } else {
+        pCCA <- NULL
+    }
+    ## always have constraints X if we got here
+    if (!is.null(Z))
+        X <- cbind(Z, X)
+    X <- scale(X, scale = FALSE)
+    qrhs <- qr(X)
     Gfit <- qr.fitted(qrhs, G)
+    Gfit <- qr.fitted(qrhs, t(Gfit))
     Gres <- qr.resid(qrhs, G)
+    Gres <- qr.resid(qrhs, t(Gres))
     ## collect data for the fit
-    if(!is.null(qrhs$rank) && qrhs$rank > 0)
-        CCA <- list(rank = qrhs$rank,
-                    qrank = qrhs$rank,
+    rank <- qrhs$rank
+    if (!is.null(Z))
+        rank <- rank - QZ$rank
+    if(rank > 0)
+        CCA <- list(rank = rank,
+                    qrank = rank,
                     tot.chi = sum(diag(Gfit)),
                     QR = qrhs)
     else
         CCA <- NULL # empty model
     ## collect data for the residuals
-    CA <- list(rank = n - max(qrhs$rank, 0) - 1,
-               u = matrix(0, nrow=n),
+    CA <- list(rank = nrow(lhs) - max(qrhs$rank, 0) - 1,
+               u = matrix(0, nrow = nrow(lhs)),
                tot.chi = sum(diag(Gres)))
     ## all together
-    sol$tot.chi <- sum(diag(G))
-    sol$adjust <- 1
-    sol$Ybar <- G
+    if (!is.null(pCCA))
+        sol$pCCA <- pCCA
     sol$CCA <- CCA
     sol$CA <- CA
     class(sol) <- c("adonis2", "dbrda", "rda", "cca")

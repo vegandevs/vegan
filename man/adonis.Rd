@@ -19,14 +19,21 @@ adonis2(formula, data, permutations = 999, method = "bray",
 
 \arguments{
 
-  \item{formula}{Model formula. The left-hand side (LHS) of the formula
-    must be either a community data matrix or a dissimilarity matrix,
-    e.g., from \code{\link{vegdist}} or \code{\link{dist}}.  If the LHS
-    is a data matrix, function \code{\link{vegdist}} will be used to
-    find the dissimilarities. The right-hand side (RHS) of the formula
-    defines the independent variables. These can be continuous variables
-    or factors, they can be transformed within the formula, and they can
-    have interactions as in a typical \code{\link{formula}}.}
+  \item{formula}{Model formula. The function can be called only with the
+    formula interface. Most usual features of \code{\link{formula}}
+    hold, especially as defined in \code{\link{cca}} and
+    \code{\link{rda}}. The LHS must be either a community data matrix or
+    a dissimilarity matrix, e.g., from \code{\link{vegdist}} or
+    \code{\link{dist}}.  If the LHS is a data matrix, function
+    \code{\link{vegdist}} will be used to find the dissimilarities. The
+    RHS defines the independent variables. These can be continuous
+    variables or factors, they can be transformed within the formula,
+    and they can have interactions as in a typical
+    \code{\link{formula}}. The RHS can have a special term
+    \code{Condition} that defines variables to be \dQuote{partialled out}
+    before constraints, just like in \code{\link{dbrda}} or
+    \code{\link{cca}}. This allows the use of partial `adonis2`.}
+
   \item{data}{ the data frame for the independent variables, with rows
     in the same order as the community data matrix or dissimilarity
     matrix named on the LHS of \code{formula}.}
