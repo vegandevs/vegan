@@ -8,15 +8,15 @@
     if (missing(data))
         data <- parent.frame()
     else
-        data <- eval(match.call()$data, environment(formula),
-                     enclos = .GlobalEnv)
+        data <- eval(match.call()$data, parent.frame(),
+                     enclos = environment(formula))
     formula <- formula(terms(formula, data = data))
     ## we accept only by = "terms", "margin", "onedf" or NULL
     if (!is.null(by))
         by <- match.arg(by, c("terms", "margin", "onedf"))
     ## evaluate lhs
-    lhs <- eval(formula[[2]], envir = environment(formula),
-                enclos = globalenv())
+    lhs <- eval(formula[[2]], envir = parent.frame(),
+                enclos = environment(formula))
     ## Take care that input lhs are dissimilarities
     if ((is.matrix(lhs) || is.data.frame(lhs)) &&
         isSymmetric(unname(as.matrix(lhs))))
