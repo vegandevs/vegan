@@ -1,7 +1,7 @@
 ### Add New Points to NMDS ordination
 
 `MDSaddpoints` <-
-    function (nmds, dis, neighbours=5, maxit=200)
+    function (nmds, dis, neighbours=5, maxit=200, rogue = TRUE)
 {
 ## bring list component to local matrix
 
@@ -35,6 +35,11 @@
     }
 
     xinit <- rbind(points,tmp)
+    if (rogue) {
+        xinit <- cbind(xinit, 0)
+        xinit[(oldn+1):totn,] <- runif(newn, 0, 0.01)
+        ndim <- ndim + 1
+    }
 
     ## set up indices
 
@@ -92,11 +97,17 @@
            cause=as.integer(icause),
            PACKAGE = "vegan")
     dim(out$points) <- c(totn, ndim)
+    if (rogue) {
+        unfitdim <- out$points[(oldn+1):totn, ndim, drop = TRUE]
+        out$points <- out$points[, -ndim, drop = FALSE]
+        ndim <- ndim - 1
+    }
     newpoints <- out$points[(oldn+1):totn,, drop=FALSE]
     dimnames(newpoints) <- list(rownames(dis), colnames(nmds$points))
     adds <- list(points = newpoints, seed = tmp,
                  deltastress = out$stress - nmds$stress,
                  iters = out$iters, cause = out$cause)
+    if (rogue) adds$rogue <- unfitdim
     class(adds) <- 'nmds'
     adds
 }
