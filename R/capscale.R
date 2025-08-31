@@ -9,8 +9,7 @@
         data <- parent.frame()
     }
     else {
-        data <- eval(match.call()$data, environment(formula),
-                     enclos = .GlobalEnv)
+        data <- eval(match.call()$data, parent.frame(), environment(formula))
     }
     formula <- formula(terms(formula, data = data))
     ## The following line was eval'ed in environment(formula), but
