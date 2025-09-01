@@ -33,6 +33,9 @@
   still `vegan::monoMDS`, and the user experience with this default
   choice is unchanged.
 
+* `adonis2` can have `Condition` in formula allowing similar analysis
+  of partial models as in `dbrda`.
+
 * `biplot.rda` draws arrows of same lengths both with `"points"` and
   `"text"`. Earlier shorter arrows were drawn with `"text"`. Now the
   arrow head is at the actual species scores and points to the text
