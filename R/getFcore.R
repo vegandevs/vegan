@@ -62,6 +62,6 @@
         Yres <- qr.resid(QR, Yperm)
         ss[iter] <- sum(Yfit^2)/sum(Yres^2)
     }
-    list(P = (sum(ss >= m$CCA$tot.chi/m$CA$tot.chi) + 1) / (niter + 1),
-         ss = ss)
+    df <- (nobs(m) - m$CCA$QR$rank - 1) / m$CCA$rank
+    ss * df
 }
