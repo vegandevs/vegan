@@ -428,24 +428,27 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 
 	/* CONSTRAINED COMPONENT */
 
-	/* Re-weight & residualize constraints and re-do QR */
+	/* Re-weight & residualize constraints and re-do QR. CCA is
+	* always re-weighted and needs a new QR, and all partial
+	* models residualize X and need a new QR. */
 
-	memcpy(qr, Xorig, nr * nx * sizeof(double));
-	if (WEIGHTED)
-	    wcentre(Xorig, qr, wperm, &nr, &nx);
-	if (PARTIAL) {
-	    qrkind = RESID;
-	    for (i = 0; i < nx; i++)
-		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
-	    qr + i*nr, dummy, qty, dummy, qr + i*nr,
-	    dummy, &qrkind, &info);
+	if (PARTIAL || WEIGHTED) {
+	    memcpy(qr, Xorig, nr * nx * sizeof(double));
+	    if (WEIGHTED)
+		wcentre(Xorig, qr, wperm, &nr, &nx);
+	    if (PARTIAL) {
+		qrkind = RESID;
+	        for (i = 0; i < nx; i++)
+		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
+	                qr + i*nr, dummy, qty, dummy, qr + i*nr,
+	                dummy, &qrkind, &info);
+	    }
+	    for(i = 0; i < nx; i++)
+	        pivot[i] = i + 1;
+	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
+	       qraux, pivot, qrwork);
 	}
-	for(i = 0; i < nx; i++)
-	pivot[i] = i + 1;
-	F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
-	qraux, pivot, qrwork);
 
-	
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
 
 	/* If there are effects, we go for all but the full rank first */
