@@ -11,9 +11,9 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Linpack.h> /* QR */
+#include <R_ext/BLAS.h>
 #include <R_ext/Lapack.h>  /* SVD, eigen */
-#include <R_ext/Applic.h> /* R version of QR decomposition dqrdc2: not
-			     in public API */
+#include <R_ext/Applic.h> /* R version of QR decomposition dqrdc2 & dqrdsl */
 
 /* handle passing strings to Fortran from C */
 #ifndef FCONE              /* from Writing R Extensions section 6.6.1 */
@@ -42,14 +42,13 @@ void wcentre(double *, double *, double *, int *, int *);
 
 static double getEV(double *x, int nr, int nc, int isDB)
 {
-    int i;
+    int i, N = nr*nc, one = 1;
     double sumev;
     if (isDB)
 	for(i = 0, sumev = 0; i < nr; i++)
 	    sumev += x[i * nr + i];
     else
-	for(i = 0, sumev = 0; i < nr * nc; i++)
-	    sumev += x[i] * x[i];
+	sumev = F77_CALL(ddot)(&N, x, &one, x, &one);
 
     return sumev;
 }
