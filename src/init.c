@@ -34,6 +34,7 @@ extern SEXP do_wcentre(SEXP, SEXP);
 
 extern SEXP test_qrXw(SEXP, SEXP, SEXP);
 extern SEXP do_QR(SEXP);
+extern SEXP test_Hat(SEXP);
 
 /* .Fortran calls */
 extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
@@ -67,6 +68,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"do_wcentre",   (DL_FUNC) &do_wcentre,   2},
     {"test_qrXw",    (DL_FUNC) &test_qrXw,    3},
     {"do_QR",        (DL_FUNC) &do_QR,        1},
+    {"test_Hat",     (DL_FUNC) &test_Hat,     1},
     {NULL, NULL, 0}
 };
 
