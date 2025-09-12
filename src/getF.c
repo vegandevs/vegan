@@ -283,8 +283,11 @@ SEXP do_QR(SEXP x)
     return qr;
 }
 
-/* First find Q of QR decomposition as Q*diag(Y) where Y is a diagonal
- * matrix (amended with zero rows), and then find Hat = QQ'. */
+/* dqrc2 (or R qr) does not return directly the Q of the QR
+ * decomposition, but information to use QR decomposition. To evaluate
+ * Q we need ask for QY with Y = I or identity matrix (filled with
+ * rows of zeros to match the dimensions). Then we get the hat matrix
+ * as H = QQ'. */
 
 static void getHat(double *qr, int qrank, double *qraux, int nr, int nc,
 		   double *Hat)
@@ -292,11 +295,12 @@ static void getHat(double *qr, int qrank, double *qraux, int nr, int nc,
     int info, i, j, qrkind;
     char *opN = "N", *uplo = "U";
     double dummy, one = 1.0, zero = 0.0;
-    double *Q = (double *) R_alloc(nr * qrank, sizeof(double));
+    double *Q = (double *) R_alloc(nr * nc, sizeof(double));
     memset(Q, 0, nr * nc * sizeof(double));
+    /* nc x nc identity matrix + zero rows up to nr */
     for(i=0; i < nc; i++)
 	Q[i*(nr + 1)] = 1.0;
-    /* get Q (will overwrite the input diagonal Q) */
+    /* Input Q as indentity matrix, will be overwritten with Q */
     qrkind = QY;
     for(i = 0; i < nc; i++)
 	F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, Q + i*nr,
@@ -305,7 +309,7 @@ static void getHat(double *qr, int qrank, double *qraux, int nr, int nc,
     /* get symmetric Hat = QQ' with LAPACK dsyrk */
      F77_CALL(dsyrk)(uplo, opN, &nr, &nc, &one, Q, &nr, &zero, Hat,
 		    &nr FCONE FCONE);
-     /* Fill in the lower triangle */
+     /* Computed upper triangle, fill in the lower triangle */
      for(i = 1; i < nr; i++)
 	for(j = 0; j < i; j++)
 	    Hat[i + nr*j] = Hat[j + nr*i];
