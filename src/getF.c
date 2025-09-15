@@ -352,6 +352,11 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     if (ncols(perms) != nr)
 	error("\'permutations\' matrix should have %d columns, but it has %d",
 	      nr, ncols(perms));
+
+    /* LAPACK arguments */
+    char *opN = "N", *opT = "T";
+    double one = 1.0, zero = 0.0;
+
     double ev1, ev0, ev;
     SEXP ans = PROTECT(allocMatrix(REALSXP, nperm, nterms + 1));
     double *rans = REAL(ans);
@@ -395,6 +400,16 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     double *w1 = (double *) R_alloc(nr, sizeof(double));
     for(i = 0; i < nr; i++)
 	w1[i] = 1;
+
+    /* If we do not need to re-evaluate QR decomposition in each
+     * permutatin we can use fixed Hat matrix. */
+    int HAS_HAT = 0;
+    double *Hat;
+    if (!PARTIAL && !WEIGHTED) {
+	Hat = (double *) R_alloc(nr * nr, sizeof(double));
+	getHat(qr, qrank, qraux, nr, nx, Hat);
+	HAS_HAT = 1;
+    }
 
     if (PARTIAL) {
 	    nz = ncols(VECTOR_ELT(QZ, 0));
@@ -457,7 +472,6 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		zpivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(Zqr, &nr, &nr, &nz, &qrtol, &Zqrank,
 			     Zqraux, zpivot, zqrwork);
-
 	    qrkind = RESID;
 	    for(i = 0; i < nc; i++)
 		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux, rY + i*nr,
@@ -496,6 +510,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	        pivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
 	       qraux, pivot, qrwork);
+	    HAS_HAT = 0;
 	}
 
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
@@ -515,15 +530,23 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	    }
 	}
 	/* Evaluate full-rank model */
-	if (PARTIAL || FIRST)
-	    qrkind = FIT + RESID;
-	else
-	    qrkind = FIT;
-	for (i = 0; i < nc; i++)
-	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, dummy,
-			    qty, dummy, resid + i*nr, fitted + i*nr,
-			    &qrkind, &info);
-
+	if (HAS_HAT) {
+	    F77_CALL(dgemm)(opN, opN, &nr, &nc, &nr, &one, Hat, &nr, rY,
+			    &nr, &zero, fitted, &nr FCONE FCONE);
+	    if (PARTIAL || FIRST) {
+		for (i = 0; i < nr * nc; i++)
+		    resid[i] = rY[i] - fitted[i];
+	    }
+	} else {
+	    if (PARTIAL || FIRST)
+		qrkind = FIT + RESID;
+	    else
+		qrkind = FIT;
+	    for (i = 0; i < nc; i++)
+		F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, rY + i*nr, dummy,
+				qty, dummy, resid + i*nr, fitted + i*nr,
+				&qrkind, &info);
+	}
 	/* Eigenvalues: either sum of all or the first If the sum of
 	 * all eigenvalues does not change, we have only ev of CCA
 	 * component in the first column, and the second column is
@@ -532,12 +555,17 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 
 	if (FIRST) {
 	    if (DISTBASED) { /* needs symmetric matrix */
-		transpose(fitted, transY, nr, nr);
-		qrkind = FIT;
-		for(i = 0; i < nc; i++)
-		    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux,
-				    transY + i*nr, dummy, qty, dummy,
-				    dummy, fitted + i*nr, &qrkind, &info);
+		if (HAS_HAT) {
+		    F77_CALL(dgemm)(opT, opN, &nc, &nr, &nr, &one, fitted, &nr,
+				    Hat, &nr, &zero, fitted, &nr FCONE FCONE);
+		} else {
+		    transpose(fitted, transY, nr, nr);
+		    qrkind = FIT;
+		    for(i = 0; i < nc; i++)
+			F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux,
+					transY + i*nr, dummy, qty, dummy,
+					dummy, fitted + i*nr, &qrkind, &info);
+		}
 		ev1 = eigenfirst(fitted, nr);
 	    } else {
 		ev1 = svdfirst(fitted, nr, nc);
