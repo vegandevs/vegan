@@ -292,27 +292,24 @@ SEXP do_QR(SEXP x)
 static void getHat(double *qr, int qrank, double *qraux, int nr, int nc,
 		   double *Hat)
 {
-    int info, i, j, qrkind;
+    int info, i, qrkind;
     char *opN = "N", *uplo = "U";
     double dummy, one = 1.0, zero = 0.0;
+    double *Y = (double *) R_alloc(nr * nc, sizeof(double));
     double *Q = (double *) R_alloc(nr * nc, sizeof(double));
-    memset(Q, 0, nr * nc * sizeof(double));
-    /* nc x nc identity matrix + zero rows up to nr */
+    memset(Y, 0, nr * nc * sizeof(double));
+    /* Y is nc x nc identity matrix + zero rows up to nr */
     for(i=0; i < nc; i++)
-	Q[i*(nr + 1)] = 1.0;
-    /* Input Q as indentity matrix, will be overwritten with Q */
+	Y[i*(nr + 1)] = 1.0;
+    /* Input Y as indentity matrix, will give QY as Q */
     qrkind = QY;
     for(i = 0; i < nc; i++)
-	F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, Q + i*nr,
+	F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, Y + i*nr,
 			Q + i*nr, &dummy, &dummy,
 			&dummy, &dummy, &qrkind, &info);
     /* get symmetric Hat = QQ' with LAPACK dsyrk */
-     F77_CALL(dsyrk)(uplo, opN, &nr, &nc, &one, Q, &nr, &zero, Hat,
+    F77_CALL(dsyrk)(uplo, opN, &nr, &nc, &one, Q, &nr, &zero, Hat,
 		    &nr FCONE FCONE);
-     /* Computed upper triangle, fill in the lower triangle */
-     for(i = 1; i < nr; i++)
-	for(j = 0; j < i; j++)
-	    Hat[i + nr*j] = Hat[j + nr*i];
 }
 
 /* use this as .Call("test_Hat", qr(<model>)) */
@@ -354,7 +351,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	      nr, ncols(perms));
 
     /* LAPACK arguments */
-    char *opN = "N", *opT = "T";
+    char *opN = "N", *opT = "T", *uplo = "U";
     double one = 1.0, zero = 0.0;
 
     double ev1, ev0, ev;
@@ -407,27 +404,45 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     double *Hat;
     if (!PARTIAL && !WEIGHTED) {
 	Hat = (double *) R_alloc(nr * nr, sizeof(double));
-	getHat(qr, qrank, qraux, nr, nx, Hat);
+	double *D = (double *) R_alloc(nr * nc, sizeof(double));
+	double *Q = (double *) R_alloc(nr * nc, sizeof(double));
+	memset(D, 0, nr * nc * sizeof(double));
+	/* D is nc x nc identity matrix + zero rows up to nr */
+	for(i=0; i < nc; i++)
+	    D[i*(nr + 1)] = 1.0;
+	/* Input D as indentity matrix, will give QY as Q */
+	qrkind = QY;
+	for(i = 0; i < nc; i++)
+	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, D + i*nr,
+			    Q + i*nr, dummy, dummy,
+			    dummy, dummy, &qrkind, &info);
+	/* get symmetric Hat = QQ' with LAPACK dsyrk */
+	F77_CALL(dsyrk)(uplo, opN, &nr, &nc, &one, Q, &nr, &zero, Hat,
+			&nr FCONE FCONE);
+	/* Computed upper triangle, fill in the lower triangle */
+	for(i = 1; i < nr; i++)
+	    for(j = 0; j < i; j++)
+		Hat[i + nr*j] = Hat[j + nr*i];
 	HAS_HAT = 1;
     }
 
     if (PARTIAL) {
-	    nz = ncols(VECTOR_ELT(QZ, 0));
-	    zpivot = INTEGER(VECTOR_ELT(QZ, 3));
-	    Zorig = (double *) R_alloc(nr * nz, sizeof(double));
-	    memset(Zorig, 0, nr * nz * sizeof(double));
-	    Zperm = (double *) R_alloc(nr * nz, sizeof(double));
-	    qrXw(Zqr, Zqrank, Zqraux, zpivot, Zorig, w1, nr, nz, 0);
-	    zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
-	}
-	wperm = (double *) R_alloc(nr, sizeof(double));
-	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
-	memset(Xorig, 0, nr * nx * sizeof(double));
-	if (WEIGHTED)
-	    qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, nz);
-	else
-	    qrXw(qr, qrank, qraux, pivot, Xorig, w1, nr, nx, nz);
-	qrwork = (double *) R_alloc(2 * nx, sizeof(double));
+	nz = ncols(VECTOR_ELT(QZ, 0));
+	zpivot = INTEGER(VECTOR_ELT(QZ, 3));
+	Zorig = (double *) R_alloc(nr * nz, sizeof(double));
+	memset(Zorig, 0, nr * nz * sizeof(double));
+	Zperm = (double *) R_alloc(nr * nz, sizeof(double));
+	qrXw(Zqr, Zqrank, Zqraux, zpivot, Zorig, w1, nr, nz, 0);
+	zqrwork = (double *) R_alloc(2 * nz, sizeof(double));
+    }
+    wperm = (double *) R_alloc(nr, sizeof(double));
+    Xorig = (double *) R_alloc(nr * nx, sizeof(double));
+    memset(Xorig, 0, nr * nx * sizeof(double));
+    if (WEIGHTED)
+	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, nz);
+    else
+	qrXw(qr, qrank, qraux, pivot, Xorig, w1, nr, nx, nz);
+    qrwork = (double *) R_alloc(2 * nx, sizeof(double));
 
     /* distance-based methods need to transpose data */
     double *transY;
@@ -492,8 +507,8 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	/* CONSTRAINED COMPONENT */
 
 	/* Re-weight & residualize constraints and re-do QR. CCA is
-	* always re-weighted and needs a new QR, and all partial
-	* models residualize X and need a new QR. */
+	 * always re-weighted and needs a new QR, and all partial
+	 * models residualize X and need a new QR. */
 
 	if (PARTIAL || WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
@@ -503,13 +518,13 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		qrkind = RESID;
 	        for (i = 0; i < nx; i++)
 		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
-	                qr + i*nr, dummy, qty, dummy, qr + i*nr,
-	                dummy, &qrkind, &info);
+				    qr + i*nr, dummy, qty, dummy, qr + i*nr,
+				    dummy, &qrkind, &info);
 	    }
 	    for(i = 0; i < nx; i++)
 	        pivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
-	       qraux, pivot, qrwork);
+			     qraux, pivot, qrwork);
 	    HAS_HAT = 0;
 	}
 
