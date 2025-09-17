@@ -399,25 +399,28 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	w1[i] = 1;
 
     /* If we do not need to re-evaluate QR decomposition in each
-     * permutatin we can use fixed Hat matrix. */
+     * permutation we can use fixed Hat matrix. */
     int HAS_HAT = 0;
     double *Hat;
     if (!PARTIAL && !WEIGHTED) {
 	Hat = (double *) R_alloc(nr * nr, sizeof(double));
-	double *D = (double *) R_alloc(nr * nc, sizeof(double));
-	double *Q = (double *) R_alloc(nr * nc, sizeof(double));
-	memset(D, 0, nr * nc * sizeof(double));
-	/* D is nc x nc identity matrix + zero rows up to nr */
-	for(i=0; i < nc; i++)
+	memset(Hat, 0, nr * nr * sizeof(double));
+	double *D = (double *) R_alloc(nr * nx, sizeof(double));
+	double *Q = (double *) R_alloc(nr * nx, sizeof(double));
+	/* D is nx x nx identity matrix + zero rows up to nr */
+	memset(D, 0, nr * nx * sizeof(double));
+	for(i = 0; i < nx; i++)
 	    D[i*(nr + 1)] = 1.0;
-	/* Input D as indentity matrix, will give QY as Q */
+	/* Input Y as indentity matrix, will give QY as Q */
 	qrkind = QY;
-	for(i = 0; i < nc; i++)
+	for(i = 0; i < nx; i++)
 	    F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, D + i*nr,
-			    Q + i*nr, dummy, dummy,
-			    dummy, dummy, &qrkind, &info);
-	/* get symmetric Hat = QQ' with LAPACK dsyrk */
-	F77_CALL(dsyrk)(uplo, opN, &nr, &nc, &one, Q, &nr, &zero, Hat,
+			    Q + i*nr, dummy, dummy, dummy, dummy,
+			    &qrkind, &info);
+	/* get symmetric Hat = QQ' with BLAS dsyrk. THIS CAN SEGFAULT
+	 * IN PARALLEL PROCESSING WITH FORK CLUSTERS -- SOCKET
+	 * CLUSTERS WITH makeCluster() MAY BE OK. */
+	F77_CALL(dsyrk)(uplo, opN, &nr, &nx, &one, Q, &nr, &zero, Hat,
 			&nr FCONE FCONE);
 	/* Computed upper triangle, fill in the lower triangle */
 	for(i = 1; i < nr; i++)
