@@ -283,53 +283,6 @@ SEXP do_QR(SEXP x)
     return qr;
 }
 
-/* dqrc2 (or R qr) does not return directly the Q of the QR
- * decomposition, but information to use QR decomposition. To evaluate
- * Q we need ask for QY with Y = I or identity matrix (filled with
- * rows of zeros to match the dimensions). Then we get the hat matrix
- * as H = QQ'. */
-
-static void getHat(double *qr, int qrank, double *qraux, int nr, int nc,
-		   double *Hat)
-{
-    int info, i, qrkind;
-    char *opN = "N", *uplo = "U";
-    double dummy, one = 1.0, zero = 0.0;
-    double *Y = (double *) R_alloc(nr * nc, sizeof(double));
-    double *Q = (double *) R_alloc(nr * nc, sizeof(double));
-    memset(Y, 0, nr * nc * sizeof(double));
-    /* Y is nc x nc identity matrix + zero rows up to nr */
-    for(i=0; i < nc; i++)
-	Y[i*(nr + 1)] = 1.0;
-    /* Input Y as indentity matrix, will give QY as Q */
-    qrkind = QY;
-    for(i = 0; i < nc; i++)
-	F77_CALL(dqrsl)(qr, &nr, &nr, &qrank, qraux, Y + i*nr,
-			Q + i*nr, &dummy, &dummy,
-			&dummy, &dummy, &qrkind, &info);
-    /* get symmetric Hat = QQ' with LAPACK dsyrk */
-    F77_CALL(dsyrk)(uplo, opN, &nr, &nc, &one, Q, &nr, &zero, Hat,
-		    &nr FCONE FCONE);
-}
-
-/* use this as .Call("test_Hat", qr(<model>)) */
-
-SEXP test_Hat(SEXP QR)
-{
-    int nc, nr;
-    QR = PROTECT(duplicate(QR));
-    double *qr = REAL(VECTOR_ELT(QR, 0));
-    int rank = asInteger(VECTOR_ELT(QR, 1));
-    double *qraux = REAL(VECTOR_ELT(QR, 2));
-    nr = nrows(VECTOR_ELT(QR, 0));
-    nc = ncols(VECTOR_ELT(QR, 0));
-    SEXP Hat = PROTECT(allocMatrix(REALSXP, nr, nr));
-    memset(REAL(Hat), 0, nr * nr * sizeof(double));
-    getHat(qr, rank, qraux, nr, nc, REAL(Hat));
-    UNPROTECT(2);
-    return Hat;
-}
-
 /* Function do_getF is modelled after R function getF embedded in
  * permutest.cca. The do_getF provides a drop-in replacement to the R
  * function, and is called directly the R function */
