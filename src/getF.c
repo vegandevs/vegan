@@ -232,57 +232,6 @@ SEXP test_qrXw(SEXP QR, SEXP w, SEXP discard)
     return X;
 }
 
-/* QR decomposition. Actually R does not use this function, but an
-   edited version. From the user point of view, the main difference is
-   that the R function returns rank, but this does not do so
-   directly. So we test here if we can make this compatible with
-   R. This function can be called as .Call("do_QR", x), where x is a
-   (centred) matrix. The function returns an object of class "qr" and
-   similar to R::qr() result object, expect that the order of columns
-   (pivoting) is different than in R.  */
-
-SEXP do_QR(SEXP x)
-{
-    /* set up */
-    int k;
-    int nr = nrows(x), nx = ncols(x);
-    double TOL = 1e-7;
-    SEXP qraux = PROTECT(allocVector(REALSXP, nx));
-    SEXP pivot = PROTECT(allocVector(INTSXP, nx));
-    memset(INTEGER(pivot), 0, nx * sizeof(int));
-    double *work = (double *) R_alloc(nx, sizeof(double));
-    int job = 1;
-    x = PROTECT(duplicate(x));
-
-    /* QR decomposition with Linpack */
-    F77_CALL(dqrdc)(REAL(x), &nr, &nr, &nx, REAL(qraux),
-		    INTEGER(pivot), work, &job);
-    /* get rank */
-    for (k = 1; k < nx; k++) {
-	if (fabs(REAL(x)[nr * k + k]) < fabs(TOL * REAL(x)[0]))
-	    break;
-    }
-	
-    /* pack up */
-    SEXP qr = PROTECT(allocVector(VECSXP, 4));
-    SEXP labs = PROTECT(allocVector(STRSXP, 4));
-    SET_STRING_ELT(labs, 0, mkChar("qr"));
-    SET_STRING_ELT(labs, 1, mkChar("rank")); 
-    SET_STRING_ELT(labs, 2, mkChar("qraux"));
-    SET_STRING_ELT(labs, 3, mkChar("pivot"));
-    setAttrib(qr, R_NamesSymbol, labs);
-    SEXP cl = PROTECT(allocVector(STRSXP, 1));
-    SET_STRING_ELT(cl, 0, mkChar("qr"));
-    classgets(qr, cl);
-    UNPROTECT(2); /* cl, labs */
-    SET_VECTOR_ELT(qr, 0, x);
-    SET_VECTOR_ELT(qr, 1, ScalarInteger(k));
-    SET_VECTOR_ELT(qr, 2, qraux);
-    SET_VECTOR_ELT(qr, 3, pivot);
-    UNPROTECT(4); /* qr, x, pivot, qraux */
-    return qr;
-}
-
 /* Function do_getF is modelled after R function getF embedded in
  * permutest.cca. The do_getF provides a drop-in replacement to the R
  * function, and is called directly the R function */

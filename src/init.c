@@ -33,7 +33,6 @@ extern SEXP do_vegdist(SEXP, SEXP);
 extern SEXP do_wcentre(SEXP, SEXP);
 
 extern SEXP test_qrXw(SEXP, SEXP, SEXP);
-extern SEXP do_QR(SEXP);
 
 /* .Fortran calls */
 extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
@@ -66,7 +65,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"do_vegdist",   (DL_FUNC) &do_vegdist,   2},
     {"do_wcentre",   (DL_FUNC) &do_wcentre,   2},
     {"test_qrXw",    (DL_FUNC) &test_qrXw,    3},
-    {"do_QR",        (DL_FUNC) &do_QR,        1},
     {NULL, NULL, 0}
 };
 
