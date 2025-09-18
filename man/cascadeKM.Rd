@@ -121,13 +121,7 @@ cIndexKM(y, x, index = "all")
   \eqn{K} = \code{min.g} to \eqn{K} = \code{max.g}. (2) A principal
   coordinate analysis (PCoA, Gower 1966) is computed on the centred
   distance matrix. (3) The first principal coordinate is used as the new
-  order of the objects in the graph. A simplified algorithm is used to
-  compute the first principal coordinate only, using the iterative
-  algorithm described in Legendre & Legendre (2012). The
-  full distance matrix among objects is never computed; this avoids
-  the problem of storing it when the number of objects is
-  large. Distance values are computed as they are needed by the
-  algorithm.
+  order of the objects in the graph.
 }
 
 \value{ Function \code{cascadeKM} returns an object of class
