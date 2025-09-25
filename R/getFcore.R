@@ -1,13 +1,22 @@
-## getF.c: essential commands in R
+### getF.c: prototype of essential commands in R
 
-#' Inspect changing getF.c
+#' R prototypes of (alternative) implementations of getF.c
 #'
-#' This version permutes Y & w, does not permute Z, but reweights Z &
-#' X. This is the first version in this branch that fixes problems
-#' with weights in most cases, but fails in the most extreme of Cajo's
-#' tests (Pinho). This is point-to-point identical to C code as
-#' implemement in branch biased-anova-cca v2.6-3-29-gaaf6f700. This is
-#' similar to vegan tests prior to 2.5-1.
+#' Function `getFcore` is the R prototype of getF.c as implemented in
+#' vegan release 2.6-6. This version permutes together response Y,
+#' conditions Z and weights w, but keeps constraints X
+#' non-permuted. However, X must be reweighted by shuffled w and
+#' therefore we need a new QR decomposition of X. This is only needed
+#' in weighted ordination (CCA) and in RDA we can re-use the same QR.
+#'
+#' Function `XgetFcore` implements an alternative scheme, where Y, Z &
+#' w are non-shuffled, and only X is shuffled. The shuffled X must be
+#' re-weighted by non-shuffled weights w. Because X is shuffled, we
+#' need a new QR decomposition also in unweighted analysis (RDA,
+#' dbRDA).
+#'
+#' With same permutations, functions `anova.cca`, `permutest.cca`,
+#' `getFcore` and `getFcore` return same permutation F values.
 #'
 #' @examples
 #' library(vegan)
@@ -15,12 +24,17 @@
 #' perm <- shuffleSet(nrow(mite), 999)
 #' mod <- cca(mite ~ SubsDens + WatrCont + Condition(Topo + Shrub),
 #'    data=mite.env)
-#' getFcore(mod, perm)
+#' ano0 <- anova(mod, permutations=perm)
+#' ano0 <- drop(permustats(mod)$permutations)
+#' anoYZw <- getFcore(mod, perm)
+#' anoX <- XgetFcore(mod, perm)
+#' plot(ano0, anoYXw); abline(0,1)
+#' plot(ano0, anoX); abline(0,1)
 #' ## evenness of row weights
 #' diversity(rowSums(mite), "inv") # virtual N
 #' nrow(mite) # N in unweighted model
 #'
-#' @param m fitted constrained ordination model
+#' @param m fitted partial constrained ordination model
 #' @param p permutation matrix
 
 `getFcore` <-
@@ -32,10 +46,6 @@
     QR <- m$CCA$QR
     w <- weights(m)
 
-    ## Set up before the loop
-    ## Z <- .Call(vegan:::test_qrXw, QZ, w, 0)
-    ## X <- .Call(vegan:::test_qrXw, QR, w, ncol(Z))
-
     ## permutations
     if (missing(p))
         p <- matrix(seq_len(nrow(Y)), nrow = 1)
@@ -44,7 +54,7 @@
 
     ## Set up before the loop
     Z <- qr.X(QZ) # weighted Z
-    X <- .Call(test_qrXw, QR, w, ncol(Z)) # unweighted [ZX]
+    X <- .Call(test_qrXw, QR, w, ncol(Z)) # unweighted [X]
 
     for (iter in seq_len(niter)) {
         ## permute Y & w
@@ -62,6 +72,38 @@
         Yres <- qr.resid(QR, Yperm)
         ss[iter] <- sum(Yfit^2)/sum(Yres^2)
     }
-    list(P = (sum(ss >= m$CCA$tot.chi/m$CA$tot.chi) + 1) / (niter + 1),
-         ss = ss)
+    df <- (nobs(m) - m$CCA$QR$rank - 1) / m$CCA$rank
+    ss * df
+}
+
+`XgetFcore` <-
+    function(m, p)
+{
+    ## data
+    Y <- ordiYbar(m, "partial") # reduced model
+    QZ <- m$pCCA$QR
+    QR <- m$CCA$QR
+    w <- weights(m)
+    ## permutations
+    if (missing(p))
+        p <- matrix(seq_len(nrow(Y)), nrow = 1)
+    niter <- nrow(p)
+    ss <- numeric(niter)
+
+    ## Setting up before the loop
+    X <- .Call(test_qrXw, QR, w, m$pCCA$rank)
+
+    for (iter in seq_len(niter)) {
+        ## permute X: order() makes X-permutation equal to
+        ## Y-permutation, and order(order(i)) == i
+        Xperm <- X[order(p[iter,]),]
+        Xrew <- .Call(do_wcentre, Xperm, w)
+        Xrew <- qr.resid(QZ, Xrew)
+        QR <- qr(Xrew)
+        Yfit <- qr.fitted(QR, Y)
+        Yres <- qr.resid(QR, Y)
+        ss[iter] <- sum(Yfit^2)/sum(Yres^2)
+    }
+    df <- (nobs(m) - m$CCA$QR$rank - 1) / m$CCA$rank
+    ss * df
 }

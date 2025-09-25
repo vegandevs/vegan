@@ -11,9 +11,9 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Linpack.h> /* QR */
+#include <R_ext/BLAS.h>
 #include <R_ext/Lapack.h>  /* SVD, eigen */
-#include <R_ext/Applic.h> /* R version of QR decomposition dqrdc2: not
-			     in public API */
+#include <R_ext/Applic.h> /* R version of QR decomposition dqrdc2 & dqrdsl */
 
 /* handle passing strings to Fortran from C */
 #ifndef FCONE              /* from Writing R Extensions section 6.6.1 */
@@ -42,14 +42,13 @@ void wcentre(double *, double *, double *, int *, int *);
 
 static double getEV(double *x, int nr, int nc, int isDB)
 {
-    int i;
+    int i, N = nr*nc, one = 1;
     double sumev;
     if (isDB)
 	for(i = 0, sumev = 0; i < nr; i++)
 	    sumev += x[i * nr + i];
     else
-	for(i = 0, sumev = 0; i < nr * nc; i++)
-	    sumev += x[i] * x[i];
+	sumev = F77_CALL(ddot)(&N, x, &one, x, &one);
 
     return sumev;
 }
@@ -342,13 +341,13 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
        reconstruct constraints and conditions. */
     int nx = ncols(VECTOR_ELT(QR, 0)), nz = 0, *zpivot;
     double *wperm, *Xorig, *Zorig, *Zperm, *qrwork, *zqrwork, qrtol=1e-7;
-    if (WEIGHTED) {
-	if (PARTIAL) {
+    /* want to have weighted Z: set all weights = 1 */
+    double *w1 = (double *) R_alloc(nr, sizeof(double));
+    for(i = 0; i < nr; i++)
+	w1[i] = 1;
+
+    if (PARTIAL) {
 	    nz = ncols(VECTOR_ELT(QZ, 0));
-	    /* want to have weighted Z: set all weights = 1 */
-	    double *w1 = (double *) R_alloc(nr, sizeof(double));
-	    for(i = 0; i < nr; i++)
-		w1[i] = 1;
 	    zpivot = INTEGER(VECTOR_ELT(QZ, 3));
 	    Zorig = (double *) R_alloc(nr * nz, sizeof(double));
 	    memset(Zorig, 0, nr * nz * sizeof(double));
@@ -359,9 +358,11 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	wperm = (double *) R_alloc(nr, sizeof(double));
 	Xorig = (double *) R_alloc(nr * nx, sizeof(double));
 	memset(Xorig, 0, nr * nx * sizeof(double));
-	qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, nz);
+	if (WEIGHTED)
+	    qrXw(qr, qrank, qraux, pivot, Xorig, REAL(w), nr, nx, nz);
+	else
+	    qrXw(qr, qrank, qraux, pivot, Xorig, w1, nr, nx, nz);
 	qrwork = (double *) R_alloc(2 * nx, sizeof(double));
-    }
 
     /* distance-based methods need to transpose data */
     double *transY;
@@ -400,14 +401,13 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 	/* Partial model: qr.resid(QZ, Y) with LINPACK */
 	if (PARTIAL) {
 	    /* Re-do QR decomposition with changed weights */
-	    if (WEIGHTED) {
-	        memcpy(Zqr, Zperm, nr * nz * sizeof(double));
-		/* dqrdc2 is not in R API */
-		for (i = 0; i < nz; i++)
-		    zpivot[i] = i + 1;
-		F77_CALL(dqrdc2)(Zqr, &nr, &nr, &nz, &qrtol, &Zqrank,
-	                         Zqraux, zpivot, zqrwork);
-	    }
+	    memcpy(Zqr, Zperm, nr * nz * sizeof(double));
+	    /* dqrdc2 is not in R API */
+	    for (i = 0; i < nz; i++)
+		zpivot[i] = i + 1;
+	    F77_CALL(dqrdc2)(Zqr, &nr, &nr, &nz, &qrtol, &Zqrank,
+			     Zqraux, zpivot, zqrwork);
+
 	    qrkind = RESID;
 	    for(i = 0; i < nc; i++)
 		F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux, rY + i*nr,
@@ -427,23 +427,27 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 
 	/* CONSTRAINED COMPONENT */
 
-	/* Re-weight & residualize constraints and re-do QR */
-	if (WEIGHTED) {
+	/* Re-weight & residualize constraints and re-do QR. CCA is
+	* always re-weighted and needs a new QR, and all partial
+	* models residualize X and need a new QR. */
+
+	if (PARTIAL || WEIGHTED) {
 	    memcpy(qr, Xorig, nr * nx * sizeof(double));
-	    wcentre(Xorig, qr, wperm, &nr, &nx);
+	    if (WEIGHTED)
+		wcentre(Xorig, qr, wperm, &nr, &nx);
 	    if (PARTIAL) {
 		qrkind = RESID;
-		for (i = 0; i < nx; i++)
-	            F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
+	        for (i = 0; i < nx; i++)
+		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
 	                qr + i*nr, dummy, qty, dummy, qr + i*nr,
 	                dummy, &qrkind, &info);
 	    }
 	    for(i = 0; i < nx; i++)
-		pivot[i] = i + 1;
-	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank, 
-			     qraux, pivot, qrwork);  
+	        pivot[i] = i + 1;
+	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
+	       qraux, pivot, qrwork);
 	}
-	
+
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
 
 	/* If there are effects, we go for all but the full rank first */
