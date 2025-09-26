@@ -167,6 +167,7 @@
     eig <- object$CCA$eig
     resdf <- nobs(object) - length(eig) - max(object$pCCA$QR$rank, 0) - 1
     Fstat <- eig/object$CA$tot.chi*resdf
+    resvar <- object$CA$tot.chi
     Df <- rep(1, length(eig))
 
     ## collect header and varname here: 'object' is modified later
@@ -202,10 +203,24 @@
 
     Pvals <- rep(NA, ncol(LC))
     F.perm <- matrix(ncol = ncol(LC), nrow = nperm)
+    ## Earlier we combined previous LC scores with Z, but with new
+    ## permutation scheme in getF.c X and Z are permuted
+    ## differently. Now we residualize response Y, or use its residual
+    ## after partiallling previous LC axes. For X is inspected
+    ## alternatives (1) LC, (2) LC[,-seq_len(i-1)], (3) LC[,1:i], (4)
+    ## LC[,i]. With (1) & (2) first axis was unbiased, but later had
+    ## increasing bias under null model. MEE reference implementation
+    ## by Legendre was similar. With (3) and (4) all axes were biased
+    ## under null model, with first axis/axes always significant under
+    ## null model. Choice (2) had the best behaviour, also when
+    ## compared to the reference implementation.
     for (i in seq_along(eig)) {
         if (i > 1) {
             object <- suppressMessages(
-                ordConstrained(Y, X, cbind(Z, LC[, seq_len(i - 1)]), "pass")
+                ordConstrained(qr.resid(qr(LC[, seq_len(i-1)]), Y),
+                               LC[, -seq_len(i-1), drop=FALSE],
+                               Z,
+                               "pass")
             )
         }
         if (length(eig) == i) {
@@ -216,6 +231,7 @@
                              parallel = parallel, first = TRUE)
         }
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
+        Fstat[i] <- mod$F.0
         ## follow Canoco: P-values of later axes cannot be lower than
         ## previous axes (usually no effect as P-values are increasing).
         if (i > 1 && Pvals[i] < Pvals[i-1])
@@ -224,8 +240,7 @@
         if (Pvals[i] >= cutoff)
             break
     }
-    out <- data.frame(c(Df, resdf), c(eig, object$CA$tot.chi),
-                      c(Fstat, NA), c(Pvals,NA))
+    out <- data.frame(c(Df, resdf), c(eig, resvar), c(Fstat, NA), c(Pvals,NA))
     rownames(out) <- c(names(eig), "Residual")
     colnames(out) <- c("Df", varname, "F", "Pr(>F)")
     attr(out, "heading") <- head
