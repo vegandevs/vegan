@@ -149,6 +149,9 @@ permutest.default <- function(x, ...)
         Chi.z <- diff(c(0, F.0))
         F.0 <- Chi.z/q * r/Chi.xz
     }
+    ## residualizing constraints will remove pCCA terms
+    if (isPartial)
+        effects <- effects - x$pCCA$QR$rank
 
     ## permutation data
     E <- switch(model,
