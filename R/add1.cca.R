@@ -14,7 +14,6 @@
     ## Loop over terms in 'scope' and do anova.cca
     if (test == "permutation") {
         ## Avoid nested Condition(Condition(x) + z)
-        hasfla <- update(terms(object$terminfo), . ~  Condition(.))
         if (!is.character(scope))
             scope <- add.scope(object, update.formula(object, scope))
         ns <- length(scope)
@@ -22,19 +21,22 @@
         adds[1, ] <- NA
         for (i in 1:ns) {
             tt <- scope[i]
-            ## Condition(.) previous terms (if present)
+            ## anova.ccalist for 2..scope terms
             if (!is.null(object$CCA)) {
-                fla <- update(hasfla, paste("~ . +", tt))
-                nfit <- suppressMessages(update(object, fla))
+                nfit <- suppressMessages(
+                    update(object, as.formula(paste(". ~ . +", tt))))
+                tmp <- anova(object, nfit, permutations = permutations, ...)
+                adds[i+1,] <- unlist(tmp[2, 5:6])
             }
-            else
+            else { # first term: simple anova
                 nfit <- update(object,
                                as.formula(paste(". ~ . +", tt)))
-            tmp <- anova(nfit,  permutations = permutations, ...)
-            adds[i+1,] <- unlist(tmp[1,3:4])
+                tmp <- anova(nfit,  permutations = permutations, ...)
+                adds[i+1,] <- unlist(tmp[1, 3:4])
+            }
         }
-        colnames(adds) <- colnames(tmp)[3:4]
         out <- cbind(out, adds)
+        colnames(out) <- c("Df", "AIC", "F", "Pr(>F)")
         ## check for redundant (0 Df) terms
         if (any(nas <- out[,1] < 1, na.rm = TRUE)) {
             out[[3]][nas] <- NA
