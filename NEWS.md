@@ -31,6 +31,22 @@
   `smacof::mds`. The default engine is still `vegan::monoMDS`, and the
   user experience with this default choice is unchanged.
 
+* `anova` and `permutest` for partial RDA, dbRDA _etc._ residualize
+  constraints similarly as partial CCA has done since **vegan**
+  release 2.6-6. This may have an effect in partial models with
+  `Condition`term.
+
+* `add1` for constrained ordination no longer bases permutation tests
+  on partial model, but uses method that is consistent with
+  permutation tests in `drop1`. In `ordistep` the _P_-value of the
+  last added term is unchanged when it is considered for dropping
+  using same permutations.
+
+* `anova.cca(..., by = "axis")` is no longer based on partial
+  ordination but is consistent with other `by` cases. This may have an
+  effect on later non-significant axes, but does not influence the
+  _P_-value of the first axis.
+
 * `adonis2` can have `Condition` in formula allowing similar analysis
   of partial models as in `dbrda`.
 
@@ -56,6 +72,12 @@
   was possible to use these only _via_ `hiersimu`.
 
 ## Bug Fixes
+
+* `anova` and `permutest` with arguments `by = "terms"` or `by =
+  "onedf"` was wrong in partial CCA. There were no problems in normal
+  CCA without `Condition`term, other [partial] constrained ordination
+  methods or with other `by` arguments. The bug was introduces in
+  **vegan** release 2.6-6.
 
 * `summary` for `mantel`, `mrpp`, `oecosimu` and `ordiareatest` did
   not pass dot arguments (`...`) to underlying `summary.permustats`.
