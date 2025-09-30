@@ -100,11 +100,11 @@ Number of permutations: 99
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)  
 CCA1      1   0.46993 2.9366   0.08 .
-CCA2      1   0.26217 1.6384   0.96  
-CCA3      1   0.19308 1.2066   1.00  
-CCA4      1   0.18345 1.1464         
-CCA5      1   0.08871 0.5544         
-CCA6      1   0.06104 0.3815         
+CCA2      1   0.26217 1.9524   0.60  
+CCA3      1   0.19308 1.6761   0.66  
+CCA4      1   0.18345 1.8044   0.66  
+CCA5      1   0.08871 0.9927   0.74  
+CCA6      1   0.06104 0.7586   0.74  
 Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -174,11 +174,11 @@ Number of permutations: 99
 Model: capscale(formula = dune ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df Variance      F Pr(>F)  
 CAP1      1  25.0252 4.1487   0.03 *
-CAP2      1  15.8759 2.6319   0.37  
-CAP3      1   8.0942 1.3419   0.86  
-CAP4      1   5.0675 0.8401   0.95  
-CAP5      1   3.5671 0.5914   0.96  
-CAP6      1   1.9520 0.3236   0.96  
+CAP2      1  15.8759 3.1583   0.21  
+CAP3      1   8.0942 1.8786   0.41  
+CAP4      1   5.0675 1.3442   0.67  
+CAP5      1   3.5671 1.0644   0.68  
+CAP6      1   1.9520 0.6472   0.74  
 Residual  5  30.1605                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -229,11 +229,11 @@ Number of permutations: 99
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
          Df SumOfSqs      F Pr(>F)  
 CAP1      1  0.77834 4.9533   0.08 .
-CAP2      1  0.45691 2.9078   0.48  
-CAP3      1  0.14701 0.9355   0.99  
-CAP4      1  0.11879 0.7560   0.99  
-CAP5      1  0.04213 0.2681   1.00  
-CAP6      1  0.00522 0.0332         
+CAP2      1  0.45691 3.4893   0.37  
+CAP3      1  0.14701 1.3097   0.90  
+CAP4      1  0.11879 1.2096   0.90  
+CAP5      1  0.04213 0.4826   0.97  
+CAP6      1  0.00522 0.0664   1.00  
 Residual  5  0.78568                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -288,11 +288,11 @@ Number of permutations: 99
 Model: cca(formula = dune ~ Management + poly(A1, 2) + spno, na.action = na.omit, subset = Use != "Pasture" & spno > 7)
          Df ChiSquare      F Pr(>F)  
 CCA1      1   0.46993 2.9366   0.09 .
-CCA2      1   0.26217 1.6384   0.98  
-CCA3      1   0.19308 1.2066   1.00  
-CCA4      1   0.18345 1.1464         
-CCA5      1   0.08871 0.5544         
-CCA6      1   0.06104 0.3815         
+CCA2      1   0.26217 1.9524   0.55  
+CCA3      1   0.19308 1.6761   0.61  
+CCA4      1   0.18345 1.8044   0.61  
+CCA5      1   0.08871 0.9927   0.71  
+CCA6      1   0.06104 0.7586   0.71  
 Residual  5   0.80011                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -496,9 +496,9 @@ Number of permutations: 99
 Model: cca(formula = dune ~ A1 + Moisture + Condition(Management), data = dune.env, subset = A1 > 3)
          Df ChiSquare      F Pr(>F)  
 CCA1      1   0.27109 2.9561   0.05 *
-CCA2      1   0.14057 1.5329   0.65  
-CCA3      1   0.08761 0.9553   1.00  
-CCA4      1   0.05624 0.6132         
+CCA2      1   0.14057 1.6893   0.26  
+CCA3      1   0.08761 1.1539   0.58  
+CCA4      1   0.05624 0.8018   0.59  
 Residual 10   0.91705                
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -535,8 +535,8 @@ Number of permutations: 999
 Model: capscale(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
 CAP1      1   0.2682 1.3075  0.779
-CAP2      1   0.0685 0.3339  0.997
-CAP3      1   0.0455 0.2217  0.997
+CAP2      1   0.0685 0.3491  0.997
+CAP3      1   0.0455 0.2418  0.997
 Residual 22   4.5130              
 > anova(cap.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for capscale under reduced model
@@ -563,8 +563,8 @@ Number of permutations: 999
 Model: capscale(formula = X ~ A + B)
          Df Variance      F Pr(>F)
 CAP1      1   0.2682 1.3267  0.785
-CAP2      1   0.0685 0.3388  0.995
-CAP3      1   0.0455 0.2249  0.995
+CAP2      1   0.0685 0.3518  0.994
+CAP3      1   0.0455 0.2422  0.994
 Residual 26   5.2565              
 > anova(cap.model, by="terms", strata=C)  # -> no error
 Permutation test for capscale under reduced model
@@ -591,8 +591,8 @@ Number of permutations: 999
 Model: rda(formula = X ~ A + B + Condition(C))
          Df Variance      F Pr(>F)
 RDA1      1   0.2682 1.3075  0.770
-RDA2      1   0.0685 0.3339  0.993
-RDA3      1   0.0455 0.2217  0.993
+RDA2      1   0.0685 0.3491  0.991
+RDA3      1   0.0455 0.2418  0.991
 Residual 22   4.5130              
 > anova(rda.model.cond, by="terms", strata=C)  # -> error pre r2287
 Permutation test for rda under reduced model
@@ -619,8 +619,8 @@ Number of permutations: 999
 Model: rda(formula = X ~ A + B)
          Df Variance      F Pr(>F)
 RDA1      1   0.2682 1.3267  0.765
-RDA2      1   0.0685 0.3388  0.996
-RDA3      1   0.0455 0.2249  0.996
+RDA2      1   0.0685 0.3518  0.996
+RDA3      1   0.0455 0.2422  0.996
 Residual 26   5.2565              
 > anova(rda.model, by="terms", strata=C)  # -> no error
 Permutation test for rda under reduced model
@@ -1040,4 +1040,4 @@ Cumulative Proportion 0.9994867 1.0000000
 > 
 > proc.time()
    user  system elapsed 
-  1.252   0.045   1.295 
+  1.229   0.055   1.284 
