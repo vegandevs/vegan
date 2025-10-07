@@ -21,9 +21,9 @@
   `Condition` term.
 
 * `add1` for constrained ordination no longer bases permutation tests
-  on partial model, but uses method that is consistent with marginal
+  on partial model, but uses a method that is consistent with marginal
   tests in `drop1`. In `ordistep` the _P_-value of the last added term
-  is unchanged when it is considered for dropping using same
+  is unchanged when it is considered for dropping using the same
   permutations.
 
 * `anova.cca(..., by = "axis")` is no longer based on partial
@@ -31,33 +31,33 @@
   effect on later non-significant axes, but in non-partial models does
   not influence the _P_-value of the first axis.
 
-* `biplot.rda` draws arrows of same lengths both with `"points"` and
+* `biplot.rda` draws arrows of the same length both with `"points"` and
   `"text"`. Earlier shorter arrows were drawn with `"text"`. Now the arrow
   head is at the actual species scores and points to the text label
   similarly as in plot functions for rda and envfit.
 
-* `ordilabel` can use variable character expansion (`cex`) and with
-  this `plot.cca`, `ordiplot` _etc._ gained the same ability.
+* `ordilabel` can use variable character expansion (`cex`) and with this
+  `plot.cca`, `ordiplot` _etc._ gained the same ability.
 
 ## Bug Fixes
 
 * `anova` and `permutest` with arguments `by = "terms"` or `by =
   "onedf"` was wrong in partial CCA. There were no problems in normal
-  CCA without `Condition` term, other [partial] constrained ordination
-  methods or with other `by` arguments. The bug was introduces in
+  CCA without the `Condition` term, other [partial] constrained ordination
+  methods, or with other `by` arguments. The bug was introduced in
   **vegan** release 2.6-6.
 
-* `summary` for `mantel`, `mrpp`, `oecosimu` and `ordiareatest` did
-  not pass dot arguments (`...`) to underlying `summary.permustats`.
-  These arguments allow changing sidedness or critical _P_-value of
+* `summary` for `mantel`, `mrpp`, `oecosimu`, and `ordiareatest` did
+  not pass dot arguments (`...`) to the underlying `summary.permustats`.
+  These arguments allow changing sidedness or the critical _P_-value of
   the summary.
 
 * `decostand` standardization `"rrank"` failed with
   `na.rm = FALSE`. Bug report
   [#753](https://github.com/vegandevs/vegan/issues/753).
 
-* `ordilabel`, `ordipointlabel` froze graphical device if function
-  stopped with error.
+* `ordilabel` and `ordipointlabel` froze the graphical device if the function
+  stopped with an error.
 
 # vegan 2.7-1
 
