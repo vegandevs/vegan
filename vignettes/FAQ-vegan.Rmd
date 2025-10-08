@@ -10,11 +10,8 @@
 This document contains answers to some of the most frequently asked
 questions about R package **vegan**.
 
-> This work is licensed under the Creative Commons Attribution 3.0
-> License. To view a copy of this license, visit
-> <https://creativecommons.org/licenses/by/3.0/> or send a letter to
-> Creative Commons, 543 Howard Street, 5th Floor, San Francisco,
-> California, 94105, USA.
+> This work is openly licensed via
+> [CC BY 4.0]/(https://creativecommons.org/licenses/by/4.0/).
 >
 > Copyright © 2008-2025 vegan development team
 
@@ -32,9 +29,7 @@ popular methods of multivariate analysis needed in analysing ecological
 communities, and tools for diversity analysis, and other potentially
 useful functions. **Vegan** is not self-contained but it must be run
 under R statistical environment, and it also depends on many other R
-packages. **Vegan** is [free
-software](https://www.gnu.org/philosophy/free-sw.html) and distributed
-under [GPL2 license](https://www.gnu.org/licenses/gpl.html).
+packages.
 
 ------------------------------------------------------------------------
 
