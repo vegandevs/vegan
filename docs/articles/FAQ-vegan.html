@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@
       <h1></h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/vegandevs/vegan/blob/v2.7-2/vignettes/FAQ-vegan.Rmd" class="external-link"><code>vignettes/FAQ-vegan.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/vegandevs/vegan/blob/master/vignettes/FAQ-vegan.Rmd" class="external-link"><code>vignettes/FAQ-vegan.Rmd</code></a></small>
       <div class="d-none name"><code>FAQ-vegan.Rmd</code></div>
     </div>
 
@@ -77,8 +77,7 @@
 <p>This document contains answers to some of the most frequently asked
 questions about R package <strong>vegan</strong>.</p>
 <blockquote>
-<p>This work is licensed under the Creative Commons Attribution 3.0
-License.</p>
+<p>This work is openly licensed via [CC BY 4.0]/(<a href="https://creativecommons.org/licenses/by/4.0/" class="external-link uri">https://creativecommons.org/licenses/by/4.0/</a>).</p>
 <p>Copyright © 2008-2025 vegan development team</p>
 </blockquote>
 <hr>
@@ -94,8 +93,7 @@ contains the most popular methods of multivariate analysis needed in
 analysing ecological communities, and tools for diversity analysis, and
 other potentially useful functions. <strong>Vegan</strong> is not
 self-contained but it must be run under R statistical environment, and
-it also depends on many other R packages. <strong>Vegan</strong> is
-distributed under GPL2 license.</p>
+it also depends on many other R packages.</p>
 <hr>
 </div>
 <div class="section level4">
@@ -347,24 +345,6 @@ and with very small data sets you should not use <code>NMDS</code>, but
 rely on metric methods (<code>pco</code> and <code>wcmdscale</code> in
 <strong>vegan</strong>, <code>cmdscale</code> in base
 <strong>R</strong>).</p>
-<hr>
-</div>
-<div class="section level4">
-<h4 id="zero-dissimilarities-in-isomds">Zero dissimilarities in isoMDS<a class="anchor" aria-label="anchor" href="#zero-dissimilarities-in-isomds"></a>
-</h4>
-<p>Function <code>metaMDS</code> uses function <code>monoMDS</code> as
-its default method for NMDS, and this function can handle zero
-dissimilarities. Alternative function <code>isoMDS</code> cannot handle
-zero dissimilarities. If you want to use <code>isoMDS</code>, you can
-use argument <code>zerodist = "add"</code> in <code>metaMDS</code> to
-handle zero dissimilarities. With this argument, zero dissimilarities
-are replaced with a small positive value, and they can be handled in
-<code>isoMDS</code>. This is a kluge, and some people do not like this.
-A more principal solution is to remove duplicate sites using R command
-<code>unique</code>. However, after some standardizations or with some
-dissimilarity indices, originally non-unique sites can have zero
-dissimilarity, and you have to resort to the kluge (or work harder with
-your data). Usually it is better to use <code>monoMDS</code>.</p>
 <hr>
 </div>
 <div class="section level4">
