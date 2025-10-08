@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,30 +33,9 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/vegandevs/vegan/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/vegandevs/vegan/blob/v2.7-2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.8-0" id="vegan-28-0">vegan 2.8-0<a class="anchor" aria-label="anchor" href="#vegan-28-0"></a></h2>
-<div class="section level3">
-<h3 id="new-functions-2-8-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-8-0"></a></h3>
-<ul><li>
-<code>influence.cca</code>: a new wrapper function to return <code>hatvalues</code>, <code>rstandard</code>, <code>rstudent</code> and <code>cooks.distance</code>. The result can be amended with working fitted values, and returned in <code>tidy</code> format that can be used as input in <strong>ggplot2</strong> (or <strong>lattice</strong>) graphics to substitute defunct <code>ordiresids</code> function.</li>
-</ul></div>
-<div class="section level3">
-<h3 id="new-features-2-8-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-8-0"></a></h3>
-<ul><li><p><code>metaMDS</code> can use any MDS function as an <code>engine</code> if the function takes as input dissimilarities, initial configuration and number of axes, and returns a list with elements stress and points for final solution. <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code> and <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">MASS::isoMDS</a></code> are such functions, but other MDS functions can be easily wrapped to make them compatible. The Examples in the help page shows how to wrap <code>smacof::mds</code>. The default engine is still <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code>, and the user experience with this default choice is unchanged.</p></li>
-<li><p><code>adonis2</code> can have <code>Condition</code> in formula allowing similar analysis of partial models as in <code>dbrda</code>.</p></li>
-<li><p><code>plot.envfit</code> can use criterion <code>r2.min</code> for lower threshold of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math> of displayed variables. Both <code>p.max</code> and <code>r2.min</code> must be satisfied for displayed items.</p></li>
-<li><p><code>varpart</code> labels the sources of variation by the full definition of the term in plots, but switches to <code>X1</code> <em>etc</em> if the full name does not fit the graph. Tilde is stripped from the term name.</p></li>
-<li><p><code>adipart</code> can use Hill numbers 1 and 2 in additive diversity partitioning per wish of <a href="https://github.com/vegandevs/vegan/issues/752" class="external-link">#752</a>. Earlier it was possible to use these only <em>via</em> <code>hiersimu</code>.</p></li>
-</ul></div>
-<div class="section level3">
-<h3 id="defunct-2-8-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-2-8-0"></a></h3>
-<ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
-<li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
-</ul></div>
-</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.7-2" id="vegan-27-2">vegan 2.7-2<a class="anchor" aria-label="anchor" href="#vegan-27-2"></a></h2><p class="text-muted">CRAN release: 2025-10-08</p>
 <div class="section level3">

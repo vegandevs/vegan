@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,21 +64,14 @@
 
 <p></p>
 <dl><dt id="arg-formula">formula<a class="anchor" aria-label="anchor" href="#arg-formula"></a></dt>
-<dd><p>Model formula. The function can be called only with the
-    formula interface. Most usual features of <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>
-    hold, especially as defined in <code><a href="cca.html">cca</a></code> and
-    <code><a href="cca.html">rda</a></code>. The LHS must be either a community data matrix or
-    a dissimilarity matrix, e.g., from <code><a href="vegdist.html">vegdist</a></code> or
-    <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.  If the LHS is a data matrix, function
-    <code><a href="vegdist.html">vegdist</a></code> will be used to find the dissimilarities. The
-    RHS defines the independent variables. These can be continuous
-    variables or factors, they can be transformed within the formula,
-    and they can have interactions as in a typical
-    <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>. The RHS can have a special term
-    <code>Condition</code> that defines variables to be “partialled out”
-    before constraints, just like in <code><a href="dbrda.html">dbrda</a></code> or
-    <code><a href="cca.html">cca</a></code>. This allows the use of partial `adonis2`.</p></dd>
-
+<dd><p>Model formula. The left-hand side (LHS) of the formula
+    must be either a community data matrix or a dissimilarity matrix,
+    e.g., from <code><a href="vegdist.html">vegdist</a></code> or <code><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></code>.  If the LHS
+    is a data matrix, function <code><a href="vegdist.html">vegdist</a></code> will be used to
+    find the dissimilarities. The right-hand side (RHS) of the formula
+    defines the independent variables. These can be continuous variables
+    or factors, they can be transformed within the formula, and they can
+    have interactions as in a typical <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>.</p></dd>
 
   <dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p>the data frame for the independent variables, with rows
@@ -248,7 +241,7 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Df SumOfSqs      R2      F Pr(&gt;F)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Management     3   1.4686 0.34161 3.2629  0.001 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> A1             1   0.4409 0.10256 2.9387  0.020 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.213    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management:A1  3   0.5892 0.13705 1.3090  0.214    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual      12   1.8004 0.41878                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         19   4.2990 1.00000                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
@@ -290,9 +283,9 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1 0.037181 0.26637 3.6309   0.06 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.102401 0.73363                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.139581 1.00000                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1 0.036688 0.24632 3.2682   0.06 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.112256 0.75368                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.148944 1.00000                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span><span class="co">## Correct with strata</span></span></span>
@@ -304,9 +297,9 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1 0.037181 0.26637 3.6309   0.01 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.102401 0.73363                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.139581 1.00000                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1 0.036688 0.24632 3.2682  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 10 0.112256 0.75368                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    11 0.148944 1.00000                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>
