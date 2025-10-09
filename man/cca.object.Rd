@@ -1,6 +1,6 @@
 \name{cca.object}
 \alias{cca.object}
-\alias{ordConstrained} % a common interface, not really documented
+\alias{ordConstrained}
 \alias{ordiYbar}
 \alias{model.matrix.cca}
 \alias{model.matrix.rda}
@@ -43,16 +43,22 @@
 }
 
 \usage{
-
+ordConstrained(Y, X = NULL, Z = NULL, method = c("cca", "rda",
+    "capscale", "dbrda", "pass"), arg = FALSE)
 ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 \method{model.frame}{cca}(formula, ...)
 \method{model.matrix}{cca}(object, ...)
 \method{weights}{cca}(object, display = "sites", ...)
-
 }
 
 \arguments{
-
+  \item{Y, X, Z}{Input matrix of responses (\code{Y}) and model matrices
+    of constraints (\code{X}) and conditions (\code{Z}). \code{NULL}
+    matrices are ignored.}
+  \item{method}{Ordination method. If \code{"pass"}, method is defined
+    by \code{Y} of fitted ordination model.}
+  \item{arg}{Possible extra argument passed to \code{method}; in
+    \code{\link{rda}} this is \code{scale}.}
   \item{object, x, formula}{A result object from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{dbrda}}, or
     \code{\link{capscale}}. }
@@ -190,6 +196,43 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
   Legendre, P. and Legendre, L. (2012) \emph{Numerical Ecology}. 3rd English
   ed. Elsevier.
 }
+
+\examples{
+  data(dune, dune.env)
+  mod0 <- cca(dune ~ Management + Moisture, dune.env)
+  ## refit the model in ordConstrained
+  mrefit <- ordConstrained(ordiYbar(mod0, "initial"),
+                         model.matrix(mod0),
+                         NULL,
+                         "pass")
+
+  ## implement weighted RDA (weights w)
+  initWPCA <- function(Y, w) {
+    Y <- as.matrix(Y)
+    Y <- .Call("do_wcentre", Y, w)
+    attr(Y, "RW") <- w
+    attr(Y, "METHOD") <- "WPCA"
+    Y
+  }
+  mod <- rda(dune ~ Management + Moisture, dune.env)
+  mod
+  w <- rowSums(dune)/sum(dune)
+  adjust <- 1 + 1/(nrow(dune) - 1)
+  wmod <- ordConstrained(initWPCA(dune, w * adjust),
+                         model.matrix(~ Management + Moisture,dune.env)[,-1],
+                         NULL, "pass")
+  class(wmod) <- c("wrda", "cca") # for clean print.cca
+  wmod
+
+  ## CCA as weighted RDA (species scores differ, though).
+  dchi <- decostand(dune, "chi.sq")
+  ccmod <- ordConstrained(initWPCA(dchi, w), model.matrix(mod),
+                          NULL, "pass")
+  class(ccmod) <- c("wrda", "cca")
+  ccmod # wrda
+  mod0  # cca
+}
+
 \author{ Jari Oksanen }
 
 \keyword{ models}
