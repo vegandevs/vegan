@@ -77,6 +77,31 @@ ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 
 \details{
 
+  Function \code{ordConstrained} is used as the basic analysis engine
+  in all [partial] constrained ordination methods (\code{\link{cca}},
+  \code{\link{rda}}, \code{\link{dbrda}} _etc_). Those higher-level
+  functions set up the data for \code{ordConstrained} and add items
+  used in printing or further analysis of the results. Function
+  \code{ordConstrained} can also be called directly, but the user
+  should be very careful in setting up the input arguments and in
+  processing the result. All supported ordination methods have an
+  \code{initXXX} function that transforms the data for analysis and
+  sets data attributes for analytic steps. These arguments include
+  attribute \code{METHOD} and for \code{\link{cca}} row and column
+  weights (attributes \code{RW} and \code{CW}). These are used to
+  select the branch of analysis in further steps. Argument
+  \code{method} selects the ordination type. \code{method = "pass"} is
+  used when the dependent matrix \code{Y} already was processed with
+  an \code{initXXX} method. This allows embedding
+  \code{ordConstrained} in other functions with any constrained
+  ordination method or using your own \code{initXXX} method (see
+  Examples). Dependent matrix \code{Y} must be supplied but conditions
+  \code{Z} and constraints \code{X} can be \code{NULL} and then this
+  analysis step is skipped (if both are \code{NULL}, unconstrained
+  ordination is performed). Steps for conditions (partialling) and
+  constraints return residuals of input \code{Y} for the next step,
+  and all methods return their analysis results.
+
   The internal (\dQuote{working}) form of the dependent (community)
   data can be accessed with function \code{ordiYbar}. The form depends
   on the ordination method: for instance, in \code{\link{cca}} the
