@@ -40,8 +40,8 @@
 <h2 class="pkg-version" data-toc-text="2.8-0" id="vegan-28-0">vegan 2.8-0<a class="anchor" aria-label="anchor" href="#vegan-28-0"></a></h2>
 <div class="section level3">
 <h3 id="new-functions-2-8-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-8-0"></a></h3>
-<ul><li>
-<code>influence.cca</code>: a new wrapper function to return <code>hatvalues</code>, <code>rstandard</code>, <code>rstudent</code> and <code>cooks.distance</code>. The result can be amended with working fitted values, and returned in <code>tidy</code> format that can be used as input in <strong>ggplot2</strong> (or <strong>lattice</strong>) graphics to substitute defunct <code>ordiresids</code> function.</li>
+<ul><li><p><code>influence.cca</code>: a new wrapper function to return <code>hatvalues</code>, <code>rstandard</code>, <code>rstudent</code> and <code>cooks.distance</code>. The result can be amended with working fitted values, and returned in <code>tidy</code> format that can be used as input in <strong>ggplot2</strong> (or <strong>lattice</strong>) graphics to substitute defunct <code>ordiresids</code> function.</p></li>
+<li><p>Internal <code>ordConstrained</code> is exported. Function is the central numerical engine of constrained ordination methods (<code>cca</code>, <code>rda</code>, <code>dbrda</code>, <code>capscale</code>) and provides a hacker interface that can be embedded in other functions and used to develop alternative methods. The Examples show how to implement weighted RDA.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-8-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-8-0"></a></h3>

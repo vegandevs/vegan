@@ -118,7 +118,9 @@ Function ordConstrained returns the same result components
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ordiYbar</span><span class="op">(</span><span class="va">x</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CCA"</span>, <span class="st">"CA"</span>, <span class="st">"pCCA"</span>, <span class="st">"partial"</span>, <span class="st">"initial"</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ordConstrained</span><span class="op">(</span><span class="va">Y</span>, X <span class="op">=</span> <span class="cn">NULL</span>, Z <span class="op">=</span> <span class="cn">NULL</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cca"</span>, <span class="st">"rda"</span>,</span>
+<span>    <span class="st">"capscale"</span>, <span class="st">"dbrda"</span>, <span class="st">"pass"</span><span class="op">)</span>, arg <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">ordiYbar</span><span class="op">(</span><span class="va">x</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"CCA"</span>, <span class="st">"CA"</span>, <span class="st">"pCCA"</span>, <span class="st">"partial"</span>, <span class="st">"initial"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/model.frame.html" class="external-link">model.frame</a></span><span class="op">(</span><span class="va">formula</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
@@ -129,10 +131,21 @@ Function ordConstrained returns the same result components
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+    <p></p>
+<dl><dt id="arg-y-x-z">Y, X, Z<a class="anchor" aria-label="anchor" href="#arg-y-x-z"></a></dt>
+<dd><p>Input matrix of responses (<code>Y</code>) and model matrices
+    of constraints (<code>X</code>) and conditions (<code>Z</code>). <code>NULL</code>
+    matrices are ignored.</p></dd>
 
+  <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
+<dd><p>Ordination method. If <code>"pass"</code>, method is defined
+    by <code>Y</code> of fitted ordination model.</p></dd>
 
-<p></p>
-<dl><dt id="arg-object-x-formula">object, x, formula<a class="anchor" aria-label="anchor" href="#arg-object-x-formula"></a></dt>
+  <dt id="arg-arg">arg<a class="anchor" aria-label="anchor" href="#arg-arg"></a></dt>
+<dd><p>Possible extra argument passed to <code>method</code>; in
+    <code><a href="cca.html">rda</a></code> this is <code>scale</code>.</p></dd>
+
+  <dt id="arg-object-x-formula">object, x, formula<a class="anchor" aria-label="anchor" href="#arg-object-x-formula"></a></dt>
 <dd><p>A result object from <code><a href="cca.html">cca</a></code>,
     <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code>, or
     <code><a href="dbrda.html">capscale</a></code>.</p></dd>
@@ -159,6 +172,30 @@ Function ordConstrained returns the same result components
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
 
 
+<p>Function <code>ordConstrained</code> is used as the basic analysis engine
+  in all [partial] constrained ordination methods (<code><a href="cca.html">cca</a></code>,
+  <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code> _etc_). Those higher-level
+  functions set up the data for <code>ordConstrained</code> and add items
+  used in printing or further analysis of the results. Function
+  <code>ordConstrained</code> can also be called directly, but the user
+  should be very careful in setting up the input arguments and in
+  processing the result. All supported ordination methods have an
+  <code>initXXX</code> function that transforms the data for analysis and
+  sets data attributes for analytic steps. These arguments include
+  attribute <code>METHOD</code> and for <code><a href="cca.html">cca</a></code> row and column
+  weights (attributes <code>RW</code> and <code>CW</code>). These are used to
+  select the branch of analysis in further steps. Argument
+  <code>method</code> selects the ordination type. <code>method = "pass"</code> is
+  used when the dependent matrix <code>Y</code> already was processed with
+  an <code>initXXX</code> method. This allows embedding
+  <code>ordConstrained</code> in other functions with any constrained
+  ordination method or using your own <code>initXXX</code> method (see
+  Examples). Dependent matrix <code>Y</code> must be supplied but conditions
+  <code>Z</code> and constraints <code>X</code> can be <code>NULL</code> and then this
+  analysis step is skipped (if both are <code>NULL</code>, unconstrained
+  ordination is performed). Steps for conditions (partialling) and
+  constraints return residuals of input <code>Y</code> for the next step,
+  and all methods return their analysis results.</p>
 <p>The internal (“working”) form of the dependent (community)
   data can be accessed with function <code>ordiYbar</code>. The form depends
   on the ordination method: for instance, in <code><a href="cca.html">cca</a></code> the
@@ -273,6 +310,122 @@ Function ordConstrained returns the same result components
     <p>Jari Oksanen</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">mod0</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span> <span class="op">+</span> <span class="va">Moisture</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="co">## refit the model in ordConstrained</span></span></span>
+<span class="r-in"><span>  <span class="va">mrefit</span> <span class="op">&lt;-</span> <span class="fu">ordConstrained</span><span class="op">(</span><span class="fu">ordiYbar</span><span class="op">(</span><span class="va">mod0</span>, <span class="st">"initial"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="va">mod0</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         <span class="cn">NULL</span>,</span></span>
+<span class="r-in"><span>                         <span class="st">"pass"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co">## implement weighted RDA (weights w)</span></span></span>
+<span class="r-in"><span>  <span class="va">initWPCA</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">Y</span>, <span class="va">w</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="va">Y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/CallExternal.html" class="external-link">.Call</a></span><span class="op">(</span><span class="st">"do_wcentre"</span>, <span class="va">Y</span>, <span class="va">w</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">Y</span>, <span class="st">"RW"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">w</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">Y</span>, <span class="st">"METHOD"</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="st">"WPCA"</span></span></span>
+<span class="r-in"><span>    <span class="va">Y</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span></span></span>
+<span class="r-in"><span>  <span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span> <span class="op">+</span> <span class="va">Moisture</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">mod</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   46.4249     0.5519    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 37.6988     0.4481   13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is variance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21.588 14.075  4.123  3.163  2.369  1.107 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span>  <span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">adjust</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span><span class="op">/</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">wmod</span> <span class="op">&lt;-</span> <span class="fu">ordConstrained</span><span class="op">(</span><span class="fu">initWPCA</span><span class="op">(</span><span class="va">dune</span>, <span class="va">w</span> <span class="op">*</span> <span class="va">adjust</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                         <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Management</span> <span class="op">+</span> <span class="va">Moisture</span>,<span class="va">dune.env</span><span class="op">)</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>                         <span class="cn">NULL</span>, <span class="st">"pass"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">wmod</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wrda"</span>, <span class="st">"cca"</span><span class="op">)</span> <span class="co"># for clean print.cca</span></span></span>
+<span class="r-in"><span>  <span class="va">wmod</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: ordConstrained(Y = initWPCA(dune, w * adjust), X =</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> model.matrix(~Management + Moisture, dune.env)[, -1], Z = NULL, method =</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> "pass")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.2528     1.0000     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constrained   47.8693     0.5682    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained 36.3836     0.4318   13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1      2      3      4      5      6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22.766 13.150  5.332  3.279  2.400  0.941 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1     2     3     4     5     6     7     8     9    10    11    12    13 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8.208 7.795 5.218 3.585 2.950 2.417 1.911 1.560 0.920 0.703 0.577 0.326 0.214 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="co">## CCA as weighted RDA (species scores differ, though).</span></span></span>
+<span class="r-in"><span>  <span class="va">dchi</span> <span class="op">&lt;-</span> <span class="fu"><a href="decostand.html">decostand</a></span><span class="op">(</span><span class="va">dune</span>, <span class="st">"chi.sq"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ccmod</span> <span class="op">&lt;-</span> <span class="fu">ordConstrained</span><span class="op">(</span><span class="fu">initWPCA</span><span class="op">(</span><span class="va">dchi</span>, <span class="va">w</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html" class="external-link">model.matrix</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                          <span class="cn">NULL</span>, <span class="st">"pass"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">ccmod</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"wrda"</span>, <span class="st">"cca"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ccmod</span> <span class="co"># wrda</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: ordConstrained(Y = initWPCA(dchi, w), X = model.matrix(mod), Z =</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NULL, method = "pass")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.1153     1.0000     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constrained    1.0024     0.4739    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  1.1129     0.5261   13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1      2      3      4      5      6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.4458 0.2887 0.1124 0.0717 0.0494 0.0344 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      1      2      3      4      5      6      7      8      9     10     11 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3504 0.1521 0.1251 0.1098 0.0922 0.0771 0.0594 0.0478 0.0370 0.0223 0.0207 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     12     13 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.0108 0.0083 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span>  <span class="va">mod0</span>  <span class="co"># cca</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = dune ~ Management + Moisture, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.1153     1.0000     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constrained    1.0024     0.4739    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  1.1129     0.5261   13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.4458 0.2887 0.1124 0.0717 0.0494 0.0344 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3504 0.1521 0.1251 0.1098 0.0922 0.0771 0.0594 0.0478 0.0370 0.0223 0.0207 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   CA12   CA13 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.0108 0.0083 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
