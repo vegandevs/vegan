@@ -8,6 +8,12 @@
   that can be used as input in **ggplot2** (or **lattice**) graphics
   to substitute defunct `ordiresids` function.
 
+* Internal `ordConstrained` is exported. Function is the central
+  numerical engine of constrained ordination methods (`cca`, `rda`,
+  `dbrda`, `capscale`) and provides a hacker interface that can be
+  embedded in other functions and used to develop alternative
+  methods. The Examples show how to implement weighted RDA.
+
 ## New Features
 
 * `metaMDS` can use any MDS function as an `engine` if the function
