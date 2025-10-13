@@ -1973,6 +1973,136 @@ Eigenvalues for unconstrained axes:
 > 
 > 
 > cleanEx()
+> nameEx("cca.object")
+> ### * cca.object
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cca.object
+> ### Title: Result Object from Constrained Ordination
+> ### Aliases: cca.object ordConstrained ordiYbar model.matrix.cca
+> ###   model.matrix.rda model.frame.cca weights.cca weights.rda
+> ###   weights.decorana print.cca
+> ### Keywords: models multivariate
+> 
+> ### ** Examples
+> 
+>   data(dune, dune.env)
+>   mod0 <- cca(dune ~ Management + Moisture, dune.env)
+>   ## refit the model in ordConstrained
+>   mrefit <- ordConstrained(ordiYbar(mod0, "initial"),
++                          model.matrix(mod0),
++                          NULL,
++                          "pass")
+> 
+>   ## implement weighted RDA (weights w)
+>   initWPCA <- function(Y, w) {
++     Y <- as.matrix(Y)
++     Y <- .Call("do_wcentre", Y, w)
++     attr(Y, "RW") <- w
++     attr(Y, "METHOD") <- "WPCA"
++     Y
++   }
+>   mod <- rda(dune ~ Management + Moisture, dune.env)
+>   mod
+
+Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
+
+              Inertia Proportion Rank
+Total         84.1237     1.0000     
+Constrained   46.4249     0.5519    6
+Unconstrained 37.6988     0.4481   13
+
+Inertia is variance
+
+Eigenvalues for constrained axes:
+  RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
+21.588 14.075  4.123  3.163  2.369  1.107 
+
+Eigenvalues for unconstrained axes:
+  PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
+8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
+
+>   w <- rowSums(dune)/sum(dune)
+>   adjust <- 1 + 1/(nrow(dune) - 1)
+>   wmod <- ordConstrained(initWPCA(dune, w * adjust),
++                          model.matrix(~ Management + Moisture,dune.env)[,-1],
++                          NULL, "pass")
+>   class(wmod) <- c("wrda", "cca") # for clean print.cca
+>   wmod
+
+Call: ordConstrained(Y = initWPCA(dune, w * adjust), X =
+model.matrix(~Management + Moisture, dune.env)[, -1], Z = NULL, method =
+"pass")
+
+              Inertia Proportion Rank
+Total         84.2528     1.0000     
+Constrained   47.8693     0.5682    6
+Unconstrained 36.3836     0.4318   13
+
+Inertia is
+
+Eigenvalues for constrained axes:
+     1      2      3      4      5      6 
+22.766 13.150  5.332  3.279  2.400  0.941 
+
+Eigenvalues for unconstrained axes:
+    1     2     3     4     5     6     7     8     9    10    11    12    13 
+8.208 7.795 5.218 3.585 2.950 2.417 1.911 1.560 0.920 0.703 0.577 0.326 0.214 
+
+> 
+>   ## CCA as weighted RDA (species scores differ, though).
+>   dchi <- decostand(dune, "chi.sq")
+>   ccmod <- ordConstrained(initWPCA(dchi, w), model.matrix(mod),
++                           NULL, "pass")
+>   class(ccmod) <- c("wrda", "cca")
+>   ccmod # wrda
+
+Call: ordConstrained(Y = initWPCA(dchi, w), X = model.matrix(mod), Z =
+NULL, method = "pass")
+
+              Inertia Proportion Rank
+Total          2.1153     1.0000     
+Constrained    1.0024     0.4739    6
+Unconstrained  1.1129     0.5261   13
+
+Inertia is
+
+Eigenvalues for constrained axes:
+     1      2      3      4      5      6 
+0.4458 0.2887 0.1124 0.0717 0.0494 0.0344 
+
+Eigenvalues for unconstrained axes:
+     1      2      3      4      5      6      7      8      9     10     11 
+0.3504 0.1521 0.1251 0.1098 0.0922 0.0771 0.0594 0.0478 0.0370 0.0223 0.0207 
+    12     13 
+0.0108 0.0083 
+
+>   mod0  # cca
+
+Call: cca(formula = dune ~ Management + Moisture, data = dune.env)
+
+              Inertia Proportion Rank
+Total          2.1153     1.0000     
+Constrained    1.0024     0.4739    6
+Unconstrained  1.1129     0.5261   13
+
+Inertia is scaled Chi-square
+
+Eigenvalues for constrained axes:
+  CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 
+0.4458 0.2887 0.1124 0.0717 0.0494 0.0344 
+
+Eigenvalues for unconstrained axes:
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
+0.3504 0.1521 0.1251 0.1098 0.0922 0.0771 0.0594 0.0478 0.0370 0.0223 0.0207 
+  CA12   CA13 
+0.0108 0.0083 
+
+> 
+> 
+> 
+> cleanEx()
 > nameEx("clamtest")
 > ### * clamtest
 > 
@@ -9029,7 +9159,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.367 0.341 8.873 0 0 
+Time elapsed:  8.299 0.352 8.663 0 0 
 > grDevices::dev.off()
 null device 
           1 
