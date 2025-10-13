@@ -1,5 +1,5 @@
 
-R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
 Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
@@ -507,10 +507,10 @@ dune ~ Moisture
 
              Df    AIC      F Pr(>F)   
 <none>          86.608                 
-+ Management  3 86.813 1.4565  0.020 * 
-+ A1          1 86.992 1.2624  0.165   
-+ Use         2 87.259 1.2760  0.135   
-+ Manure      4 87.342 1.3143  0.065 . 
++ Management  3 86.813 1.4565  0.075 . 
++ A1          1 86.992 1.2624  0.180   
++ Use         2 87.259 1.2760  0.165   
++ Manure      4 87.342 1.3143  0.105   
 - Moisture    3 87.657 2.2536  0.005 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -561,10 +561,10 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > add1(m0, scope=formula(mbig), test="perm")
          Df    AIC      F Pr(>F)   
 <none>      87.082                 
-A1        1 87.424 1.2965  0.195   
-Moisture  3 85.567 1.9764  0.005 **
-Use       2 88.284 1.0510  0.385   
-Manure    3 87.517 1.3902  0.080 . 
+A1        1 87.424 1.2965  0.190   
+Moisture  3 85.567 1.9764  0.010 **
+Use       2 88.284 1.0510  0.365   
+Manure    3 87.517 1.3902  0.115   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Moisture)
@@ -579,9 +579,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > add1(m0, scope=formula(mbig), test="perm")
        Df    AIC      F Pr(>F)
 <none>    85.567              
-A1      1 86.220 0.8359  0.610
-Use     2 86.842 0.8027  0.730
-Manure  3 85.762 1.1225  0.285
+A1      1 86.220 0.8359   0.55
+Use     2 86.842 0.8027   0.67
+Manure  3 85.762 1.1225   0.29
 > 
 > 
 > 
@@ -5383,9 +5383,9 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 
              Df    AIC      F Pr(>F)   
 + Management  3 85.567 2.1769  0.010 **
-+ Manure      4 86.060 1.8598  0.020 * 
-+ Use         2 88.003 1.4245  0.135   
-+ A1          1 88.886 0.6286  0.835   
++ Manure      4 86.060 1.8598  0.010 **
++ Use         2 88.003 1.4245  0.140   
++ A1          1 88.886 0.6286  0.785   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -5398,9 +5398,9 @@ Step: dune ~ Moisture + Management
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.300
-+ A1      1 86.220 0.8359  0.685
-+ Use     2 86.842 0.8027  0.710
++ Manure  3 85.762 1.1225  0.330
++ A1      1 86.220 0.8359  0.570
++ Use     2 86.842 0.8027  0.685
 
 > mod
 
@@ -5446,19 +5446,19 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 Step: dune ~ Management 
 
            Df    AIC      F Pr(>F)   
-+ Moisture  3 85.567 1.9764  0.005 **
-+ Manure    3 87.517 1.3902  0.095 . 
-+ A1        1 87.424 1.2965  0.175   
-+ Use       2 88.284 1.0510  0.365   
++ Moisture  3 85.567 1.9764  0.010 **
++ Manure    3 87.517 1.3902  0.085 . 
++ A1        1 87.424 1.2965  0.245   
++ Use       2 88.284 1.0510  0.425   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management + Moisture 
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.315
-+ A1      1 86.220 0.8359  0.605
-+ Use     2 86.842 0.8027  0.695
++ Manure  3 85.762 1.1225  0.325
++ A1      1 86.220 0.8359  0.585
++ Use     2 86.842 0.8027  0.720
 
 
 Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
@@ -8221,7 +8221,7 @@ Number of permutations: 999
 
 Model: rda(formula = decostand(mite, "hell") ~ SubsDens + WatrCont + Condition(Substrate + Shrub + Topo) + Condition(as.matrix(mite.pcnm)), data = mite.env)
          Df Variance      F Pr(>F)   
-Model     2 0.013771 2.6079  0.004 **
+Model     2 0.013771 2.6079  0.003 **
 Residual 36 0.095050                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -8499,11 +8499,11 @@ Step: dune ~ Management
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-           Df    AIC      F Pr(>F)   
-+ Moisture  3 85.567 1.9764  0.005 **
-+ Manure    3 87.517 1.3902  0.095 . 
-+ A1        1 87.424 1.2965  0.180   
-+ Use       2 88.284 1.0510  0.345   
+           Df    AIC      F Pr(>F)  
++ Moisture  3 85.567 1.9764  0.020 *
++ Manure    3 87.517 1.3902  0.120  
++ A1        1 87.424 1.2965  0.205  
++ Use       2 88.284 1.0510  0.385  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -8516,9 +8516,9 @@ Step: dune ~ Management + Moisture
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.365
-+ A1      1 86.220 0.8359  0.630
-+ Use     2 86.842 0.8027  0.690
++ Manure  3 85.762 1.1225  0.340
++ A1      1 86.220 0.8359  0.535
++ Use     2 86.842 0.8027  0.740
 
 > mod
 
@@ -9029,7 +9029,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.204 0.356 8.575 0 0 
+Time elapsed:  8.367 0.341 8.873 0 0 
 > grDevices::dev.off()
 null device 
           1 
