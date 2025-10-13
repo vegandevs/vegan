@@ -7,7 +7,7 @@
   \code{\link{monoMDS}} ordination.}
 
 \usage{
-MDSaddpoints(nmds, dis, neighbours = 5, maxit = 200, rogue = TRUE)
+MDSaddpoints(nmds, dis, neighbours = 5, maxit = 200)
 
 dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
 }
@@ -26,8 +26,6 @@ dist2xy(dist, pick, type = c("xy", "xx"), invert = FALSE)
   locations for new points.}
 
 \item{maxit}{Maximum number of iterations.}
-
-\item{rogue}{All new points use a rogue dimension.}
 
 \item{dist}{Input dissimilarities.}
 
