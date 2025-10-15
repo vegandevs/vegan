@@ -86,36 +86,38 @@ individual functions: see credits in function help pages.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">### Example 1: Unconstrained ordination</span></span></span>
 <span class="r-in"><span><span class="co">## NMDS</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ord</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Square root transformation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wisconsin double standardization</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2251281 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1974418 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2109004 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.2107674 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.2399297 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.18584 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.2028828 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1852397 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.05468537  max resid 0.1466963 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.1858401 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.2080732 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2100656 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.18584 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2143614 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1955836 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1967393 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.2431111 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.2126568 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1948413 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.2032569 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1955836 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution was not repeated -- monoMDS stopping criteria:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     20: stress ratio &gt; sratmax</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, type <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1969805 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1982376 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.196245 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1852397 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.05468385  max resid 0.1466823 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.2114005 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.234517 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1843196 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.193057e-05  max resid 0.000169528 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.1974418 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.2218073 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.196245 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.2028828 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.2021161 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.2341122 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.196245 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.208595 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.2109612 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.18458 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.0493302  max resid 0.1573893 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1948413 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.207906 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 1 times</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ord</span>, optimize <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Fit environmental variables</span></span></span>
 <span class="r-in"><span><span class="va">ef</span> <span class="op">&lt;-</span> <span class="fu"><a href="envfit.html">envfit</a></span><span class="op">(</span><span class="va">ord</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ef</span></span></span>
@@ -123,20 +125,20 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ***VECTORS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             NMDS1    NMDS2     r2 Pr(&gt;r)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.05039 -0.99873 0.2081  0.082 .  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.68707  0.72659 0.1755  0.136    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.82733  0.56171 0.1657  0.151    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.75017  0.66124 0.2811  0.028 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.69680  0.71727 0.3493  0.012 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.27631  0.96107 0.1774  0.121    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.83771  0.54611 0.5155  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.86190  0.50708 0.4000  0.009 ** </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.80229 -0.59693 0.5322  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.66523  0.74664 0.1779  0.132    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.84873  0.52882 0.0517  0.579    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.87204 -0.48943 0.2494  0.047 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.92632 -0.37673 0.5590  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.79905  0.60127 0.2624  0.037 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> N        -0.05040 -0.99873 0.2081  0.076 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> P         0.68698  0.72668 0.1756  0.139    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> K         0.82725  0.56184 0.1657  0.143    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ca        0.75012  0.66130 0.2811  0.032 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mg        0.69671  0.71735 0.3494  0.009 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> S         0.27621  0.96110 0.1774  0.116    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Al       -0.83782  0.54595 0.5155  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fe       -0.86205  0.50682 0.4001  0.009 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mn        0.80237 -0.59683 0.5322  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zn        0.66512  0.74673 0.1779  0.125    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mo       -0.84878  0.52875 0.0517  0.556    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Baresoil  0.87216 -0.48923 0.2494  0.040 *  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Humdepth  0.92639 -0.37656 0.5590  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> pH       -0.79908  0.60122 0.2623  0.042 *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
@@ -147,8 +149,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-plt img"><img src="vegan-package-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">### Example 2: Constrained ordination (RDA)</span></span></span>
 <span class="r-in"><span><span class="co">## The example uses formula interface to define the model</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## No constraints: PCA</span></span></span>
 <span class="r-in"><span><span class="va">mod0</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod0</span></span></span>
@@ -166,7 +167,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 24.795 18.147  7.629  7.153  5.695  4.333  3.199  2.782 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 19 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod0</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>arrows <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="vegan-package-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## All environmental variables: Full model</span></span></span>
 <span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
@@ -208,45 +209,45 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start: dune ~ 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 87.707 2.5883  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 87.082 2.8400  0.010 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 89.232 1.9539  0.010 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.050 * </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.325   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 89.591 1.9217  0.055 . </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 91.032 1.1741  0.280   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Moisture </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Df   AIC    F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 89.62 2.84   0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df   AIC      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture  3 89.62 2.5883  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture  3 85.567 1.9764  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure    3 87.517 1.3902  0.115   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1        1 87.424 1.2965  0.245   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use       2 88.284 1.0510  0.375   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Management + Moisture </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 87.082 1.9764   0.01 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769   0.01 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 85.567 2.1769  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 86.060 1.8598  0.015 * </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 88.003 1.4245  0.115   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 88.886 0.6286  0.805   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Moisture + Management </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 87.082 1.9764  0.015 * </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 87.707 2.1769  0.005 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225  0.345</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359  0.555</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027  0.690</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 85.762 1.1225   0.36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.220 0.8359   0.58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 86.842 0.8027   0.60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: rda(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         84.1237     1.0000     </span>
@@ -263,7 +264,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="vegan-package-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Permutation test for all variables</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
@@ -271,7 +272,7 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: rda(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          Df Variance      F Pr(&gt;F)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model     6   46.425 2.6682  0.001 ***</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13   37.699                  </span>
@@ -285,10 +286,10 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model: rda(formula = dune ~ Management + Moisture, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: rda(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Df Variance      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   17.194 1.9764  0.009 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   18.938 2.1769  0.004 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   17.194 1.9764  0.006 **</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   37.699                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -315,28 +316,33 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 3.00623     </span>
 <span class="r-in"><span><span class="co">### Example 3: analysis of dissimilarites a.k.a. non-parametric</span></span></span>
 <span class="r-in"><span><span class="co">### permutational anova</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="adonis.html">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="adonis.html">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span>, by <span class="op">=</span> <span class="st">"margin"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for adonis under reduced model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Marginal effects of terms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ ., data = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model    12   3.3265 0.77379 1.9954  0.016 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual  7   0.9725 0.22621                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    19   4.2990 1.00000                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span><span class="fu"><a href="adonis.html">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span> <span class="op">+</span> <span class="va">Moisture</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ ., data = dune.env, by = "margin")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df SumOfSqs      R2      F Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1          1   0.1283 0.02983 0.9231  0.472</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.6596 0.15343 1.5826  0.129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  2   0.1959 0.04556 0.7050  0.732</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use         2   0.1305 0.03036 0.4697  0.909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Manure      3   0.4208 0.09787 1.0096  0.473</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual    7   0.9725 0.22621              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total      19   4.2990 1.00000              </span>
+<span class="r-in"><span><span class="fu"><a href="adonis.html">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Management</span> <span class="op">+</span> <span class="va">Moisture</span>, <span class="va">dune.env</span>, by <span class="op">=</span> <span class="st">"term"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for adonis under reduced model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Terms added sequentially (first to last)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management + Moisture, data = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df SumOfSqs      R2      F Pr(&gt;F)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     6   2.6202 0.60949 3.3816  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13   1.6788 0.39051                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Total    19   4.2990 1.00000                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = dune ~ Management + Moisture, data = dune.env, by = "term")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df SumOfSqs      R2      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   1.4686 0.34161 3.7907  0.002 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   1.1516 0.26788 2.9726  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.6788 0.39051                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total      19   4.2990 1.00000                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 </code></pre></div>

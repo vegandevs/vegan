@@ -200,8 +200,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">A1</span> <span class="op">+</span> <span class="va">Management</span> <span class="op">+</span> <span class="fu">Condition</span><span class="op">(</span><span class="va">Moisture</span><span class="op">)</span>, data<span class="op">=</span><span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">goodness</span><span class="op">(</span><span class="va">mod</span>, addprevious <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                CCA1      CCA2      CCA3      CCA4</span>
@@ -244,7 +243,24 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.6034007 0.6826265 0.5326546 0.5594817 0.7064850 0.7691199 0.3613746 0.7639711 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  Scorautu  Trifprat  Trifrepe  Vicilath  Bracruta  Callcusp </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.6140593 0.6625703 0.4207437 0.4279428 0.2449864 0.3518027 </span>
-<span class="r-in"><span><span class="co"># Inertia components</span></span></span>
+<span class="r-in"><span><span class="co">## Fit of species in 2 dimensions</span></span></span>
+<span class="r-in"><span><span class="va">good</span> <span class="op">&lt;-</span> <span class="fu">goodness</span><span class="op">(</span><span class="va">mod</span>, choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, summarize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">good</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Bellpere    Bromhord    Ranuflam    Juncarti    Callcusp    Cirsarve </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.008218774 0.009274805 0.013201031 0.014901783 0.019884022 0.034866365 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Achimill    Elymrepe    Juncbufo    Vicilath    Trifprat    Eleopalu </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.039549538 0.048683379 0.056399541 0.057206719 0.064662265 0.070393304 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Planlanc    Sagiproc    Bracruta     Poaprat    Lolipere    Agrostol </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.088501412 0.089259090 0.091882493 0.100400726 0.109310553 0.116451764 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Rumeacet    Chenalbu    Anthodor    Trifrepe    Empenigr    Hyporadi </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.119854640 0.157788824 0.176908672 0.190263830 0.209619927 0.298284611 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Airaprae    Alopgeni    Scorautu     Poatriv    Comapalu    Salirepe </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.305762791 0.354220783 0.442077524 0.484960397 0.522716229 0.601210690 </span>
+<span class="r-in"><span><span class="co">## Drop poorly fitting species from a plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>select <span class="op">=</span> <span class="va">good</span> <span class="op">&gt;</span> <span class="fl">0.1</span>, optimize <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>   bg <span class="op">=</span> <span class="st">"yellow"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="goodness.cca-1.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="co">## Inertia components</span></span></span>
 <span class="r-in"><span><span class="fu">inertcomp</span><span class="op">(</span><span class="va">mod</span>, prop <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                pCCA        CCA        CA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Achimill 0.34271900 0.15069678 0.5065842</span>
@@ -309,13 +325,13 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Vicilath 0.0049088357 0.012415912 0.02315905</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bracruta 0.0032317812 0.007730074 0.03378289</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Callcusp 0.0319130878 0.006212868 0.07024716</span>
-<span class="r-in"><span><span class="co"># vif.cca</span></span></span>
+<span class="r-in"><span><span class="co">## vif.cca</span></span></span>
 <span class="r-in"><span><span class="fu">vif.cca</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Moisture.L   Moisture.Q   Moisture.C           A1 ManagementHF ManagementNM </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1.504327     1.284489     1.347660     1.367328     2.238653     2.570972 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2.424444 </span>
-<span class="r-in"><span><span class="co"># Aliased constraints</span></span></span>
+<span class="r-in"><span><span class="co">## Aliased constraints</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
@@ -371,7 +387,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>         HF 0 1 2 2 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         NM 6 0 0 0 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         SF 0 0 1 2 3</span>
-<span class="r-in"><span><span class="co"># The standard correlations (not recommended)</span></span></span>
+<span class="r-in"><span><span class="co">## The standard correlations (not recommended)</span></span></span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_BEGIN</span></span></span>
 <span class="r-in"><span><span class="fu">spenvcor</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      CCA1      CCA2      CCA3      CCA4      CCA5      CCA6      CCA7      CCA8 </span>

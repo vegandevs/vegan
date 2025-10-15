@@ -322,8 +322,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Common but bad way: use all variables you happen to have in your</span></span></span>
 <span class="r-in"><span><span class="co">## environmental data matrix</span></span></span>
 <span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
@@ -348,7 +347,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.19776 0.14193 0.10117 0.07079 0.05330 0.03330 0.01887 0.01510 0.00949 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Formula interface and a better model</span></span></span>
 <span class="r-in"><span><span class="va">vare.cca</span> <span class="op">&lt;-</span> <span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Al</span> <span class="op">+</span> <span class="va">P</span><span class="op">*</span><span class="op">(</span><span class="va">K</span> <span class="op">+</span> <span class="va">Baresoil</span><span class="op">)</span>, data<span class="op">=</span><span class="va">varechem</span><span class="op">)</span></span></span>
@@ -372,7 +371,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.27577 0.15411 0.13536 0.11803 0.08887 0.05511 0.04919 0.03781 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 17 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Partialling out and negative components of variance</span></span></span>
 <span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
@@ -417,10 +416,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Showing 8 of 21 unconstrained eigenvalues)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## RDA</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dune.Manure</span> <span class="op">&lt;-</span> <span class="fu">rda</span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Manure</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.Manure</span><span class="op">)</span> </span></span>
+<span class="r-in"><span><span class="co">## select only best-fitting species</span></span></span>
+<span class="r-in"><span><span class="va">good</span> <span class="op">&lt;-</span> <span class="fu"><a href="goodness.cca.html">goodness</a></span><span class="op">(</span><span class="va">dune.Manure</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, summarize<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="va">good</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Sagiproc   Juncbufo   Chenalbu   Juncarti   Vicilath   Bracruta   Empenigr </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.06102157 0.06139887 0.06684258 0.06738593 0.06892295 0.09574126 0.11022975 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Anthodor   Bellpere   Planlanc   Trifprat   Hyporadi   Cirsarve   Callcusp </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.12880933 0.13945551 0.14045287 0.14676793 0.14865586 0.16382873 0.18057892 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Bromhord   Eleopalu   Achimill   Airaprae   Alopgeni   Agrostol   Comapalu </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.18729152 0.22109129 0.22130924 0.22280481 0.22308132 0.22755711 0.23270725 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Scorautu   Ranuflam   Rumeacet   Elymrepe   Salirepe   Trifrepe    Poaprat </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.23808530 0.30240638 0.31633178 0.33722470 0.34292043 0.34902846 0.46910689 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Lolipere    Poatriv </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.46983146 0.49534368 </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.Manure</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize<span class="op">=</span><span class="cn">TRUE</span>, select <span class="op">=</span> <span class="va">good</span> <span class="op">&gt;</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-3.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
