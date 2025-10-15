@@ -44,22 +44,20 @@ individual functions: see credits in function help pages.
 \examples{
 ### Example 1: Unconstrained ordination
 ## NMDS
-data(varespec)
-data(varechem)
+data(varespec, varechem)
 ord <- metaMDS(varespec)
-plot(ord, type = "t")
+plot(ord, optimize = TRUE, type = "t")
 ## Fit environmental variables
 ef <- envfit(ord, varechem)
 ef
 plot(ef, p.max = 0.05)
 ### Example 2: Constrained ordination (RDA)
 ## The example uses formula interface to define the model
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 ## No constraints: PCA
 mod0 <- rda(dune ~ 1, dune.env)
 mod0
-plot(mod0)
+plot(mod0, spe.par = list(arrows = TRUE))
 ## All environmental variables: Full model
 mod1 <- rda(dune ~ ., dune.env)
 mod1
@@ -67,7 +65,7 @@ plot(mod1)
 ## Automatic selection of variables by permutation P-values
 mod <- ordistep(mod0, scope=formula(mod1))
 mod
-plot(mod)
+plot(mod, spe.par = list(optimize = TRUE))
 ## Permutation test for all variables
 anova(mod)
 ## Permutation test of "type III" effects, or significance when a term
@@ -84,8 +82,8 @@ with(dune.env, ordiellipse(mod, Management, label = TRUE))
 ordisurf(mod, diversity(dune), add = TRUE)
 ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 ### permutational anova
-adonis2(dune ~ ., dune.env)
-adonis2(dune ~ Management + Moisture, dune.env)
+adonis2(dune ~ ., dune.env, by = "margin")
+adonis2(dune ~ Management + Moisture, dune.env, by = "term")
 }
 
 \keyword{ package }

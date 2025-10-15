@@ -457,7 +457,7 @@ data(dune)
 ## Global NMDS using monoMDS
 sol <- metaMDS(dune)
 sol
-plot(sol, type="t")
+plot(sol, type="t", optimize = TRUE)
 ## Start from previous best solution
 sol <- metaMDS(dune, previous.best = sol)
 ## Local NMDS and stress 2 of monoMDS
