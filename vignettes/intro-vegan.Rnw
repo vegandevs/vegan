@@ -207,6 +207,9 @@ plotted over each other.  Here some methods you can try:
   \item Use \code{select} argument in ordination \code{text} and
     \code{points} functions to only show the specified items, possibly
     combined with argument \code{labels} for shorter names.
+    \code{select} can be vector of kept items or a logical vector.
+    For constrained ordination, you can use \code{goodness} function
+    to select species.
 
   \item Use automatic \code{orditorp} function that uses text only if
     this can be done without overwriting previous labels, but points

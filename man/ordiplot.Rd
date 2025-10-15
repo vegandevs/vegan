@@ -140,19 +140,19 @@ text(pl, "species", col="blue", cex=0.9)
 ordiplot(dune.mds, type="n") |>
   points("sites", pch=21, col="red", bg="yellow") |>
   text("species", col="blue", cex=0.9)
-
-## Some people think that species should be shown with arrows in PCA.
-## Other ordination methods also return an invisible ordiplot object and
-## we can use pipes to draw those arrows.
-mod <- rda(dune)
-plot(mod, type="n") |>
-  points("sites", pch=16, col="red") |>
-  text("species", arrows = TRUE, length=0.05, col="blue")
-
-## Default plot of the previous using identify to label selected points
+## Default plot using identify to label selected points
 \dontrun{
 pl <- ordiplot(dune.mds)
 identify(pl, "spec")}
+## Some people think that species should be shown with arrows in PCA.
+## Other ordination methods also return an invisible ordiplot object and
+## we can use pipes to draw those arrows. We drop species that are
+## poorly explained by the current graph.
+mod <- rda(dune)
+good <- goodness(mod, choices=1:2, model="CA", summarize = TRUE)
+plot(mod, type="n") |>
+  points("sites", pch=16, col="red") |>
+  text("species", arrows = TRUE, length=0.05, col="blue", select = good > 1/3)
 }
 \keyword{ hplot }
 \keyword{ iplot }

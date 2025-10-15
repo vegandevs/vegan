@@ -256,7 +256,7 @@ mod <- cca(dune ~ Moisture + Management, dune.env)
 plot(mod, scaling="sites")
 plot(mod, scaling="sites", type = "text",
   sit.par = list(type = "points", pch=21, col="red", bg="yellow", cex=1.2),
-  spe.par = list(col="blue", cex=0.8),
+  spe.par = list(col="blue", cex=0.8, optimize = TRUE),
   cen.par = list(bg="white"))
 
 ## same with pipe

@@ -1872,8 +1872,7 @@ log(N) P K Ca pH Al    6      0.2822
 > 
 > ### ** Examples
 > 
-> data(varespec)
-> data(varechem)
+> data(varespec, varechem)
 > ## Common but bad way: use all variables you happen to have in your
 > ## environmental data matrix
 > vare.cca <- cca(varespec, varechem)
@@ -1898,7 +1897,7 @@ Eigenvalues for unconstrained axes:
     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9 
 0.19776 0.14193 0.10117 0.07079 0.05330 0.03330 0.01887 0.01510 0.00949 
 
-> plot(vare.cca)
+> plot(vare.cca, spe.par = list(optimize = TRUE))
 > ## Formula interface and a better model
 > vare.cca <- cca(varespec ~ Al + P*(K + Baresoil), data=varechem)
 > vare.cca
@@ -1921,7 +1920,7 @@ Eigenvalues for unconstrained axes:
 0.27577 0.15411 0.13536 0.11803 0.08887 0.05511 0.04919 0.03781 
 (Showing 8 of 17 unconstrained eigenvalues)
 
-> plot(vare.cca)
+> plot(vare.cca, spe.par = list(optimize = TRUE))
 > ## Partialling out and negative components of variance
 > cca(varespec ~ Ca, varechem)
 
@@ -1965,10 +1964,22 @@ Eigenvalues for unconstrained axes:
 (Showing 8 of 21 unconstrained eigenvalues)
 
 > ## RDA
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
 > dune.Manure <- rda(dune ~ Manure, dune.env)
-> plot(dune.Manure) 
+> ## select only best-fitting species
+> good <- goodness(dune.Manure, choices=1:2, summarize=TRUE)
+> sort(good)
+  Sagiproc   Juncbufo   Chenalbu   Juncarti   Vicilath   Bracruta   Empenigr 
+0.06102157 0.06139887 0.06684258 0.06738593 0.06892295 0.09574126 0.11022975 
+  Anthodor   Bellpere   Planlanc   Trifprat   Hyporadi   Cirsarve   Callcusp 
+0.12880933 0.13945551 0.14045287 0.14676793 0.14865586 0.16382873 0.18057892 
+  Bromhord   Eleopalu   Achimill   Airaprae   Alopgeni   Agrostol   Comapalu 
+0.18729152 0.22109129 0.22130924 0.22280481 0.22308132 0.22755711 0.23270725 
+  Scorautu   Ranuflam   Rumeacet   Elymrepe   Salirepe   Trifrepe    Poaprat 
+0.23808530 0.30240638 0.31633178 0.33722470 0.34292043 0.34902846 0.46910689 
+  Lolipere    Poatriv 
+0.46983146 0.49534368 
+> plot(dune.Manure, spe.par = list(optimize=TRUE, select = good > 0.2)) 
 > 
 > 
 > 
@@ -2461,7 +2472,7 @@ Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
 Decorana values      0.5249 0.1572 0.09669 0.06075
 Axis lengths         2.8161 2.2054 1.54650 1.64864
 
-> plot(vare.dca)
+> plot(vare.dca, optimize = TRUE)
 > 
 > ### the detrending rationale:
 > gaussresp <- function(x,u) exp(-(x-u)^2/2)
@@ -3260,8 +3271,7 @@ Extrapolated     Observed       Veiled
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
 > mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
 > goodness(mod, addprevious = TRUE)
                CCA1      CCA2      CCA3      CCA4
@@ -3304,7 +3314,23 @@ Callcusp 0.30771429 0.3143582 0.3308502 0.3518027
 0.6034007 0.6826265 0.5326546 0.5594817 0.7064850 0.7691199 0.3613746 0.7639711 
  Scorautu  Trifprat  Trifrepe  Vicilath  Bracruta  Callcusp 
 0.6140593 0.6625703 0.4207437 0.4279428 0.2449864 0.3518027 
-> # Inertia components
+> ## Fit of species in 2 dimensions
+> good <- goodness(mod, choices = 1:2, summarize = TRUE)
+> sort(good)
+   Bellpere    Bromhord    Ranuflam    Juncarti    Callcusp    Cirsarve 
+0.008218774 0.009274805 0.013201031 0.014901783 0.019884022 0.034866365 
+   Achimill    Elymrepe    Juncbufo    Vicilath    Trifprat    Eleopalu 
+0.039549538 0.048683379 0.056399541 0.057206719 0.064662265 0.070393304 
+   Planlanc    Sagiproc    Bracruta     Poaprat    Lolipere    Agrostol 
+0.088501412 0.089259090 0.091882493 0.100400726 0.109310553 0.116451764 
+   Rumeacet    Chenalbu    Anthodor    Trifrepe    Empenigr    Hyporadi 
+0.119854640 0.157788824 0.176908672 0.190263830 0.209619927 0.298284611 
+   Airaprae    Alopgeni    Scorautu     Poatriv    Comapalu    Salirepe 
+0.305762791 0.354220783 0.442077524 0.484960397 0.522716229 0.601210690 
+> ## Drop poorly fitting species from a plot
+> plot(mod, spe.par = list(select = good > 0.1, optimize = TRUE,
++    bg = "yellow"))
+> ## Inertia components
 > inertcomp(mod, prop = TRUE)
                pCCA        CCA        CA
 Achimill 0.34271900 0.15069678 0.5065842
@@ -3369,13 +3395,13 @@ Trifrepe 0.0008339368 0.015622139 0.02265580
 Vicilath 0.0049088357 0.012415912 0.02315905
 Bracruta 0.0032317812 0.007730074 0.03378289
 Callcusp 0.0319130878 0.006212868 0.07024716
-> # vif.cca
+> ## vif.cca
 > vif.cca(mod)
   Moisture.L   Moisture.Q   Moisture.C           A1 ManagementHF ManagementNM 
     1.504327     1.284489     1.347660     1.367328     2.238653     2.570972 
 ManagementSF 
     2.424444 
-> # Aliased constraints
+> ## Aliased constraints
 > mod <- cca(dune ~ ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
@@ -3431,7 +3457,7 @@ Management 0 1 2 3 4
         HF 0 1 2 2 0
         NM 6 0 0 0 0
         SF 0 0 1 2 3
-> # The standard correlations (not recommended)
+> ## The standard correlations (not recommended)
 > ## IGNORE_RDIFF_BEGIN
 > spenvcor(mod)
      CCA1      CCA2      CCA3      CCA4      CCA5      CCA6      CCA7      CCA8 
@@ -4243,122 +4269,106 @@ The best solution was from try 8 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
-> plot(sol, type="t")
+> plot(sol, type="t", optimize = TRUE)
 > ## Start from previous best solution
 > sol <- metaMDS(dune, previous.best = sol)
 Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
-Run 1 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 6.592555e-06  max resid 2.026403e-05 
-... Similar to previous best
-Run 2 stress 0.1812935 
-Run 3 stress 0.1183186 
-... Procrustes: rmse 4.276812e-06  max resid 1.352647e-05 
-... Similar to previous best
-Run 4 stress 0.1192678 
+Run 1 stress 0.119268 
+Run 2 stress 0.1192678 
+Run 3 stress 0.1808911 
+Run 4 stress 0.2035424 
 Run 5 stress 0.1192678 
-Run 6 stress 0.1183186 
-... Procrustes: rmse 2.276086e-06  max resid 7.260292e-06 
+Run 6 stress 0.119268 
+Run 7 stress 0.1192679 
+Run 8 stress 0.1183186 
+... Procrustes: rmse 1.632402e-05  max resid 5.167872e-05 
 ... Similar to previous best
-Run 7 stress 0.1183186 
-... New best solution
-... Procrustes: rmse 2.111211e-06  max resid 6.785766e-06 
-... Similar to previous best
-Run 8 stress 0.1192678 
-Run 9 stress 0.1183186 
-... Procrustes: rmse 8.198218e-06  max resid 2.150265e-05 
-... Similar to previous best
-Run 10 stress 0.1183186 
-... Procrustes: rmse 3.222973e-05  max resid 9.837238e-05 
-... Similar to previous best
+Run 9 stress 0.1192678 
+Run 10 stress 0.1192679 
 Run 11 stress 0.1183186 
-... Procrustes: rmse 9.836664e-06  max resid 3.27482e-05 
+... New best solution
+... Procrustes: rmse 8.214379e-07  max resid 1.735717e-06 
 ... Similar to previous best
-Run 12 stress 0.1183186 
-... Procrustes: rmse 2.659083e-05  max resid 8.216893e-05 
+Run 12 stress 0.2045511 
+Run 13 stress 0.1183186 
+... Procrustes: rmse 1.709096e-05  max resid 5.214744e-05 
 ... Similar to previous best
-Run 13 stress 0.1192678 
-Run 14 stress 0.1183186 
-... Procrustes: rmse 2.801942e-05  max resid 9.121405e-05 
-... Similar to previous best
+Run 14 stress 0.1192678 
 Run 15 stress 0.1192678 
-Run 16 stress 0.1183186 
-... Procrustes: rmse 1.230098e-05  max resid 4.079838e-05 
-... Similar to previous best
-Run 17 stress 0.1192679 
-Run 18 stress 0.1192678 
+Run 16 stress 0.1889643 
+Run 17 stress 0.2075713 
+Run 18 stress 0.1889643 
 Run 19 stress 0.1192679 
-Run 20 stress 0.1809577 
-*** Best solution repeated 7 times
+Run 20 stress 0.1192678 
+*** Best solution repeated 2 times
 > ## Local NMDS and stress 2 of monoMDS
 > sol2 <- metaMDS(dune, model = "local", stress=2)
 Run 0 stress 0.1928478 
 Run 1 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 0.0001176864  max resid 0.0003465431 
+... Procrustes: rmse 0.0001365506  max resid 0.000406063 
 ... Similar to previous best
-Run 2 stress 0.1928476 
-... Procrustes: rmse 0.0003230671  max resid 0.0009395776 
+Run 2 stress 0.1928477 
+... Procrustes: rmse 0.0002890312  max resid 0.0008511799 
 ... Similar to previous best
-Run 3 stress 0.192849 
-... Procrustes: rmse 0.0006536789  max resid 0.001926441 
+Run 3 stress 0.1928478 
+... Procrustes: rmse 0.000375247  max resid 0.001075482 
 ... Similar to previous best
 Run 4 stress 0.1928475 
 ... New best solution
-... Procrustes: rmse 7.245208e-05  max resid 0.0002138775 
+... Procrustes: rmse 9.095771e-05  max resid 0.000257546 
 ... Similar to previous best
-Run 5 stress 0.1928478 
-... Procrustes: rmse 0.0003528988  max resid 0.000994985 
+Run 5 stress 0.1928475 
+... Procrustes: rmse 0.0001138422  max resid 0.0003269117 
 ... Similar to previous best
 Run 6 stress 0.1928478 
-... Procrustes: rmse 0.0003262433  max resid 0.0009223561 
+... Procrustes: rmse 0.0002434279  max resid 0.0007024681 
 ... Similar to previous best
-Run 7 stress 0.1928476 
-... Procrustes: rmse 0.0001088032  max resid 0.0003261059 
+Run 7 stress 0.1928477 
+... Procrustes: rmse 0.000252061  max resid 0.0007293766 
 ... Similar to previous best
-Run 8 stress 0.1928475 
-... New best solution
-... Procrustes: rmse 0.0001255324  max resid 0.0003130854 
+Run 8 stress 0.1928482 
+... Procrustes: rmse 0.0003993126  max resid 0.001147197 
 ... Similar to previous best
-Run 9 stress 0.1928479 
-... Procrustes: rmse 0.0002657286  max resid 0.0007827887 
+Run 9 stress 0.1928478 
+... Procrustes: rmse 0.0003108828  max resid 0.0008976966 
 ... Similar to previous best
-Run 10 stress 0.1928478 
-... Procrustes: rmse 0.0002328617  max resid 0.0006821765 
+Run 10 stress 0.1928475 
+... Procrustes: rmse 9.743812e-05  max resid 0.0002828001 
 ... Similar to previous best
 Run 11 stress 0.1928475 
-... New best solution
-... Procrustes: rmse 6.504858e-05  max resid 0.0001794597 
+... Procrustes: rmse 8.785023e-06  max resid 2.628144e-05 
 ... Similar to previous best
-Run 12 stress 0.1928475 
-... Procrustes: rmse 4.196348e-05  max resid 0.0001142366 
+Run 12 stress 0.1928479 
+... Procrustes: rmse 0.0003357809  max resid 0.000968907 
 ... Similar to previous best
 Run 13 stress 0.1928475 
-... Procrustes: rmse 0.0001178624  max resid 0.000345921 
+... New best solution
+... Procrustes: rmse 1.830169e-05  max resid 5.547869e-05 
 ... Similar to previous best
-Run 14 stress 0.1928475 
-... Procrustes: rmse 0.0001018613  max resid 0.0002984941 
+Run 14 stress 0.1928477 
+... Procrustes: rmse 0.0002413946  max resid 0.0006938964 
 ... Similar to previous best
-Run 15 stress 0.1928479 
-... Procrustes: rmse 0.0003213105  max resid 0.0009295638 
+Run 15 stress 0.1928475 
+... Procrustes: rmse 0.0001017143  max resid 0.0002953778 
 ... Similar to previous best
-Run 16 stress 0.1928476 
-... Procrustes: rmse 0.0001588096  max resid 0.000458987 
+Run 16 stress 0.192849 
+... Procrustes: rmse 0.0005811057  max resid 0.001686851 
 ... Similar to previous best
-Run 17 stress 0.1928479 
-... Procrustes: rmse 0.0003293185  max resid 0.000960931 
+Run 17 stress 0.1928477 
+... Procrustes: rmse 0.0002321522  max resid 0.0006685626 
 ... Similar to previous best
-Run 18 stress 0.1928475 
-... Procrustes: rmse 0.0001481571  max resid 0.0004335513 
+Run 18 stress 0.1928476 
+... Procrustes: rmse 0.0001569648  max resid 0.000451062 
 ... Similar to previous best
-Run 19 stress 0.1928476 
-... Procrustes: rmse 0.000180329  max resid 0.0005048001 
+Run 19 stress 0.1928478 
+... Procrustes: rmse 0.0002522692  max resid 0.0007209013 
 ... Similar to previous best
 Run 20 stress 0.1928475 
-... Procrustes: rmse 1.074795e-05  max resid 3.583309e-05 
+... Procrustes: rmse 2.862591e-05  max resid 8.169754e-05 
 ... Similar to previous best
-*** Best solution repeated 10 times
+*** Best solution repeated 8 times
 > sol2
 
 Call:
@@ -4372,52 +4382,49 @@ Distance: bray
 Dimensions: 2 
 Stress:     0.1928475 
 Stress type 2, weak ties
-Best solution was repeated 10 times in 20 tries
-The best solution was from try 11 (random start)
+Best solution was repeated 8 times in 20 tries
+The best solution was from try 13 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
 > ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 > sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 Run 0 stress 0.1067169 
-Run 1 stress 0.1073148 
-Run 2 stress 0.1073148 
-Run 3 stress 0.1067169 
+Run 1 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 5.139263e-06  max resid 1.72906e-05 
+... Procrustes: rmse 4.094247e-06  max resid 9.885269e-06 
 ... Similar to previous best
+Run 2 stress 0.1669328 
+Run 3 stress 0.107471 
 Run 4 stress 0.1067169 
-... Procrustes: rmse 4.498738e-06  max resid 1.408227e-05 
+... Procrustes: rmse 4.843038e-06  max resid 1.074253e-05 
 ... Similar to previous best
-Run 5 stress 0.1073148 
-Run 6 stress 0.1653484 
-Run 7 stress 0.1073148 
-Run 8 stress 0.1067169 
-... Procrustes: rmse 5.848227e-06  max resid 1.923197e-05 
-... Similar to previous best
-Run 9 stress 0.1073148 
-Run 10 stress 0.1073148 
-Run 11 stress 0.1067169 
-... Procrustes: rmse 3.364991e-06  max resid 7.105337e-06 
-... Similar to previous best
-Run 12 stress 0.107471 
-Run 13 stress 0.107471 
-Run 14 stress 0.1073148 
-Run 15 stress 0.107471 
-Run 16 stress 0.1073148 
-Run 17 stress 0.1069786 
-... Procrustes: rmse 0.006774349  max resid 0.02387355 
-Run 18 stress 0.1067169 
+Run 5 stress 0.107471 
+Run 6 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 3.536972e-06  max resid 1.241593e-05 
+... Procrustes: rmse 1.225311e-06  max resid 2.431402e-06 
 ... Similar to previous best
-Run 19 stress 0.1067169 
-... Procrustes: rmse 2.356109e-06  max resid 5.608413e-06 
-... Similar to previous best
+Run 7 stress 0.1829839 
+Run 8 stress 0.1069787 
+... Procrustes: rmse 0.006791402  max resid 0.02395186 
+Run 9 stress 0.1073148 
+Run 10 stress 0.1823963 
+Run 11 stress 0.1669328 
+Run 12 stress 0.1073148 
+Run 13 stress 0.1073148 
+Run 14 stress 0.1823023 
+Run 15 stress 0.1669328 
+Run 16 stress 0.1069787 
+... Procrustes: rmse 0.006814731  max resid 0.02405392 
+Run 17 stress 0.1669328 
+Run 18 stress 0.1868468 
+Run 19 stress 0.1069786 
+... Procrustes: rmse 0.006789152  max resid 0.02394077 
 Run 20 stress 0.1067169 
-... Procrustes: rmse 8.175633e-07  max resid 1.839172e-06 
+... New best solution
+... Procrustes: rmse 1.970909e-06  max resid 4.943446e-06 
 ... Similar to previous best
-*** Best solution repeated 3 times
+*** Best solution repeated 1 times
 > sol
 
 Call:
@@ -4431,8 +4438,8 @@ Distance: beta.z
 Dimensions: 2 
 Stress:     0.1067169 
 Stress type 1, weak ties
-Best solution was repeated 3 times in 20 tries
-The best solution was from try 18 (random start)
+Best solution was repeated 1 time in 20 tries
+The best solution was from try 20 (random start)
 Scaling: centring, PC rotation, halfchange scaling 
 Species: expanded scores based on ‘dune’ 
 
@@ -5423,20 +5430,20 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > ordiplot(dune.mds, type="n") |>
 +   points("sites", pch=21, col="red", bg="yellow") |>
 +   text("species", col="blue", cex=0.9)
-> 
-> ## Some people think that species should be shown with arrows in PCA.
-> ## Other ordination methods also return an invisible ordiplot object and
-> ## we can use pipes to draw those arrows.
-> mod <- rda(dune)
-> plot(mod, type="n") |>
-+   points("sites", pch=16, col="red") |>
-+   text("species", arrows = TRUE, length=0.05, col="blue")
-> 
-> ## Default plot of the previous using identify to label selected points
+> ## Default plot using identify to label selected points
 > ## Not run: 
 > ##D pl <- ordiplot(dune.mds)
 > ##D identify(pl, "spec")
 > ## End(Not run)
+> ## Some people think that species should be shown with arrows in PCA.
+> ## Other ordination methods also return an invisible ordiplot object and
+> ## we can use pipes to draw those arrows. We drop species that are
+> ## poorly explained by the current graph.
+> mod <- rda(dune)
+> good <- goodness(mod, choices=1:2, model="CA", summarize = TRUE)
+> plot(mod, type="n") |>
++   points("sites", pch=16, col="red") |>
++   text("species", arrows = TRUE, length=0.05, col="blue", select = good > 1/3)
 > 
 > 
 > 
@@ -6339,7 +6346,7 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > plot(mod, scaling="sites")
 > plot(mod, scaling="sites", type = "text",
 +   sit.par = list(type = "points", pch=21, col="red", bg="yellow", cex=1.2),
-+   spe.par = list(col="blue", cex=0.8),
++   spe.par = list(col="blue", cex=0.8, optimize = TRUE),
 +   cen.par = list(bg="white"))
 > 
 > ## same with pipe
@@ -8493,8 +8500,7 @@ labels do not fit the space, switching to X1...
 > 
 > ### Example 1: Unconstrained ordination
 > ## NMDS
-> data(varespec)
-> data(varechem)
+> data(varespec, varechem)
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
@@ -8524,7 +8530,7 @@ Run 19 stress 0.2570114
 Run 20 stress 0.3760489 
 *** Best solution was not repeated -- monoMDS stopping criteria:
     20: stress ratio > sratmax
-> plot(ord, type = "t")
+> plot(ord, optimize = TRUE, type = "t")
 > ## Fit environmental variables
 > ef <- envfit(ord, varechem)
 > ef
@@ -8532,20 +8538,20 @@ Run 20 stress 0.3760489
 ***VECTORS
 
             NMDS1    NMDS2     r2 Pr(>r)    
-N        -0.05727 -0.99836 0.2537  0.044 *  
+N        -0.05727 -0.99836 0.2537  0.045 *  
 P         0.61968  0.78485 0.1938  0.096 .  
-K         0.76641  0.64235 0.1809  0.120    
-Ca        0.68515  0.72840 0.4119  0.004 ** 
+K         0.76641  0.64235 0.1809  0.125    
+Ca        0.68515  0.72840 0.4119  0.006 ** 
 Mg        0.63249  0.77457 0.4270  0.003 ** 
-S         0.19134  0.98152 0.1752  0.144    
+S         0.19134  0.98152 0.1752  0.148    
 Al       -0.87163  0.49017 0.5269  0.002 ** 
 Fe       -0.93605  0.35187 0.4451  0.004 ** 
 Mn        0.79872 -0.60171 0.5231  0.002 ** 
-Zn        0.61754  0.78654 0.1879  0.120    
-Mo       -0.90307  0.42949 0.0609  0.490    
-Baresoil  0.92492 -0.38015 0.2508  0.053 .  
+Zn        0.61754  0.78654 0.1879  0.124    
+Mo       -0.90307  0.42949 0.0609  0.501    
+Baresoil  0.92492 -0.38015 0.2508  0.057 .  
 Humdepth  0.93285 -0.36027 0.5200  0.001 ***
-pH       -0.64801  0.76163 0.2308  0.051 .  
+pH       -0.64801  0.76163 0.2308  0.053 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 Permutation: free
@@ -8555,8 +8561,7 @@ Number of permutations: 999
 > plot(ef, p.max = 0.05)
 > ### Example 2: Constrained ordination (RDA)
 > ## The example uses formula interface to define the model
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
 > ## No constraints: PCA
 > mod0 <- rda(dune ~ 1, dune.env)
 > mod0
@@ -8574,7 +8579,7 @@ Eigenvalues for unconstrained axes:
 24.795 18.147  7.629  7.153  5.695  4.333  3.199  2.782 
 (Showing 8 of 19 unconstrained eigenvalues)
 
-> plot(mod0)
+> plot(mod0, spe.par = list(arrows = TRUE))
 > ## All environmental variables: Full model
 > mod1 <- rda(dune ~ ., dune.env)
 
@@ -8617,8 +8622,8 @@ Start: dune ~ 1
 + Management  3 87.082 2.8400  0.005 **
 + Moisture    3 87.707 2.5883  0.005 **
 + Manure      4 89.232 1.9539  0.015 * 
-+ A1          1 89.591 1.9217  0.055 . 
-+ Use         2 91.032 1.1741  0.260   
++ A1          1 89.591 1.9217  0.045 * 
++ Use         2 91.032 1.1741  0.270   
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -8630,25 +8635,25 @@ Step: dune ~ Management
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
            Df    AIC      F Pr(>F)  
-+ Moisture  3 85.567 1.9764  0.020 *
-+ Manure    3 87.517 1.3902  0.120  
-+ A1        1 87.424 1.2965  0.205  
-+ Use       2 88.284 1.0510  0.385  
++ Moisture  3 85.567 1.9764  0.015 *
++ Manure    3 87.517 1.3902  0.100 .
++ A1        1 87.424 1.2965  0.260  
++ Use       2 88.284 1.0510  0.405  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Step: dune ~ Management + Moisture 
 
-             Df    AIC      F Pr(>F)   
-- Moisture    3 87.082 1.9764  0.015 * 
-- Management  3 87.707 2.1769  0.010 **
+             Df    AIC      F Pr(>F)  
+- Moisture    3 87.082 1.9764  0.015 *
+- Management  3 87.707 2.1769  0.015 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
          Df    AIC      F Pr(>F)
-+ Manure  3 85.762 1.1225  0.340
-+ A1      1 86.220 0.8359  0.535
-+ Use     2 86.842 0.8027  0.740
++ Manure  3 85.762 1.1225  0.320
++ A1      1 86.220 0.8359  0.585
++ Use     2 86.842 0.8027  0.710
 
 > mod
 
@@ -8669,7 +8674,7 @@ Eigenvalues for unconstrained axes:
   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
 8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
 
-> plot(mod)
+> plot(mod, spe.par = list(optimize = TRUE))
 > ## Permutation test for all variables
 > anova(mod)
 Permutation test for rda under reduced model
@@ -8691,10 +8696,10 @@ Permutation: free
 Number of permutations: 999
 
 Model: rda(formula = dune ~ Management + Moisture, data = dune.env)
-           Df Variance      F Pr(>F)   
-Management  3   18.938 2.1769  0.002 **
-Moisture    3   17.194 1.9764  0.007 **
-Residual   13   37.699                 
+           Df Variance      F Pr(>F)    
+Management  3   18.938 2.1769  0.001 ***
+Moisture    3   17.194 1.9764  0.007 ** 
+Residual   13   37.699                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Plot only sample plots, use different symbols and draw SD ellipses 
@@ -8719,28 +8724,33 @@ Estimated degrees of freedom:
 REML score: 3.00623     
 > ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 > ### permutational anova
-> adonis2(dune ~ ., dune.env)
+> adonis2(dune ~ ., dune.env, by = "margin")
 Permutation test for adonis under reduced model
+Marginal effects of terms
 Permutation: free
 Number of permutations: 999
 
-adonis2(formula = dune ~ ., data = dune.env)
-         Df SumOfSqs      R2      F Pr(>F)  
-Model    12   3.3265 0.77379 1.9954  0.012 *
-Residual  7   0.9725 0.22621                
-Total    19   4.2990 1.00000                
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> adonis2(dune ~ Management + Moisture, dune.env)
+adonis2(formula = dune ~ ., data = dune.env, by = "margin")
+           Df SumOfSqs      R2      F Pr(>F)
+A1          1   0.1283 0.02983 0.9231  0.492
+Moisture    3   0.6596 0.15343 1.5826  0.137
+Management  2   0.1959 0.04556 0.7050  0.730
+Use         2   0.1305 0.03036 0.4697  0.918
+Manure      3   0.4208 0.09787 1.0096  0.462
+Residual    7   0.9725 0.22621              
+Total      19   4.2990 1.00000              
+> adonis2(dune ~ Management + Moisture, dune.env, by = "term")
 Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
 Permutation: free
 Number of permutations: 999
 
-adonis2(formula = dune ~ Management + Moisture, data = dune.env)
-         Df SumOfSqs      R2      F Pr(>F)    
-Model     6   2.6202 0.60949 3.3816  0.001 ***
-Residual 13   1.6788 0.39051                  
-Total    19   4.2990 1.00000                  
+adonis2(formula = dune ~ Management + Moisture, data = dune.env, by = "term")
+           Df SumOfSqs      R2      F Pr(>F)   
+Management  3   1.4686 0.34161 3.7907  0.002 **
+Moisture    3   1.1516 0.26788 2.9726  0.002 **
+Residual   13   1.6788 0.39051                 
+Total      19   4.2990 1.00000                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -9159,7 +9169,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.299 0.352 8.663 0 0 
+Time elapsed:  9.8 0.366 10.178 0 0 
 > grDevices::dev.off()
 null device 
           1 

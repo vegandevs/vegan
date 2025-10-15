@@ -276,24 +276,25 @@ pca(X, scale=FALSE, ...)
 }
 
 \examples{
-data(varespec)
-data(varechem)
+data(varespec, varechem)
 ## Common but bad way: use all variables you happen to have in your
 ## environmental data matrix
 vare.cca <- cca(varespec, varechem)
 vare.cca
-plot(vare.cca)
+plot(vare.cca, spe.par = list(optimize = TRUE))
 ## Formula interface and a better model
 vare.cca <- cca(varespec ~ Al + P*(K + Baresoil), data=varechem)
 vare.cca
-plot(vare.cca)
+plot(vare.cca, spe.par = list(optimize = TRUE))
 ## Partialling out and negative components of variance
 cca(varespec ~ Ca, varechem)
 cca(varespec ~ Ca + Condition(pH), varechem)
 ## RDA
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 dune.Manure <- rda(dune ~ Manure, dune.env)
-plot(dune.Manure) 
+## select only best-fitting species
+good <- goodness(dune.Manure, choices=1:2, summarize=TRUE)
+sort(good)
+plot(dune.Manure, spe.par = list(optimize=TRUE, select = good > 0.2))
 }
 \keyword{ multivariate }

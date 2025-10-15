@@ -138,23 +138,28 @@ vif.cca(object)
   \code{\link{capscale}}. }
 
 \examples{
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
 goodness(mod, addprevious = TRUE)
 goodness(mod, addprevious = TRUE, summ = TRUE)
-# Inertia components
+## Fit of species in 2 dimensions
+good <- goodness(mod, choices = 1:2, summarize = TRUE)
+sort(good)
+## Drop poorly fitting species from a plot
+plot(mod, spe.par = list(select = good > 0.1, optimize = TRUE,
+   bg = "yellow"))
+## Inertia components
 inertcomp(mod, prop = TRUE)
 inertcomp(mod)
-# vif.cca
+## vif.cca
 vif.cca(mod)
-# Aliased constraints
+## Aliased constraints
 mod <- cca(dune ~ ., dune.env)
 mod
 vif.cca(mod)
 alias(mod)
 with(dune.env, table(Management, Manure))
-# The standard correlations (not recommended)
+## The standard correlations (not recommended)
 ## IGNORE_RDIFF_BEGIN
 spenvcor(mod)
 intersetcor(mod)

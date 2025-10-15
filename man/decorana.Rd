@@ -190,7 +190,7 @@ downweight(veg, fraction = 5)
 data(varespec)
 vare.dca <- decorana(varespec)
 vare.dca
-plot(vare.dca)
+plot(vare.dca, optimize = TRUE)
 
 ### the detrending rationale:
 gaussresp <- function(x,u) exp(-(x-u)^2/2)
