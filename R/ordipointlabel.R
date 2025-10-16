@@ -78,10 +78,10 @@
     }
     ## amount of overlap
     overlap <- function(xy1, off1, xy2, off2) {
-        pmax(0, pmin(xy1[,1] + off1[,1]/2, xy2[,1] + off2[,1]/2)
-             -pmax(xy1[,1] - off1[,1]/2, xy2[,1] - off2[,1]/2)) *
-              pmax(0, pmin(xy1[,2] + off1[,2]/2, xy2[,2] + off2[,2]/2)
-             -pmax(xy1[,2] - off1[,2]/2, xy2[,2] - off2[,2]/2))
+        pmax.int(0, pmin.int(xy1[,1] + off1[,1]/2, xy2[,1] + off2[,1]/2)
+        -pmax.int(xy1[,1] - off1[,1]/2, xy2[,1] - off2[,1]/2)) *
+        pmax.int(0, pmin.int(xy1[,2] + off1[,2]/2, xy2[,2] + off2[,2]/2)
+        -pmax.int(xy1[,2] - off1[,2]/2, xy2[,2] - off2[,2]/2))
     }
     ## indices of overlaps in lower triangular matrix
     n <- nrow(xy)
