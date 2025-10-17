@@ -92,8 +92,16 @@
     j <- j[maylap]
     k <- k[maylap]
     jk <- sort(unique(c(j,k)))
-    ## SANN: no. of iterations & starting positions
-    nit <- min(64 * length(jk), 10000)
+    ## SANN: starting values & starting positions. nit is the number
+    ## of iterations, temp is the starting temperature, tmax the
+    ## number of evaluations at the same temperature. Hotter
+    ## temperatures allow worse moves in the beginning. The "idea"
+    ## behind 0.791: if you try n positions for n points, you try
+    ## 0.632*n labels, and if you try 0.791*n, you try half of labels
+    ## (some repeatedly).
+    nit <- min(64 * length(jk), 10000)   # default 10000
+    temp <- 5                            # default 10
+    tmax <- ceiling(0.791 * length(jk))  # default 10
     pos <- ifelse(xy[,2] > 0, 1, 3)
     ## Criterion: overlap + penalty for moving towards origin and also
     ## for corners. Penalty is mild: max 1 ltr and one-character
@@ -117,7 +125,7 @@
     }
     ## Simulated annealing
     sol <- optim(par = pos, fn = fn, gr = gr, method="SANN",
-                 control=list(maxit=nit))
+                 control=list(maxit=nit, tmax=tmax, temp=temp))
     lab <- xy + makeoff(sol$par, box)
     dev.hold()
     on.exit(dev.flush())
