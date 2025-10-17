@@ -66,10 +66,8 @@
     ## and we loop
     box <- matrix(0, nrow(xy), 2)
     for (i in seq_len(nrow(xy))) {
-        box[i,1] <- strwidth(labels[i], cex = cex[i], font = font[i]) +
-            strwidth("m", cex = cex[i], font = font[i])
-        box[i,2] <- strheight(labels[i], cex = cex[i], font = font[i]) +
-            strheight("x", cex = cex[i], font = font[i])
+        box[i,1] <- strwidth(labels[i], cex = cex[i], font = font[i]) + em/1.5
+        box[i,2] <- strheight(labels[i], cex = cex[i], font = font[i]) + ex/1.5
     }
     ## offset: 1 up, 2..4 sides, 5..8 corners
     makeoff <- function(pos, lab) {
@@ -88,7 +86,8 @@
     j <- as.vector(as.dist(row(matrix(0, n, n))))
     k <- as.vector(as.dist(col(matrix(0, n, n))))
     ## Find labels that may overlap...
-    maylap <- overlap(xy[j,], 2*box[j,], xy[k,], 2*box[k,]) > 0
+    maylap <- overlap(xy[j,], 2*box[j,] - c(em,ex)/1.5,
+                      xy[k,], 2*box[k,] - c(em,ex)/1.5) > 0
     ## ... and work only with those
     j <- j[maylap]
     k <- k[maylap]
@@ -125,8 +124,8 @@
     ## draw optional lab background first so it does not cover points
     if (!missing(bg)) {
         for(i in seq_len(nrow(lab))) {
-            polygon(lab[i,1] + c(-1,1,1,-1)*box[i,1]/2.2,
-                    lab[i,2] + c(-1,-1,1,1)*box[i,2]/2.2,
+            polygon(lab[i,1] + c(-1,1,1,-1)*box[i,1]/2,
+                    lab[i,2] + c(-1,-1,1,1)*box[i,2]/2,
                     col = fill[i], border = col[i], xpd = TRUE)
             ordiArgAbsorber(lab[i,1], lab[i,2], labels = labels[i],
                             col = col[i], cex = cex[i], font = font[i],
