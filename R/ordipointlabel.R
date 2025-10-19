@@ -66,10 +66,8 @@
     ## and we loop
     box <- matrix(0, nrow(xy), 2)
     for (i in seq_len(nrow(xy))) {
-        box[i,1] <- strwidth(labels[i], cex = cex[i], font = font[i]) +
-            strwidth("m", cex = cex[i], font = font[i])
-        box[i,2] <- strheight(labels[i], cex = cex[i], font = font[i]) +
-            strheight("x", cex = cex[i], font = font[i])
+        box[i,1] <- strwidth(labels[i], cex = cex[i], font = font[i]) + em/1.5
+        box[i,2] <- strheight(labels[i], cex = cex[i], font = font[i]) + ex/1.5
     }
     ## offset: 1 up, 2..4 sides, 5..8 corners
     makeoff <- function(pos, lab) {
@@ -78,23 +76,32 @@
     }
     ## amount of overlap
     overlap <- function(xy1, off1, xy2, off2) {
-        pmax(0, pmin(xy1[,1] + off1[,1]/2, xy2[,1] + off2[,1]/2)
-             -pmax(xy1[,1] - off1[,1]/2, xy2[,1] - off2[,1]/2)) *
-              pmax(0, pmin(xy1[,2] + off1[,2]/2, xy2[,2] + off2[,2]/2)
-             -pmax(xy1[,2] - off1[,2]/2, xy2[,2] - off2[,2]/2))
+        pmax.int(0, pmin.int(xy1[,1] + off1[,1]/2, xy2[,1] + off2[,1]/2)
+        -pmax.int(xy1[,1] - off1[,1]/2, xy2[,1] - off2[,1]/2)) *
+        pmax.int(0, pmin.int(xy1[,2] + off1[,2]/2, xy2[,2] + off2[,2]/2)
+        -pmax.int(xy1[,2] - off1[,2]/2, xy2[,2] - off2[,2]/2))
     }
     ## indices of overlaps in lower triangular matrix
     n <- nrow(xy)
     j <- as.vector(as.dist(row(matrix(0, n, n))))
     k <- as.vector(as.dist(col(matrix(0, n, n))))
     ## Find labels that may overlap...
-    maylap <- overlap(xy[j,], 2*box[j,], xy[k,], 2*box[k,]) > 0
+    maylap <- overlap(xy[j,], 2*box[j,] - c(em,ex)/1.5,
+                      xy[k,], 2*box[k,] - c(em,ex)/1.5) > 0
     ## ... and work only with those
     j <- j[maylap]
     k <- k[maylap]
     jk <- sort(unique(c(j,k)))
-    ## SANN: no. of iterations & starting positions
-    nit <- min(64 * length(jk), 10000)
+    ## SANN: starting values & starting positions. nit is the number
+    ## of iterations, temp is the starting temperature, tmax the
+    ## number of evaluations at the same temperature. Hotter
+    ## temperatures allow worse moves in the beginning. The "idea"
+    ## behind 0.791: if you try n positions for n points, you try
+    ## 0.632*n labels, and if you try 0.791*n, you try half of labels
+    ## (some repeatedly).
+    nit <- min(64 * length(jk), 10000)   # default 10000
+    temp <- 5                            # default 10
+    tmax <- ceiling(0.791 * length(jk))  # default 10
     pos <- ifelse(xy[,2] > 0, 1, 3)
     ## Criterion: overlap + penalty for moving towards origin and also
     ## for corners. Penalty is mild: max 1 ltr and one-character
@@ -118,15 +125,15 @@
     }
     ## Simulated annealing
     sol <- optim(par = pos, fn = fn, gr = gr, method="SANN",
-                 control=list(maxit=nit))
+                 control=list(maxit=nit, tmax=tmax, temp=temp))
     lab <- xy + makeoff(sol$par, box)
     dev.hold()
     on.exit(dev.flush())
     ## draw optional lab background first so it does not cover points
     if (!missing(bg)) {
         for(i in seq_len(nrow(lab))) {
-            polygon(lab[i,1] + c(-1,1,1,-1)*box[i,1]/2.2,
-                    lab[i,2] + c(-1,-1,1,1)*box[i,2]/2.2,
+            polygon(lab[i,1] + c(-1,1,1,-1)*box[i,1]/2,
+                    lab[i,2] + c(-1,-1,1,1)*box[i,2]/2,
                     col = fill[i], border = col[i], xpd = TRUE)
             ordiArgAbsorber(lab[i,1], lab[i,2], labels = labels[i],
                             col = col[i], cex = cex[i], font = font[i],
