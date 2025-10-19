@@ -5,12 +5,11 @@
 
 \title{ Ordination Plots with Points and Optimized Locations for Text }
 
-\description{ Function produces ordination plots with points and text
-  labels to the points. The points are in the fixed locations given by
-  the ordination, but the locations of the text labels are optimized to
-  minimize overplotting. The function is useful with moderately crowded
-  ordination plots.
-}
+\description{ Function produces ordination plots with labelled
+  points. The points are in the fixed locations given by the
+  ordination, but the locations of the text labels are optimized to
+  minimize overplotting. The function is useful with moderately
+  crowded ordination plots.   }
 
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
@@ -75,6 +74,7 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
   examples.
 
 }
+
 \value{
   The function returns invisibly an object of class
   \code{ordipointlabel} with items \code{xy} for coordinates of
