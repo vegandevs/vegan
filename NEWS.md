@@ -33,9 +33,9 @@
   satisfied for displayed items.
 
 * `ordipointlabel` is faster. This was achieved using tighter bounding
-  box which reduced the estimated number of potentially overlapping
-  labels. The used bouding box is shown with argument `bg =<colour>`.
-  The function is also invoked from `plot` and `text` functions for
+  box which reduced the number of potentially overlapping labels. The
+  used bounding box is shown with argument `bg  = <colour>`.  The
+  function is also invoked from `plot` and `text` functions for
   ordination results with argument `optimize = TRUE`.
 
 * `varpart` labels the sources of variation by the full definition of
