@@ -32,6 +32,12 @@
   $R^2$ of displayed variables. Both `p.max` and `r2.min` must be
   satisfied for displayed items.
 
+* `ordipointlabel` is faster. This was achieved using tighter bounding
+  box which reduced the estimated number of potentially overlapping
+  labels. The used bouding box is shown with argument `bg =<colour>`.
+  The function is also invoked from `plot` and `text` functions for
+  ordination results with argument `optimize = TRUE`.
+
 * `varpart` labels the sources of variation by the full definition of
   the term in plots, but switches to `X1` _etc_ if the full name does
   not fit the graph. Tilde is stripped from the term name.
