@@ -9,6 +9,8 @@
     for (nm in display)
         xy[[nm]] <- scores(x, display = nm, choices = choices, ...)
 
+    if (!missing(bg))
+        fill <- bg
     if (length(display) > 1) {
         ld <- length(display)
         col <- rep(rep(col, length=ld), sapply(xy, nrow))
@@ -53,12 +55,6 @@
     } else {
         labels <- rownames(xy)
     }
-    ## our algorithm needs at least three items
-    if (nrow(xy) < 3) {
-        warning(gettextf("optimization needs at least three items, you got %d",
-                         nrow(xy)))
-        return(invisible(x))
-    }
     em <- strwidth("m", cex = min(cex), font = min(font))
     ex <- strheight("x", cex = min(cex), font = min(font))
     ltr <- em*ex
@@ -86,8 +82,8 @@
     j <- as.vector(as.dist(row(matrix(0, n, n))))
     k <- as.vector(as.dist(col(matrix(0, n, n))))
     ## Find labels that may overlap...
-    maylap <- overlap(xy[j,], 2*box[j,] - c(em,ex)/1.5,
-                      xy[k,], 2*box[k,] - c(em,ex)/1.5) > 0
+    maylap <- overlap(xy[j,,drop=FALSE], 2*box[j,,drop=FALSE] - c(em,ex)/1.5,
+                      xy[k,,drop=FALSE], 2*box[k,,drop=FALSE] - c(em,ex)/1.5) > 0
     ## ... and work only with those
     j <- j[maylap]
     k <- k[maylap]
