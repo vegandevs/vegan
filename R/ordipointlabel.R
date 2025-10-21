@@ -99,9 +99,9 @@
     ## behind 0.791: if you try n positions for n points, you try
     ## 0.632*n labels, and if you try 0.791*n, you try half of labels
     ## (some repeatedly).
-    nit <- min(64 * length(jk), 10000)   # default 10000
-    temp <- 5                            # default 10
-    tmax <- ceiling(0.791 * length(jk))  # default 10
+    nit <- min(64 * length(jk), 10000)           # default 10000
+    temp <- 5                                    # default 10
+    tmax <- max(1, ceiling(0.791 * length(jk)))  # default 10
     pos <- ifelse(xy[,2] > 0, 1, 3)
     ## Criterion: overlap + penalty for moving towards origin and also
     ## for corners. Penalty is mild: max 1 ltr and one-character
