@@ -47,6 +47,12 @@
   [#752](https://github.com/vegandevs/vegan/issues/752). Earlier it
   was possible to use these only _via_ `hiersimu`.
 
+## Bug Fixes
+
+* `decostand(..., method = "rclr")` and `optspace` lost row and column
+  names of imputed matrix. Issue
+  [#759](https://github.com/vegandevs/vegan/issues/759).
+
 ## Defunct
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
