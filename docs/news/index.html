@@ -53,6 +53,11 @@
 <li><p><code>adipart</code> can use Hill numbers 1 and 2 in additive diversity partitioning per wish of <a href="https://github.com/vegandevs/vegan/issues/752" class="external-link">#752</a>. Earlier it was possible to use these only <em>via</em> <code>hiersimu</code>.</p></li>
 </ul></div>
 <div class="section level3">
+<h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
+<ul><li>
+<code>decostand(..., method = "rclr")</code> and <code>optspace</code> lost row and column names of imputed matrix. Issue <a href="https://github.com/vegandevs/vegan/issues/759" class="external-link">#759</a>.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="defunct-2-8-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-2-8-0"></a></h3>
 <ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
 <li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
