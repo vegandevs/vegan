@@ -17,7 +17,7 @@
   if (is.data.frame(x)) {
     x <- as.matrix(x)
   }
-  
+
   idxna <- is.na(x)
 
   if (!is.matrix(x)) {
@@ -25,24 +25,24 @@
   }
   if (!any(idxna)) {
     x # no NAs to be filled in and can be returned immediately
-  }  
+  }
   if (any(is.infinite(x))) {
     stop("* optspace : infinite values are not allowed in 'x'")
   }
-  
+
   m_e <- array(0, c(nrow(x), ncol(x)))
   m_e[!idxna] <- x[!idxna]
-  
+
   ## Preprocessing : size information
   n <- nrow(x)
   m <- ncol(x)
-  
+
   ## Preprocessing : other sparse-related concepts
   nnz_e <- sum(!idxna)
   E <- array(0, c(nrow(x), ncol(x)))
   E[!idxna] <- 1
   eps <- nnz_e / sqrt(m * n)
-  
+
   ## Preprocessing : ropt  : implied rank
   if (ropt) {
     r <- round(ropt)
@@ -63,7 +63,7 @@
   }
   niter <- round(niter)
   rho <-  eps * n
-  
+
   ## Main Computation
   rescal_param <- sqrt(nnz_e * r / (norm(m_e, 'f')^2))
   m_e <- m_e * rescal_param
@@ -100,7 +100,7 @@
   dist[1] <- norm((m_e - (X %*% S %*% t(Y))) * E, 'f') / sqrt(nnz_e)
   # Resolution/regularization for gradient calculation
   m0 <- 10000
-  
+
   for (i in seq_len(niter)) {
     # compute the gradient
     tmpgrad <- .aux_gradF_t(X, Y, S, m_e, E, m0, rho)
@@ -112,13 +112,13 @@
     Y <- Y + t * Z
     S <- .aux_getoptS(X, Y, m_e, E)
     # compute the distortion
-    dist[i + 1] <- norm(((m_e - X %*% S %*% t(Y)) * E), 'f') / sqrt(nnz_e)    
+    dist[i + 1] <- norm(((m_e - X %*% S %*% t(Y)) * E), 'f') / sqrt(nnz_e)
     if (dist[i + 1] < tol) {
       dist <- dist[seq_len(i + 1)]
       break
     }
   }
-  S <- S / rescal_param  
+  S <- S / rescal_param
   # Return Results
   out <- list()
 
@@ -150,6 +150,7 @@
   # Center rows to 0
   M <- as.matrix(t(scale(t(M), center = TRUE, scale = FALSE)))
 
+  dimnames(M) <- dimnames(x)
   # Add imputed matrix to the output
   out$M <- M
 
@@ -159,7 +160,7 @@
 }
 
 
-# Estimate Matrix Rank 
+# Estimate Matrix Rank
 #
 # x: numeric matrix for which the rank is to be estimated
 #
@@ -174,9 +175,9 @@
   epsilon <- nnz / sqrt(m * n)
   svdX <- svd(x)
   S0 <- svdX$d
-  
+
   nsval0 <- length(S0)
-  S1 <- S0[seq_len(nsval0 - 1)] - S0[seq(2, nsval0)]  
+  S1 <- S0[seq_len(nsval0 - 1)] - S0[seq(2, nsval0)]
   nsval1 <- length(S1)
   if (nsval1 > 10) {
     S1_ <- S1 / mean(S1[seq((nsval1 - 10), nsval1)])
@@ -185,7 +186,7 @@
   }
   r1 <- 0
   lam <- 0.05
-  
+
   itcounter <- 0
   while (r1 <= 0) {
     itcounter <- itcounter + 1
@@ -205,7 +206,7 @@
       break
     }
   }
-  
+
   if (itcounter <= maxiter) {
     cost2 <- array(0, c(1, (length(S0) - 1)))
     for (idx in seq_len(length(S0) - 1)) {
@@ -218,7 +219,7 @@
     } else {
       r2 <- max(i2)
     }
-    
+
     if (r1 > r2) {
       r <- r1
     } else {
@@ -258,9 +259,9 @@
 
 # Total Loss Function with Regularization
 #
-# Composite loss function combining a weighted squared error term and 
-# nonlinear regularization penalties based on the row norms of the input matrices. 
-# This function is commonly used in matrix factorization or low-rank modeling 
+# Composite loss function combining a weighted squared error term and
+# nonlinear regularization penalties based on the row norms of the input matrices.
+# This function is commonly used in matrix factorization or low-rank modeling
 # frameworks where latent matrices are learned under structural constraints.
 #
 # x numeric matrix, typically representing latent factors or components.
@@ -293,8 +294,8 @@
 
 # Gradient of Auxiliary Regularization Term
 #
-# Computes the gradient of the nonlinear regularization function \code{.aux_G} 
-# with respect to its matrix input \code{x}. 
+# Computes the gradient of the nonlinear regularization function \code{.aux_G}
+# with respect to its matrix input \code{x}.
 #
 # x numeric matrix of size \code{n x r}. Each row is treated as a vector
 # whose squared norm determines the activation of the gradient.
@@ -310,29 +311,29 @@
   z <- rowSums(x^2) / (2 * m0 * r)
   z <- 2 * exp((z - 1)^2) / (z - 1)
   idxfind <- (z < 0)
-  z[idxfind] <- 0  
+  z[idxfind] <- 0
   out <- x * matrix(z, nrow = nrow(x), ncol = ncol(x), byrow = FALSE) / (m0 * r)
 }
 
 
 # Gradient of Composite Loss Function
 #
-# Computes the gradient of the total loss. The result includes both the data 
+# Computes the gradient of the total loss. The result includes both the data
 # reconstruction gradient and the nonlinear regularization gradient.
 #
-# x numeric matrix of size \code{n x r}, representing one set of latent 
+# x numeric matrix of size \code{n x r}, representing one set of latent
 # variables or factor matrix.
 #
-# y numeric matrix of size \code{m x r}, representing the counterpart latent 
+# y numeric matrix of size \code{m x r}, representing the counterpart latent
 # variable matrix.
 #
 # s numeric matrix used in the bilinear transformation between \code{x} and \code{y}.
 #
-# m_e A numeric matrix representing the observed data or target matrix 
+# m_e A numeric matrix representing the observed data or target matrix
 #
 # e numeric matrix used as a weighting or masking matrix.
 #
-# m0 positive scalar for gradient regularization 
+# m0 positive scalar for gradient regularization
 #
 # rho weight applied to the regularization gradient terms.
 #
@@ -345,28 +346,28 @@
   if (ncol(y) != r) {
     stop("dimension error from the internal function .aux_gradF_t")
   }
-  
+
   XS  <- x %*% s
   YS  <- y %*% t(s)
   XSY <- XS %*% t(y)
-  
+
   Qx <- t(x) %*% ((m_e - XSY) * e) %*% YS / n
   Qy <- t(y) %*% t((m_e - XSY) * e) %*% XS / m
-  
+
   W <- ((XSY - m_e) * e) %*% YS  + (x %*% Qx) + rho * .aux_Gp(x, m0, r)
   Z <- t((XSY - m_e) * e) %*% XS + (y %*% Qy) + rho * .aux_Gp(y, m0, r)
-  
+
   resgrad <- list()
   resgrad$W <- W
   resgrad$Z <- Z
   resgrad
-  
+
 }
 
 
 # Solve for Optimal Transformation Matrix S
 #
-# Computes the optimal transformation matrix that minimizes the squared 
+# Computes the optimal transformation matrix that minimizes the squared
 # error, optionally weighted by importance matrix \code{e}.
 # This function forms and solves a linear least-squares problem.
 #
@@ -382,20 +383,20 @@
 .aux_getoptS <- function(x, y, m_e, e)
 {
   n <- nrow(x)
-  r <- ncol(x)  
+  r <- ncol(x)
   C <- t(x) %*% (m_e) %*% y
-  C <- matrix(as.vector(C))  
+  C <- matrix(as.vector(C))
   nnrow <- ncol(x) * ncol(y)
   A <- matrix(NA, nrow = nnrow, ncol = (r^2))
-  
+
   for (i in seq_len(r)) {
     for (j in seq_len(r)) {
       ind <- (j - 1) * r + i
-      tmp <- t(x) %*% (outer(x[, i], y[, j]) * e) %*% y      
+      tmp <- t(x) %*% (outer(x[, i], y[, j]) * e) %*% y
       A[, ind] <- as.vector(tmp)
     }
   }
-  
+
   S <- solve(A, C)
   out <- matrix(S, nrow = r)
   out
@@ -406,8 +407,8 @@
 # Backtracking Line Search for Step Size Optimization
 #
 # Optimal line search.
-# Determines an optimal step size \code{t} for descending along a direction 
-# defined by perturbations \code{w} and \code{z} for the matrices \code{x} and \code{y}. 
+# Determines an optimal step size \code{t} for descending along a direction
+# defined by perturbations \code{w} and \code{z} for the matrices \code{x} and \code{y}.
 #
 # x numeric matrix representing current values of one latent factor.
 #
