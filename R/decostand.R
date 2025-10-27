@@ -223,6 +223,9 @@
    if (impute && any(is.na(xx))) {
 
      opt_res <- optspace(xx, ropt = ropt, niter = niter, tol = tol, verbose = verbose)
+     ## NB: optspace returns M that is identical to M_I that we
+     ## re-build below: we could quite well remove the following lines
+     ## and return opt_res$M instead of M_I
 
      # recenter the data
      # (the means of rclr can get thrown off since we work on only missing)
@@ -236,6 +239,7 @@
 
      # Imputed matrix
      xx <- M_I
+     dimnames(xx) <- dimnames(x) # xx reconstructed and has no names
    }
 
    xx
