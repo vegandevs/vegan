@@ -338,10 +338,6 @@ attr(,"scaled:center")
  [6] -0.0216677154 -0.0095070243 -0.0129853877 -0.0151765084  0.0739366224
 [11]  0.0813752690  0.0153170116 -0.0001358339 -0.0203385433 -0.0102092705
 [16] -0.0133788389  0.0543704488 -0.0876478093  0.0272043261 -0.0319186959
-attr(,"parameters")
-attr(,"parameters")$margin
-[1] 1
-
 attr(,"decostand")
 [1] "rclr"
 > decostand(testdata, method = "clr", pseudocount = 1)
@@ -879,4 +875,4 @@ col50 FALSE
 > 
 > proc.time()
    user  system elapsed 
-  0.437   0.048   0.482 
+  0.438   0.048   0.485 
