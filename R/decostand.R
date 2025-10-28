@@ -143,7 +143,8 @@
             x <- .calc_rclr(x, na.rm = na.rm, ...)
 	else x <- t(.calc_rclr(t(x), na.rm = na.rm, ...))
         attr <- attr(x, "parameters")
-        attr$margin <- MARGIN
+        if (!is.null(attr)) # no transformation parameters with imputed matrix
+            attr$margin <- MARGIN
     })
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical
@@ -221,13 +222,10 @@
    # Impute NAs if impute=TRUE
    # Otherwise return the transformation with NAs
    if (impute && any(is.na(xx))) {
-
      xx <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
                     verbose = verbose)$M
    }
-
    xx
-
 }
 
 .calc_alr <-
@@ -299,7 +297,7 @@
                               x * para$minpos},
                 "clr" = exp(sweep(x, para$margin, para$means, "+")) -
                     para$pseudocount,
-                "rclr" = { x[x == 0] <- -Inf # x==0 was set: should be safe
+                "rclr" = { x[is.na(x)] <- -Inf # no imputation: 0 |-> NA
                            exp(sweep(x, para$margin, para$means, "+"))},
                 "wisconsin" = { x <- sweep(x, 1, para$total, "*")
                                 sweep(x, 2, para$max, "*") },
