@@ -1,3 +1,15 @@
+# vegan 2.7-3
+
+## Bug Fixes
+
+* `decostand(..., method = "rclr")` and `optspace` lost row and column
+  names of imputed matrix. Issue
+  [#759](https://github.com/vegandevs/vegan/issues/759).
+
+  Back-transformation of `"rclr"` failed with `decobackstand`.
+  Back-transformation cannot be done with imputed matrix, and without
+  imputed matrix original zeros were returned as `NA`.
+
 # vegan 2.7-2
 
 ## New Features
