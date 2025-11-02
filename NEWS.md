@@ -10,6 +10,9 @@
   Back-transformation cannot be done with imputed matrix, and without
   imputed matrix original zeros were returned as `NA`.
 
+* `vegdist(..., binary = TRUE)` did not use binary data in Chi-square
+  and Mahalanobis distances (methods `"chisq"` and `"mahalanobis"`).
+
 # vegan 2.7-2
 
 ## New Features
