@@ -58,6 +58,7 @@
 <p><code>decostand(..., method = "rclr")</code> and <code>optspace</code> lost row and column names of imputed matrix. Issue <a href="https://github.com/vegandevs/vegan/issues/759" class="external-link">#759</a>.</p>
 <p>Back-transformation of <code>"rclr"</code> failed with <code>decobackstand</code>. Back-transformation cannot be done with imputed matrix, and without imputed matrix original zeros were returned as <code>NA</code>.</p>
 </li>
+<li><p><code>vegdist(..., binary = TRUE)</code> did not use binary data in Chi-square and Mahalanobis distances (methods <code>"chisq"</code> and <code>"mahalanobis"</code>).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="defunct-2-8-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-2-8-0"></a></h3>
