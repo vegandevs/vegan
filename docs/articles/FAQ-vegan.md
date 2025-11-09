@@ -1,0 +1,552 @@
+# 
+
+## **vegan** FAQ
+
+This document contains answers to some of the most frequently asked
+questions about R package **vegan**.
+
+> This work is openly licensed via \[CC BY
+> 4.0\]/(<https://creativecommons.org/licenses/by/4.0/>).
+>
+> Copyright © 2008-2025 vegan development team
+
+------------------------------------------------------------------------
+
+### Introduction
+
+------------------------------------------------------------------------
+
+#### What is **vegan**?
+
+**Vegan** is an R package for community ecologists. It contains the most
+popular methods of multivariate analysis needed in analysing ecological
+communities, and tools for diversity analysis, and other potentially
+useful functions. **Vegan** is not self-contained but it must be run
+under R statistical environment, and it also depends on many other R
+packages.
+
+------------------------------------------------------------------------
+
+#### How to obtain **vegan** and R?
+
+Both R and latest release version of **vegan** can be obtained through
+[CRAN](https://cran.r-project.org). Unstable development version of
+**vegan** can be obtained through
+[GitHub](https://github.com/vegandevs/vegan). The github page gives
+further instructions for obtaining and installing development versions
+of **vegan**.
+
+------------------------------------------------------------------------
+
+#### What other packages are available for ecologists?
+
+CRAN [Task Views](https://cran.r-project.org/web/views/) include entries
+like `Environmetrics`, `Multivariate` and `Spatial` that describe
+several useful packages and functions. If you install R package **ctv**,
+you can inspect Task Views from your R session, and automatically
+install sets of most important packages.
+
+------------------------------------------------------------------------
+
+#### What other documentation is available for **vegan**?
+
+**Vegan** is a fully documented R package with standard help pages.
+These are the most authoritative sources of documentation (and as a last
+resource you can use the force and the read the source, as **vegan** is
+open source). **Vegan** package ships with other documents which can be
+read with `browseVignettes("vegan")` command. The documents included in
+the **vegan** package are
+
+- **Vegan** `NEWS` that can be accessed via
+  [`news()`](https://rdrr.io/r/utils/news.html) command.
+- This document (`FAQ-vegan`).
+- Short introduction to basic ordination methods in **vegan**
+  (`intro-vegan`).
+- Introduction to diversity methods in **vegan** (`diversity-vegan`).
+- Discussion on design decisions in **vegan** (`decision-vegan`).
+- Description of variance partition procedures in function `varpart`
+  (`partitioning`).
+
+Web documents outside the package include:
+
+- <https://github.com/vegandevs/vegan>: development page.
+- <https://vegandevs.github.io/vegan/>: **vegan** homepage.
+
+------------------------------------------------------------------------
+
+#### Is there a Graphical User Interface (GUI) for **vegan**?
+
+Roeland Kindt has made package **BiodiversityR** which provides a GUI
+for **vegan**. The package is available at
+[CRAN](https://cran.r-project.org/package=BiodiversityR). It is not a
+mere GUI for **vegan**, but adds some new functions and complements
+**vegan** functions in order to provide a workbench for biodiversity
+analysis. You can install **BiodiversityR** using
+`install.packages("BiodiversityR")` or graphical package management menu
+in R. The GUI works on Windows, MacOS X and Linux.
+
+------------------------------------------------------------------------
+
+#### How to cite **vegan**?
+
+Use command `citation("vegan")` in R to see the recommended citation to
+be used in publications.
+
+------------------------------------------------------------------------
+
+#### How to build **vegan** from sources?
+
+In general, you do not need to build **vegan** from sources, but binary
+builds of release versions are available through
+[CRAN](https://cran.r-project.org/) for Windows and MacOS X. If you use
+some other operating systems, you may have to use source packages.
+**Vegan** is a standard R package, and can be built like instructed in R
+documentation. **Vegan** contains source files in C and FORTRAN, and you
+need appropriate compilers (which may need more work in Windows and
+MacOS X).
+
+------------------------------------------------------------------------
+
+#### Are there binaries for devel versions?
+
+Binaries can be available from R Universe: see
+<https://github.com/vegandevs/vegan> for instructions.
+
+------------------------------------------------------------------------
+
+#### How to report a bug in **vegan**?
+
+If you think you have found a bug in **vegan**, you should report it to
+**vegan** maintainers or developers. The preferred forum to report bugs
+is [GitHub](https://github.com/vegandevs/vegan/issues). The bug report
+should be so detailed that the bug can be replicated and corrected.
+Preferably, you should send an example that causes a bug. If it needs a
+data set that is not available in R, you should send a minimal data set
+as well. You also should paste the output or error message in your
+message. You also should specify which version of **vegan** you used.
+
+Bug reports are welcome: they are the only way to make **vegan**
+non-buggy.
+
+Please note that you shall not send bug reports to R mailing lists,
+since **vegan** is not a standard R package.
+
+------------------------------------------------------------------------
+
+#### Is it a bug or a feature?
+
+It is not necessarily a bug if some function gives different results
+than you expect: That may be a deliberate design decision. It may be
+useful to check the documentation of the function to see what was the
+intended behaviour. It may also happen that function has an argument to
+switch the behaviour to match your expectation. For instance, function
+`vegdist` always calculates quantitative indices (when this is
+possible). If you expect it to calculate a binary index, you should use
+argument `binary = TRUE`.
+
+------------------------------------------------------------------------
+
+#### Can I contribute to **vegan**?
+
+**Vegan** is dependent on user contribution. All feedback is welcome. If
+you have problems with **vegan**, it may be as simple as incomplete
+documentation, and we shall do our best to improve the documents.
+
+Feature requests also are welcome, but they are not necessarily
+fulfilled. A new feature will be added if it is easy to do and it looks
+useful, or if you submit code.
+
+If you can write code yourself, the best forum to contribute to vegan is
+[GitHub](https://github.com/vegandevs/vegan).
+
+------------------------------------------------------------------------
+
+### Ordination
+
+------------------------------------------------------------------------
+
+#### I have only numeric and positive data but **vegan** still complains
+
+You are wrong! Computers are painfully pedantic, and if they find
+non-numeric or negative data entries, you really have them. Check your
+data! Most common reasons for non-numeric data are that row names were
+read as a non-numeric variable instead of being used as row names (check
+argument `row.names` in reading the data), or that the column names were
+interpreted as data (check argument `header = TRUE` in reading the
+data). Another common reason is that you had empty cells in your input
+data, and these were interpreted as missing values. See also the next
+question.
+
+------------------------------------------------------------------------
+
+#### Can I use tibbles in ordination?
+
+Yes. In most cases they behave like normal data frames. For
+environmental data there should be no problem with tibbles. Problems can
+emerge with community data. Community data frames must be numeric, but
+if tibble has character variables (such as a column of row names), data
+are non-numeric with guaranteed failure in ordination (see previous
+question). All character columns should be removed from community data
+in ordination.
+
+------------------------------------------------------------------------
+
+#### Can I analyse binary or cover class data?
+
+Yes. Most **vegan** methods can handle binary data or cover abundance
+data. Most statistical tests are based on permutation, and do not make
+distributional assumptions. There are some methods (mainly in diversity
+analysis) that need count data. These methods check that input data are
+integers, but they may be fooled by cover class data.
+
+------------------------------------------------------------------------
+
+#### Why dissimilarities in **vegan** differ from other sources?
+
+Most commonly the reason is that other software use presence–absence
+data whereas **vegan** used quantitative data. Usually **vegan** indices
+are quantitative, but you can use argument `binary = TRUE` to make them
+presence–absence. However, the index name is the same in both cases,
+although different names usually occur in literature. For instance,
+Jaccard index actually refers to the binary index, but **vegan** uses
+name `"jaccard"` for the quantitative index, too.
+
+Another reason may be that indices indeed are defined differently,
+because people use same names for different indices.
+
+------------------------------------------------------------------------
+
+#### I cannot get repeated solutions in `metaMDS`
+
+The first (try 0) run of `metaMDS` starts from the metric scaling
+solution and is usually good, and most sofware only return that
+solution. However, `metaMDS` tries to see if that standard solution can
+be repeated, or improved and the improved solution still repeated. In
+all cases, it will return the best solution found, and there is no
+burning need to do anything if you get the message that the solution
+could not be repeated. If you are keen to know that the solution really
+is the global optimum, you may follow the instructions in the `metaMDS`
+help section “Results Could Not Be Repeated” and try harder.
+
+------------------------------------------------------------------------
+
+#### I get zero stress but no repeated solutions in `metaMDS`
+
+Most common reason is that you have too few observations for your NMDS.
+For $n$ observations (points) and $k$ dimensions you need to estimate
+$nk$ parameters (ordination scores) using $n(n - 1)/2$ dissimilarities.
+For $k$ dimensions you must have $n > 2k + 1$, or for two dimensions at
+least six points. In some degenerate situations you may need even a
+larger number of points. If you have a lower number of points, you can
+find an undefined number of perfect (stress is zero) but different
+solutions. Conventional wisdom due to Kruskal is that you should have
+$n > 4k + 1$ points for $k$ dimensions. A typical symptom of
+insufficient data is that you have (nearly) zero stress but no repeated
+solutions. In those cases you should reduce the number of dimensions
+($k$) and with very small data sets you should not use `NMDS`, but rely
+on metric methods (`pco` and `wcmdscale` in **vegan**, `cmdscale` in
+base **R**).
+
+------------------------------------------------------------------------
+
+#### I have heard that you cannot fit environmental vectors or surfaces to NMDS results which only have rank-order scores
+
+Claims like this have indeed been at large in the Internet, but they are
+based on grave misunderstanding and are plainly wrong. NMDS ordination
+results are strictly metric, and in **vegan** `metaMDS` and `monoMDS`
+they are even strictly Euclidean. The method is called “non-metric”
+because there is non-metric relation from input dissimilarities to the
+Euclidean ordination space. You can inspect this non-linear step
+function using function `stressplot` in **vegan**. Because the
+ordination scores are strictly Euclidean, it is correct to use **vegan**
+functions `envfit` and `ordisurf` with NMDS results.
+
+------------------------------------------------------------------------
+
+#### Where can I find numerical scores of ordination axes?
+
+Normally you can use function `scores` to extract ordination scores for
+any ordination method. The `scores` function can also find ordination
+scores for many non-**vegan** functions such as for `prcomp` and
+`princomp` and for some **ade4** functions.
+
+In some cases the ordination result object stores raw scores, and the
+axes are also scaled appropriate when you access them with `scores`. For
+instance, in `cca` and `rda` the ordination object has only so-called
+normalized scores, and they are scaled for ordination plots or for other
+use when they are accessed with `scores`.
+
+------------------------------------------------------------------------
+
+#### How the RDA results are scaled?
+
+The scaling or RDA results indeed differ from most other software
+packages. The scaling of RDA is such a complicated issue that it cannot
+be explained in this FAQ, but it is explained in a separate pdf document
+on “Design decision and implementation details in vegan” that you can
+read with command `browseVignettes("vegan")`.
+
+------------------------------------------------------------------------
+
+#### Variance explained by ordination axes.
+
+In general, **vegan** does not directly give any statistics on the
+“variance explained” by ordination axes or by the constrained axes. This
+is a design decision: I think this information is normally useless and
+often misleading. In community ordination, the goal typically is not to
+explain the variance, but to find the “gradients” or main trends in the
+data. The “total variation” often is meaningless, and all proportions of
+meaningless values also are meaningless. Often a better solution
+explains a smaller part of “total variation”. For instance, in
+non-standardized principal components analysis most of the variance is
+generated by a small number of most abundant species, and they are easy
+to “explain” because data really are not very multivariate. If you
+standardize your data, all species are equally important. The first axes
+explains much less of the “total variation”, but now they explain all
+species equally, and results typically are much more useful for the
+whole community. Correspondence analysis uses another measure of
+variation (which is not variance), and again it typically explains a
+“smaller proportion” than principal components but with a better result.
+Detrended correspondence analysis and nonmetric multidimensional scaling
+even do not try to “explain” the variation, but use other criteria. All
+methods are incommensurable, and it is impossible to compare methods
+using “explanation of variation”.
+
+If you still want to get “explanation of variation” (or a deranged
+editor requests that from you), it is possible to get this information
+for some methods:
+
+- Eigenvector methods: Functions `rda`, `cca`, `dbrda` and `capscale`
+  give the variation of conditional (partialled), constrained
+  (canonical) and residual components. Function `eigenvals` extracts the
+  eigenvalues, and `summary(eigenvals(ord))` reports the proportions
+  explained in the result object `ord`, and also works with `decorana`
+  and `wcmdscale`. Function `RsquareAdj` gives the R-squared and
+  adjusted R-squared (if available) for constrained components. Function
+  `goodness` gives the same statistics for individual species or sites.
+  In addition, there is a special function `varpart` for unbiased
+  partitioning of variance between up to four separate components.
+
+- Nonmetric multidimensional scaling. NMDS is a method for nonlinear
+  mapping, and the concept of of variation explained does not make
+  sense. However, 1 - stress^2 transforms nonlinear stress into quantity
+  analogous to squared correlation coefficient. Function `stressplot`
+  displays the nonlinear fit and gives this statistic.
+
+------------------------------------------------------------------------
+
+#### Can I have random effects in constrained ordination or in `adonis`?
+
+No. Strictly speaking, this is impossible. However, you can define
+models that respond to similar goals as random effects models, although
+they strictly speaking use only fixed effects.
+
+Constrained ordination functions `cca`, `rda` and `dbrda` can have
+`Condition()` terms in their formula. `Condition()` defines partial
+terms that are fitted before other constraints and can be used to remove
+the effects of background variables, and their contribution to
+decomposing inertia (variance) is reported separately. These partial
+terms are often regarded as similar to random effects, but they are
+still fitted in the same way as other terms and strictly speaking they
+are fixed terms.
+
+Function `adonis2` can evaluate terms sequentially. In a model with
+right-hand-side `~ A + B` the effects of `A` are evaluated first, and
+the effects of `B` after removing the effects of `A`. Sequential tests
+are also available in `anova` function for constrained ordination
+results by setting argument `by = "term"`. In this way, the first terms
+can serve in a similar role as random effects, although they are fitted
+in the same way as all other terms, and strictly speaking they are fixed
+terms.
+
+All permutation tests in **vegan** are based on the **permute** package
+that allows constructing various restricted permutation schemes. For
+instance, you can set levels of `plots` or `blocks` for a factor
+regarded as a random term.
+
+A major reason why real random effects models are impossible in most
+**vegan** functions is that their tests are based on the permutation of
+the data. The data are given, that is fixed, and therefore permutation
+tests are basically tests of fixed terms on fixed data. Random effect
+terms would require permutations of data with a random component instead
+of the given, fixed data, and such tests are not available in **vegan**.
+
+------------------------------------------------------------------------
+
+#### Is it possible to have passive points in ordination?
+
+**Vegan** does not have a concept of passive points, or a point that
+should only little influence the ordination results. However, you can
+add points to eigenvector methods using `predict` functions with
+`newdata`. You can first perform an ordination without some species or
+sites, and then you can find scores for all points using your complete
+data as `newdata`. The `predict` functions are available for basic
+eigenvector methods in **vegan** (`cca`, `rda`, `decorana`, for an
+up-to-date list, use command `methods("predict")`).
+
+You can add new points NMDS with function `MDSaddpoints`.
+
+------------------------------------------------------------------------
+
+#### Class variables and dummies
+
+You should define a class variable as an R `factor`, and **vegan** will
+automatically handle them.
+
+R (and **vegan**) knows both unordered and ordered factors. Unordered
+factors are internally coded as dummy variables, but one redundant level
+is removed or aliased. With default contrasts, the removed level is the
+first one. Ordered factors are expressed as polynomial contrasts. Both
+of these contrasts are explained in standard **R** documentation.
+
+------------------------------------------------------------------------
+
+#### How are environmental arrows scaled?
+
+The printed output of `envfit` gives the direction cosines which are the
+coordinates of unit length arrows. For plotting, these are scaled by
+their correlation (square roots of column `r2`). You can see the scaled
+lengths of `envfit` arrows using command `scores`.
+
+The scaled environmental vectors from `envfit` and the arrows for
+continuous environmental variables in constrained ordination (`cca`,
+`rda`, `dbrda`) are adjusted to fill the current graph. The lengths of
+arrows do not have fixed meaning with respect to the points (species,
+sites), but they can only compared against each other, and therefore
+only their relative lengths are important.
+
+If you want change to the scaling of the arrows, you can use `text`
+(plotting arrows and text) or `points` (plotting only arrows) functions
+for constrained ordination. These functions have argument `arrow.mul`
+which sets the multiplier. The `plot` function for `envfit` also has the
+`arrow.mul` argument to set the arrow multiplier.
+
+------------------------------------------------------------------------
+
+#### I cannot see all variables in constrained ordination
+
+You have some variables that have no use and information. These
+variables are correlated with other constraining variables and have no
+independent information. This can also concern only some levels of
+factor variables. For instance, in **vegan** data `dune.env` we know
+that `Manure` level is 0 in `Management` level `NM` and only there. If
+both are used as constraints (or conditions), one level of `Manure` or
+one level of `Management` is redundant. These variables or levels are
+aliased, and **vegan** informs about this during fitting the model and
+permanently when the short information of the result is printed.
+
+**Vegan** function `alias` gives the defining equations for aliased
+variables, or optionally their names.
+
+------------------------------------------------------------------------
+
+#### Plotting aliased variables
+
+You can fit vectors or class centroids for aliased variables using
+`envfit` function. The `envfit` function uses weighted fitting, and the
+fitted vectors are identical to the vectors in correspondence analysis.
+In constrained analysis you must fit the centroids or vectors to the
+constrained scores (LC scores), and use argument `display = "lc"` in
+`envfit`.
+
+------------------------------------------------------------------------
+
+#### Restricted permutations in **vegan**
+
+**Vegan** uses **permute** package in all its permutation tests. The
+**permute** package will allow restricted permutation designs for time
+series, line transects, spatial grids and blocking factors. The
+construction of restricted permutation schemes is explained in the
+manual page `permutations` in **vegan** and in the documentation of the
+**permute** package.
+
+------------------------------------------------------------------------
+
+#### Why restricted permutation does not influence adonis results?
+
+The permutation scheme influences the permutation distribution of the
+statistics and significance levels, but does not influence the
+calculation of the statistics.
+
+------------------------------------------------------------------------
+
+#### How to use different plotting symbols in ordination graphics?
+
+Ordination objects typically have many different kind of scores, and
+there may be limitations of changing the way how they are displayed.
+However, `plot` for constrained ordination results (`cca`, `rda`,
+`dbrda`) can be fully configured since **vegan** 2.7-1. See their help.
+Sometimes it is easier to compose the graph by layers using pipes (`|>`)
+to add `text` or `points` of different scores. See the help of
+ordination plot functions for examples.
+
+------------------------------------------------------------------------
+
+#### How to avoid cluttered ordination graphs?
+
+If there is a really high number of species or sites, the graphs often
+are congested and many labels are overwritten. It may be impossible to
+have complete readable graphics with some data sets. Below we give a
+brief overview of tricks you can use. Gavin Simpson’s blog [From the
+bottom of the heap](https://fromthebottomoftheheap.net) has a series of
+articles on “decluttering ordination plots” with more detailed
+discussion and examples.
+
+Often the easiest solution is to use only `points`. If you need text to
+identify items, most `text` and `plot` functions have argument
+`optimize` and `bg`. With `optimize = TRUE` the exact location of the
+score is marked with a point, and text label is written next to the
+point trying to find a position that minimizes over-writing other
+labels. This is impossible in very congested areas, but often helps in
+moderate cases. Argument `bg` defines a background colour of labels. For
+instance, `bg = "white"` will write text on white background. These
+labels will cover other text below them, but at least the uppermost are
+readable instead of both being messed up. These arguments can be
+combined, and this often gives the best result. These arguments can also
+be used in `text` functions in pipe (`|>`). Finally, `text` functions
+take argument `labels` which allows editing plotted text, and argument
+`select` to drop completely some cases.
+
+There is a special function `orditorp` (torp for text-or-point) function
+that will use text only if it is not covered by other text labels and
+points otherwise (with argument `priority` to define which items are
+printed first).
+
+Companion CRAN package **vegan3d** has function `orditkplot` that
+provides editable plot where the points are fixed at their ordination
+scores, but you can move text labels with mouse.
+
+------------------------------------------------------------------------
+
+#### Can I flip an axis in ordination diagram?
+
+Use `xlim` or `ylim` with flipped limits. If you have model
+`mod <- cca(dune)` you can flip the first axis with
+`plot(mod, xlim = c(3, -2))`.
+
+------------------------------------------------------------------------
+
+#### Can I zoom into an ordination plot?
+
+You can use `xlim` and `ylim` arguments in `plot` or `ordiplot` to zoom
+into ordination diagrams. Normally you must set both `xlim` and `ylim`
+because ordination plots will keep the equal aspect ratio of axes, and
+they will fill the graph so that the longer axis will fit.
+
+Dynamic zooming can be done with function `orditkplot` in CRAN package
+**vegan3d**. You can directly save the edited `orditkplot` graph in
+various graphic formats, or you can export the graph object back to R
+session and use `plot` to display the results.
+
+------------------------------------------------------------------------
+
+### Other analysis methods
+
+------------------------------------------------------------------------
+
+#### Is there TWINSPAN?
+
+TWINSPAN for R is available in
+[github](https://github.com/jarioksa/twinspan).
+
+------------------------------------------------------------------------
