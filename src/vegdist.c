@@ -25,6 +25,7 @@
 #include <R.h>
 #include <Rmath.h>
 #include <R_ext/Utils.h> /* interrupt */
+#include <math.h> /* probably already included by Rmath.h */
 #include <float.h>
 #include <string.h> /* memset */
 
@@ -188,7 +189,7 @@ static double veg_chord(double *x, int nr, int nc, int i1, int i2)
 
     if (count == 0) return NA_REAL;
     dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
-    return sqrt(dist);
+    return sqrt(fmax(dist, 0.0));
 }
 
 /* It may not make sense to use direct formula to Chord distance as
@@ -217,7 +218,7 @@ static double veg_hellinger(double *x, int nr, int nc, int i1, int i2)
 
     if (count == 0) return NA_REAL;
     dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
-    return sqrt(dist);
+    return sqrt(fmax(dist, 0.0));
 }
 
 /* Canberra distance: duplicates R base, but is scaled into range
