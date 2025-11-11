@@ -14,7 +14,7 @@
             warning("input data contains negative entries: result may be non-sense")
         }
     }
-    else k <- .Machine$double.eps
+    else k <- 0 # all pmax.int(k,...) should be dropped but test first
     attr <- NULL
     switch(method, total = {
         if (missing(MARGIN))
