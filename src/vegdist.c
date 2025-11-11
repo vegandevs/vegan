@@ -187,7 +187,7 @@ static double veg_chord(double *x, int nr, int nc, int i1, int i2)
 	i2 += nr;
     }
 
-    if (count == 0) return NA_REAL;
+    if (count == 0 || ss1 * ss2 <= 0.0) return NA_REAL;
     dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
     return sqrt(fmax(dist, 0.0));
 }
@@ -216,7 +216,7 @@ static double veg_hellinger(double *x, int nr, int nc, int i1, int i2)
 	i2 += nr;
     }
 
-    if (count == 0) return NA_REAL;
+    if (count == 0 || ss1 * ss2 <= 0.0) return NA_REAL;
     dist = 2.0 * (1.0 - cp/sqrt(ss1 * ss2));
     return sqrt(fmax(dist, 0.0));
 }
