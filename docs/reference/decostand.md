@@ -6,8 +6,8 @@ methods for community ecologists.
 ## Usage
 
 ``` r
-decostand(x, method, MARGIN, range.global, logbase = 2, na.rm=FALSE, ...)
-wisconsin(x)
+decostand(x, method, MARGIN, range.global, logbase = 2, na.rm = FALSE, ...)
+wisconsin(x, na.rm = FALSE)
 decobackstand(x, zap = TRUE)
 ```
 
