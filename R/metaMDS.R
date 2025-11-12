@@ -71,8 +71,10 @@
         ## transformed data
         ##comm <- eval.parent(parse(text=attr(dis, "commname")))
         comm <- attr(dis, "comm")
-        if (anyNA(comm) || anyNA(dis))
+        if (anyNA(comm) || anyNA(points)) {
+            warning("WA scores were not calculated due to missing values")
             NA
+        }
         else
             wascores(points, comm, expand = expand)
     } else {
