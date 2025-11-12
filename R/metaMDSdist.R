@@ -24,12 +24,12 @@
             cat("Square root transformation\n")
     }
     if (autotransform && xam > 9) {
-        comm <- wisconsin(comm)
+        comm <- wisconsin(comm, na.rm = TRUE)
         commname <- paste("wisconsin(", commname, ")", sep = "")
         if (trace)
             cat("Wisconsin double standardization\n")
     }
-    dis <- distfun(comm, method = distance, ...)
+    dis <- distfun(comm, method = distance, na.rm = TRUE, ...)
     call <- attr(dis, "call")
     call[[1]] <- as.name(distname)
     attr(dis, "call") <- call
