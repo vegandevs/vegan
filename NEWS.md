@@ -29,8 +29,8 @@
 
 * `decostand` for data with zero row or column sums or maxima gives
   now `NaN` (not a number) in methods `"chi.square"`, `"frequency"`,
-  `"hellinger"`, `"max"` and `"total"`. Since CRAN release 1.6-10
-  (2005) we avoided division by zero and returned these as
+  `"hellinger"`, `"max"` and `"total"`. Since 2005 (CRAN release
+  1.6-10) we avoided division by zero and returned these as
   zero. However, this can give wrong and misleading results in further
   analysis, because originally invalid data is regarded as valid. As
   an example, see issue
