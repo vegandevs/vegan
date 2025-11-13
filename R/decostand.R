@@ -8,30 +8,28 @@
                  "log", "clr", "rclr", "alr")
     method <- match.arg(method, METHODS)
     if (any(x < 0, na.rm = TRUE)) {
-        k <- min(x, na.rm = TRUE)
         if (method %in% c("total", "frequency", "pa", "chi.square", "rank",
                           "rrank", "rclr")) {
             warning("input data contains negative entries: result may be non-sense")
         }
     }
-    else k <- 0 # all pmax.int(k,...) should be dropped but test first
     attr <- NULL
     switch(method, total = {
         if (missing(MARGIN))
             MARGIN <- 1
-        tmp <- pmax.int(k, apply(x, MARGIN, sum, na.rm = na.rm))
+        tmp <- apply(x, MARGIN, sum, na.rm = na.rm)
         x <- sweep(x, MARGIN, tmp, "/")
         attr <- list("total" = tmp, "margin" = MARGIN)
     }, max = {
         if (missing(MARGIN))
             MARGIN <- 2
-        tmp <- pmax.int(k, apply(x, MARGIN, max, na.rm = na.rm))
+        tmp <- apply(x, MARGIN, max, na.rm = na.rm)
         x <- sweep(x, MARGIN, tmp, "/")
         attr <- list("max" = tmp, "margin" = MARGIN)
     }, frequency = {
         if (missing(MARGIN))
             MARGIN <- 2
-        tmp <- pmax.int(k, apply(x, MARGIN, sum, na.rm = na.rm))
+        tmp <- apply(x, MARGIN, sum, na.rm = na.rm)
         fre <- apply(x > 0, MARGIN, sum, na.rm = na.rm)
         tmp <- fre/tmp
         x <- sweep(x, MARGIN, tmp, "*")
@@ -56,7 +54,6 @@
         tmp <- apply(xtmp, MARGIN, min, na.rm = na.rm)
         ran <- apply(xtmp, MARGIN, max, na.rm = na.rm)
         ran <- ran - tmp
-        ran <- pmax.int(k, ran, na.rm = na.rm)
         x <- sweep(x, MARGIN, tmp, "-")
         x <- sweep(x, MARGIN, ran, "/")
         attr <- list("min" = tmp, "range" = ran, "margin" = MARGIN)
@@ -101,8 +98,8 @@
         ## MARGIN 2 transposes the result!
         if (MARGIN == 2)
             x <- t(x)
-        rs <- pmax.int(k, rowSums(x, na.rm = na.rm))
-        cs <- pmax.int(k, colSums(x, na.rm = na.rm))
+        rs <- rowSums(x, na.rm = na.rm)
+        cs <- colSums(x, na.rm = na.rm)
         tot <- sum(x, na.rm = na.rm)
         x <- sqrt(tot) * x/outer(rs, sqrt(cs))
         attr <- list("tot" = tot, "rsum" = rs, "csum" = cs, margin = MARGIN)
