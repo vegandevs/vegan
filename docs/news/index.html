@@ -46,6 +46,12 @@
 <div class="section level3">
 <h3 id="new-features-2-8-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-8-0"></a></h3>
 <ul><li><p><code>metaMDS</code> can use any MDS function as an <code>engine</code> if the function takes as input dissimilarities, initial configuration and number of axes, and returns a list with elements stress and points for final solution. <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code> and <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">MASS::isoMDS</a></code> are such functions, but other MDS functions can be easily wrapped to make them compatible. The Examples in the help page shows how to wrap <code>smacof::mds</code>. The default engine is still <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code>, and the user experience with this default choice is unchanged.</p></li>
+<li><p><code>metaMDS</code> is more robust with missing values in community data.</p></li>
+<li>
+<p><code>decostand</code> for data with zero row or column sums or maxima gives now <code>NaN</code> (not a number) in methods <code>"chi.square"</code>, <code>"frequency"</code>, <code>"hellinger"</code>, <code>"max"</code> and <code>"total"</code>. Since CRAN release 1.6-10</p>
+<ol start="2005" style="list-style-type: decimal"><li>we avoided division by zero and returned these as zero. However, this can give wrong and misleading results in further analysis, because originally invalid data is regarded as valid. As an example, see issue <a href="https://github.com/vegandevs/vegan/issues/762" class="external-link">#762</a>.</li>
+</ol></li>
+<li><p><code>wisconsin</code> double standardization gained argument <code>na.rm</code> similarly as <code>decostand</code>.</p></li>
 <li><p><code>adonis2</code> can have <code>Condition</code> in formula allowing similar analysis of partial models as in <code>dbrda</code>.</p></li>
 <li><p><code>plot.envfit</code> can use criterion <code>r2.min</code> for lower threshold of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math> of displayed variables. Both <code>p.max</code> and <code>r2.min</code> must be satisfied for displayed items.</p></li>
 <li><p><code>ordipointlabel</code> is faster. This was achieved using tighter bounding box which reduced the number of potentially overlapping labels. The used bounding box is shown with argument <code>bg  = &lt;colour&gt;</code>. The function is also invoked from <code>plot</code> and <code>text</code> functions for ordination results with argument <code>optimize = TRUE</code>.</p></li>
@@ -59,6 +65,7 @@
 <p>Back-transformation of <code>"rclr"</code> failed with <code>decobackstand</code>. Back-transformation cannot be done with imputed matrix, and without imputed matrix original zeros were returned as <code>NA</code>.</p>
 </li>
 <li><p><code>vegdist(..., binary = TRUE)</code> did not use binary data in Chi-square and Mahalanobis distances (methods <code>"chisq"</code> and <code>"mahalanobis"</code>).</p></li>
+<li><p><code>vegdist</code> for Chord and Hellinger distances gave wrong or misleading results when two sites were identical or one of sites was empty (all zeros). Issues <a href="https://github.com/vegandevs/vegan/issues/761" class="external-link">#761</a> and <a href="https://github.com/vegandevs/vegan/issues/762" class="external-link">#762</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="defunct-2-8-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-2-8-0"></a></h3>
