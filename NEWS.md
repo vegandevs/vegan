@@ -56,6 +56,13 @@
   the term in plots, but switches to `X1` _etc_ if the full name does
   not fit the graph. Tilde is stripped from the term name.
 
+* `vegdist` warns now when Morisita index is used with 0/1 integer
+  data, and handles smoothly cases when two compared rows have largest
+  integer 1 and share no species (used to be `NaN`, now is distance
+  1).  Morisita index should be used only with count data, most
+  above 1. See issue
+  [#444](https://github.com/vegandevs/vegan/issues/444).
+
 * `adipart` can use Hill numbers 1 and 2 in additive diversity
   partitioning per wish of
   [#752](https://github.com/vegandevs/vegan/issues/752). Earlier it
