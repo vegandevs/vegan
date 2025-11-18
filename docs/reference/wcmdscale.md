@@ -196,13 +196,13 @@ ca <- cca(dune)
 ## Eigevalues are numerically similar
 ca$CA$eig - ord$eig
 #>           CA1           CA2           CA3           CA4           CA5 
-#> -5.551115e-16 -1.609823e-15 -7.216450e-16  8.326673e-17 -5.551115e-17 
+#> -2.220446e-16 -9.436896e-16 -7.216450e-16  3.885781e-16  8.326673e-17 
 #>           CA6           CA7           CA8           CA9          CA10 
-#> -4.163336e-17 -1.387779e-16 -1.942890e-16  1.249001e-16  1.387779e-17 
+#>  2.775558e-17 -2.081668e-16 -1.249001e-16  6.938894e-17  3.469447e-17 
 #>          CA11          CA12          CA13          CA14          CA15 
-#>  1.110223e-16  6.245005e-17  4.857226e-17 -1.734723e-17  1.734723e-18 
+#>  5.551115e-17 -2.081668e-17  2.081668e-17 -3.469447e-18 -3.816392e-17 
 #>          CA16          CA17          CA18          CA19 
-#>  3.469447e-18 -6.938894e-18  0.000000e+00  4.553649e-17 
+#> -1.387779e-17 -3.469447e-18 -2.775558e-17  3.946496e-17 
 ## Configurations are similar when site scores are scaled by
 ## eigenvalues in CA
 procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -211,7 +211,7 @@ procrustes(ord, ca, choices=1:19, scaling = "sites")
 #> procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 #> 
 #> Procrustes sum of squares:
-#> -4.263e-14 
+#> -5.684e-14 
 #> 
 ## IGNORE_RDIFF_END
 

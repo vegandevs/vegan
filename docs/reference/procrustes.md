@@ -346,7 +346,7 @@ summary(vare.proc)
 #> 
 #> Translation of averages:
 #>               [,1]          [,2]
-#> [1,] -3.423193e-17 -2.658949e-17
+#> [1,] -1.477072e-17 -1.163327e-17
 #> 
 #> Scaling of target:
 #> [1] 0.8635923
