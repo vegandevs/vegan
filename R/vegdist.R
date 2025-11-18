@@ -55,6 +55,9 @@
     if (method %in% c(7, 13, 15) && !isTRUE(all.equal(x, round(x))))
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
+    if (method %in% 7 && round(max(x)) == 1) # morisita
+        warning("results may be meaningless with largest integer 1 in method ",
+                dQuote(inm))
     d <- .Call(do_vegdist, x, as.integer(method), PACKAGE = "vegan")
     d[d < ZAP] <- 0
     if (any(is.na(d)))
