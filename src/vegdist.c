@@ -386,7 +386,10 @@ static double veg_morisita(double *x, int nr, int nc, int i1, int i2)
      return dist;
 }
 
-/* Horn-Morisita index */
+/* Horn-Morisita index. Similar to Morisita above, but does not use
+ * terms minus one (t1-1, t2-1) and can be used for non-integer
+ * data. Similar to Morisita with large row sums, but diverges in
+ * small samples. */
 
 static double veg_horn(double *x, int nr, int nc, int i1, int i2)
 {
@@ -421,9 +424,10 @@ static double veg_horn(double *x, int nr, int nc, int i1, int i2)
 
 /* Mountford index theta is defined as the root of an exponential
  * equation (function mount_fun below). The value of theta is found
- * using Newton method (derivatives in mount_der) in veg_mountford.
- * The result is divided by log(2) to put dissimilarities into
- * conventional range 0...1.
+ * using Newton method (derivatives in mount_der) in veg_mountford. In
+ * literature this is often wrongly represented, and instead of
+ * Mountford's original definition literature claims the starting
+ * value of estimation as the final Mountford index.
  */
 
 #define MAXIT 20
@@ -473,6 +477,8 @@ static double veg_mountford(double *x, int nr, int nc, int i1, int i2)
 	  J = (double)(sim);
 	  A = (double)(t1);
 	  B = (double)(t2);
+	  /* Starting value: literature often cites this as the
+	   * Mountford index */
 	  dist = 2*J/(2*A*B - (A+B)*J);
 	  for (j = 0; j < MAXIT; j++) {
 	       oldist = dist;
@@ -543,8 +549,7 @@ static double veg_raup(double *x, int nr, int nc, int i1, int i2)
  * notes of Marti Anderson over the internet, and she attributes this
  * idea to her colleague Russell Millar.  The index is basically
  * binomial deviance under H0 that species are equally common in the
- * two compared communities.  This could be easily generalized over
- * to, say, Poisson case.
+ * two compared communities.
  */
 
 static double veg_millar(double *x, int nr, int nc, int i1, int i2)
@@ -573,7 +578,11 @@ static double veg_millar(double *x, int nr, int nc, int i1, int i2)
 
 /* Chao's index (Ecol. Lett. 8, 148-159; 2005) tries to take into
  * account the number of unseen shared species using Chao's method for
- * estimating the number of unseen species. June 2006.
+ * estimating the number of unseen species. Function chaoterms returns
+ * the component terms U and V which are also used in C function SEXP
+ * chaoterms and R function chaodist for any variant of Chao
+ * distances; C function chaojaccard below only implements Jaccard
+ * type index.
  */
 
 static void chaoterms(double *x, int nr, int nc, int i1, int i2,
@@ -897,7 +906,7 @@ SEXP do_minterms(SEXP x)
     return terms;
 }
 
-/* Extract Chao terms U & V for designdist */
+/* Extract Chao terms U & V for R function chaodist (in designdist.R) */
 
 SEXP do_chaoterms(SEXP x)
 {
