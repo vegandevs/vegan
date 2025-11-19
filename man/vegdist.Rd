@@ -226,11 +226,12 @@
   in the species present at site \eqn{j} that occur with only one
   individual in site \eqn{k} (Chao et al. 2005).
 
-  Morisita index can be used with genuine count data (integers) only. It
-  is based on the idea of resampling without replacement and should not
-  be used with presence/absence data, but may give meaningless results
-  if compared sampling units (rows) have largest integer 1. Its
-  Horn--Morisita variant is able to handle any abundance data.
+  Morisita index can be only used with genuine count data (integers). It
+  is based on the idea of resampling without replacement in finite
+  samples and should not be used with presence/absence data, and gives
+  meaningless results if compared sampling units (rows) have largest
+  integer 1. Its Horn--Morisita variant is able to handle any abundance
+  data, and should be used if data are unsuitable for Morisita.
 
   Mahalanobis distances are Euclidean distances of a matrix where
   columns are centred, have unit variance, and are uncorrelated.  The
