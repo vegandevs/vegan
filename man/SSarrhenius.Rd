@@ -32,6 +32,11 @@ SSlomolino(area, Asym, xmid, slope)
   }
 }
 \details{
+  These functions are intended to be used as self-starting models in
+  non-linear regression (\code{\link{nls}}). There are several functions
+  that can be used to further handle \code{nls} result, including
+  \code{summary}, \code{confint} and many more (see \code{\link{nls}}).
+
   All these functions are assumed to be used for species richness
   (number of species) as the independent variable, and area or sample
   size as the independent variable. Basically, these define least
@@ -73,7 +78,10 @@ SSlomolino(area, Asym, xmid, slope)
   Numeric vector of the same length as \code{area}. It is the value of
   the expression of each model. If all arguments are names of objects
   the gradient matrix with respect to these names is attached as an
-  attribute named \code{gradient}. 
+  attribute named \code{gradient}. This result object will be used in
+  non-linear regression in function \code{\link{nls}} which returns its
+  own result object with many support functions documented with
+  \code{\link{nls}}.
 }
 \references{
   Dengler, J. (2009) Which function describes the species-area
@@ -105,6 +113,7 @@ plot(S ~ area, sipoo.map,  xlab = "Island Area (ha)",
 ## The Arrhenius model
 marr <- nls(S ~ SSarrhenius(area, k, z), data=sipoo.map)
 marr
+summary(marr)
 ## confidence limits from profile likelihood
 confint(marr)
 ## draw a line
@@ -113,7 +122,7 @@ lines(xtmp, predict(marr, newdata=data.frame(area = xtmp)), lwd=2)
 ## The normal way is to use linear regression on log-log data,
 ## but this will be different from the previous:
 mloglog <- lm(log(S) ~ log(area), data=sipoo.map)
-mloglog
+summary(mloglog) # (Intercept) is log(k) of SSarrhenius result
 lines(xtmp, exp(predict(mloglog, newdata=data.frame(area=xtmp))),
    lty=2)
 ## Gleason: log-linear
@@ -126,7 +135,7 @@ lines(xtmp, predict(mgit, newdata=data.frame(area=xtmp)),
   lwd=2, col = 3)
 ## Lomolino: using original names of the parameters (Lomolino 2000):
 mlom <- nls(S ~ SSlomolino(area, Smax, A50, Hill), sipoo.map)
-mlom
+summary(mlom)
 lines(xtmp, predict(mlom, newdata=data.frame(area=xtmp)),
   lwd=2, col = 4)
 ## One canned model of standard R:
