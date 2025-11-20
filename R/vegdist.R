@@ -56,10 +56,13 @@
         warning("results may be meaningless with non-integer data in method ",
                 dQuote(inm))
     if (method %in% 7) { # morisita
+        if (any(x[x>0] < 1))
+            warning("results may be meaningless with positive values < 1 in ",
+                    dQuote(inm))
         if (round(max(x)) == 1)
             warning("results may be meaningless with largest integer 1 in ",
                     dQuote(inm))
-        else if (any(r1 <- apply(x, 1, max) < 2))
+        else if (any(r1 <- apply(x, 1, max) <= 1))
             warning(dQuote(inm),
                     " expects some counts > 1, none in row(s) ",
                     paste(which(r1), collapse=", "))
