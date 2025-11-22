@@ -27,6 +27,12 @@ SSlomolino(area, Asym, xmid, slope)
 
 ## Details
 
+These functions are intended to be used as self-starting models in
+non-linear regression ([`nls`](https://rdrr.io/r/stats/nls.html)). There
+are several functions that can be used to further handle `nls` result,
+including `summary`, `confint` and many more (see
+[`nls`](https://rdrr.io/r/stats/nls.html)).
+
 All these functions are assumed to be used for species richness (number
 of species) as the independent variable, and area or sample size as the
 independent variable. Basically, these define least squares models of
@@ -68,7 +74,10 @@ that may be useful.
 Numeric vector of the same length as `area`. It is the value of the
 expression of each model. If all arguments are names of objects the
 gradient matrix with respect to these names is attached as an attribute
-named `gradient`.
+named `gradient`. This result object will be used in non-linear
+regression in function [`nls`](https://rdrr.io/r/stats/nls.html) which
+returns its own result object with many support functions documented
+with [`nls`](https://rdrr.io/r/stats/nls.html).
 
 ## References
 
@@ -113,6 +122,22 @@ marr
 #> 
 #> Number of iterations to convergence: 5 
 #> Achieved convergence tolerance: 1.056e-06
+summary(marr)
+#> 
+#> Formula: S ~ SSarrhenius(area, k, z)
+#> 
+#> Parameters:
+#>   Estimate Std. Error t value Pr(>|t|)    
+#> k  3.40619    0.40790   8.351 3.16e-07 ***
+#> z  0.43644    0.02743  15.910 3.15e-11 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Residual standard error: 2.209 on 16 degrees of freedom
+#> 
+#> Number of iterations to convergence: 5 
+#> Achieved convergence tolerance: 1.056e-06
+#> 
 ## confidence limits from profile likelihood
 confint(marr)
 #> Waiting for profiling to be done...
@@ -125,14 +150,25 @@ lines(xtmp, predict(marr, newdata=data.frame(area = xtmp)), lwd=2)
 ## The normal way is to use linear regression on log-log data,
 ## but this will be different from the previous:
 mloglog <- lm(log(S) ~ log(area), data=sipoo.map)
-mloglog
+summary(mloglog) # (Intercept) is log(k) of SSarrhenius result
 #> 
 #> Call:
 #> lm(formula = log(S) ~ log(area), data = sipoo.map)
 #> 
+#> Residuals:
+#>      Min       1Q   Median       3Q      Max 
+#> -0.87519 -0.11897  0.05503  0.19842  0.40087 
+#> 
 #> Coefficients:
-#> (Intercept)    log(area)  
-#>      1.0111       0.4925  
+#>             Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)  1.01109    0.14897   6.787 4.36e-06 ***
+#> log(area)    0.49252    0.05565   8.850 1.46e-07 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Residual standard error: 0.3163 on 16 degrees of freedom
+#> Multiple R-squared:  0.8304, Adjusted R-squared:  0.8198 
+#> F-statistic: 78.32 on 1 and 16 DF,  p-value: 1.462e-07
 #> 
 lines(xtmp, exp(predict(mloglog, newdata=data.frame(area=xtmp))),
    lty=2)
@@ -146,16 +182,23 @@ lines(xtmp, predict(mgit, newdata=data.frame(area=xtmp)),
   lwd=2, col = 3)
 ## Lomolino: using original names of the parameters (Lomolino 2000):
 mlom <- nls(S ~ SSlomolino(area, Smax, A50, Hill), sipoo.map)
-mlom
-#> Nonlinear regression model
-#>   model: S ~ SSlomolino(area, Smax, A50, Hill)
-#>    data: sipoo.map
-#>   Smax    A50   Hill 
-#> 53.493 94.697  2.018 
-#>  residual sum-of-squares: 55.37
+summary(mlom)
+#> 
+#> Formula: S ~ SSlomolino(area, Smax, A50, Hill)
+#> 
+#> Parameters:
+#>      Estimate Std. Error t value Pr(>|t|)    
+#> Smax   53.493     13.849   3.863  0.00153 ** 
+#> A50    94.697     74.964   1.263  0.22578    
+#> Hill    2.018      0.235   8.587 3.56e-07 ***
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#> 
+#> Residual standard error: 1.921 on 15 degrees of freedom
 #> 
 #> Number of iterations to convergence: 6 
 #> Achieved convergence tolerance: 9.715e-07
+#> 
 lines(xtmp, predict(mlom, newdata=data.frame(area=xtmp)),
   lwd=2, col = 4)
 ## One canned model of standard R:

@@ -73,7 +73,11 @@
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>All these functions are assumed to be used for species richness
+    <p>These functions are intended to be used as self-starting models in
+  non-linear regression (<code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></code>). There are several functions
+  that can be used to further handle <code>nls</code> result, including
+  <code>summary</code>, <code>confint</code> and many more (see <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></code>).</p>
+<p>All these functions are assumed to be used for species richness
   (number of species) as the independent variable, and area or sample
   size as the independent variable. Basically, these define least
   squares models of untransformed data, and will differ from models
@@ -109,7 +113,10 @@
     <p>Numeric vector of the same length as <code>area</code>. It is the value of
   the expression of each model. If all arguments are names of objects
   the gradient matrix with respect to these names is attached as an
-  attribute named <code>gradient</code>.</p>
+  attribute named <code>gradient</code>. This result object will be used in
+  non-linear regression in function <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></code> which returns its
+  own result object with many support functions documented with
+  <code><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -152,6 +159,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of iterations to convergence: 5 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 1.056e-06</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">marr</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formula: S ~ SSarrhenius(area, k, z)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameters:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> k  3.40619    0.40790   8.351 3.16e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> z  0.43644    0.02743  15.910 3.15e-11 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual standard error: 2.209 on 16 degrees of freedom</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of iterations to convergence: 5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 1.056e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## confidence limits from profile likelihood</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html" class="external-link">confint</a></span><span class="op">(</span><span class="va">marr</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Waiting for profiling to be done...</span>
@@ -164,14 +187,25 @@
 <span class="r-in"><span><span class="co">## The normal way is to use linear regression on log-log data,</span></span></span>
 <span class="r-in"><span><span class="co">## but this will be different from the previous:</span></span></span>
 <span class="r-in"><span><span class="va">mloglog</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">S</span><span class="op">)</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">area</span><span class="op">)</span>, data<span class="op">=</span><span class="va">sipoo.map</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mloglog</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mloglog</span><span class="op">)</span> <span class="co"># (Intercept) is log(k) of SSarrhenius result</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Call:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> lm(formula = log(S) ~ log(area), data = sipoo.map)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Min       1Q   Median       3Q      Max </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> -0.87519 -0.11897  0.05503  0.19842  0.40087 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Coefficients:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)    log(area)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      1.0111       0.4925  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)  1.01109    0.14897   6.787 4.36e-06 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> log(area)    0.49252    0.05565   8.850 1.46e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual standard error: 0.3163 on 16 degrees of freedom</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Multiple R-squared:  0.8304,	Adjusted R-squared:  0.8198 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> F-statistic: 78.32 on 1 and 16 DF,  p-value: 1.462e-07</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">xtmp</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mloglog</span>, newdata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>area<span class="op">=</span><span class="va">xtmp</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   lty<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
@@ -185,16 +219,23 @@
 <span class="r-in"><span>  lwd<span class="op">=</span><span class="fl">2</span>, col <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## Lomolino: using original names of the parameters (Lomolino 2000):</span></span></span>
 <span class="r-in"><span><span class="va">mlom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a></span><span class="op">(</span><span class="va">S</span> <span class="op">~</span> <span class="fu">SSlomolino</span><span class="op">(</span><span class="va">area</span>, <span class="va">Smax</span>, <span class="va">A50</span>, <span class="va">Hill</span><span class="op">)</span>, <span class="va">sipoo.map</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mlom</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Nonlinear regression model</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   model: S ~ SSlomolino(area, Smax, A50, Hill)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    data: sipoo.map</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Smax    A50   Hill </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53.493 94.697  2.018 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  residual sum-of-squares: 55.37</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">mlom</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formula: S ~ SSlomolino(area, Smax, A50, Hill)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parameters:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Smax   53.493     13.849   3.863  0.00153 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A50    94.697     74.964   1.263  0.22578    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hill    2.018      0.235   8.587 3.56e-07 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual standard error: 1.921 on 15 degrees of freedom</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of iterations to convergence: 6 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Achieved convergence tolerance: 9.715e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">xtmp</span>, <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">mlom</span>, newdata<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>area<span class="op">=</span><span class="va">xtmp</span><span class="op">)</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  lwd<span class="op">=</span><span class="fl">2</span>, col <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## One canned model of standard R:</span></span></span>
