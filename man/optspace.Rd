@@ -37,9 +37,8 @@ This implementation removes the trimming step of the original
 \code{Roptspace::OptSpace} code in order to leave feature filtering to the
 user. Some of the defaults have been adjusted to better reflect
 ecological data. The implementation has been adjusted for ecological
-applications as in Martino et al. (2019). The imputed matrix (M) in
-the optspace output includes matrix reconstruction (XSY'), with
-subsequent centering for the columns and rows.
+applications as in Martino et al. (2019). The imputed matrix (\eqn{M}) in
+the optspace output includes matrix reconstruction (\eqn{XSY'}).
 }
 
 \value{Returns a named list containing:
@@ -47,7 +46,8 @@ subsequent centering for the columns and rows.
   \item{S}{an \eqn{(r \times r)}{(r x r)} matrix as singular values.}
   \item{Y}{an \eqn{(m \times r)}{(m x r)} matrix as right singular vectors.}
   \item{dist}{a vector containing reconstruction errors at each successive iteration.}
-  \item{M}{an \eqn{(n \times m)}{(n x m)} imputed matrix, with columns and rows centered to zero.}
+  \item{M}{an \eqn{(n \times m)}{(n x m)} imputed matrix as calculated
+    from \code{X}, \code{S} and \code{Y}.}
 }
 
 \author{Leo Lahti and Cameron Martino, with adaptations of the method

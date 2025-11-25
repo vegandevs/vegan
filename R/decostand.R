@@ -221,6 +221,11 @@
    if (impute && any(is.na(xx))) {
      xx <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
                     verbose = verbose)$M
+     ## Centring is common operation supporting output visualization
+     ## Centre cols to 0
+     xx <- as.matrix(scale(xx, center = TRUE, scale = FALSE))
+     ## Centre rows to 0
+     xx <- as.matrix(t(scale(t(xx), center = TRUE, scale = FALSE)))
    }
    xx
 }

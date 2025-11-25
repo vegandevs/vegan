@@ -38,7 +38,7 @@ x[sample(prod(dim(x)), 50)] <- NA # insert some NAs in the data
 all(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[is.na(x)])) == TRUE # NAs
 # For the other (non-NA) values, we get non-NA values back
 any(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
-any(is.na(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE 
+any(is.na(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
 # Results match for the non-NA values always (with tolerance 1e-6)
 inds <- !is.na(x) # Non-NA values
 max(abs(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[inds] -
@@ -76,7 +76,7 @@ decostand(testdata, method = "clr", pseudocount = 1)
 #class(try(decostand(testdata, method = "clr"))) == "try-error"
 #class(try(decostand(testdata, method = "clr", pseudocount = 0))) == "try-error"
 
-# Tests that clr robust gives values that are approximately same if only 
+# Tests that clr robust gives values that are approximately same if only
 # one value per sample are changed to zero
 # Adds pseudocount
 test <- testdata + 1
@@ -103,9 +103,8 @@ x2 <- decostand(varespec, method = "rclr", impute = FALSE)
 
 # Matrix completion
 x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
-all(as.matrix(x1) == as.matrix(x2c))
-
-x2c <- optspace(x2, niter = 5, tol = 1e-5, verbose = FALSE)$M
+x2c <- scale(x2c, center = TRUE, scale = FALSE)
+x2c <- t(scale(t(x2c), center = TRUE, scale = FALSE))
 all(as.matrix(x1) == as.matrix(x2c))
 
 ############################# NAMES ####################################

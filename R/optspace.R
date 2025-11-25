@@ -144,12 +144,6 @@
   # Reconstruct the matrix
   M <- X %*% S %*% t(Y)
 
-  # Centering is common operation supporting output visualization
-  # Center cols to 0
-  M <- as.matrix(scale(M, center = TRUE, scale = FALSE))
-  # Center rows to 0
-  M <- as.matrix(t(scale(t(M), center = TRUE, scale = FALSE)))
-
   dimnames(M) <- dimnames(x)
   # Add imputed matrix to the output
   out$M <- M

@@ -60,7 +60,7 @@ Type 'q()' to quit R.
 > # For the other (non-NA) values, we get non-NA values back
 > any(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
 [1] TRUE
-> any(is.na(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE 
+> any(is.na(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
 [1] TRUE
 > # Results match for the non-NA values always (with tolerance 1e-6)
 > inds <- !is.na(x) # Non-NA values
@@ -334,10 +334,14 @@ row18 -0.14885299
 row19  0.91755915
 row20  0.33766080
 attr(,"scaled:center")
- [1] -0.0031079619 -0.0463480942 -0.0267762284  0.0089869339  0.0380073003
- [6] -0.0216677154 -0.0095070243 -0.0129853877 -0.0151765084  0.0739366224
-[11]  0.0813752690  0.0153170116 -0.0001358339 -0.0203385433 -0.0102092705
-[16] -0.0133788389  0.0543704488 -0.0876478093  0.0272043261 -0.0319186959
+         row1          row2          row3          row4          row5 
+-0.0031079619 -0.0463480942 -0.0267762284  0.0089869339  0.0380073003 
+         row6          row7          row8          row9         row10 
+-0.0216677154 -0.0095070243 -0.0129853877 -0.0151765084  0.0739366224 
+        row11         row12         row13         row14         row15 
+ 0.0813752690  0.0153170116 -0.0001358339 -0.0203385433 -0.0102092705 
+        row16         row17         row18         row19         row20 
+-0.0133788389  0.0543704488 -0.0876478093  0.0272043261 -0.0319186959 
 attr(,"decostand")
 [1] "rclr"
 > decostand(testdata, method = "clr", pseudocount = 1)
@@ -551,7 +555,7 @@ attr(,"decostand")
 > #class(try(decostand(testdata, method = "clr"))) == "try-error"
 > #class(try(decostand(testdata, method = "clr", pseudocount = 0))) == "try-error"
 > 
-> # Tests that clr robust gives values that are approximately same if only 
+> # Tests that clr robust gives values that are approximately same if only
 > # one value per sample are changed to zero
 > # Adds pseudocount
 > test <- testdata + 1
@@ -828,10 +832,8 @@ col50 FALSE
 > 
 > # Matrix completion
 > x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
-> all(as.matrix(x1) == as.matrix(x2c))
-[1] TRUE
-> 
-> x2c <- optspace(x2, niter = 5, tol = 1e-5, verbose = FALSE)$M
+> x2c <- scale(x2c, center = TRUE, scale = FALSE)
+> x2c <- t(scale(t(x2c), center = TRUE, scale = FALSE))
 > all(as.matrix(x1) == as.matrix(x2c))
 [1] TRUE
 > 
@@ -875,4 +877,4 @@ col50 FALSE
 > 
 > proc.time()
    user  system elapsed 
-  0.438   0.048   0.485 
+  0.436   0.048   0.481 
