@@ -101,9 +101,8 @@ C(\alpha)\sqrt{nr/|E|}$$.</p>
 <code>Roptspace::OptSpace</code> code in order to leave feature filtering to the
 user. Some of the defaults have been adjusted to better reflect
 ecological data. The implementation has been adjusted for ecological
-applications as in Martino et al. (2019). The imputed matrix (M) in
-the optspace output includes matrix reconstruction (XSY'), with
-subsequent centering for the columns and rows.</p>
+applications as in Martino et al. (2019). The imputed matrix (\(M\)) in
+the optspace output includes matrix reconstruction (\(XSY'\)).</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -121,7 +120,8 @@ subsequent centering for the columns and rows.</p>
 <dd><p>a vector containing reconstruction errors at each successive iteration.</p></dd>
 
   <dt>M</dt>
-<dd><p>an \((n \times m)\) imputed matrix, with columns and rows centered to zero.</p></dd>
+<dd><p>an \((n \times m)\) imputed matrix as calculated
+    from <code>X</code>, <code>S</code> and <code>Y</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
