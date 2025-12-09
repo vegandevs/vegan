@@ -13,6 +13,16 @@
   an example, see issue
   [#762](https://github.com/vegandevs/vegan/issues/762).
 
+* `vegdist` warns now when Morisita index is used with
+  presence/absence data or when a sampling unit (row) has no counts
+  above 1. Cases when two compared rows have largest count 1 and share
+  no species are now handled smoothly (used to be `NaN`), but results
+  for 0/1 rows are unreliable. For instance, two sampling units (rows)
+  are regarded identical (distance 0) if they share one species
+  although they differ in all other species with 0/1 data. It is best
+  to use `method = "horn"` if `"morisita"` gives warnings.  See issue
+  [#444](https://github.com/vegandevs/vegan/issues/444).
+
 * `wisconsin` double standardization gained argument `na.rm` similarly
   as `decostand`.
 
