@@ -1,5 +1,5 @@
 
-R version 4.5.1 (2025-06-13) -- "Great Square Root"
+R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble"
 Copyright (C) 2025 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin20
 
@@ -5156,8 +5156,6 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > plot(as.ts(out))
 > lag.plot(as.ts(out))
 > acf(as.ts(out))
-> ## Density plot in lattice graphics
-> permulattice(permustats(out), "densityplot", as.table = TRUE, layout = c(1,4))
 > ## Use quantitative null models to compare
 > ## mean Bray-Curtis dissimilarities
 > data(dune)
@@ -5173,7 +5171,7 @@ nullmodel method ‘r2dtable’ with 99 simulations
 alternative hypothesis: statistic is less or greater than simulated values
 
           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
-statistic   0.64565 15.512 0.46676 0.44220 0.46772 0.4856     0.01 **
+statistic   0.64565 13.687 0.46653 0.44466 0.46622 0.4919     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5197,7 +5195,7 @@ nullmodel method ‘myshuffle’ with 99 simulations
 alternative hypothesis: statistic is less or greater than simulated values
 
           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
-statistic   0.64565 3.9465 0.63491 0.63002 0.63471 0.6407     0.01 **
+statistic   0.64565 3.1358 0.63513 0.62993 0.63515 0.6415     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
@@ -5215,8 +5213,8 @@ alternative hypothesis: statistic is less or greater than simulated values
 Checkerboard Units    : 2767 
 C-score (species mean): 2.258776 
 
-              statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
-checkerboards      2767 0.36404 2732.4 2585.0 2710.0  3007     0.57
+              statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
+checkerboards      2767 0.65073 2731.3 2589.4 2738.0 2821.1     0.59
 > ## Several chains of a sequential model -- this can be generalized
 > ## for parallel processing (see ?smbind)
 > nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
@@ -5245,7 +5243,7 @@ Checkerboard Units    : 2767
 C-score (species mean): 2.258776 
 
               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
-checkerboards      2767 0.89035 2696.7 2567.3 2691.0  2879    0.369
+checkerboards      2767 0.61425 2712.3 2569.7 2699.0  2917   0.4657
 > ## IGNORE_RDIFF_END
 > ## After this you can use toCoda() and tools in the coda package to
 > ## analyse the chains (these will show that thin, burnin and nsimul are
@@ -5810,7 +5808,7 @@ REML score: 96.22088
 > ## or via plot.gam directly
 > library(mgcv)
 Loading required package: nlme
-This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+This is mgcv 1.9-4. For overview type '?mgcv'.
 > plot.gam(fit, cex = 2, pch = 1, col = "blue")
 > ## 'col' effects all objects drawn...
 > 
@@ -5919,34 +5917,6 @@ detaching ‘package:mgcv’, ‘package:nlme’
 > ## example(orditorp) should not set random seed in the user session
 > rm(.Random.seed)
 > ## End(Don't show)
-> 
-> 
-> 
-> cleanEx()
-> nameEx("ordixyplot")
-> ### * ordixyplot
-> 
-> flush(stderr()); flush(stdout())
-> 
-> ### Name: ordixyplot
-> ### Title: Trellis (Lattice) Plots for Ordination
-> ### Aliases: ordixyplot panel.ordi panel.ordiarrows ordilattice.getEnvfit
-> ### Keywords: hplot
-> 
-> ### ** Examples
-> 
-> data(dune, dune.env)
-> ord <- cca(dune)
-> ## Scatter plot with polygons
-> ordixyplot(ord, data=dune.env, form = CA1 ~ CA2 | Management,
-+   groups=Manure, type = c("p","polygon"))
-> ## Choose a different scaling
-> ordixyplot(ord, scaling = "sites")
-> ## ... Slices of third axis
-> ordixyplot(ord, form = CA1 ~ CA2 | lattice::equal.count(CA3, 4),
-+    type = c("g","p", "polygon"))
-> ## Display environmental variables
-> ordixyplot(ord, envfit = envfit(ord ~ Management + A1, dune.env, choices=1:3))
 > 
 > 
 > 
@@ -6245,8 +6215,7 @@ X-squared = 0.40156, df = 1, p-value = 0.5263
 > ###   permustats.mantel permustats.mrpp permustats.mso permustats.oecosimu
 > ###   permustats.ordiareatest permustats.permutest.betadisper
 > ###   permustats.permutest.cca permustats.protest permustats.vectorfit
-> ###   summary.permustats c.permustats permulattice densityplot.permustats
-> ###   density.permustats qqnorm.permustats qqmath.permustats
+> ###   summary.permustats c.permustats density.permustats qqnorm.permustats
 > ###   boxplot.permustats pairs.permustats
 > ### Keywords: distribution smooth
 > 
@@ -6264,9 +6233,6 @@ Model    2.9966 5.3815 1.0184       0.9625 1.6979    0.002 **
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Interval (Upper - Lower) = 0.95)
-> ## lattice graphics
-> permulattice(perm, "densityplot")
-> permulattice(perm, "qqmath")
 > boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
 > abline(h=0, col="skyblue")
 > ## example of multiple types of statistic
@@ -6276,13 +6242,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > summary(perm, interval = 0.90)
 
             statistic     SES    mean   lower  median   upper Pr(perm)  
-Overall (F)    1.9506  0.8054  1.0900          0.7495  2.4330    0.160  
-BF-HF (t)     -0.5634 -0.4952 -0.0087 -1.7690 -0.0436  1.8152    0.579  
-BF-NM (t)     -2.2387 -1.9209  0.0342 -1.7723 -0.0084  2.0042    0.055 .
-BF-SF (t)     -1.1675 -0.9825 -0.0027 -1.9389 -0.0261  1.8619    0.249  
-HF-NM (t)     -2.1017 -1.8773  0.0447 -1.9195  0.0871  1.8452    0.073 .
-HF-SF (t)     -0.8789 -0.7362 -0.0043 -1.8836  0.0729  1.7700    0.415  
-NM-SF (t)      0.9485  0.8840 -0.0502 -1.8588 -0.0474  1.9030    0.317  
+Overall (F)    1.9506  0.8451  1.0789          0.7481  2.4131    0.159  
+BF-HF (t)     -0.5634 -0.4846 -0.0154 -1.7827 -0.0471  1.8166    0.587  
+BF-NM (t)     -2.2387 -1.9260  0.0361 -1.7525 -0.0084  2.0057    0.051 .
+BF-SF (t)     -1.1675 -0.9761 -0.0089 -1.9652 -0.0364  1.8619    0.259  
+HF-NM (t)     -2.1017 -1.9004  0.0544 -1.9056  0.0986  1.8366    0.069 .
+HF-SF (t)     -0.8789 -0.7376 -0.0029 -1.8976  0.0685  1.7700    0.415  
+NM-SF (t)      0.9485  0.9001 -0.0612 -1.8659 -0.0596  1.8510    0.313  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -6362,7 +6328,15 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 > ## lattice graphics with permustats
 > pstat <- permustats(pmod)
 > permulattice(pstat, "densityplot", scale = list(x=list(relation="free")))
+Warning in densityplot.permustats(x, observed = observed, xlab = axislab,  :
+  'densityplot.permustats' is deprecated.
+Use 'ggvegan::autoplot' instead.
+See help("Deprecated")
 > permulattice(pstat, "qqmath", scales = list(relation = "free"))
+Warning in qqmath.permustats(x, observed = observed, ylab = axislab, ...) :
+  'qqmath.permustats' is deprecated.
+Use 'ggvegan::autoplot' instead.
+See help("Deprecated")
 > 
 > 
 > 
@@ -6952,17 +6926,41 @@ Manhattan     Gower    Ochiai
 > 
 > ### Name: renyi
 > ### Title: Renyi and Hill Diversities and Corresponding Accumulation Curves
-> ### Aliases: renyi plot.renyi renyiaccum plot.renyiaccum persp.renyiaccum
+> ### Aliases: renyi renyiaccum persp.renyiaccum
 > ### Keywords: univar
 > 
 > ### ** Examples
 > 
 > data(BCI)
 > i <- sample(nrow(BCI), 12)
-> mod <- renyi(BCI[i,])
-> plot(mod)
+> renyi(BCI[i,])
+          0     0.25      0.5        1        2        4        8       16
+4  4.543295 4.399850 4.253966 3.976563 3.561778 3.157132 2.878594 2.727145
+39 4.430817 4.240081 4.021062 3.530494 2.749191 2.192896 1.918817 1.792300
+1  4.532599 4.398890 4.265075 4.018412 3.674161 3.371787 3.167106 3.042194
+34 4.521789 4.360121 4.185237 3.821669 3.238761 2.748477 2.486674 2.352647
+23 4.595120 4.471984 4.339463 4.062575 3.588236 3.127012 2.864470 2.729487
+43 4.454347 4.285742 4.104905 3.736254 3.145700 2.593930 2.282515 2.134836
+14 4.584967 4.446502 4.302370 4.017494 3.570654 3.147989 2.879572 2.737063
+18 4.488636 4.365688 4.231839 3.944985 3.431714 2.919097 2.609746 2.446668
+33 4.454347 4.283915 4.102866 3.740392 3.186761 2.696061 2.399570 2.247627
+21 4.595120 4.445653 4.287260 3.969925 3.461133 2.910993 2.544210 2.375547
+41 4.624973 4.485592 4.339544 4.052495 3.617275 3.204469 2.909239 2.732853
+10 4.543295 4.382535 4.215475 3.889803 3.392657 2.917205 2.630179 2.494154
+         32       64      Inf
+4  2.648728 2.607649 2.566920
+39 1.734488 1.706957 1.680286
+1  2.970763 2.930598 2.885917
+34 2.281821 2.245829 2.210738
+23 2.652997 2.611650 2.570849
+43 2.066044 2.033250 2.001480
+14 2.665029 2.626467 2.585711
+18 2.367976 2.330389 2.293977
+33 2.175329 2.140800 2.107350
+21 2.298919 2.262428 2.227078
+41 2.645124 2.603139 2.562465
+10 2.425517 2.388652 2.351375
 > mod <- renyiaccum(BCI[i,])
-> plot(mod, as.table=TRUE, col = c(1, 2, 2))
 > persp(mod)
 > 
 > 
@@ -7658,9 +7656,8 @@ sd         0
 > 
 > ### Name: specpool
 > ### Title: Extrapolated Species Richness in a Species Pool
-> ### Aliases: specpool specpool2vect poolaccum summary.poolaccum
-> ###   plot.poolaccum estimateR estimateR.default estimateR.matrix
-> ###   estimateR.data.frame estaccumR
+> ### Aliases: specpool specpool2vect poolaccum summary.poolaccum estimateR
+> ###   estimateR.default estimateR.matrix estimateR.data.frame estaccumR
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -7737,7 +7734,6 @@ $chao
 
 attr(,"class")
 [1] "summary.poolaccum"
-> plot(pool)
 > ## Quantitative model
 > estimateR(BCI[1:5,])
                   1          2          3          4          5
@@ -8146,7 +8142,6 @@ Eigenvalues for unconstrained axes:
 > diversity(BCI[i,],"simpson") == x1[["2"]]
    4   39    1   34   23   43   14   18   33   21   41   10 
 TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE 
-> plot(x1)
 > x2 <- tsallis(BCI[i,],norm=TRUE)
 > x2
    0       0.2       0.4       0.6       0.8         1       1.2       1.4
@@ -8175,9 +8170,7 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 21 0.9475331 0.9658643 0.9784896
 41 0.9550896 0.9716606 0.9827793
 10 0.9438798 0.9632975 0.9767719
-> plot(x2)
 > mod1 <- tsallisaccum(BCI[i,])
-> plot(mod1, as.table=TRUE, col = c(1, 2, 2))
 > persp(mod1)
 > mod2 <- tsallisaccum(BCI[i,], norm=TRUE)
 > persp(mod2,theta=100,phi=30)
@@ -9211,7 +9204,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.8 0.411 9.234 0 0 
+Time elapsed:  8.337 0.387 8.749 0 0 
 > grDevices::dev.off()
 null device 
           1 
