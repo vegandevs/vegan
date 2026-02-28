@@ -166,9 +166,10 @@ oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
   documentation of the \pkg{coda} package.
 
   Function \code{\link{permustats}} provides support to the standard
-  \code{\link{density}}, \code{\link[lattice]{densityplot}},
-  \code{\link{qqnorm}} and \code{\link[lattice]{qqmath}} functions for
-  the simulated values.
+  \code{\link{density}}, \code{\link{qqnorm}} functions for the
+  simulated values and further graphical support in the
+  \CRANpkg{ggvegan} package.
+  
 }
 
 \value{ 
@@ -249,8 +250,6 @@ out
 plot(as.ts(out))
 lag.plot(as.ts(out))
 acf(as.ts(out))
-## Density plot in lattice graphics
-permulattice(permustats(out), "densityplot", as.table = TRUE, layout = c(1,4))
 ## Use quantitative null models to compare
 ## mean Bray-Curtis dissimilarities
 data(dune)

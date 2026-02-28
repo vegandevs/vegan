@@ -3,7 +3,6 @@
 \alias{specpool2vect}
 \alias{poolaccum}
 \alias{summary.poolaccum}
-\alias{plot.poolaccum}
 \alias{estimateR}
 \alias{estimateR.default}
 \alias{estimateR.matrix}
@@ -22,10 +21,8 @@
 specpool(x, pool, smallsample = TRUE)
 estimateR(x, ...)
 specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
-poolaccum(x, permutations = 100, minsize = 3)
 estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
 \method{summary}{poolaccum}(object, display, alpha = 0.05, ...)
-\method{plot}{poolaccum}(x, alpha = 0.05, type = c("l","g"), ...)
 }
 
 \arguments{
@@ -41,7 +38,6 @@ estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
     permutations, but can also be a list of control values for the
     permutations as returned by the function \code{\link[permute]{how}}, 
     or a permutation matrix where each row gives the permuted indices.}
-  \item{minsize}{Smallest number of sampling units reported.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
@@ -49,7 +45,6 @@ estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
   \item{display}{Indices to be displayed.}
   \item{alpha}{Level of quantiles shown. This proportion will be left outside
     symmetric limits.}
-  \item{type}{Type of graph produced in \code{\link[lattice]{xyplot}}.}
   \item{...}{Other parameters (not used).}
 }
 \details{
@@ -143,12 +138,10 @@ estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
   permutations corresponding the given level of \code{alpha} and
   standard deviation of permutations for each sample size. NB., these
   are not based on standard deviations estimated within \code{specpool}
-  or \code{estimateR}, but they are based on permutations. The
-  \code{plot} function shows the mean and envelope of permutations
-  with given \code{alpha} for models. The selection of models can be
-  restricted and order changes using the \code{display} argument in
-  \code{summary} or \code{plot}. For configuration of \code{plot}
-  command, see \code{\link[lattice]{xyplot}}.
+  or \code{estimateR}, but they are based on permutations.
+
+  \CRANpkg{ggvegan} provides function \code{autoplot} to show the
+  results of \code{poolaccum}.
 }
 
 \value{
@@ -217,7 +210,6 @@ data(BCI)
 ## Accumulation model
 pool <- poolaccum(BCI)
 summary(pool, display = "chao")
-plot(pool)
 ## Quantitative model
 estimateR(BCI[1:5,])
 }
