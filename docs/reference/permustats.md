@@ -10,18 +10,10 @@ effect sizes, plot densities and Q-Q plots.
 permustats(x, ...)
 # S3 method for class 'permustats'
 summary(object, interval = 0.95, alternative, ...)
-permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
-    axislab = "Permutations", ...)
-# S3 method for class 'permustats'
-densityplot(x, data, observed = TRUE,
-    xlab = "Permutations", ...)
 # S3 method for class 'permustats'
 density(x, observed = TRUE, ...)
 # S3 method for class 'permustats'
 qqnorm(y, observed = TRUE, ...)
-# S3 method for class 'permustats'
-qqmath(x, data, observed = TRUE, sd.scale = FALSE,
-    ylab = "Permutations", ...)
 # S3 method for class 'permustats'
 boxplot(x, scale = FALSE, names, ...)
 # S3 method for class 'permustats'
@@ -46,28 +38,9 @@ pairs(x, ...)
   limit), `"less"` (lower limit). Usually `alternative` is given in the
   result object, but it can be specified with this argument.
 
-- plot:
-
-  Use lattice function
-  [`densityplot`](https://rdrr.io/pkg/lattice/man/histogram.html) or
-  [`qqmath`](https://rdrr.io/pkg/lattice/man/qqmath.html).
-
-- xlab, ylab, axislab:
-
-  Label for the axis displaying permutation values.
-
 - observed:
 
   Add observed statistic among permutations.
-
-- sd.scale:
-
-  Scale permutations to unit standard deviation and observed statistic
-  to standardized effect size.
-
-- data:
-
-  Ignored.
 
 - scale:
 
@@ -106,12 +79,9 @@ Several `permustats` objects can be combined with `c` function. The `c`
 function checks that statistics are equal, but performs no other sanity
 tests.
 
-The results can be displayed either as conventional graphics or lattice
-graphics. Lattice graphics can be used either with function
-`permulattice` or directly with lattice functions `densityplot` or
-`qqmath`. Function `permulattice` can be used directly, but for
-`densityplot` and `qqmath` lattice must be first loaded and attached
-with [`library(lattice)`](https://lattice.r-forge.r-project.org/)
+The results can be displayed with conventional graphics or as ggplot2
+graphics using `autoplot` function in
+[ggvegan](https://CRAN.R-project.org/package=ggvegan) package.
 
 The `density` and `densityplot` methods display the kernel density
 estimates of permuted values. When observed value of the statistic is
@@ -121,17 +91,12 @@ its standard `plot` method and cannot mark the observed value. Only one
 statistic can be displayed with `density` and for several statistics
 `permulattice` or `densityplot` must be used.
 
-The `qqnorm` and `qqmath` methods display Q-Q plots of permutations,
-optionally together with the observed value (default) which is shown as
-horizontal line in plots. `qqnorm` plots permutation values against
-standard Normal variate. `qqmath` defaults to the standard Normal as
-well, but can accept other alternatives (see standard
-[`qqmath`](https://rdrr.io/pkg/lattice/man/qqmath.html)). The `qqmath`
-function can also plot observed statistic as standardized effect size
-(SES) with standandized permutations (argument `sd.scale`). The
-permutations are standardized without the observed statistic, similarly
-as in `summary`. Only one statistic can be shown with `qqnorm` and for
-several statistics `permulattice` or `qqmath` must be used.
+The `qqnorm` method display Q-Q plots of permutations, optionally
+together with the observed value (default) which is shown as horizontal
+line in plots. `qqnorm` plots permutation values against standard Normal
+variate. The permutations are standardized without the observed
+statistic, similarly as in `summary`. Only one statistic can be shown
+with `qqnorm` and for several statistics ggvegan package must be used.
 
 Function `boxplot` draws the box-and-whiskers plots of effect size, or
 the difference of permutations and observed statistic. If
@@ -177,9 +142,7 @@ Jari Oksanen with contributions from Gavin L. Simpson
 ## See also
 
 [`density`](https://rdrr.io/r/stats/density.html),
-[`densityplot`](https://rdrr.io/pkg/lattice/man/histogram.html),
 [`qqnorm`](https://rdrr.io/r/stats/qqnorm.html),
-[`qqmath`](https://rdrr.io/pkg/lattice/man/qqmath.html),
 [`boxplot`](https://rdrr.io/r/graphics/boxplot.html).
 
 ## Examples
@@ -192,16 +155,11 @@ perm <- permustats(mod)
 summary(perm)
 #> 
 #>       statistic    SES   mean lower median  upper Pr(perm)    
-#> Model    2.9966 5.1251 1.0323       0.9659 1.7332    0.001 ***
+#> Model    2.9966 5.4746 1.0147       0.9504 1.6593    0.001 ***
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> (Interval (Upper - Lower) = 0.95)
-## lattice graphics
-permulattice(perm, "densityplot")
-
-permulattice(perm, "qqmath")
-
 boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
 abline(h=0, col="skyblue")
 
@@ -212,13 +170,13 @@ perm <- permustats(pmod)
 summary(perm, interval = 0.90)
 #> 
 #>             statistic     SES    mean   lower  median   upper Pr(perm)  
-#> Overall (F)    1.9506  0.7065  1.1457          0.8238  2.4572    0.151  
-#> BF-HF (t)     -0.5634 -0.4211 -0.0327 -2.0185 -0.0244  1.9050    0.589  
-#> BF-NM (t)     -2.2387 -1.9005 -0.0008 -1.8177  0.0074  2.0221    0.067 .
-#> BF-SF (t)     -1.1675 -0.9474 -0.0166 -1.9013 -0.0394  1.8854    0.285  
-#> HF-NM (t)     -2.1017 -1.9381  0.0350 -1.6795  0.0422  1.8083    0.065 .
-#> HF-SF (t)     -0.8789 -0.7675  0.0091 -1.9367  0.0263  1.8432    0.405  
-#> NM-SF (t)      0.9485  0.8612 -0.0086 -1.8298  0.0276  1.7612    0.359  
+#> Overall (F)    1.9506  0.6068  1.2355          0.8981  2.6141    0.183  
+#> BF-HF (t)     -0.5634 -0.4360 -0.0011 -2.0295 -0.0547  2.1039    0.607  
+#> BF-NM (t)     -2.2387 -1.7794  0.0109 -2.1236  0.0337  2.0142    0.081 .
+#> BF-SF (t)     -1.1675 -0.9180 -0.0303 -1.9206 -0.0247  1.7872    0.323  
+#> HF-NM (t)     -2.1017 -1.8570  0.0562 -1.8001  0.0389  1.9507    0.059 .
+#> HF-SF (t)     -0.8789 -0.7560  0.0041 -1.9673 -0.0375  1.8828    0.393  
+#> NM-SF (t)      0.9485  0.8133 -0.0297 -1.9023 -0.0136  1.8619    0.383  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 

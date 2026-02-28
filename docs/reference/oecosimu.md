@@ -218,10 +218,9 @@ Function
 [`permustats`](https://vegandevs.github.io/vegan/reference/permustats.md)
 provides support to the standard
 [`density`](https://rdrr.io/r/stats/density.html),
-[`densityplot`](https://rdrr.io/pkg/lattice/man/histogram.html),
-[`qqnorm`](https://rdrr.io/r/stats/qqnorm.html) and
-[`qqmath`](https://rdrr.io/pkg/lattice/man/qqmath.html) functions for
-the simulated values.
+[`qqnorm`](https://rdrr.io/r/stats/qqnorm.html) functions for the
+simulated values and further graphical support in the
+[ggvegan](https://CRAN.R-project.org/package=ggvegan) package.
 
 ## Value
 
@@ -385,9 +384,6 @@ lag.plot(as.ts(out))
 
 acf(as.ts(out))
 
-## Density plot in lattice graphics
-permulattice(permustats(out), "densityplot", as.table = TRUE, layout = c(1,4))
-
 ## Use quantitative null models to compare
 ## mean Bray-Curtis dissimilarities
 data(dune)
@@ -402,8 +398,8 @@ mbc1
 #> 
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>           statistic    SES    mean    2.5%     50% 97.5% Pr(sim.)   
-#> statistic   0.64565 14.026 0.46629 0.44433 0.46476 0.493     0.01 **
+#>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
+#> statistic   0.64565 14.064 0.46694 0.44664 0.46700 0.4895     0.01 **
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -426,8 +422,8 @@ oecosimu(dune, meandist, cf)
 #> 
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
-#> statistic   0.64565 3.6799 0.63493 0.63009 0.63479 0.6411     0.01 **
+#>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)  
+#> statistic   0.64565 3.3275 0.63493 0.62976 0.63465 0.6417     0.03 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -445,10 +441,8 @@ oecosimu(nm, nestedchecker)
 #> Checkerboard Units    : 2767 
 #> C-score (species mean): 2.258776 
 #> 
-#>               statistic    SES   mean   2.5%    50% 97.5% Pr(sim.)  
-#> checkerboards      2767 2.0326 2672.5 2603.4 2666.0  2767     0.09 .
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#>               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)
+#> checkerboards      2767 0.25716 2751.1 2626.0 2757.0  2844     0.83
 ## Several chains of a sequential model -- this can be generalized
 ## for parallel processing (see ?smbind)
 nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
@@ -476,8 +470,8 @@ oecosimu(nm, nestedchecker)
 #> Checkerboard Units    : 2767 
 #> C-score (species mean): 2.258776 
 #> 
-#>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-#> checkerboards      2767 0.69727 2707.5 2575.7 2694.0 2904.3   0.4335
+#>               statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)
+#> checkerboards      2767 0.5372 2718.9 2579.8 2707.0 2916.9   0.5464
 ## IGNORE_RDIFF_END
 ## After this you can use toCoda() and tools in the coda package to
 ## analyse the chains (these will show that thin, burnin and nsimul are

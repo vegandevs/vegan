@@ -313,8 +313,6 @@
   : Fit and Plot Smooth Surfaces of Variables on Ordination.
 - [`orditorp()`](https://vegandevs.github.io/vegan/reference/orditorp.md)
   : Add Text or Points to Ordination Plots
-- [`ordixyplot()`](https://vegandevs.github.io/vegan/reference/ordixyplot.md)
-  : Trellis (Lattice) Plots for Ordination
 - [`pcnm()`](https://vegandevs.github.io/vegan/reference/pcnm.md) :
   Principal Coordinates of Neighbourhood Matrix
 - [`permatfull()`](https://vegandevs.github.io/vegan/reference/permatfull.md)
@@ -329,11 +327,8 @@
   : Matrix Permutation Algorithms for Presence-Absence and Count Data
 - [`permustats()`](https://vegandevs.github.io/vegan/reference/permustats.md)
   [`summary(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/permustats.md)
-  [`permulattice()`](https://vegandevs.github.io/vegan/reference/permustats.md)
-  [`densityplot(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/permustats.md)
   [`density(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/permustats.md)
   [`qqnorm(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/permustats.md)
-  [`qqmath(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/permustats.md)
   [`boxplot(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/permustats.md)
   [`pairs(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/permustats.md)
   : Extract, Analyse and Display Permutation Results
@@ -408,9 +403,7 @@
 - [`read.cep()`](https://vegandevs.github.io/vegan/reference/read.cep.md)
   : Reads a CEP (Canoco) data file
 - [`renyi()`](https://vegandevs.github.io/vegan/reference/renyi.md)
-  [`plot(`*`<renyi>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
   [`renyiaccum()`](https://vegandevs.github.io/vegan/reference/renyi.md)
-  [`plot(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
   [`persp(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
   : Renyi and Hill Diversities and Corresponding Accumulation Curves
 - [`reorder(`*`<hclust>`*`)`](https://vegandevs.github.io/vegan/reference/reorder.hclust.md)
@@ -454,10 +447,8 @@
 - [`specpool()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`estimateR()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`specpool2vect()`](https://vegandevs.github.io/vegan/reference/specpool.md)
-  [`poolaccum()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`estaccumR()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`summary(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
-  [`plot(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
   : Extrapolated Species Richness in a Species Pool
 - [`` `sppscores<-`() ``](https://vegandevs.github.io/vegan/reference/sppscores.md)
   : Add or Replace Species Scores in Distance-Based Ordination
@@ -489,7 +480,14 @@
   [`showvarparts()`](https://vegandevs.github.io/vegan/reference/varpart.md)
   : Partition the Variation of Community Matrix by 2, 3, or 4
   Explanatory Matrices
-- [`as.mcmc.oecosimu()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+- [`ordixyplot()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+  [`plot(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+  [`plot(`*`<renyi>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+  [`plot(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+  [`permulattice()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+  [`densityplot(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+  [`qqmath(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+  [`as.mcmc.oecosimu()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
   [`as.mcmc.permat()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
   : Deprecated Functions in vegan package
 - [`ordiParseFormula()`](https://vegandevs.github.io/vegan/reference/vegan-internal.md)

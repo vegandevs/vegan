@@ -313,17 +313,17 @@ summary(x1)
 #> Matrix fill retained: 100 %
 #> Row sums retained:    100 %
 #> Column sums retained: 100 %
-#> Row incidences retained:    5.05 %
-#> Column incidences retained: 11.11 %
+#> Row incidences retained:    6.06 %
+#> Column incidences retained: 9.09 %
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  0.2000  0.3333  0.4000  0.4027  0.4667  0.6000 
+#>  0.2667  0.3667  0.4333  0.4286  0.5000  0.6000 
 #> 
 #> Chi-squared for original matrix: 18.55
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   15.75   19.04   21.17   21.44   23.43   29.19 
+#>   16.63   19.61   21.44   21.74   23.51   31.74 
 ## Unrestricted permutation retaining
 ## row/columns sums but not matrix fill:
 x2 <- permatfull(m)
@@ -344,20 +344,20 @@ summary(x2)
 #> Number of permuted matrices: 99 
 #> 
 #> Matrix sums retained: 100 %
-#> Matrix fill retained: 12.12 %
+#> Matrix fill retained: 16.16 %
 #> Row sums retained:    100 %
 #> Column sums retained: 100 %
-#> Row incidences retained:    1.01 %
+#> Row incidences retained:    0 %
 #> Column incidences retained: 0 %
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  0.2333  0.3333  0.4000  0.3919  0.4333  0.6000 
+#>  0.2000  0.3333  0.4000  0.3939  0.4667  0.6000 
 #> 
 #> Chi-squared for original matrix: 18.55
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   9.003  12.193  14.586  15.420  18.217  26.153 
+#>   6.136  11.648  15.542  15.909  19.258  28.947 
 ## Unrestricted permutation of presence-absence type
 ## not retaining row/columns sums:
 x3 <- permatfull(m, "none", mtype="prab")
@@ -386,19 +386,19 @@ summary(x3)
 #> 
 #> Matrix sums retained: 100 %
 #> Matrix fill retained: 100 %
-#> Row sums retained:    4.04 %
+#> Row sums retained:    1.01 %
 #> Column sums retained: 0 %
-#> Row incidences retained:    4.04 %
+#> Row incidences retained:    1.01 %
 #> Column incidences retained: 0 %
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  0.2000  0.3333  0.4000  0.3818  0.4000  0.5333 
+#>  0.2000  0.3333  0.4000  0.3758  0.4000  0.6000 
 #> 
 #> Chi-squared for original matrix: 8.4
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   8.812  13.562  15.188  15.275  17.083  21.896 
+#>   9.583  14.219  15.688  15.689  17.271  20.771 
 ## Restricted permutation,
 ## check sums within strata:
 x4 <- permatfull(m, strata=c(1,1,2,2))
@@ -419,21 +419,21 @@ summary(x4)
 #> Number of permuted matrices: 99 
 #> 
 #> Matrix sums retained: 100 %
-#> Matrix fill retained: 36.36 %
+#> Matrix fill retained: 40.4 %
 #> Row sums retained:    100 %
 #> Column sums retained: 100 %
-#> Row incidences retained:    0 %
-#> Column incidences retained: 2.02 %
+#> Row incidences retained:    7.07 %
+#> Column incidences retained: 7.07 %
 #> Sums within strata retained: 100 %
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#> 0.06667 0.20000 0.20000 0.23098 0.26667 0.40000 
+#> 0.06667 0.13333 0.20000 0.20539 0.26667 0.33333 
 #> 
 #> Chi-squared for original matrix: 18.55
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   14.21   18.84   21.26   22.18   25.67   35.09 
+#>   14.21   18.54   20.78   20.99   23.00   33.37 
 
 ## NOTE: 'times' argument usually needs to be >= 99
 ## here much lower value is used for demonstration
@@ -466,17 +466,17 @@ mar
 #> 
 #> Coefficients:
 #>          ar1  intercept
-#>       0.9914     0.1848
-#> s.e.  0.0121     0.1387
+#>       0.9921     0.1897
+#> s.e.  0.0112     0.1443
 #> 
-#> sigma^2 estimated as 0.0003542:  log likelihood = 46.49,  aic = -86.98
+#> sigma^2 estimated as 0.0003504:  log likelihood = 46.55,  aic = -87.1
 ## Ljung-Box test of residuals
 Box.test(residuals(mar))
 #> 
 #>  Box-Pierce test
 #> 
 #> data:  residuals(mar)
-#> X-squared = 0.36966, df = 1, p-value = 0.5432
+#> X-squared = 0.014514, df = 1, p-value = 0.9041
 #> 
 ## Graphical diagnostics
 tsdiag(mar)

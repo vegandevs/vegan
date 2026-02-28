@@ -9,14 +9,8 @@ statistics with accumulating sites.
 ``` r
 renyi(x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, Inf),
    hill = FALSE)
-# S3 method for class 'renyi'
-plot(x, ...)
 renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     raw = FALSE, collector = FALSE, subset, ...)
-# S3 method for class 'renyiaccum'
-plot(x, what = c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
-    type = "l",
-    ...)
 # S3 method for class 'renyiaccum'
 persp(x, theta = 220, col = heat.colors(100), zlim, ...)
 ```
@@ -58,14 +52,6 @@ persp(x, theta = 220, col = heat.colors(100), zlim, ...)
   logical expression indicating sites (rows) to keep: missing values are
   taken as `FALSE`.
 
-- what:
-
-  Items to be plotted.
-
-- type:
-
-  Type of plot, where `type = "l"` means lines.
-
 - theta:
 
   Angle defining the viewing direction (azimuthal) in
@@ -100,19 +86,16 @@ According to the theory of diversity ordering, one community can be
 regarded as more diverse than another only if its Rényi diversities are
 all higher (Tóthmérész 1995).
 
-The `plot` method for `renyi` uses lattice graphics, and displays the
-diversity values against each scale in separate panel for each site
-together with minimum, maximum and median values in the complete data.
-
 Function `renyiaccum` is similar to
 [`specaccum`](https://vegandevs.github.io/vegan/reference/specaccum.md)
 but finds Rényi or Hill diversities at given `scales` for random
-permutations of accumulated sites. Its `plot` function uses lattice
-function [`xyplot`](https://rdrr.io/pkg/lattice/man/xyplot.html) to
-display the accumulation curves for each value of `scales` in a separate
-panel. In addition, it has a `persp` method to plot the diversity
-surface against scale and number and sites. Similar dynamic graphics can
-be made with `rgl.renyiaccum` in vegan3d package.
+permutations of accumulated sites. It has a `persp` method to plot the
+diversity surface against scale and number and sites.
+
+`plot` methods for `renyi` and `renyiaccum` are provided by the
+[ggvegan](https://CRAN.R-project.org/package=ggvegan) (`autoplot`
+functions). [vegan3d](https://CRAN.R-project.org/package=vegan3d) can
+make dynamics graphics with `rgl.renyiaccum`.
 
 ## Value
 
@@ -145,20 +128,40 @@ Roeland Kindt and Jari Oksanen
 [`diversity`](https://vegandevs.github.io/vegan/reference/diversity.md)
 for diversity indices, and
 [`specaccum`](https://vegandevs.github.io/vegan/reference/specaccum.md)
-for ordinary species accumulation curves, and
-[`xyplot`](https://rdrr.io/pkg/lattice/man/xyplot.html),
-[`persp`](https://rdrr.io/r/graphics/persp.html).
+for ordinary species accumulation curves.
 
 ## Examples
 
 ``` r
 data(BCI)
 i <- sample(nrow(BCI), 12)
-mod <- renyi(BCI[i,])
-plot(mod)
-
+renyi(BCI[i,])
+#>           0     0.25      0.5        1        2        4        8       16
+#> 4  4.543295 4.399850 4.253966 3.976563 3.561778 3.157132 2.878594 2.727145
+#> 46 4.454347 4.298951 4.134690 3.810489 3.343102 2.975446 2.756061 2.629116
+#> 43 4.454347 4.285742 4.104905 3.736254 3.145700 2.593930 2.282515 2.134836
+#> 29 4.454347 4.290364 4.104978 3.688721 2.958515 2.387306 2.140083 2.028516
+#> 8  4.477337 4.342394 4.199865 3.908381 3.417320 2.931933 2.644037 2.501526
+#> 20 4.605170 4.472551 4.336913 4.077327 3.683250 3.264270 2.924281 2.735886
+#> 6  4.442651 4.279010 4.108089 3.776575 3.290256 2.843421 2.545504 2.385696
+#> 5  4.615121 4.460220 4.297238 3.969940 3.436618 2.885713 2.532071 2.365033
+#> 39 4.430817 4.240081 4.021062 3.530494 2.749191 2.192896 1.918817 1.792300
+#> 40 4.382027 4.139704 3.855058 3.234849 2.450078 2.041264 1.838633 1.725318
+#> 33 4.454347 4.283915 4.102866 3.740392 3.186761 2.696061 2.399570 2.247627
+#> 30 4.574711 4.408852 4.228938 3.851598 3.225546 2.661005 2.342443 2.189252
+#>          32       64      Inf
+#> 4  2.648728 2.607649 2.566920
+#> 46 2.558311 2.519575 2.480266
+#> 43 2.066044 2.033250 2.001480
+#> 29 1.969346 1.938456 1.908170
+#> 8  2.427926 2.389874 2.352536
+#> 20 2.647690 2.605663 2.564949
+#> 6  2.308989 2.272339 2.236834
+#> 5  2.288749 2.252419 2.217225
+#> 39 1.734488 1.706957 1.680286
+#> 40 1.669834 1.643329 1.617652
+#> 33 2.175329 2.140800 2.107350
+#> 30 2.118649 2.085019 2.052441
 mod <- renyiaccum(BCI[i,])
-plot(mod, as.table=TRUE, col = c(1, 2, 2))
-
 persp(mod)
 ```

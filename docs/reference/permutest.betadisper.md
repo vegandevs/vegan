@@ -166,6 +166,12 @@ plot(mod.HSD)
 ## lattice graphics with permustats
 pstat <- permustats(pmod)
 permulattice(pstat, "densityplot", scale = list(x=list(relation="free")))
+#> Warning: 'densityplot.permustats' is deprecated.
+#> Use 'ggvegan::autoplot' instead.
+#> See help("Deprecated")
 
 permulattice(pstat, "qqmath", scales = list(relation = "free"))
+#> Warning: 'qqmath.permustats' is deprecated.
+#> Use 'ggvegan::autoplot' instead.
+#> See help("Deprecated")
 ```

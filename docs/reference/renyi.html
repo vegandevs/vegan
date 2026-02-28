@@ -51,14 +51,8 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">renyi</span><span class="op">(</span><span class="va">x</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">8</span>, <span class="fl">16</span>, <span class="fl">32</span>, <span class="fl">64</span>, <span class="cn">Inf</span><span class="op">)</span>,</span>
 <span>   hill <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="co"># S3 method for class 'renyi'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">renyiaccum</span><span class="op">(</span><span class="va">x</span>, scales <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="cn">Inf</span><span class="op">)</span>, permutations <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>    raw <span class="op">=</span> <span class="cn">FALSE</span>, collector <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">subset</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="co"># S3 method for class 'renyiaccum'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Collector"</span>, <span class="st">"mean"</span>, <span class="st">"Qnt 0.025"</span>, <span class="st">"Qnt 0.975"</span><span class="op">)</span>,</span>
-<span>    type <span class="op">=</span> <span class="st">"l"</span>,</span>
-<span>    <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'renyiaccum'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">x</span>, theta <span class="op">=</span> <span class="fl">220</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="va">zlim</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -95,12 +89,6 @@
 <dd><p>logical expression indicating sites (rows) to keep: missing
     values are taken as <code>FALSE</code>.</p></dd>
 
-  <dt id="arg-what">what<a class="anchor" aria-label="anchor" href="#arg-what"></a></dt>
-<dd><p>Items to be plotted.</p></dd>
-
-  <dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
-<dd><p>Type of plot, where <code>type = "l"</code> means lines.</p></dd>
-
   <dt id="arg-theta">theta<a class="anchor" aria-label="anchor" href="#arg-theta"></a></dt>
 <dd><p>Angle defining the viewing direction (azimuthal) in
     <code><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></code>.</p></dd>
@@ -132,19 +120,15 @@
   to the theory of diversity ordering, one community can be regarded as
   more diverse than another only if its Rényi diversities are all higher
   (Tóthmérész  1995).</p>
-<p>The <code>plot</code> method for <code>renyi</code> uses <span class="pkg">lattice</span> graphics,
-  and displays the diversity values against each scale in separate panel
-  for each site together with minimum, maximum and median values in the
-  complete data.</p>
 <p>Function <code>renyiaccum</code> is similar to <code><a href="specaccum.html">specaccum</a></code> but
   finds Rényi or Hill diversities at given <code>scales</code>
-  for random permutations of accumulated sites.  Its <code>plot</code>
-  function uses <span class="pkg">lattice</span> function <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html" class="external-link">xyplot</a></code>
-  to display the accumulation curves for each value of <code>scales</code>
-  in a separate panel.  In addition, it has a <code>persp</code> method to
-  plot the diversity surface against scale and number and
-  sites. Similar dynamic graphics can be made with
-  <code>rgl.renyiaccum</code> in <span class="pkg">vegan3d</span> package.</p>
+  for random permutations of accumulated sites.  It has a <code>persp</code>
+  method to plot the diversity surface against scale and number and
+  sites.</p>
+<p><code>plot</code> methods for <code>renyi</code> and <code>renyiaccum</code> are
+  provided by the <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a> (<code>autoplot</code>
+  functions). <a href="https://CRAN.R-project.org/package=vegan3d" class="external-link"><span class="pkg">vegan3d</span></a> can make dynamics graphics with
+  <code>rgl.renyiaccum</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -176,22 +160,43 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="diversity.html">diversity</a></code> for diversity indices, and
-  <code><a href="specaccum.html">specaccum</a></code> for ordinary species accumulation curves, and
-  <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html" class="external-link">xyplot</a></code>, <code><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></code>.</p></div>
+  <code><a href="specaccum.html">specaccum</a></code> for ordinary species accumulation curves.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">renyi</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="renyi-1.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu">renyi</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           0     0.25      0.5        1        2        4        8       16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  4.543295 4.399850 4.253966 3.976563 3.561778 3.157132 2.878594 2.727145</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 4.454347 4.298951 4.134690 3.810489 3.343102 2.975446 2.756061 2.629116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 4.454347 4.285742 4.104905 3.736254 3.145700 2.593930 2.282515 2.134836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 4.454347 4.290364 4.104978 3.688721 2.958515 2.387306 2.140083 2.028516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  4.477337 4.342394 4.199865 3.908381 3.417320 2.931933 2.644037 2.501526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 4.605170 4.472551 4.336913 4.077327 3.683250 3.264270 2.924281 2.735886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  4.442651 4.279010 4.108089 3.776575 3.290256 2.843421 2.545504 2.385696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  4.615121 4.460220 4.297238 3.969940 3.436618 2.885713 2.532071 2.365033</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 4.430817 4.240081 4.021062 3.530494 2.749191 2.192896 1.918817 1.792300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 4.382027 4.139704 3.855058 3.234849 2.450078 2.041264 1.838633 1.725318</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 4.454347 4.283915 4.102866 3.740392 3.186761 2.696061 2.399570 2.247627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 4.574711 4.408852 4.228938 3.851598 3.225546 2.661005 2.342443 2.189252</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          32       64      Inf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2.648728 2.607649 2.566920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46 2.558311 2.519575 2.480266</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 2.066044 2.033250 2.001480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 1.969346 1.938456 1.908170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  2.427926 2.389874 2.352536</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 2.647690 2.605663 2.564949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  2.308989 2.272339 2.236834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.288749 2.252419 2.217225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 1.734488 1.706957 1.680286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 1.669834 1.643329 1.617652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 2.175329 2.140800 2.107350</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 2.118649 2.085019 2.052441</span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">renyiaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, as.table<span class="op">=</span><span class="cn">TRUE</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="renyi-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="renyi-3.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="renyi-1.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

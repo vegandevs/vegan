@@ -580,7 +580,7 @@ anova(rda.result)
 #> 
 #> Model: rda(formula = decostand(mite, "hell") ~ SubsDens + WatrCont + Condition(Substrate + Shrub + Topo) + Condition(as.matrix(mite.pcnm)), data = mite.env)
 #>          Df Variance      F Pr(>F)   
-#> Model     2 0.013771 2.6079  0.002 **
+#> Model     2 0.013771 2.6079  0.003 **
 #> Residual 36 0.095050                 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

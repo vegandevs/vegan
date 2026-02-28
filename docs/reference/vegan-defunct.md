@@ -97,7 +97,7 @@ offers more powerful analysis tools for permutations, including
 giving \\z\\ values (a.k.a. standardized effect sizes, SES), and Q-Q
 plots
 ([`qqnorm.permustats`](https://vegandevs.github.io/vegan/reference/permustats.md),
-[`qqmath.permustats`](https://vegandevs.github.io/vegan/reference/permustats.md)).
+[`qqmath.permustats`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)).
 
 Function `metaMDSrotate` is replaced with
 [`MDSrotate`](https://vegandevs.github.io/vegan/reference/MDSrotate.md)

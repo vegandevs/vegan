@@ -93,7 +93,14 @@
   zeros). Issues [\#761](https://github.com/vegandevs/vegan/issues/761)
   and [\#762](https://github.com/vegandevs/vegan/issues/762).
 
-### Defunct
+### Deprecated and Defunct
+
+- Several Lattice functions are deprecated after CRAN release of
+  **ggvegan** for **ggplot2** graphics. These include `ordixyplot`,
+  `plot` functions for the results of `poolaccum`, `renyi` and
+  `renyiaccum`, `permulattice` with `densityplot` and `qqmath` functions
+  for `permustats`. **ggvegan** provides `autoplot` for all these
+  deprecated functions.
 
 - Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
   defunct. `ordicloud` is available in CRAN package **vegan3d** as

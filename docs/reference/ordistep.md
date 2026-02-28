@@ -197,9 +197,9 @@ mod <- ordistep(mod0, scope = formula(mod1))
 #>              Df    AIC      F Pr(>F)   
 #> + Management  3 87.082 2.8400  0.005 **
 #> + Moisture    3 87.707 2.5883  0.005 **
-#> + Manure      4 89.232 1.9539  0.005 **
+#> + Manure      4 89.232 1.9539  0.010 **
 #> + A1          1 89.591 1.9217  0.060 . 
-#> + Use         2 91.032 1.1741  0.295   
+#> + Use         2 91.032 1.1741  0.250   
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -211,25 +211,25 @@ mod <- ordistep(mod0, scope = formula(mod1))
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>            Df    AIC      F Pr(>F)   
-#> + Moisture  3 85.567 1.9764  0.010 **
-#> + Manure    3 87.517 1.3902  0.140   
-#> + A1        1 87.424 1.2965  0.220   
-#> + Use       2 88.284 1.0510  0.345   
+#> + Moisture  3 85.567 1.9764  0.005 **
+#> + Manure    3 87.517 1.3902  0.135   
+#> + A1        1 87.424 1.2965  0.195   
+#> + Use       2 88.284 1.0510  0.405   
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #> Step: dune ~ Management + Moisture 
 #> 
 #>              Df    AIC      F Pr(>F)   
-#> - Moisture    3 87.082 1.9764  0.015 * 
-#> - Management  3 87.707 2.1769  0.005 **
+#> - Moisture    3 87.082 1.9764   0.02 * 
+#> - Management  3 87.707 2.1769   0.01 **
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>          Df    AIC      F Pr(>F)
-#> + Manure  3 85.762 1.1225  0.360
-#> + A1      1 86.220 0.8359  0.525
-#> + Use     2 86.842 0.8027  0.740
+#> + Manure  3 85.762 1.1225  0.315
+#> + A1      1 86.220 0.8359  0.510
+#> + Use     2 86.842 0.8027  0.725
 #> 
 mod
 #> 
@@ -254,7 +254,7 @@ mod
 mod$anova
 #>              Df    AIC      F Pr(>F)   
 #> + Management  3 87.082 2.8400  0.005 **
-#> + Moisture    3 85.567 1.9764  0.010 **
+#> + Moisture    3 85.567 1.9764  0.005 **
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -264,33 +264,33 @@ ordistep(mod0, scope = formula(mod1), direction="forward")
 #> Start: dune ~ 1 
 #> 
 #>              Df    AIC      F Pr(>F)   
+#> + Management  3 87.082 2.8400  0.005 **
 #> + Moisture    3 87.707 2.5883  0.005 **
-#> + Management  3 87.082 2.8400  0.010 **
-#> + Manure      4 89.232 1.9539  0.035 * 
-#> + A1          1 89.591 1.9217  0.055 . 
-#> + Use         2 91.032 1.1741  0.225   
+#> + Manure      4 89.232 1.9539  0.005 **
+#> + A1          1 89.591 1.9217  0.045 * 
+#> + Use         2 91.032 1.1741  0.340   
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Step: dune ~ Moisture 
+#> Step: dune ~ Management 
 #> 
-#>              Df    AIC      F Pr(>F)   
-#> + Management  3 85.567 2.1769  0.010 **
-#> + Manure      4 86.060 1.8598  0.020 * 
-#> + Use         2 88.003 1.4245  0.145   
-#> + A1          1 88.886 0.6286  0.825   
+#>            Df    AIC      F Pr(>F)  
+#> + Moisture  3 85.567 1.9764  0.015 *
+#> + Manure    3 87.517 1.3902  0.125  
+#> + A1        1 87.424 1.2965  0.210  
+#> + Use       2 88.284 1.0510  0.365  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
-#> Step: dune ~ Moisture + Management 
+#> Step: dune ~ Management + Moisture 
 #> 
 #>          Df    AIC      F Pr(>F)
-#> + Manure  3 85.762 1.1225  0.360
-#> + A1      1 86.220 0.8359  0.645
-#> + Use     2 86.842 0.8027  0.725
+#> + Manure  3 85.762 1.1225  0.345
+#> + A1      1 86.220 0.8359  0.595
+#> + Use     2 86.842 0.8027  0.680
 #> 
 #> 
-#> Call: rda(formula = dune ~ Moisture + Management, data = dune.env)
+#> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
 #> 
 #>               Inertia Proportion Rank
 #> Total         84.1237     1.0000     

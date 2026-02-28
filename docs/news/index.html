@@ -66,8 +66,9 @@
 <li><p><code>vegdist</code> for Chord and Hellinger distances gave wrong or misleading results when two sites were identical or one of sites was empty (all zeros). Issues <a href="https://github.com/vegandevs/vegan/issues/761" class="external-link">#761</a> and <a href="https://github.com/vegandevs/vegan/issues/762" class="external-link">#762</a>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="defunct-2-8-0">Defunct<a class="anchor" aria-label="anchor" href="#defunct-2-8-0"></a></h3>
-<ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
+<h3 id="deprecated-and-defunct-2-8-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-8-0"></a></h3>
+<ul><li><p>Several Lattice functions are deprecated after CRAN release of <strong>ggvegan</strong> for <strong>ggplot2</strong> graphics. These include <code>ordixyplot</code>, <code>plot</code> functions for the results of <code>poolaccum</code>, <code>renyi</code> and <code>renyiaccum</code>, <code>permulattice</code> with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>. <strong>ggvegan</strong> provides <code>autoplot</code> for all these deprecated functions.</p></li>
+<li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
 <li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
 </ul></div>
 </div>
