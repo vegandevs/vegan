@@ -91,11 +91,6 @@ pmod <- permutest(mod, permutations = 99, pairwise = TRUE)
 ## Tukey's Honest Significant Differences
 (mod.HSD <- TukeyHSD(mod))
 plot(mod.HSD)
-
-## lattice graphics with permustats
-pstat <- permustats(pmod)
-permulattice(pstat, "densityplot", scale = list(x=list(relation="free")))
-permulattice(pstat, "qqmath", scales = list(relation = "free"))
 }
 \keyword{methods}
 \keyword{multivariate}
