@@ -46,31 +46,31 @@ ord <- metaMDS(varespec)
 #> Square root transformation
 #> Wisconsin double standardization
 #> Run 0 stress 0.1843196 
-#> Run 1 stress 0.1825658 
-#> ... New best solution
-#> ... Procrustes: rmse 0.04162615  max resid 0.1518048 
+#> Run 1 stress 0.1869637 
 #> Run 2 stress 0.1825658 
-#> ... Procrustes: rmse 7.495447e-06  max resid 2.446772e-05 
-#> ... Similar to previous best
-#> Run 3 stress 0.195049 
-#> Run 4 stress 0.1967393 
-#> Run 5 stress 0.1869637 
-#> Run 6 stress 0.195049 
-#> Run 7 stress 0.1843196 
-#> Run 8 stress 0.2079056 
-#> Run 9 stress 0.2115175 
-#> Run 10 stress 0.2209649 
-#> Run 11 stress 0.2032569 
-#> Run 12 stress 0.2093088 
-#> Run 13 stress 0.1845801 
-#> Run 14 stress 0.1948413 
-#> Run 15 stress 0.2356882 
-#> Run 16 stress 0.2079057 
-#> Run 17 stress 0.2187579 
-#> Run 18 stress 0.18458 
-#> Run 19 stress 0.2028828 
-#> Run 20 stress 0.2512805 
-#> *** Best solution repeated 1 times
+#> ... New best solution
+#> ... Procrustes: rmse 0.04163862  max resid 0.1518548 
+#> Run 3 stress 0.3840769 
+#> Run 4 stress 0.2391917 
+#> Run 5 stress 0.2032569 
+#> Run 6 stress 0.18458 
+#> Run 7 stress 0.233173 
+#> Run 8 stress 0.2069724 
+#> Run 9 stress 0.2337178 
+#> Run 10 stress 0.2402442 
+#> Run 11 stress 0.2123362 
+#> Run 12 stress 0.1948413 
+#> Run 13 stress 0.1948413 
+#> Run 14 stress 0.1843196 
+#> Run 15 stress 0.18458 
+#> Run 16 stress 0.1969805 
+#> Run 17 stress 0.2302978 
+#> Run 18 stress 0.2005511 
+#> Run 19 stress 0.2178486 
+#> Run 20 stress 0.2142597 
+#> *** Best solution was not repeated -- monoMDS stopping criteria:
+#>     18: stress ratio > sratmax
+#>      2: scale factor of the gradient < sfgrmin
 plot(ord, optimize = TRUE, type = "t")
 ## Fit environmental variables
 ef <- envfit(ord, varechem)
@@ -79,20 +79,20 @@ ef
 #> ***VECTORS
 #> 
 #>             NMDS1    NMDS2     r2 Pr(>r)    
-#> N        -0.05729 -0.99836 0.2536  0.047 *  
-#> P         0.61971  0.78483 0.1938  0.099 .  
-#> K         0.76644  0.64232 0.1809  0.119    
-#> Ca        0.68518  0.72837 0.4119  0.007 ** 
-#> Mg        0.63251  0.77455 0.4270  0.002 ** 
-#> S         0.19136  0.98152 0.1752  0.127    
-#> Al       -0.87161  0.49020 0.5269  0.003 ** 
-#> Fe       -0.93603  0.35192 0.4450  0.003 ** 
-#> Mn        0.79871 -0.60172 0.5231  0.001 ***
-#> Zn        0.61755  0.78653 0.1879  0.107    
-#> Mo       -0.90308  0.42948 0.0609  0.521    
-#> Baresoil  0.92490 -0.38022 0.2508  0.049 *  
-#> Humdepth  0.93283 -0.36031 0.5200  0.002 ** 
-#> pH       -0.64799  0.76165 0.2308  0.071 .  
+#> N        -0.05728 -0.99836 0.2537  0.048 *  
+#> P         0.61961  0.78491 0.1938  0.100 .  
+#> K         0.76632  0.64246 0.1809  0.115    
+#> Ca        0.68511  0.72844 0.4119  0.007 ** 
+#> Mg        0.63245  0.77460 0.4271  0.002 ** 
+#> S         0.19130  0.98153 0.1752  0.124    
+#> Al       -0.87167  0.49009 0.5270  0.003 ** 
+#> Fe       -0.93608  0.35178 0.4451  0.003 ** 
+#> Mn        0.79879 -0.60161 0.5230  0.001 ***
+#> Zn        0.61750  0.78657 0.1879  0.103    
+#> Mo       -0.90310  0.42944 0.0609  0.522    
+#> Baresoil  0.92499 -0.38000 0.2508  0.049 *  
+#> Humdepth  0.93292 -0.36010 0.5201  0.002 ** 
+#> pH       -0.64814  0.76152 0.2308  0.072 .  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> Permutation: free
@@ -166,7 +166,7 @@ mod <- ordistep(mod0, scope=formula(mod1))
 #> + Management  3 87.082 2.8400  0.005 **
 #> + Moisture    3 87.707 2.5883  0.005 **
 #> + Manure      4 89.232 1.9539  0.015 * 
-#> + A1          1 89.591 1.9217  0.055 . 
+#> + A1          1 89.591 1.9217  0.050 * 
 #> + Use         2 91.032 1.1741  0.290   
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -180,9 +180,9 @@ mod <- ordistep(mod0, scope=formula(mod1))
 #> 
 #>            Df    AIC      F Pr(>F)  
 #> + Moisture  3 85.567 1.9764  0.015 *
-#> + Manure    3 87.517 1.3902  0.120  
-#> + A1        1 87.424 1.2965  0.185  
-#> + Use       2 88.284 1.0510  0.355  
+#> + Manure    3 87.517 1.3902  0.110  
+#> + A1        1 87.424 1.2965  0.200  
+#> + Use       2 88.284 1.0510  0.340  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
@@ -195,8 +195,8 @@ mod <- ordistep(mod0, scope=formula(mod1))
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> 
 #>          Df    AIC      F Pr(>F)
-#> + Manure  3 85.762 1.1225  0.310
-#> + A1      1 86.220 0.8359  0.535
+#> + Manure  3 85.762 1.1225  0.320
+#> + A1      1 86.220 0.8359  0.550
 #> + Use     2 86.842 0.8027  0.695
 #> 
 mod
@@ -278,11 +278,11 @@ adonis2(dune ~ ., dune.env, by = "margin")
 #> 
 #> adonis2(formula = dune ~ ., data = dune.env, by = "margin")
 #>            Df SumOfSqs      R2      F Pr(>F)
-#> A1          1   0.1283 0.02983 0.9231  0.470
+#> A1          1   0.1283 0.02983 0.9231  0.473
 #> Moisture    3   0.6596 0.15343 1.5826  0.127
-#> Management  2   0.1959 0.04556 0.7050  0.734
-#> Use         2   0.1305 0.03036 0.4697  0.906
-#> Manure      3   0.4208 0.09787 1.0096  0.483
+#> Management  2   0.1959 0.04556 0.7050  0.736
+#> Use         2   0.1305 0.03036 0.4697  0.904
+#> Manure      3   0.4208 0.09787 1.0096  0.484
 #> Residual    7   0.9725 0.22621              
 #> Total      19   4.2990 1.00000              
 adonis2(dune ~ Management + Moisture, dune.env, by = "term")

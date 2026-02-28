@@ -190,7 +190,7 @@ u <- runif(nrow(mite))
 v <- wascores(u, mite, expand = TRUE)
 u <- wascores(v, t(mite), expand = TRUE)
 attr(u, "shrinkage") # current estimate of eigenvalue
-#> [1] 0.3743222
+#> [1] 0.4317294
 ## The strengths of two continuous variables in the data set
 eigengrad(mite.env[, 1:2], mite)
 #>   SubsDens   WatrCont 
