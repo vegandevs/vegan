@@ -3,6 +3,7 @@
              panel = "panel.ordi", aspect = "iso", envfit,
              type = c("p", "biplot"),  ...)
 {
+    .Deprecated("ggvegan::autoplot")
     localXyplot <- function(..., shrink, origin, scaling) xyplot(...)
     p <- as.data.frame(scores(x, display = display, choices = choices, ...))
     if (!is.null(data))

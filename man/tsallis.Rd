@@ -111,11 +111,11 @@ Jost, L (2007) Partitioning diversity into independent alpha and beta
 \email{solymos@ualberta.ca}, based on the code of Roeland Kindt and
 Jari Oksanen written for \code{renyi}}
 
-\seealso{ Plotting methods and accumulation routines are based on
-functions \code{\link{renyi}} and \code{\link{renyiaccum}}. An object
-of class \code{tsallisaccum} can be displayed with dynamic 3D function
-\code{rgl.renyiaccum} in the \pkg{vegan3d} package. See also settings for
-\code{\link{persp}}.  }
+\seealso{ Accumulation routines are based on functions
+  \code{\link{renyi}} and \code{\link{renyiaccum}}, and plots are
+  provided by \CRANpkg{ggvegan}. An object of class \code{tsallisaccum}
+  can be displayed with dynamic 3D function \code{rgl.renyiaccum} in the
+  \pkg{vegan3d} package. See also settings for \code{\link{persp}}.  }
 
 \examples{
 data(BCI)
@@ -123,12 +123,9 @@ i <- sample(nrow(BCI), 12)
 x1 <- tsallis(BCI[i,])
 x1
 diversity(BCI[i,],"simpson") == x1[["2"]]
-plot(x1)
 x2 <- tsallis(BCI[i,],norm=TRUE)
 x2
-plot(x2)
 mod1 <- tsallisaccum(BCI[i,])
-plot(mod1, as.table=TRUE, col = c(1, 2, 2))
 persp(mod1)
 mod2 <- tsallisaccum(BCI[i,], norm=TRUE)
 persp(mod2,theta=100,phi=30)

@@ -1,9 +1,7 @@
 \encoding{UTF-8}
 \name{renyi}
 \alias{renyi}
-\alias{plot.renyi}
 \alias{renyiaccum}
-\alias{plot.renyiaccum}
 \alias{persp.renyiaccum}
 
 \title{Renyi and Hill Diversities and Corresponding Accumulation Curves }
@@ -15,12 +13,8 @@
 \usage{
 renyi(x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, Inf),
    hill = FALSE)
-\method{plot}{renyi}(x, ...)
 renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     raw = FALSE, collector = FALSE, subset, ...)
-\method{plot}{renyiaccum}(x, what = c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
-    type = "l",
-    ...)
 \method{persp}{renyiaccum}(x, theta = 220, col = heat.colors(100), zlim, ...)
 }
 
@@ -41,8 +35,6 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   }
   \item{subset}{logical expression indicating sites (rows) to keep: missing
     values are taken as \code{FALSE}.}
-  \item{what}{Items to be plotted.}
-  \item{type}{Type of plot, where \code{type = "l"} means lines.}
   \item{theta}{Angle defining the viewing direction (azimuthal) in
     \code{\link{persp}}.}
   \item{col}{Colours used for surface. Single colour will be passed on,
@@ -68,20 +60,16 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   more diverse than another only if its \enc{Rényi}{Renyi} diversities are all higher
   (\enc{Tóthmérész}{Tothmeresz}  1995).
 
-  The \code{plot} method for \code{renyi} uses \pkg{lattice} graphics,
-  and displays the diversity values against each scale in separate panel
-  for each site together with minimum, maximum and median values in the
-  complete data.
-
   Function \code{renyiaccum} is similar to \code{\link{specaccum}} but
   finds \enc{Rényi}{Renyi} or Hill diversities at given \code{scales}
-  for random permutations of accumulated sites.  Its \code{plot}
-  function uses \pkg{lattice} function \code{\link[lattice]{xyplot}}
-  to display the accumulation curves for each value of \code{scales}
-  in a separate panel.  In addition, it has a \code{persp} method to
-  plot the diversity surface against scale and number and
-  sites. Similar dynamic graphics can be made with
-  \code{rgl.renyiaccum} in \pkg{vegan3d} package.
+  for random permutations of accumulated sites.  It has a \code{persp}
+  method to plot the diversity surface against scale and number and
+  sites.
+
+  \code{plot} methods for \code{renyi} and \code{renyiaccum} are
+  provided by the \CRANpkg{ggvegan} (\code{autoplot}
+  functions). \CRANpkg{vegan3d} can make dynamics graphics with
+  \code{rgl.renyiaccum}. 
 
 }
 \value{
@@ -110,16 +98,13 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
 \author{ Roeland Kindt and Jari Oksanen }
 
 \seealso{\code{\link{diversity}} for diversity indices, and
-  \code{\link{specaccum}} for ordinary species accumulation curves, and
-  \code{\link[lattice]{xyplot}}, \code{\link{persp}}.}
+  \code{\link{specaccum}} for ordinary species accumulation curves.}
 
 \examples{
 data(BCI)
 i <- sample(nrow(BCI), 12)
-mod <- renyi(BCI[i,])
-plot(mod)
+renyi(BCI[i,])
 mod <- renyiaccum(BCI[i,])
-plot(mod, as.table=TRUE, col = c(1, 2, 2))
 persp(mod)
 }
 \keyword{univar }
