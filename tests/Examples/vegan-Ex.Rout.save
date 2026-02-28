@@ -6325,19 +6325,6 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 
 > plot(mod.HSD)
 > 
-> ## lattice graphics with permustats
-> pstat <- permustats(pmod)
-> permulattice(pstat, "densityplot", scale = list(x=list(relation="free")))
-Warning in densityplot.permustats(x, observed = observed, xlab = axislab,  :
-  'densityplot.permustats' is deprecated.
-Use 'ggvegan::autoplot' instead.
-See help("Deprecated")
-> permulattice(pstat, "qqmath", scales = list(relation = "free"))
-Warning in qqmath.permustats(x, observed = observed, ylab = axislab, ...) :
-  'qqmath.permustats' is deprecated.
-Use 'ggvegan::autoplot' instead.
-See help("Deprecated")
-> 
 > 
 > 
 > cleanEx()
@@ -9204,7 +9191,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.337 0.387 8.749 0 0 
+Time elapsed:  8.3 0.36 8.676 0 0 
 > grDevices::dev.off()
 null device 
           1 
