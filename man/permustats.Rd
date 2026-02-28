@@ -17,11 +17,8 @@
 \alias{permustats.vectorfit}
 \alias{summary.permustats}
 \alias{c.permustats}
-\alias{permulattice}
-\alias{densityplot.permustats}
 \alias{density.permustats}
 \alias{qqnorm.permustats}
-\alias{qqmath.permustats}
 \alias{boxplot.permustats}
 \alias{pairs.permustats}
 
@@ -38,14 +35,8 @@
 \usage{
 permustats(x, ...)
 \method{summary}{permustats}(object, interval = 0.95, alternative, ...)
-permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
-    axislab = "Permutations", ...)
-\method{densityplot}{permustats}(x, data, observed = TRUE,
-    xlab = "Permutations", ...)
 \method{density}{permustats}(x, observed = TRUE, ...)
 \method{qqnorm}{permustats}(y, observed = TRUE, ...)
-\method{qqmath}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
-    ylab = "Permutations", ...)
 \method{boxplot}{permustats}(x, scale = FALSE, names, ...)
 \method{pairs}{permustats}(x, ...)
 }
@@ -59,14 +50,7 @@ permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
     and lower limit), \code{"greater"} (upper limit), \code{"less"}
     (lower limit). Usually \code{alternative} is given in the result
     object, but it can be specified with this argument.}
-  \item{plot}{Use \pkg{lattice} function
-    \code{\link[lattice]{densityplot}} or \code{\link[lattice]{qqmath}}.}
-  \item{xlab, ylab, axislab}{Label for the axis displaying permutation
-    values.}
   \item{observed}{Add observed statistic among permutations.}
-  \item{sd.scale}{Scale permutations to unit standard deviation and observed
-    statistic to standardized effect size.}
-  \item{data}{Ignored.}
   \item{scale}{Use standardized effect size (SES).}
   \item{names}{Names of boxes (default: names of statistics).}
   \item{\dots}{ Other arguments passed to the function. In
@@ -97,13 +81,9 @@ permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
   be combined with \code{c} function. The \code{c} function checks
   that statistics are equal, but performs no other sanity tests.
 
-  The results can be displayed either as conventional graphics or
-  \pkg{lattice} graphics. Lattice graphics can be used either with
-  function \code{permulattice} or directly with lattice functions
-  \code{densityplot} or \code{qqmath}. Function \code{permulattice} can
-  be used directly, but for \code{densityplot} and \code{qqmath}
-  \pkg{lattice} must be first loaded and attached with
-  \code{library(lattice)}
+  The results can be displayed with conventional graphics or as
+  \pkg{ggplot2} graphics using \code{autoplot} function in
+  \CRANpkg{ggvegan} package.
   
   The \code{density} and \code{densityplot} methods display the
   kernel density estimates of permuted values. When observed value of
@@ -114,18 +94,13 @@ permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
   displayed with \code{density} and for several statistics
   \code{permulattice} or \code{densityplot} must be used.
 
-  The \code{qqnorm} and \code{qqmath} methods display Q-Q plots of
-  permutations, optionally together with the observed value (default)
-  which is shown as horizontal line in plots. \code{qqnorm} plots
-  permutation values against standard Normal variate. \code{qqmath}
-  defaults to the standard Normal as well, but can accept other
-  alternatives (see standard \code{\link[lattice]{qqmath}}). The
-  \code{qqmath} function can also plot observed statistic as
-  standardized effect size (SES) with standandized permutations
-  (argument \code{sd.scale}). The permutations are standardized
-  without the observed statistic, similarly as in \code{summary}.
-  Only one statistic can be shown with \code{qqnorm} and for several
-  statistics \code{permulattice} or \code{qqmath} must be used.
+  The \code{qqnorm} method display Q-Q plots of permutations, optionally
+  together with the observed value (default) which is shown as
+  horizontal line in plots. \code{qqnorm} plots permutation values
+  against standard Normal variate. The permutations are standardized
+  without the observed statistic, similarly as in \code{summary}.  Only
+  one statistic can be shown with \code{qqnorm} and for several
+  statistics \pkg{ggvegan} package must be used.
 
   Function \code{boxplot} draws the box-and-whiskers plots of effect
   size, or the difference of permutations and observed statistic. If
@@ -163,10 +138,8 @@ permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
   method) and Eduard \enc{Szöcs}{Szoecs} (\code{permustats.anova.cca).}
 }
 
-\seealso{
-  \code{\link{density}}, \code{\link[lattice]{densityplot}},
-  \code{\link{qqnorm}}, \code{\link[lattice]{qqmath}}, \code{\link{boxplot}}.
-}
+\seealso{ \code{\link{density}}, \code{\link{qqnorm}},
+  \code{\link{boxplot}}.  }
 
 \examples{
 data(dune, dune.env)
@@ -174,9 +147,6 @@ mod <- adonis2(dune ~ Management + A1, data = dune.env)
 ## use permustats
 perm <- permustats(mod)
 summary(perm)
-## lattice graphics
-permulattice(perm, "densityplot")
-permulattice(perm, "qqmath")
 boxplot(perm, scale=TRUE, lty=1, pch=16, cex=0.6, col="hotpink", ylab="SES")
 abline(h=0, col="skyblue")
 ## example of multiple types of statistic

@@ -1,6 +1,7 @@
 `plot.renyi` <-
     function(x, ...)
 {
+    .Deprecated("ggvegan::autoplot")
     if (inherits(x, "data.frame")) {
         plt <- factor(rep(rownames(x), ncol(x)), levels=rownames(x))
         alp <- factor(rep(colnames(x), each=nrow(x)), levels=colnames(x))
@@ -14,7 +15,7 @@
         lo <- hi <- med <- NA
     }
     cl <- trellis.par.get("superpose.line")$col
-    bwplot(diversity ~ alpha | plot, data=df,  
+    bwplot(diversity ~ alpha | plot, data=df,
            panel = function(x, y, ...) {
                panel.lines(x, lo, lty=2, col=cl[3])
                panel.lines(x, med, lty=2, col=cl[2])

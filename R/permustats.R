@@ -145,6 +145,7 @@
 `densityplot.permustats` <-
     function(x, data, observed = TRUE, xlab = "Permutations", ...)
 {
+    .Deprecated("ggvegan::autoplot")
     obs <- x$statistic
     sim <- as.matrix(x$permutations)
     if (observed)
@@ -204,6 +205,7 @@
     function(x, data, observed = TRUE, sd.scale = FALSE,
              ylab = "Permutations", ...)
 {
+    .Deprecated("ggvegan::autoplot")
     ## sd.scale: standardize before use
     if (sd.scale) {
         x$permutations <- scale(x$permutations)
@@ -254,7 +256,7 @@
 }
 
 ###
-### specific methods to extract permustats
+### specific methods to extract permustats and summary.<method>
 ###
 
 `permustats.anosim` <-

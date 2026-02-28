@@ -1,7 +1,8 @@
 `plot.renyiaccum` <-
 function (x, what=c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
-          type = "l", ...) 
+          type = "l", ...)
 {
+        .Deprecated("ggvegan::autoplot")
         what <- what[what %in% dimnames(x)[[3]]]
 	if (any(what %in% dimnames(x)[[3]]))
 	    x <- x[,,what, drop = FALSE]
