@@ -64,7 +64,7 @@ al. (2010).}
   Martino, C., Morton, J.T., Marotz, C.A., Thompson, L.R., Tripathi, A.,
   Knight, R. & Zengler, K. (2019) A novel sparse compositional technique
   reveals microbial perturbations.
-  \emph{mSystems} \strong{4}, 1. \doi{10.1128/msystems.0016-19}.
+  \emph{mSystems} \strong{4}, 1. \doi{10.1128/msystems.00016-19}.
 
   }
 
