@@ -182,7 +182,8 @@ Jari Oksanen
 ## Note
 
 Function `fieller.MOStest` is based on package optgrad in the Ecological
-Archives (<https://figshare.com/articles/dataset/Full_Archive/3521975>)
+Archives
+[doi:10.6084/m9.figshare.3521975](https://doi.org/10.6084/m9.figshare.3521975)
 accompanying Oksanen et al. (2001). The Ecological Archive package
 optgrad also contains profile deviance method for the location of the
 hump or pit, but the current implementation of `profile` and `confint`
