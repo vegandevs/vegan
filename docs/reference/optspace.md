@@ -91,7 +91,7 @@ Few Entries. *IEEE Transactions on Information Theory* **56**:2980–2998.
 Martino, C., Morton, J.T., Marotz, C.A., Thompson, L.R., Tripathi, A.,
 Knight, R. & Zengler, K. (2019) A novel sparse compositional technique
 reveals microbial perturbations. *mSystems* **4**, 1.
-[doi:10.1128/msystems.0016-19](https://doi.org/10.1128/msystems.0016-19)
+[doi:10.1128/msystems.00016-19](https://doi.org/10.1128/msystems.00016-19)
 .
 
 ## Examples
