@@ -14,12 +14,10 @@ varpart(Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
     add = FALSE, sqrt.dist = FALSE, permutations)
 # S3 method for class 'varpart'
 summary(object, ...)
-# S3 method for class 'varpart'
-plot(x, Xnames = x$tables, ...)
-# S3 method for class 'varpart234'
-plot(x, cutoff = 0, digits = 1, ...)
 showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
     id.size = 1.2,  ...)
+# S3 method for class 'varpart234'
+plot(x, cutoff = 0, digits = 1, ...)
 ```
 
 ## Arguments
@@ -49,8 +47,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 - ...:
 
   Other parameters passed to functions. NB, arguments after dots cannot
-  be abbreviated but they must be spelt out completely. `plot` functions
-  pass arguments `showvarparts`.
+  be abbreviated but they must be spelt out completely.
 
 - data:
 
@@ -119,12 +116,17 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
   range \\0...255\\, and low values are more transparent. Transparency
   is not available in all graphics devices or file formats.
 
-- Xnames, id.size:
+- Xnames:
 
-  Names for sources of variation. `Xnames=""` or `Xnames=NA` plot no
-  names. If the specified names do not fit the figure space, names `X1`
-  etc will be used. `id.size` is a numerical value for the character
-  expansion of `Xnames`.
+  Names for sources of variation. Default names are `X1`, `X2`, `X3` and
+  `X4`. `Xnames=NA`, `Xnames=NULL` and `Xnames=""` produce no names. The
+  names can be changed to other names. It is often best to use short
+  names.
+
+- id.size:
+
+  A numerical value giving the character expansion factor for the names
+  of circles or ellipses.
 
 - x, object:
 
@@ -507,8 +509,8 @@ mod
 #> Topo, mite.pcnm, data = mite.env, transfo = "hel")
 #> Species transformation:  hellinger
 #> Explanatory tables:
-#> X1:  SubsDens + WatrCont
-#> X2:  Substrate + Shrub + Topo
+#> X1:  ~SubsDens + WatrCont
+#> X2:  ~Substrate + Shrub + Topo
 #> X3:  mite.pcnm 
 #> 
 #> No. of explanatory tables: 3 
@@ -547,10 +549,10 @@ summary(mod)
 #> 
 #> Unique fractions and total with shared fractions equally allocated:
 #> 
-#>    Unique Contributed                Component
-#> X1 0.0391       0.144      SubsDens + WatrCont
-#> X2 0.0382       0.148 Substrate + Shrub + Topo
-#> X3 0.1012       0.245                mite.pcnm
+#>    Unique Contributed                 Component
+#> X1 0.0391       0.144      ~SubsDens + WatrCont
+#> X2 0.0382       0.148 ~Substrate + Shrub + Topo
+#> X3 0.1012       0.245                 mite.pcnm
 #> 
 #> Contributions of fractions to sets:
 #> 
@@ -565,7 +567,6 @@ summary(mod)
 showvarparts(3, bg=2:4)
 
 plot(mod, bg=2:4)
-#> labels do not fit the space, switching to X1...
 
 
 ## Use RDA to test fraction [a]
@@ -597,8 +598,8 @@ mod
 #> "hel")
 #> Species transformation:  hellinger
 #> Explanatory tables:
-#> X1:  SubsDens + WatrCont
-#> X2:  Substrate + Shrub + Topo
+#> X1:  ~SubsDens + WatrCont
+#> X2:  ~Substrate + Shrub + Topo
 #> X3:  mite.pcnm[, 1:11]
 #> X4:  mite.pcnm[, 12:22] 
 #> 
@@ -673,11 +674,11 @@ summary(mod)
 #> 
 #> Unique fractions and total with shared fractions equally allocated:
 #> 
-#>    Unique Contributed                Component
-#> X1 0.0391      0.1456      SubsDens + WatrCont
-#> X2 0.0382      0.1594 Substrate + Shrub + Topo
-#> X3 0.1024      0.2511        mite.pcnm[, 1:11]
-#> X4 0.0085     -0.0181       mite.pcnm[, 12:22]
+#>    Unique Contributed                 Component
+#> X1 0.0391      0.1456      ~SubsDens + WatrCont
+#> X2 0.0382      0.1594 ~Substrate + Shrub + Topo
+#> X3 0.1024      0.2511         mite.pcnm[, 1:11]
+#> X4 0.0085     -0.0181        mite.pcnm[, 12:22]
 #> 
 #> Contributions of fractions to sets:
 #> 
@@ -698,9 +699,7 @@ summary(mod)
 #> [n]  0.00910           0.00910  0.00910
 #> [o] -0.01690 -0.01690 -0.01690 -0.01690
 plot(mod, bg=2:5)
-#> labels do not fit the space, switching to X1...
 
 ## Show values for all partitions by putting 'cutoff' low enough:
 plot(mod, cutoff = -Inf, cex = 0.7, bg=2:5)
-#> labels do not fit the space, switching to X1...
 ```

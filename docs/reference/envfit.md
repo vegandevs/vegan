@@ -21,7 +21,7 @@ envfit(ord, env, permutations = 999, strata = NULL,
 envfit(formula, data, ...)
 # S3 method for class 'envfit'
 plot(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
-   axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg, add = TRUE, ...)
+   axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 # S3 method for class 'envfit'
 scores(x, display, choices, arrow.mul=1, tidy = FALSE, ...)
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
@@ -117,11 +117,10 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 
   Plot axis showing the scaling of fitted arrows.
 
-- p.max, r2.min:
+- p.max:
 
-  Maximum estimated \\P\\ value and minimum \\r^2\\ for displayed
-  variables. You must calculate \\P\\ values with setting `permutations`
-  to use `p.max`.
+  Maximum estimated \\P\\ value for displayed variables. You must
+  calculate \\P\\ values with setting `permutations` to use this option.
 
 - col:
 
@@ -316,53 +315,51 @@ ord <- metaMDS(varespec)
 #> Square root transformation
 #> Wisconsin double standardization
 #> Run 0 stress 0.1843196 
-#> Run 1 stress 0.1955836 
-#> Run 2 stress 0.18458 
-#> ... Procrustes: rmse 0.0493631  max resid 0.1575579 
-#> Run 3 stress 0.1976156 
-#> Run 4 stress 0.2094754 
-#> Run 5 stress 0.1974418 
-#> Run 6 stress 0.2185648 
-#> Run 7 stress 0.2092456 
-#> Run 8 stress 0.18584 
-#> Run 9 stress 0.2394817 
-#> Run 10 stress 0.2087932 
-#> Run 11 stress 0.1843196 
+#> Run 1 stress 0.1825658 
 #> ... New best solution
-#> ... Procrustes: rmse 2.517178e-05  max resid 0.0001011706 
+#> ... Procrustes: rmse 0.04163027  max resid 0.1518284 
+#> Run 2 stress 0.2152867 
+#> Run 3 stress 0.2048307 
+#> Run 4 stress 0.220789 
+#> Run 5 stress 0.1967393 
+#> Run 6 stress 0.2245479 
+#> Run 7 stress 0.2096935 
+#> Run 8 stress 0.2292645 
+#> Run 9 stress 0.1858401 
+#> Run 10 stress 0.1852397 
+#> Run 11 stress 0.2419377 
+#> Run 12 stress 0.2144309 
+#> Run 13 stress 0.2032569 
+#> Run 14 stress 0.2419374 
+#> Run 15 stress 0.2088293 
+#> Run 16 stress 0.196245 
+#> Run 17 stress 0.2061122 
+#> Run 18 stress 0.1976151 
+#> Run 19 stress 0.2291377 
+#> Run 20 stress 0.1825658 
+#> ... New best solution
+#> ... Procrustes: rmse 9.102961e-06  max resid 3.217625e-05 
 #> ... Similar to previous best
-#> Run 12 stress 0.2240541 
-#> Run 13 stress 0.1974419 
-#> Run 14 stress 0.195049 
-#> Run 15 stress 0.1962451 
-#> Run 16 stress 0.1869637 
-#> Run 17 stress 0.1843196 
-#> ... Procrustes: rmse 2.289873e-05  max resid 8.006074e-05 
-#> ... Similar to previous best
-#> Run 18 stress 0.1845801 
-#> ... Procrustes: rmse 0.04937852  max resid 0.15765 
-#> Run 19 stress 0.1967393 
-#> Run 20 stress 0.2028828 
-#> *** Best solution repeated 2 times
+#> *** Best solution repeated 1 times
 (fit <- envfit(ord, varechem, perm = 999))
 #> 
 #> ***VECTORS
 #> 
 #>             NMDS1    NMDS2     r2 Pr(>r)    
-#> N        -0.05039 -0.99873 0.2081  0.080 .  
-#> P         0.68701  0.72665 0.1755  0.147    
-#> K         0.82728  0.56179 0.1657  0.171    
-#> Ca        0.75014  0.66128 0.2811  0.047 *  
-#> Mg        0.69675  0.71732 0.3494  0.021 *  
-#> S         0.27625  0.96109 0.1774  0.133    
-#> Al       -0.83778  0.54601 0.5155  0.001 ***
-#> Fe       -0.86199  0.50692 0.4001  0.003 ** 
-#> Mn        0.80234 -0.59686 0.5322  0.002 ** 
-#> Zn        0.66517  0.74669 0.1779  0.142    
-#> Mo       -0.84876  0.52877 0.0517  0.572    
-#> Baresoil  0.87211 -0.48931 0.2494  0.052 .  
-#> Humdepth  0.92637 -0.37662 0.5590  0.001 ***
-#> pH       -0.79908  0.60123 0.2624  0.052 .  
+#> N        -0.05730 -0.99836 0.2536  0.047 *  
+#> P         0.61971  0.78483 0.1938  0.129    
+#> K         0.76644  0.64232 0.1809  0.134    
+#> Ca        0.68518  0.72837 0.4119  0.006 ** 
+#> Mg        0.63251  0.77455 0.4270  0.005 ** 
+#> S         0.19137  0.98152 0.1752  0.161    
+#> Al       -0.87161  0.49020 0.5269  0.001 ***
+#> Fe       -0.93603  0.35193 0.4450  0.002 ** 
+#> Mn        0.79872 -0.60171 0.5231  0.002 ** 
+#> Zn        0.61754  0.78654 0.1879  0.126    
+#> Mo       -0.90308  0.42947 0.0609  0.516    
+#> Baresoil  0.92489 -0.38022 0.2508  0.036 *  
+#> Humdepth  0.93283 -0.36031 0.5200  0.001 ***
+#> pH       -0.64799  0.76164 0.2308  0.057 .  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> Permutation: free
@@ -371,20 +368,20 @@ ord <- metaMDS(varespec)
 #> 
 scores(fit, "vectors")
 #>                NMDS1      NMDS2
-#> N        -0.02298558 -0.4555563
-#> P         0.28784302  0.3044503
-#> K         0.33676522  0.2286909
-#> Ca        0.39771862  0.3506023
-#> Mg        0.41183998  0.4239993
-#> S         0.11635223  0.4047925
-#> Al       -0.60152079  0.3920315
-#> Fe       -0.54522417  0.3206335
-#> Mn        0.58534888 -0.4354406
-#> Zn        0.28057323  0.3149614
-#> Mo       -0.19295095  0.1202064
-#> Baresoil  0.43555136 -0.2443704
-#> Humdepth  0.69263050 -0.2815923
-#> pH       -0.40930953  0.3079660
+#> N        -0.02885647 -0.5027950
+#> P         0.27283633  0.3455360
+#> K         0.32601005  0.2732133
+#> Ca        0.43972415  0.4674409
+#> Mg        0.41332776  0.5061499
+#> S         0.08009763  0.4108201
+#> Al       -0.63270239  0.3558383
+#> Fe       -0.62443838  0.2347789
+#> Mn        0.57766223 -0.4351797
+#> Zn        0.26770638  0.3409640
+#> Mo       -0.22294695  0.1060239
+#> Baresoil  0.46316368 -0.1904068
+#> Humdepth  0.67270727 -0.2598321
+#> pH       -0.31130341  0.3659022
 plot(ord)
 plot(fit)
 plot(fit, p.max = 0.05, col = "red")

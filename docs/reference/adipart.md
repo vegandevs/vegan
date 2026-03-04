@@ -11,8 +11,9 @@ nested hierarchical sampling design (`hiersimu`).
 ``` r
 adipart(...)
 # Default S3 method
-adipart(y, x, index, weights=c("unif", "prop"),
-    relative = FALSE, nsimul=99, method = "r2dtable", ...)
+adipart(y, x, index=c("richness", "shannon", "simpson"),
+    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
+    method = "r2dtable", ...)
 # S3 method for class 'formula'
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99,
@@ -62,11 +63,7 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
 
 - index:
 
-  Name of the diversity index, one of `"richness"` for the number of
-  species, `"shannon"`, `"simpson"`, `"invsimpson"` of function
-  [`diversity`](https://vegandevs.github.io/vegan/reference/diversity.md),
-  `"hill1"` for Hill number 1 that is the exponent of `"shannon"`, or
-  `"hill2"` for Hill number 2 that is a synonym of `"invsimpson"`.
+  Character, the diversity index to be calculated (see Details).
 
 - weights:
 

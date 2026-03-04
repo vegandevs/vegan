@@ -179,6 +179,10 @@ and
 are some specific methods. Species scores can be added to the result
 with
 [`sppscores`](https://vegandevs.github.io/vegan/reference/sppscores.md).
+Other multidimensional scaling methods are
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md), and
+[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) and
+[`sammon`](https://rdrr.io/pkg/MASS/man/sammon.html) in package MASS.
 
 ## Examples
 
