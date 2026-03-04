@@ -46,18 +46,29 @@
 <div class="section level3">
 <h3 id="new-features-2-8-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-8-0"></a></h3>
 <ul><li><p><code>metaMDS</code> can use any MDS function as an <code>engine</code> if the function takes as input dissimilarities, initial configuration and number of axes, and returns a list with elements stress and points for final solution. <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code> and <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">MASS::isoMDS</a></code> are such functions, but other MDS functions can be easily wrapped to make them compatible. The Examples in the help page shows how to wrap <code>smacof::mds</code>. The default engine is still <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code>, and the user experience with this default choice is unchanged.</p></li>
-<li><p><code>metaMDS</code> is more robust with missing values in community data.</p></li>
-<li><p><code>decostand</code> for data with zero row or column sums or maxima gives now <code>NaN</code> (not a number) in methods <code>"chi.square"</code>, <code>"frequency"</code>, <code>"hellinger"</code>, <code>"max"</code> and <code>"total"</code>. Since 2005 (CRAN release 1.6-10) we avoided division by zero and returned these as zero. However, this can give wrong and misleading results in further analysis, because originally invalid data is regarded as valid. As an example, see issue <a href="https://github.com/vegandevs/vegan/issues/762" class="external-link">#762</a>.</p></li>
-<li><p><code>wisconsin</code> double standardization gained argument <code>na.rm</code> similarly as <code>decostand</code>.</p></li>
 <li><p><code>adonis2</code> can have <code>Condition</code> in formula allowing similar analysis of partial models as in <code>dbrda</code>.</p></li>
 <li><p><code>plot.envfit</code> can use criterion <code>r2.min</code> for lower threshold of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math> of displayed variables. Both <code>p.max</code> and <code>r2.min</code> must be satisfied for displayed items.</p></li>
 <li><p><code>ordipointlabel</code> is faster. This was achieved using tighter bounding box which reduced the number of potentially overlapping labels. The used bounding box is shown with argument <code>bg  = &lt;colour&gt;</code>. The function is also invoked from <code>plot</code> and <code>text</code> functions for ordination results with argument <code>optimize = TRUE</code>.</p></li>
 <li><p><code>varpart</code> labels the sources of variation by the full definition of the term in plots, but switches to <code>X1</code> <em>etc</em> if the full name does not fit the graph. Tilde is stripped from the term name.</p></li>
-<li><p><code>vegdist</code> warns now when Morisita index is used with presence/absence data or when a sampling unit (row) has no counts above 1. Cases when two compared rows have largest count 1 and share no species are now handled smoothly (used to be <code>NaN</code>), but results for 0/1 rows are unreliable. For instance, two sampling units (rows) are regarded identical (distance 0) if they share any species although they differ in other species. It is best to use <code>method = "horn"</code> if <code>"morisita"</code> gives warnings. See issue <a href="https://github.com/vegandevs/vegan/issues/444" class="external-link">#444</a>.</p></li>
 <li><p><code>adipart</code> can use Hill numbers 1 and 2 in additive diversity partitioning per wish of <a href="https://github.com/vegandevs/vegan/issues/752" class="external-link">#752</a>. Earlier it was possible to use these only <em>via</em> <code>hiersimu</code>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
+<h3 id="deprecated-and-defunct-2-8-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-8-0"></a></h3>
+<ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
+<li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.7-3" id="vegan-27-3">vegan 2.7-3<a class="anchor" aria-label="anchor" href="#vegan-27-3"></a></h2><p class="text-muted">CRAN release: 2026-03-04</p>
+<div class="section level3">
+<h3 id="new-features-2-7-3">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-7-3"></a></h3>
+<ul><li><p><code>metaMDS</code> is more robust with missing values in community data.</p></li>
+<li><p><code>decostand</code> for data with zero row or column sums or maxima gives now <code>NaN</code> (not a number) in methods <code>"chi.square"</code>, <code>"frequency"</code>, <code>"hellinger"</code>, <code>"max"</code> and <code>"total"</code>. Since 2005 (CRAN release 1.6-10) we avoided division by zero and returned these as zero. However, this can give wrong and misleading results in further analysis, because originally invalid data is regarded as valid. As an example, see issue <a href="https://github.com/vegandevs/vegan/issues/762" class="external-link">#762</a>.</p></li>
+<li><p><code>vegdist</code> warns now when Morisita index is used with presence/absence data or when a sampling unit (row) has no counts above 1. Cases when two compared rows have largest count 1 and share no species are now handled smoothly (used to be <code>NaN</code>), but results for 0/1 rows are unreliable. For instance, two sampling units (rows) are regarded identical (distance 0) if they share one species although they differ in all other species with 0/1 data. It is best to use <code>method = "horn"</code> if <code>"morisita"</code> gives warnings. See issue <a href="https://github.com/vegandevs/vegan/issues/444" class="external-link">#444</a>.</p></li>
+<li><p><code>wisconsin</code> double standardization gained argument <code>na.rm</code> similarly as <code>decostand</code>.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-7-3">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-3"></a></h3>
 <ul><li>
 <p><code>decostand(..., method = "rclr")</code> and <code>optspace</code> lost row and column names of imputed matrix. Issue <a href="https://github.com/vegandevs/vegan/issues/759" class="external-link">#759</a>.</p>
 <p>Back-transformation of <code>"rclr"</code> failed with <code>decobackstand</code>. Back-transformation cannot be done with imputed matrix, and without imputed matrix original zeros were returned as <code>NA</code>.</p>
@@ -66,10 +77,8 @@
 <li><p><code>vegdist</code> for Chord and Hellinger distances gave wrong or misleading results when two sites were identical or one of sites was empty (all zeros). Issues <a href="https://github.com/vegandevs/vegan/issues/761" class="external-link">#761</a> and <a href="https://github.com/vegandevs/vegan/issues/762" class="external-link">#762</a>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="deprecated-and-defunct-2-8-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-8-0"></a></h3>
-<ul><li><p>Several Lattice functions are deprecated after CRAN release of <strong>ggvegan</strong> for <strong>ggplot2</strong> graphics. These include <code>ordixyplot</code>, <code>plot</code> functions for the results of <code>poolaccum</code>, <code>renyi</code> and <code>renyiaccum</code>, <code>permulattice</code> with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>. <strong>ggvegan</strong> provides <code>autoplot</code> for all these deprecated functions.</p></li>
-<li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
-<li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
+<h3 id="deprecated-2-7-3">Deprecated<a class="anchor" aria-label="anchor" href="#deprecated-2-7-3"></a></h3>
+<ul><li>Several Lattice functions are deprecated after CRAN release of <strong>ggvegan</strong> for <strong>ggplot2</strong> graphics. These include <code>ordixyplot</code>, <code>plot</code> functions for the results of <code>poolaccum</code>, <code>renyi</code> and <code>renyiaccum</code>, <code>permulattice</code> with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>. <strong>ggvegan</strong> provides <code>autoplot</code> for all these deprecated functions.</li>
 </ul></div>
 </div>
     <div class="section level2">
