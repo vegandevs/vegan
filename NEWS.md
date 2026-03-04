@@ -25,20 +25,6 @@
   `smacof::mds`. The default engine is still `vegan::monoMDS`, and the
   user experience with this default choice is unchanged.
 
-* `metaMDS` is more robust with missing values in community data.
-
-* `decostand` for data with zero row or column sums or maxima gives
-  now `NaN` (not a number) in methods `"chi.square"`, `"frequency"`,
-  `"hellinger"`, `"max"` and `"total"`. Since 2005 (CRAN release
-  1.6-10) we avoided division by zero and returned these as
-  zero. However, this can give wrong and misleading results in further
-  analysis, because originally invalid data is regarded as valid. As
-  an example, see issue
-  [#762](https://github.com/vegandevs/vegan/issues/762).
-
-* `wisconsin` double standardization gained argument `na.rm` similarly
-  as `decostand`.
-
 * `adonis2` can have `Condition` in formula allowing similar analysis
   of partial models as in `dbrda`.
 
@@ -56,20 +42,50 @@
   the term in plots, but switches to `X1` _etc_ if the full name does
   not fit the graph. Tilde is stripped from the term name.
 
+* `adipart` can use Hill numbers 1 and 2 in additive diversity
+  partitioning per wish of
+  [#752](https://github.com/vegandevs/vegan/issues/752). Earlier it
+  was possible to use these only _via_ `hiersimu`.
+
+## Deprecated and Defunct
+
+* Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
+  defunct. `ordicloud` is available in CRAN package **vegan3d** as
+  `ordilattice3d`. New function `influence.cca` can prepare data to be
+  used in similar graphics as `ordiresids` using **ggplot2** or
+  **lattice**.
+
+* Argument `thinplate` is finally defunct in `ordisurf`: use
+  `isotropic`. The argument was deprecated in 2013 (CRAN release
+  2.0-8).
+
+# vegan 2.7-3
+
+## New Features
+
+* `metaMDS` is more robust with missing values in community data.
+
+* `decostand` for data with zero row or column sums or maxima gives
+  now `NaN` (not a number) in methods `"chi.square"`, `"frequency"`,
+  `"hellinger"`, `"max"` and `"total"`. Since 2005 (CRAN release
+  1.6-10) we avoided division by zero and returned these as
+  zero. However, this can give wrong and misleading results in further
+  analysis, because originally invalid data is regarded as valid. As
+  an example, see issue
+  [#762](https://github.com/vegandevs/vegan/issues/762).
+
 * `vegdist` warns now when Morisita index is used with
   presence/absence data or when a sampling unit (row) has no counts
   above 1. Cases when two compared rows have largest count 1 and share
   no species are now handled smoothly (used to be `NaN`), but results
   for 0/1 rows are unreliable. For instance, two sampling units (rows)
-  are regarded identical (distance 0) if they share any species
-  although they differ in other species. It is best to use
-  `method = "horn"` if `"morisita"` gives warnings.  See issue
+  are regarded identical (distance 0) if they share one species
+  although they differ in all other species with 0/1 data. It is best
+  to use `method = "horn"` if `"morisita"` gives warnings.  See issue
   [#444](https://github.com/vegandevs/vegan/issues/444).
 
-* `adipart` can use Hill numbers 1 and 2 in additive diversity
-  partitioning per wish of
-  [#752](https://github.com/vegandevs/vegan/issues/752). Earlier it
-  was possible to use these only _via_ `hiersimu`.
+* `wisconsin` double standardization gained argument `na.rm` similarly
+  as `decostand`.
 
 ## Bug Fixes
 
@@ -89,7 +105,7 @@
   zeros). Issues [#761](https://github.com/vegandevs/vegan/issues/761)
   and [#762](https://github.com/vegandevs/vegan/issues/762).
 
-## Deprecated and Defunct
+## Deprecated
 
 * Several Lattice functions are deprecated after CRAN release of
   **ggvegan** for **ggplot2** graphics. These include `ordixyplot`,
@@ -97,16 +113,6 @@
   `renyiaccum`, `permulattice` with `densityplot` and `qqmath`
   functions for `permustats`. **ggvegan** provides `autoplot` for all
   these deprecated functions.
-
-* Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
-  defunct. `ordicloud` is available in CRAN package **vegan3d** as
-  `ordilattice3d`. New function `influence.cca` can prepare data to be
-  used in similar graphics as `ordiresids` using **ggplot2** or
-  **lattice**.
-
-* Argument `thinplate` is finally defunct in `ordisurf`: use
-  `isotropic`. The argument was deprecated in 2013 (CRAN release
-  2.0-8).
 
 # vegan 2.7-2
 
