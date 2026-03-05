@@ -185,6 +185,7 @@ permutest.default <- function(x, ...)
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
+                on.exit(stopCluster(parallel))
             }
             tmp <- do.call(rbind,
                            parLapply(parallel,
@@ -194,8 +195,6 @@ permutest.default <- function(x, ...)
                                      E = E, Q = Q, QZ = QZ, effects = effects, w = w,
                                      first = first, isPartial = isPartial,
                                      isCCA = isCCA, isDB = isDB, q = q, r = r))
-            if (!hasClus)
-                stopCluster(parallel)
         }
     } else {
         tmp <- getF(permutations, E = E, Q = Q, QZ = QZ, effects = effects,

@@ -67,10 +67,9 @@
             } else {
                 if (!hasClus) {
                     parallel <- makeCluster(parallel)
+                    on.exit(stopCluster(parallel))
                 }
                 perm <- parRapply(parallel, permat, ptest)
-                if (!hasClus)
-                    stopCluster(parallel)
             }
         } else {
             perm <- sapply(1:permutations, function(i) ptest(permat[i,]))
