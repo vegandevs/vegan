@@ -117,6 +117,7 @@
             ## if hasClus, do not set up and stop a temporary cluster
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
+                on.exit(stopCluster(parallel))
                 ## make vegan functions available: others may be unavailable
                 clusterEvalQ(parallel, library(vegan))
             }
@@ -128,8 +129,6 @@
                                          applynestfun(z, fun = nestfun,
                                                       statistic = statistic, ...)))
             }
-            if (!hasClus)
-                stopCluster(parallel)
         }
     } else {
         for(i in seq_len(nbatch)) {
