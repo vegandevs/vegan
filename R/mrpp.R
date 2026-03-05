@@ -61,11 +61,10 @@
             } else {
                 if (!hasClus) {
                     parallel <- makeCluster(parallel)
+                    on.exit(stopCluster(parallel))
                 }
                 m.ds <- parCapply(parallel, perms, function(x)
                                   mrpp.perms(x, dmat, indls, w))
-                if (!hasClus)
-                    stopCluster(parallel)
             }
         } else {
             m.ds <- apply(perms, 2, function(x) mrpp.perms(x, dmat, indls, w))

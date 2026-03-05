@@ -82,6 +82,7 @@
     isMulticore <- .Platform$OS.type == "unix" && !hasClus
     if (isParal && !isMulticore && !hasClus) {
         parallel <- makeCluster(parallel)
+        on.exit(stopCluster(parallel))
         clusterEvalQ(parallel, library(vegan))
     }
     ## get the number of clusters
@@ -156,9 +157,6 @@
             cat("*** Best solution was not repeated\n")
         }
     }
-    ## stop socket cluster
-    if (isParal && !isMulticore && !hasClus)
-        stopCluster(parallel)
     if (!missing(previous.best) && inherits(previous.best, "metaMDS")) {
         tries <- tries + previous.best$tries
     }
