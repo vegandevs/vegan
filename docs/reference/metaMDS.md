@@ -576,7 +576,7 @@ sol <- metaMDS(dune)
 #> ... Procrustes: rmse 3.493091e-06  max resid 9.993228e-06 
 #> ... Similar to previous best
 #> Run 16 stress 0.1183186 
-#> ... Procrustes: rmse 3.611872e-06  max resid 1.049285e-05 
+#> ... Procrustes: rmse 3.611878e-06  max resid 1.049285e-05 
 #> ... Similar to previous best
 #> Run 17 stress 0.1183186 
 #> ... New best solution
@@ -641,7 +641,7 @@ sol <- metaMDS(dune, previous.best = sol)
 #> ... Similar to previous best
 #> Run 20 stress 0.1183186 
 #> ... New best solution
-#> ... Procrustes: rmse 2.916377e-06  max resid 9.135064e-06 
+#> ... Procrustes: rmse 2.91638e-06  max resid 9.135064e-06 
 #> ... Similar to previous best
 #> *** Best solution repeated 1 times
 ## Local NMDS and stress 2 of monoMDS
@@ -732,7 +732,7 @@ sol2
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 #> Run 0 stress 0.1067169 
 #> Run 1 stress 0.1067169 
-#> ... Procrustes: rmse 2.172764e-06  max resid 4.867553e-06 
+#> ... Procrustes: rmse 2.172769e-06  max resid 4.867553e-06 
 #> ... Similar to previous best
 #> Run 2 stress 0.1756301 
 #> Run 3 stress 0.1843428 
@@ -740,11 +740,11 @@ sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 #> ... Procrustes: rmse 2.00548e-06  max resid 5.297102e-06 
 #> ... Similar to previous best
 #> Run 5 stress 0.1067169 
-#> ... Procrustes: rmse 5.796358e-06  max resid 1.862333e-05 
+#> ... Procrustes: rmse 5.796359e-06  max resid 1.862333e-05 
 #> ... Similar to previous best
 #> Run 6 stress 0.1067169 
 #> ... New best solution
-#> ... Procrustes: rmse 5.607542e-06  max resid 1.545704e-05 
+#> ... Procrustes: rmse 5.607543e-06  max resid 1.545704e-05 
 #> ... Similar to previous best
 #> Run 7 stress 0.1067169 
 #> ... Procrustes: rmse 4.273274e-06  max resid 1.295099e-05 

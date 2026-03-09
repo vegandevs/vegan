@@ -52,6 +52,23 @@
   [\#752](https://github.com/vegandevs/vegan/issues/752). Earlier it was
   possible to use these only *via* `hiersimu`.
 
+- parallel processing is more robust on Windows, and also closes
+  internally opened socket clusters after error in functions. Pull
+  request [\#772](https://github.com/vegandevs/vegan/issues/772).
+
+### Bug Fixes
+
+- `ordihull` and `ordiellipse` (and hence `ordiareatest`) queried and
+  set graphical parameters also when nothing was drawn. Issue
+  [\#774](https://github.com/vegandevs/vegan/issues/774).
+
+- `mantel` and `mantel.partial` returned permutation results as
+  one-column matrix instead of a vector in some parallelization schemes.
+  Issue [\#773](https://github.com/vegandevs/vegan/issues/773).
+
+- `cascadeKM` failed in parallel processing on Windows. Issue
+  [\#771](https://github.com/vegandevs/vegan/issues/771).
+
 ### Deprecated and Defunct
 
 - Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are

@@ -51,6 +51,13 @@
 <li><p><code>ordipointlabel</code> is faster. This was achieved using tighter bounding box which reduced the number of potentially overlapping labels. The used bounding box is shown with argument <code>bg  = &lt;colour&gt;</code>. The function is also invoked from <code>plot</code> and <code>text</code> functions for ordination results with argument <code>optimize = TRUE</code>.</p></li>
 <li><p><code>varpart</code> labels the sources of variation by the full definition of the term in plots, but switches to <code>X1</code> <em>etc</em> if the full name does not fit the graph. Tilde is stripped from the term name.</p></li>
 <li><p><code>adipart</code> can use Hill numbers 1 and 2 in additive diversity partitioning per wish of <a href="https://github.com/vegandevs/vegan/issues/752" class="external-link">#752</a>. Earlier it was possible to use these only <em>via</em> <code>hiersimu</code>.</p></li>
+<li><p>parallel processing is more robust on Windows, and also closes internally opened socket clusters after error in functions. Pull request <a href="https://github.com/vegandevs/vegan/issues/772" class="external-link">#772</a>.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
+<ul><li><p><code>ordihull</code> and <code>ordiellipse</code> (and hence <code>ordiareatest</code>) queried and set graphical parameters also when nothing was drawn. Issue <a href="https://github.com/vegandevs/vegan/issues/774" class="external-link">#774</a>.</p></li>
+<li><p><code>mantel</code> and <code>mantel.partial</code> returned permutation results as one-column matrix instead of a vector in some parallelization schemes. Issue <a href="https://github.com/vegandevs/vegan/issues/773" class="external-link">#773</a>.</p></li>
+<li><p><code>cascadeKM</code> failed in parallel processing on Windows. Issue <a href="https://github.com/vegandevs/vegan/issues/771" class="external-link">#771</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-and-defunct-2-8-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-8-0"></a></h3>
