@@ -271,7 +271,7 @@ vare.dca
 #> Decorana values      0.5249 0.1572 0.09669 0.06075
 #> Axis lengths         2.8161 2.2054 1.54650 1.64864
 #> 
-plot(vare.dca)
+plot(vare.dca, optimize = TRUE)
 
 
 ### the detrending rationale:

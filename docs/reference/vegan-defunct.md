@@ -6,6 +6,15 @@ they are no longer needed.
 ## Usage
 
 ``` r
+## defunct in vegan 2.8-0
+ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
+    panel = "panel.ordi3d", prepanel = "prepanel.ordi3d", ...)
+ordisplom(x, data = NULL, formula = NULL, display = "sites", choices = 1:3, 
+    panel = "panel.ordi", type = "p", ...)
+ordiresids(x, kind = c("residuals", "scale", "qqmath"),
+    residuals = "working", type = c("p", "smooth", "g"),
+    formula, ...)
+
 ## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
@@ -40,6 +49,13 @@ permuted.index2(n, control = permControl())
 
 ## Details
 
+Lattice function`ordicloud` was moved to
+[vegan3d](https://CRAN.R-project.org/package=vegan3d) as
+`ordilattice3d`. To substitute `ordiresids`, use
+[`influence.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
+to extract data that you can use to design your own graphics.
+`ordisplom` was unsatisfactory and there is no replacement
+
 [`adonis2`](https://vegandevs.github.io/vegan/reference/adonis.md)
 replaces `adonis` with extended functionality and completely new
 internal design. The shared arguments of `adonis` are similar as in
@@ -53,11 +69,7 @@ Install vegan3d and use the function in the old way.
 
 `as.mlm` function is replaced with a set functions that can find the
 same statistics directly from the ordination result object: see
-[`hatvalues.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
-[`rstandard.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
-[`rstudent.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
-[`cooks.distance.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
-[`vcov.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md).
+[`influence.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md).
 
 Function `humpfit` was transferred to the natto package and is still
 available from <https://github.com/jarioksa/natto/>.
@@ -85,7 +97,7 @@ offers more powerful analysis tools for permutations, including
 giving \\z\\ values (a.k.a. standardized effect sizes, SES), and Q-Q
 plots
 ([`qqnorm.permustats`](https://vegandevs.github.io/vegan/reference/permustats.md),
-[`qqmath.permustats`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)).
+[`qqmath.permustats`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)).
 
 Function `metaMDSrotate` is replaced with
 [`MDSrotate`](https://vegandevs.github.io/vegan/reference/MDSrotate.md)

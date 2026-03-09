@@ -11,9 +11,8 @@ nested hierarchical sampling design (`hiersimu`).
 ``` r
 adipart(...)
 # Default S3 method
-adipart(y, x, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
-    method = "r2dtable", ...)
+adipart(y, x, index, weights=c("unif", "prop"),
+    relative = FALSE, nsimul=99, method = "r2dtable", ...)
 # S3 method for class 'formula'
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99,
@@ -63,7 +62,11 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
 
 - index:
 
-  Character, the diversity index to be calculated (see Details).
+  Name of the diversity index, one of `"richness"` for the number of
+  species, `"shannon"`, `"simpson"`, `"invsimpson"` of function
+  [`diversity`](https://vegandevs.github.io/vegan/reference/diversity.md),
+  `"hill1"` for Hill number 1 that is the exponent of `"shannon"`, or
+  `"hill2"` for Hill number 2 that is a synonym of `"invsimpson"`.
 
 - weights:
 
@@ -225,10 +228,10 @@ adipart(mite, index="richness", nsimul=19)
 #> options:  index richness, weights unif
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>         statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)  
-#> alpha.1    15.114 -39.28 22.335 22.049 22.300 22.650     0.05 *
-#> gamma      35.000   0.00 35.000 35.000 35.000 35.000     1.00  
-#> beta.1     19.886  39.28 12.665 12.350 12.700 12.951     0.05 *
+#>         statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)  
+#> alpha.1    15.114 -28.979 22.393 21.978 22.429 22.765     0.05 *
+#> gamma      35.000   0.000 35.000 35.000 35.000 35.000     1.00  
+#> beta.1     19.886  28.979 12.607 12.235 12.571 13.022     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ## the next two define identical models
@@ -241,14 +244,14 @@ adipart(mite, levsm, index="richness", nsimul=19)
 #> options:  index richness, weights unif
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>         statistic     SES     mean     2.5%      50%  97.5% Pr(sim.)  
-#> alpha.1    15.114 -38.105 22.30301 21.99214 22.30000 22.608     0.05 *
-#> alpha.2    29.750 -31.013 34.81579 34.50000 34.75000 35.000     0.05 *
-#> alpha.3    33.000   0.000 35.00000 35.00000 35.00000 35.000     0.05 *
-#> gamma      35.000   0.000 35.00000 35.00000 35.00000 35.000     1.00  
-#> beta.1     14.636   7.536 12.51278 12.04536 12.52857 12.969     0.05 *
-#> beta.2      3.250  18.769  0.18421  0.00000  0.25000  0.500     0.05 *
-#> beta.3      2.000   0.000  0.00000  0.00000  0.00000  0.000     0.05 *
+#>         statistic      SES     mean     2.5%      50%  97.5% Pr(sim.)  
+#> alpha.1    15.114 -54.1889 22.35038 22.10429 22.37143 22.584     0.05 *
+#> alpha.2    29.750 -25.1503 34.81579 34.50000 34.75000 35.000     0.05 *
+#> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.000     0.05 *
+#> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.000     1.00  
+#> beta.1     14.636   9.9124 12.46541 12.10000 12.45000 12.779     0.05 *
+#> beta.2      3.250  15.2208  0.18421  0.00000  0.25000  0.500     0.05 *
+#> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.000     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 adipart(mite ~ l2 + l3, levsm, index="richness", nsimul=19)
@@ -261,14 +264,14 @@ adipart(mite ~ l2 + l3, levsm, index="richness", nsimul=19)
 #> options:  index richness, weights unif
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>         statistic      SES     mean     2.5%      50%  97.5% Pr(sim.)  
-#> alpha.1    15.114 -45.1861 22.36842 22.13714 22.34286 22.643     0.05 *
-#> alpha.2    29.750 -27.1142 34.82895 34.50000 34.75000 35.000     0.05 *
-#> alpha.3    33.000   0.0000 35.00000 35.00000 35.00000 35.000     0.05 *
-#> gamma      35.000   0.0000 35.00000 35.00000 35.00000 35.000     1.00  
-#> beta.1     14.636   9.4292 12.46053 12.12321 12.45714 12.850     0.05 *
-#> beta.2      3.250  16.4371  0.17105  0.00000  0.25000  0.500     0.05 *
-#> beta.3      2.000   0.0000  0.00000  0.00000  0.00000  0.000     0.05 *
+#>         statistic     SES      mean      2.5%       50%  97.5% Pr(sim.)  
+#> alpha.1    15.114 -51.771 22.378947 22.100714 22.400000 22.587     0.05 *
+#> alpha.2    29.750 -25.578 34.736842 34.500000 34.750000 35.000     0.05 *
+#> alpha.3    33.000 -17.206 34.973684 34.725000 35.000000 35.000     0.05 *
+#> gamma      35.000   0.000 35.000000 35.000000 35.000000 35.000     1.00  
+#> beta.1     14.636  11.165 12.357895 12.025714 12.428571 12.686     0.05 *
+#> beta.2      3.250  15.455  0.236842  0.000000  0.250000  0.500     0.05 *
+#> beta.3      2.000  17.206  0.026316  0.000000  0.000000  0.275     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ## Hierarchical null model testing
@@ -282,9 +285,9 @@ hiersimu(mite, FUN=diversity, relative=TRUE, nsimul=19)
 #> 
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>         statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)  
-#> level_1   0.76064 -70.05 0.93837 0.93459 0.93805 0.9425     0.05 *
-#> leve_2    1.00000   0.00 1.00000 1.00000 1.00000 1.0000     1.00  
+#>         statistic     SES    mean    2.5%     50%  97.5% Pr(sim.)  
+#> level_1   0.76064 -52.201 0.93892 0.93378 0.93866 0.9444     0.05 *
+#> leve_2    1.00000   0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 hiersimu(mite ~ l2 + l3, levsm, FUN=diversity, relative=TRUE, nsimul=19)
@@ -298,9 +301,9 @@ hiersimu(mite ~ l2 + l3, levsm, FUN=diversity, relative=TRUE, nsimul=19)
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
 #>      statistic      SES    mean    2.5%     50%  97.5% Pr(sim.)  
-#> unit   0.76064  -69.225 0.93891 0.93416 0.93832 0.9439     0.05 *
-#> l2     0.89736 -145.480 0.99797 0.99700 0.99795 0.9992     0.05 *
-#> l3     0.92791 -537.663 0.99934 0.99914 0.99933 0.9995     0.05 *
+#> unit   0.76064  -60.783 0.93927 0.93425 0.93883 0.9435     0.05 *
+#> l2     0.89736 -116.072 0.99795 0.99617 0.99808 0.9991     0.05 *
+#> l3     0.92791 -421.205 0.99932 0.99902 0.99935 0.9995     0.05 *
 #> all    1.00000    0.000 1.00000 1.00000 1.00000 1.0000     1.00  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -317,9 +320,9 @@ hiersimu(mite ~., levsm, morfun, drop.highest=TRUE, nsimul=19)
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
 #>    statistic     SES     mean     2.5%      50%   97.5% Pr(sim.)  
-#> l1   0.52070  5.5393  0.34013  0.28680  0.33883  0.4008     0.05 *
-#> l2   0.60234 12.1290  0.16013  0.10945  0.16369  0.2157     0.05 *
-#> l3   0.67509 21.0093 -0.18758 -0.24439 -0.19756 -0.1065     0.05 *
+#> l1   0.52070  6.4968  0.35648  0.31140  0.35449  0.3978     0.05 *
+#> l2   0.60234 12.5142  0.15359  0.08900  0.14525  0.2039     0.05 *
+#> l3   0.67509 17.6125 -0.19189 -0.26300 -0.20619 -0.1149     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```

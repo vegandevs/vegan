@@ -98,7 +98,7 @@ RsquareAdj(m)
 #> [1] 0.4471676
 #> 
 #> $adj.r.squared
-#> [1] 0.3447024
+#> [1] 0.3446879
 #> 
 ## default method
 RsquareAdj(0.8, 20, 5)

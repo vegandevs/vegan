@@ -17,7 +17,8 @@ studentized or leave-one-out residuals
 ([`rstudent`](https://rdrr.io/r/stats/influence.measures.html)), and
 Cook's distance
 ([`cooks.distance`](https://rdrr.io/r/stats/influence.measures.html)).
-In addition, [`vcov`](https://rdrr.io/r/stats/vcov.html) returns the
+Function `influence` returns all these. In addition,
+[`vcov`](https://rdrr.io/r/stats/vcov.html) returns the
 variance-covariance matrix of coefficients, and its diagonal values the
 variances of coefficients. Other functions are mainly support functions
 for these, but they can be used directly.
@@ -33,6 +34,9 @@ rstandard(model, type = c("response", "canoco"), ...)
 rstudent(model, type = c("response", "canoco"), ...)
 # S3 method for class 'cca'
 cooks.distance(model, type = c("response", "canoco"), ...)
+# S3 method for class 'cca'
+influence(model, type = c("response", "canoco"),
+    addFit = FALSE, tidy = FALSE, ...)
 
 # S3 method for class 'cca'
 sigma(object, type = c("response", "canoco"), ...)
@@ -58,6 +62,20 @@ df.residual(object, ...)
   Type of statistics used for extracting raw residuals and residual
   standard deviation (`sigma`). Either `"response"` for species data or
   difference of WA and LC scores for `"canoco"`.
+
+- addFit:
+
+  Add fit in working scale to the result.
+
+- tidy:
+
+  Return a data frame suitable for
+  [ggplot2](https://CRAN.R-project.org/package=ggplot2) or
+  [lattice](https://CRAN.R-project.org/package=lattice). Each statistic
+  is in one long vector with added columns `site` and `species` or
+  `axis` depending on `type`
+
+.
 
 - ...:
 
@@ -101,10 +119,18 @@ the raw residuals are the differences of WA and LC scores, and the
 residual standard deviation
 ([`sigma`](https://rdrr.io/r/stats/sigma.html)) is taken to be the axis
 sum of squared WA scores minus one. These quantities have no
-relationship to residual component of ordination, but they rather are
-methodological artefacts of an algorithm that is not used in vegan. The
-result is a matrix with dimensions no. of observations times no. of
-constrained axes.
+relationship to residual component of ordination, but they rather show
+the influence of each site on axes. The result is a matrix with
+dimensions no. of observations times no. of constrained axes.
+
+Function `influence` returns either a list of the matrices `hatvalues`,
+`rstandard`, `rstudent` and `cooks.distance`, or a data frame where each
+matrix is single variable, with new variables `site` and `species` or
+`axis` (depending on `type`) identifying the original rows and columns
+of matrices. `influence` can also add fitted values in working scale as
+a variable. Such data can be used as input for
+[ggplot2](https://CRAN.R-project.org/package=ggplot2) or
+[lattice](https://CRAN.R-project.org/package=lattice).
 
 Function [`vcov`](https://rdrr.io/r/stats/vcov.html) returns the matrix
 of variances and covariances of regression coefficients. The diagonal
@@ -126,18 +152,6 @@ ter Braak, C.J.F. (1984–): CANOCO – a FORTRAN program for *cano*nical
 correspondence analysis, principal components analysis and redundancy
 analysis. *TNO Inst. of Applied Computer Sci., Stat. Dept. Wageningen,
 The Netherlands*.
-
-## Note
-
-Function
-[`as.mlm`](https://vegandevs.github.io/vegan/reference/vegan-defunct.md)
-casts an ordination object to a multiple linear model of class `"mlm"`
-(see [`lm`](https://rdrr.io/r/stats/lm.html)), and similar statistics
-can be derived from that modified object as with this set of functions.
-However, there are some problems in the R implementation of the further
-analysis of multiple linear model objects. When the results differ, the
-current set of functions is more probable to be correct. The use of
-`as.mlm` objects should be avoided.
 
 ## Author
 
@@ -283,6 +297,10 @@ head(cooks.distance(mod))
 #> 27 9.528504e-05 6.579101e-02 0.0140785723
 #> 23 7.797221e-05 1.817802e-01 0.0046131462
 #> 19 9.905729e-06 9.587131e-05 0.0003866237
+tabasco(cooks.distance(mod), site.ind = order(hatvalues(mod)))
+
+tabasco(cooks.distance(mod, type="canoco"), site.ind = order(hatvalues(mod)))
+
 
 ## Influence measures from lm
 y <- decostand(varespec, "chi.square") # needed in cca

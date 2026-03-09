@@ -59,7 +59,7 @@ Scaling and transformation of scores should also happen in the `scores`
 function. If the `scores` function is available, the results can be
 plotted using
 [`ordiplot`](https://vegandevs.github.io/vegan/reference/ordiplot.md),
-[`ordixyplot`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
+[`ordixyplot`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
 etc., and the ordination results can be compared in
 [`procrustes`](https://vegandevs.github.io/vegan/reference/procrustes.md)
 analysis.

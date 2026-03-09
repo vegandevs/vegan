@@ -5,8 +5,8 @@
 This document contains answers to some of the most frequently asked
 questions about R package **vegan**.
 
-> This work is licensed under the Creative Commons Attribution 3.0
-> License.
+> This work is openly licensed via \[CC BY
+> 4.0\]/(<https://creativecommons.org/licenses/by/4.0/>).
 >
 > Copyright © 2008-2025 vegan development team
 
@@ -23,7 +23,7 @@ popular methods of multivariate analysis needed in analysing ecological
 communities, and tools for diversity analysis, and other potentially
 useful functions. **Vegan** is not self-contained but it must be run
 under R statistical environment, and it also depends on many other R
-packages. **Vegan** is distributed under GPL2 license.
+packages.
 
 ------------------------------------------------------------------------
 
@@ -246,23 +246,6 @@ solutions. In those cases you should reduce the number of dimensions
 ($k$) and with very small data sets you should not use `NMDS`, but rely
 on metric methods (`pco` and `wcmdscale` in **vegan**, `cmdscale` in
 base **R**).
-
-------------------------------------------------------------------------
-
-#### Zero dissimilarities in isoMDS
-
-Function `metaMDS` uses function `monoMDS` as its default method for
-NMDS, and this function can handle zero dissimilarities. Alternative
-function `isoMDS` cannot handle zero dissimilarities. If you want to use
-`isoMDS`, you can use argument `zerodist = "add"` in `metaMDS` to handle
-zero dissimilarities. With this argument, zero dissimilarities are
-replaced with a small positive value, and they can be handled in
-`isoMDS`. This is a kluge, and some people do not like this. A more
-principal solution is to remove duplicate sites using R command
-`unique`. However, after some standardizations or with some
-dissimilarity indices, originally non-unique sites can have zero
-dissimilarity, and you have to resort to the kluge (or work harder with
-your data). Usually it is better to use `monoMDS`.
 
 ------------------------------------------------------------------------
 

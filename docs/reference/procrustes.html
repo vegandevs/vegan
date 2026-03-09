@@ -11,7 +11,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -328,7 +328,7 @@ permutation required.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> procrustes(X = mds.alt, Y = mds.null) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Procrustes sum of squares:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3181 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9.439 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -338,38 +338,38 @@ permutation required.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of objects: 24    Number of dimensions: 2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Procrustes sum of squares:  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.318119 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9.438994 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Procrustes root mean squared error: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  0.1151302 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.6271295 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Quantiles of Procrustes errors:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         Min          1Q      Median          3Q         Max </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.003037839 0.010221343 0.015023959 0.037296447 0.365342510 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Min         1Q     Median         3Q        Max </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.08139939 0.22056788 0.25738223 0.40751353 2.46736673 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Rotation matrix:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]        [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.99991785 -0.01281798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.01281798  0.99991785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.99794236 -0.06411737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.06411737  0.99794236</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Translation of averages:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               [,1]          [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -9.432173e-18 -2.143113e-17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               [,1]         [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1.104312e-17 2.003671e-17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Scaling of target:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.9933504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.778915</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="procrustes-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.proc</span>, kind<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="procrustes-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html" class="external-link">residuals</a></span><span class="op">(</span><span class="va">vare.proc</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          18          15          24          27          23          19 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.008598106 0.009978452 0.003037839 0.194732399 0.365342510 0.010354725 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          22          16          28          13          14          20 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.180624607 0.038151085 0.325705243 0.009928636 0.013233633 0.019633511 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          25           7           5           6           3           4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.038433401 0.010302306 0.027597021 0.008882573 0.011232492 0.037011568 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           2           9          12          10          11          21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.015265536 0.015935662 0.013205633 0.027225347 0.014782381 0.008277086 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         18         15         24         27         23         19         22 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.25941233 0.17447774 0.39874249 0.58131540 0.33274124 0.11053582 0.20647482 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         16         28         13         14         20         25          7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.24992983 0.38737480 0.32300066 0.24063350 0.08139939 0.19732133 0.48245391 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          5          6          3          4          2          9         12 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.90978857 0.22663432 0.22526557 0.72039485 2.46736673 0.24590608 0.17318195 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         10         11         21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.25535212 0.43382663 0.38095028 </span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
 </code></pre></div>
     </div>

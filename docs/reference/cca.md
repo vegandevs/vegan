@@ -327,8 +327,7 @@ decisions” which can be accessed with `browseVignettes("vegan")`.
 ## Examples
 
 ``` r
-data(varespec)
-data(varechem)
+data(varespec, varechem)
 ## Common but bad way: use all variables you happen to have in your
 ## environmental data matrix
 vare.cca <- cca(varespec, varechem)
@@ -353,7 +352,7 @@ vare.cca
 #>     CA1     CA2     CA3     CA4     CA5     CA6     CA7     CA8     CA9 
 #> 0.19776 0.14193 0.10117 0.07079 0.05330 0.03330 0.01887 0.01510 0.00949 
 #> 
-plot(vare.cca)
+plot(vare.cca, spe.par = list(optimize = TRUE))
 
 ## Formula interface and a better model
 vare.cca <- cca(varespec ~ Al + P*(K + Baresoil), data=varechem)
@@ -377,7 +376,7 @@ vare.cca
 #> 0.27577 0.15411 0.13536 0.11803 0.08887 0.05511 0.04919 0.03781 
 #> (Showing 8 of 17 unconstrained eigenvalues)
 #> 
-plot(vare.cca)
+plot(vare.cca, spe.par = list(optimize = TRUE))
 
 ## Partialling out and negative components of variance
 cca(varespec ~ Ca, varechem)
@@ -422,8 +421,20 @@ cca(varespec ~ Ca + Condition(pH), varechem)
 #> (Showing 8 of 21 unconstrained eigenvalues)
 #> 
 ## RDA
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 dune.Manure <- rda(dune ~ Manure, dune.env)
-plot(dune.Manure) 
+## select only best-fitting species
+good <- goodness(dune.Manure, choices=1:2, summarize=TRUE)
+sort(good)
+#>   Sagiproc   Juncbufo   Chenalbu   Juncarti   Vicilath   Bracruta   Empenigr 
+#> 0.06102157 0.06139887 0.06684258 0.06738593 0.06892295 0.09574126 0.11022975 
+#>   Anthodor   Bellpere   Planlanc   Trifprat   Hyporadi   Cirsarve   Callcusp 
+#> 0.12880933 0.13945551 0.14045287 0.14676793 0.14865586 0.16382873 0.18057892 
+#>   Bromhord   Eleopalu   Achimill   Airaprae   Alopgeni   Agrostol   Comapalu 
+#> 0.18729152 0.22109129 0.22130924 0.22280481 0.22308132 0.22755711 0.23270725 
+#>   Scorautu   Ranuflam   Rumeacet   Elymrepe   Salirepe   Trifrepe    Poaprat 
+#> 0.23808530 0.30240638 0.31633178 0.33722470 0.34292043 0.34902846 0.46910689 
+#>   Lolipere    Poatriv 
+#> 0.46983146 0.49534368 
+plot(dune.Manure, spe.par = list(optimize=TRUE, select = good > 0.2))
 ```

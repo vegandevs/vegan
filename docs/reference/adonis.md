@@ -18,17 +18,27 @@ adonis2(formula, data, permutations = 999, method = "bray",
 
 - formula:
 
-  Model formula. The left-hand side (LHS) of the formula must be either
-  a community data matrix or a dissimilarity matrix, e.g., from
+  Model formula. The function can be called only with the formula
+  interface. Most usual features of
+  [`formula`](https://rdrr.io/r/stats/formula.html) hold, especially as
+  defined in [`cca`](https://vegandevs.github.io/vegan/reference/cca.md)
+  and [`rda`](https://vegandevs.github.io/vegan/reference/cca.md). The
+  LHS must be either a community data matrix or a dissimilarity matrix,
+  e.g., from
   [`vegdist`](https://vegandevs.github.io/vegan/reference/vegdist.md) or
   [`dist`](https://rdrr.io/r/stats/dist.html). If the LHS is a data
   matrix, function
   [`vegdist`](https://vegandevs.github.io/vegan/reference/vegdist.md)
-  will be used to find the dissimilarities. The right-hand side (RHS) of
-  the formula defines the independent variables. These can be continuous
-  variables or factors, they can be transformed within the formula, and
-  they can have interactions as in a typical
-  [`formula`](https://rdrr.io/r/stats/formula.html).
+  will be used to find the dissimilarities. The RHS defines the
+  independent variables. These can be continuous variables or factors,
+  they can be transformed within the formula, and they can have
+  interactions as in a typical
+  [`formula`](https://rdrr.io/r/stats/formula.html). The RHS can have a
+  special term `Condition` that defines variables to be “partialled out”
+  before constraints, just like in
+  [`dbrda`](https://vegandevs.github.io/vegan/reference/dbrda.md) or
+  [`cca`](https://vegandevs.github.io/vegan/reference/cca.md). This
+  allows the use of partial \`adonis2\`.
 
 - data:
 

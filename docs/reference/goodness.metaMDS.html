@@ -11,7 +11,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,7 @@
   <dt id="arg-dis">dis<a class="anchor" aria-label="anchor" href="#arg-dis"></a></dt>
 <dd><p>Dissimilarities.  This should not be used with
     <code><a href="metaMDS.html">metaMDS</a></code> or <code><a href="monoMDS.html">monoMDS</a></code>, but must be used with
-    <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code>.</p></dd>
+    when the dissimilarities cannot be reconstructed from the result object.</p></dd>
 
   <dt id="arg-pch">pch<a class="anchor" aria-label="anchor" href="#arg-pch"></a></dt>
 <dd><p>Plotting character for points.  Default is dependent on the
@@ -88,12 +88,7 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Function <code>goodness.metaMDS</code> finds a goodness of fit statistic
   for observations (points).  This is defined so that sum of squared
-  values is equal to squared stress.  Large values indicate poor fit.
-  The absolute values of the goodness statistic depend on the
-  definition of the stress: <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> expresses
-  stress in percents, and therefore its goodness values are 100 times
-  higher than those of <code><a href="monoMDS.html">monoMDS</a></code> which expresses the
-  stress as a proportion.</p>
+  values is equal to squared stress.  Large values indicate poor fit.</p>
 <p>Function <code>stressplot</code> draws a Shepard diagram which is a plot
   of ordination distances and monotone or linear fit line against
   original dissimilarities.  In addition, it displays two
@@ -106,15 +101,12 @@
 <p>Both functions can be used with <code><a href="metaMDS.html">metaMDS</a></code>,
   <code><a href="monoMDS.html">monoMDS</a></code> and <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code>.  The original
   dissimilarities should not be given for <code><a href="monoMDS.html">monoMDS</a></code> or
-  <code><a href="metaMDS.html">metaMDS</a></code> results (the latter tries to reconstruct the
-  dissimilarities using <code><a href="metaMDS.html">metaMDSredist</a></code> if
-  <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> was used as its engine).  With
-  <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> the dissimilarities must be given.  In
-  either case, the functions inspect that dissimilarities are
-  consistent with current ordination, and refuse to analyse
-  inconsistent dissimilarities.  Function <code>goodness.metaMDS</code> is
-  generic in <span class="pkg">vegan</span>, but you must spell its name completely with
-  <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> which has no class.</p>
+  <code><a href="metaMDS.html">metaMDS</a></code> results, but they must given if the result
+  object has no information to reconstruct dissmilarities.  The
+  functions checks that dissimilarities are consistent with current
+  ordination, and refuses to analyse inconsistent dissimilarities.
+  Function <code>goodness.metaMDS</code> is generic in <span class="pkg">vegan</span>, but you
+  must spell its name completely if the result has no <code>class</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -141,44 +133,38 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Square root transformation</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Wisconsin double standardization</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2093084 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1985581 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2069724 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.1825658 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.2354945 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.1869637 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.2272984 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 4 stress 0.2300296 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.2120074 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.1982376 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.2290115 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.18584 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.2926608 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.2067741 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.1974407 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.1825658 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04162213  max resid 0.15177 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 5 stress 0.1825658 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 1.544563e-05  max resid 5.216924e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 6 stress 0.195049 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 7 stress 0.18584 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 8 stress 0.2088293 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 9 stress 0.2218502 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 10 stress 0.2239801 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 11 stress 0.1825658 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 2.359921e-05  max resid 6.590669e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 12 stress 0.2079059 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 13 stress 0.18458 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.1843196 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.2287525 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.1967393 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.2069724 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.1825658 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 4.755455e-06  max resid 1.256699e-05 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.2335413 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.2388082 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution repeated 3 times</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 0.04159747  max resid 0.151676 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 14 stress 0.2221326 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 15 stress 0.1843196 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 16 stress 0.195049 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 17 stress 0.18458 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 18 stress 0.18584 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 19 stress 0.1976151 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Run 20 stress 0.1985582 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> *** Best solution was not repeated -- monoMDS stopping criteria:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     20: stress ratio &gt; sratmax</span>
 <span class="r-in"><span><span class="fu">stressplot</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="goodness.metaMDS-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="va">gof</span> <span class="op">&lt;-</span> <span class="fu"><a href="goodness.cca.html">goodness</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">gof</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.02984518 0.03513708 0.04189069 0.04598289 0.04003135 0.03441482</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.03294830 0.03050074 0.03060725 0.02994076 0.03526393 0.02621416</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.03831048 0.02980900 0.03369686 0.02225850 0.03561549 0.03505228</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] 0.06577482 0.03268427 0.03503154 0.02956646 0.05167921 0.04602049</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.02984429 0.03513743 0.04190566 0.04597709 0.04003170 0.03441076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.03295533 0.03050423 0.03061027 0.02993982 0.03525531 0.02621481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] 0.03830872 0.02980950 0.03368587 0.02226345 0.03561781 0.03505580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] 0.06577446 0.03267841 0.03502635 0.02956504 0.05169151 0.04601130</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="st">"sites"</span>, type <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html" class="external-link">points</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="st">"sites"</span>, cex <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">gof</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">gof</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="goodness.metaMDS-2.png" alt="" width="700" height="1133"></span>

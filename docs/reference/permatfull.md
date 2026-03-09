@@ -313,17 +313,17 @@ summary(x1)
 #> Matrix fill retained: 100 %
 #> Row sums retained:    100 %
 #> Column sums retained: 100 %
-#> Row incidences retained:    6.06 %
-#> Column incidences retained: 9.09 %
+#> Row incidences retained:    7.07 %
+#> Column incidences retained: 4.04 %
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  0.2667  0.3667  0.4333  0.4286  0.5000  0.6000 
+#>  0.2333  0.4000  0.4333  0.4387  0.5000  0.6333 
 #> 
 #> Chi-squared for original matrix: 18.55
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   16.63   19.61   21.44   21.74   23.51   31.74 
+#>   15.88   19.63   20.76   21.33   22.57   34.13 
 ## Unrestricted permutation retaining
 ## row/columns sums but not matrix fill:
 x2 <- permatfull(m)
@@ -344,20 +344,20 @@ summary(x2)
 #> Number of permuted matrices: 99 
 #> 
 #> Matrix sums retained: 100 %
-#> Matrix fill retained: 16.16 %
+#> Matrix fill retained: 15.15 %
 #> Row sums retained:    100 %
 #> Column sums retained: 100 %
 #> Row incidences retained:    0 %
-#> Column incidences retained: 0 %
+#> Column incidences retained: 3.03 %
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  0.2000  0.3333  0.4000  0.3939  0.4667  0.6000 
+#>  0.2000  0.3333  0.3667  0.3818  0.4333  0.5333 
 #> 
 #> Chi-squared for original matrix: 18.55
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   6.136  11.648  15.542  15.909  19.258  28.947 
+#>   7.888  11.951  15.649  15.901  19.280  28.188 
 ## Unrestricted permutation of presence-absence type
 ## not retaining row/columns sums:
 x3 <- permatfull(m, "none", mtype="prab")
@@ -393,12 +393,12 @@ summary(x3)
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>  0.2000  0.3333  0.4000  0.3758  0.4000  0.6000 
+#>  0.1333  0.3333  0.4000  0.3704  0.4000  0.6000 
 #> 
 #> Chi-squared for original matrix: 8.4
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   9.583  14.219  15.688  15.689  17.271  20.771 
+#>   10.23   13.76   15.69   15.68   17.55   20.77 
 ## Restricted permutation,
 ## check sums within strata:
 x4 <- permatfull(m, strata=c(1,1,2,2))
@@ -419,21 +419,21 @@ summary(x4)
 #> Number of permuted matrices: 99 
 #> 
 #> Matrix sums retained: 100 %
-#> Matrix fill retained: 40.4 %
+#> Matrix fill retained: 47.47 %
 #> Row sums retained:    100 %
 #> Column sums retained: 100 %
-#> Row incidences retained:    7.07 %
-#> Column incidences retained: 7.07 %
+#> Row incidences retained:    2.02 %
+#> Column incidences retained: 4.04 %
 #> Sums within strata retained: 100 %
 #> 
 #> Bray-Curtis dissimilarities among original and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#> 0.06667 0.13333 0.20000 0.20539 0.26667 0.33333 
+#> 0.06667 0.20000 0.20000 0.22155 0.26667 0.40000 
 #> 
 #> Chi-squared for original matrix: 18.55
 #> Chi-squared values among expected and permuted matrices:
 #>    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-#>   14.21   18.54   20.78   20.99   23.00   33.37 
+#>   14.21   18.28   20.76   21.57   23.63   33.43 
 
 ## NOTE: 'times' argument usually needs to be >= 99
 ## here much lower value is used for demonstration
@@ -466,17 +466,17 @@ mar
 #> 
 #> Coefficients:
 #>          ar1  intercept
-#>       0.9921     0.1897
-#> s.e.  0.0112     0.1443
+#>       0.9922     0.1894
+#> s.e.  0.0110     0.1431
 #> 
-#> sigma^2 estimated as 0.0003504:  log likelihood = 46.55,  aic = -87.1
+#> sigma^2 estimated as 0.0003391:  log likelihood = 46.85,  aic = -87.71
 ## Ljung-Box test of residuals
 Box.test(residuals(mar))
 #> 
 #>  Box-Pierce test
 #> 
 #> data:  residuals(mar)
-#> X-squared = 0.014514, df = 1, p-value = 0.9041
+#> X-squared = 0.025099, df = 1, p-value = 0.8741
 #> 
 ## Graphical diagnostics
 tsdiag(mar)

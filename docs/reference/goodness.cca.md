@@ -165,8 +165,7 @@ Venables. `alias.cca` is a simplified version of
 ## Examples
 
 ``` r
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 mod <- cca(dune ~ A1 + Management + Condition(Moisture), data=dune.env)
 goodness(mod, addprevious = TRUE)
 #>                CCA1      CCA2      CCA3      CCA4
@@ -209,7 +208,24 @@ goodness(mod, addprevious = TRUE, summ = TRUE)
 #> 0.6034007 0.6826265 0.5326546 0.5594817 0.7064850 0.7691199 0.3613746 0.7639711 
 #>  Scorautu  Trifprat  Trifrepe  Vicilath  Bracruta  Callcusp 
 #> 0.6140593 0.6625703 0.4207437 0.4279428 0.2449864 0.3518027 
-# Inertia components
+## Fit of species in 2 dimensions
+good <- goodness(mod, choices = 1:2, summarize = TRUE)
+sort(good)
+#>    Bellpere    Bromhord    Ranuflam    Juncarti    Callcusp    Cirsarve 
+#> 0.008218774 0.009274805 0.013201031 0.014901783 0.019884022 0.034866365 
+#>    Achimill    Elymrepe    Juncbufo    Vicilath    Trifprat    Eleopalu 
+#> 0.039549538 0.048683379 0.056399541 0.057206719 0.064662265 0.070393304 
+#>    Planlanc    Sagiproc    Bracruta     Poaprat    Lolipere    Agrostol 
+#> 0.088501412 0.089259090 0.091882493 0.100400726 0.109310553 0.116451764 
+#>    Rumeacet    Chenalbu    Anthodor    Trifrepe    Empenigr    Hyporadi 
+#> 0.119854640 0.157788824 0.176908672 0.190263830 0.209619927 0.298284611 
+#>    Airaprae    Alopgeni    Scorautu     Poatriv    Comapalu    Salirepe 
+#> 0.305762791 0.354220783 0.442077524 0.484960397 0.522716229 0.601210690 
+## Drop poorly fitting species from a plot
+plot(mod, spe.par = list(select = good > 0.1, optimize = TRUE,
+   bg = "yellow"))
+
+## Inertia components
 inertcomp(mod, prop = TRUE)
 #>                pCCA        CCA        CA
 #> Achimill 0.34271900 0.15069678 0.5065842
@@ -274,13 +290,13 @@ inertcomp(mod)
 #> Vicilath 0.0049088357 0.012415912 0.02315905
 #> Bracruta 0.0032317812 0.007730074 0.03378289
 #> Callcusp 0.0319130878 0.006212868 0.07024716
-# vif.cca
+## vif.cca
 vif.cca(mod)
 #>   Moisture.L   Moisture.Q   Moisture.C           A1 ManagementHF ManagementNM 
 #>     1.504327     1.284489     1.347660     1.367328     2.238653     2.570972 
 #> ManagementSF 
 #>     2.424444 
-# Aliased constraints
+## Aliased constraints
 mod <- cca(dune ~ ., dune.env)
 #> 
 #> Some constraints or conditions were aliased because they were redundant. This
@@ -336,7 +352,7 @@ with(dune.env, table(Management, Manure))
 #>         HF 0 1 2 2 0
 #>         NM 6 0 0 0 0
 #>         SF 0 0 1 2 3
-# The standard correlations (not recommended)
+## The standard correlations (not recommended)
 ## IGNORE_RDIFF_BEGIN
 spenvcor(mod)
 #>      CCA1      CCA2      CCA3      CCA4      CCA5      CCA6      CCA7      CCA8 

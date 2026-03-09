@@ -273,20 +273,20 @@ out2
 #>              Y X
 #> Matrix Ranks 3 5
 #> 
-#> Pillai's trace:  0.432275 
+#> Pillai's trace:  0.480458 
 #> 
 #> Significance of Pillai's trace:
-#> from F-distribution:   0.94215 
-#> based on permutations: 0.97 
+#> from F-distribution:   0.90606 
+#> based on permutations: 0.94 
 #> Permutation: free
 #> Number of permutations: 99
 #>  
 #>                        CanAxis1 CanAxis2 CanAxis3
-#> Canonical Correlations  0.56835  0.29559   0.1479
+#> Canonical Correlations  0.64421  0.23458   0.1021
 #> 
-#>                       Y | X   X | Y
-#> RDA R squares       0.18317  0.0752
-#> adj. RDA R squares -0.10856 -0.0982
+#>                        Y | X   X | Y
+#> RDA R squares       0.214302  0.0839
+#> adj. RDA R squares -0.066305 -0.0879
 #> 
 biplot(out2, "b")
 ```

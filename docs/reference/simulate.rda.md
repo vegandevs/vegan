@@ -142,19 +142,19 @@ update(mod, simulate(mod) ~  .)
 #> Call: rda(formula = simulate(mod) ~ Moisture + Management, data = dune.env)
 #> 
 #>               Inertia Proportion Rank
-#> Total         85.2785     1.0000     
-#> Constrained   59.8785     0.7022    6
-#> Unconstrained 25.4000     0.2978   13
+#> Total         89.3183     1.0000     
+#> Constrained   61.7012     0.6908    6
+#> Unconstrained 27.6171     0.3092   13
 #> 
 #> Inertia is variance
 #> 
 #> Eigenvalues for constrained axes:
 #>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
-#> 25.907 17.358  7.140  5.701  2.805  0.968 
+#> 25.152 15.184  8.832  7.208  3.595  1.731 
 #> 
 #> Eigenvalues for unconstrained axes:
 #>   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
-#> 6.421 3.982 3.568 2.499 2.309 1.445 1.279 0.959 0.873 0.864 0.572 0.428 0.201 
+#> 6.148 5.328 3.692 2.426 2.047 1.791 1.444 1.279 0.945 0.861 0.706 0.503 0.446 
 #> 
 ## An impression of confidence regions of site scores
 plot(mod, display="sites")

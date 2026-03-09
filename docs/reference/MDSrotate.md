@@ -110,5 +110,5 @@ ordisurf(mod ~ pH, varechem, knots = 1, add = TRUE)
 #> y ~ poly(x1, 1) + poly(x2, 1)
 #> Total model degrees of freedom 3 
 #> 
-#> REML score: -2.736107     
+#> REML score: -2.736059     
 ```

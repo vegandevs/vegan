@@ -424,7 +424,7 @@ permutest(mod, pairwise = TRUE, permutations = 99)
 #> 
 #> Response: Distances
 #>           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-#> Groups     1 0.07931 0.079306 4.6156     99   0.09 .
+#> Groups     1 0.07931 0.079306 4.6156     99   0.07 .
 #> Residuals 22 0.37801 0.017182                       
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -432,7 +432,7 @@ permutest(mod, pairwise = TRUE, permutations = 99)
 #> Pairwise comparisons:
 #> (Observed p-value below diagonal, permuted p-value above diagonal)
 #>           grazed ungrazed
-#> grazed               0.09
+#> grazed               0.08
 #> ungrazed 0.04295         
 
 ## Tukey's Honest Significant Differences
@@ -503,27 +503,27 @@ boxplot(mod)
 scrs <- scores(mod)
 str(scrs)
 #> List of 2
-#>  $ sites    : num [1:24, 1:2] -0.0946 0.3125 0.3511 0.3291 0.1926 ...
+#>  $ sites    : num [1:24, 1:2] 0.0946 -0.3125 -0.3511 -0.3291 -0.1926 ...
 #>   ..- attr(*, "dimnames")=List of 2
 #>   .. ..$ : chr [1:24] "18" "15" "24" "27" ...
 #>   .. ..$ : chr [1:2] "PCoA1" "PCoA2"
-#>  $ centroids: num [1:2, 1:2] 0.1455 -0.2786 0.0758 -0.2111
+#>  $ centroids: num [1:2, 1:2] -0.1455 0.2786 0.0758 -0.2111
 #>   ..- attr(*, "dimnames")=List of 2
 #>   .. ..$ : chr [1:2] "grazed" "ungrazed"
 #>   .. ..$ : chr [1:2] "PCoA1" "PCoA2"
 head(scores(mod, 1:4, display = "sites"))
 #>          PCoA1       PCoA2        PCoA3        PCoA4
-#> 18 -0.09459373  0.15914576  0.074400844 -0.202466025
-#> 15  0.31248809  0.10032751 -0.062243360  0.110844864
-#> 24  0.35106507 -0.05954096 -0.038079447  0.095060928
-#> 27  0.32914546 -0.17019348  0.231623720  0.019110623
-#> 23  0.19259443 -0.01459250 -0.005679372 -0.209718312
-#> 19  0.06794575 -0.14501690 -0.085645653  0.002431355
+#> 18  0.09459373  0.15914576  0.074400844 -0.202466025
+#> 15 -0.31248809  0.10032751 -0.062243360  0.110844864
+#> 24 -0.35106507 -0.05954096 -0.038079447  0.095060928
+#> 27 -0.32914546 -0.17019348  0.231623720  0.019110623
+#> 23 -0.19259443 -0.01459250 -0.005679372 -0.209718312
+#> 19 -0.06794575 -0.14501690 -0.085645653  0.002431355
 # group centroids/medians 
 scores(mod, 1:4, display = "centroids")
 #>               PCoA1       PCoA2       PCoA3      PCoA4
-#> grazed    0.1455200  0.07584572 -0.01366220 -0.0178990
-#> ungrazed -0.2786095 -0.21114993 -0.03475586  0.0220129
+#> grazed   -0.1455200  0.07584572 -0.01366220 -0.0178990
+#> ungrazed  0.2786095 -0.21114993 -0.03475586  0.0220129
 # eigenvalues from the underlying principal coordinates analysis
 eigenvals(mod) 
 #>      PCoA1      PCoA2      PCoA3      PCoA4      PCoA5      PCoA6      PCoA7 
