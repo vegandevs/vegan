@@ -35,15 +35,16 @@
 
     ## fill in graphical vectors with default values if unspecified
     ## and recycles shorter vectors
-    col.new <- border.new <- lty.new <- lwd.new <- NULL
-    for(arg in c("col","border","lty","lwd")){
-      tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
-      if(is.null(tmp))
-          tmp <- ifelse(suppressWarnings(is.null(par(arg))),
-                        par("fg"), par(arg))
-      if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
-      assign(paste(arg,".new", sep=""), tmp)
-
+    if (draw != "none") {
+        col.new <- border.new <- lty.new <- lwd.new <- NULL
+        for(arg in c("col","border","lty","lwd")){
+            tmp <- mget(arg,ifnotfound=list(NULL))[[1]]
+            if(is.null(tmp))
+                tmp <- ifelse(suppressWarnings(is.null(par(arg))),
+                              par("fg"), par(arg))
+            if(length(inds) != length(tmp)) {tmp <- rep_len(tmp, length(inds))}
+            assign(paste(arg,".new", sep=""), tmp)
+        }
     }
     ## default colour for "polygon" fill is "transparent", for lines
     ## is par("fg")
