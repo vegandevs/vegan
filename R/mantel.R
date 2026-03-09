@@ -64,6 +64,7 @@
         } else {
             perm <- sapply(1:permutations, function(i, ...) ptest(permat[i,], ...))
         }
+        perm <- drop(perm)
         signif <- (sum(perm >= statistic - EPS) + 1)/(permutations + 1)
     }
     else {
