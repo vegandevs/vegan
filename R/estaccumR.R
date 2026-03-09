@@ -22,10 +22,9 @@
         } else {
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
+                on.exit(stopCluster(parallel))
             }
             tmp <- parLapply(parallel, 1:nperm, function(i) estFun(permat[i,]))
-            if (!hasClus)
-                stopCluster(parallel)
         }
     } else {
         tmp <- lapply(1:nperm, function(i) estFun(permat[i,]))

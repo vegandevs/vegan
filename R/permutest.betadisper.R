@@ -92,6 +92,7 @@
             ## if hasClus, don't set up and top a temporary cluster
             if (!hasClus) {
                 parallel <- makeCluster(parallel)
+                on.exit(stopCluster(parallel))
             }
 
             Pstats <- parApply(parallel, permutations, 1,
@@ -100,10 +101,6 @@
                 Pstats <- matrix(Pstats) # one-column matrix
             } else {
                 Pstats <- t(Pstats) # transpose statistics to columns
-            }
-
-            if (!hasClus) {
-                stopCluster(parallel)
             }
         }
     } else {

@@ -40,10 +40,9 @@
             } else {
                 if (!hasClus) {
                     parallel <- makeCluster(parallel)
+                    on.exit(stopCluster(parallel))
                 }
                 areas <- parApply(parallel, perm, MARGIN=1, pfun)
-                if (!hasClus)
-                    stopCluster(parallel)
             }
     } else {
         areas <- sapply(1:nperm, function(i, ...) pfun(perm[i,], ...))

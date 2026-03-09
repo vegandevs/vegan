@@ -54,12 +54,12 @@ function(data, inf.gr, sup.gr, iter = 100, criterion="calinski",
       })
     } else {
         if(hasClus || .Platform$OS.type == "windows") {
-            if(!hasClus)
-                cl <- makeCluster(parallel)
-            tmp <- parLapply(cl, inf.gr:sup.gr, function (ii)
-                kmeans(data, ii, iter.max = 50, nstart = iter))
-            if (!hasClus)
-                stopCluster(cl)
+            if (!hasClus) {
+                parallel <- makeCluster(parallel)
+                on.exit(stopCluster(parallel))
+            }
+            tmp <- parLapply(parallel, inf.gr:sup.gr, function (ii)
+                    kmeans(data, ii, iter.max = 50, nstart = iter))
         } else { # "unix"
             tmp <- mclapply(inf.gr:sup.gr, function (ii)
                 kmeans(data, ii, iter.max = 50, nstart = iter),
