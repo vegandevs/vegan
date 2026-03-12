@@ -140,27 +140,6 @@
            )
 }
 
-### lattice::densityplot
-
-`densityplot.permustats` <-
-    function(x, data, observed = TRUE, xlab = "Permutations", ...)
-{
-    .Deprecated("ggvegan::autoplot")
-    obs <- x$statistic
-    sim <- as.matrix(x$permutations)
-    if (observed)
-        sim <- rbind(x$statistic, sim)
-    nm <- names(obs)[col(sim)]
-    densityplot( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
-                xlab = xlab,
-                panel = function(x, ...) {
-                    panel.densityplot(x, ...)
-                    if (observed)
-                        panel.abline(v = obs[panel.number()], ...)
-                },
-                ...)
-}
-
 ### simple density: normally densityplot should be used (or I suggest
 ### so), but we also offer basic density. This can be either with or
 ### without observed statistic.
@@ -197,35 +176,6 @@
     if (observed)
         abline(h = y$statistic, ...)
     invisible(q)
-}
-
-## lattice::qqmath
-
-`qqmath.permustats` <-
-    function(x, data, observed = TRUE, sd.scale = FALSE,
-             ylab = "Permutations", ...)
-{
-    .Deprecated("ggvegan::autoplot")
-    ## sd.scale: standardize before use
-    if (sd.scale) {
-        x$permutations <- scale(x$permutations)
-        x$statistic <- (x$statistic - attr(x$permutations, "scaled:center"))/
-            attr(x$permutations, "scaled:scale")
-    }
-    obs <- x$statistic
-    if (observed)
-        sim <- rbind(x$statistic, as.matrix(x$permutations))
-    else
-        sim <- as.matrix(x$permutations)
-    nm <- names(obs)[col(sim)]
-    qqmath( ~ as.vector(sim) | factor(nm, levels = unique(nm)),
-                ylab = ylab,
-                panel = function(x, ...) {
-                    panel.qqmath(x, ...)
-                    if (observed)
-                        panel.abline(h = obs[panel.number()], ...)
-                },
-                ...)
 }
 
 ## boxplot for (standardized) effect size: permutations are centred to

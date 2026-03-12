@@ -1,3 +1,44 @@
+## deprecated in 2.7-3, defunct in 2.8-0
+`ordixyplot` <-
+    function(x, data = NULL, formula, display = "sites", choices=1:3,
+             panel = "panel.ordi", aspect = "iso", envfit,
+             type = c("p", "biplot"),  ...)
+{
+    .Defunct("ggvegan::autoplot", package = "vegan")
+}
+
+`densityplot.permustats` <-
+    function(x, data, observed = TRUE, xlab = "Permutations", ...)
+{
+    .Defunct("ggvegan::autoplot", package = "vegan")
+}
+
+`qqmath.permustats` <-
+    function(x, data, observed = TRUE, sd.scale = FALSE,
+             ylab = "Permutations", ...)
+{
+    .Defunct("ggvegan::autoplot", package = "vegan")
+}
+
+`plot.poolaccum` <-
+    function(x, alpha = 0.05, type = c("l","g"), ...)
+{
+    .Defunct("ggvegan::autoplot", package = "vegan")
+}
+
+`plot.renyi` <-
+    function(x, ...)
+{
+    .Defunct("ggvegan::autoplot", package = "vegan")
+}
+
+`plot.renyiaccum` <-
+function (x, what=c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
+          type = "l", ...)
+{
+    .Defunct("ggvegan::autoplot", package = "vegan")
+}
+
 ## deprecated in 2.7-0, defunct in 2.8-0
 `ordicloud` <-
     function(x, data = NULL, formula, display = "sites", choices=1:3,
