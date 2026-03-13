@@ -112,22 +112,10 @@ and $H_2 = D_1$, and can be converted to Hill numbers:
 We select a random subset of five sites for R\'{e}nyi diversities:
 <<>>=
 k <- sample(nrow(BCI), 6)
-R <- renyi(BCI[k,])
+round(renyi(BCI[k,]), 3)
 @
 We can really regard a site more diverse if all of its R\'{e}nyi
-diversities are higher than in another site.  We can inspect this
-graphically using the standard \code{plot} function for the
-\code{renyi} result (Fig.~\ref{fig:renyi}).
-\begin{figure}
-<<fig=true,echo=false>>=
-print(plot(R))
-@
-\caption{R\'{e}nyi diversities in six randomly selected plots. The plot
-  uses Trellis graphics with a separate panel for each site. The dots
-  show the values for sites, and the lines the extremes and median in
-  the data set.}
-\label{fig:renyi}
-\end{figure}
+diversities are higher than in another site.
 
 Finally, the $\alpha$ parameter of Fisher's log-series can be used as
 a diversity index \citep{FisherEtal43}:
