@@ -106,9 +106,7 @@ importFrom(grDevices, bmp, check.options, chull, col2rgb, dev.hold, dev.flush,
            rgb, svg, tiff, xfig, xy.coords)
 ## import(grDevices) ## too many functions to be listed separately
 ## import(lattice) # vegan depends on lattice: import all
-importFrom(lattice, densityplot, qqmath, bwplot, lpolygon,
-           panel.abline, panel.arrows, panel.densityplot, panel.lines,
-           panel.number, panel.qqmath, panel.superpose, panel.text,
+importFrom(lattice, densityplot, qqmath, panel.number, panel.text,
            panel.xyplot, xyplot, trellis.par.get)
 importFrom(parallel, mclapply, makeCluster, stopCluster, clusterEvalQ,
            parApply, parLapply, parSapply, parRapply, parCapply,
