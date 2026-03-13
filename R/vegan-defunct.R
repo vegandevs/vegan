@@ -7,6 +7,13 @@
     .Defunct("ggvegan::autoplot", package = "vegan")
 }
 
+`permulattice` <-
+    function(x, plot = c("densityplot", "qqmath"), observed = TRUE,
+             axislab = "Permutations", ...)
+{
+    .Defunct("ggvegan::autoplot for permustats", package = "vegan")
+}
+
 `densityplot.permustats` <-
     function(x, data, observed = TRUE, xlab = "Permutations", ...)
 {

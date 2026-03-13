@@ -124,22 +124,6 @@
               class = "permustats")
 }
 
-### Wrapper function to allow calling S3 method functions densityplot
-### & qqmath without loading (attaching) lattice package.
-
-`permulattice` <-
-    function(x, plot = c("densityplot", "qqmath"), observed = TRUE,
-             axislab = "Permutations", ...)
-{
-    plot <- match.arg(plot)
-    switch(plot,
-           "densityplot" =
-               densityplot(x, observed = observed, xlab = axislab, ...),
-           "qqmath" =
-               qqmath(x, observed = observed, ylab = axislab, ...)
-           )
-}
-
 ### simple density: normally densityplot should be used (or I suggest
 ### so), but we also offer basic density. This can be either with or
 ### without observed statistic.
