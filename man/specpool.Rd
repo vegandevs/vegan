@@ -21,6 +21,7 @@
 specpool(x, pool, smallsample = TRUE)
 estimateR(x, ...)
 specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
+poolaccum(x, permutations = 100, minsize = 3)
 estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
 \method{summary}{poolaccum}(object, display, alpha = 0.05, ...)
 }
@@ -38,6 +39,7 @@ estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
     permutations, but can also be a list of control values for the
     permutations as returned by the function \code{\link[permute]{how}}, 
     or a permutation matrix where each row gives the permuted indices.}
+  \item{minsize}{Smallest number of sampling units reported.}
   \item{parallel}{Number of parallel processes or a predefined socket
     cluster.  With \code{parallel = 1} uses ordinary, non-parallel
     processing. The parallel processing is done with \pkg{parallel}
