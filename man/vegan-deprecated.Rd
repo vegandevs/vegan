@@ -11,12 +11,11 @@
   \pkg{vegan} only, and may be defunct as soon as the next release.
 }
 
-\usage{
-}
+%%%\usage{
+%%%}
 
-\arguments{
-
-}
+%%%\arguments{
+%%%}
 
 \details{
   None.
