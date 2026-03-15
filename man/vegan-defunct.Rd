@@ -21,11 +21,20 @@
 \alias{as.mlm}
 \alias{as.mlm.cca}
 \alias{as.mlm.rda}
+\alias{as.mcmc.oecosimu}
+\alias{as.mcmc.permat}
 \alias{humpfit}
 \alias{adonis}
 \alias{ordicloud}
 \alias{ordiresids}
 \alias{ordisplom}
+\alias{ordixyplot}
+\alias{permulattice}
+\alias{densityplot.permustats}
+\alias{qqmath.permustats}
+\alias{plot.poolaccum}
+\alias{plot.renyi}
+\alias{plot.renyiaccum}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -43,12 +52,29 @@ ordisplom(x, data = NULL, formula = NULL, display = "sites", choices = 1:3,
 ordiresids(x, kind = c("residuals", "scale", "qqmath"),
     residuals = "working", type = c("p", "smooth", "g"),
     formula, ...)
+ordixyplot(x, data = NULL, formula, display = "sites", choices = 1:3,
+    panel = "panel.ordi", aspect = "iso", envfit, type = c("p", "biplot"),
+    ...)
+permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
+    axislab = "Permutations", ...)  
+\method{densityplot}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
+             ylab = "Permutations", ...)
+\method{qqmath}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
+             ylab = "Permutations", ...)
+\method{plot}{poolaccum}(x, alpha = 0.05, type = c("l","g"), ...)
+\method{plot}{renyi}(x, ...)
+\method{plot}{renyiaccum}(x, what=c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
+          type = "l", ...)
 
 ## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 orditkplot(...)
+
+## defunct in vegan 2.6-6
+as.mcmc.oecosimu(x)
+as.mcmc.permat(x)
 
 ## defunct in vegan 2.6-0
 as.mlm(x)
@@ -76,11 +102,19 @@ permuted.index2(n, control = permControl())
 
 \details{
 
-  Lattice function\code{ordicloud} was moved to \CRANpkg{vegan3d} as
+  Lattice function \code{ordicloud} was moved to \CRANpkg{vegan3d} as
   \code{ordilattice3d}. To substitute \code{ordiresids}, use
-  \code{\link{influence.cca}} to extract data that you can use to design
-  your own graphics. \code{ordisplom} was unsatisfactory and there is no
-  replacement
+  \code{\link{influence.cca}} to extract data that you can use to
+  design your own graphics. \code{ordisplom} was unsatisfactory and
+  there is no replacement, but you can try to configure your own
+  graphs with \CRANpkg{ggvegan} (function \code{ordiggplot}).
+
+  CRAN package \CRANpkg{ggvegan} provides \code{autoplot} for directly
+  making graphs, \code{fortify} and \code{tidy} to extract scores for
+  graphs for defunct lattice functions \code{ordixyplot} and to
+  substitute lattice graphics for \code{renyi}, \code{renyiaccum} and
+  \code{poolaccum} result objects, and for \code{\link{permustats}}
+  results.
 
   \code{\link{adonis2}} replaces \code{adonis} with extended
   functionality and completely new internal design. The shared arguments
@@ -90,7 +124,9 @@ permuted.index2(n, control = permControl())
 
   \code{orditkplot} was moved to CRAN package \CRANpkg{vegan3d} version
   1.3-0. Install \pkg{vegan3d} and use the function in the old way.
- 
+
+  \code{as.mcmc} functions are replaced with \code{\link{toCoda}}.
+
   \code{as.mlm} function is replaced with a set functions that can
   find the same statistics directly from the ordination result object:
   see \code{\link{influence.cca}}.
