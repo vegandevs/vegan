@@ -58,6 +58,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">specpool</span><span class="op">(</span><span class="va">x</span>, <span class="va">pool</span>, smallsample <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">estimateR</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">specpool2vect</span><span class="op">(</span><span class="va">X</span>, index <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"jack1"</span>,<span class="st">"jack2"</span>, <span class="st">"chao"</span>, <span class="st">"boot"</span>,<span class="st">"Species"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">poolaccum</span><span class="op">(</span><span class="va">x</span>, permutations <span class="op">=</span> <span class="fl">100</span>, minsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu">estaccumR</span><span class="op">(</span><span class="va">x</span>, permutations <span class="op">=</span> <span class="fl">100</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'poolaccum'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">display</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
@@ -89,6 +90,9 @@
     permutations, but can also be a list of control values for the
     permutations as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>,
     or a permutation matrix where each row gives the permuted indices.</p></dd>
+
+  <dt id="arg-minsize">minsize<a class="anchor" aria-label="anchor" href="#arg-minsize"></a></dt>
+<dd><p>Smallest number of sampling units reported.</p></dd>
 
   <dt id="arg-parallel">parallel<a class="anchor" aria-label="anchor" href="#arg-parallel"></a></dt>
 <dd><p>Number of parallel processes or a predefined socket

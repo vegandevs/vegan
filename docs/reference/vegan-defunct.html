@@ -54,12 +54,34 @@
 <span><span class="fu">ordiresids</span><span class="op">(</span><span class="va">x</span>, kind <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"residuals"</span>, <span class="st">"scale"</span>, <span class="st">"qqmath"</span><span class="op">)</span>,</span>
 <span>    residuals <span class="op">=</span> <span class="st">"working"</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"p"</span>, <span class="st">"smooth"</span>, <span class="st">"g"</span><span class="op">)</span>,</span>
 <span>    <span class="va">formula</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">ordixyplot</span><span class="op">(</span><span class="va">x</span>, data <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">formula</span>, display <span class="op">=</span> <span class="st">"sites"</span>, choices <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
+<span>    panel <span class="op">=</span> <span class="st">"panel.ordi"</span>, aspect <span class="op">=</span> <span class="st">"iso"</span>, <span class="va">envfit</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"p"</span>, <span class="st">"biplot"</span><span class="op">)</span>,</span>
+<span>    <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">permulattice</span><span class="op">(</span><span class="va">x</span>, plot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"densityplot"</span>, <span class="st">"qqmath"</span><span class="op">)</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>    axislab <span class="op">=</span> <span class="st">"Permutations"</span>, <span class="va">...</span><span class="op">)</span>  </span>
+<span><span class="co"># S3 method for class 'permustats'</span></span>
+<span><span class="fu">densityplot</span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, sd.scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             ylab <span class="op">=</span> <span class="st">"Permutations"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'permustats'</span></span>
+<span><span class="fu">qqmath</span><span class="op">(</span><span class="va">x</span>, <span class="va">data</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, sd.scale <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>             ylab <span class="op">=</span> <span class="st">"Permutations"</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'poolaccum'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>,<span class="st">"g"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'renyi'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'renyiaccum'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, what<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Collector"</span>, <span class="st">"mean"</span>, <span class="st">"Qnt 0.025"</span>, <span class="st">"Qnt 0.975"</span><span class="op">)</span>,</span>
+<span>          type <span class="op">=</span> <span class="st">"l"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## defunct in vegan 2.7-0</span></span>
 <span><span class="fu">adonis</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, permutations <span class="op">=</span> <span class="fl">999</span>, method <span class="op">=</span> <span class="st">"bray"</span>,</span>
 <span>    strata <span class="op">=</span> <span class="cn">NULL</span>, contr.unordered <span class="op">=</span> <span class="st">"contr.sum"</span>,</span>
 <span>    contr.ordered <span class="op">=</span> <span class="st">"contr.poly"</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">orditkplot</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## defunct in vegan 2.6-6</span></span>
+<span><span class="fu">as.mcmc.oecosimu</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu">as.mcmc.permat</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## defunct in vegan 2.6-0</span></span>
 <span><span class="fu">as.mlm</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -91,11 +113,18 @@
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
 
 
-<p>Lattice function<code>ordicloud</code> was moved to <a href="https://CRAN.R-project.org/package=vegan3d" class="external-link"><span class="pkg">vegan3d</span></a> as
+<p>Lattice function <code>ordicloud</code> was moved to <a href="https://CRAN.R-project.org/package=vegan3d" class="external-link"><span class="pkg">vegan3d</span></a> as
   <code>ordilattice3d</code>. To substitute <code>ordiresids</code>, use
-  <code><a href="influence.cca.html">influence.cca</a></code> to extract data that you can use to design
-  your own graphics. <code>ordisplom</code> was unsatisfactory and there is no
-  replacement</p>
+  <code><a href="influence.cca.html">influence.cca</a></code> to extract data that you can use to
+  design your own graphics. <code>ordisplom</code> was unsatisfactory and
+  there is no replacement, but you can try to configure your own
+  graphs with <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a> (function <code>ordiggplot</code>).</p>
+<p>CRAN package <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a> provides <code>autoplot</code> for directly
+  making graphs, <code>fortify</code> and <code>tidy</code> to extract scores for
+  graphs for defunct lattice functions <code>ordixyplot</code> and to
+  substitute lattice graphics for <code>renyi</code>, <code>renyiaccum</code> and
+  <code>poolaccum</code> result objects, and for <code><a href="permustats.html">permustats</a></code>
+  results.</p>
 <p><code><a href="adonis.html">adonis2</a></code> replaces <code>adonis</code> with extended
   functionality and completely new internal design. The shared arguments
   of <code>adonis</code> are similar as in <code><a href="adonis.html">adonis2</a></code>, but
@@ -103,6 +132,7 @@
   contrasts within <code>adonis</code>.</p>
 <p><code>orditkplot</code> was moved to CRAN package <a href="https://CRAN.R-project.org/package=vegan3d" class="external-link"><span class="pkg">vegan3d</span></a> version
   1.3-0. Install <span class="pkg">vegan3d</span> and use the function in the old way.</p>
+<p><code>as.mcmc</code> functions are replaced with <code><a href="oecosimu.html">toCoda</a></code>.</p>
 <p><code>as.mlm</code> function is replaced with a set functions that can
   find the same statistics directly from the ordination result object:
   see <code><a href="influence.cca.html">influence.cca</a></code>.</p>
@@ -123,7 +153,7 @@
   permutations, including <code><a href="permustats.html">summary.permustats</a></code> giving
   \(z\) values (a.k.a. standardized effect sizes, SES), and Q-Q
   plots (<code><a href="permustats.html">qqnorm.permustats</a></code>,
-  <code><a href="vegan-deprecated.html">qqmath.permustats</a></code>).</p>
+  <code>qqmath.permustats</code>).</p>
 <p>Function <code>metaMDSrotate</code> is replaced with
   <code><a href="MDSrotate.html">MDSrotate</a></code> which can handle <code><a href="monoMDS.html">monoMDS</a></code>
   results in addition to <code><a href="metaMDS.html">metaMDS</a></code>.</p>

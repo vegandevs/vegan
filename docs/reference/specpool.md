@@ -12,6 +12,7 @@ abundances (counts) on single sample site.
 specpool(x, pool, smallsample = TRUE)
 estimateR(x, ...)
 specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
+poolaccum(x, permutations = 100, minsize = 3)
 estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
 # S3 method for class 'poolaccum'
 summary(object, display, alpha = 0.05, ...)
@@ -48,6 +49,10 @@ summary(object, display, alpha = 0.05, ...)
   list of control values for the permutations as returned by the
   function [`how`](https://rdrr.io/pkg/permute/man/how.html), or a
   permutation matrix where each row gives the permuted indices.
+
+- minsize:
+
+  Smallest number of sampling units reported.
 
 - parallel:
 

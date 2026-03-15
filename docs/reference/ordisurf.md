@@ -450,7 +450,7 @@ plot(fit, what = "gam") ## 'col' and 'cex' not passed on
 ## or via plot.gam directly
 library(mgcv)
 #> Loading required package: nlme
-#> This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.
+#> This is mgcv 1.9-4. For overview type '?mgcv'.
 plot.gam(fit, cex = 2, pch = 1, col = "blue")
 
 ## 'col' effects all objects drawn...

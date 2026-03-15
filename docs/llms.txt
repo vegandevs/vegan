@@ -497,6 +497,7 @@ install.packages('vegan',
 - [`specpool()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`estimateR()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`specpool2vect()`](https://vegandevs.github.io/vegan/reference/specpool.md)
+  [`poolaccum()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`estaccumR()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`summary(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
   : Extrapolated Species Richness in a Species Pool
@@ -530,15 +531,7 @@ install.packages('vegan',
   [`showvarparts()`](https://vegandevs.github.io/vegan/reference/varpart.md)
   : Partition the Variation of Community Matrix by 2, 3, or 4
   Explanatory Matrices
-- [`ordixyplot()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`plot(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`plot(`*`<renyi>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`plot(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`permulattice()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`densityplot(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`qqmath(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`as.mcmc.oecosimu()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`as.mcmc.permat()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+- [`vegan-deprecated`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
   : Deprecated Functions in vegan package
 - [`ordiParseFormula()`](https://vegandevs.github.io/vegan/reference/vegan-internal.md)
   [`ordiTerminfo()`](https://vegandevs.github.io/vegan/reference/vegan-internal.md)
