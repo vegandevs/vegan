@@ -73,6 +73,13 @@
   used in similar graphics as `ordiresids` using **ggplot2** or
   **lattice**.
 
+* Several Lattice functions that were deprecated in release 2.7-3 are
+  now defunct. These include `ordixyplot`, `plot` functions for the
+  results of `poolaccum`, `renyi` and `renyiaccum`, `permulattice`
+  with `densityplot` and `qqmath` functions for `permustats`. CRAN
+  package **ggvegan** provides `autoplot` for all these deprecated
+  functions.
+
 * Argument `thinplate` is finally defunct in `ordisurf`: use
   `isotropic`. The argument was deprecated in 2013 (CRAN release
   2.0-8).
