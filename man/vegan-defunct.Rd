@@ -97,11 +97,19 @@ permuted.index2(n, control = permControl())
 
 \details{
 
-  Lattice function\code{ordicloud} was moved to \CRANpkg{vegan3d} as
+  Lattice function \code{ordicloud} was moved to \CRANpkg{vegan3d} as
   \code{ordilattice3d}. To substitute \code{ordiresids}, use
-  \code{\link{influence.cca}} to extract data that you can use to design
-  your own graphics. \code{ordisplom} was unsatisfactory and there is no
-  replacement
+  \code{\link{influence.cca}} to extract data that you can use to
+  design your own graphics. \code{ordisplom} was unsatisfactory and
+  there is no replacement, but you can try to configure your own
+  graphs with \CRANpkg{ggvegan} (function \code{ordiggplot}).
+
+  CRAN package \CRANpkg{ggvegan} provides \code{autoplot} for directly
+  making graphs, \code{fortify} and \code{tidy} to extract scores for
+  graphs for defunct lattice functions \code{ordixyplot} and to
+  substitute lattice graphics for \code{renyi}, \code{renyiaccum} and
+  \code{poolaccum} result objects, and for \code{\link{permustats}}
+  results.
 
   \code{\link{adonis2}} replaces \code{adonis} with extended
   functionality and completely new internal design. The shared arguments
