@@ -1,11 +1,6 @@
 \name{vegan-deprecated}
 
 \alias{vegan-deprecated}
-\alias{as.mcmc.oecosimu}
-\alias{as.mcmc.permat}
-\alias{panel.ordi}
-\alias{panel.ordiarrows}
-\alias{ordilattice.getEnvfit}
 
 %------ NOTE:  ../R/vegan-deprecated.R   must be synchronized with this!
 \title{Deprecated Functions in vegan package}
@@ -17,20 +12,14 @@
 }
 
 \usage{
-## use toCoda instead
-as.mcmc.oecosimu(x)
-as.mcmc.permat(x)
 }
 
 \arguments{
 
-  \item{x}{input object}
 }
 
 \details{
-
-  \code{as.mcmc} functions were replaced with \code{\link{toCoda}}.
-
+  None.
 }
 
 \seealso{

@@ -21,6 +21,8 @@
 \alias{as.mlm}
 \alias{as.mlm.cca}
 \alias{as.mlm.rda}
+\alias{as.mcmc.oecosimu}
+\alias{as.mcmc.permat}
 \alias{humpfit}
 \alias{adonis}
 \alias{ordicloud}
@@ -64,12 +66,15 @@ permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
 \method{plot}{renyiaccum}(x, what=c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
           type = "l", ...)
 
-
 ## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 orditkplot(...)
+
+## defunct in vegan 2.6-6
+as.mcmc.oecosimu(x)
+as.mcmc.permat(x)
 
 ## defunct in vegan 2.6-0
 as.mlm(x)
@@ -119,7 +124,9 @@ permuted.index2(n, control = permControl())
 
   \code{orditkplot} was moved to CRAN package \CRANpkg{vegan3d} version
   1.3-0. Install \pkg{vegan3d} and use the function in the old way.
- 
+
+  \code{as.mcmc} functions are replaced with \code{\link{toCoda}}.
+
   \code{as.mlm} function is replaced with a set functions that can
   find the same statistics directly from the ordination result object:
   see \code{\link{influence.cca}}.
