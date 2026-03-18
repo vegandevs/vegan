@@ -1,3 +1,5 @@
+### Simple base::plot that draws lines of all sites in one plot
+
 `plot.renyi` <-
     function(x, ...)
 {
@@ -15,4 +17,17 @@
     if(nrow(x) > 1)
         legend("topright", rownames(x), lty=rep(1:6, each=length(palette())),
                                                 col = palette())
+}
+
+### Simple base::plot that draws accumulation by sites for all scales
+### in one plot
+
+`plot.renyiaccum` <-
+    function(x, ...)
+{
+    ## Take only mean
+    x <- x[,,1]
+    matplot(seq_len(nrow(x)), x, type="l", lty=1, xlab = "Sites",
+            ylab = "Diversity", ...)
+    legend("topleft", colnames(x), lty=1, col=palette())
 }
