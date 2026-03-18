@@ -33,3 +33,13 @@
             ylab = "Diversity", ...)
     legend("topleft", colnames(x), lty=1, col=palette())
 }
+
+### Add lines for given statistic ("mean", "stdev", "min"...,
+### "Collector") for every scale
+
+`lines.renyiaccum` <-
+    function(x, what, ...)
+{
+    what <- match.arg(what, dimnames(x)[[3]])
+    matlines(seq_len(nrow(x)), x[,, what], col = palette(), ...)
+}
