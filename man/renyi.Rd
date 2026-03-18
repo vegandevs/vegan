@@ -2,6 +2,9 @@
 \name{renyi}
 \alias{renyi}
 \alias{renyiaccum}
+\alias{plot.renyi}
+\alias{plot.renyiaccum}
+\alias{lines.renyiaccum}
 \alias{persp.renyiaccum}
 
 \title{Renyi and Hill Diversities and Corresponding Accumulation Curves }
@@ -15,6 +18,9 @@ renyi(x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, Inf),
    hill = FALSE)
 renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     raw = FALSE, collector = FALSE, subset, ...)
+\method{plot}{renyi}(x, ...)
+\method{plot}{renyiaccum}(x, ...)
+\method{lines}{renyiaccum}(x, what, ...)
 \method{persp}{renyiaccum}(x, theta = 220, col = heat.colors(100), zlim, ...)
 }
 
@@ -37,7 +43,14 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     values are taken as \code{FALSE}.}
   \item{theta}{Angle defining the viewing direction (azimuthal) in
     \code{\link{persp}}.}
-  \item{col}{Colours used for surface. Single colour will be passed on,
+
+  \item{what}{Lines to be drawn. These can be any item of dimension 3
+    of \code{renyiaccum} result, with defaults \code{"mean"},
+    \code{"min"}, \code{"max"}, \code{"Qnt 0.025"}, \code{"Qnt
+    0.975"}, and optional \code{"Collector"} or quoted numbers of
+    permutations.}
+
+\item{col}{Colours used for surface. Single colour will be passed on,
     and vector colours will be
     selected by the midpoint of a rectangle in \code{\link{persp}}. }
   \item{zlim}{Limits of vertical axis.}
@@ -66,10 +79,14 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   method to plot the diversity surface against scale and number and
   sites.
 
-  \code{plot} methods for \code{renyi} and \code{renyiaccum} are
-  provided by the \CRANpkg{ggvegan} (\code{autoplot}
+  \code{plot} and \code{lines} methods for \code{renyi} and
+  \code{renyiaccum} are based on \code{\link{matplot}} and
+  \code{\link{matlines}} and draw everything on a single plot
+  frame. In \pkg{vegan} pre version 2.8-0 these graphs were based on
+  \pkg{lattice} graphics that used separate panels. This types of
+  plots can be made in the \CRANpkg{ggvegan} package (\code{fortify}
   functions). \CRANpkg{vegan3d} can make dynamics graphics with
-  \code{rgl.renyiaccum}. 
+  \code{rgl.renyiaccum}.
 
 }
 \value{
@@ -98,14 +115,21 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
 \author{ Roeland Kindt and Jari Oksanen }
 
 \seealso{\code{\link{diversity}} for diversity indices, and
-  \code{\link{specaccum}} for ordinary species accumulation curves.}
+  \code{\link{specaccum}} for ordinary species accumulation
+  curves. For alternative graphics, see \code{fortify} function in
+  \CRANpkg{ggvegan} package.}
 
 \examples{
 data(BCI)
 i <- sample(nrow(BCI), 12)
-renyi(BCI[i,])
-mod <- renyiaccum(BCI[i,])
+mod <- renyi(BCI[i,])
+plot(mod)
+mod <- renyiaccum(BCI)
 persp(mod)
+## plot with empirical 95% confidence limits
+plot(mod, lwd = 3)
+lines(mod, "Qnt 0.025", lty=1)
+lines(mod, "Qnt 0.975", lty=1)
 }
 \keyword{univar }
 
