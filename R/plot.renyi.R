@@ -26,6 +26,8 @@
     function(x, ...)
 {
     ## Take only mean
+    if ("permutation" %in% names(dimnames(x)))
+        x[,,1] <- apply(x, 2, rowMeans)
     x <- x[,,1]
     matplot(seq_len(nrow(x)), x, type="l", lty=1, xlab = "Sites",
             ylab = "Diversity", ...)
