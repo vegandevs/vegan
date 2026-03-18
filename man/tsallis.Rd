@@ -112,9 +112,11 @@ Jost, L (2007) Partitioning diversity into independent alpha and beta
 Jari Oksanen written for \code{renyi}}
 
 \seealso{ Accumulation routines are based on functions
-  \code{\link{renyi}} and \code{\link{renyiaccum}}, and plots are
-  provided by \CRANpkg{ggvegan}. An object of class \code{tsallisaccum}
-  can be displayed with dynamic 3D function \code{rgl.renyiaccum} in the
+  \code{\link{renyi}} and \code{\link{renyiaccum}}, and can be plotted
+  with functions \code{\link{plot.renyi}} and
+  \code{\link{plot.renyiaccum}}. Alternative plots are provided by
+  \CRANpkg{ggvegan}. An object of class \code{tsallisaccum} can be
+  displayed with dynamic 3D function \code{rgl.renyiaccum} in the
   \pkg{vegan3d} package. See also settings for \code{\link{persp}}.  }
 
 \examples{
@@ -122,12 +124,15 @@ data(BCI)
 i <- sample(nrow(BCI), 12)
 x1 <- tsallis(BCI[i,])
 x1
+plot(x1)
 diversity(BCI[i,],"simpson") == x1[["2"]]
-x2 <- tsallis(BCI[i,],norm=TRUE)
+x2 <- tsallis(BCI[i,], norm=TRUE)
 x2
-mod1 <- tsallisaccum(BCI[i,])
+plot(x2)
+mod1 <- tsallisaccum(BCI)
 persp(mod1)
-mod2 <- tsallisaccum(BCI[i,], norm=TRUE)
-persp(mod2,theta=100,phi=30)
+plot(mod1)
+mod2 <- tsallisaccum(BCI, norm=TRUE)
+persp(mod2, theta=100, phi=30)
 }
 \keyword{multivariate}
