@@ -6913,42 +6913,22 @@ Manhattan     Gower    Ochiai
 > 
 > ### Name: renyi
 > ### Title: Renyi and Hill Diversities and Corresponding Accumulation Curves
-> ### Aliases: renyi renyiaccum persp.renyiaccum
+> ### Aliases: renyi renyiaccum plot.renyi plot.renyiaccum lines.renyiaccum
+> ###   persp.renyiaccum
 > ### Keywords: univar
 > 
 > ### ** Examples
 > 
 > data(BCI)
 > i <- sample(nrow(BCI), 12)
-> renyi(BCI[i,])
-          0     0.25      0.5        1        2        4        8       16
-4  4.543295 4.399850 4.253966 3.976563 3.561778 3.157132 2.878594 2.727145
-39 4.430817 4.240081 4.021062 3.530494 2.749191 2.192896 1.918817 1.792300
-1  4.532599 4.398890 4.265075 4.018412 3.674161 3.371787 3.167106 3.042194
-34 4.521789 4.360121 4.185237 3.821669 3.238761 2.748477 2.486674 2.352647
-23 4.595120 4.471984 4.339463 4.062575 3.588236 3.127012 2.864470 2.729487
-43 4.454347 4.285742 4.104905 3.736254 3.145700 2.593930 2.282515 2.134836
-14 4.584967 4.446502 4.302370 4.017494 3.570654 3.147989 2.879572 2.737063
-18 4.488636 4.365688 4.231839 3.944985 3.431714 2.919097 2.609746 2.446668
-33 4.454347 4.283915 4.102866 3.740392 3.186761 2.696061 2.399570 2.247627
-21 4.595120 4.445653 4.287260 3.969925 3.461133 2.910993 2.544210 2.375547
-41 4.624973 4.485592 4.339544 4.052495 3.617275 3.204469 2.909239 2.732853
-10 4.543295 4.382535 4.215475 3.889803 3.392657 2.917205 2.630179 2.494154
-         32       64      Inf
-4  2.648728 2.607649 2.566920
-39 1.734488 1.706957 1.680286
-1  2.970763 2.930598 2.885917
-34 2.281821 2.245829 2.210738
-23 2.652997 2.611650 2.570849
-43 2.066044 2.033250 2.001480
-14 2.665029 2.626467 2.585711
-18 2.367976 2.330389 2.293977
-33 2.175329 2.140800 2.107350
-21 2.298919 2.262428 2.227078
-41 2.645124 2.603139 2.562465
-10 2.425517 2.388652 2.351375
-> mod <- renyiaccum(BCI[i,])
+> mod <- renyi(BCI[i,])
+> plot(mod)
+> mod <- renyiaccum(BCI)
 > persp(mod)
+> ## plot with empirical 95% confidence limits
+> plot(mod, lwd = 3)
+> lines(mod, "Qnt 0.025", lty=1)
+> lines(mod, "Qnt 0.975", lty=1)
 > 
 > 
 > 
@@ -7643,8 +7623,9 @@ sd         0
 > 
 > ### Name: specpool
 > ### Title: Extrapolated Species Richness in a Species Pool
-> ### Aliases: specpool specpool2vect poolaccum summary.poolaccum estimateR
-> ###   estimateR.default estimateR.matrix estimateR.data.frame estaccumR
+> ### Aliases: specpool specpool2vect poolaccum summary.poolaccum
+> ###   plot.poolaccum estimateR estimateR.default estimateR.matrix
+> ###   estimateR.data.frame estaccumR
 > ### Keywords: univar
 > 
 > ### ** Examples
@@ -7721,6 +7702,7 @@ $chao
 
 attr(,"class")
 [1] "summary.poolaccum"
+> plot(pool)  ## use ggvegan::autoplot to show CI envelope
 > ## Quantitative model
 > estimateR(BCI[1:5,])
                   1          2          3          4          5
@@ -8126,10 +8108,11 @@ Eigenvalues for unconstrained axes:
 21 1.176759 0.9686058
 41 1.184546 0.9731442
 10 1.172341 0.9663808
+> plot(x1)
 > diversity(BCI[i,],"simpson") == x1[["2"]]
    4   39    1   34   23   43   14   18   33   21   41   10 
 TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE 
-> x2 <- tsallis(BCI[i,],norm=TRUE)
+> x2 <- tsallis(BCI[i,], norm=TRUE)
 > x2
    0       0.2       0.4       0.6       0.8         1       1.2       1.4
 4  1 0.9101799 0.8614882 0.8452139 0.8528120 0.8752597 0.9037665 0.9313684
@@ -8157,10 +8140,12 @@ TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
 21 0.9475331 0.9658643 0.9784896
 41 0.9550896 0.9716606 0.9827793
 10 0.9438798 0.9632975 0.9767719
-> mod1 <- tsallisaccum(BCI[i,])
+> plot(x2)
+> mod1 <- tsallisaccum(BCI)
 > persp(mod1)
-> mod2 <- tsallisaccum(BCI[i,], norm=TRUE)
-> persp(mod2,theta=100,phi=30)
+> plot(mod1)
+> mod2 <- tsallisaccum(BCI, norm=TRUE)
+> persp(mod2, theta=100, phi=30)
 > 
 > 
 > 
@@ -9191,7 +9176,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.3 0.36 8.676 0 0 
+Time elapsed:  8.81 0.388 9.214 0 0 
 > grDevices::dev.off()
 null device 
           1 
