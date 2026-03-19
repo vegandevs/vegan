@@ -32,9 +32,6 @@
 \alias{permulattice}
 \alias{densityplot.permustats}
 \alias{qqmath.permustats}
-\alias{plot.poolaccum}
-\alias{plot.renyi}
-\alias{plot.renyiaccum}
 
 %------ NOTE:  ../R/vegan-defunct.R   must be synchronized with this!
 \title{Defunct Functions in Package \pkg{vegan}}
@@ -61,10 +58,6 @@ permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
              ylab = "Permutations", ...)
 \method{qqmath}{permustats}(x, data, observed = TRUE, sd.scale = FALSE,
              ylab = "Permutations", ...)
-\method{plot}{poolaccum}(x, alpha = 0.05, type = c("l","g"), ...)
-\method{plot}{renyi}(x, ...)
-\method{plot}{renyiaccum}(x, what=c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
-          type = "l", ...)
 
 ## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",

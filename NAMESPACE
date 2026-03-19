@@ -255,6 +255,7 @@ S3method(lines, prestonfit)
 S3method(lines, procrustes)
 S3method(lines, radline)
 S3method(lines, radfit)
+S3method(lines, renyiaccum)
 S3method(lines, spantree)
 S3method(lines, specaccum)
 ## logLik: stats

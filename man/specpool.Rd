@@ -3,6 +3,7 @@
 \alias{specpool2vect}
 \alias{poolaccum}
 \alias{summary.poolaccum}
+\alias{plot.poolaccum}
 \alias{estimateR}
 \alias{estimateR.default}
 \alias{estimateR.matrix}
@@ -24,11 +25,12 @@ specpool2vect(X, index = c("jack1","jack2", "chao", "boot","Species"))
 poolaccum(x, permutations = 100, minsize = 3)
 estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
 \method{summary}{poolaccum}(object, display, alpha = 0.05, ...)
+\method{plot}{poolaccum}(x, ...)
 }
 
 \arguments{
   \item{x}{Data frame or matrix with species data or the analysis result 
-    for \code{plot} function.}
+    for the \code{plot} function.}
   \item{pool}{A vector giving a classification for pooling the sites in
     the species data. If missing, all sites are pooled together.}
   \item{smallsample}{Use small sample correction \eqn{(N-1)/N}, where
@@ -142,8 +144,12 @@ estaccumR(x, permutations = 100, parallel = getOption("mc.cores"))
   are not based on standard deviations estimated within \code{specpool}
   or \code{estimateR}, but they are based on permutations.
 
-  \CRANpkg{ggvegan} provides function \code{autoplot} to show the
-  results of \code{poolaccum}.
+  The \code{plot} function for accumulation models works both with
+  \code{poolaccum} and \code{estaccumR}. It draws the mean of
+  accumulations against the number of sites.  \CRANpkg{ggvegan} provides
+  function \code{autoplot} that can also show the empirical confidence
+  intervals of accumulations.
+  
 }
 
 \value{
@@ -212,6 +218,7 @@ data(BCI)
 ## Accumulation model
 pool <- poolaccum(BCI)
 summary(pool, display = "chao")
+plot(pool)  ## use ggvegan::autoplot to show CI envelope
 ## Quantitative model
 estimateR(BCI[1:5,])
 }
