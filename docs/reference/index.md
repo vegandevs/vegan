@@ -404,6 +404,9 @@
   : Reads a CEP (Canoco) data file
 - [`renyi()`](https://vegandevs.github.io/vegan/reference/renyi.md)
   [`renyiaccum()`](https://vegandevs.github.io/vegan/reference/renyi.md)
+  [`plot(`*`<renyi>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
+  [`plot(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
+  [`lines(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
   [`persp(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
   : Renyi and Hill Diversities and Corresponding Accumulation Curves
 - [`reorder(`*`<hclust>`*`)`](https://vegandevs.github.io/vegan/reference/reorder.hclust.md)
@@ -450,6 +453,7 @@
   [`poolaccum()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`estaccumR()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`summary(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
+  [`plot(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
   : Extrapolated Species Richness in a Species Pool
 - [`` `sppscores<-`() ``](https://vegandevs.github.io/vegan/reference/sppscores.md)
   : Add or Replace Species Scores in Distance-Based Ordination

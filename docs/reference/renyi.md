@@ -11,6 +11,12 @@ renyi(x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, Inf),
    hill = FALSE)
 renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     raw = FALSE, collector = FALSE, subset, ...)
+# S3 method for class 'renyi'
+plot(x, ...)
+# S3 method for class 'renyiaccum'
+plot(x, ...)
+# S3 method for class 'renyiaccum'
+lines(x, what, ...)
 # S3 method for class 'renyiaccum'
 persp(x, theta = 220, col = heat.colors(100), zlim, ...)
 ```
@@ -57,6 +63,13 @@ persp(x, theta = 220, col = heat.colors(100), zlim, ...)
   Angle defining the viewing direction (azimuthal) in
   [`persp`](https://rdrr.io/r/graphics/persp.html).
 
+- what:
+
+  Lines to be drawn. These can be any item of dimension 3 of
+  `renyiaccum` result, with defaults `"mean"`, `"min"`, `"max"`,
+  `"Qnt 0.025"`, `"Qnt 0.975"`, and optional `"Collector"` or quoted
+  numbers of permutations.
+
 - col:
 
   Colours used for surface. Single colour will be passed on, and vector
@@ -92,8 +105,13 @@ but finds Rényi or Hill diversities at given `scales` for random
 permutations of accumulated sites. It has a `persp` method to plot the
 diversity surface against scale and number and sites.
 
-`plot` methods for `renyi` and `renyiaccum` are provided by the
-[ggvegan](https://CRAN.R-project.org/package=ggvegan) (`autoplot`
+`plot` and `lines` methods for `renyi` and `renyiaccum` are based on
+[`matplot`](https://rdrr.io/r/graphics/matplot.html) and
+[`matlines`](https://rdrr.io/r/graphics/matplot.html) and draw
+everything on a single plot frame. In vegan pre version 2.8-0 these
+graphs were based on lattice graphics that used separate panels. This
+types of plots can be made in the
+[ggvegan](https://CRAN.R-project.org/package=ggvegan) package (`fortify`
 functions). [vegan3d](https://CRAN.R-project.org/package=vegan3d) can
 make dynamics graphics with `rgl.renyiaccum`.
 
@@ -128,40 +146,23 @@ Roeland Kindt and Jari Oksanen
 [`diversity`](https://vegandevs.github.io/vegan/reference/diversity.md)
 for diversity indices, and
 [`specaccum`](https://vegandevs.github.io/vegan/reference/specaccum.md)
-for ordinary species accumulation curves.
+for ordinary species accumulation curves. For alternative graphics, see
+`fortify` function in
+[ggvegan](https://CRAN.R-project.org/package=ggvegan) package.
 
 ## Examples
 
 ``` r
 data(BCI)
 i <- sample(nrow(BCI), 12)
-renyi(BCI[i,])
-#>           0     0.25      0.5        1        2        4        8       16
-#> 12 4.430817 4.264581 4.081595 3.698414 3.102424 2.609704 2.341802 2.209194
-#> 14 4.584967 4.446502 4.302370 4.017494 3.570654 3.147989 2.879572 2.737063
-#> 41 4.624973 4.485592 4.339544 4.052495 3.617275 3.204469 2.909239 2.732853
-#> 5  4.615121 4.460220 4.297238 3.969940 3.436618 2.885713 2.532071 2.365033
-#> 10 4.543295 4.382535 4.215475 3.889803 3.392657 2.917205 2.630179 2.494154
-#> 46 4.454347 4.298951 4.134690 3.810489 3.343102 2.975446 2.756061 2.629116
-#> 8  4.477337 4.342394 4.199865 3.908381 3.417320 2.931933 2.644037 2.501526
-#> 47 4.624973 4.458358 4.278871 3.920918 3.417580 3.043219 2.837600 2.715794
-#> 38 4.406719 4.210287 3.990829 3.516082 2.756942 2.203064 1.954323 1.834725
-#> 20 4.605170 4.472551 4.336913 4.077327 3.683250 3.264270 2.924281 2.735886
-#> 26 4.510860 4.369835 4.225046 3.947749 3.538966 3.166310 2.909161 2.744989
-#> 16 4.532599 4.383341 4.226313 3.916821 3.462855 3.102203 2.904777 2.780100
-#>          32       64      Inf
-#> 12 2.140824 2.106912 2.073992
-#> 14 2.665029 2.626467 2.585711
-#> 41 2.645124 2.603139 2.562465
-#> 5  2.288749 2.252419 2.217225
-#> 10 2.425517 2.388652 2.351375
-#> 46 2.558311 2.519575 2.480266
-#> 8  2.427926 2.389874 2.352536
-#> 47 2.637744 2.596146 2.555582
-#> 38 1.776031 1.747842 1.720532
-#> 20 2.647690 2.605663 2.564949
-#> 26 2.657875 2.615696 2.574826
-#> 16 2.698347 2.655692 2.614197
-mod <- renyiaccum(BCI[i,])
+mod <- renyi(BCI[i,])
+plot(mod)
+
+mod <- renyiaccum(BCI)
 persp(mod)
+
+## plot with empirical 95% confidence limits
+plot(mod, lwd = 3)
+lines(mod, "Qnt 0.025", lty=1)
+lines(mod, "Qnt 0.975", lty=1)
 ```

@@ -60,10 +60,11 @@
 <li><p><code>cascadeKM</code> failed in parallel processing on Windows. Issue <a href="https://github.com/vegandevs/vegan/issues/771" class="external-link">#771</a>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="deprecated-and-defunct-2-8-0">Deprecated and Defunct<a class="anchor" aria-label="anchor" href="#deprecated-and-defunct-2-8-0"></a></h3>
+<h3 id="deprecated-defunct-and-resurrected-2-8-0">Deprecated, Defunct and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-defunct-and-resurrected-2-8-0"></a></h3>
 <ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
-<li><p>Several Lattice functions that were deprecated in release 2.7-3 are now defunct. These include <code>ordixyplot</code>, <code>plot</code> functions for the results of <code>poolaccum</code>, <code>renyi</code> and <code>renyiaccum</code>, <code>permulattice</code> with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>. CRAN package <strong>ggvegan</strong> provides <code>autoplot</code> for all these deprecated functions.</p></li>
+<li><p><strong>lattice</strong> functions <code>ordixyplot</code>, and <code>permulattice</code> (with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>) are defunct. CRAN package <strong>ggvegan</strong> provides <code>autoplot</code> for these defunct functions. The functions were deprecated in CRAN release 2.7-3.</p></li>
 <li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
+<li><p>Several base <code>plot</code> functions internally using <strong>lattice</strong> were marked as deprecated in CRAN release 2.7-3. Now these are resurrected as plain base functions. These include <code>plot</code> for <code>poolaccum</code> (also handling <code>estaccumR</code>), <code>renyi</code> (also handling <code>tsallis</code>), and <code>renyiaccum</code> (also handling <code>tsallisaccum</code>). The base <code>plot</code> functions are simpler, but the original <strong>lattice</strong> implementations can be reproduced with functions in the CRAN package <strong>ggvegan</strong>.</p></li>
 </ul></div>
 </div>
     <div class="section level2">

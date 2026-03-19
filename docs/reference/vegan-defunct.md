@@ -25,13 +25,6 @@ densityplot(x, data, observed = TRUE, sd.scale = FALSE,
 # S3 method for class 'permustats'
 qqmath(x, data, observed = TRUE, sd.scale = FALSE,
              ylab = "Permutations", ...)
-# S3 method for class 'poolaccum'
-plot(x, alpha = 0.05, type = c("l","g"), ...)
-# S3 method for class 'renyi'
-plot(x, ...)
-# S3 method for class 'renyiaccum'
-plot(x, what=c("Collector", "mean", "Qnt 0.025", "Qnt 0.975"),
-          type = "l", ...)
 
 ## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",
