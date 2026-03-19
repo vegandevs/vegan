@@ -65,7 +65,7 @@
 * `cascadeKM` failed in parallel processing on Windows. Issue
   [#771](https://github.com/vegandevs/vegan/issues/771).
 
-## Deprecated and Defunct
+## Deprecated, Defunct and Resurrected
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
   defunct. `ordicloud` is available in CRAN package **vegan3d** as
@@ -73,16 +73,24 @@
   used in similar graphics as `ordiresids` using **ggplot2** or
   **lattice**.
 
-* Several Lattice functions that were deprecated in release 2.7-3 are
-  now defunct. These include `ordixyplot`, `plot` functions for the
-  results of `poolaccum`, `renyi` and `renyiaccum`, `permulattice`
-  with `densityplot` and `qqmath` functions for `permustats`. CRAN
-  package **ggvegan** provides `autoplot` for all these deprecated
-  functions.
+* **lattice** functions `ordixyplot`, and `permulattice` (with
+  `densityplot` and `qqmath` functions for `permustats`) are
+  defunct. CRAN package **ggvegan** provides `autoplot` for these
+  defunct functions. The functions were deprecated in CRAN release
+  2.7-3.
 
 * Argument `thinplate` is finally defunct in `ordisurf`: use
   `isotropic`. The argument was deprecated in 2013 (CRAN release
   2.0-8).
+
+* Several base `plot` functions internally using **lattice** were
+  marked as deprecated in CRAN release 2.7-3. Now these are
+  resurrected as plain base functions. These include `plot` for
+  `poolaccum` (also handling `estaccumR`), `renyi` (also handling
+  `tsallis`), and `renyiaccum` (also handling `tsallisaccum`). The
+  base `plot` functions are simpler, but the original **lattice**
+  implementations can be reproduced with functions in the CRAN package
+  **ggvegan**.
 
 # vegan 2.7-3
 
