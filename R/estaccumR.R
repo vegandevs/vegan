@@ -3,6 +3,8 @@
 `estaccumR` <-
     function(x, permutations = 100, parallel = getOption("mc.cores"))
 {
+    x <- as.matrix(x)
+    rownames(x) <- NULL
     n <- nrow(x)
     N <- seq_len(n)
     estFun <- function(idx) {
