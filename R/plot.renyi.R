@@ -43,3 +43,16 @@
     what <- match.arg(what, dimnames(x)[[3]])
     matlines(seq_len(nrow(x)), x[,, what], col = palette(), ...)
 }
+
+### Simple base::plot for poolaccum() and estaccumR(). Draws only the
+### mean value of permutations. For empirical CI, use
+### ggvegan::autoplot.
+
+`plot.poolaccum` <-         # also works with estaccumR
+    function(x, ...)
+{
+    x <- x$means
+    matplot(x[,1], x[,-1], type="l", lty=1, xlab = "Sites", ylab = "Richness",
+            ...)
+    legend("bottomright", colnames(x[,-1]), col = palette(), lty=1, ...)
+}

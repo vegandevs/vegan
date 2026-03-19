@@ -27,12 +27,6 @@
     .Defunct("ggvegan::autoplot", package = "vegan")
 }
 
-`plot.poolaccum` <-
-    function(x, alpha = 0.05, type = c("l","g"), ...)
-{
-    .Defunct("ggvegan::autoplot", package = "vegan")
-}
-
 ## deprecated in 2.7-0, defunct in 2.8-0
 `ordicloud` <-
     function(x, data = NULL, formula, display = "sites", choices=1:3,
