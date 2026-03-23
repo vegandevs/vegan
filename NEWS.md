@@ -32,6 +32,8 @@
   $R^2$ of displayed variables. Both `p.max` and `r2.min` must be
   satisfied for displayed items.
 
+* `plot.radfit.frame` uses now base graphics instead of **lattice**.
+
 * `ordipointlabel` is faster. This was achieved using tighter bounding
   box which reduced the number of potentially overlapping labels. The
   used bounding box is shown with argument `bg  = <colour>`.  The
