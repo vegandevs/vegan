@@ -9,8 +9,8 @@
 \alias{coef.radfit.frame}
 \alias{deviance.radfit}
 \alias{deviance.radfit.frame}
-\alias{logLik, radfit}
-\alias{logLik, radfit.frame}
+\alias{logLik.radfit}
+\alias{logLik.radfit.frame}
 \alias{fitted.radfit}
 \alias{fitted.radfit.frame}
 \alias{lines.radline}
