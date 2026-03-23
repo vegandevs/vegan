@@ -47,8 +47,7 @@ rad.zipf(x, family = poisson, ...)
 rad.zipfbrot(x, family = poisson, ...)
 \method{predict}{radline}(object, newdata, total, ...)
 \method{plot}{radfit}(x, BIC = FALSE, legend = TRUE, ...)
-\method{plot}{radfit.frame}(x, order.by, BIC = FALSE, model, legend = TRUE,
-     as.table = TRUE, ...)
+\method{plot}{radfit.frame}(x, which, BIC = FALSE, model, legend = TRUE, ...)
 \method{plot}{radline}(x, xlab = "Rank", ylab = "Abundance", type = "b", ...)
 radlattice(x, BIC = FALSE, ...)
 \method{lines}{radfit}(x, ...)
@@ -74,7 +73,7 @@ as.rad(x)
   \item{total}{The new total used for predicting abundance. Observed
     total count is used if this is omitted.}
 
-  \item{order.by}{A vector used for ordering sites in plots.}
+  \item{which}{A vector for selecting sites in plots.}
   \item{BIC}{Use Bayesian Information Criterion, BIC, instead of
     Akaike's AIC. The penalty in BIC is \eqn{k = \log(S)}{k =
       log(S)}  where \eqn{S} is the number of species, whereas AIC uses
@@ -84,8 +83,6 @@ as.rad(x)
     are \code{Null}, \code{Preemption}, \code{Lognormal}, \code{Zipf},
     \code{Mandelbrot}. }
   \item{legend}{Add legend of line colours.}
-  \item{as.table}{Arrange panels starting from upper left corner (passed
-    to \code{\link[lattice]{xyplot}}).}
   \item{xlab,ylab}{Labels for \code{x} and \code{y} axes.}
   \item{type}{Type of the plot, \code{"b"} for plotting both observed points
     and fitted lines, \code{"p"} for only points, \code{"l"} for only
@@ -156,16 +153,15 @@ as.rad(x)
   \code{\link{quasipoisson}} cannot be used: they do not have
   \code{\link{AIC}} nor log-Likelihood needed in non-linear models.
 
-  All these functions have their own \code{plot} functions. When
-  \code{radfit} was applied for a data frame, \code{plot} uses
-  \code{\link[lattice]{Lattice}} graphics, and other \code{plot}
-  functions use ordinary graphics. The ordinary graphics functions
-  return invisibly an \code{\link{ordiplot}} object for observed points,
-  and function \code{\link{identify.ordiplot}} can be used to label
-  selected species.  Alternatively, \code{radlattice} uses
-  \code{\link[lattice]{Lattice}} graphics to display each \code{radfit}
-  model of a single site in a separate panel together with their AIC or
-  BIC values.
+  All these functions have their own \code{plot} functions. The graph
+  for \code{radfit.frame} will plot each sampling unit separately and
+  you may need to divide the plot screen to panels for each of these
+  (see \code{par("mfrow")}).  The graphics functions return invisibly an
+  \code{\link{ordiplot}} object for observed points, and function
+  \code{\link{identify.ordiplot}} can be used to label selected species.
+  Alternatively, \code{radlattice} uses \code{\link[lattice]{Lattice}}
+  graphics to display each \code{radfit} model of a single site in a
+  separate panel together with their AIC or BIC values.
 
   Function \code{as.rad} is a base function to construct ordered RAD
   data. Its \code{plot} is used by other RAD \code{plot} functions
@@ -263,9 +259,11 @@ plot(mod, log = "xy")
 ## Lattice graphics separately for each model
 radlattice(mod)
 # Take a subset of BCI to save time and nerves
-mod <- radfit(BCI[3:5,])
+mod <- radfit(BCI[3:6,])
 mod
+op <- par(mfrow=c(2,2)) # need 4 panels
 plot(mod, pch=".")
+par(op)
 }
 \keyword{ univar }
 \keyword{ distribution }
