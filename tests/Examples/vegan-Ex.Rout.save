@@ -6747,12 +6747,12 @@ Scaling of target:
 > ### Title: Rank - Abundance or Dominance / Diversity Models
 > ### Aliases: radfit radfit.default radfit.data.frame AIC.radfit
 > ###   AIC.radfit.frame as.rad coef.radfit coef.radfit.frame deviance.radfit
-> ###   deviance.radfit.frame 'logLik, radfit' 'logLik, radfit.frame'
-> ###   fitted.radfit fitted.radfit.frame lines.radline lines.radfit
-> ###   plot.radfit.frame plot.radfit plot.radline plot.rad radlattice
-> ###   points.radline points.radfit summary.radfit.frame rad.preempt
-> ###   rad.lognormal rad.zipf rad.zipfbrot rad.null predict.radline
-> ###   predict.radfit predict.radfit.frame
+> ###   deviance.radfit.frame logLik.radfit logLik.radfit.frame fitted.radfit
+> ###   fitted.radfit.frame lines.radline lines.radfit plot.radfit.frame
+> ###   plot.radfit plot.radline plot.rad radlattice points.radline
+> ###   points.radfit summary.radfit.frame rad.preempt rad.lognormal rad.zipf
+> ###   rad.zipfbrot rad.null predict.radline predict.radfit
+> ###   predict.radfit.frame
 > ### Keywords: univar distribution
 > 
 > ### ** Examples
@@ -6778,21 +6778,24 @@ Total abundance: 505
 > ## Lattice graphics separately for each model
 > radlattice(mod)
 > # Take a subset of BCI to save time and nerves
-> mod <- radfit(BCI[3:5,])
+> mod <- radfit(BCI[3:6,])
 > mod
 
 Deviance for RAD models:
 
-                 3       4      5
-Null       86.1127 49.8111 80.855
-Preemption 58.9295 39.7817 76.311
-Lognormal  29.2719 16.6588 17.078
-Zipf       50.1262 47.9108 30.936
-Mandelbrot  5.7342  5.5665 10.573
+                 3       4       5       6
+Null       86.1127 49.8111 80.8552 72.1627
+Preemption 58.9295 39.7817 76.3108 54.7709
+Lognormal  29.2719 16.6588 17.0775 19.5788
+Zipf       50.1262 47.9108 30.9358 32.4630
+Mandelbrot  5.7342  5.5665 10.5733  5.5973
+> op <- par(mfrow=c(2,2)) # need 4 panels
 > plot(mod, pch=".")
+> par(op)
 > 
 > 
 > 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 > cleanEx()
 > nameEx("rankindex")
 > ### * rankindex
@@ -9176,7 +9179,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.81 0.388 9.214 0 0 
+Time elapsed:  8.868 0.399 9.279 0 0 
 > grDevices::dev.off()
 null device 
           1 
