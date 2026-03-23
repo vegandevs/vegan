@@ -61,8 +61,7 @@
 <span><span class="co"># S3 method for class 'radfit'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, BIC <span class="op">=</span> <span class="cn">FALSE</span>, legend <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'radfit.frame'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">order.by</span>, BIC <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">model</span>, legend <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>     as.table <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">which</span>, BIC <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">model</span>, legend <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'radline'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, xlab <span class="op">=</span> <span class="st">"Rank"</span>, ylab <span class="op">=</span> <span class="st">"Abundance"</span>, type <span class="op">=</span> <span class="st">"b"</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">radlattice</span><span class="op">(</span><span class="va">x</span>, BIC <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -104,8 +103,8 @@
     total count is used if this is omitted.</p></dd>
 
 
-  <dt id="arg-order-by">order.by<a class="anchor" aria-label="anchor" href="#arg-order-by"></a></dt>
-<dd><p>A vector used for ordering sites in plots.</p></dd>
+  <dt id="arg-which">which<a class="anchor" aria-label="anchor" href="#arg-which"></a></dt>
+<dd><p>A vector for selecting sites in plots.</p></dd>
 
   <dt id="arg-bic">BIC<a class="anchor" aria-label="anchor" href="#arg-bic"></a></dt>
 <dd><p>Use Bayesian Information Criterion, BIC, instead of
@@ -120,10 +119,6 @@
 
   <dt id="arg-legend">legend<a class="anchor" aria-label="anchor" href="#arg-legend"></a></dt>
 <dd><p>Add legend of line colours.</p></dd>
-
-  <dt id="arg-as-table">as.table<a class="anchor" aria-label="anchor" href="#arg-as-table"></a></dt>
-<dd><p>Arrange panels starting from upper left corner (passed
-    to <code><a href="https://rdrr.io/pkg/lattice/man/xyplot.html" class="external-link">xyplot</a></code>).</p></dd>
 
   <dt id="arg-xlab-ylab">xlab,ylab<a class="anchor" aria-label="anchor" href="#arg-xlab-ylab"></a></dt>
 <dd><p>Labels for <code>x</code> and <code>y</code> axes.</p></dd>
@@ -200,16 +195,15 @@
   <code><a href="https://rdrr.io/r/stats/AIC.html" class="external-link">AIC</a></code>. Therefore ‘quasi’ families such as
   <code><a href="https://rdrr.io/r/stats/family.html" class="external-link">quasipoisson</a></code> cannot be used: they do not have
   <code><a href="https://rdrr.io/r/stats/AIC.html" class="external-link">AIC</a></code> nor log-Likelihood needed in non-linear models.</p>
-<p>All these functions have their own <code>plot</code> functions. When
-  <code>radfit</code> was applied for a data frame, <code>plot</code> uses
-  <code><a href="https://rdrr.io/pkg/lattice/man/Lattice.html" class="external-link">Lattice</a></code> graphics, and other <code>plot</code>
-  functions use ordinary graphics. The ordinary graphics functions
-  return invisibly an <code><a href="ordiplot.html">ordiplot</a></code> object for observed points,
-  and function <code><a href="ordiplot.html">identify.ordiplot</a></code> can be used to label
-  selected species.  Alternatively, <code>radlattice</code> uses
-  <code><a href="https://rdrr.io/pkg/lattice/man/Lattice.html" class="external-link">Lattice</a></code> graphics to display each <code>radfit</code>
-  model of a single site in a separate panel together with their AIC or
-  BIC values.</p>
+<p>All these functions have their own <code>plot</code> functions. The graph
+  for <code>radfit.frame</code> will plot each sampling unit separately and
+  you may need to divide the plot screen to panels for each of these
+  (see <code>par("mfrow")</code>).  The graphics functions return invisibly an
+  <code><a href="ordiplot.html">ordiplot</a></code> object for observed points, and function
+  <code><a href="ordiplot.html">identify.ordiplot</a></code> can be used to label selected species.
+  Alternatively, <code>radlattice</code> uses <code><a href="https://rdrr.io/pkg/lattice/man/Lattice.html" class="external-link">Lattice</a></code>
+  graphics to display each <code>radfit</code> model of a single site in a
+  separate panel together with their AIC or BIC values.</p>
 <p>Function <code>as.rad</code> is a base function to construct ordered RAD
   data. Its <code>plot</code> is used by other RAD <code>plot</code> functions
   which pass extra arguments (such as <code>xlab</code> and <code>log</code>) to
@@ -317,19 +311,21 @@
 <span class="r-in"><span><span class="fu">radlattice</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="radfit-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co"># Take a subset of BCI to save time and nerves</span></span></span>
-<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">radfit</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">radfit</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Deviance for RAD models:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  3       4      5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Null       86.1127 49.8111 80.855</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Preemption 58.9295 39.7817 76.311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lognormal  29.2719 16.6588 17.078</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Zipf       50.1262 47.9108 30.936</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mandelbrot  5.7342  5.5665 10.573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  3       4       5       6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Null       86.1127 49.8111 80.8552 72.1627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Preemption 58.9295 39.7817 76.3108 54.7709</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lognormal  29.2719 16.6588 17.0775 19.5788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Zipf       50.1262 47.9108 30.9358 32.4630</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mandelbrot  5.7342  5.5665 10.5733  5.5973</span>
+<span class="r-in"><span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># need 4 panels</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, pch<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="radfit-5.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
