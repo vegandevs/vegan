@@ -14,7 +14,8 @@
 \usage{
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
-   cex = c(0.7, 0.7), add = inherits(x, "ordiplot"), labels, bg, select, ...)
+   cex = c(0.7, 0.7), add = inherits(x, "ordiplot"), labels, bg, select,
+   points = TRUE, ...)
 
 \method{plot}{ordipointlabel}(x, ...)
 }
@@ -53,6 +54,8 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
     scores is being plotted (i.e. \code{length(display) == 1}),
     otherwise it is ignored and a warning issued. If a logical vector is
     used, it must have the same length as the scores plotted.}
+  \item{points}{Set to \code{FALSE} to suppress drawing points. This is
+    useful if points (or arrowheads) already exist.}
   \item{\dots}{Other arguments passed to \code{\link{points}} and
   \code{\link{text}}.}
 }
@@ -70,7 +73,7 @@ ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
 
   The function can be used in a pipe where the first command is an
   ordination \code{plot} command with \code{type = "n"} or to add
-  points and lablels to save \pkg{vegan} ordination plot object. See
+  points and labels to save \pkg{vegan} ordination plot object. See
   examples.
 
 }
