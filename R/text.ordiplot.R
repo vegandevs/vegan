@@ -17,15 +17,18 @@
             sco <- sco * ordiArrowMul(sco)
         }
     }
-    if (arrows) {
+    if (arrows) { # optimize w.r.t. arrowheads
         arrows(0, 0, sco[,1], sco[,2], length = length, ...)
-        sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE, ...)
+        if (!optimize)
+            sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE, ...)
     }
-    if (optimize) {
+    if (optimize) { # draw no points at arrowheads
         if (missing(bg))
-            ordipointlabel(sco, display = what, add = TRUE, ...)
+            ordipointlabel(sco, display = what, add = TRUE, points = !arrows,
+                           ...)
         else
-            ordipointlabel(sco, display = what, bg = bg, add = TRUE, ...)
+            ordipointlabel(sco, display = what, bg = bg, add = TRUE,
+                           points = !arrows, ...)
     } else if (missing(bg))
         text(sco, labels = rownames(sco), ...)
     else

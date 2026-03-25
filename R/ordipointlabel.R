@@ -2,7 +2,8 @@
 `ordipointlabel` <-
     function(x, display = c("sites", "species"), choices = c(1,2), col=c(1,2),
              pch=c("o","+"), font = c(1,1), cex=c(0.7, 0.7),
-             add = inherits(x, "ordiplot"), labels, bg, select, ...)
+             add = inherits(x, "ordiplot"), labels, bg, select, points = TRUE,
+             ...)
 {
     xy <- list()
     ## Some 'scores' accept only one 'display': a workaround
@@ -140,8 +141,9 @@
                         font = font, FUN = text, ...)
     }
 
-    ## always plot points (heck, the function is ordi*point*label)
-    ordiArgAbsorber(xy, pch = pch, col = col, cex = cex, FUN = points,
+    ## plot points
+    if (points)
+        ordiArgAbsorber(xy, pch = pch, col = col, cex = cex, FUN = points,
                         ...)
     ##text(lab, labels=labels, col = col, cex = cex, font = font,  ...)
     if (!inherits(x, "ordiplot"))
