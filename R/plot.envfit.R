@@ -60,8 +60,8 @@
             ax <- -c(-1, 0, 1) * arrow.mul * maxarr
         }
         vect <- arrow.mul * vect
-        vect <- sweep(vect, 2, at, "+")
         if (add) {
+            vect <- sweep(vect, 2, at, "+")
             vtext <- ordiArrowTextXY(vect, labs$v, rescale = FALSE, at = at,
                                      ...)
         }
@@ -107,6 +107,7 @@
         if (!is.null(vect)) {
             arrow.mul <- ordiArrowMul(vect, at = at, fill = 1)
             vect <- arrow.mul * vect
+            vect <- sweep(vect, 2, at, "+")
             vtext <- ordiArrowTextXY(vect, labs$v, at = at, rescale = FALSE,
                                      ...)
             sw <- strwidth(labs$v, ...) / 2
