@@ -74,7 +74,8 @@ biplot(x, choices = c(1, 2), scaling = "species",
 
 - ...:
 
-  Other parameters for plotting functions.
+  Other parameters passed to
+  [`plot.cca`](https://vegandevs.github.io/vegan/reference/plot.cca.md).
 
 ## Details
 
@@ -123,11 +124,11 @@ biplot(mod, scaling = "symmetric")
 
 
 ## plot.cca can do the same
-plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE))
+plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE, optimize=TRUE))
 
 
 ## different type for species and site scores
-biplot(mod, scaling = "symmetric", type = c("text", "points"))
+biplot(mod, scaling = "symmetric", type = c("text", "points"), optimize=TRUE)
 
 
 ## We can use ordiplot pipes to build similar plots with flexible

@@ -10,7 +10,8 @@ useful with moderately crowded ordination plots.
 ``` r
 ordipointlabel(x, display = c("sites", "species"), choices = c(1, 2),
    col = c(1, 2),  pch = c("o", "+"), font = c(1, 1), 
-   cex = c(0.7, 0.7), add = inherits(x, "ordiplot"), labels, bg, select, ...)
+   cex = c(0.7, 0.7), add = inherits(x, "ordiplot"), labels, bg, select,
+   points = TRUE, ...)
 
 # S3 method for class 'ordipointlabel'
 plot(x, ...)
@@ -69,6 +70,11 @@ plot(x, ...)
   If a logical vector is used, it must have the same length as the
   scores plotted.
 
+- points:
+
+  Set to `FALSE` to suppress drawing points. This is useful if points
+  (or arrowheads) already exist.
+
 - ...:
 
   Other arguments passed to
@@ -89,7 +95,7 @@ high number of potential overlaps. Several sets of scores can be
 displayed in one plot.
 
 The function can be used in a pipe where the first command is an
-ordination `plot` command with `type = "n"` or to add points and lablels
+ordination `plot` command with `type = "n"` or to add points and labels
 to save vegan ordination plot object. See examples.
 
 ## Value

@@ -85,7 +85,10 @@ ordination plot, and `ordiArrowTextXY` finds the coordinates for labels
 of these arrows. NB., `ordiArrowTextXY` does not draw labels; it simply
 returns coordinates at which the labels should be drawn for use with
 another function, such as
-[`text`](https://rdrr.io/r/graphics/text.html).
+[`text`](https://rdrr.io/r/graphics/text.html). The arrow will point to
+the midpoint of the text bouding box. Several ordination `plot` and
+`text` functions have argument `optimize` which will override this
+location.
 
 ## Value
 

@@ -316,52 +316,52 @@ ord <- metaMDS(varespec)
 #> Square root transformation
 #> Wisconsin double standardization
 #> Run 0 stress 0.1843196 
-#> Run 1 stress 0.1969805 
-#> Run 2 stress 0.2271272 
-#> Run 3 stress 0.18458 
-#> ... Procrustes: rmse 0.04935688  max resid 0.1575242 
-#> Run 4 stress 0.3840913 
-#> Run 5 stress 0.1976151 
-#> Run 6 stress 0.2276827 
-#> Run 7 stress 0.1852397 
-#> ... Procrustes: rmse 0.05468407  max resid 0.1467108 
-#> Run 8 stress 0.2079059 
-#> Run 9 stress 0.2048307 
-#> Run 10 stress 0.213094 
-#> Run 11 stress 0.2136761 
+#> Run 1 stress 0.18458 
+#> ... Procrustes: rmse 0.04934733  max resid 0.157477 
+#> Run 2 stress 0.1948413 
+#> Run 3 stress 0.2126568 
+#> Run 4 stress 0.196245 
+#> Run 5 stress 0.2067742 
+#> Run 6 stress 0.2143612 
+#> Run 7 stress 0.18458 
+#> ... Procrustes: rmse 0.04935237  max resid 0.1575002 
+#> Run 8 stress 0.2088293 
+#> Run 9 stress 0.1825658 
+#> ... New best solution
+#> ... Procrustes: rmse 0.04163799  max resid 0.1518664 
+#> Run 10 stress 0.1955836 
+#> Run 11 stress 0.2296578 
 #> Run 12 stress 0.1852397 
-#> ... Procrustes: rmse 0.05468077  max resid 0.1467946 
-#> Run 13 stress 0.18458 
-#> ... Procrustes: rmse 0.04935405  max resid 0.1575098 
-#> Run 14 stress 0.1948413 
-#> Run 15 stress 0.2028828 
-#> Run 16 stress 0.2221078 
-#> Run 17 stress 0.1974418 
-#> Run 18 stress 0.2419514 
-#> Run 19 stress 0.2124989 
-#> Run 20 stress 0.1948413 
+#> Run 13 stress 0.2174195 
+#> Run 14 stress 0.1974406 
+#> Run 15 stress 0.1967393 
+#> Run 16 stress 0.18458 
+#> Run 17 stress 0.2109853 
+#> Run 18 stress 0.1948413 
+#> Run 19 stress 0.2251281 
+#> Run 20 stress 0.1869637 
 #> *** Best solution was not repeated -- monoMDS stopping criteria:
-#>     19: stress ratio > sratmax
-#>      1: scale factor of the gradient < sfgrmin
+#>     17: stress ratio > sratmax
+#>      3: scale factor of the gradient < sfgrmin
 (fit <- envfit(ord, varechem, perm = 999))
 #> 
 #> ***VECTORS
 #> 
 #>             NMDS1    NMDS2     r2 Pr(>r)    
-#> N        -0.05039 -0.99873 0.2081  0.077 .  
-#> P         0.68707  0.72659 0.1755  0.147    
-#> K         0.82733  0.56171 0.1657  0.170    
-#> Ca        0.75017  0.66124 0.2811  0.043 *  
-#> Mg        0.69680  0.71727 0.3493  0.022 *  
-#> S         0.27631  0.96107 0.1774  0.139    
-#> Al       -0.83771  0.54611 0.5155  0.001 ***
-#> Fe       -0.86190  0.50708 0.4000  0.003 ** 
-#> Mn        0.80229 -0.59693 0.5322  0.003 ** 
-#> Zn        0.66523  0.74664 0.1779  0.146    
-#> Mo       -0.84873  0.52882 0.0517  0.569    
-#> Baresoil  0.87204 -0.48943 0.2494  0.056 .  
-#> Humdepth  0.92632 -0.37673 0.5590  0.001 ***
-#> pH       -0.79905  0.60127 0.2624  0.046 *  
+#> N        -0.05725 -0.99836 0.2537  0.052 .  
+#> P         0.61968  0.78486 0.1938  0.101    
+#> K         0.76639  0.64238 0.1809  0.114    
+#> Ca        0.68514  0.72842 0.4119  0.006 ** 
+#> Mg        0.63247  0.77459 0.4270  0.004 ** 
+#> S         0.19132  0.98153 0.1752  0.125    
+#> Al       -0.87164  0.49015 0.5269  0.001 ***
+#> Fe       -0.93607  0.35180 0.4451  0.001 ***
+#> Mn        0.79871 -0.60172 0.5231  0.002 ** 
+#> Zn        0.61754  0.78654 0.1879  0.117    
+#> Mo       -0.90305  0.42953 0.0609  0.537    
+#> Baresoil  0.92495 -0.38008 0.2508  0.045 *  
+#> Humdepth  0.93286 -0.36024 0.5200  0.002 ** 
+#> pH       -0.64802  0.76162 0.2308  0.068 .  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> Permutation: free
@@ -370,20 +370,20 @@ ord <- metaMDS(varespec)
 #> 
 scores(fit, "vectors")
 #>                NMDS1      NMDS2
-#> N        -0.02298448 -0.4555495
-#> P         0.28785488  0.3044152
-#> K         0.33676867  0.2286479
-#> Ca        0.39769955  0.3505525
-#> Mg        0.41184412  0.4239451
-#> S         0.11637297  0.4047729
-#> Al       -0.60146204  0.3920973
-#> Fe       -0.54512355  0.3207078
-#> Mn        0.58531265 -0.4354945
-#> Zn        0.28058970  0.3149280
-#> Mo       -0.19293587  0.1202130
-#> Baresoil  0.43551045 -0.2444282
-#> Humdepth  0.69259827 -0.2816765
-#> pH       -0.40932453  0.3080079
+#> N        -0.02883469 -0.5028223
+#> P         0.27281253  0.3455314
+#> K         0.32598275  0.2732335
+#> Ca        0.43969547  0.4674715
+#> Mg        0.41330987  0.5061844
+#> S         0.08008029  0.4108374
+#> Al       -0.63273148  0.3558013
+#> Fe       -0.62448384  0.2346992
+#> Mn        0.57765369 -0.4351830
+#> Zn        0.26769851  0.3409609
+#> Mo       -0.22293280  0.1060360
+#> Baresoil  0.46319165 -0.1903358
+#> Humdepth  0.67271731 -0.2597805
+#> pH       -0.31131128  0.3658875
 plot(ord)
 plot(fit)
 plot(fit, p.max = 0.05, col = "red")

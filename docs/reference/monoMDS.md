@@ -308,6 +308,6 @@ m
 #> Stress:     0.07626801 
 #> Stress type 1, weak ties
 #> Scores scaled to unit root mean square, rotated to principal components
-#> Stopped after 93 iterations: Stress nearly unchanged (ratio > sratmax)
+#> Stopped after 133 iterations: Stress nearly unchanged (ratio > sratmax)
 plot(m)
 ```

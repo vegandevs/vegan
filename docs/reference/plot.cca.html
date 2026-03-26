@@ -139,7 +139,9 @@
     ordination (<code><a href="cca.html">cca</a></code> etc.). Setting this <code>TRUE</code> will
     draw arrows for any type of scores. This allows, e.g, using biplot
     arrows for species. The arrow head will be at the value of scores,
-    and possible text is moved outwards.</p></dd>
+    and possible text is moved outwards or somewhere around the
+    arrowhead with argument <code>optimize = TRUE</code> (possibly over the
+    arrow).</p></dd>
 
 
   <dt id="arg-spe-par-sit-par-con-par-bip-par-cen-par-reg-par">spe.par, sit.par, con.par, bip.par, cen.par, reg.par<a class="anchor" aria-label="anchor" href="#arg-spe-par-sit-par-con-par-bip-par-cen-par-reg-par"></a></dt>
@@ -348,8 +350,7 @@
 <span class="r-plt img"><img src="plot.cca-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## LC scores &amp; factors mean much overplotting: try optimize=TRUE</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lc"</span>,<span class="st">"sp"</span>,<span class="st">"cn"</span><span class="op">)</span>, optimize <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>   bip.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span> <span class="co"># arrows and optimize mix poorly</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lc"</span>,<span class="st">"sp"</span>,<span class="st">"cn"</span><span class="op">)</span>, optimize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot.cca-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## catch the invisible result and use ordiplot support - the example</span></span></span>
