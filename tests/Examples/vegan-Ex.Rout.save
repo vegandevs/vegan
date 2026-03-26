@@ -1847,10 +1847,10 @@ log(N) P K Ca pH Al    6      0.2822
 > biplot(mod, scaling = "symmetric")
 > 
 > ## plot.cca can do the same
-> plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE))
+> plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE, optimize=TRUE))
 > 
 > ## different type for species and site scores
-> biplot(mod, scaling = "symmetric", type = c("text", "points"))
+> biplot(mod, scaling = "symmetric", type = c("text", "points"), optimize=TRUE)
 > 
 > ## We can use ordiplot pipes to build similar plots with flexible
 > ## control
@@ -6360,8 +6360,7 @@ ungrazed-grazed -0.1219422 -0.2396552 -0.004229243 0.0429502
 +   text("centroids", bg="white")
 > 
 > ## LC scores & factors mean much overplotting: try optimize=TRUE
-> plot(mod, display = c("lc","sp","cn"), optimize = TRUE,
-+    bip.par = list(optimize = FALSE)) # arrows and optimize mix poorly
+> plot(mod, display = c("lc","sp","cn"), optimize = TRUE)
 > 
 > ## catch the invisible result and use ordiplot support - the example
 > ## will make a biplot with arrows for species and correlation scaling
@@ -9179,7 +9178,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.868 0.399 9.279 0 0 
+Time elapsed:  8.88 0.429 9.33 0 0 
 > grDevices::dev.off()
 null device 
           1 

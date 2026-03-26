@@ -40,6 +40,13 @@
   function is also invoked from `plot` and `text` functions for
   ordination results with argument `optimize = TRUE`.
 
+  `ordipointlabel` gained argument `points`. Setting `optimize=FALSE`
+  suppresses drawing points which is useful if there already are
+  points (or arrowheads) in the graph.
+
+* Position of arrow labels is improved with `optimize=TRUE` in
+  ordination graphics.
+
 * `varpart` labels the sources of variation by the full definition of
   the term in plots, but switches to `X1` _etc_ if the full name does
   not fit the graph. Tilde is stripped from the term name.

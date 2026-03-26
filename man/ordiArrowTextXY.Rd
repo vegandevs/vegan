@@ -60,14 +60,15 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75, display, choices = c(1,2), \ldots)
     \code{\link{strwidth}} and \code{\link{strheight}}.}
 }
 
-\details{
-  \code{ordiArrowMul} finds a multiplier to scale a bunch of
+\details{ \code{ordiArrowMul} finds a multiplier to scale a bunch of
   arrows to fill an ordination plot, and \code{ordiArrowTextXY} finds
   the coordinates for labels of these arrows. NB.,
   \code{ordiArrowTextXY} does not draw labels; it simply returns
   coordinates at which the labels should be drawn for use with another
-  function, such as \code{\link{text}}.
-}
+  function, such as \code{\link{text}}. The arrow will point to the
+  midpoint of the text bouding box. Several ordination \code{plot} and
+  \code{text} functions have argument \code{optimize} which will
+  override this location. }
 
 \value{
   For \code{ordiArrowTextXY}, a 2-column matrix of coordinates for the
