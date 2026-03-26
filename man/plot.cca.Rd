@@ -85,7 +85,9 @@
     ordination (\code{\link{cca}} etc.). Setting this \code{TRUE} will
     draw arrows for any type of scores. This allows, e.g, using biplot
     arrows for species. The arrow head will be at the value of scores,
-    and possible text is moved outwards.}
+    and possible text is moved outwards or somewhere around the
+    arrowhead with argument \code{optimize = TRUE} (possibly over the
+    arrow).}
   
   \item{spe.par, sit.par, con.par, bip.par, cen.par, reg.par}{
     Lists of graphical parameters for species, sites, constraints (lc
@@ -267,8 +269,7 @@ plot(mod, type="n", scaling="sites") |>
   text("centroids", bg="white")
 
 ## LC scores & factors mean much overplotting: try optimize=TRUE
-plot(mod, display = c("lc","sp","cn"), optimize = TRUE,
-   bip.par = list(optimize = FALSE)) # arrows and optimize mix poorly
+plot(mod, display = c("lc","sp","cn"), optimize = TRUE)
 
 ## catch the invisible result and use ordiplot support - the example
 ## will make a biplot with arrows for species and correlation scaling

@@ -49,7 +49,7 @@
   \item{col}{Colours used for sites and species (in this order). If only
     one colour is given, it is used for both.}
   \item{const}{General scaling constant for \code{\link{scores.rda}}.}
-  \item{\dots}{Other parameters for plotting functions.}
+  \item{\dots}{Other parameters passed to \code{\link{plot.cca}}.}
 }
 \details{
   Produces a plot or biplot of the results of a call to
@@ -84,10 +84,10 @@ mod <- rda(dune, scale = TRUE)
 biplot(mod, scaling = "symmetric")
 
 ## plot.cca can do the same
-plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE))
+plot(mod, scaling = "symmetric", spe.par = list(arrows=TRUE, optimize=TRUE))
 
 ## different type for species and site scores
-biplot(mod, scaling = "symmetric", type = c("text", "points"))
+biplot(mod, scaling = "symmetric", type = c("text", "points"), optimize=TRUE)
 
 ## We can use ordiplot pipes to build similar plots with flexible
 ## control
