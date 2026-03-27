@@ -72,12 +72,13 @@
         arrows(at[1], at[2], vect[, 1], vect[, 2], length = 0.05,
                col = col)
     ## text labels
-    if (!optimize) {
+    pch <- "x"
+    if (!optimize && !is.null(vect)) {
         vect <- ordiArrowTextXY(vect, labs$v, rescale = FALSE, at = at, cex=cex,
                                 ...)
-        pch <- 1
     } else {
-        pch <- c(rep("x", nrow(x$factors$centroids)), rep("", nrow(vect)))
+        pch <- c(rep("x", NROW(x$factors$centroids)),
+                 rep("", NROW(vect)))
     }
     text.ordiplot(rbind(x$factors$centroids, vect), "sites", col = col,
                   bg = bg, optimize = optimize, pch = pch, cex = cex, ...)
