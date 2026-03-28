@@ -54,17 +54,32 @@
         vect <- sqrt(x$vectors$r) * x$vectors$arrows[, choices, drop = FALSE]
     }
     ## At this stage of development the following arguments still fail
-    if (!add)
-        .NotYetUsed("add = FALSE")
     if (axis)
         .NotYetUsed("axis = TRUE", error = FALSE)
     ## vectors may need scaling (arrow.mul) and shifting (at)
     if (!is.null(vect)) {
-        if (missing(arrow.mul))
-            arrow.mul <- ordiArrowMul(vect, at = at)
+        if (missing(arrow.mul)) {
+            if (add) {
+                arrow.mul <- ordiArrowMul(vect, at = at)
+            } else {
+                if (is.null(x$factors))
+                    arrow.mul <- 1
+                else {
+                    plot.window(xlim = range(x$factors$centroids[,1], at[1]),
+                                ylim = range(x$factors$centroids[,2], at[2]),
+                                asp = 1, ...)
+                    arrow.mul <- ordiArrowMul(vect, at = at)
+                }
+            }
+        }
         vect <- arrow.mul * vect
         if (!missing(at))
             vect <- sweep(vect, 2, at, "+")
+    }
+    ## Create a new plot instead of adding to an existing one
+    if (!add) {
+        ordiplot(rbind(vect, x$factors$centroids), display = "sites",
+                 type = "n", ...)
     }
     ## add elements to the existing plot
     ## arrows for vectors
