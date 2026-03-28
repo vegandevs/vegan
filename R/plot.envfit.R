@@ -53,9 +53,6 @@
     if (!is.null(x$vectors)) {
         vect <- sqrt(x$vectors$r) * x$vectors$arrows[, choices, drop = FALSE]
     }
-    ## At this stage of development the following arguments still fail
-    if (axis)
-        .NotYetUsed("axis = TRUE", error = FALSE)
     ## vectors may need scaling (arrow.mul) and shifting (at)
     if (!is.null(vect)) {
         if (missing(arrow.mul)) {
@@ -97,5 +94,11 @@
     }
     text.ordiplot(rbind(x$factors$centroids, vect), "sites", col = col,
                   bg = bg, optimize = optimize, pch = pch, cex = cex, ...)
+    if (axis && !is.null(vect)) {
+        maxr <- max(sqrt(abs(x$vectors$r)))
+        ax <- pretty(c(-maxr, maxr))
+        axis(3, at = arrow.mul * ax + at[1], labels = ax)
+        axis(4, at = arrow.mul * ax + at[2], labels = ax)
+    }
     invisible()
 }
