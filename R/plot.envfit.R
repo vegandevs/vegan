@@ -62,9 +62,10 @@
                 if (is.null(x$factors))
                     arrow.mul <- 1
                 else {
+                    plot.new()
                     plot.window(xlim = range(x$factors$centroids[,1], at[1]),
                                 ylim = range(x$factors$centroids[,2], at[2]),
-                                asp = 1, ...)
+                                asp = 1)
                     arrow.mul <- ordiArrowMul(vect, at = at)
                 }
             }
