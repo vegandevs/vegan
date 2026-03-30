@@ -32,6 +32,9 @@
   $R^2$ of displayed variables. Both `p.max` and `r2.min` must be
   satisfied for displayed items.
 
+  `plot.envfit` can optimize the location of text labels for factors
+  and vectors (arrows).
+
 * `plot.radfit.frame` uses now base graphics instead of **lattice**.
 
 * `ordipointlabel` is faster. This was achieved using tighter bounding
@@ -46,9 +49,6 @@
 
 * Position of arrow labels is improved with `optimize=TRUE` in
   ordination graphics.
-
-* `plot.envfit` can optimize the location of text labels for factors
-  and vectors (arrows).
 
 * `varpart` labels the sources of variation by the full definition of
   the term in plots, but switches to `X1` _etc_ if the full name does
