@@ -20,6 +20,10 @@
 * `cascadeKM` failed in parallel processing on Windows. Issue
   [#771](https://github.com/vegandevs/vegan/issues/771).
 
+* `plot.envfit` draw arrows wrongly if when making a new plot _and_
+  moving the bunch of arrows from the origin (_i.e._ with arguments
+  `add=FALSE` with `at != c(0,0)`).
+
 # vegan 2.7-3
 
 ## New Features
