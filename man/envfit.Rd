@@ -15,7 +15,7 @@
   The function fits environmental vectors or factors onto an
   ordination. The projections of points onto vectors have maximum
   correlation with corresponding environmental variables, and the
-  factors show the averages of factor levels. For continuous varaibles
+  factors show the averages of factor levels. For continuous varia bles
   this is equal to fitting a linear trend surface (plane in 2D) for a
   variable (see \code{\link{ordisurf}}); this trend surface can be
   presented by showing its gradient (direction of steepest increase)
@@ -30,7 +30,8 @@
    choices=c(1,2),  display = "sites", w, na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
 \method{plot}{envfit}(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
-   axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg, add = TRUE, ...)
+   axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg,
+   optimize = FALSE, cex = 1, add = TRUE, ...)
 \method{scores}{envfit}(x, display, choices, arrow.mul=1, tidy = FALSE, ...)
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
 factorfit(X, P, permutations = 0, strata = NULL, w, ...)
@@ -84,10 +85,9 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
     is not given in \code{plot} and \code{add = TRUE}. However, in
     \code{scores} it can be used to adjust arrow lengths when the
     \code{plot} function is not used.}
-  \item{at}{The origin of fitted arrows in the plot.  If you plot arrows
-    in other places then origin, you probably have to specify
-    \code{arrrow.mul}.}
-  \item{axis}{Plot axis showing the scaling of fitted arrows.}
+  \item{at}{The origin of fitted arrows in the plot.}
+  \item{axis}{Add axis of the scaling of fitted arrows in units of correlation
+    on upper and right axes.}
   \item{p.max, r2.min}{Maximum estimated \eqn{P} value and minimum
     \eqn{r^2} for displayed variables.  You must calculate \eqn{P}
     values with setting \code{permutations} to use \code{p.max}. }
@@ -95,7 +95,12 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   \item{bg}{Background colour for labels. If \code{bg} is set, the
     labels are displayed with \code{\link{ordilabel}} instead of
     \code{text}. See Examples for using semitransparent background.}
-  \item{add}{Results added to an existing ordination plot.}
+  \item{optimize}{Optimize the location of text labels to minimize
+    overlap. If \code{TRUE}, factors will be shown with a cross in their
+    exact location, and text for factors and vectors will be optimized.}
+  \item{cex}{Character expansion of text labels.}
+  \item{add}{Add results to an existing ordination plot or generate a new
+    plot.}
   \item{strata}{An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within the
     specified strata.}
@@ -111,20 +116,21 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   \item{...}{Parameters passed to \code{\link{scores}}.}
 }
 \details{
+
   Function \code{envfit} finds vectors or factor averages of
-  environmental variables.  Function \code{plot.envfit} adds these in an
-  ordination diagram.  If \code{X} is a \code{\link{data.frame}},
-  \code{envfit}
-  uses \code{factorfit} for \code{\link{factor}} variables and
-  \code{vectorfit} for other variables.  If \code{X} is a matrix or a
-  vector, \code{envfit} uses only \code{vectorfit}. Alternatively, the
-  model can be defined a simplified model \code{\link{formula}}, where
-  the left hand side must be an ordination result object or a matrix of
-  ordination scores, and right hand
-  side lists the environmental variables. The formula interface can be
-  used for easier selection and/or transformation of environmental
-  variables. Only the main effects will be analysed even if interaction
-  terms were defined in the formula.
+  environmental variables.  Function \code{plot.envfit} adds these in
+  an ordination diagram.  If \code{X} is a \code{\link{data.frame}},
+  \code{envfit} uses \code{factorfit} for \code{\link{factor}}
+  variables and \code{vectorfit} for other variables.  If \code{X} is
+  a matrix or a vector, \code{envfit} uses only
+  \code{vectorfit}. Alternatively, the model can be defined with a
+  simplified model \code{\link{formula}}, where the left hand side
+  must be an ordination result object or a matrix of ordination
+  scores, and right hand side lists the environmental variables. The
+  formula interface can be used for easier selection and/or
+  transformation of environmental variables. Only the main effects
+  will be analysed even if interaction terms were defined in the
+  formula.
 
   The ordination results are extracted with \code{\link{scores}} and
   all extra arguments are passed to the \code{scores}. The fitted
@@ -141,7 +147,7 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   correlation (square root of the column \code{r2}) so that
   \dQuote{weak} predictors have shorter arrows than \dQuote{strong}
   predictors.  You can see the scaled relative lengths using command
-  \code{scores}.  The \code{plot}ted (and scaled) arrows are further
+  \code{scores}.  The plotted (and scaled) arrows are further
   adjusted to the current graph using a constant multiplier: this will
   keep the relative \code{r2}-scaled lengths of the arrows but tries
   to fill the current plot.  You can see the multiplier using
@@ -180,13 +186,13 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   for the physical size of the plot, and the arrow lengths cannot be
   compared across plots. For similar scaling of arrows, you must
   explicitly set the \code{arrow.mul} argument in the \code{plot}
-  command; see \code{\link{ordiArrowMul}} and
-  \code{\link{ordiArrowTextXY}}.
+  command; see \code{\link{ordiArrowMul}}.
   
   The results can be accessed with \code{scores.envfit} function which
   returns either the fitted vectors scaled by correlation coefficient or
   the centroids of the fitted environmental variables, or a named list
   of both.
+
 }
 \value{
   Functions \code{vectorfit} and \code{factorfit} return lists of
@@ -212,19 +218,21 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   suggested by Michael Scroggie. }
 
 \note{
+
   Fitted vectors have become the method of choice in displaying
   environmental variables in ordination.  Indeed, they are the optimal
   way of presenting environmental variables in Constrained
-  Correspondence Analysis \code{\link{cca}}, since there they are the
-  linear constraints.
+  Correspondence Analysis \code{\link{cca}} and Redundancy analysis
+  (\code{\link{rda}}), since there they are the linear constraints.
   In unconstrained ordination the relation between external variables
   and ordination configuration may be less linear, and therefore other
-  methods than arrows may be more useful.  The simplest is to adjust the
-  plotting symbol sizes (\code{cex}, \code{\link{symbols}}) by
-  environmental variables.
-  Fancier methods involve smoothing and regression methods that
-  abound in \R, and \code{\link{ordisurf}} provides a wrapper for some.
-  }
+  methods than arrows may be more useful.  The simplest is to adjust
+  the plotting symbol sizes (\code{cex}, \code{\link{symbols}}) by
+  environmental variables.  Fancier methods involve smoothing and
+  regression methods that abound in \R, and \code{\link{ordisurf}}
+  provides a wrapper for some.
+
+}
 
 \seealso{
   A better alternative to vectors may be \code{\link{ordisurf}}.    
