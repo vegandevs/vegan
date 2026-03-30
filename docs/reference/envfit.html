@@ -4,7 +4,7 @@
 The function fits environmental vectors or factors onto an
   ordination. The projections of points onto vectors have maximum
   correlation with corresponding environmental variables, and the
-  factors show the averages of factor levels. For continuous varaibles
+  factors show the averages of factor levels. For continuous varia bles
   this is equal to fitting a linear trend surface (plane in 2D) for a
   variable (see ordisurf); this trend surface can be
   presented by showing its gradient (direction of steepest increase)
@@ -15,7 +15,7 @@ The function fits environmental vectors or factors onto an
 The function fits environmental vectors or factors onto an
   ordination. The projections of points onto vectors have maximum
   correlation with corresponding environmental variables, and the
-  factors show the averages of factor levels. For continuous varaibles
+  factors show the averages of factor levels. For continuous varia bles
   this is equal to fitting a linear trend surface (plane in 2D) for a
   variable (see ordisurf); this trend surface can be
   presented by showing its gradient (direction of steepest increase)
@@ -65,7 +65,7 @@ The function fits environmental vectors or factors onto an
 <p>The function fits environmental vectors or factors onto an
   ordination. The projections of points onto vectors have maximum
   correlation with corresponding environmental variables, and the
-  factors show the averages of factor levels. For continuous varaibles
+  factors show the averages of factor levels. For continuous varia bles
   this is equal to fitting a linear trend surface (plane in 2D) for a
   variable (see <code><a href="ordisurf.html">ordisurf</a></code>); this trend surface can be
   presented by showing its gradient (direction of steepest increase)
@@ -83,7 +83,8 @@ The function fits environmental vectors or factors onto an
 <span><span class="fu">envfit</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'envfit'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, <span class="va">labels</span>, <span class="va">arrow.mul</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, </span>
-<span>   axis <span class="op">=</span> <span class="cn">FALSE</span>, p.max <span class="op">=</span> <span class="cn">NULL</span>, r2.min <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="st">"blue"</span>, <span class="va">bg</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span>   axis <span class="op">=</span> <span class="cn">FALSE</span>, p.max <span class="op">=</span> <span class="cn">NULL</span>, r2.min <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="st">"blue"</span>, <span class="va">bg</span>,</span>
+<span>   optimize <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'envfit'</span></span>
 <span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span>, <span class="va">choices</span>, arrow.mul<span class="op">=</span><span class="fl">1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="fu">vectorfit</span><span class="op">(</span><span class="va">X</span>, <span class="va">P</span>, permutations <span class="op">=</span> <span class="fl">0</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">w</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -165,12 +166,11 @@ The function fits environmental vectors or factors onto an
     <code>plot</code> function is not used.</p></dd>
 
   <dt id="arg-at">at<a class="anchor" aria-label="anchor" href="#arg-at"></a></dt>
-<dd><p>The origin of fitted arrows in the plot.  If you plot arrows
-    in other places then origin, you probably have to specify
-    <code>arrrow.mul</code>.</p></dd>
+<dd><p>The origin of fitted arrows in the plot.</p></dd>
 
   <dt id="arg-axis">axis<a class="anchor" aria-label="anchor" href="#arg-axis"></a></dt>
-<dd><p>Plot axis showing the scaling of fitted arrows.</p></dd>
+<dd><p>Add axis of the scaling of fitted arrows in units of correlation
+    on upper and right axes.</p></dd>
 
   <dt id="arg-p-max-r-min">p.max, r2.min<a class="anchor" aria-label="anchor" href="#arg-p-max-r-min"></a></dt>
 <dd><p>Maximum estimated \(P\) value and minimum
@@ -185,8 +185,17 @@ The function fits environmental vectors or factors onto an
     labels are displayed with <code><a href="ordilabel.html">ordilabel</a></code> instead of
     <code>text</code>. See Examples for using semitransparent background.</p></dd>
 
+  <dt id="arg-optimize">optimize<a class="anchor" aria-label="anchor" href="#arg-optimize"></a></dt>
+<dd><p>Optimize the location of text labels to minimize
+    overlap. If <code>TRUE</code>, factors will be shown with a cross in their
+    exact location, and text for factors and vectors will be optimized.</p></dd>
+
+  <dt id="arg-cex">cex<a class="anchor" aria-label="anchor" href="#arg-cex"></a></dt>
+<dd><p>Character expansion of text labels.</p></dd>
+
   <dt id="arg-add">add<a class="anchor" aria-label="anchor" href="#arg-add"></a></dt>
-<dd><p>Results added to an existing ordination plot.</p></dd>
+<dd><p>Add results to an existing ordination plot or generate a new
+    plot.</p></dd>
 
   <dt id="arg-strata">strata<a class="anchor" aria-label="anchor" href="#arg-strata"></a></dt>
 <dd><p>An integer vector or factor specifying the strata for
@@ -212,20 +221,22 @@ The function fits environmental vectors or factors onto an
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Function <code>envfit</code> finds vectors or factor averages of
-  environmental variables.  Function <code>plot.envfit</code> adds these in an
-  ordination diagram.  If <code>X</code> is a <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></code>,
-  <code>envfit</code>
-  uses <code>factorfit</code> for <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></code> variables and
-  <code>vectorfit</code> for other variables.  If <code>X</code> is a matrix or a
-  vector, <code>envfit</code> uses only <code>vectorfit</code>. Alternatively, the
-  model can be defined a simplified model <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>, where
-  the left hand side must be an ordination result object or a matrix of
-  ordination scores, and right hand
-  side lists the environmental variables. The formula interface can be
-  used for easier selection and/or transformation of environmental
-  variables. Only the main effects will be analysed even if interaction
-  terms were defined in the formula.</p>
+
+
+<p>Function <code>envfit</code> finds vectors or factor averages of
+  environmental variables.  Function <code>plot.envfit</code> adds these in
+  an ordination diagram.  If <code>X</code> is a <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></code>,
+  <code>envfit</code> uses <code>factorfit</code> for <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></code>
+  variables and <code>vectorfit</code> for other variables.  If <code>X</code> is
+  a matrix or a vector, <code>envfit</code> uses only
+  <code>vectorfit</code>. Alternatively, the model can be defined with a
+  simplified model <code><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></code>, where the left hand side
+  must be an ordination result object or a matrix of ordination
+  scores, and right hand side lists the environmental variables. The
+  formula interface can be used for easier selection and/or
+  transformation of environmental variables. Only the main effects
+  will be analysed even if interaction terms were defined in the
+  formula.</p>
 <p>The ordination results are extracted with <code><a href="scores.html">scores</a></code> and
   all extra arguments are passed to the <code>scores</code>. The fitted
   models only apply to the results defined when extracting the scores
@@ -240,7 +251,7 @@ The function fits environmental vectors or factors onto an
   correlation (square root of the column <code>r2</code>) so that
   “weak” predictors have shorter arrows than “strong”
   predictors.  You can see the scaled relative lengths using command
-  <code>scores</code>.  The <code>plot</code>ted (and scaled) arrows are further
+  <code>scores</code>.  The plotted (and scaled) arrows are further
   adjusted to the current graph using a constant multiplier: this will
   keep the relative <code>r2</code>-scaled lengths of the arrows but tries
   to fill the current plot.  You can see the multiplier using
@@ -275,8 +286,7 @@ The function fits environmental vectors or factors onto an
   for the physical size of the plot, and the arrow lengths cannot be
   compared across plots. For similar scaling of arrows, you must
   explicitly set the <code>arrow.mul</code> argument in the <code>plot</code>
-  command; see <code><a href="ordiArrowTextXY.html">ordiArrowMul</a></code> and
-  <code><a href="ordiArrowTextXY.html">ordiArrowTextXY</a></code>.</p>
+  command; see <code><a href="ordiArrowTextXY.html">ordiArrowMul</a></code>.</p>
 <p>The results can be accessed with <code>scores.envfit</code> function which
   returns either the fitted vectors scaled by correlation coefficient or
   the centroids of the fitted environmental variables, or a named list
@@ -320,18 +330,20 @@ The function fits environmental vectors or factors onto an
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>Fitted vectors have become the method of choice in displaying
+
+
+<p>Fitted vectors have become the method of choice in displaying
   environmental variables in ordination.  Indeed, they are the optimal
   way of presenting environmental variables in Constrained
-  Correspondence Analysis <code><a href="cca.html">cca</a></code>, since there they are the
-  linear constraints.
+  Correspondence Analysis <code><a href="cca.html">cca</a></code> and Redundancy analysis
+  (<code><a href="cca.html">rda</a></code>), since there they are the linear constraints.
   In unconstrained ordination the relation between external variables
   and ordination configuration may be less linear, and therefore other
-  methods than arrows may be more useful.  The simplest is to adjust the
-  plotting symbol sizes (<code>cex</code>, <code><a href="https://rdrr.io/r/graphics/symbols.html" class="external-link">symbols</a></code>) by
-  environmental variables.
-  Fancier methods involve smoothing and regression methods that
-  abound in <span style="R">R</span>, and <code><a href="ordisurf.html">ordisurf</a></code> provides a wrapper for some.</p>
+  methods than arrows may be more useful.  The simplest is to adjust
+  the plotting symbol sizes (<code>cex</code>, <code><a href="https://rdrr.io/r/graphics/symbols.html" class="external-link">symbols</a></code>) by
+  environmental variables.  Fancier methods involve smoothing and
+  regression methods that abound in <span style="R">R</span>, and <code><a href="ordisurf.html">ordisurf</a></code>
+  provides a wrapper for some.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

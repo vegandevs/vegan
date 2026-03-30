@@ -52,6 +52,9 @@
 - Position of arrow labels is improved with `optimize=TRUE` in
   ordination graphics.
 
+- `plot.envfit` can optimize the location of text labels for factors and
+  vectors (arrows).
+
 - `varpart` labels the sources of variation by the full definition of
   the term in plots, but switches to `X1` *etc* if the full name does
   not fit the graph. Tilde is stripped from the term name.

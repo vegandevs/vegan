@@ -3,7 +3,7 @@
 The function fits environmental vectors or factors onto an ordination.
 The projections of points onto vectors have maximum correlation with
 corresponding environmental variables, and the factors show the averages
-of factor levels. For continuous varaibles this is equal to fitting a
+of factor levels. For continuous varia bles this is equal to fitting a
 linear trend surface (plane in 2D) for a variable (see
 [`ordisurf`](https://vegandevs.github.io/vegan/reference/ordisurf.md));
 this trend surface can be presented by showing its gradient (direction
@@ -21,7 +21,8 @@ envfit(ord, env, permutations = 999, strata = NULL,
 envfit(formula, data, ...)
 # S3 method for class 'envfit'
 plot(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
-   axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg, add = TRUE, ...)
+   axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg,
+   optimize = FALSE, cex = 1, add = TRUE, ...)
 # S3 method for class 'envfit'
 scores(x, display, choices, arrow.mul=1, tidy = FALSE, ...)
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
@@ -110,12 +111,12 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 
 - at:
 
-  The origin of fitted arrows in the plot. If you plot arrows in other
-  places then origin, you probably have to specify `arrrow.mul`.
+  The origin of fitted arrows in the plot.
 
 - axis:
 
-  Plot axis showing the scaling of fitted arrows.
+  Add axis of the scaling of fitted arrows in units of correlation on
+  upper and right axes.
 
 - p.max, r2.min:
 
@@ -134,9 +135,19 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   [`ordilabel`](https://vegandevs.github.io/vegan/reference/ordilabel.md)
   instead of `text`. See Examples for using semitransparent background.
 
+- optimize:
+
+  Optimize the location of text labels to minimize overlap. If `TRUE`,
+  factors will be shown with a cross in their exact location, and text
+  for factors and vectors will be optimized.
+
+- cex:
+
+  Character expansion of text labels.
+
 - add:
 
-  Results added to an existing ordination plot.
+  Add results to an existing ordination plot or generate a new plot.
 
 - strata:
 
@@ -173,9 +184,9 @@ If `X` is a [`data.frame`](https://rdrr.io/r/base/data.frame.html),
 `envfit` uses `factorfit` for
 [`factor`](https://rdrr.io/r/base/factor.html) variables and `vectorfit`
 for other variables. If `X` is a matrix or a vector, `envfit` uses only
-`vectorfit`. Alternatively, the model can be defined a simplified model
-[`formula`](https://rdrr.io/r/stats/formula.html), where the left hand
-side must be an ordination result object or a matrix of ordination
+`vectorfit`. Alternatively, the model can be defined with a simplified
+model [`formula`](https://rdrr.io/r/stats/formula.html), where the left
+hand side must be an ordination result object or a matrix of ordination
 scores, and right hand side lists the environmental variables. The
 formula interface can be used for easier selection and/or transformation
 of environmental variables. Only the main effects will be analysed even
@@ -196,7 +207,7 @@ cosines which are the coordinates of the heads of unit length vectors.
 In `plot` these are scaled by their correlation (square root of the
 column `r2`) so that “weak” predictors have shorter arrows than “strong”
 predictors. You can see the scaled relative lengths using command
-`scores`. The `plot`ted (and scaled) arrows are further adjusted to the
+`scores`. The plotted (and scaled) arrows are further adjusted to the
 current graph using a constant multiplier: this will keep the relative
 `r2`-scaled lengths of the arrows but tries to fill the current plot.
 You can see the multiplier using `ordiArrowMul(result_of_envfit)`, and
@@ -235,9 +246,7 @@ The lengths of arrows for fitted vectors are automatically adjusted for
 the physical size of the plot, and the arrow lengths cannot be compared
 across plots. For similar scaling of arrows, you must explicitly set the
 `arrow.mul` argument in the `plot` command; see
-[`ordiArrowMul`](https://vegandevs.github.io/vegan/reference/ordiArrowTextXY.md)
-and
-[`ordiArrowTextXY`](https://vegandevs.github.io/vegan/reference/ordiArrowTextXY.md).
+[`ordiArrowMul`](https://vegandevs.github.io/vegan/reference/ordiArrowTextXY.md).
 
 The results can be accessed with `scores.envfit` function which returns
 either the fitted vectors scaled by correlation coefficient or the
@@ -291,11 +300,13 @@ Michael Scroggie.
 Fitted vectors have become the method of choice in displaying
 environmental variables in ordination. Indeed, they are the optimal way
 of presenting environmental variables in Constrained Correspondence
-Analysis [`cca`](https://vegandevs.github.io/vegan/reference/cca.md),
-since there they are the linear constraints. In unconstrained ordination
-the relation between external variables and ordination configuration may
-be less linear, and therefore other methods than arrows may be more
-useful. The simplest is to adjust the plotting symbol sizes (`cex`,
+Analysis [`cca`](https://vegandevs.github.io/vegan/reference/cca.md) and
+Redundancy analysis
+([`rda`](https://vegandevs.github.io/vegan/reference/cca.md)), since
+there they are the linear constraints. In unconstrained ordination the
+relation between external variables and ordination configuration may be
+less linear, and therefore other methods than arrows may be more useful.
+The simplest is to adjust the plotting symbol sizes (`cex`,
 [`symbols`](https://rdrr.io/r/graphics/symbols.html)) by environmental
 variables. Fancier methods involve smoothing and regression methods that
 abound in R, and
