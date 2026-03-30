@@ -3,7 +3,7 @@
 The function fits environmental vectors or factors onto an ordination.
 The projections of points onto vectors have maximum correlation with
 corresponding environmental variables, and the factors show the averages
-of factor levels. For continuous varia bles this is equal to fitting a
+of factor levels. For continuous variables this is equal to fitting a
 linear trend surface (plane in 2D) for a variable (see
 [`ordisurf`](https://vegandevs.github.io/vegan/reference/ordisurf.md));
 this trend surface can be presented by showing its gradient (direction
