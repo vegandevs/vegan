@@ -6,6 +6,13 @@
   internally opened socket clusters after error in functions. Pull
   request [#772](https://github.com/vegandevs/vegan/issues/772).
 
+* `ordipointlabel` gained argument `points`. Setting `optimize=FALSE`
+  suppresses drawing points which is useful if there already are
+  points (or arrow heads) in the graph.
+
+* Position of arrow labels is improved with `optimize=TRUE` in
+  ordination graphics.
+
 ## Bug Fixes
 
 * `ordihull` and `ordiellipse` (and hence `ordiareatest`) queried and
