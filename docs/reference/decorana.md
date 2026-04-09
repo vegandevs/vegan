@@ -267,9 +267,9 @@ vare.dca
 #> 
 #>                        DCA1   DCA2    DCA3    DCA4
 #> Eigenvalues          0.5235 0.3253 0.20010 0.19176
-#> Additive Eigenvalues 0.5235 0.3217 0.17919 0.11922
+#> Additive Eigenvalues 0.5235 0.3217 0.17919 0.11921
 #> Decorana values      0.5249 0.1572 0.09669 0.06075
-#> Axis lengths         2.8161 2.2054 1.54650 1.64864
+#> Axis lengths         2.8161 2.2054 1.54650 1.64862
 #> 
 plot(vare.dca, optimize = TRUE)
 
