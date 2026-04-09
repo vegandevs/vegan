@@ -63,6 +63,10 @@
   internally opened socket clusters after error in functions. Pull
   request [#772](https://github.com/vegandevs/vegan/issues/772).
 
+* `decorana` uses stricter convergence criteria similarly as most
+  other **vegan** functions. Usually effects can be seen only in the
+  last decimals.
+
 ## Bug Fixes
 
 * `ordihull` and `ordiellipse` (and hence `ordiareatest`) queried and
