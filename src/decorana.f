@@ -204,9 +204,10 @@ c     strings to print R warnings
          y(j)=float(j)
  10   continue
       y(1)=1.1
-c---  tolerance reduced by p.minchin jan 1997
+c---  tolerance reduced to 0.000005 by p.minchin jan 1997
+c---  reduced to ~sqrt(.Machine$double.eps) by j.oksanen apr 2026
 c     tol=0.0001
-      tol=0.000005
+      tol=1.5e-8
       call trans(y,y,
      1     x,neig,ira,aidot,xeig1,xeig2,xeig3,ix1,ix2,ix3,
      2     mi,mk,n,nid,ibegin,iend,idat,qidat)
