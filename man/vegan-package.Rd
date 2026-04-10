@@ -72,7 +72,7 @@ anova(mod)
 ## is added to the model after all other terms
 anova(mod, by = "margin")
 ## Plot only sample plots, use different symbols and draw SD ellipses 
-## for Managemenet classes
+## for Management classes
 plot(mod, display = "sites", type = "n")
 with(dune.env, points(mod, disp = "si", pch = as.numeric(Management)))
 with(dune.env, legend("topleft", levels(Management), pch = 1:4,

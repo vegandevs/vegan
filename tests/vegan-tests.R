@@ -6,7 +6,7 @@
 ### must generate new vegan-tests.Rout.save in this directory.
 
 ### The current plan is that tests/ are not included in the CRAN
-### release, but only in the development versin of vegan in R-Forge.
+### release, but only in the development version of vegan in R-Forge.
 
 ### The tests here are not intended for human reading. The tests need
 ### not be ecological or biologically meaningful, but they are only
@@ -138,7 +138,7 @@ rm(X, A, B, C, cap.model.cond, cap.model, rda.model.cond, rda.model)
 ### failed if community data name was the same as a function name: the
 ### function name was found first, and used instead ofa data. This
 ### seems to be related to the same problem that Sven Neulinger
-### communicated, and his examples still faile if Condition or strata
+### communicated, and his examples still failed if Condition or strata
 ### are function names. However, the following examples that failed
 ### should work now:
 

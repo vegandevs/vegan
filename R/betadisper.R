@@ -3,7 +3,7 @@
              sqrt.dist = FALSE, add = FALSE)
 {
     ## inline function for double centring. We used .C("dblcen", ...,
-    ## PACKAGE = "stats") which does not dublicate its argument, but
+    ## PACKAGE = "stats") which does not duplicate its argument, but
     ## it was removed from R in r60360 | ripley | 2012-08-22 07:59:00
     ## UTC (Wed, 22 Aug 2012) "more conversion to .Call, clean up".
     dblcen <- function(x, na.rm = TRUE) {

@@ -110,7 +110,7 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
     and dissimilarities are tied to their maximum value of one. Breaking
     ties allows these points to be at different distances and can help
     in recovering very long coenoclines (gradients).  Functions in the
-    \CRANpkg{smacof} package also hav adequate tie treatment.
+    \CRANpkg{smacof} package also have adequate tie treatment.
 
     \item Handles missing values in a meaningful way.
 

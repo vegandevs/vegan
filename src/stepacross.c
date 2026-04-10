@@ -125,7 +125,7 @@ void stepabyss(double *dist, int *n, double *toolong, int *val)
 	       visitabyss(k, ++id, val, *n, dist);
 }
 
-/* Function dykstrapath impelements Dijkstra's shortest path algorithm
+/* Function dykstrapath implements Dijkstra's shortest path algorithm
  * for graph traversal. Return matrix outval contains shortest path
  * distances.  Function matrixpfs() in Sedgewick, 1990, page 466
  * (priority first search for dense graphs).

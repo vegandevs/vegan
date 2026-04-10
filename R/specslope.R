@@ -26,7 +26,7 @@
     if (!(object$method %in% accepted))
         stop(gettextf("accumulation method must be one of: %s",
              paste(accepted, collapse=", ")))
-    ## Funcions should accept a vector of 'at', but usually they
+    ## Functions should accept a vector of 'at', but usually they
     ## don't. I don't care to change this, and therefore we check the
     ## input.
     if (length(at) > 1 && object$method %in% c("exact", "coleman"))

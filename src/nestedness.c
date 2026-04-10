@@ -39,7 +39,7 @@
 /* R 3.4.0 provided an API to C function R_unif_index, and we now
  * depend on that version of R. An improved method of getting random
  * integer index was provided in R 3.6.0 and it is wise to upgrade to
- * that version of R (see R Bug Reprot PR#17494), but nestedness
+ * that version of R (see R Bug Report PR#17494), but nestedness
  * functions work also with older versions. Earlier we used
  * unif_rand() and changed that to an integer index, but R version
  * should be better. */
@@ -424,7 +424,7 @@ static void boostedqswap(int *m, int nr, int nc, int *work)
 /* greedy quasiswapping: pick >1 cell as the upper right m[a] element
  * (except when thinning). We collect a vector 'big' of indices of >1
  * cells, and after each quasiswap update its members and length. We
- * loop while 'big' has members. Each successfull quasiswap will
+ * loop while 'big' has members. Each successful quasiswap will
  * produce a 2x2 submatrix with fill 3 or 4, and the result is heavily
  * biased. With 'thin' we can mix ordinary quasiswap steps with greedy
  * steps and the bias is much reduced even with modest thinning, but
@@ -996,7 +996,7 @@ SEXP do_qswap(SEXP x, SEXP nsim, SEXP arg4, SEXP method)
     return x;
 }
 
-/* boosted quasiswap: x must be 3D array similary as in do_qswap (no
+/* boosted quasiswap: x must be 3D array similarly as in do_qswap (no
  * thin yet) */
 
 SEXP do_boostedqswap(SEXP x, SEXP nsim)

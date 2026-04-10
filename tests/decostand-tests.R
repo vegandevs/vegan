@@ -109,7 +109,7 @@ all(as.matrix(x1) == as.matrix(x2c))
 
 ############################# NAMES ####################################
 
-# Tests that dimensins have correct names
+# Tests that dimensions have correct names
 all(rownames(decostand(testdata + 1, method = "clr")) == rownames(testdata))
 all(colnames(decostand(testdata, method = "clr", pseudocount = 1)) == colnames(testdata))
 all(rownames(decostand(testdata, method = "rclr")) == rownames(testdata))

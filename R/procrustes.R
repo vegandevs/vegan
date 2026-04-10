@@ -7,7 +7,7 @@
         stop(gettextf("matrices have different number of rows: %d and %d",
              nrow(X), nrow(Y)))
     if (ncol(X) < ncol(Y)) {
-        warning("X has fewer axes than Y: X adjusted to comform Y\n")
+        warning("X has fewer axes than Y: X adjusted to conform Y\n")
         addcols <- ncol(Y) - ncol(X)
         for (i in 1:addcols) X <- cbind(X, 0)
     }

@@ -1,6 +1,6 @@
 ### Internal function for double centring of a *matrix* of
 ### dissimilarities. We used .C("dblcen", ..., PACKAGE = "stats")
-### which does not dublicate its argument, but it was removed from R
+### which does not duplicate its argument, but it was removed from R
 ### in r60360 | ripley | 2012-08-22 07:59:00 UTC (Wed, 22 Aug 2012)
 ### "more conversion to .Call, clean up". Input 'x' *must* be a
 ### matrix. This was originally an internal function in betadisper.R

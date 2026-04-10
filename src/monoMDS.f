@@ -28,7 +28,7 @@ C            Edwardsville, IL 62026-1651, U.S.A.
 C            Phone: +1-618-650-2975   FAX: +1-618-650-3174
 C            Email: pminchi@siue.edu
 C
-C Starting from a supplied initial configuarion, uses steepest descent
+C Starting from a supplied initial configuration, uses steepest descent
 C   to minimize Kruskal's stress, a measure of badness-of-fit of one
 C   or more regressions of distances onto the supplied dissimilarities.
 C
@@ -195,7 +195,7 @@ C COPY INITIAL CONFIGURATION TO CURRENT CONFIGURATION
 C
       CALL MACOPY (XINIT,NOBJ,NOBJ,NDIM,X,NOBJ)
 C
-C INITALIZE GRADIENT (WILL BE USED AS THE FIRST "LAST GRADIENT")
+C INITIALIZE GRADIENT (WILL BE USED AS THE FIRST "LAST GRADIENT")
 C
       CALL MAINIT (GRAD,NOBJ,NDIM,NOBJ,SQRT(1.0/FNDIM))
 C=======================================================================
@@ -817,7 +817,7 @@ C---NTIE is the number of DISS values in the current group of tied values
 C---Primary tie treatment: sort DIST values within this tied group into
 C     ascending order, permuting the index vectors accordingly.
 C     Initialize fitted values, DHAT, to be equal to DIST and make each
-C     value an intial block of size 1.
+C     value an initial block of size 1.
               CALL ASORT4 (DIST(J+1),NTIE,IIDX(J+1),JIDX(J+1))
               DO K=J+1,I
                 DHAT(K)=DIST(K)
@@ -861,7 +861,7 @@ C-----------------------------------------------------------------------
       ICURR=1
 C-----------------------------------------------------------------------
 C START OF PROCEDURE FOR THE CURRENT BLOCK.  IT IS INITIALLY UP-ACTIVE,
-C   AND NEITHER UP- NOR DOWN-SATISIFIED.
+C   AND NEITHER UP- NOR DOWN-SATISFIED.
 C
 C UP-ACTIVE  (IACTIV=1) means we are comparing DHAT for the current
 C   block with DHAT for blocks to its right.
@@ -884,11 +884,11 @@ C---Compute DHAT for the current block
       DHATAV=DHAT(ICURR)/IWORK(ICURR)
 C-----------------------------------------------------------------------
 C   ACCORDING TO CURRENT ACTIVITY, CHECK WHETHER CURRENT BLOCK IS
-C     UP-SATISFIED (IACTIV=1) OR DOWN-SATISIFED (IACTIV=0)
+C     UP-SATISFIED (IACTIV=1) OR DOWN-SATISFIED (IACTIV=0)
 C-----------------------------------------------------------------------
    30 IF (IACTIV.EQ.0) THEN
 C-----------------------------------------------------------------------
-C     CHECK WHETHER THIS BLOCK IS DOWN-SATISIFIED.  IF NOT, MERGE.
+C     CHECK WHETHER THIS BLOCK IS DOWN-SATISFIED.  IF NOT, MERGE.
 C-----------------------------------------------------------------------
         IF (ICURR.EQ.1) THEN
 C---If it's the first block, it is by definition down-satisfied
@@ -911,12 +911,12 @@ C   its left and make the new merged block the current block
         ENDIF
       ELSE
 C-----------------------------------------------------------------------
-C     CHECK WHETHER THIS BLOCK IS UP-SATISIFIED.  IF NOT, MERGE.
+C     CHECK WHETHER THIS BLOCK IS UP-SATISFIED.  IF NOT, MERGE.
 C-----------------------------------------------------------------------
 C---Index of first member of the block to the right
         INEXT=ICURR+IWORK(ICURR)
         IF (INEXT.GT.N) THEN
-C---If current block is last block, it is, by definition up-satisified
+C---If current block is last block, it is, by definition up-satisfied
           NSATIS=NSATIS+1
         ELSEIF (DHATAV.LT.DHAT(INEXT)/IWORK(INEXT)) THEN
 C---Current block is up-satisfied

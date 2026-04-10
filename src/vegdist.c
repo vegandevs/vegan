@@ -513,7 +513,7 @@ static double veg_mountford(double *x, int nr, int nc, int i1, int i2)
  * than the permutation procedure used in the original reference (Raup
  * & Crick 1979 Paleontology, as related by Legendre and Legendre in
  * Numerical Ecology), this function uses phyper() for a faster and
- * more precise calculcation.  I subsequently found that the same
+ * more precise calculation.  I subsequently found that the same
  * (obvious) idea is in the literature under a variety of other names
  * (or sometimes no name).
  *

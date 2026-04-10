@@ -153,7 +153,7 @@
   \code{sit.par} etc.) which take precedence over global parameters and
   defaults. This allows full control of graphics. The scores are plotted
   with \code{\link{text.ordiplot}} and \code{\link{points.ordiplot}} and
-  accept paremeters of these functions. In addition to standard
+  accept parameters of these functions. In addition to standard
   graphical parameters, text can be plotted over non-transparent label
   with arbument \code{bg = <colour>}, and location of text can be
   optimized to avoid over-writing with argument \code{optimize = TRUE},

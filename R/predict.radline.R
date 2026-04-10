@@ -15,7 +15,7 @@
     ## total number of individuals in the community
     if (missing(total))
         total <- sum(object$y)
-    ## adjustment for chagned total in call
+    ## adjustment for changed total in call
     adj <- total/sum(object$y)
     nobs <- length(object$y)
     p <- coef(object)

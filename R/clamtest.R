@@ -4,7 +4,7 @@ clamtest <-
 function(comm, groups, coverage.limit = 10,
 specialization = 2/3, npoints = 20, alpha = 0.05/20)
 {
-    ## inital checks
+    ## initial checks
     comm <- as.matrix(comm)
     if (NROW(comm) < 2)
         stop("'comm' must have at least two rows")

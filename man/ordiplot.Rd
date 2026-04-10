@@ -59,7 +59,7 @@ ordiplot(ord, choices = c(1, 2), type="points", display, optimize = FALSE,
     arrows for species. The arrow head will be at the value of scores,
     and possible text is moved outwards.}
   \item{length}{Length of arrow heads (see \code{\link{arrows}}).}
-  \item{arr.mul}{Numeric multiplier to arrow lenghts; this will also set
+  \item{arr.mul}{Numeric multiplier to arrow lengths; this will also set
     \code{arrows = TRUE}. The default is to automatically adjust arrow
     lengths with \code{"biplot"} and \code{"regression"} scores and else
     use unmodified scores.}

@@ -24,7 +24,7 @@
     veg
 }
 
-## Hill's piecewise tranformation. Values of before are replaced with
+## Hill's piecewise transformation. Values of before are replaced with
 ## values of after, and intermediary values with linear interpolation.
 
 ## Not exported: if you think you need something like this, find a

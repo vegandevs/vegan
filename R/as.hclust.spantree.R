@@ -65,7 +65,7 @@
 }
 
 ### Reorder an hclust tree. Basic R provides reorder.dendrogram, but
-### this functoin works with 'hclust' objects, and also differs in
+### this function works with 'hclust' objects, and also differs in
 ### implementation. We use either weighted mean, min or max or
 ### sum. The dendrogram is always ordered in ascending order, so that
 ### with max the left kid always has lower value. So with 'max' the

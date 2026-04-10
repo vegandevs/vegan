@@ -88,7 +88,7 @@
     ass <- object$terminfo$assign
     if (is.null(ass))
         stop("old style result object: update() your model")
-    ## analyse only terms of 'ass' thar are in scope
+    ## analyse only terms of 'ass' that are in scope
     scopeterms <- which(alltrms %in% trmlab)
     mods <- suppressMessages(
         lapply(scopeterms, function(i, ...)

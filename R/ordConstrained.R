@@ -3,7 +3,7 @@
 ### matrix and after that the partializing, constraining and residual
 ### steps are very similar to each other. This file provides functions
 ### that can analyse any classic method, the only difference being the
-### attributes of the dependet variable.
+### attributes of the dependent variable.
 
 ### In this file we use convention modelfunction(Y, X, Z) where Y is
 ### the dependent data set (community), X is the model matrix of
@@ -28,7 +28,7 @@
 ### of constraints, Z the model matrix of conditions, method is "cca",
 ### "rda", "capscale" or "dbrda" (the last two may not work, and
 ### "capscale" may not work in the way you assume). The function
-### returns a large subset of correspoding constrained ordination
+### returns a large subset of corresponding constrained ordination
 ### method. For instance, with method = "dbrda", the result is mainly
 ### correct, but it differs so much from the current dbrda that it
 ### cannot be printed cleanly.

@@ -68,7 +68,7 @@ eigengrad(x, w)
   \code{\link{diversity}}). The numeric results can be accessed with
   \code{scores} function.  Function \code{\link{tolerance}} uses the
   same algebra for weighted standard deviation, but bases the variance
-  on linear combination scores (constaints) variables instead of the
+  on linear combination scores (constraints) variables instead of the
   weighted averages of the sites like \code{wascores}.
 
   Weighted averages are closely linked to correspondence analysis

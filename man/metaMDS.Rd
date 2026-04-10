@@ -193,7 +193,7 @@ metaMDSredist(object, ...)
     \code{autotransform = FALSE} and standardize and transform data
     independently. The \code{autotransform} is intended for community
     data, and for other data types, you should set
-    \code{autotransform = FALSE}. This step is perfomed using
+    \code{autotransform = FALSE}. This step is performed using
     \code{metaMDSdist}, and the step is skipped if input were
     dissimilarities.
 

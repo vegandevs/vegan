@@ -113,9 +113,9 @@
         }
         if (type == "none") {
             if (strict) {
-                stop("incosistent 'start', 'end', 'thin' attributes")
+                stop("inconsistent 'start', 'end', 'thin' attributes")
             } else {
-                warning("incosistent 'start', 'end', 'thin' attributes")
+                warning("inconsistent 'start', 'end', 'thin' attributes")
             }
         }
     }

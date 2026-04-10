@@ -54,7 +54,7 @@ specnumber(x, groups, MARGIN = 1)
   diversity can be found as the mean of diversities by the same groups,
   and their difference or ratio is an estimate of beta diversity (see
   Examples). The pooling can be based either on the observed
-  abundancies, or all communities can be equalized to unit total before
+  abundances, or all communities can be equalized to unit total before
   pooling; see Jost (2007) for discussion. Functions
   \code{\link{adipart}} and \code{\link{multipart}} provide canned
   alternatives for estimating alpha, beta and gamma diversities in
