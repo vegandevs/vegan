@@ -314,7 +314,7 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
   or Cailliez adjustment, which in effect add random variation to the
   dissimilarities.
 
-  A simplified, fast version of RDA, CCA ann dbRDA are used (functions
+  A simplified, fast version of RDA, CCA and dbRDA are used (functions
   \code{simpleRDA2}, \code{simpleCCA} and \code{simpleDBRDA}).  The
   actual calculations are done in functions \code{varpart2} to
   \code{varpart4}, but these are not intended to be called directly by
