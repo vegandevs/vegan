@@ -2012,7 +2012,7 @@ Version 1.6-0 (Fisher)
 
 	* rarefy: Can now optionally find SE of rarefied richness.
 
-	* renyi: A new function to find Rï¿½nyi diversities or Hill numbers
+	* renyi: A new function to find Rényi diversities or Hill numbers
 	with any scale (thanks to Roeland Kindt).
 
 	* scores.ordiplot: should be more robust now.
