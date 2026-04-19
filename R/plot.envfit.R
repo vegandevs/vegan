@@ -27,7 +27,7 @@
                 labs$v <- labels
         }
     }
-    vect <- NULL
+    vect <-fact <- NULL
     if (!is.null(p.max) || !is.null(r2.min)) {
         if (!is.null(x$vectors)) {
             take <- x$vectors$pvals <= min(p.max, 1) &
@@ -53,6 +53,9 @@
     if (!is.null(x$vectors)) {
         vect <- sqrt(x$vectors$r) * x$vectors$arrows[, choices, drop = FALSE]
     }
+    if (!is.null(x$factors)) {
+        fact <- x$factors$centroids[, choices, drop = FALSE]
+    }
     ## vectors may need scaling (arrow.mul) and shifting (at)
     if (!is.null(vect)) {
         if (missing(arrow.mul)) {
@@ -63,8 +66,8 @@
                     arrow.mul <- 1
                 else {
                     plot.new()
-                    plot.window(xlim = range(x$factors$centroids[,1], at[1]),
-                                ylim = range(x$factors$centroids[,2], at[2]),
+                    plot.window(xlim = range(fact[,1], at[1]),
+                                ylim = range(fact[,2], at[2]),
                                 asp = 1)
                     arrow.mul <- ordiArrowMul(vect, at = at)
                 }
@@ -76,7 +79,7 @@
     }
     ## Create a new plot instead of adding to an existing one
     if (!add) {
-        ordiplot(rbind(vect, x$factors$centroids), display = "sites",
+        ordiplot(rbind(vect, fact), display = "sites",
                  type = "n", ...)
     }
     ## add elements to the existing plot
@@ -93,7 +96,7 @@
         pch <- c(rep("x", NROW(x$factors$centroids)),
                  rep("", NROW(vect)))
     }
-    text.ordiplot(rbind(x$factors$centroids, vect), "sites", col = col,
+    text.ordiplot(rbind(fact, vect), "sites", col = col,
                   bg = bg, optimize = optimize, pch = pch, cex = cex, ...)
     if (axis && !is.null(vect)) {
         maxr <- max(sqrt(abs(x$vectors$r)))
