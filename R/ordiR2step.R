@@ -29,8 +29,9 @@
     ## Get R2 of the scope
     if (R2scope)
         R2.all <- suppressMessages(
-            RsquareAdj(update(object, delete.response(formula(scope))),
-                             permutations = R2permutations, ...))
+            RsquareAdj(eval(update(object, delete.response(formula(scope)), evaluate = FALSE),
+                            envir = environment(formula(object))),
+                       permutations = R2permutations, ...))
     else
         R2.all <- list(adj.r.squared = NA)
     ## Check that the full model can be evaluated
@@ -57,8 +58,10 @@
         ## Loop over add scope
         for (trm in seq_along(R2.adds)) {
             fla <- paste(". ~ .", names(R2.adds[trm]))
-            R2.tmp <- suppressMessages(RsquareAdj(update(object, fla),
-                                 permutations = R2permutations, ...)$adj.r.squared)
+            R2.tmp <- suppressMessages(
+                RsquareAdj(eval(update(object, fla, evaluate = FALSE), 
+                                envir = environment(formula(object))),
+                           permutations = R2permutations, ...)$adj.r.squared)
             if (!length(R2.tmp) || is.na(R2.tmp))
                 R2.tmp <- 0
             R2.adds[trm] <- R2.tmp
@@ -88,7 +91,8 @@
             }
             if (tst[,"Pr(>F)"][2] <= Pin) {
                 fla <- paste("~  .", names(R2.adds[best]))
-                object <-  update(object, fla)
+                object <- eval(update(object, fla, evaluate = FALSE),
+                               envir = environment(formula(object)))
             } else
                 break
         } else {
