@@ -24,13 +24,14 @@
             ## anova.ccalist for 2..scope terms
             if (!is.null(object$CCA)) {
                 nfit <- suppressMessages(
-                    update(object, as.formula(paste(". ~ . +", tt))))
+                    eval(update(object, as.formula(paste(". ~ . +", tt)), evaluate = FALSE),
+                         envir = environment(formula(object))))
                 tmp <- anova(object, nfit, permutations = permutations, ...)
                 adds[i+1,] <- unlist(tmp[2, 5:6])
             }
             else { # first term: simple anova
-                nfit <- update(object,
-                               as.formula(paste(". ~ . +", tt)))
+                nfit <- eval(update(object, as.formula(paste(". ~ . +", tt)), evaluate = FALSE),
+                             envir = environment(formula(object)))
                 tmp <- anova(nfit,  permutations = permutations, ...)
                 adds[i+1,] <- unlist(tmp[1, 3:4])
             }
