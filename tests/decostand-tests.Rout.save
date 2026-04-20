@@ -839,7 +839,7 @@ col50 FALSE
 > 
 > ############################# NAMES ####################################
 > 
-> # Tests that dimensins have correct names
+> # Tests that dimensions have correct names
 > all(rownames(decostand(testdata + 1, method = "clr")) == rownames(testdata))
 [1] TRUE
 > all(colnames(decostand(testdata, method = "clr", pseudocount = 1)) == colnames(testdata))

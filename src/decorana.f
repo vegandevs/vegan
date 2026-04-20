@@ -147,7 +147,7 @@ c     for the blocks of 3.
       end
 
 c Function segfit is identical to detrnd, but it also returns the fitted
-c values z. x is respone in input, and residuals in output. --Added by
+c values z. x is response in input, and residuals in output. --Added by
 c J. Oksanen 1 Oct, 2010.
       subroutine segfit(x,aidot,ix,mi,mk,fit)
       implicit double precision (a-h,o-z)

@@ -114,7 +114,7 @@ betadistances(x, \dots)
     family-wise confidence level to use.}
   \item{digits, neigen}{numeric; for the \code{print} method, sets the
   number of digits to use (as per \code{\link{print.default}}) and the
-  maximum number of axes to display eigenvalues for, repsectively.}
+  maximum number of axes to display eigenvalues for, respectively.}
   \item{\dots}{arguments, including graphical parameters (for
     \code{plot.betadisper} and \code{boxplot.betadisper}), passed to
     other methods.}

@@ -139,7 +139,7 @@
             nm <- rownames(u)
             automaticnames <- .row_names_info(newdata) < 0
             if (automaticnames)
-                message("'newdata' cannot be mathced with automatic rownames")
+                message("'newdata' cannot be matched with automatic rownames")
             if (!is.null(nm) && !automaticnames) {
                 if (!all(nm %in% rownames(newdata)))
                     stop("'newdata' does not have named rows matching one or more of the original rows")

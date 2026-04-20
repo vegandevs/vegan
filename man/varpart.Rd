@@ -88,7 +88,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
 \item{permutations}{If \code{chisquare = TRUE}, the adjusted
     \eqn{R^2}{R-squared} is estimated by permutations, and this
-    paramater can be a list of control values for the permutations as
+    parameter can be a list of control values for the permutations as
     returned by the function \code{\link[permute]{how}}, or the number
     of permutations required, or a permutation matrix where each row
     gives the permuted indices.}
@@ -314,7 +314,7 @@ Montreal, Canada.  Further developed by Jari Oksanen. }
   or Cailliez adjustment, which in effect add random variation to the
   dissimilarities.
 
-  A simplified, fast version of RDA, CCA adn dbRDA are used (functions
+  A simplified, fast version of RDA, CCA and dbRDA are used (functions
   \code{simpleRDA2}, \code{simpleCCA} and \code{simpleDBRDA}).  The
   actual calculations are done in functions \code{varpart2} to
   \code{varpart4}, but these are not intended to be called directly by

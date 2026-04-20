@@ -1,5 +1,5 @@
 /* Helper functions used in envfit for assessing goodness of fit in
- * permuation tests. The functions are really minimal, but they are
+ * permutation tests. The functions are really minimal, but they are
  * the bottlenecks that need be hidden in C code. 
  */
 

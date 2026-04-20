@@ -43,7 +43,7 @@ hiersimu(...)
     species as column. Right hand side (\code{x}) must be grouping variables
     referring to levels of sampling hierarchy, terms from right to left
     will be treated as nested (first column is the lowest, last is the
-    highest level). The formula will add a unique indentifier to rows and
+    highest level). The formula will add a unique identifier to rows and
     constant for the rows to always produce estimates of row-level alpha
     and overall gamma diversities. You must use non-formula
     interface to avoid this behaviour. Interaction terms are

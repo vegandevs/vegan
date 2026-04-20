@@ -227,7 +227,7 @@ because people use same names for different indices.
 ### I cannot get repeated solutions in `metaMDS`
 
 The first (try 0) run of `metaMDS` starts from the metric scaling
-solution and is usually good, and most sofware only return that
+solution and is usually good, and most software only return that
 solution. However, `metaMDS` tries to see if that standard solution
 can be repeated, or improved and the improved solution still
 repeated. In all cases, it will return the best solution found, and

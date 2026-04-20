@@ -264,7 +264,7 @@
 ### simulate.dbrda cannot be done along similar lines as
 ### simulate.capscale, because low-rank approximation needs column
 ### scores v and cannot be found only from row scores u that are the
-### only ones we have in dbrda(). Residuals also need exra thinking,
+### only ones we have in dbrda(). Residuals also need extra thinking,
 ### and therefore we just disable simulate.dbrda()
 
 `simulate.dbrda` <-

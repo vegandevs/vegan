@@ -619,7 +619,7 @@ as we saw only once, and the idea in bootstrap that if we repeat
 sampling (with replacement) from the same data, we miss as many
 species as we missed originally.
 
-The variance estimaters only concern the estimated number of missing
+The variance estimators only concern the estimated number of missing
 species $\hat f_0$, although they are often expressed as they would
 apply to the pool size $S_p$; this is only true if we assume that
 $\VAR(S_o) = 0$.  The variance of the Chao estimate is \citep{ChiuEtal14}:

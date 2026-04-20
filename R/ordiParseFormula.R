@@ -8,7 +8,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
     flapart <- fla <- formula <- formula(Terms, width.cutoff = 500)
     ## distance-based methods (capscale, dbrda) evaluate specdata (LHS
     ## in formula) within their code, and the handling in
-    ## ordiParseFormula is redundand and can be expensive
+    ## ordiParseFormula is redundant and can be expensive
     if (missing(X)) {
         specdata <- formula[[2]]
         X <- eval(specdata, environment(formula), enclos=globalenv())
@@ -75,7 +75,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
     if (NROW(mf) > 0) {
         ## We need to re-construct model.frame and its formula, and
         ## for this names with functions must be back-quoted
-        ## (`poly(A1, 2)`, e.g.) with the curren scoping to find the
+        ## (`poly(A1, 2)`, e.g.) with the current scoping to find the
         ## variable (A1) later. This happened with formula(mf) in R <
         ## 3.6.0, but now we must be explicit.
         mf <- model.frame(as.formula(paste("~",

@@ -44,7 +44,7 @@ make.cepnames(names, minlengths = c(4,4), seconditem = FALSE,
   CEP names as default, but it can also use other lengths. The function
   is based on \code{\link{abbreviate}} and can produce longer names if
   basic names are not unique. If generic name is shorter than specified
-  minimun length, more characters can be used by the epithet. If
+  minimum length, more characters can be used by the epithet. If
   \code{uniqgenera = TRUE} genus can use more characters, and these
   reduce the number of characters available for the epithet. The
   function drops characters from the end, but with \code{method =

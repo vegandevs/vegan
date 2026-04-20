@@ -1151,7 +1151,7 @@ NEW FEATURES AND FIXES
 
     - fitted.cca, fitted.rda gained argument type = "working" to get
       the fitted values and residuals used internally in calculation
-      (in cca() these are weigthed and Chi-square standardized
+      (in cca() these are weighted and Chi-square standardized
       values).
 
     - isomap checks that input data are dissimilarities or can be
@@ -1322,7 +1322,7 @@ Version 1.8-5 (January 11, 2007)
 	* Based on devel version 1.9-12.
 	
 	* no.shared (manifest in metaMDS): prints thousands of lines of
-	debugging info that I forgot to deactive in release. Not fatal,
+	debugging info that I forgot to deactivate in release. Not fatal,
 	but extremely annoying.
 
 	* capscale: inertia name as "unknown" if the dissimilarity object
@@ -1458,7 +1458,7 @@ Version 1.8-1 (June 12, 2006)
 	
 	* intersetcor: new function for the interset correlation or the
 	(weighted) correlation between individual constraints (contrasts)
-	and invidual axes in cca/rda/capscale. (Not recommended.)
+	and individual axes in cca/rda/capscale. (Not recommended.)
 
 	* decostand: does not automatically convert matrix to a
 	data.frame. NA handling more consistent now (thanks to Tyler Smith
@@ -1544,13 +1544,13 @@ Version 1.8-1 (June 12, 2006)
 	* vegdist: now first checks input and then transforms (if
 	needed). Thanks to Tyler Smith,
 
-	* Internal changes: permuted.index acceptes NULL strata as an
+	* Internal changes: permuted.index accepts NULL strata as an
 	alternative to missing strata. ordispantreee deprecated.
 	spider.cca removed.
 
 	* Documentation: general cleanup in help files. New chapter on
 	t-values in cca/rda/capscale in vegan-FAQ. New pdf document on
-	partioning with varpart by Pierre Legendre & co. Non-latin
+	partitioning with varpart by Pierre Legendre & co. Non-latin
 	characters now use UTF-8 in documentation.  R manual says that you
 	should not use non-latin characters in help files, but that was
 	written by Englishmen. However, this seems to cause distress to
@@ -1645,7 +1645,7 @@ Version 1.6-9 (April 22, 2005)
 	missing values in row, column or matrix standardizations.
 
 	* vegdist: new argument na.rm (defaults FALSE) for pairwise
-	deletion of missing vaues in dissimilarity calculation.
+	deletion of missing values in dissimilarity calculation.
 		
 Version 1.6-8 (April 18, 2005)
 
@@ -1737,7 +1737,7 @@ Version 1.6-8 (April 18, 2005)
 	missing or all zeros). 
 
 	* spenvcor:  new function to find the "species -- environment
-	correlation" in contrained ordination (cca, rda, capscale).
+	correlation" in constrained ordination (cca, rda, capscale).
 
 	* stressplot: a new function to plot Shepard diagram for 'metaMDS'
 	or 'isoMDS'.
@@ -1770,8 +1770,8 @@ Version 1.6-7 (Jan 24, 2005)
 	* new diagnostic and helper functions for 'cca', 'rda' and
 	'capscale': 'goodness' to estimate the proportion of inertia
 	accounted for or residuals for sites or species; 'inertcomp' to
-	decompose species and site inertia for conditioned, contrained and
-	residual componets; 'vif.cca' to estimate the variance inflation
+	decompose species and site inertia for conditioned, constrained and
+	residual components; 'vif.cca' to estimate the variance inflation
 	factors for constraints and conditions; 'fitted' and 'residuals'
 	to approximate data by ordination scores; 'predict' to approximate
 	data or find site or species scores, possibly with 'newdata';
@@ -1809,7 +1809,7 @@ Version 1.6-5 (Oct 12, 2004)
 	* Based on version 1.7-27. Checked with R-1.9.1 (Linux, MacOS X)
 	and R-2.0.0 (Linux, patched version in Windows XP). Passed other
 	tests, but some examples in 'humpfit' failed in Windows XP, and
-	are not run on that platfrom. General cleanup in documentation.
+	are not run on that platform. General cleanup in documentation.
 	Does not 'require(mva)' any longer.
 
 	* anosim: corrected the equation in docs (function was
@@ -1905,7 +1905,7 @@ Version 1.6-4 (June 10, 2004)
 	arrows, and they are now longer in general. Axes are drawn for
 	biplot arrows also with `text.cca' and `points.cca' functions.
 
-	* deviance.cca and extractAIC.cca: auxilliary functions which
+	* deviance.cca and extractAIC.cca: auxiliary functions which
 	allow automatic model building with `step' or `stepAIC' (MASS)
 	functions in cca and rda. Unfortunately, cca and rda do not have
 	deviance or AIC, and these functions are certainly wrong and
@@ -1929,7 +1929,7 @@ Version 1.6-3 (Mar 22, 2004)
 	* vegan-FAQ: Does not show the vegan and R versions the
 	documentations were built, because of stupid incompatible change
 	in R-1.9.0 of the future.  package.description() function was
-	unnecessarily replaced with packageDescription, and to accomodate
+	unnecessarily replaced with packageDescription, and to accommodate
 	recent, present and future versions of R seemed to be too much
 	hassle.
  
@@ -2050,7 +2050,7 @@ Version 1.4-4
 	* downweight: passes the downweighting fraction as an attribute,
 	and decorana catches and prints the fraction.
 
-	* wascores: Uses now biased variances for expading WAs and returns
+	* wascores: Uses now biased variances for expanding WAs and returns
 	the shrinkage factors as an attribute "shrinkage".  Shrinkage
 	factors are equal to eigenvalues in CCA when only this one
 	variable is used as constraint. Function `eigengrad' returns only
@@ -2198,7 +2198,7 @@ Other changes:
 	* cca.default(): Handles now NULL matrices X and Z: skips them.
 
 	* cca.formula(): Knows now cca(X ~ 1) and permforms unconstrained
-	CA, and cca(X ~ ., data) and perfors CCA using all variables in
+	CA, and cca(X ~ ., data) and performs CCA using all variables in
 	`data' as constraints. Has now na.action=na.fail so that cca
 	crashes more informatively (used to crash mysteriously). A more
 	graceful na.action may come. Assignment "=" corrected to the true

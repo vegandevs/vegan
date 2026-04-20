@@ -5,7 +5,7 @@
 ### INPUT :
 ### mat		(n x k): n the objects and k the descriptors
 ### 			This matrix must be integers and numeric
-###			And must not be binairy, it is the partition matrix
+###			And must not be binary, it is the partition matrix
 ###			output by cascadeKM
 ### OUTPUT :  Ordered matrix
 

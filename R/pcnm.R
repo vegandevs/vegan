@@ -10,7 +10,7 @@
     }
     dis[dis > threshold] <- 4*threshold
     ## vegan:::wcmdscale is able to use weights which also means that
-    ## 'k' need not be given, but all vecctors with >0 eigenvalues
+    ## 'k' need not be given, but all vectors with >0 eigenvalues
     ## will be found
     mypcnm <- wcmdscale(dis, eig = TRUE, w=w)
     res <- list(vectors = mypcnm$points, values = mypcnm$eig,

@@ -8712,7 +8712,7 @@ Residual   13   37.699
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## Plot only sample plots, use different symbols and draw SD ellipses 
-> ## for Managemenet classes
+> ## for Management classes
 > plot(mod, display = "sites", type = "n")
 > with(dune.env, points(mod, disp = "si", pch = as.numeric(Management)))
 > with(dune.env, legend("topleft", levels(Management), pch = 1:4,

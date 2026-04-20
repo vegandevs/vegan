@@ -66,7 +66,7 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75, display, choices = c(1,2), \ldots)
   \code{ordiArrowTextXY} does not draw labels; it simply returns
   coordinates at which the labels should be drawn for use with another
   function, such as \code{\link{text}}. The arrow will point to the
-  midpoint of the text bouding box. Several ordination \code{plot} and
+  midpoint of the text bounding box. Several ordination \code{plot} and
   \code{text} functions have argument \code{optimize} which will
   override this location. }
 
