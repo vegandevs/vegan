@@ -86,7 +86,7 @@ index of diversity also known as Hill number N2 (see
 The numeric results can be accessed with `scores` function. Function
 [`tolerance`](https://vegandevs.github.io/vegan/reference/tolerance.md)
 uses the same algebra for weighted standard deviation, but bases the
-variance on linear combination scores (constaints) variables instead of
+variance on linear combination scores (constraints) variables instead of
 the weighted averages of the sites like `wascores`.
 
 Weighted averages are closely linked to correspondence analysis

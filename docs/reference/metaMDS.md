@@ -272,7 +272,7 @@ one command. The complete steps in `metaMDS` are:
     `autotransform = FALSE` and standardize and transform data
     independently. The `autotransform` is intended for community data,
     and for other data types, you should set `autotransform = FALSE`.
-    This step is perfomed using `metaMDSdist`, and the step is skipped
+    This step is performed using `metaMDSdist`, and the step is skipped
     if input were dissimilarities.
 
 2.  Choice of dissimilarity: For a good result, you should use

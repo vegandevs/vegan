@@ -93,7 +93,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 - permutations:
 
   If `chisquare = TRUE`, the adjusted \\R^2\\ is estimated by
-  permutations, and this paramater can be a list of control values for
+  permutations, and this parameter can be a list of control values for
   the permutations as returned by the function
   [`how`](https://rdrr.io/pkg/permute/man/how.html), or the number of
   permutations required, or a permutation matrix where each row gives
@@ -368,7 +368,7 @@ eigenvalues, and no negative eigenvalues are produced after Lingoes or
 Cailliez adjustment, which in effect add random variation to the
 dissimilarities.
 
-A simplified, fast version of RDA, CCA adn dbRDA are used (functions
+A simplified, fast version of RDA, CCA and dbRDA are used (functions
 `simpleRDA2`, `simpleCCA` and `simpleDBRDA`). The actual calculations
 are done in functions `varpart2` to `varpart4`, but these are not
 intended to be called directly by the user.

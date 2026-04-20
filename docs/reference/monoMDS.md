@@ -143,7 +143,7 @@ but `monoMDS` offers the following unique combination of features:
   tied to their maximum value of one. Breaking ties allows these points
   to be at different distances and can help in recovering very long
   coenoclines (gradients). Functions in the
-  [smacof](https://CRAN.R-project.org/package=smacof) package also hav
+  [smacof](https://CRAN.R-project.org/package=smacof) package also have
   adequate tie treatment.
 
 - Handles missing values in a meaningful way.

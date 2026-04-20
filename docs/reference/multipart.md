@@ -38,8 +38,8 @@ multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
   Right hand side (`x`) must be grouping variable(s) referring to levels
   of sampling hierarchy, terms from right to left will be treated as
   nested (first column is the lowest, last is the highest level). The
-  formula will add a unique indentifier to rows and constant for the
-  rows to always produce estimates of row-level alpha and overall gamma
+  formula will add a unique identifier to rows and constant for the rows
+  to always produce estimates of row-level alpha and overall gamma
   diversities. You must use non-formula interface to avoid this
   behaviour. Interaction terms are not allowed.
 

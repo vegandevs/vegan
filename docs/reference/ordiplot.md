@@ -100,7 +100,7 @@ identify(x, what, labels,  ...)
 
 - arr.mul:
 
-  Numeric multiplier to arrow lenghts; this will also set
+  Numeric multiplier to arrow lengths; this will also set
   `arrows = TRUE`. The default is to automatically adjust arrow lengths
   with `"biplot"` and `"regression"` scores and else use unmodified
   scores.

@@ -897,7 +897,7 @@ CRAN release: 2022-04-17
   [\#497](https://github.com/vegandevs/vegan/issues/497).
 
 - `metaMDS` adopted a more user-friendly policy, and `trymax` will
-  always be the maximum number of tries. See dicussion in
+  always be the maximum number of tries. See discussion in
   <https://stackoverflow.com/questions/66748605/>.
 
 - `adonis2` accepts `strata`. `adonis2` is the new main function that
@@ -2247,7 +2247,7 @@ CRAN release: 2014-11-17
   The argument can be an integer giving the number of parallel
   processes. In unix-alikes (Mac OS, Linux) this will launch
   `"multicore"` processing and in Windows it will set up `"snow"`
-  clusters as desribed in the documentation of the parallel package. If
+  clusters as described in the documentation of the parallel package. If
   `option` `"mc.cores"` is set to an integer \> 1, this will be used to
   automatically start parallel processing. Finally, the argument can
   also be a previously set up `"snow"` cluster which will be used both
@@ -2260,7 +2260,7 @@ CRAN release: 2014-11-17
   permutation statistics: `adonis`, `anosim`, `anova.cca` (and
   `permutest.cca`), `mantel` (and `mantel.partial`), `mrpp`,
   `ordiareatest`, `permutest.betadisper` and `simper`. In addition,
-  `bioenv` can compare several candidate sets of models in paralle,
+  `bioenv` can compare several candidate sets of models in parallel,
   `metaMDS` can launch several random starts in parallel, and `oecosimu`
   can evaluate test statistics for several null models in parallel.
 
@@ -2277,7 +2277,7 @@ CRAN release: 2014-11-17
   See
   [`help(permutations)`](https://vegandevs.github.io/vegan/reference/permutations.md)
   for a brief introduction on permutations in vegan, and permute package
-  for the full documention. The vignette of the permute package can be
+  for the full documentation. The vignette of the permute package can be
   read from vegan with command `vegandocs("permutations")`.
 
   The following functions use the
@@ -2344,7 +2344,7 @@ CRAN release: 2014-11-17
   methods), `permutest.betadisper`, and `protest`.
 
 - `stressplot` functions display the ordination distances at given
-  number of dimensions against original distances. The method functins
+  number of dimensions against original distances. The method functions
   are similar to `stressplot` for `metaMDS`, and always use the inherent
   distances of each ordination method. The functions are available for
   the results `capscale`, `cca`, `princomp`, `prcomp`, `rda`, and
@@ -2901,7 +2901,7 @@ CRAN release: 2012-03-03
 
 - Some constrained ordination methods and their support functions are
   more robust in border cases (completely aliased effects, saturated
-  models, user requests for non-existng scores etc). Concerns
+  models, user requests for non-existing scores etc). Concerns
   `capscale`, `ordistep`, `varpart`, `plot` function for constrained
   ordination, and `anova(<cca.object>, by = "margin")`.
 
