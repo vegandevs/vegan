@@ -96,8 +96,9 @@
         pch <- c(rep("x", NROW(x$factors$centroids)),
                  rep("", NROW(vect)))
     }
-    text.ordiplot(rbind(fact, vect), "sites", col = col,
-                  bg = bg, optimize = optimize, pch = pch, cex = cex, ...)
+    text.ordiplot(rbind(fact, vect), "sites", labels = c(labs$f, labs$v),
+                  col = col, bg = bg, optimize = optimize, pch = pch,
+                  cex = cex, ...)
     if (axis && !is.null(vect)) {
         maxr <- max(sqrt(abs(x$vectors$r)))
         ax <- pretty(c(-maxr, maxr))

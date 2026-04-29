@@ -269,6 +269,8 @@ S3method(model.matrix, rda)
 # multipart: vegan
 S3method(multipart, default)
 S3method(multipart, formula)
+## names<- : base
+S3method("names<-", envfit)
 # nobs: stats
 S3method(nobs, CCorA)
 S3method(nobs, anova.cca)
