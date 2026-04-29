@@ -3051,13 +3051,12 @@ Cumulative Proportion 0.998816 0.9997514 1.0000000
 > ### Name: envfit
 > ### Title: Fits an Environmental Vector or Factor onto an Ordination
 > ### Aliases: envfit envfit.default envfit.formula vectorfit factorfit
-> ###   plot.envfit scores.envfit labels.envfit
+> ###   plot.envfit scores.envfit labels.envfit names<-.envfit
 > ### Keywords: multivariate aplot htest
 > 
 > ### ** Examples
 > 
 > data(varespec, varechem)
-> library(MASS)
 > ord <- metaMDS(varespec)
 Square root transformation
 Wisconsin double standardization
@@ -3164,15 +3163,35 @@ $factors
 [1] "Moisture1" "Moisture2" "Moisture4" "Moisture5"
 
 > plot(ord)
-> plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
+> plot(fit, labels=list(factors = paste0("M", c(1,2,4,5))),
 +    bg = rgb(1,1,0,0.5))
+> ## change names permanently
+> names(fit) <- list(factors = paste0("M", c(1,2,4,5)))
+> fit
+
+***VECTORS
+
+         CA1       CA2     r2
+A1 -0.998160 -0.060614 0.3104
+
+***FACTORS:
+
+Centroids:
+       CA1     CA2
+M1  0.7484  0.1423
+M2  0.4652  0.2156
+M4 -0.1827  0.7315
+M5 -1.1143 -0.5708
+
+Goodness of fit:
+             r2
+Moisture 0.4113
+
+
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘package:MASS’
-
 > nameEx("eventstar")
 > ### * eventstar
 > 
@@ -9178,7 +9197,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.909 0.409 9.334 0 0 
+Time elapsed:  8.883 0.404 9.302 0 0 
 > grDevices::dev.off()
 null device 
           1 
