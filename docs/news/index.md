@@ -77,6 +77,11 @@
 
 ### Bug Fixes
 
+- `ordistep` and `ordiR2step` could not be embedded in other functions
+  due to scoping issues. See PR
+  [\#786](https://github.com/vegandevs/vegan/pull/786) and issue
+  [\#785](https://github.com/vegandevs/vegan/issues/785).
+
 - `ordihull` and `ordiellipse` (and hence `ordiareatest`) queried and
   set graphical parameters also when nothing was drawn. Issue
   [\#774](https://github.com/vegandevs/vegan/issues/774).
@@ -142,11 +147,6 @@ CRAN release: 2026-03-04
   as `decostand`.
 
 ### Bug Fixes
-
-- `ordistep` and `ordiR2step` could not be embedded in other functions
-  due to scoping issues. See PR
-  [\#786](https://github.com/vegandevs/vegan/pull/786) and issue
-  [\#785](https://github.com/vegandevs/vegan/issues/785).
 
 - `decostand(..., method = "rclr")` and `optspace` lost row and column
   names of imputed matrix. Issue
