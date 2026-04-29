@@ -64,7 +64,8 @@
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- suppressMessages(
-                    eval.parent(update(object, paste("~  .", change))))
+                    eval(update(object, paste("~  .", change), evaluate = FALSE), 
+                         envir = environment(formula(object))))
                 scope <- factor.scope(attr(terms(object), "factors"),
                                       list(add = fadd, drop = fdrop))
                 if (trace) {
@@ -91,7 +92,8 @@
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- suppressMessages(
-                    eval.parent(update(object, paste( "~  .",change))))
+                    eval(update(object, paste("~  .", change), evaluate = FALSE), 
+                         envir = environment(formula(object))))         # <--- THE FIX
                 scope <- factor.scope(attr(terms(object), "factors"),
                                       list(add = fadd, drop = fdrop))
                 if (trace) {
