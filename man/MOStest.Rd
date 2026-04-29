@@ -146,7 +146,7 @@ accompanying Oksanen et al. (2001). The Ecological Archive package
 \pkg{optgrad} also contains profile deviance method for the location
 of the hump or pit, but the current implementation of \code{profile}
 and \code{confint} rather follow the example of
-\code{\link[stats]{profile.glm}} and \code{\link[stats]{confint.glm}}.
+\code{\link[MASS]{profile.glm}} and \code{\link[MASS]{confint.glm}}.
 }
 
 \seealso{The no-interaction model can be fitted with \code{humpfit} in
