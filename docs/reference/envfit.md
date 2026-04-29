@@ -24,7 +24,9 @@ plot(x, choices = c(1,2), labels, arrow.mul, at = c(0,0),
    axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg,
    optimize = FALSE, cex = 1, add = TRUE, ...)
 # S3 method for class 'envfit'
-scores(x, display, choices, arrow.mul=1, tidy = FALSE, ...)
+scores(x, display, choices, arrow.mul=1, tidy = FALSE,...)
+# S3 method for class 'envfit'
+names(x) <- value
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
 factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 ```
@@ -95,10 +97,23 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 
   Change plotting labels. The argument should be a list with elements
   `vectors` and `factors` which give the new plotting labels. If either
-  of these elements is omitted, the default labels will be used. If
-  there is only one type of elements (only `vectors` or only `factors`),
-  the labels can be given as vector. The default labels can be displayed
-  with `labels` command.
+  of these elements is omitted or `NULL`, the default labels will be
+  used. If there is only one type of elements (only `vectors` or only
+  `factors`), the labels can be given as vector. The default labels can
+  be displayed with `labels` command. The argument changes names only in
+  the `plot` and the fitted object is unchanged; use `names` to change
+  the names in the object.
+
+- value:
+
+  Names of environmental variables used to replace the names in the
+  result object. This should be a list with items `factors` and
+  `vectors`, or it can be vector of names if only factors or vectors
+  were calculated. If either `factors` or `vectors` is omitted or
+  `NULL`, names will not be replaced for that item. The replacement
+  function `names` will permanently change the result object; use
+  argument `labels` in `plot` to change names in the graph and keep the
+  result object unchanged.
 
 - arrow.mul:
 
@@ -322,7 +337,6 @@ A better alternative to vectors may be
 
 ``` r
 data(varespec, varechem)
-library(MASS)
 ord <- metaMDS(varespec)
 #> Square root transformation
 #> Wisconsin double standardization
@@ -435,6 +449,30 @@ labels(fit)
 #> [1] "Moisture1" "Moisture2" "Moisture4" "Moisture5"
 #> 
 plot(ord)
-plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
+plot(fit, labels=list(factors = paste0("M", c(1,2,4,5))),
    bg = rgb(1,1,0,0.5))
+
+## change names permanently
+names(fit) <- list(factors = paste0("M", c(1,2,4,5)))
+fit
+#> 
+#> ***VECTORS
+#> 
+#>          CA1       CA2     r2
+#> A1 -0.998160 -0.060614 0.3104
+#> 
+#> ***FACTORS:
+#> 
+#> Centroids:
+#>        CA1     CA2
+#> M1  0.7484  0.1423
+#> M2  0.4652  0.2156
+#> M4 -0.1827  0.7315
+#> M5 -1.1143 -0.5708
+#> 
+#> Goodness of fit:
+#>              r2
+#> Moisture 0.4113
+#> 
+#> 
 ```

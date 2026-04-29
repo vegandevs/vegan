@@ -188,14 +188,13 @@ accompanying Oksanen et al. (2001). The Ecological Archive package
 optgrad also contains profile deviance method for the location of the
 hump or pit, but the current implementation of `profile` and `confint`
 rather follow the example of
-[`profile.glm`](https://rdrr.io/pkg/MASS/man/profile.glm.html) and
-[`confint.glm`](https://rdrr.io/pkg/MASS/man/confint.html) in the MASS
-package.
+[`profile.glm`](https://rdrr.io/r/stats/profile.glm.html) and
+[`confint.glm`](https://rdrr.io/r/stats/confint.html).
 
 ## See also
 
-The no-interaction model can be fitted with
-[`humpfit`](https://vegandevs.github.io/vegan/reference/vegan-defunct.md).
+The no-interaction model can be fitted with `humpfit` in the github
+package natto.
 
 ## Examples
 

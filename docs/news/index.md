@@ -40,6 +40,9 @@
   `plot.envfit` can optimize the location of text labels for factors and
   vectors (arrows).
 
+- `envfit` gained new support function `names` that can replace the
+  variable names in the result object.
+
 - `plot.radfit.frame` uses now base graphics instead of **lattice**.
 
 - `ordipointlabel` is faster. This was achieved using tighter bounding
@@ -139,6 +142,11 @@ CRAN release: 2026-03-04
   as `decostand`.
 
 ### Bug Fixes
+
+- `ordistep` and `ordiR2step` could not be embedded in other functions
+  due to scoping issues. See PR
+  [\#786](https://github.com/vegandevs/vegan/pull/786) and issue
+  [\#785](https://github.com/vegandevs/vegan/issues/785).
 
 - `decostand(..., method = "rclr")` and `optspace` lost row and column
   names of imputed matrix. Issue

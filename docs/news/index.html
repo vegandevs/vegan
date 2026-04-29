@@ -51,6 +51,7 @@
 <p><code>plot.envfit</code> can use criterion <code>r2.min</code> for lower threshold of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math> of displayed variables. Both <code>p.max</code> and <code>r2.min</code> must be satisfied for displayed items.</p>
 <p><code>plot.envfit</code> can optimize the location of text labels for factors and vectors (arrows).</p>
 </li>
+<li><p><code>envfit</code> gained new support function <code>names</code> that can replace the variable names in the result object.</p></li>
 <li><p><code>plot.radfit.frame</code> uses now base graphics instead of <strong>lattice</strong>.</p></li>
 <li>
 <p><code>ordipointlabel</code> is faster. This was achieved using tighter bounding box which reduced the number of potentially overlapping labels. The used bounding box is shown with argument <code>bg  = &lt;colour&gt;</code>. The function is also invoked from <code>plot</code> and <code>text</code> functions for ordination results with argument <code>optimize = TRUE</code>.</p>
@@ -87,7 +88,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-7-3">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-3"></a></h3>
-<ul><li>
+<ul><li><p><code>ordistep</code> and <code>ordiR2step</code> could not be embedded in other functions due to scoping issues. See PR <a href="https://github.com/vegandevs/vegan/pull/786" class="external-link">#786</a> and issue <a href="https://github.com/vegandevs/vegan/issues/785" class="external-link">#785</a>.</p></li>
+<li>
 <p><code>decostand(..., method = "rclr")</code> and <code>optspace</code> lost row and column names of imputed matrix. Issue <a href="https://github.com/vegandevs/vegan/issues/759" class="external-link">#759</a>.</p>
 <p>Back-transformation of <code>"rclr"</code> failed with <code>decobackstand</code>. Back-transformation cannot be done with imputed matrix, and without imputed matrix original zeros were returned as <code>NA</code>.</p>
 </li>

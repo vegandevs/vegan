@@ -150,6 +150,7 @@
   [`envfit(`*`<formula>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`plot(`*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`scores(`*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
+  [`` `names<-`( ``*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`vectorfit()`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`factorfit()`](https://vegandevs.github.io/vegan/reference/envfit.md)
   : Fits an Environmental Vector or Factor onto an Ordination
