@@ -1,4 +1,4 @@
-## Query labels
+## Query labels used in plotting
 
 `labels.envfit` <-
     function(object, ...)
@@ -10,24 +10,23 @@
     out
 }
 
-## Change labels
-## THIS WON'T WORK: labels<- IS NOT A GENERIC FUNCTION IN R
+## Change names of variables in the envfit result
 
-`labels<-.envfit` <-
-    function(object, value)
+`names<-.envfit` <-
+    function(x, value)
 {
     if (is.list(value)) { # list of vectors & factors
-        if(!is.null(object$vectors) && !is.null(value$vectors))
-            rownames(object$vectors$arrows) <- value$vectors
-        if (!is.null(object$factors) && !is.null(value$factors))
-            rownames(object$factors$centroids) <- value$factors
+        if(!is.null(x$vectors) && !is.null(value$vectors))
+            rownames(x$vectors$arrows) <- value$vectors
+        if (!is.null(x$factors) && !is.null(value$factors))
+            rownames(x$factors$centroids) <- value$factors
     } else {
-        if(!is.null(object$factors) && !is.null(object$vectors))
+        if(!is.null(x$factors) && !is.null(x$vectors))
             stop("needs a list with both 'vectors' and 'factors' labels")
-        if (!is.null(object$factors))
-            rownames(object$factors$centroids) <- value
+        if (!is.null(x$factors))
+            rownames(x$factors$centroids) <- value
         else
-            rownames(object$vectors$arrows) <- value
+            rownames(x$vectors$arrows) <- value
     }
-    object
+    x
 }
