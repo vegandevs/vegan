@@ -33,6 +33,7 @@ of keeping a local source code tree up-to-date, use the **remotes**
 package:
 
 ``` r
+
 install.packages("remotes")
 remotes::install_github("vegandevs/vegan")
 ```
@@ -44,6 +45,7 @@ you would from CRAN, you can install from our R Universe repository. Run
 the following in your R session:
 
 ``` r
+
 install.packages('vegan',
     repos = c('https://vegandevs.r-universe.dev','https://cloud.r-project.org'))
 ```

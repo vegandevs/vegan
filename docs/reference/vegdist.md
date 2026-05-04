@@ -84,38 +84,38 @@ in
 [`designdist`](https://vegandevs.github.io/vegan/reference/designdist.md)
 (many indices produce identical binary versions):
 
-|              |                                                                                                                                 |
-|--------------|---------------------------------------------------------------------------------------------------------------------------------|
-| `euclidean`  | \\d\_{jk} = \sqrt{\sum_i (x\_{ij}-x\_{ik})^2}\\                                                                                 |
-|              | binary: \\\sqrt{A+B-2J}\\                                                                                                       |
-| `manhattan`  | \\d\_{jk}=\sum_i \|x\_{ij}-x\_{ik}\|\\                                                                                          |
-|              | binary: \\A+B-2J\\                                                                                                              |
-| `gower`      | \\d\_{jk} = (1/M) \sum_i \frac{\|x\_{ij}-x\_{ik}\|}{\max x_i-\min x_i}\\                                                        |
-|              | binary: \\(A+B-2J)/M\\                                                                                                          |
-|              | where \\M\\ is the number of columns (excluding missing values)                                                                 |
-| `altGower`   | \\d\_{jk} = (1/NZ) \sum_i \|x\_{ij} - x\_{ik}\|\\                                                                               |
-|              | where \\NZ\\ is the number of non-zero columns excluding double-zeros (Anderson et al. 2006).                                   |
-|              | binary: \\\frac{A+B-2J}{A+B-J}\\                                                                                                |
-| `canberra`   | \\d\_{jk}=\frac{1}{NZ} \sum_i \frac{\|x\_{ij}-x\_{ik}\|}{\|x\_{ij}\|+\|x\_{ik}\|}\\                                             |
-|              | where \\NZ\\ is the number of non-zero entries.                                                                                 |
-|              | binary: \\\frac{A+B-2J}{A+B-J}\\                                                                                                |
-| `clark`      | \\d\_{jk}=\sqrt{\frac{1}{NZ} \sum_i (\frac{x\_{ij}-x\_{ik}}{x\_{ij}+x\_{ik}})^2}\\                                              |
-|              | where \\NZ\\ is the number of non-zero entries.                                                                                 |
-|              | binary: \\\frac{A+B-2J}{A+B-J}\\                                                                                                |
-| `bray`       | \\d\_{jk} = \frac{\sum_i \|x\_{ij}-x\_{ik}\|}{\sum_i (x\_{ij}+x\_{ik})}\\                                                       |
-|              | binary: \\\frac{A+B-2J}{A+B}\\                                                                                                  |
+|  |  |
+|----|----|
+| `euclidean` | \\d\_{jk} = \sqrt{\sum_i (x\_{ij}-x\_{ik})^2}\\ |
+|  | binary: \\\sqrt{A+B-2J}\\ |
+| `manhattan` | \\d\_{jk}=\sum_i \|x\_{ij}-x\_{ik}\|\\ |
+|  | binary: \\A+B-2J\\ |
+| `gower` | \\d\_{jk} = (1/M) \sum_i \frac{\|x\_{ij}-x\_{ik}\|}{\max x_i-\min x_i}\\ |
+|  | binary: \\(A+B-2J)/M\\ |
+|  | where \\M\\ is the number of columns (excluding missing values) |
+| `altGower` | \\d\_{jk} = (1/NZ) \sum_i \|x\_{ij} - x\_{ik}\|\\ |
+|  | where \\NZ\\ is the number of non-zero columns excluding double-zeros (Anderson et al. 2006). |
+|  | binary: \\\frac{A+B-2J}{A+B-J}\\ |
+| `canberra` | \\d\_{jk}=\frac{1}{NZ} \sum_i \frac{\|x\_{ij}-x\_{ik}\|}{\|x\_{ij}\|+\|x\_{ik}\|}\\ |
+|  | where \\NZ\\ is the number of non-zero entries. |
+|  | binary: \\\frac{A+B-2J}{A+B-J}\\ |
+| `clark` | \\d\_{jk}=\sqrt{\frac{1}{NZ} \sum_i (\frac{x\_{ij}-x\_{ik}}{x\_{ij}+x\_{ik}})^2}\\ |
+|  | where \\NZ\\ is the number of non-zero entries. |
+|  | binary: \\\frac{A+B-2J}{A+B-J}\\ |
+| `bray` | \\d\_{jk} = \frac{\sum_i \|x\_{ij}-x\_{ik}\|}{\sum_i (x\_{ij}+x\_{ik})}\\ |
+|  | binary: \\\frac{A+B-2J}{A+B}\\ |
 | `kulczynski` | \\d\_{jk} = 1-0.5(\frac{\sum_i \min(x\_{ij},x\_{ik})}{\sum_i x\_{ij}} + \frac{\sum_i \min(x\_{ij},x\_{ik})}{\sum_i x\_{ik}} )\\ |
-|              | binary: \\1-(J/A + J/B)/2\\                                                                                                     |
-| `morisita`   | \\d\_{jk} = 1 - \frac{2 \sum_i x\_{ij} x\_{ik}}{(\lambda_j + \lambda_k) \sum_i x\_{ij} \sum_i x\_{ik}}\\, where                 |
-|              | \\\lambda_j = \frac{\sum_i x\_{ij} (x\_{ij} - 1)}{\sum_i x\_{ij} \sum_i (x\_{ij} - 1)}\\                                        |
-|              | binary: cannot be calculated                                                                                                    |
-| `horn`       | Like `morisita`, but \\\lambda_j = \sum_i x\_{ij}^2/(\sum_i x\_{ij})^2\\                                                        |
-|              | binary: \\\frac{A+B-2J}{A+B}\\                                                                                                  |
-| `binomial`   | \\d\_{jk} = \sum_i \[x\_{ij} \log (\frac{x\_{ij}}{n_i}) + x\_{ik} \log (\frac{x\_{ik}}{n_i}) - n_i \log(\frac{1}{2})\]/n_i\\,   |
-|              | where \\n_i = x\_{ij} + x\_{ik}\\                                                                                               |
-|              | binary: \\\log(2) \times (A+B-2J)\\                                                                                             |
-| `cao`        | \\d\_{jk} = \frac{1}{S} \sum_i \log \left(\frac{n_i}{2}\right) - (x\_{ij} \log(x\_{ik}) + x\_{ik} \log(x\_{ij}))/n_i\\,         |
-|              | where \\S\\ is the number of species in compared sites and \\n_i = x\_{ij}+x\_{ik}\\                                            |
+|  | binary: \\1-(J/A + J/B)/2\\ |
+| `morisita` | \\d\_{jk} = 1 - \frac{2 \sum_i x\_{ij} x\_{ik}}{(\lambda_j + \lambda_k) \sum_i x\_{ij} \sum_i x\_{ik}}\\, where |
+|  | \\\lambda_j = \frac{\sum_i x\_{ij} (x\_{ij} - 1)}{\sum_i x\_{ij} \sum_i (x\_{ij} - 1)}\\ |
+|  | binary: cannot be calculated |
+| `horn` | Like `morisita`, but \\\lambda_j = \sum_i x\_{ij}^2/(\sum_i x\_{ij})^2\\ |
+|  | binary: \\\frac{A+B-2J}{A+B}\\ |
+| `binomial` | \\d\_{jk} = \sum_i \[x\_{ij} \log (\frac{x\_{ij}}{n_i}) + x\_{ik} \log (\frac{x\_{ik}}{n_i}) - n_i \log(\frac{1}{2})\]/n_i\\, |
+|  | where \\n_i = x\_{ij} + x\_{ik}\\ |
+|  | binary: \\\log(2) \times (A+B-2J)\\ |
+| `cao` | \\d\_{jk} = \frac{1}{S} \sum_i \log \left(\frac{n_i}{2}\right) - (x\_{ij} \log(x\_{ik}) + x\_{ik} \log(x\_{ij}))/n_i\\, |
+|  | where \\S\\ is the number of species in compared sites and \\n_i = x\_{ij}+x\_{ik}\\ |
 
 Jaccard index is computed as \\2B/(1+B)\\, where \\B\\ is Bray–Curtis
 dissimilarity.

@@ -134,6 +134,7 @@ is something very similar from another bubble.
 ## Examples
 
 ``` r
+
 ## There is no data set on species properties yet, and we demonstrate
 ## the methods using phylogenetic trees
 data(dune)

@@ -97,6 +97,7 @@ reveals microbial perturbations. *mSystems* **4**, 1.
 ## Examples
 
 ``` r
+
 data(varespec)
 # rclr transformation with no matrix completion for the 0/NA entries
 x <- decostand(varespec, method = "rclr", impute = FALSE)

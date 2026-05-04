@@ -233,19 +233,19 @@ help section “Results Could Not Be Repeated” and try harder.
 #### I get zero stress but no repeated solutions in `metaMDS`
 
 Most common reason is that you have too few observations for your NMDS.
-For $n$ observations (points) and $k$ dimensions you need to estimate
-$nk$ parameters (ordination scores) using $n(n - 1)/2$ dissimilarities.
-For $k$ dimensions you must have $n > 2k + 1$, or for two dimensions at
-least six points. In some degenerate situations you may need even a
-larger number of points. If you have a lower number of points, you can
-find an undefined number of perfect (stress is zero) but different
-solutions. Conventional wisdom due to Kruskal is that you should have
-$n > 4k + 1$ points for $k$ dimensions. A typical symptom of
-insufficient data is that you have (nearly) zero stress but no repeated
-solutions. In those cases you should reduce the number of dimensions
-($k$) and with very small data sets you should not use `NMDS`, but rely
-on metric methods (`pco` and `wcmdscale` in **vegan**, `cmdscale` in
-base **R**).
+For $`n`$ observations (points) and $`k`$ dimensions you need to
+estimate $`nk`$ parameters (ordination scores) using $`n(n-1)/2`$
+dissimilarities. For $`k`$ dimensions you must have $`n > 2k + 1`$, or
+for two dimensions at least six points. In some degenerate situations
+you may need even a larger number of points. If you have a lower number
+of points, you can find an undefined number of perfect (stress is zero)
+but different solutions. Conventional wisdom due to Kruskal is that you
+should have $`n > 4k + 1`$ points for $`k`$ dimensions. A typical
+symptom of insufficient data is that you have (nearly) zero stress but
+no repeated solutions. In those cases you should reduce the number of
+dimensions ($`k`$) and with very small data sets you should not use
+`NMDS`, but rely on metric methods (`pco` and `wcmdscale` in **vegan**,
+`cmdscale` in base **R**).
 
 ------------------------------------------------------------------------
 

@@ -87,18 +87,18 @@ Most popular dissimilarity measures in ecology can be expressed with the
 help of terms `J`, `A` and `B`, and some also involve matrix dimensions
 `N` and `P`. Some examples you can define in `designdist` are:
 
-|                            |               |                                                                                              |
-|----------------------------|---------------|----------------------------------------------------------------------------------------------|
-| `A+B-2*J`                  | `"quadratic"` | squared Euclidean                                                                            |
-| `A+B-2*J`                  | `"minimum"`   | Manhattan                                                                                    |
-| `(A+B-2*J)/(A+B)`          | `"minimum"`   | Bray-Curtis                                                                                  |
-| `(A+B-2*J)/(A+B)`          | `"binary"`    | Sørensen                                                                                     |
-| `(A+B-2*J)/(A+B-J)`        | `"binary"`    | Jaccard                                                                                      |
-| `(A+B-2*J)/(A+B-J)`        | `"minimum"`   | Ružička                                                                                      |
-| `(A+B-2*J)/(A+B-J)`        | `"quadratic"` | (dis)similarity ratio                                                                        |
-| `1-J/sqrt(A*B)`            | `"binary"`    | Ochiai                                                                                       |
-| `1-J/sqrt(A*B)`            | `"quadratic"` | cosine complement                                                                            |
-| `1-phyper(J-1, A, P-A, B)` | `"binary"`    | Raup-Crick (but see [`raupcrick`](https://vegandevs.github.io/vegan/reference/raupcrick.md)) |
+|  |  |  |
+|----|----|----|
+| `A+B-2*J` | `"quadratic"` | squared Euclidean |
+| `A+B-2*J` | `"minimum"` | Manhattan |
+| `(A+B-2*J)/(A+B)` | `"minimum"` | Bray-Curtis |
+| `(A+B-2*J)/(A+B)` | `"binary"` | Sørensen |
+| `(A+B-2*J)/(A+B-J)` | `"binary"` | Jaccard |
+| `(A+B-2*J)/(A+B-J)` | `"minimum"` | Ružička |
+| `(A+B-2*J)/(A+B-J)` | `"quadratic"` | (dis)similarity ratio |
+| `1-J/sqrt(A*B)` | `"binary"` | Ochiai |
+| `1-J/sqrt(A*B)` | `"quadratic"` | cosine complement |
+| `1-phyper(J-1, A, P-A, B)` | `"binary"` | Raup-Crick (but see [`raupcrick`](https://vegandevs.github.io/vegan/reference/raupcrick.md)) |
 
 The function `designdist` can implement most dissimilarity indices in
 [`vegdist`](https://vegandevs.github.io/vegan/reference/vegdist.md) or

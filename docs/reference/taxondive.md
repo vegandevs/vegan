@@ -60,9 +60,9 @@ Clarke & Warwick (1998, 2001) suggested several alternative indices of
 taxonomic diversity or distinctness. Two basic indices are called
 taxonomic diversity (\\\Delta\\) and distinctness (\\\Delta^\*\\):
 
-|                                                                                       |
-|---------------------------------------------------------------------------------------|
-| \\\Delta = (\sum \sum\_{i\<j} \omega\_{ij} x_i x_j)/(n (n-1) / 2)\\                   |
+|  |
+|----|
+| \\\Delta = (\sum \sum\_{i\<j} \omega\_{ij} x_i x_j)/(n (n-1) / 2)\\ |
 | \\\Delta^\* = (\sum \sum\_{i\<j} \omega\_{ij} x_i x_j)/(\sum \sum\_{i\<j} x_i x_j) \\ |
 
 The equations give the index value for a single site, and summation goes
@@ -75,8 +75,8 @@ presented two new indices: \\s\Delta^+\\ is the product of species
 richness and \\\Delta^+\\, and index of variation in taxonomic
 distinctness (\\\Lambda^+\\) defined as
 
-|                                                                                 |
-|---------------------------------------------------------------------------------|
+|  |
+|----|
 | \\\Lambda^+ = (\sum \sum\_{i\<j} \omega\_{ij}^2)/(n (n-1) / 2) - (\Delta^+)^2\\ |
 
 The `dis` argument must be species dissimilarities. These must be

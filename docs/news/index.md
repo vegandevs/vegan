@@ -34,7 +34,7 @@
   partial models as in `dbrda`.
 
 - `plot.envfit` can use criterion `r2.min` for lower threshold of
-  $R^{2}$ of displayed variables. Both `p.max` and `r2.min` must be
+  $`R^2`$ of displayed variables. Both `p.max` and `r2.min` must be
   satisfied for displayed items.
 
   `plot.envfit` can optimize the location of text labels for factors and

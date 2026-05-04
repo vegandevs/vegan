@@ -114,7 +114,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-7-2">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-2"></a></h3>
-<ul><li><p><code>anova</code> and <code>permutest</code> with arguments <code>by = "terms"</code> or <code>by =   "onedf"</code> was wrong in partial CCA. There were no problems in normal CCA without the <code>Condition</code> term, other [partial] constrained ordination methods, or with other <code>by</code> arguments. The bug was introduced in <strong>vegan</strong> release 2.6-6.</p></li>
+<ul><li><p><code>anova</code> and <code>permutest</code> with arguments <code>by = "terms"</code> or <code>by = "onedf"</code> was wrong in partial CCA. There were no problems in normal CCA without the <code>Condition</code> term, other [partial] constrained ordination methods, or with other <code>by</code> arguments. The bug was introduced in <strong>vegan</strong> release 2.6-6.</p></li>
 <li><p><code>summary</code> for <code>mantel</code>, <code>mrpp</code>, <code>oecosimu</code>, and <code>ordiareatest</code> did not pass dot arguments (<code>...</code>) to the underlying <code>summary.permustats</code>. These arguments allow changing sidedness or the critical <em>P</em>-value of the summary.</p></li>
 <li><p><code>decostand</code> standardization <code>"rrank"</code> failed with <code>na.rm = FALSE</code>. Bug report <a href="https://github.com/vegandevs/vegan/issues/753" class="external-link">#753</a>.</p></li>
 <li><p><code>ordilabel</code> and <code>ordipointlabel</code> froze the graphical device if the function stopped with an error.</p></li>
@@ -208,7 +208,7 @@
 <li><p><code>cca</code> and <code>rda</code> return centroids for factor levels even when they are called without formula, for instance, as <code>cca(dune, dune.env)</code>.</p></li>
 <li><p><code>plot.cca</code> retains default graphical settings also when only one set of scores was displayed.</p></li>
 <li><p><code>ordiplot</code> did not pass character size (<code>cex</code>) to <code>plot.cca</code>. Version 2.7-0 has more extensive changes, but this fixes the immediate issue <a href="https://github.com/vegandevs/vegan/issues/656" class="external-link">#656</a>.</p></li>
-<li><p><code><a href="../reference/adonis.html">adonis2()</a></code> now defaults to running an omnibus test of the model (<code>by = NULL</code>) instead of a sequential test of model terms (<code>by =   "terms"</code>). This makes <code><a href="../reference/adonis.html">adonis2()</a></code> more consistent with the default for related ordination methods. See <a href="https://github.com/vegandevs/vegan/issues/677" class="external-link">#677</a>.</p></li>
+<li><p><code><a href="../reference/adonis.html">adonis2()</a></code> now defaults to running an omnibus test of the model (<code>by = NULL</code>) instead of a sequential test of model terms (<code>by = "terms"</code>). This makes <code><a href="../reference/adonis.html">adonis2()</a></code> more consistent with the default for related ordination methods. See <a href="https://github.com/vegandevs/vegan/issues/677" class="external-link">#677</a>.</p></li>
 <li><p><code>decorana</code> checks now that input data are numeric instead of confusing error message (see <a href="https://stackoverflow.com/questions/78666646/" class="external-link uri">https://stackoverflow.com/questions/78666646/</a>).</p></li>
 <li><p><code>make.cepnames</code> no longer splits names by hyphen: <em>Capsella bursa-pastoris</em> used to be <code>Capspast</code> but now is <code>Capsburs</code>.</p></li>
 </ul></div>
@@ -363,7 +363,7 @@
 <h3 id="bug-fixes-2-5-7">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-5-7"></a></h3>
 <ul><li><p>Several distance-based functions failed if all distances were zero (<code>betadisper</code>, <code>capscale</code>, <code>isomap</code>, <code>monoMDS</code>, <code>pcnm</code>, <code>wcmdscale</code>). Reported in github issue <a href="https://github.com/vegandevs/vegan/issues/372" class="external-link">#372</a>.</p></li>
 <li><p>Non-linear self-starting regression models <code>SSarrhenius</code>, <code>SSgitay</code>, <code>SSgleason</code> and <code>SSlomolino</code> failed in future <strong>R</strong>. The failure was caused by internal changes in <strong>R</strong>-devel. Github issue <a href="https://github.com/vegandevs/vegan/issues/382" class="external-link">#382</a>.</p></li>
-<li><p>Arrow labels were in wrong position in <code>plot.envfit(..., add =   FALSE)</code>.</p></li>
+<li><p>Arrow labels were in wrong position in <code>plot.envfit(..., add = FALSE)</code>.</p></li>
 <li><p><code>rarecurve</code> added unnecessary names to the results. Github issue <a href="https://github.com/vegandevs/vegan/issues/352" class="external-link">#352</a>.</p></li>
 <li><p><code>permutest</code> for <code>betadisper</code> failed in parallel processing in Windows and in other systems when socket clusters were used. Github issue <a href="https://github.com/vegandevs/vegan/issues/369" class="external-link">#369</a>.</p></li>
 </ul></div>
@@ -778,7 +778,7 @@
 <h3 id="bug-fixes-2-3-2">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-3-2"></a></h3>
 <ul><li><p>Printing details of a gridded permutation design would fail when the grid was at the within-plot level.</p></li>
 <li><p><code>ordicluster</code> joined the branches at wrong coordinates in some cases.</p></li>
-<li><p><code>ordiellipse</code> ignored weights when calculating standard errors (<code>kind   = "se"</code>). This influenced plots of <code>cca</code>, and also influenced <code>ordiareatest</code>.</p></li>
+<li><p><code>ordiellipse</code> ignored weights when calculating standard errors (<code>kind = "se"</code>). This influenced plots of <code>cca</code>, and also influenced <code>ordiareatest</code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-3-2">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-3-2"></a></h3>
@@ -821,7 +821,7 @@
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-and-functions-2-3-0">New Features and Functions<a class="anchor" aria-label="anchor" href="#new-features-and-functions-2-3-0"></a></h3>
-<ul><li><p><code>goodness</code> function for constrained ordination (<code>cca</code>, <code>rda</code>, <code>capscale</code>) was redesigned. Function gained argument <code>addprevious</code> to add the variation explained by previous ordination components to axes when <code>statistic = "explained"</code>. With this option, <code>model = "CCA"</code> will include the variation explained by partialled-out conditions, and <code>model = "CA"</code> will include the accumulated variation explained by conditions and constraints. The former behaviour was <code>addprevious =   TRUE</code> for <code>model = "CCA"</code>, and <code>addprevious = FALSE</code> for <code>model =   "CA"</code>. The argument will have no effect when <code>statistic = "distance"</code>, but this will always show the residual distance after all previous components. Formerly it displayed the residual distance only for the currently analysed model.</p></li>
+<ul><li><p><code>goodness</code> function for constrained ordination (<code>cca</code>, <code>rda</code>, <code>capscale</code>) was redesigned. Function gained argument <code>addprevious</code> to add the variation explained by previous ordination components to axes when <code>statistic = "explained"</code>. With this option, <code>model = "CCA"</code> will include the variation explained by partialled-out conditions, and <code>model = "CA"</code> will include the accumulated variation explained by conditions and constraints. The former behaviour was <code>addprevious = TRUE</code> for <code>model = "CCA"</code>, and <code>addprevious = FALSE</code> for <code>model = "CA"</code>. The argument will have no effect when <code>statistic = "distance"</code>, but this will always show the residual distance after all previous components. Formerly it displayed the residual distance only for the currently analysed model.</p></li>
 <li><p>Functions <code>ordiArrowMul</code> and <code>ordiArrowTextXY</code> are exported and can be used in normal interactive sessions. These functions are used to scale a bunch arrows to fit ordination graphics, and formerly they were internal functions used within other vegan functions.</p></li>
 <li><p><code>orditkplot</code> can export graphics in SVG format. SVG is a vector graphics format which can be edited with several external programs, such as Illustrator and Inkscape.</p></li>
 <li>
@@ -1027,7 +1027,7 @@
 <h2 class="pkg-version" data-toc-text="2.0-5" id="vegan-20-5">vegan 2.0-5<a class="anchor" aria-label="anchor" href="#vegan-20-5"></a></h2><p class="text-muted">CRAN release: 2012-10-08</p>
 <div class="section level3">
 <h3 id="bug-fixes-2-0-5">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-5"></a></h3>
-<ul><li><p><code>anova(&lt;cca_object&gt;, ...)</code> failed with <code>by = "axis"</code> and <code>by =   "term"</code>. The bug was reported by Dr Sven Neulinger (Christian Albrecht University, Kiel, Germany).</p></li>
+<ul><li><p><code>anova(&lt;cca_object&gt;, ...)</code> failed with <code>by = "axis"</code> and <code>by = "term"</code>. The bug was reported by Dr Sven Neulinger (Christian Albrecht University, Kiel, Germany).</p></li>
 <li><p><code>radlattice</code> did not honour argument <code>BIC = TRUE</code>, but always displayed AIC.</p></li>
 </ul></div>
 <div class="section level3">
@@ -1055,11 +1055,11 @@
 <h2 class="pkg-version" data-toc-text="2.0-4" id="vegan-20-4">vegan 2.0-4<a class="anchor" aria-label="anchor" href="#vegan-20-4"></a></h2><p class="text-muted">CRAN release: 2012-06-19</p>
 <div class="section level3">
 <h3 id="bug-fixes-2-0-4">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-4"></a></h3>
-<ul><li><p><code>adipart</code> assumed constant gamma diversity in simulations when assessing the <code>P</code>-value. This could give biased results if the null model produces variable gamma diversities and option <code>weights =   "prop"</code> is used. The default null model (<code>"r2dtable"</code>) and the default option (<code>weights = "unif"</code>) were analysed correctly.</p></li>
+<ul><li><p><code>adipart</code> assumed constant gamma diversity in simulations when assessing the <code>P</code>-value. This could give biased results if the null model produces variable gamma diversities and option <code>weights = "prop"</code> is used. The default null model (<code>"r2dtable"</code>) and the default option (<code>weights = "unif"</code>) were analysed correctly.</p></li>
 <li><p><code>anova(&lt;prc-object&gt;, by = "axis")</code> and other <code>by</code> cases failed due to ‘NAMESPACE’ issues.</p></li>
 <li><p><code>clamtest</code> wrongly used frequencies instead of the counts when calculating sample coverage. No detectable differences were produced when rerunning examples from Chazdon et al. 2011 and vegan help page.</p></li>
 <li><p><code>envfit</code> failed with unused factor levels.</p></li>
-<li><p><code>predict</code> for <code>cca</code> results with <code>type = "response"</code> or <code>type =   "working"</code> failed with <code>newdata</code> if the number of rows did not match with the original data. Now the <code>newdata</code> is ignored if it has a wrong number of rows. The number of rows must match because the results in <code>cca</code> must be weighted by original row totals. The problem did not concern <code>rda</code> or <code>capscale</code> results which do not need row weights. Reported by Glenn De’ath.</p></li>
+<li><p><code>predict</code> for <code>cca</code> results with <code>type = "response"</code> or <code>type = "working"</code> failed with <code>newdata</code> if the number of rows did not match with the original data. Now the <code>newdata</code> is ignored if it has a wrong number of rows. The number of rows must match because the results in <code>cca</code> must be weighted by original row totals. The problem did not concern <code>rda</code> or <code>capscale</code> results which do not need row weights. Reported by Glenn De’ath.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-0-4">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-0-4"></a></h3>
@@ -1096,10 +1096,10 @@
 </ul></div>
 <div class="section level3">
 <h3 id="new-features-2-0-3">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-0-3"></a></h3>
-<ul><li><p><code>metaMDS</code> argument <code>noshare = 0</code> is now regarded as a numeric threshold that always triggers extended dissimilarities (<code>stepacross</code>), instead of being treated as synonymous with <code>noshare =   FALSE</code> which always suppresses extended dissimilarities.</p></li>
+<ul><li><p><code>metaMDS</code> argument <code>noshare = 0</code> is now regarded as a numeric threshold that always triggers extended dissimilarities (<code>stepacross</code>), instead of being treated as synonymous with <code>noshare = FALSE</code> which always suppresses extended dissimilarities.</p></li>
 <li><p>Nestedness discrepancy index <code>nesteddisc</code> gained a new argument that allows user to set the number of iterations in optimizing the index.</p></li>
 <li><p><code>oecosimu</code> displays the mean of simulations and describes alternative hypothesis more clearly in the printed output.</p></li>
-<li><p>Implemented adjusted <em>R</em><sup>2</sup> for partial RDA. For partial model <code>rda(Y ~   X1 + Condition(X2))</code> this is the same as the component <code>[a] = X1|X2</code> in variance partition in <code>varpart</code> and describes the marginal (unique) effect of constraining term to adjusted <em>R</em><sup>2</sup>.</p></li>
+<li><p>Implemented adjusted <em>R</em><sup>2</sup> for partial RDA. For partial model <code>rda(Y ~ X1 + Condition(X2))</code> this is the same as the component <code>[a] = X1|X2</code> in variance partition in <code>varpart</code> and describes the marginal (unique) effect of constraining term to adjusted <em>R</em><sup>2</sup>.</p></li>
 <li><p>Added Cao dissimilarity (CYd) as a new dissimilarity method in <code>vegdist</code> following Cao et al., <em>Water Envir Res</em> 69, 95–106 (1997). The index should be good for data with high beta diversity and variable sampling intensity. Thanks to consultation to Yong Cao (Univ Illinois, USA).</p></li>
 </ul></div>
 </div>
@@ -1107,8 +1107,8 @@
 <h2 class="pkg-version" data-toc-text="2.0-2" id="vegan-20-2">vegan 2.0-2<a class="anchor" aria-label="anchor" href="#vegan-20-2"></a></h2><p class="text-muted">CRAN release: 2011-11-15</p>
 <div class="section level3">
 <h3 id="bug-fixes-2-0-2">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-2"></a></h3>
-<ul><li><p>Function <code>capscale</code> failed if constrained component had zero rank. This happened most likely in partial models when the conditions aliased constraints. The problem was observed in <code>anova(..., by   ="margin")</code> which uses partial models to analyses the marginal effects, and was reported in an email message to <a href="https://stat.ethz.ch/pipermail/r-help/2011-October/293077.html" class="external-link">R-News mailing list</a>.</p></li>
-<li><p><code>stressplot</code> and <code>goodness</code> sometimes failed when <code>metaMDS</code> was based on <code>isoMDS</code> (MASS package) because <code>metaMDSdist</code> did not use the same defaults for step-across (extended) dissimilarities as <code>metaMDS(...,   engine = "isoMDS")</code>. The change of defaults can also influence triggering of step-across in <code>capscale(..., metaMDSdist = TRUE)</code>.</p></li>
+<ul><li><p>Function <code>capscale</code> failed if constrained component had zero rank. This happened most likely in partial models when the conditions aliased constraints. The problem was observed in <code>anova(..., by ="margin")</code> which uses partial models to analyses the marginal effects, and was reported in an email message to <a href="https://stat.ethz.ch/pipermail/r-help/2011-October/293077.html" class="external-link">R-News mailing list</a>.</p></li>
+<li><p><code>stressplot</code> and <code>goodness</code> sometimes failed when <code>metaMDS</code> was based on <code>isoMDS</code> (MASS package) because <code>metaMDSdist</code> did not use the same defaults for step-across (extended) dissimilarities as <code>metaMDS(..., engine = "isoMDS")</code>. The change of defaults can also influence triggering of step-across in <code>capscale(..., metaMDSdist = TRUE)</code>.</p></li>
 <li><p><code>adonis</code> contained a minor bug resulting from incomplete implementation of a speed-up that did not affect the results. In fixing this bug, a further bug was identified in transposing the hat matrices. This second bug was only active following fixing of the first bug. In fixing both bugs, a speed-up in the internal f.test() function is fully realised. Reported by Nicholas Lewin-Koh.</p></li>
 </ul></div>
 <div class="section level3">

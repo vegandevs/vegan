@@ -90,13 +90,13 @@ occurring only in one or only in two sites in the collection, \\p_i\\ is
 the frequency of species \\i\\, and \\N\\ is the number of sites in the
 collection. The variants of extrapolated richness in `specpool` are:
 
-|                        |                                                                    |
-|------------------------|--------------------------------------------------------------------|
-| Chao                   | \\S_P = S_0 + \frac{a_1^2}{2 a_2}\frac{N-1}{N}\\                   |
-| Chao bias-corrected    | \\S_P = S_0 + \frac{a_1(a_1-1)}{2(a_2+1)} \frac{N-1}{N}\\          |
-| First order jackknife  | \\S_P = S_0 + a_1 \frac{N-1}{N}\\                                  |
+|  |  |
+|----|----|
+| Chao | \\S_P = S_0 + \frac{a_1^2}{2 a_2}\frac{N-1}{N}\\ |
+| Chao bias-corrected | \\S_P = S_0 + \frac{a_1(a_1-1)}{2(a_2+1)} \frac{N-1}{N}\\ |
+| First order jackknife | \\S_P = S_0 + a_1 \frac{N-1}{N}\\ |
 | Second order jackknife | \\S_P = S_0 + a_1 \frac{2N - 3}{N} - a_2 \frac{(N-2)^2}{N (N-1)}\\ |
-| Bootstrap              | \\S_P = S_0 + \sum\_{i=1}^{S_0} (1 - p_i)^N\\                      |
+| Bootstrap | \\S_P = S_0 + \sum\_{i=1}^{S_0} (1 - p_i)^N\\ |
 
 `specpool` normally uses basic Chao equation, but when there are no
 doubletons (\\a2=0\\) it switches to bias-corrected version. In that
@@ -112,11 +112,11 @@ the bias corrected one above, but \\a_i\\ refers to the number of
 species with abundance \\i\\ instead of number of sites, and the
 small-sample correction is not used. The ACE estimate is defined as:
 
-|       |                                                                                                                                  |
-|-------|----------------------------------------------------------------------------------------------------------------------------------|
-| ACE   | \\S_P = S\_{abund} + \frac{S\_{rare}}{C\_{ace}}+ \frac{a_1}{C\_{ace}} \gamma^2\_{ace}\\                                          |
-| where | \\C\_{ace} = 1 - \frac{a_1}{N\_{rare}}\\                                                                                         |
-|       | \\\gamma^2\_{ace} = \max \left\[ \frac{S\_{rare} \sum\_{i=1}^{10} i(i-1)a_i}{C\_{ace} N\_{rare} (N\_{rare} - 1)}-1, 0 \right\]\\ |
+|  |  |
+|----|----|
+| ACE | \\S_P = S\_{abund} + \frac{S\_{rare}}{C\_{ace}}+ \frac{a_1}{C\_{ace}} \gamma^2\_{ace}\\ |
+| where | \\C\_{ace} = 1 - \frac{a_1}{N\_{rare}}\\ |
+|  | \\\gamma^2\_{ace} = \max \left\[ \frac{S\_{rare} \sum\_{i=1}^{10} i(i-1)a_i}{C\_{ace} N\_{rare} (N\_{rare} - 1)}-1, 0 \right\]\\ |
 
 Here \\a_i\\ refers to number of species with abundance \\i\\ and
 \\S\_{rare}\\ is the number of rare species, \\S\_{abund}\\ is the

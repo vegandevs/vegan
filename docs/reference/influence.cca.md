@@ -160,6 +160,7 @@ Jari Oksanen
 ## Examples
 
 ``` r
+
 data(varespec, varechem)
 mod <- cca(varespec ~ Al + P + K, varechem)
 ## leverage
