@@ -49,10 +49,12 @@
                 }
             }
             if (type != "none") {
-                ow <- options(warn = -1)
-                arrows(tails[, 1], tails[, 2], heads[, 1], heads[, 2],
+                ## R warns on arrows shorter than 1/1000 inches
+                keep <- sqrt(rowSums(heads-tails)^2) >
+                    diff(par("usr")[1:2])/par("pin")/1000
+                arrows(tails[keep, 1], tails[keep, 2],
+                       heads[keep, 1], heads[keep, 2],
                        col = ar.col, length = length, ...)
-                options(ow)
                 if (type == "text" && !is.null(rownames(tails)))
                     ordilabel(tails, cex = cex, ...)
                 else

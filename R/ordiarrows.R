@@ -31,8 +31,11 @@
         gr <- out[groups == is]
         if (length(gr) > 1) {
             X <- pts[gr, , drop = FALSE]
-            ## zero length arrows will give warning and miss arrowhead
-            nonzeroarrow <- rowSums(diff(X)^2) > 100*sqrt(.Machine$double.eps)
+            ## zero length arrows will give warning and miss
+            ## arrowhead; R uses 1/1000 inch in device as the limit of
+            ## zero-length (see ?arrows).
+            nonzeroarrow <- sqrt(rowSums(diff(X)^2)) >
+                diff(par("usr")[1:2])/par("pin")[1]/1000
             if (!all(nonzeroarrow))
                 X <- X[c(TRUE, nonzeroarrow),, drop=FALSE]
             if (nrow(X) < 2)

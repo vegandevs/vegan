@@ -11,7 +11,10 @@
     }
     if (type == "segments")
         ordiArgAbsorber(X[,1], X[,2], Y[,1], Y[,2], FUN = segments, ...)
-    else
-        ordiArgAbsorber(X[,1], X[,2], Y[,1], Y[,2], FUN = arrows, ...)
+    else {
+        k <- sqrt(rowSums(X-Y)^2) >
+            diff(par("usr")[1:2])/par("pin")[1]/1000
+        ordiArgAbsorber(X[k,1], X[k,2], Y[k,1], Y[k,2], FUN = arrows, ...)
+    }
     invisible()
 }
