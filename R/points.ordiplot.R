@@ -16,9 +16,13 @@
             sco <- sco * ordiArrowMul(sco)
         }
     }
-    ## draw arrows when requested, also for "species" etc
+    ## draw arrows when requested, also for "species" etc. R warns
+    ## loudly on (almost) zero-length arrows shorter than 1/1000
+    ## inches: do not draw them.
     if (arrows) {
-        arrows(0, 0, sco[,1], sco[,2], length = length, ...)
+        seeit <- diff(par("usr")[1:2])/par("pin")[1]/1000
+        zeroarr <- sqrt(rowSums(sco^2)) < seeit
+        arrows(0, 0, sco[!zeroarr,1], sco[!zeroarr,2], length = length, ...)
     } else {
         points(sco, ...)
     }
