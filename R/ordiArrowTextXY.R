@@ -45,6 +45,8 @@
 
     ## slope of arrows
     b <- (X[,2] - at[2]) / (X[,1] - at[1])
+    ## NaN for 0-arrows: b <- 0/0
+    b[!is.finite(b)] <- 1
 
     ## offset based on string dimensions
     off <- cbind(sign(X[,1] - at[1]) * (w/2 + h/4),
