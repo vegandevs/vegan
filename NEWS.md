@@ -6,7 +6,7 @@
   internally opened socket clusters after error in functions. Pull
   request [#772](https://github.com/vegandevs/vegan/issues/772).
 
-* `ordipointlabel` gained argument `points`. Setting `optimize=FALSE`
+* `ordipointlabel` gained argument `points`. Setting `points=FALSE`
   suppresses drawing points which is useful if there already are
   points (or arrow heads) in the graph.
 
@@ -32,9 +32,11 @@
 * `cascadeKM` failed in parallel processing on Windows. Issue
   [#771](https://github.com/vegandevs/vegan/issues/771).
 
-* `plot.envfit` draw arrows wrongly if when making a new plot _and_
+* `plot.envfit` draw arrows wrongly when making a new plot _and_
   moving the bunch of arrows from the origin (_i.e._ with arguments
-  `add=FALSE` with `at != c(0,0)`).
+  `add=FALSE` and `at != c(0,0)` together).
+
+* Text labels were dropped from zero-length arrows.
 
 # vegan 2.7-3
 
