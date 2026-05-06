@@ -38,6 +38,12 @@
 
 * Text labels were dropped from zero-length arrows.
 
+## Deprecated and Resurrected
+
+* `plot.renyi` was prematurely deprecated in release 2.7-3: it was not
+  included in the **ggvegan** release. Now it is resurrected as a
+  supported function.
+
 # vegan 2.7-3
 
 ## New Features

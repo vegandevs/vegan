@@ -10,7 +10,6 @@
 \alias{ordilattice.getEnvfit}
 \alias{plot.poolaccum}
 \alias{plot.renyiaccum}
-\alias{plot.renyi}
 \alias{densityplot.permustats}
 \alias{qqmath.permustats}
 \alias{permulattice}
@@ -33,7 +32,6 @@ ordixyplot(x, data = NULL, formula, display = "sites", choices = 1:3,
     panel = "panel.ordi", aspect = "iso", envfit,
     type = c("p", "biplot"), ...)
 \method{plot}{poolaccum}(x, alpha = 0.05, type = c("l","g"), ...)
-\method{plot}{renyi}(x, ...)
 \method{plot}{renyiaccum}(x, what = c("Collector", "mean", "Qnt 0.025",
     "Qnt 0.975"),
      type = "l", ...)
@@ -123,8 +121,8 @@ permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
       have something similar, write your own code.
     \item \code{ordixyplot}: use \code{autoplot} or \code{ordiggplot}
       functions in \pkg{ggvegan}.
-    \item \code{plot} functions for \code{\link{poolaccum}},
-      \code{\link{renyi}} and \code{\link{renyiaccum}}: use \code{autoplot}
+    \item \code{plot} functions for \code{\link{poolaccum}}, and
+      \code{\link{renyiaccum}}: use \code{autoplot} or \code{fortify}
       in \pkg{ggvegan}.
     \item \code{permulattice}: use \code{autoplot} in \pkg{ggvegan}.
     \item \code{ordiresids} is not very useful, but you can directly

@@ -2,6 +2,7 @@
 \name{renyi}
 \alias{renyi}
 \alias{renyiaccum}
+\alias{plot.renyi}
 \alias{persp.renyiaccum}
 
 \title{Renyi and Hill Diversities and Corresponding Accumulation Curves }
@@ -15,6 +16,7 @@ renyi(x, scales = c(0, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, Inf),
    hill = FALSE)
 renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
     raw = FALSE, collector = FALSE, subset, ...)
+\method{plot}{renyi}(x, ...)
 \method{persp}{renyiaccum}(x, theta = 220, col = heat.colors(100), zlim, ...)
 }
 
@@ -66,10 +68,10 @@ renyiaccum(x, scales = c(0, 0.5, 1, 2, 4, Inf), permutations = 100,
   method to plot the diversity surface against scale and number and
   sites.
 
-  \code{plot} methods for \code{renyi} and \code{renyiaccum} are
-  provided by the \CRANpkg{ggvegan} (\code{autoplot}
-  functions). \CRANpkg{vegan3d} can make dynamics graphics with
-  \code{rgl.renyiaccum}. 
+  \code{plot} methods for\code{renyiaccum} are provided by the
+  \CRANpkg{ggvegan} (\code{fortify} function with an Example to design a
+  graph). \CRANpkg{vegan3d} can make dynamics graphics with
+  \code{rgl.renyiaccum}.
 
 }
 \value{
