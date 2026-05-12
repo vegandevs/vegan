@@ -146,10 +146,8 @@
             w[weighted] <- rw
         if (any(weighted <- group == "species"))
             w[weighted] <- cw
-        sol <- as.data.frame(sol)
-        sol$score <- as.factor(group)
-        sol$label <- label
-        sol$weight <- w
+        sol <- data.frame("score" = factor(group, levels = unique(group)),
+                          label, sol, "weight" = w, row.names = NULL)
     }
     ## return NULL instead of list(), and matrix instead of a list of
     ## one matrix
