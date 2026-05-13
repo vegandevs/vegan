@@ -1,9 +1,12 @@
 `scores.envfit` <-
-    function (x, display, choices, arrow.mul = 1, tidy = FALSE, ...)
+    function (x, display = c("vectors", "factors"), choices,
+              arrow.mul = 1, tidy = FALSE, ...)
 {
     display <- match.arg(display,
                          c("vectors", "bp", "factors", "cn"),
                          several.ok = TRUE)
+    if (tidy)
+        display <- c("vectors", "factors")
     out <- list()
     if (any(display %in% c("vectors", "bp"))) {
         vects <- x$vectors$arrows[, , drop = FALSE]
@@ -25,11 +28,20 @@
         group <- rep(names(group), group)
         out <- do.call(rbind, out)
         label <- rownames(out)
-        out <- as.data.frame(out)
-        out$score <- group
-        out$label <- label
+        ## out <- data.frame("score" = factor(group), label=label,
+        ##                  out, row.names = NULL)
+
+        ## Command above would be compatible with ordination fortify,
+        ## but current ggvegan::fortify.envfit is inconsistent
+        out <- data.frame(label,
+                          type = factor(group, levels = c("factors", "vectors"),
+                                        labels = c("Centroid", "Vector")),
+                          out, row.names = NULL)
     }
-    ## only two kind of scores: return NULL, matrix or a list
-    switch(length(out), out[[1]], out)
+    ## Return NULL, matrix of one type of scores, list or tidy data frame
+    switch(as.character(length(out)),
+           "0" = NULL,
+           "1" = out[[1]],
+           out)
 }
 
