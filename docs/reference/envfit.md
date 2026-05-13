@@ -24,7 +24,8 @@ plot(x, choices = c(1,2), labels, arrow.mul, at = c(0,0),
    axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg,
    optimize = FALSE, cex = 1, add = TRUE, ...)
 # S3 method for class 'envfit'
-scores(x, display, choices, arrow.mul=1, tidy = FALSE,...)
+scores(x, display = c("vectors", "factors"), choices,
+   arrow.mul=1, tidy = FALSE, ...)
 # S3 method for class 'envfit'
 names(x) <- value
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
@@ -87,11 +88,11 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 - tidy:
 
   Return scores that are compatible with
-  [ggplot2](https://CRAN.R-project.org/package=ggplot2): all scores are
+  [ggvegan](https://CRAN.R-project.org/package=ggvegan): all scores are
   in a single `data.frame`, score type is identified by factor variable
-  `scores` (`"vectors"` or `"factors"`), the names by variable `label`.
+  `type` (`"Vector"` or `"Centroid"`), the names by variable `label`.
   These scores are incompatible with conventional `plot` functions, but
-  they can be used in ggplot2.
+  they can be used in ggvegan and ggplot2.
 
 - labels:
 

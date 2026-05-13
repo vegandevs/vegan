@@ -100,11 +100,11 @@ text(x, display = "sites", labels, choices = c(1,2),
 - tidy:
 
   Return scores that are compatible with
-  [ggplot2](https://CRAN.R-project.org/package=ggplot2): all scores are
+  [ggvegan](https://CRAN.R-project.org/package=ggvegan): all scores are
   in a single `data.frame`, score type is identified by factor variable
-  `code` (`"sites"` or `"species"`), the names by variable `label`.
-  These scores are incompatible with conventional `plot` functions, but
-  they can be used in ggplot2.
+  `code` (`"sites"` or `"species"`, if available), the names by variable
+  `label`. These scores are incompatible with conventional `plot`
+  functions, but they can be used in ggvegan and ggplot2.
 
 - choices:
 

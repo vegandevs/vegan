@@ -70,10 +70,11 @@ scores(x, choices = NA, display = "sites", tidy = FALSE, ...)
 - tidy:
 
   Return scores that are compatible with
-  [ggplot2](https://CRAN.R-project.org/package=ggplot2): scores are in a
+  [ggvegan](https://CRAN.R-project.org/package=ggvegan): scores are in a
   [`data.frame`](https://rdrr.io/r/base/data.frame.html), score type is
-  in the variable `score` labelled as `"sites"`, weights in variable
-  `weigth`, and names in variable `label`.
+  in the variable `score` labelled as `"sites"` and `"species"` (if
+  available), weights in variable `weigth`, and names in variable
+  `label`.
 
 - ...:
 

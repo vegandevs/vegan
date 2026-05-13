@@ -75,12 +75,21 @@
   **vegan** functions. Usually effects can be seen only in the last
   decimals.
 
+- `scores(..., tidy = TRUE)` for ordination results are now compatible
+  with related `ggvegan::fortify` functions, but do not change dimension
+  names and add column `weight` when appropriate. This also concerns
+  default method and `wcmdscale` which earlier could not be plotted with
+  **ggvegan**.
+
 ### Bug Fixes
 
 - `ordistep` and `ordiR2step` could not be embedded in other functions
   due to scoping issues. See PR
   [\#786](https://github.com/vegandevs/vegan/pull/786) and issue
   [\#785](https://github.com/vegandevs/vegan/issues/785).
+
+- `scores` for the `envfit` results never returned `tidy` data frames
+  although they were prepared.
 
 - `ordihull` and `ordiellipse` (and hence `ordiareatest`) queried and
   set graphical parameters also when nothing was drawn. Issue

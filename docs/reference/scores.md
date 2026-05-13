@@ -36,7 +36,7 @@ scores(x, choices,
 - tidy:
 
   Return `"both"` scores in data frame that is compatible with
-  [ggplot2](https://CRAN.R-project.org/package=ggplot2), with variable
+  [ggvegan](https://CRAN.R-project.org/package=ggvegan), with variable
   `score` labelling the scores as `"sites"` or `"species"`.
 
 - ...:
@@ -81,9 +81,8 @@ objects. It may work in other cases or fail mysteriously.
 ## Value
 
 The function returns a matrix of scores if one type is requested, or a
-named list of matrices if `display = "both"`, or a
-[ggplot2](https://CRAN.R-project.org/package=ggplot2) compatible data
-frame if `tidy = TRUE`.
+named list of matrices if `display = "both"`, or a ggvegan compatible
+data frame if `tidy = TRUE`.
 
 ## Author
 

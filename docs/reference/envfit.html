@@ -86,7 +86,8 @@ The function fits environmental vectors or factors onto an
 <span>   axis <span class="op">=</span> <span class="cn">FALSE</span>, p.max <span class="op">=</span> <span class="cn">NULL</span>, r2.min <span class="op">=</span> <span class="cn">NULL</span>, col <span class="op">=</span> <span class="st">"blue"</span>, <span class="va">bg</span>,</span>
 <span>   optimize <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">1</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'envfit'</span></span>
-<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">display</span>, <span class="va">choices</span>, arrow.mul<span class="op">=</span><span class="fl">1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>,<span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="scores.html">scores</a></span><span class="op">(</span><span class="va">x</span>, display <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"vectors"</span>, <span class="st">"factors"</span><span class="op">)</span>, <span class="va">choices</span>,</span>
+<span>   arrow.mul<span class="op">=</span><span class="fl">1</span>, tidy <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'envfit'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">value</span></span>
 <span><span class="fu">vectorfit</span><span class="op">(</span><span class="va">X</span>, <span class="va">P</span>, permutations <span class="op">=</span> <span class="fl">0</span>, strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">w</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -143,12 +144,12 @@ The function fits environmental vectors or factors onto an
 <dd><p>Axes to plotted.</p></dd>
 
   <dt id="arg-tidy">tidy<a class="anchor" aria-label="anchor" href="#arg-tidy"></a></dt>
-<dd><p>Return scores that are compatible with <a href="https://CRAN.R-project.org/package=ggplot2" class="external-link"><span class="pkg">ggplot2</span></a>:
+<dd><p>Return scores that are compatible with <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a>:
     all scores are in a single <code>data.frame</code>, score type is
-    identified by factor variable <code>scores</code> (<code>"vectors"</code> or
-    <code>"factors"</code>), the names by variable <code>label</code>. These scores
+    identified by factor variable <code>type</code> (<code>"Vector"</code> or
+    <code>"Centroid"</code>), the names by variable <code>label</code>. These scores
     are incompatible with conventional <code>plot</code> functions, but they can
-    be used in <span class="pkg">ggplot2</span>.</p></dd>
+    be used in <span class="pkg">ggvegan</span> and <span class="pkg">ggplot2</span>.</p></dd>
 
 
   <dt id="arg-labels">labels<a class="anchor" aria-label="anchor" href="#arg-labels"></a></dt>

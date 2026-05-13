@@ -114,7 +114,7 @@ labels(object, display, ...)
 - tidy:
 
   Return scores that are compatible with
-  [ggplot2](https://CRAN.R-project.org/package=ggplot2): all scores are
+  [ggvegan](https://CRAN.R-project.org/package=ggvegan): all scores are
   in a single `data.frame`, score type is identified by factor variable
   `score`, the names by variable `label`, and weights (in CCA) are in
   variable `weight`. The possible values of `score` are `species`,
@@ -124,7 +124,7 @@ labels(object, display, ...)
   (biplot arrows that model centroids), `regression` (for regression
   coefficients to find LC scores from constraints). These scores cannot
   be used with conventional `plot`, but they are directly suitable to be
-  used with the ggplot2 package.
+  used with the ggvegan package.
 
 - type:
 
