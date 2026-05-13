@@ -95,7 +95,7 @@
     precedence over globally set parameters and defaults.} 
   
   \item{tidy}{Return scores that are compatible with
-    \CRANpkg{ggplot2}: all scores are in a single \code{data.frame},
+    \CRANpkg{ggvegan}: all scores are in a single \code{data.frame},
     score type is identified by factor variable \code{score}, the
     names by variable \code{label}, and weights (in CCA) are in
     variable \code{weight}. The possible values of \code{score} are
@@ -106,7 +106,7 @@
     arrows that model centroids), \code{regression} (for regression
     coefficients to find LC scores from constraints). These scores
     cannot be used with conventional \code{plot}, but they are
-    directly suitable to be used with the \pkg{ggplot2} package.}
+    directly suitable to be used with the \pkg{ggvegan} package.}
 
   \item{type}{Type of plot: partial match to \code{text}
     for text labels, \code{points} for points, and \code{none} for
