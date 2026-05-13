@@ -108,12 +108,15 @@ metaMDSredist(object, ...)
  \item{shrink}{Shrink back species scores if they were expanded
    originally.}
  \item{cex}{Character expansion for plotting symbols.}
- \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
+
+ \item{tidy}{Return scores that are compatible with \CRANpkg{ggvegan}:
    all scores are in a single \code{data.frame}, score type is
    identified by factor variable \code{code} (\code{"sites"} or
-   \code{"species"}), the names by variable \code{label}. These scores
-   are incompatible with conventional \code{plot} functions, but they can
-   be used in \pkg{ggplot2}.}
+   \code{"species"}, if available), the names by variable
+   \code{label}. These scores are incompatible with conventional
+   \code{plot} functions, but they can be used in \pkg{ggvegan} and
+   \pkg{ggplot2}.}
+
  \item{labels}{Optional test to be used instead of row names. If
    \code{select} is used, labels are given only to selected items in the
    order they occur in the scores.}

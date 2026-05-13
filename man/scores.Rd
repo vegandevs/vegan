@@ -27,7 +27,7 @@
   \item{display}{ Partial match to access scores for \code{"sites"} or
     \code{"species"} of for \code{"both"}.}
   \item{tidy}{Return \code{"both"} scores in data frame that is
-    compatible with \CRANpkg{ggplot2}, with variable \code{score}
+    compatible with \CRANpkg{ggvegan}, with variable \code{score}
     labelling the scores as \code{"sites"} or \code{"species"}.} 
   \item{...}{ Other parameters (unused). }
 }
@@ -65,7 +65,7 @@
 \value{
   The function returns a matrix of scores if one type is requested, or a
   named list of matrices if \code{display = "both"}, or a
-  \CRANpkg{ggplot2} compatible data frame if \code{tidy = TRUE}.
+  \pkg{ggvegan} compatible data frame if \code{tidy = TRUE}.
 }
 \author{Jari Oksanen }
 

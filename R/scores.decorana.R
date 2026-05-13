@@ -26,15 +26,13 @@
         group <- rep(names(group), group)
         out <- do.call(rbind, out)
         label <- rownames(out)
-        out <- as.data.frame(out)
-        out$score <- group
-        out$label <- label
         wts <- rep(NA, nrow(out))
         if (any(take <- group == "sites"))
             wts[take] <- weights(x, display="sites")
         if (any(take <- group == "species"))
             wts[take] <- weights(x, display="species")
-        out$weight <- wts
+        out <- data.frame("score" = factor(group), label, out,
+                          "weight" = wts, row.names = NULL)
     }
     ## two kind of scores: return NULL, matrix or a list
     if (length(out) == 1)

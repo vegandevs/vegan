@@ -74,12 +74,13 @@ monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
   \item{shrink}{Shrink back species scores if they were expanded in
       \code{\link{wascores}}.}
 
-  \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
+  \item{tidy}{Return scores that are compatible with \CRANpkg{ggvegan}:
     all scores are in a single \code{data.frame}, score type is
     identified by factor variable \code{code} (\code{"sites"} or
-    \code{"species"}), the names by variable \code{label}. These scores
-    are incompatible with conventional \code{plot} functions, but they can
-    be used in \pkg{ggplot2}.}
+    \code{"species"}, if available), the names by variable
+    \code{label}. These scores are incompatible with conventional
+    \code{plot} functions, but they can be used in \pkg{ggvegan} and
+    \pkg{ggplot2}.}
 
   \item{choices}{Dimensions returned or plotted. The default \code{NA}
     returns all dimensions. }

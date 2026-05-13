@@ -87,9 +87,10 @@
     out <- list("sites" = X, "species" = Y)
     if (tidy) {
         score <- sapply(out, NROW)
-        out <- data.frame(do.call(rbind, out),
-                          "scores" = rep(names(score), score))
-        out$label <- rownames(out)
+        score <- rep(names(score), score)
+        out <- do.call(rbind, out)
+        out <- data.frame("score" = factor(score), label = rownames(out),
+                          out, row.names = NULL)
     }
     if (any(drop <- sapply(out, is.null))) {
         out <- out[!drop]
