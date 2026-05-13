@@ -65,12 +65,12 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
     the \code{envfit} results.}
     
   \item{choices}{Axes to plotted.}
-  \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
+  \item{tidy}{Return scores that are compatible with \CRANpkg{ggvegan}:
     all scores are in a single \code{data.frame}, score type is
-    identified by factor variable \code{scores} (\code{"vectors"} or
-    \code{"factors"}), the names by variable \code{label}. These scores
+    identified by factor variable \code{type} (\code{"Vector"} or
+    \code{"Centroid"}), the names by variable \code{label}. These scores
     are incompatible with conventional \code{plot} functions, but they can
-    be used in \pkg{ggplot2}.}
+    be used in \pkg{ggvegan} and \pkg{ggplot2}.}
     
   \item{labels}{Change plotting labels. The argument should be a list
     with elements \code{vectors} and \code{factors} which give the new
