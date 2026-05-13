@@ -3,6 +3,8 @@
              tidy = FALSE, ...)
 {
     display <- match.arg(display, c("sites","species"), several.ok = TRUE)
+    if (tidy) # always both with tidy scores
+        display <- c("sites", "species")
     if (missing(choices))
         choices <- seq_len(x$ndim)
     else
@@ -39,9 +41,8 @@
         group <- rep(names(group), group)
         out <- do.call(rbind, out)
         label <- rownames(out)
-        out <- as.data.frame(out)
-        out$score <- group
-        out$label <- label
+        out <- data.frame("score" = factor(group), label, out,
+                          row.names = NULL)
     }
     ## only two kind of scores, return NULL, matrix, or a list of scores
     if (length(out) == 1)

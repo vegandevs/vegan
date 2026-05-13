@@ -160,9 +160,8 @@
         group <- rep(names(group), group)
         sol <- do.call(rbind, sol)
         label <- rownames(sol)
-        sol <- as.data.frame(sol)
-        sol$score <- as.factor(group)
-        sol$label <- label
+        sol <- data.frame("score" = factor(group, levels = unique(group)),
+                          label, sol, row.names = NULL)
     }
     ## collapse const if both items identical
     if (identical(const[1], const[2]))
