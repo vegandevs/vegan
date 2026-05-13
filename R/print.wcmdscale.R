@@ -52,6 +52,8 @@
         display <- match.arg(display, c("sites", "species"), several.ok = TRUE)
     else
         display <- match.arg(display, "sites")
+    if (tidy && "species" %in% names(x)) # all scores when tidy
+        display <- c("sites", "species")
     p <- list()
     for (sco in display) {
         if (sco == "sites")
@@ -66,14 +68,16 @@
             rownames(sco) <- as.character(seq_len(nrow(p[[sco]])))
         if (tidy) {
             wts <- if(sco == "sites") weights(x) else NA
-            p[[sco]] <- data.frame(p[[sco]], "score" = sco,
+            p[[sco]] <- data.frame("score" = sco,
                                    "label" = rownames(p[[sco]]),
-                                   weights = wts)
+                                   p[[sco]], weights = wts,
+                                   row.names = NULL)
         }
     }
-    if (tidy && length(display) > 1) {
+    if (tidy) {
         p <- do.call("rbind", p)
-        rownames(p) <- p$label
+        p$score <- factor(p$score)
+        rownames(p) <- NULL
     }
     if (length(p) == 1)
         p[[1]]
