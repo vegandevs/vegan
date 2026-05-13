@@ -58,12 +58,12 @@ downweight(veg, fraction = 5)
     or names (labels) of scores.}
   \item{xlim, ylim}{the x and y limits (min,max) of the plot.}
   \item{fraction}{Abundance fraction where downweighting begins.}
-  \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
+  \item{tidy}{Return scores that are compatible with \CRANpkg{ggvegan}:
     all scores are in a single \code{data.frame}, score type is
     identified by factor variable \code{score} (\code{"sites"},
     \code{"species"}), the names by variable \code{label}. These scores
     are incompatible with conventional \code{plot} functions, but they can
-    be used in \pkg{ggplot2}.}
+    be used in \pkg{ggvegan}.}
   \item{...}{Other arguments for \code{plot} function.}
   }
 

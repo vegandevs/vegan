@@ -44,9 +44,10 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
     \code{\link{sppscores}}.}
   \item{type}{Type of graph which may be \code{"t"}ext, \code{"p"}oints
     or \code{"n"}one.}
-  \item{tidy}{Return scores that are compatible with \CRANpkg{ggplot2}:
+  \item{tidy}{Return scores that are compatible with \CRANpkg{ggvegan}:
     scores are in a \code{\link{data.frame}}, score type is in the
-    variable \code{score} labelled as \code{"sites"}, weights in
+    variable \code{score} labelled as \code{"sites"} and
+    \code{"species"} (if available), weights in
     variable \code{weigth}, and names in variable \code{label}.}
   \item{\dots}{Other arguments passed to graphical functions.}
 }
