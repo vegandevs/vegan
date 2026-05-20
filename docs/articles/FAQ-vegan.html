@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title> • vegan</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="">
 </head>
@@ -362,6 +362,35 @@ You can inspect this non-linear step function using function
 ordination scores are strictly Euclidean, it is correct to use
 <strong>vegan</strong> functions <code>envfit</code> and
 <code>ordisurf</code> with NMDS results.</p>
+<hr>
+</div>
+<div class="section level4">
+<h4 id="why-ordiellipses-are-much-smaller-than-ggplot2-ellipses">Why ordiellipses are much smaller than ggplot2 ellipses?<a class="anchor" aria-label="anchor" href="#why-ordiellipses-are-much-smaller-than-ggplot2-ellipses"></a>
+</h4>
+<p><strong>vegan</strong> <code>ordiellipse</code> and
+<strong>ggplot2</strong> <code>stat_ellipse</code> use nearly identical
+methods, but there are three differences. In order of importance: (1)
+Greatest difference is that they are different ellipses.
+<strong>Vegan</strong> defaults to show standard deviation ellipses, but
+<strong>ggplot2</strong> shows data ellipses. Data ellipses are intended
+to enclose a given proportion of points. <code>ordiellipse</code> can
+also show data ellipses with its <code>conf</code> argument. Setting
+<code>ordiellipse(..., kind="sd", conf=0.95)</code> is similar to
+default <strong>ggplot2</strong> ellipse, and setting
+<code>level=0.39</code> in <code>stat_ellipse</code> will give a
+reasonable good approximation of SD ellipses. (2) <strong>Vegan</strong>
+uses standard <code><a href="https://rdrr.io/r/stats/cov.wt.html" class="external-link">stats::cov.wt</a></code> function to find the covariance
+matrices, whereas <strong>ggplot2</strong> defaults to robust
+covariances with <code><a href="https://rdrr.io/pkg/MASS/man/cov.trob.html" class="external-link">MASS::cov.trob</a></code> (which is not (yet?)
+implemented in <strong>vegan</strong>). Setting <code>type="norm"</code>
+in <code>ggplot2::stat_ellipse</code> will use the same covariance
+matrix as <code>ordiellipse</code>. The use of robust covariances will
+influence both the shape and location of ellipses. (3)
+<code>ordiellipse</code> uses asymptotic confidence limits based on
+Chi-squared distribution whereas <code>stat_ellipse</code> uses
+<em>F</em>-statistic based on bivariate Normal distribution which takes
+into account group sizes and gives wider radius for smaller groups. The
+differences are usually small, and large groups are very similar.</p>
 <hr>
 </div>
 <div class="section level4">
