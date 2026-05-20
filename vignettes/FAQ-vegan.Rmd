@@ -290,6 +290,32 @@ NMDS results.
 
 ------------------------------------------------------------------------
 
+### Why ordiellipses are much smaller than ggplot2 ellipses?
+
+**vegan** `ordiellipse` and **ggplot2** `stat_ellipse` use nearly
+identical methods, but there are three differences. In order of
+importance: (1) Greatest difference is that they are different
+ellipses. **Vegan** defaults to show standard deviation ellipses, but
+**ggplot2** shows data ellipses. Data ellipses are intended to enclose
+a given proportion of points. `ordiellipse` can also show data
+ellipses with its `conf` argument. Setting `ordiellipse(...,
+kind="sd", conf=0.95)` is similar to default **ggplot2** ellipse, and
+setting `level=0.39` in `stat_ellipse` will give a reasonable good
+approximation of SD ellipses. (2) **Vegan** uses standard
+`stats::cov.wt` function to find the covariance matrices, whereas
+**ggplot2** defaults to robust covariances with `MASS::cov.trob`
+(which is not (yet?) implemented in **vegan**).  Setting `type="norm"`
+in `ggplot2::stat_ellipse` will use the same covariance matrix as
+`ordiellipse`. The use of robust covariances will influence both the
+shape and location of ellipses. (3) `ordiellipse` uses asymptotic
+confidence limits based on Chi-squared distribution whereas
+`stat_ellipse` uses _F_-statistic based on bivariate Normal
+distribution which takes into account group sizes and gives wider
+radius for smaller groups. The differences are usually small, and
+large groups are very similar.
+
+------------------------------------------------------------------------
+
 ### Where can I find numerical scores of ordination axes?
 
 Normally you can use function `scores` to extract ordination scores for
