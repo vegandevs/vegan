@@ -37,7 +37,6 @@ extern SEXP do_QR(SEXP);
 
 /* .Fortran calls */
 extern void F77_NAME(monomds)(void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *, void *);
-extern void F77_NAME(orderdata)(void *, void *, void *, void *);
 
 static const R_CMethodDef CEntries[] = {
     {"C_stepacross", (DL_FUNC) &C_stepacross, 4},
@@ -72,7 +71,6 @@ static const R_CallMethodDef CallEntries[] = {
 
 static const R_FortranMethodDef FortranEntries[] = {
     {"monomds",   (DL_FUNC) &F77_NAME(monomds),   25},
-    {"orderdata", (DL_FUNC) &F77_NAME(orderdata),  4},
     {NULL, NULL, 0}
 };
 
