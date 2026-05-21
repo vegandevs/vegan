@@ -9,11 +9,8 @@
 ###			output by cascadeKM
 ### OUTPUT :  Ordered matrix
 
-    ## Uses alternatively the fast USEPOWERALGORITHM provided by Legendre
-    ## et al., or the standard R function cmdscale with matching
-    ## coefficient provided by vegdist.c as method=50.
-
-    USEPOWERALGORITHM <- FALSE
+    ## Uses the standard R function cmdscale with matching coefficient
+    ## provided by vegdist.c as method=50.
 
     ##Check up
 
@@ -24,21 +21,14 @@
     nb.desc=ncol(mat)
     nb.obj=nrow(mat)
 
-    scores<-rep(0.0,nb.obj)
-    if (USEPOWERALGORITHM) {
-	scores <- as.vector(.Fortran(orderdata, as.integer(mat),
-                                 as.integer(nb.obj), as.integer(nb.desc),
-                                 sc=as.double(scores), PACKAGE = "vegan")$sc)
-    } else {
-        d <- .Call(do_vegdist, as.matrix(mat), as.integer(50), PACKAGE = "vegan")
-        attributes(d) <- list("Size" = nb.obj,
-                              "Labels" = dimnames(mat)[[1]],
-                              "Diag" = FALSE,
-                              "Upper" = FALSE,
-                              "method" = "matching",
-                              "class" = "dist")
-        scores <- cmdscale(d, k = 1)[,1]
-    }
+    d <- .Call(do_vegdist, as.matrix(mat), as.integer(50), PACKAGE = "vegan")
+    attributes(d) <- list("Size" = nb.obj,
+                          "Labels" = dimnames(mat)[[1]],
+                          "Diag" = FALSE,
+                          "Upper" = FALSE,
+                          "method" = "matching",
+                          "class" = "dist")
+    scores <- cmdscale(d, k = 1)[,1]
     scores <- order(scores)
     mat[scores,]
 }
