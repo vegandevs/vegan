@@ -748,13 +748,13 @@ sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 #> Run 6 stress 0.107471 
 #> Run 7 stress 0.107471 
 #> Run 8 stress 0.1067169 
-#> ... Procrustes: rmse 3.626234e-06  max resid 1.05447e-05 
+#> ... Procrustes: rmse 3.626232e-06  max resid 1.05447e-05 
 #> ... Similar to previous best
 #> Run 9 stress 0.1069787 
 #> ... Procrustes: rmse 0.006811007  max resid 0.02403233 
 #> Run 10 stress 0.1067169 
 #> ... New best solution
-#> ... Procrustes: rmse 8.756318e-07  max resid 2.662253e-06 
+#> ... Procrustes: rmse 8.756572e-07  max resid 2.662253e-06 
 #> ... Similar to previous best
 #> Run 11 stress 0.1872535 
 #> Run 12 stress 0.1073148 
