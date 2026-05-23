@@ -2,9 +2,11 @@ Package: vegan
 Title: Community Ecology Package
 Version: 2.8-0
 Authors@R: c(person("Jari", "Oksanen", role=c("aut","cre"),
-                    email="jhoksane@gmail.com"),
+                    email="jhoksane@gmail.com",
+		    comment = c(ORCID="0000-0001-7102-9626")),
 	   person("Gavin L.", "Simpson", role="aut",
-	            email="ucfagls@gmail.com"),
+	            email="ucfagls@gmail.com",
+		    comment = c(ORCID = "0000-0002-9084-8413")),
 	   person("F. Guillaume", "Blanchet", role="aut"),
 	   person("Roeland", "Kindt", role="aut"),
 	   person("Pierre", "Legendre", role="aut"),
