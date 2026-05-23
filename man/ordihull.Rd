@@ -212,7 +212,7 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
 
 }
 
-\author{ Jari Oksanen }
+\author{ Jari Oksanen with improvements by James Weedon }
 
 \seealso{The functions pass parameters to basic graphical functions,
   and you may wish to change the default values in
