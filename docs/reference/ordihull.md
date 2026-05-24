@@ -260,7 +260,7 @@ with a summary of permutations.
 
 ## Author
 
-Jari Oksanen
+Jari Oksanen with improvements by James Weedon
 
 ## See also
 

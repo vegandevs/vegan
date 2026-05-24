@@ -3,8 +3,10 @@
 ## Authors
 
 - **Jari Oksanen**. Author, maintainer.
+  [](https://orcid.org/0000-0001-7102-9626)
 
 - **Gavin L. Simpson**. Author.
+  [](https://orcid.org/0000-0002-9084-8413)
 
 - **F. Guillaume Blanchet**. Author.
 
@@ -24,19 +26,21 @@
 
 - **Helene Wagner**. Author.
 
-- **Matt Barbour**. Author.
+- **Matt Barbour**. Contributor.
 
 - **Michael Bedward**. Author.
+
+- **Henrik Bengtsson**. Contributor.
 
 - **Ben Bolker**. Author.
 
 - **Daniel Borcard**. Author.
 
-- **Tuomas Borman**. Author.
+- **Tuomas Borman**. Contributor.
 
 - **Gustavo Carvalho**. Author.
 
-- **Michael Chirico**. Author.
+- **Michael Chirico**. Contributor.
 
 - **Miquel De Caceres**. Author.
 
@@ -44,13 +48,15 @@
 
 - **Heloisa Beatriz Antoniazi Evangelista**. Author.
 
-- **Rich FitzJohn**. Author.
+- **Rich FitzJohn**. Contributor.
 
-- **Michael Friendly**. Author.
+- **Michael Friendly**. Contributor.
 
-- **Brendan Furneaux**. Author.
+- **Brendan Furneaux**. Contributor.
 
 - **Geoffrey Hannigan**. Author.
+
+- **Isaac Heida**. Contributor.
 
 - **Mark O. Hill**. Author.
 
@@ -58,7 +64,7 @@
 
 - **Cameron Martino**. Author.
 
-- **Dan McGlinn**. Author.
+- **Dan McGlinn**. Contributor.
 
 - **Marie-Helene Ouellette**. Author.
 
@@ -78,17 +84,15 @@ Source:
 [`DESCRIPTION`](https://github.com/vegandevs/vegan/blob/master/DESCRIPTION)
 
 Oksanen J, Simpson G, Blanchet F, Kindt R, Legendre P, Minchin P, O'Hara
-R, Solymos P, Stevens M, Szoecs E, Wagner H, Barbour M, Bedward M,
-Bolker B, Borcard D, Borman T, Carvalho G, Chirico M, De Caceres M,
-Durand S, Evangelista H, FitzJohn R, Friendly M, Furneaux B, Hannigan G,
-Hill M, Lahti L, Martino C, McGlinn D, Ouellette M, Ribeiro Cunha E,
-Smith T, Stier A, Ter Braak C, Weedon J (2026). *vegan: Community
-Ecology Package*. R package version 2.8-0,
-<https://vegandevs.github.io/vegan/>.
+R, Solymos P, Stevens M, Szoecs E, Wagner H, Bedward M, Bolker B,
+Borcard D, Carvalho G, De Caceres M, Durand S, Evangelista H, Hannigan
+G, Hill M, Lahti L, Martino C, Ouellette M, Ribeiro Cunha E, Smith T,
+Stier A, Ter Braak C, Weedon J (2026). *vegan: Community Ecology
+Package*. R package version 2.8-0, <https://vegandevs.github.io/vegan/>.
 
     @Manual{,
       title = {vegan: Community Ecology Package},
-      author = {Jari Oksanen and Gavin L. Simpson and F. Guillaume Blanchet and Roeland Kindt and Pierre Legendre and Peter R. Minchin and R.B. O'Hara and Peter Solymos and M. Henry H. Stevens and Eduard Szoecs and Helene Wagner and Matt Barbour and Michael Bedward and Ben Bolker and Daniel Borcard and Tuomas Borman and Gustavo Carvalho and Michael Chirico and Miquel {De Caceres} and Sebastien Durand and Heloisa Beatriz Antoniazi Evangelista and Rich FitzJohn and Michael Friendly and Brendan Furneaux and Geoffrey Hannigan and Mark O. Hill and Leo Lahti and Cameron Martino and Dan McGlinn and Marie-Helene Ouellette and Eduardo {Ribeiro Cunha} and Tyler Smith and Adrian Stier and Cajo J.F. {Ter Braak} and James Weedon},
+      author = {Jari Oksanen and Gavin L. Simpson and F. Guillaume Blanchet and Roeland Kindt and Pierre Legendre and Peter R. Minchin and R.B. O'Hara and Peter Solymos and M. Henry H. Stevens and Eduard Szoecs and Helene Wagner and Michael Bedward and Ben Bolker and Daniel Borcard and Gustavo Carvalho and Miquel {De Caceres} and Sebastien Durand and Heloisa Beatriz Antoniazi Evangelista and Geoffrey Hannigan and Mark O. Hill and Leo Lahti and Cameron Martino and Marie-Helene Ouellette and Eduardo {Ribeiro Cunha} and Tyler Smith and Adrian Stier and Cajo J.F. {Ter Braak} and James Weedon},
       year = {2026},
       note = {R package version 2.8-0},
       url = {https://vegandevs.github.io/vegan/},
