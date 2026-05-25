@@ -1,9 +1,13 @@
 # vegan 2.7-4
 
+## Startup
+
+* CRAN releases no longer print startup message "This is vegan...".
+
 ## New Features
 
 * parallel processing is more robust on Windows, and also closes
-  internally opened socket clusters after error in functions. Pull
+  internally opened socket clusters after abnormal termination. Pull
   request [#772](https://github.com/vegandevs/vegan/issues/772).
 
 * `ordipointlabel` gained argument `points`. Setting `points=FALSE`
@@ -41,7 +45,7 @@
 * `cascadeKM` failed in parallel processing on Windows. Issue
   [#771](https://github.com/vegandevs/vegan/issues/771).
 
-* `plot.envfit` draw arrows wrongly when making a new plot _and_
+* `plot.envfit` drew arrows wrongly when making a new plot _and_
   moving the bunch of arrows from the origin (_i.e._ with arguments
   `add=FALSE` and `at != c(0,0)` together).
 
@@ -49,9 +53,9 @@
 
 ## Deprecated and Resurrected
 
-* `plot.renyi` was prematurely deprecated in release 2.7-3: it was not
-  included in the **ggvegan** release. Now it is resurrected as a
-  supported function.
+* `plot.renyi` was prematurely deprecated in release 2.7-3: its
+  replacement was not included in the **ggvegan** 0.2.1 release. Now
+  it is resurrected as a supported function.
 
 # vegan 2.7-3
 
