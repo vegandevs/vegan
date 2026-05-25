@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,51 +33,36 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/vegandevs/vegan/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/vegandevs/vegan/blob/v2.7-5/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.8-0" id="vegan-28-0">vegan 2.8-0<a class="anchor" aria-label="anchor" href="#vegan-28-0"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.7-5" id="vegan-27-5">vegan 2.7-5<a class="anchor" aria-label="anchor" href="#vegan-27-5"></a></h2><p class="text-muted">CRAN release: 2026-05-25</p>
 <div class="section level3">
-<h3 id="new-functions-2-8-0">New Functions<a class="anchor" aria-label="anchor" href="#new-functions-2-8-0"></a></h3>
-<ul><li><p><code>influence.cca</code>: a new wrapper function to return <code>hatvalues</code>, <code>rstandard</code>, <code>rstudent</code> and <code>cooks.distance</code>. The result can be amended with working fitted values, and returned in <code>tidy</code> format that can be used as input in <strong>ggplot2</strong> (or <strong>lattice</strong>) graphics to substitute defunct <code>ordiresids</code> function.</p></li>
-<li><p>Internal <code>ordConstrained</code> is exported. Function is the central numerical engine of constrained ordination methods (<code>cca</code>, <code>rda</code>, <code>dbrda</code>, <code>capscale</code>) and provides a hacker interface that can be embedded in other functions and used to develop alternative methods. The Examples show how to implement weighted RDA.</p></li>
+<h3 id="startup-2-7-5">Startup<a class="anchor" aria-label="anchor" href="#startup-2-7-5"></a></h3>
+<ul><li>CRAN releases no longer print startup message “This is vegan…”.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-2-8-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-8-0"></a></h3>
-<ul><li><p><code>metaMDS</code> can use any MDS function as an <code>engine</code> if the function takes as input dissimilarities, initial configuration and number of axes, and returns a list with elements stress and points for final solution. <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code> and <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">MASS::isoMDS</a></code> are such functions, but other MDS functions can be easily wrapped to make them compatible. The Examples in the help page shows how to wrap <code>smacof::mds</code>. The default engine is still <code><a href="../reference/monoMDS.html">vegan::monoMDS</a></code>, and the user experience with this default choice is unchanged.</p></li>
-<li><p><code>adonis2</code> can have <code>Condition</code> in formula allowing similar analysis of partial models as in <code>dbrda</code>.</p></li>
-<li>
-<p><code>plot.envfit</code> can use criterion <code>r2.min</code> for lower threshold of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>R</mi><mn>2</mn></msup><annotation encoding="application/x-tex">R^2</annotation></semantics></math> of displayed variables. Both <code>p.max</code> and <code>r2.min</code> must be satisfied for displayed items.</p>
-<p><code>plot.envfit</code> can optimize the location of text labels for factors and vectors (arrows).</p>
-</li>
-<li><p><code>envfit</code> gained new support function <code>names</code> that can replace the variable names in the result object.</p></li>
-<li><p><code>plot.radfit.frame</code> uses now base graphics instead of <strong>lattice</strong>.</p></li>
-<li>
-<p><code>ordipointlabel</code> is faster. This was achieved using tighter bounding box which reduced the number of potentially overlapping labels. The used bounding box is shown with argument <code>bg  = &lt;colour&gt;</code>. The function is also invoked from <code>plot</code> and <code>text</code> functions for ordination results with argument <code>optimize = TRUE</code>.</p>
-<p><code>ordipointlabel</code> gained argument <code>points</code>. Setting <code>optimize=FALSE</code> suppresses drawing points which is useful if there already are points (or arrowheads) in the graph.</p>
-</li>
+<h3 id="new-features-2-7-5">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-7-5"></a></h3>
+<ul><li><p>parallel processing is more robust on Windows, and also closes internally opened socket clusters after abnormal termination. Pull request <a href="https://github.com/vegandevs/vegan/issues/772" class="external-link">#772</a>.</p></li>
+<li><p><code>ordipointlabel</code> gained argument <code>points</code>. Setting <code>points=FALSE</code> suppresses drawing points which is useful if there already are points (or arrow heads) in the graph.</p></li>
 <li><p>Position of arrow labels is improved with <code>optimize=TRUE</code> in ordination graphics.</p></li>
-<li><p><code>varpart</code> labels the sources of variation by the full definition of the term in plots, but switches to <code>X1</code> <em>etc</em> if the full name does not fit the graph. Tilde is stripped from the term name.</p></li>
-<li><p><code>adipart</code> can use Hill numbers 1 and 2 in additive diversity partitioning per wish of <a href="https://github.com/vegandevs/vegan/issues/752" class="external-link">#752</a>. Earlier it was possible to use these only <em>via</em> <code>hiersimu</code>.</p></li>
-<li><p>parallel processing is more robust on Windows, and also closes internally opened socket clusters after error in functions. Pull request <a href="https://github.com/vegandevs/vegan/issues/772" class="external-link">#772</a>.</p></li>
-<li><p><code>decorana</code> uses stricter convergence criteria similarly as most other <strong>vegan</strong> functions. Usually effects can be seen only in the last decimals.</p></li>
-<li><p><code>scores(..., tidy = TRUE)</code> for ordination results are now compatible with related <code>ggvegan::fortify</code> functions, but do not change dimension names and add column <code>weight</code> when appropriate. This also concerns default method and <code>wcmdscale</code> which earlier could not be plotted with <strong>ggvegan</strong>.</p></li>
+<li><p><code>scores(..., tidy = TRUE)</code> for ordination results are now compatible with related <code>ggvegan::fortify</code> functions, but do not change dimension names and add column <code>weight</code> when appropriate. This also concerns default method of <code>scores</code> and <code>wcmdscale</code> which earlier could not be plotted with <strong>ggvegan</strong>.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
+<h3 id="bug-fixes-2-7-5">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-5"></a></h3>
 <ul><li><p><code>ordistep</code> and <code>ordiR2step</code> could not be embedded in other functions due to scoping issues. See PR <a href="https://github.com/vegandevs/vegan/pull/786" class="external-link">#786</a> and issue <a href="https://github.com/vegandevs/vegan/issues/785" class="external-link">#785</a>.</p></li>
 <li><p><code>scores</code> for the <code>envfit</code> results never returned <code>tidy</code> data frames although they were prepared.</p></li>
 <li><p><code>ordihull</code> and <code>ordiellipse</code> (and hence <code>ordiareatest</code>) queried and set graphical parameters also when nothing was drawn. Issue <a href="https://github.com/vegandevs/vegan/issues/774" class="external-link">#774</a>.</p></li>
 <li><p><code>mantel</code> and <code>mantel.partial</code> returned permutation results as one-column matrix instead of a vector in some parallelization schemes. Issue <a href="https://github.com/vegandevs/vegan/issues/773" class="external-link">#773</a>.</p></li>
 <li><p><code>cascadeKM</code> failed in parallel processing on Windows. Issue <a href="https://github.com/vegandevs/vegan/issues/771" class="external-link">#771</a>.</p></li>
+<li><p><code>plot.envfit</code> drew arrows wrongly when making a new plot <em>and</em> moving the bunch of arrows from the origin (<em>i.e.</em> with arguments <code>add=FALSE</code> and <code>at != c(0,0)</code> together).</p></li>
+<li><p>Text labels were dropped from zero-length arrows.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="deprecated-defunct-and-resurrected-2-8-0">Deprecated, Defunct and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-defunct-and-resurrected-2-8-0"></a></h3>
-<ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
-<li><p><strong>lattice</strong> functions <code>ordixyplot</code>, and <code>permulattice</code> (with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>) are defunct. CRAN package <strong>ggvegan</strong> provides <code>autoplot</code> for these defunct functions. The functions were deprecated in CRAN release 2.7-3.</p></li>
-<li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
-<li><p>Several base <code>plot</code> functions internally using <strong>lattice</strong> were marked as deprecated in CRAN release 2.7-3. Now these are resurrected as plain base functions. These include <code>plot</code> for <code>poolaccum</code> (also handling <code>estaccumR</code>), <code>renyi</code> (also handling <code>tsallis</code>), and <code>renyiaccum</code> (also handling <code>tsallisaccum</code>). The base <code>plot</code> functions are simpler, but the original <strong>lattice</strong> implementations can be reproduced with functions in the CRAN package <strong>ggvegan</strong>.</p></li>
+<h3 id="deprecated-and-resurrected-2-7-5">Deprecated and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-and-resurrected-2-7-5"></a></h3>
+<ul><li>
+<code>plot.renyi</code> was prematurely deprecated in release 2.7-3: its replacement was not included in the <strong>ggvegan</strong> 0.2.1 release. Now it is resurrected as a supported function.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -334,7 +319,7 @@
 <li><p><code>simper</code> is much faster even though parallel processing is not implemented in the new code.</p></li>
 <li><p><code>pairs</code> function was added to plot <code>permustats</code> variables against each other.</p></li>
 <li><p><code>varpart</code> accepts dissimilarities given as a symmetric square matrix instead of <code>"dist"</code> object per wish of issue <a href="https://github.com/vegandevs/vegan/issues/497" class="external-link">#497</a>.</p></li>
-<li><p><code>metaMDS</code> adopted a more user-friendly policy, and <code>trymax</code> will always be the maximum number of tries. See discussion in <a href="https://stackoverflow.com/questions/66748605/" class="external-link uri">https://stackoverflow.com/questions/66748605/</a>.</p></li>
+<li><p><code>metaMDS</code> adopted a more user-friendly policy, and <code>trymax</code> will always be the maximum number of tries. See dicussion in <a href="https://stackoverflow.com/questions/66748605/" class="external-link uri">https://stackoverflow.com/questions/66748605/</a>.</p></li>
 <li><p><code>adonis2</code> accepts <code>strata</code>. <code>adonis2</code> is the new main function that replaces old <code>adonis</code>. See issue <a href="https://github.com/vegandevs/vegan/issues/427" class="external-link">#427</a>.</p></li>
 <li><p>Fisher alpha (<code>fisherfit</code>) is badly suited for extreme communities that do not follow Fisher’s model. Now <code>fisherfit</code> returns <code>NA</code> to communities that have 0 or 1 species, and issues a warning with communities consisting of singletons and having extreme Fisher alpha.</p></li>
 <li><p><code>adipart</code> and <code>multipart</code> formulae will automatically add unique id and and constant. This will always sandwich the requested grouping between alpha and gamma diversities, but not change the results for requested groupings.</p></li>
@@ -863,12 +848,12 @@
 <div class="section level3">
 <h3 id="general-2-2-0">General<a class="anchor" aria-label="anchor" href="#general-2-2-0"></a></h3>
 <ul><li>
-<p>Several vegan functions can now use parallel processing for slow and repeating calculations. All these functions have argument <code>parallel</code>. The argument can be an integer giving the number of parallel processes. In unix-alikes (Mac OS, Linux) this will launch <code>"multicore"</code> processing and in Windows it will set up <code>"snow"</code> clusters as described in the documentation of the parallel package. If <code>option</code> <code>"mc.cores"</code> is set to an integer &gt; 1, this will be used to automatically start parallel processing. Finally, the argument can also be a previously set up <code>"snow"</code> cluster which will be used both in Windows and in unix-alikes. Vegan vignette on Design decision explains the implementation (use <code>vegandocs("decission")</code>, and parallel package has more extensive documentation on parallel processing in <strong>R</strong>.</p>
-<p>The following function use parallel processing in analysing permutation statistics: <code>adonis</code>, <code>anosim</code>, <code>anova.cca</code> (and <code>permutest.cca</code>), <code>mantel</code> (and <code>mantel.partial</code>), <code>mrpp</code>, <code>ordiareatest</code>, <code>permutest.betadisper</code> and <code>simper</code>. In addition, <code>bioenv</code> can compare several candidate sets of models in parallel, <code>metaMDS</code> can launch several random starts in parallel, and <code>oecosimu</code> can evaluate test statistics for several null models in parallel.</p>
+<p>Several vegan functions can now use parallel processing for slow and repeating calculations. All these functions have argument <code>parallel</code>. The argument can be an integer giving the number of parallel processes. In unix-alikes (Mac OS, Linux) this will launch <code>"multicore"</code> processing and in Windows it will set up <code>"snow"</code> clusters as desribed in the documentation of the parallel package. If <code>option</code> <code>"mc.cores"</code> is set to an integer &gt; 1, this will be used to automatically start parallel processing. Finally, the argument can also be a previously set up <code>"snow"</code> cluster which will be used both in Windows and in unix-alikes. Vegan vignette on Design decision explains the implementation (use <code>vegandocs("decission")</code>, and parallel package has more extensive documentation on parallel processing in <strong>R</strong>.</p>
+<p>The following function use parallel processing in analysing permutation statistics: <code>adonis</code>, <code>anosim</code>, <code>anova.cca</code> (and <code>permutest.cca</code>), <code>mantel</code> (and <code>mantel.partial</code>), <code>mrpp</code>, <code>ordiareatest</code>, <code>permutest.betadisper</code> and <code>simper</code>. In addition, <code>bioenv</code> can compare several candidate sets of models in paralle, <code>metaMDS</code> can launch several random starts in parallel, and <code>oecosimu</code> can evaluate test statistics for several null models in parallel.</p>
 </li>
 <li>
 <p>All permutation tests are based on the <a href="https://CRAN.R-project.org/package=permute" class="external-link">permute</a> package which offers strong tools for restricted permutation. All these functions have argument <code>permutations</code>. The default usage of simple non-restricted permutations is achieved by giving a single integer number. Restricted permutations can be defined using the <code>how</code> function of the permute package. Finally, the argument can be a permutation matrix where rows define permutations. It is possible to use external or user constructed permutations.</p>
-<p>See <code><a href="../reference/permutations.html">help(permutations)</a></code> for a brief introduction on permutations in vegan, and permute package for the full documentation. The vignette of the permute package can be read from vegan with command <code>vegandocs("permutations")</code>.</p>
+<p>See <code><a href="../reference/permutations.html">help(permutations)</a></code> for a brief introduction on permutations in vegan, and permute package for the full documention. The vignette of the permute package can be read from vegan with command <code>vegandocs("permutations")</code>.</p>
 <p>The following functions use the <a href="https://CRAN.R-project.org/package=permute" class="external-link">permute</a> package: <code>CCorA</code>, <code>adonis</code>, <code>anosim</code>, <code>anova.cca</code> (plus associated <code>permutest.cca</code>, <code>add1.cca</code>, <code>drop1.cca</code>, <code>ordistep</code>, <code>ordiR2step</code>), <code>envfit</code> (plus associated <code>factorfit</code> and <code>vectorfit</code>), <code>mantel</code> (and <code>mantel.partial</code>), <code>mrpp</code>, <code>mso</code>, <code>ordiareatest</code>, <code>permutest.betadisper</code>, <code>protest</code> and <code>simper</code>.</p>
 </li>
 <li><p>Community null model generation has been completely redesigned and rewritten. The communities are constructed with new <code>nullmodel</code> function and defined in a low level <code>commsim</code> function. The actual null models are generated with a <code>simulate</code> function that builds an array of null models. The new null models include a wide array of quantitative models in addition to the old binary models, and users can plug in their own generating functions. The basic tool invoking and analysing null models is <code>oecosimu</code>. The null models are often used only for the analysis of nestedness, but the implementation in <code>oecosimu</code> allows analysing any statistic, and null models are better seen as an alternative to permutation tests.</p></li>
@@ -884,7 +869,7 @@
 <li><p>New <code>hclust</code> support functions <code>reorder</code>, <code>rev</code> and <code>scores</code>. Functions <code>reorder</code> and <code>rev</code> are similar as these functions for <code>dendrogram</code> objects in base <strong>R</strong>. However, <code>reorder</code> can use (and defaults to) weighted mean. In weighted mean the node average is always the mean of member leaves, whereas the <code>dendrogram</code> uses always unweighted means of joined branches.</p></li>
 <li><p>Function <code>ordiareatest</code> supplements <code>ordihull</code> and <code>ordiellipse</code> and provides a randomization test for the one-sided alternative hypothesis that convex hulls or ellipses in two-dimensional ordination space have smaller areas than with randomized groups.</p></li>
 <li><p>Function <code>permustats</code> extracts and inspects permutation results with support functions <code>summary</code>, <code>density</code>, <code>densityplot</code>, <code>qqnorm</code> and <code>qqmath</code>. The <code>density</code> and <code>qqnorm</code> are standard <strong>R</strong> tools that only work with one statistic, and <code>densityplot</code> and <code>qqmath</code> are lattice graphics that work with univariate and multivariate statistics. The results of following functions can be extracted: <code>anosim</code>, <code>adonis</code>, <code>mantel</code> (and <code>mantel.partial</code>), <code>mrpp</code>, <code>oecosimu</code>, <code>permustest.cca</code> (but not the corresponding <code>anova</code> methods), <code>permutest.betadisper</code>, and <code>protest</code>.</p></li>
-<li><p><code>stressplot</code> functions display the ordination distances at given number of dimensions against original distances. The method functions are similar to <code>stressplot</code> for <code>metaMDS</code>, and always use the inherent distances of each ordination method. The functions are available for the results <code>capscale</code>, <code>cca</code>, <code>princomp</code>, <code>prcomp</code>, <code>rda</code>, and <code>wcmdscale</code>.</p></li>
+<li><p><code>stressplot</code> functions display the ordination distances at given number of dimensions against original distances. The method functins are similar to <code>stressplot</code> for <code>metaMDS</code>, and always use the inherent distances of each ordination method. The functions are available for the results <code>capscale</code>, <code>cca</code>, <code>princomp</code>, <code>prcomp</code>, <code>rda</code>, and <code>wcmdscale</code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-2-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-2-0"></a></h3>
@@ -1092,7 +1077,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-2-0-3">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-0-3"></a></h3>
 <ul><li><p><code><a href="../reference/betadisper.html">betadisper()</a></code> failed when the <code>groups</code> was a factor with empty levels.</p></li>
-<li><p>Some constrained ordination methods and their support functions are more robust in border cases (completely aliased effects, saturated models, user requests for non-existing scores etc). Concerns <code>capscale</code>, <code>ordistep</code>, <code>varpart</code>, <code>plot</code> function for constrained ordination, and <code>anova(&lt;cca.object&gt;, by = "margin")</code>.</p></li>
+<li><p>Some constrained ordination methods and their support functions are more robust in border cases (completely aliased effects, saturated models, user requests for non-existng scores etc). Concerns <code>capscale</code>, <code>ordistep</code>, <code>varpart</code>, <code>plot</code> function for constrained ordination, and <code>anova(&lt;cca.object&gt;, by = "margin")</code>.</p></li>
 <li><p>The <code>scores</code> function for <code>monoMDS</code> did not honour <code>choices</code> argument and hence dimensions could not be chosen in <code>plot</code>.</p></li>
 <li><p>The default <code>scores</code> method failed if the number of requested axes was higher than the ordination object had. This was reported as an error in <code>ordiplot</code> in <a href="https://stat.ethz.ch/pipermail/r-sig-ecology/2012-February/002768.html" class="external-link">R-sig-ecology</a> mailing list.</p></li>
 </ul></div>

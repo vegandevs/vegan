@@ -19,8 +19,6 @@ ordixyplot(x, data = NULL, formula, display = "sites", choices = 1:3,
     type = c("p", "biplot"), ...)
 # S3 method for class 'poolaccum'
 plot(x, alpha = 0.05, type = c("l","g"), ...)
-# S3 method for class 'renyi'
-plot(x, ...)
 # S3 method for class 'renyiaccum'
 plot(x, what = c("Collector", "mean", "Qnt 0.025",
     "Qnt 0.975"),
@@ -167,9 +165,9 @@ The following functions are currently deprecated:
 
 - `plot` functions for
   [`poolaccum`](https://vegandevs.github.io/vegan/reference/specpool.md),
-  [`renyi`](https://vegandevs.github.io/vegan/reference/renyi.md) and
+  and
   [`renyiaccum`](https://vegandevs.github.io/vegan/reference/renyi.md):
-  use `autoplot` in ggvegan.
+  use `autoplot` or `fortify` in ggvegan.
 
 - `permulattice`: use `autoplot` in ggvegan.
 

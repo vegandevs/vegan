@@ -200,7 +200,7 @@ plotted with
 [`text.ordiplot`](https://vegandevs.github.io/vegan/reference/ordiplot.md)
 and
 [`points.ordiplot`](https://vegandevs.github.io/vegan/reference/ordiplot.md)
-and accept parameters of these functions. In addition to standard
+and accept paremeters of these functions. In addition to standard
 graphical parameters, text can be plotted over non-transparent label
 with arbument `bg = <colour>`, and location of text can be optimized to
 avoid over-writing with argument `optimize = TRUE`, and argument
@@ -318,7 +318,7 @@ plot(mod, scaling="sites")
 
 plot(mod, scaling="sites", type = "text",
   sit.par = list(type = "points", pch=21, col="red", bg="yellow", cex=1.2),
-  spe.par = list(col="blue", cex=0.8, optimize = TRUE),
+  spe.par = list(col="blue", cex=0.8),
   cen.par = list(bg="white"))
 
 

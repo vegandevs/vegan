@@ -1,85 +1,31 @@
 # Changelog
 
-## vegan 2.8-0
+## vegan 2.7-5
 
-### New Functions
+CRAN release: 2026-05-25
 
-- `influence.cca`: a new wrapper function to return `hatvalues`,
-  `rstandard`, `rstudent` and `cooks.distance`. The result can be
-  amended with working fitted values, and returned in `tidy` format that
-  can be used as input in **ggplot2** (or **lattice**) graphics to
-  substitute defunct `ordiresids` function.
+### Startup
 
-- Internal `ordConstrained` is exported. Function is the central
-  numerical engine of constrained ordination methods (`cca`, `rda`,
-  `dbrda`, `capscale`) and provides a hacker interface that can be
-  embedded in other functions and used to develop alternative methods.
-  The Examples show how to implement weighted RDA.
+- CRAN releases no longer print startup message “This is vegan…”.
 
 ### New Features
 
-- `metaMDS` can use any MDS function as an `engine` if the function
-  takes as input dissimilarities, initial configuration and number of
-  axes, and returns a list with elements stress and points for final
-  solution.
-  [`vegan::monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md)
-  and [`MASS::isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) are
-  such functions, but other MDS functions can be easily wrapped to make
-  them compatible. The Examples in the help page shows how to wrap
-  `smacof::mds`. The default engine is still
-  [`vegan::monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md),
-  and the user experience with this default choice is unchanged.
+- parallel processing is more robust on Windows, and also closes
+  internally opened socket clusters after abnormal termination. Pull
+  request [\#772](https://github.com/vegandevs/vegan/issues/772).
 
-- `adonis2` can have `Condition` in formula allowing similar analysis of
-  partial models as in `dbrda`.
-
-- `plot.envfit` can use criterion `r2.min` for lower threshold of
-  $`R^2`$ of displayed variables. Both `p.max` and `r2.min` must be
-  satisfied for displayed items.
-
-  `plot.envfit` can optimize the location of text labels for factors and
-  vectors (arrows).
-
-- `envfit` gained new support function `names` that can replace the
-  variable names in the result object.
-
-- `plot.radfit.frame` uses now base graphics instead of **lattice**.
-
-- `ordipointlabel` is faster. This was achieved using tighter bounding
-  box which reduced the number of potentially overlapping labels. The
-  used bounding box is shown with argument `bg = <colour>`. The function
-  is also invoked from `plot` and `text` functions for ordination
-  results with argument `optimize = TRUE`.
-
-  `ordipointlabel` gained argument `points`. Setting `optimize=FALSE`
+- `ordipointlabel` gained argument `points`. Setting `points=FALSE`
   suppresses drawing points which is useful if there already are points
-  (or arrowheads) in the graph.
+  (or arrow heads) in the graph.
 
 - Position of arrow labels is improved with `optimize=TRUE` in
   ordination graphics.
 
-- `varpart` labels the sources of variation by the full definition of
-  the term in plots, but switches to `X1` *etc* if the full name does
-  not fit the graph. Tilde is stripped from the term name.
-
-- `adipart` can use Hill numbers 1 and 2 in additive diversity
-  partitioning per wish of
-  [\#752](https://github.com/vegandevs/vegan/issues/752). Earlier it was
-  possible to use these only *via* `hiersimu`.
-
-- parallel processing is more robust on Windows, and also closes
-  internally opened socket clusters after error in functions. Pull
-  request [\#772](https://github.com/vegandevs/vegan/issues/772).
-
-- `decorana` uses stricter convergence criteria similarly as most other
-  **vegan** functions. Usually effects can be seen only in the last
-  decimals.
-
 - `scores(..., tidy = TRUE)` for ordination results are now compatible
   with related `ggvegan::fortify` functions, but do not change dimension
   names and add column `weight` when appropriate. This also concerns
-  default method and `wcmdscale` which earlier could not be plotted with
-  **ggvegan**.
+  default method of `scores` and `wcmdscale` which earlier could not be
+  plotted with **ggvegan**.
 
 ### Bug Fixes
 
@@ -102,29 +48,17 @@
 - `cascadeKM` failed in parallel processing on Windows. Issue
   [\#771](https://github.com/vegandevs/vegan/issues/771).
 
-### Deprecated, Defunct and Resurrected
+- `plot.envfit` drew arrows wrongly when making a new plot *and* moving
+  the bunch of arrows from the origin (*i.e.* with arguments `add=FALSE`
+  and `at != c(0,0)` together).
 
-- Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
-  defunct. `ordicloud` is available in CRAN package **vegan3d** as
-  `ordilattice3d`. New function `influence.cca` can prepare data to be
-  used in similar graphics as `ordiresids` using **ggplot2** or
-  **lattice**.
+- Text labels were dropped from zero-length arrows.
 
-- **lattice** functions `ordixyplot`, and `permulattice` (with
-  `densityplot` and `qqmath` functions for `permustats`) are defunct.
-  CRAN package **ggvegan** provides `autoplot` for these defunct
-  functions. The functions were deprecated in CRAN release 2.7-3.
+### Deprecated and Resurrected
 
-- Argument `thinplate` is finally defunct in `ordisurf`: use
-  `isotropic`. The argument was deprecated in 2013 (CRAN release 2.0-8).
-
-- Several base `plot` functions internally using **lattice** were marked
-  as deprecated in CRAN release 2.7-3. Now these are resurrected as
-  plain base functions. These include `plot` for `poolaccum` (also
-  handling `estaccumR`), `renyi` (also handling `tsallis`), and
-  `renyiaccum` (also handling `tsallisaccum`). The base `plot` functions
-  are simpler, but the original **lattice** implementations can be
-  reproduced with functions in the CRAN package **ggvegan**.
+- `plot.renyi` was prematurely deprecated in release 2.7-3: its
+  replacement was not included in the **ggvegan** 0.2.1 release. Now it
+  is resurrected as a supported function.
 
 ## vegan 2.7-3
 
@@ -914,7 +848,7 @@ CRAN release: 2022-04-17
   [\#497](https://github.com/vegandevs/vegan/issues/497).
 
 - `metaMDS` adopted a more user-friendly policy, and `trymax` will
-  always be the maximum number of tries. See discussion in
+  always be the maximum number of tries. See dicussion in
   <https://stackoverflow.com/questions/66748605/>.
 
 - `adonis2` accepts `strata`. `adonis2` is the new main function that
@@ -2264,7 +2198,7 @@ CRAN release: 2014-11-17
   The argument can be an integer giving the number of parallel
   processes. In unix-alikes (Mac OS, Linux) this will launch
   `"multicore"` processing and in Windows it will set up `"snow"`
-  clusters as described in the documentation of the parallel package. If
+  clusters as desribed in the documentation of the parallel package. If
   `option` `"mc.cores"` is set to an integer \> 1, this will be used to
   automatically start parallel processing. Finally, the argument can
   also be a previously set up `"snow"` cluster which will be used both
@@ -2277,7 +2211,7 @@ CRAN release: 2014-11-17
   permutation statistics: `adonis`, `anosim`, `anova.cca` (and
   `permutest.cca`), `mantel` (and `mantel.partial`), `mrpp`,
   `ordiareatest`, `permutest.betadisper` and `simper`. In addition,
-  `bioenv` can compare several candidate sets of models in parallel,
+  `bioenv` can compare several candidate sets of models in paralle,
   `metaMDS` can launch several random starts in parallel, and `oecosimu`
   can evaluate test statistics for several null models in parallel.
 
@@ -2294,7 +2228,7 @@ CRAN release: 2014-11-17
   See
   [`help(permutations)`](https://vegandevs.github.io/vegan/reference/permutations.md)
   for a brief introduction on permutations in vegan, and permute package
-  for the full documentation. The vignette of the permute package can be
+  for the full documention. The vignette of the permute package can be
   read from vegan with command `vegandocs("permutations")`.
 
   The following functions use the
@@ -2361,7 +2295,7 @@ CRAN release: 2014-11-17
   methods), `permutest.betadisper`, and `protest`.
 
 - `stressplot` functions display the ordination distances at given
-  number of dimensions against original distances. The method functions
+  number of dimensions against original distances. The method functins
   are similar to `stressplot` for `metaMDS`, and always use the inherent
   distances of each ordination method. The functions are available for
   the results `capscale`, `cca`, `princomp`, `prcomp`, `rda`, and
@@ -2918,7 +2852,7 @@ CRAN release: 2012-03-03
 
 - Some constrained ordination methods and their support functions are
   more robust in border cases (completely aliased effects, saturated
-  models, user requests for non-existing scores etc). Concerns
+  models, user requests for non-existng scores etc). Concerns
   `capscale`, `ordistep`, `varpart`, `plot` function for constrained
   ordination, and `anova(<cca.object>, by = "margin")`.
 

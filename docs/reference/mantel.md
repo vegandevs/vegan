@@ -167,7 +167,7 @@ mantel(veg.dist, env.dist)
 #> 
 #> Upper quantiles of permutations (null model):
 #>   90%   95% 97.5%   99% 
-#> 0.116 0.142 0.176 0.213 
+#> 0.114 0.140 0.168 0.210 
 #> Permutation: free
 #> Number of permutations: 999
 #> 
@@ -183,7 +183,7 @@ mantel(veg.dist, env.dist, method="spear")
 #> 
 #> Upper quantiles of permutations (null model):
 #>   90%   95% 97.5%   99% 
-#> 0.121 0.162 0.182 0.218 
+#> 0.124 0.163 0.187 0.223 
 #> Permutation: free
 #> Number of permutations: 999
 #> 

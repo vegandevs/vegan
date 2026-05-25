@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -166,11 +166,9 @@ Jari Oksanen written for <code>renyi</code></p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Accumulation routines are based on functions
-  <code><a href="renyi.html">renyi</a></code> and <code><a href="renyi.html">renyiaccum</a></code>, and can be plotted
-  with functions <code><a href="renyi.html">plot.renyi</a></code> and
-  <code><a href="renyi.html">plot.renyiaccum</a></code>. Alternative plots are provided by
-  <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a>. An object of class <code>tsallisaccum</code> can be
-  displayed with dynamic 3D function <code>rgl.renyiaccum</code> in the
+  <code><a href="renyi.html">renyi</a></code> and <code><a href="renyi.html">renyiaccum</a></code>, and plots are
+  provided by <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a>. An object of class <code>tsallisaccum</code>
+  can be displayed with dynamic 3D function <code>rgl.renyiaccum</code> in the
   <span class="pkg">vegan3d</span> package. See also settings for <code><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></code>.</p></div>
     </div>
 
@@ -180,75 +178,69 @@ Jari Oksanen written for <code>renyi</code></p>
 <span class="r-in"><span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span>, <span class="fl">12</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu">tsallis</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x1</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      0      0.2      0.4      0.6      0.8        1      1.2      1.4      1.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  86 39.29329 19.38852 10.40364 6.082374 3.859814 2.636380 1.917208 1.467852</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   89 39.96271 19.39982 10.27203 5.952153 3.761331 2.568371 1.872010 1.438318</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  98 43.84660 21.16041 11.11093 6.371476 3.980281 2.687154 1.938584 1.476662</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49  90 40.07436 19.37264 10.25622 5.958648 3.778851 2.587992 1.889436 1.452206</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50  92 41.30206 20.08829 10.66313 6.187254 3.906616 2.659292 1.929248 1.474476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   93 41.96845 20.49096 10.89339 6.315044 3.976563 2.697452 1.950144 1.486011</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  98 43.64355 21.01620 11.03685 6.340108 3.969925 2.685700 1.940242 1.478977</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  92 41.60244 20.33533 10.81897 6.277031 3.956635 2.686972 1.944677 1.483199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  90 40.16368 19.41416 10.25630 5.939677 3.755413 2.566788 1.872586 1.439722</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  100 44.20598 21.17686 11.08126 6.350040 3.969940 2.683412 1.937940 1.477217</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  87 39.50236 19.34899 10.30864 5.993570 3.791703 2.588211 1.884483 1.446093</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  91 40.76595 19.77916 10.48193 6.081803 3.846109 2.625076 1.910150 1.463936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0      0.2      0.4       0.6      0.8        1      1.2      1.4      1.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  96 42.46822 20.35888 10.670374 6.133357 3.851598 2.617135 1.900131 1.455342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39  83 37.13183 17.98063  9.524369 5.542801 3.530494 2.435169 1.793695 1.391532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49  90 40.07436 19.37264 10.256218 5.958648 3.778851 2.587992 1.889436 1.452206</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   81 37.47840 18.73414 10.172688 6.004908 3.836811 2.631757 1.918091 1.469869</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29  85 38.51838 18.81994 10.009321 5.819419 3.688721 2.526664 1.847408 1.423613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  99 44.47873 21.56561 11.366723 6.530095 4.077327 2.746035 1.974163 1.498140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 101 45.01956 21.66615 11.353495 6.499317 4.052495 2.729799 1.964435 1.492566</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43  85 38.38228 18.77974 10.035449 5.867927 3.736254 2.565004 1.875593 1.443295</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40  79 34.49875 16.41508  8.624079 5.028357 3.234849 2.263379 1.692562 1.331193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  90 40.93055 20.10590 10.740144 6.250173 3.947749 2.684219 1.943942 1.483076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  91 40.76643 19.76149 10.454108 6.053163 3.821669 2.606302 1.896645 1.454634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  92 40.88788 19.62643 10.291830 5.926929 3.736897 2.553271 1.864739 1.435868</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         1.8         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1.171254 0.9658398</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1.152087 0.9534257</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 1.174682 0.9669962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1.162753 0.9602659</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 1.123737 0.9360204</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 49 1.162505 0.9609552</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 1.174993 0.9679784</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.181429 0.9716117</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 1.176759 0.9686058</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 1.180006 0.9709057</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 1.153640 0.9548316</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1.175553 0.9678267</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37 1.156955 0.9565015</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1.169232 0.9648567</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x1</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="tsallis-1.png" alt="" width="700" height="1133"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1.173083 0.9672014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 1.143249 0.9481041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1.187661 0.9748589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 1.184546 0.9731442</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 1.156578 0.9569632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 1.087270 0.9137131</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 1.180039 0.9709567</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 1.163015 0.9607876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 1.152122 0.9545126</span>
 <span class="r-in"><span><span class="fu"><a href="diversity.html">diversity</a></span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,<span class="st">"simpson"</span><span class="op">)</span> <span class="op">==</span> <span class="va">x1</span><span class="op">[[</span><span class="st">"2"</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   11    9   27   49   50    4   21   15   22    5   37   36 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   30   39   49    7   29   20   41   43   40   26   34   17 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE </span>
-<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">tsallis</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>, norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu">tsallis</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    0       0.2       0.4       0.6       0.8         1       1.2       1.4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 1 0.9081594 0.8567331 0.8377008 0.8430823 0.8642843 0.8927066 0.9212566</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1 0.8982235 0.8387276 0.8137568 0.8156375 0.8358867 0.8656242 0.8971059</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 1 0.9112896 0.8605499 0.8410587 0.8456725 0.8661975 0.8940909 0.9221774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 1 0.8975551 0.8388546 0.8155960 0.8196218 0.8419326 0.8731640 0.9052902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 1 0.8833633 0.8127010 0.7799621 0.7774979 0.7968043 0.8286189 0.8643658</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 49 1 0.8925852 0.8316222 0.8082153 0.8134945 0.8377231 0.8709199 0.9046665</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 1 0.9036351 0.8503796 0.8315870 0.8385564 0.8618931 0.8922712 0.9221556</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1 0.9101799 0.8614882 0.8452139 0.8528120 0.8752597 0.9037665 0.9313684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 1 0.9070695 0.8546849 0.8354510 0.8415091 0.8639438 0.8936072 0.9229664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 1 0.9102071 0.8608373 0.8437404 0.8507238 0.8729284 0.9015588 0.9295308</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 1 0.8945746 0.8334045 0.8082215 0.8109045 0.8325271 0.8637842 0.8965990</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1 0.9038026 0.8502581 0.8308757 0.8372445 0.8602030 0.8904867 0.9204832</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37 1 0.9044443 0.8487164 0.8255079 0.8275669 0.8468656 0.8750113 0.9047013</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 1 0.8998669 0.8431295 0.8216927 0.8272622 0.8505725 0.8820846 0.9137994</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1 0.9094899 0.8600339 0.8427936 0.8492653 0.8706729 0.8985570 0.9261475</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 1 0.8987625 0.8378269 0.8104423 0.8098004 0.8281171 0.8569302 0.8885453</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 1 0.9168340 0.8714005 0.8563191 0.8638340 0.8853802 0.9124664 0.9383899</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 1 0.9130269 0.8644349 0.8473152 0.8541311 0.8762204 0.9047063 0.9323803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 1 0.8955869 0.8360372 0.8125579 0.8165505 0.8387881 0.8699334 0.9021018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 1 0.8544019 0.7656946 0.7230720 0.7171847 0.7382083 0.7754969 0.8189349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 1 0.9116552 0.8630994 0.8463498 0.8532945 0.8751655 0.9033025 0.9307642</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 1 0.8998773 0.8423760 0.8195118 0.8233665 0.8451677 0.8757762 0.9073385</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 1 0.8945733 0.8308281 0.8026305 0.8032747 0.8244489 0.8566981 0.8913214</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          1.6       1.8         2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 0.9455721 0.9640735 0.9770705</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  0.9251745 0.9475646 0.9641383</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27 0.9460502 0.9641597 0.9768635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30 0.9331704 0.9547770 0.9702687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39 0.8978144 0.9257229 0.9472977</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 49 0.9336632 0.9558968 0.9716325</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50 0.9471031 0.9657020 0.9784999</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  0.9540821 0.9707655 0.9820591</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 0.9475331 0.9658643 0.9784896</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15 0.9527060 0.9698220 0.9814590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22 0.9256369 0.9486075 0.9654409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  0.9456409 0.9644767 0.9775050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37 0.9310866 0.9520532 0.9674958</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36 0.9407648 0.9611954 0.9754595</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x2</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="tsallis-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  0.9493990 0.9669335 0.9791421</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29 0.9175446 0.9412749 0.9592583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 0.9594192 0.9746101 0.9847059</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 0.9550896 0.9716606 0.9827793</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43 0.9302296 0.9522490 0.9682216</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40 0.8608104 0.8967433 0.9252791</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26 0.9535106 0.9703141 0.9817451</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34 0.9347873 0.9560842 0.9713457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 0.9223038 0.9469046 0.9648877</span>
+<span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="tsallis-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod1</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="tsallis-4.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span>, norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod2</span>, theta<span class="op">=</span><span class="fl">100</span>, phi<span class="op">=</span><span class="fl">30</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="tsallis-5.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="tsallis-1.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu">tsallisaccum</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>, norm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></span><span class="op">(</span><span class="va">mod2</span>,theta<span class="op">=</span><span class="fl">100</span>,phi<span class="op">=</span><span class="fl">30</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="tsallis-2.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
