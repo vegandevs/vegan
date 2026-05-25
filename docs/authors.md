@@ -81,19 +81,19 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/vegandevs/vegan/blob/v2.7-5/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/vegandevs/vegan/blob/master/DESCRIPTION)
 
 Oksanen J, Simpson G, Blanchet F, Kindt R, Legendre P, Minchin P, O'Hara
 R, Solymos P, Stevens M, Szoecs E, Wagner H, Bedward M, Bolker B,
 Borcard D, Carvalho G, De Caceres M, Durand S, Evangelista H, Hannigan
 G, Hill M, Lahti L, Martino C, Ouellette M, Ribeiro Cunha E, Smith T,
 Stier A, Ter Braak C, Weedon J (2026). *vegan: Community Ecology
-Package*. R package version 2.7-5, <https://vegandevs.github.io/vegan/>.
+Package*. R package version 2.8-0, <https://vegandevs.github.io/vegan/>.
 
     @Manual{,
       title = {vegan: Community Ecology Package},
       author = {Jari Oksanen and Gavin L. Simpson and F. Guillaume Blanchet and Roeland Kindt and Pierre Legendre and Peter R. Minchin and R.B. O'Hara and Peter Solymos and M. Henry H. Stevens and Eduard Szoecs and Helene Wagner and Michael Bedward and Ben Bolker and Daniel Borcard and Gustavo Carvalho and Miquel {De Caceres} and Sebastien Durand and Heloisa Beatriz Antoniazi Evangelista and Geoffrey Hannigan and Mark O. Hill and Leo Lahti and Cameron Martino and Marie-Helene Ouellette and Eduardo {Ribeiro Cunha} and Tyler Smith and Adrian Stier and Cajo J.F. {Ter Braak} and James Weedon},
       year = {2026},
-      note = {R package version 2.7-5},
+      note = {R package version 2.8-0},
       url = {https://vegandevs.github.io/vegan/},
     }

@@ -7,16 +7,15 @@ configurations are easier to interpret, and adds species scores to the
 site ordination. The `metaMDS` function does not provide actual NMDS,
 but it calls another function for the purpose. Currently
 [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) is
-the default choice, and it is also possible to call the
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) (MASS package).
+the default choice, but it is also possible to call other functions as
+an `engine`.
 
 ## Usage
 
 ``` r
 metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20, 
-    engine = c("monoMDS", "isoMDS"), autotransform =TRUE,
-    noshare = (engine == "isoMDS"), wascores = TRUE, expand = TRUE, 
-    trace = 1, plot = FALSE, previous.best,  ...)
+    engine = monoMDS, autotransform =TRUE, noshare = FALSE, wascores = TRUE,
+    expand = TRUE, trace = 1, plot = FALSE, previous.best,  ...)
 # S3 method for class 'metaMDS'
 plot(x, display = c("sites", "species"), choices = c(1, 2),
     type = "p", shrink = FALSE, cex = 0.7, ...)
@@ -33,8 +32,8 @@ metaMDSdist(comm, distance = "bray", autotransform = TRUE,
     noshare = TRUE, trace = 1, commname, zerodist = "ignore", 
     distfun = vegdist, ...)
 metaMDSiter(dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE, 
-    previous.best, engine = "monoMDS", maxit = 200,
-    parallel = getOption("mc.cores"), ...)   
+    previous.best, engine = monoMDS, maker, parallel = getOption("mc.cores"),
+    ...)
 initMDS(x, k=2)
 postMDS(X, dist, pc=TRUE, center=TRUE, halfchange, threshold=0.8,
     nthreshold=10, plot=FALSE, ...)
@@ -58,8 +57,8 @@ metaMDSredist(object, ...)
 - k:
 
   Number of dimensions. NB., the number of points \\n\\ should be \\n \>
-  2k + 1\\, and preferably higher in global non-metric MDS, and still
-  higher in local NMDS.
+  2k + 1\\, and preferably much higher in global non-metric MDS, and
+  still higher in local NMDS.
 
 - try, trymax:
 
@@ -71,8 +70,11 @@ metaMDSredist(object, ...)
 
   The function used for MDS. The default is to use the
   [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md)
-  function in vegan, but for backward compatibility it is also possible
-  to use [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) of MASS.
+  function in vegan. It is also possible to use any MDS function which
+  takes as three first arguments (in this order) input dissimilarities,
+  matrix of initial configuration and number of dimensions, and returns
+  a list with items `stress` and `points` for final configuration. See
+  Examples for wrapping a compatible function.
 
 - autotransform:
 
@@ -180,9 +182,10 @@ metaMDSredist(object, ...)
   Handling of zero dissimilarities: either `"fail"` or `"add"` a small
   positive value, or `"ignore"`.
   [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md)
-  accepts zero dissimilarities and the default is `zerodist = "ignore"`,
-  but with [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) you may
-  need to set `zerodist = "add"`.
+  and many other functions accept zero dissimilarities and the default
+  is `zerodist = "ignore"`, but with
+  [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) you may need to
+  set `zerodist = "add"`.
 
 - distfun:
 
@@ -190,12 +193,11 @@ metaMDSredist(object, ...)
   accepting argument `method` can be used (but some extra arguments may
   cause name conflicts).
 
-- maxit:
+- maker:
 
-  Maximum number of iterations in the single NMDS run; passed to the
-  `engine` function
-  [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) or
-  [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html).
+  The name (character) of the `engine`. Only `"monoMDS"` has an effect
+  and triggers some actions that are not known to be available with
+  other engines.
 
 - parallel:
 
@@ -211,7 +213,7 @@ metaMDSredist(object, ...)
 
 - pc:
 
-  Rotate to principal components.
+  Rotate to principal axes.
 
 - center:
 
@@ -270,7 +272,7 @@ one command. The complete steps in `metaMDS` are:
     `autotransform = FALSE` and standardize and transform data
     independently. The `autotransform` is intended for community data,
     and for other data types, you should set `autotransform = FALSE`.
-    This step is perfomed using `metaMDSdist`, and the step is skipped
+    This step is performed using `metaMDSdist`, and the step is skipped
     if input were dissimilarities.
 
 2.  Choice of dissimilarity: For a good result, you should use
@@ -295,23 +297,12 @@ one command. The complete steps in `metaMDS` are:
     default NMDS `engine` is
     [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md)
     which is able to break tied values at the maximum dissimilarity, and
-    this often is sufficient to handle cases with no shared species, and
-    therefore the default is not to use
-    [`stepacross`](https://vegandevs.github.io/vegan/reference/stepacross.md)
-    with
-    [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md).
-    Function [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) does
-    not handle tied values adequately, and therefore the default is to
-    use
-    [`stepacross`](https://vegandevs.github.io/vegan/reference/stepacross.md)
-    always when there are sites with no shared species with
-    `engine = "isoMDS"`. The
+    this is usually sufficient to handle cases with no shared species.
     [`stepacross`](https://vegandevs.github.io/vegan/reference/stepacross.md)
     is triggered by option `noshare`. If you do not like manipulation of
     original distances, you should set `noshare = FALSE`. This step is
-    skipped if input data were dissimilarities instead of community
-    data. This step is performed using `metaMDSdist`, and the step is
-    skipped always when input were dissimilarities.
+    performed using `metaMDSdist`, and the step is skipped always when
+    input were dissimilarities.
 
 4.  NMDS with random starts: NMDS easily gets trapped into local optima,
     and you must start NMDS several times from random starts to be
@@ -437,14 +428,16 @@ non-metric (Kruskal 1964a, 1964b), but the ordination result
 configuration is metric and observed dissimilarities can be of any kind
 (metric or non-metric).
 
-The ordination configuration is usually rotated to principal components
-in `metaMDS`. The rotation is performed after finding the result, and it
-only changes the direction of the reference axes. The only important
-feature in the NMDS solution are the ordination distances, and these do
-not change in rotation. Similarly, the rank order of distances does not
-change in uniform scaling or centring of configuration of points. You
-can also rotate the NMDS solution to external environmental variables
-with
+The ordination configuration is usually rotated to principal axes in
+`metaMDS`. The rotation is performed after finding the result, and it
+only changes the direction of the reference axes. Before rotation the
+directions of axes are arbitrary, and the same solution (same
+configuration, same stress) the orientation of axes is arbitrary. The
+only important feature in the NMDS solution are the ordination
+distances, and these do not change in rotation. Similarly, the rank
+order of distances does not change in uniform scaling or centring of
+configuration of points. You can also rotate the NMDS solution to
+external environmental variables with
 [`MDSrotate`](https://vegandevs.github.io/vegan/reference/MDSrotate.md).
 This rotation will also only change the orientation of axes, but will
 not change the configuration of points or distances between points in
@@ -458,20 +451,19 @@ monotone regression.
 
 ## Value
 
-Function `metaMDS` returns an object of class `metaMDS`. The final site
-ordination is stored in the item `points`, and species ordination in the
-item `species`, and the stress in item `stress` (NB, the scaling of the
-stress depends on the `engine`:
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) uses percents, and
-[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md)
-proportions in the range \\0 \ldots 1\\). The other items store the
-information on the steps taken and the items returned by the `engine`
-function. The object has `print`, `plot`, `points` and `text` methods.
-Functions `metaMDSdist` and `metaMDSredist` return
+Function `metaMDS` returns an object of class `metaMDS` which inherits
+from the class of `engine`. The final site ordination is stored in the
+item `points`, and species ordination in the item `species`, and the
+stress in item `stress` (NB, the scaling of the stress depends on the
+`engine`: [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) uses
+percents,
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) and
+most other functions use proportions \\0 \ldots 1\\). The other items
+store the information on the steps taken and the items returned by the
+`engine` function. The object has `print`, `plot`, `points` and `text`
+methods. Functions `metaMDSdist` and `metaMDSredist` return
 [`vegdist`](https://vegandevs.github.io/vegan/reference/vegdist.md)
-objects. Function `initMDS` returns a random configuration which is
-intended to be used within
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) only. Functions
+objects. Function `initMDS` returns a random configuration. Functions
 `metaMDSiter` and `postMDS` returns the result of NMDS with updated
 configuration.
 
@@ -498,19 +490,17 @@ Jari Oksanen
 
 Function `metaMDS` is a simple wrapper for an NMDS engine (either
 [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) or
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html)) and some support
-functions (`metaMDSdist`,
+any compatible function, and some support functions (`metaMDSdist`,
 [`stepacross`](https://vegandevs.github.io/vegan/reference/stepacross.md),
 `metaMDSiter`, `initMDS`, `postMDS`,
 [`wascores`](https://vegandevs.github.io/vegan/reference/wascores.md)).
-You can call these support functions separately for better control of
+You can call these support functions separately for the full control of
 results. Data transformation, dissimilarities and possible
 [`stepacross`](https://vegandevs.github.io/vegan/reference/stepacross.md)
 are made in function `metaMDSdist` which returns a dissimilarity result.
-Iterative search (with starting values from `initMDS` with
-[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md)) is
-made in `metaMDSiter`. Processing of result configuration is done in
-`postMDS`, and species scores added by
+Iterative search (with starting values from `initMDS` with selected
+`engine` is made in `metaMDSiter`. Post-processing of result
+configuration is done in `postMDS`, and species scores added by
 [`wascores`](https://vegandevs.github.io/vegan/reference/wascores.md).
 If you want to be more certain of reaching a global solution, you can
 compare results from several independent runs. You can also continue
@@ -527,18 +517,9 @@ non-default values: probably at least `wascores`, `autotransform` and
 `noshare` should be `FALSE`. If you have negative data entries,
 `metaMDS` will set the previous to `FALSE` with a warning.
 
-## Warning
-
-`metaMDS` uses
-[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) as
-its NMDS `engine` from vegan version 2.0-0, when it replaced the
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) function. You can
-set argument `engine` to select the old engine.
-
 ## See also
 
-[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) (and
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html)),
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md),
 [`decostand`](https://vegandevs.github.io/vegan/reference/decostand.md),
 [`wisconsin`](https://vegandevs.github.io/vegan/reference/decostand.md),
 [`vegdist`](https://vegandevs.github.io/vegan/reference/vegdist.md),
@@ -561,45 +542,50 @@ data(dune)
 ## Global NMDS using monoMDS
 sol <- metaMDS(dune)
 #> Run 0 stress 0.1192678 
-#> Run 1 stress 0.1192678 
-#> ... Procrustes: rmse 3.961717e-06  max resid 1.060442e-05 
-#> ... Similar to previous best
-#> Run 2 stress 0.1192679 
-#> ... Procrustes: rmse 9.506715e-05  max resid 0.0002900464 
-#> ... Similar to previous best
+#> Run 1 stress 0.1183186 
+#> ... New best solution
+#> ... Procrustes: rmse 0.02027213  max resid 0.06497015 
+#> Run 2 stress 0.1192678 
 #> Run 3 stress 0.1183186 
-#> ... New best solution
-#> ... Procrustes: rmse 0.0202717  max resid 0.06496831 
-#> Run 4 stress 0.1192678 
-#> Run 5 stress 0.1183186 
-#> ... New best solution
-#> ... Procrustes: rmse 1.451457e-05  max resid 4.513645e-05 
+#> ... Procrustes: rmse 4.240126e-05  max resid 0.000134192 
 #> ... Similar to previous best
-#> Run 6 stress 0.2253072 
-#> Run 7 stress 0.2075713 
-#> Run 8 stress 0.2810273 
-#> Run 9 stress 0.1192678 
-#> Run 10 stress 0.1192678 
+#> Run 4 stress 0.1183186 
+#> ... New best solution
+#> ... Procrustes: rmse 1.982491e-05  max resid 6.335106e-05 
+#> ... Similar to previous best
+#> Run 5 stress 0.1183186 
+#> ... Procrustes: rmse 2.406814e-05  max resid 7.00858e-05 
+#> ... Similar to previous best
+#> Run 6 stress 0.1183186 
+#> ... Procrustes: rmse 4.473381e-06  max resid 1.32725e-05 
+#> ... Similar to previous best
+#> Run 7 stress 0.1183186 
+#> ... Procrustes: rmse 4.302927e-05  max resid 0.000126109 
+#> ... Similar to previous best
+#> Run 8 stress 0.1808911 
+#> Run 9 stress 0.2361935 
+#> Run 10 stress 0.1183186 
+#> ... Procrustes: rmse 4.530502e-06  max resid 1.277879e-05 
+#> ... Similar to previous best
 #> Run 11 stress 0.1183186 
-#> ... Procrustes: rmse 5.619704e-06  max resid 1.54663e-05 
+#> ... Procrustes: rmse 4.874401e-06  max resid 1.474247e-05 
 #> ... Similar to previous best
 #> Run 12 stress 0.1192679 
-#> Run 13 stress 0.1183186 
-#> ... Procrustes: rmse 3.605927e-06  max resid 8.296727e-06 
-#> ... Similar to previous best
+#> Run 13 stress 0.1192678 
 #> Run 14 stress 0.1183186 
-#> ... Procrustes: rmse 3.659581e-06  max resid 9.177277e-06 
+#> ... Procrustes: rmse 4.339857e-06  max resid 1.329071e-05 
 #> ... Similar to previous best
 #> Run 15 stress 0.1192678 
-#> Run 16 stress 0.1183186 
-#> ... New best solution
-#> ... Procrustes: rmse 1.806246e-06  max resid 4.88112e-06 
+#> Run 16 stress 0.1192678 
+#> Run 17 stress 0.1192678 
+#> Run 18 stress 0.1809577 
+#> Run 19 stress 0.1183186 
+#> ... Procrustes: rmse 1.567596e-06  max resid 4.488635e-06 
 #> ... Similar to previous best
-#> Run 17 stress 0.1886532 
-#> Run 18 stress 0.1192679 
-#> Run 19 stress 0.1808911 
-#> Run 20 stress 0.1809577 
-#> *** Best solution repeated 1 times
+#> Run 20 stress 0.1183186 
+#> ... Procrustes: rmse 1.429899e-05  max resid 4.543804e-05 
+#> ... Similar to previous best
+#> *** Best solution repeated 9 times
 sol
 #> 
 #> Call:
@@ -613,122 +599,124 @@ sol
 #> Dimensions: 2 
 #> Stress:     0.1183186 
 #> Stress type 1, weak ties
-#> Best solution was repeated 1 time in 20 tries
-#> The best solution was from try 16 (random start)
+#> Best solution was repeated 9 times in 20 tries
+#> The best solution was from try 4 (random start)
 #> Scaling: centring, PC rotation, halfchange scaling 
 #> Species: expanded scores based on ‘dune’ 
 #> 
-plot(sol, type="t")
+plot(sol, type="t", optimize = TRUE)
 
 ## Start from previous best solution
 sol <- metaMDS(dune, previous.best = sol)
 #> Starting from 2-dimensional configuration
 #> Run 0 stress 0.1183186 
-#> Run 1 stress 0.1812933 
-#> Run 2 stress 0.1183186 
-#> ... Procrustes: rmse 6.648493e-06  max resid 2.04045e-05 
-#> ... Similar to previous best
-#> Run 3 stress 0.1183186 
-#> ... Procrustes: rmse 1.055447e-05  max resid 3.353097e-05 
-#> ... Similar to previous best
+#> Run 1 stress 0.1192678 
+#> Run 2 stress 0.1192678 
+#> Run 3 stress 0.2377443 
 #> Run 4 stress 0.1183186 
-#> ... Procrustes: rmse 1.713935e-06  max resid 5.581747e-06 
+#> ... Procrustes: rmse 1.340281e-05  max resid 3.938395e-05 
 #> ... Similar to previous best
 #> Run 5 stress 0.1183186 
-#> ... Procrustes: rmse 2.881514e-06  max resid 9.729464e-06 
+#> ... Procrustes: rmse 1.724361e-05  max resid 5.286467e-05 
 #> ... Similar to previous best
-#> Run 6 stress 0.1808911 
-#> Run 7 stress 0.2035424 
-#> Run 8 stress 0.1192679 
-#> Run 9 stress 0.1192678 
-#> Run 10 stress 0.1192678 
-#> Run 11 stress 0.1809578 
-#> Run 12 stress 0.1192678 
-#> Run 13 stress 0.1183186 
-#> ... Procrustes: rmse 9.463293e-07  max resid 2.997966e-06 
+#> Run 6 stress 0.1192678 
+#> Run 7 stress 0.1192678 
+#> Run 8 stress 0.1812932 
+#> Run 9 stress 0.1183186 
+#> ... Procrustes: rmse 8.297026e-06  max resid 2.648684e-05 
 #> ... Similar to previous best
+#> Run 10 stress 0.1183186 
+#> ... Procrustes: rmse 3.672391e-06  max resid 1.102727e-05 
+#> ... Similar to previous best
+#> Run 11 stress 0.1183186 
+#> ... Procrustes: rmse 1.74036e-05  max resid 5.221197e-05 
+#> ... Similar to previous best
+#> Run 12 stress 0.1192679 
+#> Run 13 stress 0.1808912 
 #> Run 14 stress 0.1183186 
-#> ... Procrustes: rmse 3.986464e-06  max resid 1.073932e-05 
+#> ... Procrustes: rmse 3.601964e-06  max resid 7.913845e-06 
 #> ... Similar to previous best
-#> Run 15 stress 0.1192679 
-#> Run 16 stress 0.1183186 
-#> ... Procrustes: rmse 1.822852e-05  max resid 6.010661e-05 
+#> Run 15 stress 0.1183186 
+#> ... Procrustes: rmse 1.427526e-05  max resid 4.608118e-05 
 #> ... Similar to previous best
-#> Run 17 stress 0.1183186 
-#> ... Procrustes: rmse 1.957809e-05  max resid 6.043224e-05 
+#> Run 16 stress 0.1192678 
+#> Run 17 stress 0.1886532 
+#> Run 18 stress 0.1183186 
+#> ... New best solution
+#> ... Procrustes: rmse 2.455203e-06  max resid 7.089548e-06 
 #> ... Similar to previous best
-#> Run 18 stress 0.1192678 
-#> Run 19 stress 0.1192678 
-#> Run 20 stress 0.1192679 
-#> *** Best solution repeated 9 times
+#> Run 19 stress 0.1183186 
+#> ... Procrustes: rmse 1.907101e-06  max resid 4.599507e-06 
+#> ... Similar to previous best
+#> Run 20 stress 0.1183186 
+#> ... Procrustes: rmse 1.519721e-06  max resid 3.198549e-06 
+#> ... Similar to previous best
+#> *** Best solution repeated 3 times
 ## Local NMDS and stress 2 of monoMDS
 sol2 <- metaMDS(dune, model = "local", stress=2)
 #> Run 0 stress 0.1928478 
-#> Run 1 stress 0.1928486 
-#> ... Procrustes: rmse 0.0007477487  max resid 0.002170363 
-#> ... Similar to previous best
-#> Run 2 stress 0.1928475 
+#> Run 1 stress 0.1928475 
 #> ... New best solution
-#> ... Procrustes: rmse 0.0001383998  max resid 0.0004061341 
+#> ... Procrustes: rmse 0.0002687692  max resid 0.0007884502 
 #> ... Similar to previous best
-#> Run 3 stress 0.1928477 
-#> ... Procrustes: rmse 0.0003327336  max resid 0.0009634862 
+#> Run 2 stress 0.1928478 
+#> ... Procrustes: rmse 0.0002616299  max resid 0.0007514421 
 #> ... Similar to previous best
-#> Run 4 stress 0.1928477 
-#> ... Procrustes: rmse 0.0003202947  max resid 0.0009146761 
+#> Run 3 stress 0.1928493 
+#> ... Procrustes: rmse 0.000619229  max resid 0.00176734 
 #> ... Similar to previous best
-#> Run 5 stress 0.1928484 
-#> ... Procrustes: rmse 0.0005597432  max resid 0.001624104 
+#> Run 4 stress 0.1928482 
+#> ... Procrustes: rmse 0.0003840492  max resid 0.001112833 
+#> ... Similar to previous best
+#> Run 5 stress 0.1928479 
+#> ... Procrustes: rmse 0.0002894657  max resid 0.0008361738 
 #> ... Similar to previous best
 #> Run 6 stress 0.1928475 
-#> ... New best solution
-#> ... Procrustes: rmse 2.088369e-05  max resid 6.707586e-05 
+#> ... Procrustes: rmse 1.644291e-05  max resid 3.766026e-05 
 #> ... Similar to previous best
-#> Run 7 stress 0.1928479 
-#> ... Procrustes: rmse 0.0003924414  max resid 0.001128924 
+#> Run 7 stress 0.1928475 
+#> ... Procrustes: rmse 0.000130221  max resid 0.0003818861 
 #> ... Similar to previous best
-#> Run 8 stress 0.1928475 
-#> ... New best solution
-#> ... Procrustes: rmse 2.802337e-05  max resid 9.791108e-05 
+#> Run 8 stress 0.1928481 
+#> ... Procrustes: rmse 0.0003337815  max resid 0.0009546691 
 #> ... Similar to previous best
-#> Run 9 stress 0.1928479 
-#> ... Procrustes: rmse 0.000384369  max resid 0.001121822 
+#> Run 9 stress 0.1928475 
+#> ... Procrustes: rmse 4.27119e-05  max resid 0.0001126365 
 #> ... Similar to previous best
-#> Run 10 stress 0.1928476 
-#> ... Procrustes: rmse 0.0001776467  max resid 0.0005067845 
+#> Run 10 stress 0.1928478 
+#> ... Procrustes: rmse 0.0002853266  max resid 0.0008217802 
 #> ... Similar to previous best
 #> Run 11 stress 0.1928475 
-#> ... New best solution
-#> ... Procrustes: rmse 3.998437e-05  max resid 0.0001216726 
+#> ... Procrustes: rmse 1.548691e-05  max resid 4.97368e-05 
 #> ... Similar to previous best
 #> Run 12 stress 0.1928475 
-#> ... Procrustes: rmse 0.0001766684  max resid 0.0005164451 
+#> ... Procrustes: rmse 6.164492e-05  max resid 0.0001849449 
 #> ... Similar to previous best
-#> Run 13 stress 0.1928475 
-#> ... Procrustes: rmse 8.108724e-05  max resid 0.0001965552 
+#> Run 13 stress 0.1928477 
+#> ... Procrustes: rmse 0.0002163254  max resid 0.0006223963 
 #> ... Similar to previous best
-#> Run 14 stress 0.1928478 
-#> ... Procrustes: rmse 0.0003181364  max resid 0.0009240021 
+#> Run 14 stress 0.1928479 
+#> ... Procrustes: rmse 0.0003100476  max resid 0.0008956652 
 #> ... Similar to previous best
 #> Run 15 stress 0.1928475 
-#> ... Procrustes: rmse 0.0001599591  max resid 0.0004745322 
+#> ... Procrustes: rmse 9.150077e-05  max resid 0.0002410081 
 #> ... Similar to previous best
-#> Run 16 stress 0.1928495 
-#> ... Procrustes: rmse 0.0006460369  max resid 0.001908312 
+#> Run 16 stress 0.1928476 
+#> ... Procrustes: rmse 0.0001581331  max resid 0.0004500982 
 #> ... Similar to previous best
 #> Run 17 stress 0.1928477 
-#> ... Procrustes: rmse 0.0001795778  max resid 0.0004750464 
+#> ... Procrustes: rmse 0.0002344942  max resid 0.0006786406 
 #> ... Similar to previous best
-#> Run 18 stress 0.1928482 
-#> ... Procrustes: rmse 0.0004535659  max resid 0.00133414 
+#> Run 18 stress 0.1928481 
+#> ... Procrustes: rmse 0.0003703659  max resid 0.001058743 
 #> ... Similar to previous best
 #> Run 19 stress 0.1928476 
-#> ... Procrustes: rmse 0.0002120039  max resid 0.0006048461 
+#> ... Procrustes: rmse 0.0001849029  max resid 0.0005275116 
 #> ... Similar to previous best
-#> Run 20 stress 0.192848 
-#> ... Procrustes: rmse 0.0002499695  max resid 0.0006990674 
+#> Run 20 stress 0.1928477 
+#> ... Procrustes: rmse 0.0002342944  max resid 0.0006679125 
 #> ... Similar to previous best
-#> *** Best solution repeated 10 times
+#> *** Best solution repeated 20 times
 sol2
 #> 
 #> Call:
@@ -742,61 +730,49 @@ sol2
 #> Dimensions: 2 
 #> Stress:     0.1928475 
 #> Stress type 2, weak ties
-#> Best solution was repeated 10 times in 20 tries
-#> The best solution was from try 11 (random start)
+#> Best solution was repeated 20 times in 20 tries
+#> The best solution was from try 1 (random start)
 #> Scaling: centring, PC rotation, halfchange scaling 
 #> Species: expanded scores based on ‘dune’ 
 #> 
 ## Use Arrhenius exponent 'z' as a binary dissimilarity measure
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 #> Run 0 stress 0.1067169 
-#> Run 1 stress 0.1736238 
-#> Run 2 stress 0.1069786 
-#> ... Procrustes: rmse 0.006773769  max resid 0.02386586 
-#> Run 3 stress 0.1067169 
-#> ... Procrustes: rmse 3.241215e-06  max resid 8.608435e-06 
-#> ... Similar to previous best
-#> Run 4 stress 0.1659003 
+#> Run 1 stress 0.1814422 
+#> Run 2 stress 0.107471 
+#> Run 3 stress 0.1073148 
+#> Run 4 stress 0.1073148 
 #> Run 5 stress 0.1067169 
-#> ... Procrustes: rmse 3.308152e-06  max resid 9.229298e-06 
+#> ... Procrustes: rmse 1.347316e-05  max resid 3.452992e-05 
 #> ... Similar to previous best
-#> Run 6 stress 0.1067169 
-#> ... Procrustes: rmse 1.702463e-06  max resid 3.599017e-06 
+#> Run 6 stress 0.107471 
+#> Run 7 stress 0.107471 
+#> Run 8 stress 0.1067169 
+#> ... Procrustes: rmse 3.626232e-06  max resid 1.05447e-05 
 #> ... Similar to previous best
-#> Run 7 stress 0.1644145 
-#> Run 8 stress 0.1073148 
-#> Run 9 stress 0.1067169 
-#> ... New best solution
-#> ... Procrustes: rmse 5.293915e-06  max resid 1.388388e-05 
-#> ... Similar to previous best
+#> Run 9 stress 0.1069787 
+#> ... Procrustes: rmse 0.006811007  max resid 0.02403233 
 #> Run 10 stress 0.1067169 
-#> ... Procrustes: rmse 1.549009e-05  max resid 3.558187e-05 
-#> ... Similar to previous best
-#> Run 11 stress 0.1067169 
 #> ... New best solution
-#> ... Procrustes: rmse 2.313894e-06  max resid 6.256628e-06 
+#> ... Procrustes: rmse 8.756572e-07  max resid 2.662253e-06 
 #> ... Similar to previous best
-#> Run 12 stress 0.1069785 
-#> ... Procrustes: rmse 0.006765008  max resid 0.02382878 
-#> Run 13 stress 0.1694184 
+#> Run 11 stress 0.1872535 
+#> Run 12 stress 0.1073148 
+#> Run 13 stress 0.1067169 
+#> ... Procrustes: rmse 5.256324e-06  max resid 1.610495e-05 
+#> ... Similar to previous best
 #> Run 14 stress 0.1073148 
-#> Run 15 stress 0.1067169 
-#> ... Procrustes: rmse 2.09074e-06  max resid 7.161134e-06 
-#> ... Similar to previous best
+#> Run 15 stress 0.1649903 
 #> Run 16 stress 0.1067169 
-#> ... Procrustes: rmse 9.680022e-07  max resid 2.565483e-06 
+#> ... New best solution
+#> ... Procrustes: rmse 8.028117e-07  max resid 2.176418e-06 
 #> ... Similar to previous best
-#> Run 17 stress 0.1067169 
-#> ... Procrustes: rmse 9.95101e-06  max resid 2.513651e-05 
-#> ... Similar to previous best
-#> Run 18 stress 0.1067169 
-#> ... Procrustes: rmse 8.552057e-06  max resid 2.118744e-05 
-#> ... Similar to previous best
-#> Run 19 stress 0.1073148 
-#> Run 20 stress 0.1067169 
-#> ... Procrustes: rmse 1.878276e-06  max resid 5.842189e-06 
-#> ... Similar to previous best
-#> *** Best solution repeated 6 times
+#> Run 17 stress 0.2153716 
+#> Run 18 stress 0.1742032 
+#> Run 19 stress 0.107471 
+#> Run 20 stress 0.1069789 
+#> ... Procrustes: rmse 0.006866697  max resid 0.02429751 
+#> *** Best solution repeated 1 times
 sol
 #> 
 #> Call:
@@ -810,10 +786,17 @@ sol
 #> Dimensions: 2 
 #> Stress:     0.1067169 
 #> Stress type 1, weak ties
-#> Best solution was repeated 6 times in 20 tries
-#> The best solution was from try 11 (random start)
+#> Best solution was repeated 1 time in 20 tries
+#> The best solution was from try 16 (random start)
 #> Scaling: centring, PC rotation, halfchange scaling 
 #> Species: expanded scores based on ‘dune’ 
 #> 
 ## IGNORE_RDIFF_END
+## Wrap package smacof function mds as engine (you must load smacof first)
+smacof <- function(dist, y, k, ...) {
+   m <- mds(delta = dist, init = y, ndim = k, ...)
+   m$points <- m$conf
+   m
+}
+## use this as metaMDS(..., engine = smacof, type = "ordinal")
 ```

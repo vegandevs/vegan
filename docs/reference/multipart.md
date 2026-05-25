@@ -38,8 +38,8 @@ multipart(formula, data, index=c("renyi", "tsallis"), scales = 1,
   Right hand side (`x`) must be grouping variable(s) referring to levels
   of sampling hierarchy, terms from right to left will be treated as
   nested (first column is the lowest, last is the highest level). The
-  formula will add a unique indentifier to rows and constant for the
-  rows to always produce estimates of row-level alpha and overall gamma
+  formula will add a unique identifier to rows and constant for the rows
+  to always produce estimates of row-level alpha and overall gamma
   diversities. You must use non-formula interface to avoid this
   behaviour. Interaction terms are not allowed.
 
@@ -191,10 +191,10 @@ multipart(mite, levsm, index="renyi", scales=1, nsimul=19)
 #> options:  index renyi, scales 1, global FALSE
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>         statistic      SES    mean    2.5%     50%   97.5% Pr(sim.)  
-#> alpha.1    11.235 -131.758 14.0860 14.0539 14.0861 14.1206     0.05 *
-#> gamma      12.006 -349.913 14.1357 14.1231 14.1371 14.1425     0.05 *
-#> beta.1      1.071   49.402  1.0035  1.0012  1.0037  1.0054     0.05 *
+#>         statistic      SES     mean     2.5%      50%   97.5% Pr(sim.)  
+#> alpha.1    11.235  -82.989 14.08849 14.05444 14.07625 14.1661     0.05 *
+#> gamma      12.006 -354.946 14.13614 14.12885 14.13494 14.1489     0.05 *
+#> beta.1      1.071   28.451  1.00339  0.99804  1.00422  1.0058     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 multipart(mite ~ l2 + l3, levsm, index="renyi", scales=1, nsimul=19)
@@ -208,13 +208,13 @@ multipart(mite ~ l2 + l3, levsm, index="renyi", scales=1, nsimul=19)
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
 #>         statistic      SES    mean    2.5%     50%   97.5% Pr(sim.)  
-#> alpha.1    8.0555  -71.679 12.1862 12.0883 12.1853 12.2984     0.05 *
-#> alpha.2   11.2353  -76.193 14.0767 14.0083 14.0831 14.1366     0.05 *
-#> alpha.3   12.0064 -376.016 14.1352 14.1273 14.1346 14.1457     0.05 *
+#> alpha.1    8.0555  -59.908 12.1842 12.0956 12.1664 12.3348     0.05 *
+#> alpha.2   11.2353  -82.190 14.0806 14.0265 14.0731 14.1400     0.05 *
+#> alpha.3   12.0064 -324.898 14.1369 14.1249 14.1379 14.1464     0.05 *
 #> gamma     14.1603    0.000 14.1603 14.1603 14.1603 14.1603     1.00  
-#> beta.1     1.3568   31.143  1.1595  1.1508  1.1586  1.1716     0.05 *
-#> beta.2     1.0710   25.818  1.0042  1.0002  1.0038  1.0089     0.05 *
-#> beta.3     1.1794  442.753  1.0018  1.0010  1.0018  1.0023     0.05 *
+#> beta.1     1.3568   26.899  1.1588  1.1446  1.1598  1.1705     0.05 *
+#> beta.2     1.0710   28.310  1.0040  1.0002  1.0038  1.0078     0.05 *
+#> beta.3     1.1794  382.497  1.0017  1.0010  1.0016  1.0025     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
@@ -228,13 +228,13 @@ multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, relative=TRUE)
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
 #>         statistic      SES      mean      2.5%       50%   97.5% Pr(sim.)  
-#> alpha.1  8.055481  -48.227 12.176568 12.060082 12.176040 12.3428     0.05 *
-#> alpha.2 11.235261 -105.800 14.070988 14.029709 14.077154 14.1195     0.05 *
-#> alpha.3 12.006443 -286.467 14.133086 14.117974 14.133318 14.1442     0.05 *
+#> alpha.1  8.055481  -58.630 12.188486 12.073974 12.180222 12.3118     0.05 *
+#> alpha.2 11.235261  -88.711 14.089992 14.032972 14.085038 14.1477     0.05 *
+#> alpha.3 12.006443 -337.258 14.136819 14.121477 14.138647 14.1439     0.05 *
 #> gamma   14.160271    0.000 14.160271 14.160271 14.160271 14.1603     1.00  
-#> beta.1   0.078594   17.995  0.068312  0.067184  0.068369  0.0692     0.05 *
-#> beta.2   0.535514   35.116  0.502205  0.500445  0.502135  0.5038     0.05 *
-#> beta.3   0.589695  337.116  0.500962  0.500570  0.500954  0.5015     0.05 *
+#> beta.1   0.078594   22.888  0.068255  0.067282  0.068378  0.0688     0.05 *
+#> beta.2   0.535514   30.034  0.501670  0.499752  0.501848  0.5037     0.05 *
+#> beta.3   0.589695  396.846  0.500830  0.500578  0.500765  0.5014     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
@@ -248,13 +248,13 @@ multipart(mite ~ ., levsm, index="renyi", scales=1, nsimul=19, global=TRUE)
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
 #>         statistic      SES    mean    2.5%     50%   97.5% Pr(sim.)  
-#> alpha.1    8.0555  -59.952 12.1849 12.1053 12.1696 12.3211     0.05 *
-#> alpha.2   11.2353  -79.118 14.0855 14.0252 14.0797 14.1379     0.05 *
-#> alpha.3   12.0064 -260.287 14.1344 14.1155 14.1366 14.1426     0.05 *
+#> alpha.1    8.0555  -64.055 12.1757 12.0786 12.1665 12.2886     0.05 *
+#> alpha.2   11.2353  -94.848 14.0886 14.0355 14.0903 14.1396     0.05 *
+#> alpha.3   12.0064 -349.235 14.1354 14.1242 14.1368 14.1455     0.05 *
 #> gamma     14.1603    0.000 14.1603 14.1603 14.1603 14.1603     1.00  
-#> beta.1     1.7578   91.098  1.1621  1.1493  1.1636  1.1698     0.05 *
-#> beta.2     1.2603   99.168  1.0053  1.0016  1.0057  1.0096     0.05 *
-#> beta.3     1.1794  306.119  1.0018  1.0012  1.0017  1.0032     0.05 *
+#> beta.1     1.7578   96.885  1.1630  1.1523  1.1639  1.1723     0.05 *
+#> beta.2     1.2603  118.875  1.0051  1.0015  1.0050  1.0089     0.05 *
+#> beta.3     1.1794  411.140  1.0018  1.0010  1.0017  1.0026     0.05 *
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```

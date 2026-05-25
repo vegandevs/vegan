@@ -59,7 +59,7 @@ or subspecific epithet. The current function produces CEP names as
 default, but it can also use other lengths. The function is based on
 [`abbreviate`](https://rdrr.io/r/base/abbreviate.html) and can produce
 longer names if basic names are not unique. If generic name is shorter
-than specified minimun length, more characters can be used by the
+than specified minimum length, more characters can be used by the
 epithet. If `uniqgenera = TRUE` genus can use more characters, and these
 reduce the number of characters available for the epithet. The function
 drops characters from the end, but with `method = "both.sides"` the

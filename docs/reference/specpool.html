@@ -15,7 +15,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,9 @@
 <span><span class="fu">poolaccum</span><span class="op">(</span><span class="va">x</span>, permutations <span class="op">=</span> <span class="fl">100</span>, minsize <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
 <span><span class="fu">estaccumR</span><span class="op">(</span><span class="va">x</span>, permutations <span class="op">=</span> <span class="fl">100</span>, parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'poolaccum'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">display</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">display</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="co"># S3 method for class 'poolaccum'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -69,7 +71,7 @@
     <p></p>
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
 <dd><p>Data frame or matrix with species data or the analysis result
-    for <code>plot</code> function.</p></dd>
+    for the <code>plot</code> function.</p></dd>
 
   <dt id="arg-pool">pool<a class="anchor" aria-label="anchor" href="#arg-pool"></a></dt>
 <dd><p>A vector giving a classification for pooling the sites in
@@ -171,8 +173,11 @@
   standard deviation of permutations for each sample size. NB., these
   are not based on standard deviations estimated within <code>specpool</code>
   or <code>estimateR</code>, but they are based on permutations.</p>
-<p><a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a> provides function <code>autoplot</code> to show the
-  results of <code>poolaccum</code>.</p>
+<p>The <code>plot</code> function for accumulation models works both with
+  <code>poolaccum</code> and <code>estaccumR</code>. It draws the mean of
+  accumulations against the number of sites.  <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a> provides
+  function <code>autoplot</code> that can also show the empirical confidence
+  intervals of accumulations.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -251,57 +256,59 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">pool</span>, display <span class="op">=</span> <span class="st">"chao"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $chao</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        N     Chao     2.5%    97.5%   Std.Dev</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  3 162.4962 144.1768 184.6034 11.013673</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  4 175.0666 158.5404 198.7598 10.336065</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  5 183.2328 163.5337 205.0909 11.257256</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  6 189.7016 168.6770 208.7810 10.732083</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  7 194.2132 172.3986 215.6655 11.374111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  8 197.9736 177.9252 223.3080 11.910751</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  9 202.5775 182.1626 231.4184 12.177899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 10 204.9109 187.4196 227.2824 10.499770</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 11 207.6703 188.3662 233.7068 12.111882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 12 210.3659 191.9714 237.4984 12.490919</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 13 212.7621 191.8792 238.3554 12.130824</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] 14 214.7277 194.3292 235.3735 11.490910</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] 15 216.7219 196.5686 237.6484 10.816425</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] 16 218.8620 196.6856 241.9348 11.454730</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] 17 220.4776 200.2000 243.2424 11.588090</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] 18 222.6102 200.8186 248.0647 12.490470</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] 19 224.1822 205.7467 251.1151 14.662874</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [18,] 20 225.9782 207.8935 251.0283 12.687050</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19,] 21 227.8953 208.2949 253.7712 13.951917</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [20,] 22 229.3368 211.3295 252.6615 12.531505</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21,] 23 230.0760 212.8913 262.0005 12.535490</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [22,] 24 232.0528 214.2676 261.9333 12.266608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23,] 25 233.5858 215.2900 262.8136 12.836894</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [24,] 26 235.2666 214.7191 264.9190 13.693366</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25,] 27 236.6923 216.7275 260.7063 13.868347</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26,] 28 236.8844 216.4915 263.7886 13.343042</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27,] 29 236.7143 216.6731 265.5569 13.312264</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [28,] 30 237.2034 219.1378 268.0749 12.736071</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29,] 31 237.3492 220.0248 264.4282 12.624476</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [30,] 32 237.5144 219.5750 265.1425 11.364696</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31,] 33 237.4255 220.6891 263.9819 10.371750</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [32,] 34 237.8840 222.7996 263.1415 10.501549</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [33,] 35 237.4282 223.7120 261.9086  9.707338</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [34,] 36 237.4848 223.8337 255.9057  9.478582</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [35,] 37 236.5480 225.6721 254.0547  8.380387</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [36,] 38 236.3995 225.6577 257.2428  8.339691</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37,] 39 237.2985 225.0141 259.5813  8.605379</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [38,] 40 236.9973 225.7060 252.1612  7.580101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [39,] 41 237.2854 225.4600 252.5086  7.503844</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [40,] 42 237.4214 224.5666 253.9669  7.603727</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41,] 43 237.2858 226.0694 253.9841  7.320998</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [42,] 44 237.4748 226.3584 254.3531  6.874040</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43,] 45 237.0024 226.3900 254.2483  6.149373</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [44,] 46 237.0589 227.6179 252.4475  5.390659</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [45,] 47 237.1238 229.3398 252.4419  5.139588</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [46,] 48 236.4255 231.1027 246.2732  3.539775</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [47,] 49 236.3515 231.3403 242.9539  2.428696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]  3 163.4563 136.5829 182.7655 12.004706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]  4 176.5412 159.4328 195.6195 10.661510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]  5 184.7591 165.7690 209.2479 12.627215</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]  6 190.2313 170.7455 216.4161 11.162749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]  7 194.4566 175.7297 214.7811 10.517144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]  8 199.2450 183.4371 224.8769 11.145997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]  9 202.7078 187.0660 226.5574 12.142578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 10 205.7778 189.6709 229.1099 11.515657</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 11 209.5071 191.9658 232.9952 12.109400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 12 211.9727 193.8087 237.8248 12.306252</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 13 214.0954 194.9569 245.6762 12.220963</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] 14 216.2447 201.2563 246.5172 12.510035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] 15 218.5823 202.5286 245.9757 13.227008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] 16 219.1243 201.8979 243.1138 10.717775</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] 17 222.1347 203.7530 247.1392 11.678482</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] 18 223.1669 205.5961 250.0492 11.646743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] 19 225.3469 204.9797 248.1653 11.825882</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,] 20 226.6293 209.6916 253.6622 11.272303</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,] 21 227.4581 211.3089 247.0192 10.265336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,] 22 227.9943 213.4813 249.1369 10.058572</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21,] 23 230.0601 211.7946 255.8265 12.296751</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22,] 24 231.5155 212.6402 254.0672 13.729715</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23,] 25 231.9116 213.3656 261.2438 12.560858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [24,] 26 233.0002 216.2592 261.8214 12.578114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25,] 27 233.9318 215.6036 265.8193 12.089534</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26,] 28 233.9705 217.3018 265.1881 11.326573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27,] 29 234.4725 215.9046 260.8103 10.671249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28,] 30 235.2889 214.8192 262.3533 12.256566</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29,] 31 236.2261 215.3472 266.6174 12.410319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [30,] 32 237.0387 216.5141 261.1317 10.954032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31,] 33 236.4132 216.7257 253.9088 10.154365</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [32,] 34 237.0079 218.2307 257.6891  9.948949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33,] 35 237.6703 219.5076 262.1426 10.520467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34,] 36 237.7306 219.3470 258.2005  9.641592</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [35,] 37 238.1567 220.5272 256.2735  8.935588</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [36,] 38 239.0198 222.4706 260.1543  9.149970</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37,] 39 239.1022 223.2163 257.6613  8.116614</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [38,] 40 238.8933 223.6656 255.6869  7.913056</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [39,] 41 238.7612 224.1268 252.5317  7.482334</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [40,] 42 239.1360 225.4690 255.3129  7.897372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41,] 43 239.0753 226.4815 257.2072  7.975106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [42,] 44 238.9184 226.9847 257.8264  7.713831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43,] 45 238.3132 227.0721 256.3079  6.883987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [44,] 46 238.2723 229.2662 253.6119  6.035264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [45,] 47 237.4575 229.2711 251.0192  5.188615</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46,] 48 236.9787 228.9313 247.8913  4.152311</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [47,] 49 236.5269 233.7865 242.9539  2.327362</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [48,] 50 236.3732 236.3732 236.3732  0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "summary.poolaccum"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pool</span><span class="op">)</span>  <span class="co">## use ggvegan::autoplot to show CI envelope</span></span></span>
+<span class="r-plt img"><img src="specpool-2.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Quantitative model</span></span></span>
 <span class="r-in"><span><span class="fu">estimateR</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   1          2          3          4          5</span>

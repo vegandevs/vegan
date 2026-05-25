@@ -3,7 +3,7 @@
 The function fits environmental vectors or factors onto an ordination.
 The projections of points onto vectors have maximum correlation with
 corresponding environmental variables, and the factors show the averages
-of factor levels. For continuous varaibles this is equal to fitting a
+of factor levels. For continuous variables this is equal to fitting a
 linear trend surface (plane in 2D) for a variable (see
 [`ordisurf`](https://vegandevs.github.io/vegan/reference/ordisurf.md));
 this trend surface can be presented by showing its gradient (direction
@@ -21,9 +21,13 @@ envfit(ord, env, permutations = 999, strata = NULL,
 envfit(formula, data, ...)
 # S3 method for class 'envfit'
 plot(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
-   axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
+   axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg,
+   optimize = FALSE, cex = 1, add = TRUE, ...)
 # S3 method for class 'envfit'
-scores(x, display, choices, arrow.mul=1, tidy = FALSE, ...)
+scores(x, display = c("vectors", "factors"), choices,
+   arrow.mul=1, tidy = FALSE, ...)
+# S3 method for class 'envfit'
+names(x) <- value
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
 factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 ```
@@ -94,10 +98,23 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 
   Change plotting labels. The argument should be a list with elements
   `vectors` and `factors` which give the new plotting labels. If either
-  of these elements is omitted, the default labels will be used. If
-  there is only one type of elements (only `vectors` or only `factors`),
-  the labels can be given as vector. The default labels can be displayed
-  with `labels` command.
+  of these elements is omitted or `NULL`, the default labels will be
+  used. If there is only one type of elements (only `vectors` or only
+  `factors`), the labels can be given as vector. The default labels can
+  be displayed with `labels` command. The argument changes names only in
+  the `plot` and the fitted object is unchanged; use `names` to change
+  the names in the object.
+
+- value:
+
+  Names of environmental variables used to replace the names in the
+  result object. This should be a list with items `factors` and
+  `vectors`, or it can be vector of names if only factors or vectors
+  were calculated. If either `factors` or `vectors` is omitted or
+  `NULL`, names will not be replaced for that item. The replacement
+  function `names` will permanently change the result object; use
+  argument `labels` in `plot` to change names in the graph and keep the
+  result object unchanged.
 
 - arrow.mul:
 
@@ -110,17 +127,18 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 
 - at:
 
-  The origin of fitted arrows in the plot. If you plot arrows in other
-  places then origin, you probably have to specify `arrrow.mul`.
+  The origin of fitted arrows in the plot.
 
 - axis:
 
-  Plot axis showing the scaling of fitted arrows.
+  Add axis of the scaling of fitted arrows in units of correlation on
+  upper and right axes.
 
-- p.max:
+- p.max, r2.min:
 
-  Maximum estimated \\P\\ value for displayed variables. You must
-  calculate \\P\\ values with setting `permutations` to use this option.
+  Maximum estimated \\P\\ value and minimum \\r^2\\ for displayed
+  variables. You must calculate \\P\\ values with setting `permutations`
+  to use `p.max`.
 
 - col:
 
@@ -133,9 +151,19 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
   [`ordilabel`](https://vegandevs.github.io/vegan/reference/ordilabel.md)
   instead of `text`. See Examples for using semitransparent background.
 
+- optimize:
+
+  Optimize the location of text labels to minimize overlap. If `TRUE`,
+  factors will be shown with a cross in their exact location, and text
+  for factors and vectors will be optimized.
+
+- cex:
+
+  Character expansion of text labels.
+
 - add:
 
-  Results added to an existing ordination plot.
+  Add results to an existing ordination plot or generate a new plot.
 
 - strata:
 
@@ -172,9 +200,9 @@ If `X` is a [`data.frame`](https://rdrr.io/r/base/data.frame.html),
 `envfit` uses `factorfit` for
 [`factor`](https://rdrr.io/r/base/factor.html) variables and `vectorfit`
 for other variables. If `X` is a matrix or a vector, `envfit` uses only
-`vectorfit`. Alternatively, the model can be defined a simplified model
-[`formula`](https://rdrr.io/r/stats/formula.html), where the left hand
-side must be an ordination result object or a matrix of ordination
+`vectorfit`. Alternatively, the model can be defined with a simplified
+model [`formula`](https://rdrr.io/r/stats/formula.html), where the left
+hand side must be an ordination result object or a matrix of ordination
 scores, and right hand side lists the environmental variables. The
 formula interface can be used for easier selection and/or transformation
 of environmental variables. Only the main effects will be analysed even
@@ -195,7 +223,7 @@ cosines which are the coordinates of the heads of unit length vectors.
 In `plot` these are scaled by their correlation (square root of the
 column `r2`) so that “weak” predictors have shorter arrows than “strong”
 predictors. You can see the scaled relative lengths using command
-`scores`. The `plot`ted (and scaled) arrows are further adjusted to the
+`scores`. The plotted (and scaled) arrows are further adjusted to the
 current graph using a constant multiplier: this will keep the relative
 `r2`-scaled lengths of the arrows but tries to fill the current plot.
 You can see the multiplier using `ordiArrowMul(result_of_envfit)`, and
@@ -234,9 +262,7 @@ The lengths of arrows for fitted vectors are automatically adjusted for
 the physical size of the plot, and the arrow lengths cannot be compared
 across plots. For similar scaling of arrows, you must explicitly set the
 `arrow.mul` argument in the `plot` command; see
-[`ordiArrowMul`](https://vegandevs.github.io/vegan/reference/ordiArrowTextXY.md)
-and
-[`ordiArrowTextXY`](https://vegandevs.github.io/vegan/reference/ordiArrowTextXY.md).
+[`ordiArrowMul`](https://vegandevs.github.io/vegan/reference/ordiArrowTextXY.md).
 
 The results can be accessed with `scores.envfit` function which returns
 either the fitted vectors scaled by correlation coefficient or the
@@ -290,11 +316,13 @@ Michael Scroggie.
 Fitted vectors have become the method of choice in displaying
 environmental variables in ordination. Indeed, they are the optimal way
 of presenting environmental variables in Constrained Correspondence
-Analysis [`cca`](https://vegandevs.github.io/vegan/reference/cca.md),
-since there they are the linear constraints. In unconstrained ordination
-the relation between external variables and ordination configuration may
-be less linear, and therefore other methods than arrows may be more
-useful. The simplest is to adjust the plotting symbol sizes (`cex`,
+Analysis [`cca`](https://vegandevs.github.io/vegan/reference/cca.md) and
+Redundancy analysis
+([`rda`](https://vegandevs.github.io/vegan/reference/cca.md)), since
+there they are the linear constraints. In unconstrained ordination the
+relation between external variables and ordination configuration may be
+less linear, and therefore other methods than arrows may be more useful.
+The simplest is to adjust the plotting symbol sizes (`cex`,
 [`symbols`](https://rdrr.io/r/graphics/symbols.html)) by environmental
 variables. Fancier methods involve smoothing and regression methods that
 abound in R, and
@@ -310,54 +338,56 @@ A better alternative to vectors may be
 
 ``` r
 data(varespec, varechem)
-library(MASS)
 ord <- metaMDS(varespec)
 #> Square root transformation
 #> Wisconsin double standardization
 #> Run 0 stress 0.1843196 
-#> Run 1 stress 0.2109002 
-#> Run 2 stress 0.1955836 
-#> Run 3 stress 0.1843196 
-#> ... Procrustes: rmse 1.36984e-05  max resid 5.360791e-05 
-#> ... Similar to previous best
-#> Run 4 stress 0.1852397 
-#> Run 5 stress 0.1962451 
-#> Run 6 stress 0.2324518 
-#> Run 7 stress 0.2141074 
-#> Run 8 stress 0.1974407 
-#> Run 9 stress 0.2127526 
-#> Run 10 stress 0.18458 
-#> ... Procrustes: rmse 0.04934726  max resid 0.1574726 
-#> Run 11 stress 0.2028828 
-#> Run 12 stress 0.1974407 
-#> Run 13 stress 0.2174383 
-#> Run 14 stress 0.1985581 
-#> Run 15 stress 0.2114454 
-#> Run 16 stress 0.2353272 
-#> Run 17 stress 0.2044979 
-#> Run 18 stress 0.18584 
-#> Run 19 stress 0.1948414 
-#> Run 20 stress 0.2212139 
-#> *** Best solution repeated 1 times
+#> Run 1 stress 0.18458 
+#> ... Procrustes: rmse 0.04934733  max resid 0.157477 
+#> Run 2 stress 0.1948413 
+#> Run 3 stress 0.2126568 
+#> Run 4 stress 0.196245 
+#> Run 5 stress 0.2067742 
+#> Run 6 stress 0.2143612 
+#> Run 7 stress 0.18458 
+#> ... Procrustes: rmse 0.04935237  max resid 0.1575002 
+#> Run 8 stress 0.2088293 
+#> Run 9 stress 0.1825658 
+#> ... New best solution
+#> ... Procrustes: rmse 0.04163799  max resid 0.1518664 
+#> Run 10 stress 0.1955836 
+#> Run 11 stress 0.2296578 
+#> Run 12 stress 0.1852397 
+#> Run 13 stress 0.2174195 
+#> Run 14 stress 0.1974406 
+#> Run 15 stress 0.1967393 
+#> Run 16 stress 0.18458 
+#> Run 17 stress 0.2109853 
+#> Run 18 stress 0.1948413 
+#> Run 19 stress 0.2251281 
+#> Run 20 stress 0.1869637 
+#> *** Best solution was not repeated -- monoMDS stopping criteria:
+#>     17: stress ratio > sratmax
+#>      3: scale factor of the gradient < sfgrmin
 (fit <- envfit(ord, varechem, perm = 999))
 #> 
 #> ***VECTORS
 #> 
 #>             NMDS1    NMDS2     r2 Pr(>r)    
-#> N        -0.05039 -0.99873 0.2081  0.097 .  
-#> P         0.68707  0.72659 0.1755  0.132    
-#> K         0.82733  0.56171 0.1657  0.140    
-#> Ca        0.75017  0.66124 0.2811  0.041 *  
-#> Mg        0.69680  0.71727 0.3493  0.008 ** 
-#> S         0.27631  0.96107 0.1774  0.117    
-#> Al       -0.83771  0.54611 0.5155  0.001 ***
-#> Fe       -0.86190  0.50708 0.4000  0.006 ** 
-#> Mn        0.80229 -0.59693 0.5322  0.002 ** 
-#> Zn        0.66523  0.74664 0.1779  0.128    
-#> Mo       -0.84873  0.52882 0.0517  0.596    
-#> Baresoil  0.87204 -0.48943 0.2494  0.041 *  
-#> Humdepth  0.92632 -0.37673 0.5590  0.001 ***
-#> pH       -0.79905  0.60127 0.2624  0.048 *  
+#> N        -0.05725 -0.99836 0.2537  0.052 .  
+#> P         0.61968  0.78486 0.1938  0.101    
+#> K         0.76639  0.64238 0.1809  0.114    
+#> Ca        0.68514  0.72842 0.4119  0.006 ** 
+#> Mg        0.63247  0.77459 0.4270  0.004 ** 
+#> S         0.19132  0.98153 0.1752  0.125    
+#> Al       -0.87164  0.49015 0.5269  0.001 ***
+#> Fe       -0.93607  0.35180 0.4451  0.001 ***
+#> Mn        0.79871 -0.60172 0.5231  0.002 ** 
+#> Zn        0.61754  0.78654 0.1879  0.117    
+#> Mo       -0.90305  0.42953 0.0609  0.537    
+#> Baresoil  0.92495 -0.38008 0.2508  0.045 *  
+#> Humdepth  0.93286 -0.36024 0.5200  0.002 ** 
+#> pH       -0.64802  0.76162 0.2308  0.068 .  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #> Permutation: free
@@ -366,20 +396,20 @@ ord <- metaMDS(varespec)
 #> 
 scores(fit, "vectors")
 #>                NMDS1      NMDS2
-#> N        -0.02298448 -0.4555495
-#> P         0.28785488  0.3044152
-#> K         0.33676867  0.2286479
-#> Ca        0.39769955  0.3505525
-#> Mg        0.41184412  0.4239451
-#> S         0.11637297  0.4047729
-#> Al       -0.60146204  0.3920973
-#> Fe       -0.54512355  0.3207078
-#> Mn        0.58531265 -0.4354945
-#> Zn        0.28058970  0.3149280
-#> Mo       -0.19293587  0.1202130
-#> Baresoil  0.43551045 -0.2444282
-#> Humdepth  0.69259827 -0.2816765
-#> pH       -0.40932453  0.3080079
+#> N        -0.02883469 -0.5028223
+#> P         0.27281253  0.3455314
+#> K         0.32598275  0.2732335
+#> Ca        0.43969547  0.4674715
+#> Mg        0.41330987  0.5061844
+#> S         0.08008029  0.4108374
+#> Al       -0.63273148  0.3558013
+#> Fe       -0.62448384  0.2346992
+#> Mn        0.57765369 -0.4351830
+#> Zn        0.26769851  0.3409609
+#> Mo       -0.22293280  0.1060360
+#> Baresoil  0.46319165 -0.1903358
+#> Humdepth  0.67271731 -0.2597805
+#> pH       -0.31131128  0.3658875
 plot(ord)
 plot(fit)
 plot(fit, p.max = 0.05, col = "red")
@@ -420,6 +450,30 @@ labels(fit)
 #> [1] "Moisture1" "Moisture2" "Moisture4" "Moisture5"
 #> 
 plot(ord)
-plot(fit, labels=list(factors = paste("M", c(1,2,4,5), sep = "")),
+plot(fit, labels=list(factors = paste0("M", c(1,2,4,5))),
    bg = rgb(1,1,0,0.5))
+
+## change names permanently
+names(fit) <- list(factors = paste0("M", c(1,2,4,5)))
+fit
+#> 
+#> ***VECTORS
+#> 
+#>          CA1       CA2     r2
+#> A1 -0.998160 -0.060614 0.3104
+#> 
+#> ***FACTORS:
+#> 
+#> Centroids:
+#>        CA1     CA2
+#> M1  0.7484  0.1423
+#> M2  0.4652  0.2156
+#> M4 -0.1827  0.7315
+#> M5 -1.1143 -0.5708
+#> 
+#> Goodness of fit:
+#>              r2
+#> Moisture 0.4113
+#> 
+#> 
 ```

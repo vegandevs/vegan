@@ -68,7 +68,7 @@ The `diversity` function can find the total (or gamma) diversity of
 pooled communities with argument `groups`. The average alpha diversity
 can be found as the mean of diversities by the same groups, and their
 difference or ratio is an estimate of beta diversity (see Examples). The
-pooling can be based either on the observed abundancies, or all
+pooling can be based either on the observed abundances, or all
 communities can be equalized to unit total before pooling; see Jost
 (2007) for discussion. Functions
 [`adipart`](https://vegandevs.github.io/vegan/reference/adipart.md) and

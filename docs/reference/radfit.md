@@ -19,8 +19,7 @@ predict(object, newdata, total, ...)
 # S3 method for class 'radfit'
 plot(x, BIC = FALSE, legend = TRUE, ...)
 # S3 method for class 'radfit.frame'
-plot(x, order.by, BIC = FALSE, model, legend = TRUE,
-     as.table = TRUE, ...)
+plot(x, which, BIC = FALSE, model, legend = TRUE, ...)
 # S3 method for class 'radline'
 plot(x, xlab = "Rank", ylab = "Abundance", type = "b", ...)
 radlattice(x, BIC = FALSE, ...)
@@ -61,9 +60,9 @@ plot(x, xlab = "Rank", ylab = "Abundance", log = "y", ...)
   The new total used for predicting abundance. Observed total count is
   used if this is omitted.
 
-- order.by:
+- which:
 
-  A vector used for ordering sites in plots.
+  A vector for selecting sites in plots.
 
 - BIC:
 
@@ -80,11 +79,6 @@ plot(x, xlab = "Rank", ylab = "Abundance", log = "y", ...)
 - legend:
 
   Add legend of line colours.
-
-- as.table:
-
-  Arrange panels starting from upper left corner (passed to
-  [`xyplot`](https://rdrr.io/pkg/lattice/man/xyplot.html)).
 
 - xlab,ylab:
 
@@ -163,11 +157,10 @@ such as [`quasipoisson`](https://rdrr.io/r/stats/family.html) cannot be
 used: they do not have [`AIC`](https://rdrr.io/r/stats/AIC.html) nor
 log-Likelihood needed in non-linear models.
 
-All these functions have their own `plot` functions. When `radfit` was
-applied for a data frame, `plot` uses
-[`Lattice`](https://rdrr.io/pkg/lattice/man/Lattice.html) graphics, and
-other `plot` functions use ordinary graphics. The ordinary graphics
-functions return invisibly an
+All these functions have their own `plot` functions. The graph for
+`radfit.frame` will plot each sampling unit separately and you may need
+to divide the plot screen to panels for each of these (see
+`par("mfrow")`). The graphics functions return invisibly an
 [`ordiplot`](https://vegandevs.github.io/vegan/reference/ordiplot.md)
 object for observed points, and function
 [`identify.ordiplot`](https://vegandevs.github.io/vegan/reference/ordiplot.md)
@@ -299,16 +292,19 @@ plot(mod, log = "xy")
 radlattice(mod)
 
 # Take a subset of BCI to save time and nerves
-mod <- radfit(BCI[3:5,])
+mod <- radfit(BCI[3:6,])
 mod
 #> 
 #> Deviance for RAD models:
 #> 
-#>                  3       4      5
-#> Null       86.1127 49.8111 80.855
-#> Preemption 58.9295 39.7817 76.311
-#> Lognormal  29.2719 16.6588 17.078
-#> Zipf       50.1262 47.9108 30.936
-#> Mandelbrot  5.7342  5.5665 10.573
+#>                  3       4       5       6
+#> Null       86.1127 49.8111 80.8552 72.1627
+#> Preemption 58.9295 39.7817 76.3108 54.7709
+#> Lognormal  29.2719 16.6588 17.0775 19.5788
+#> Zipf       50.1262 47.9108 30.9358 32.4630
+#> Mandelbrot  5.7342  5.5665 10.5733  5.5973
+op <- par(mfrow=c(2,2)) # need 4 panels
 plot(mod, pch=".")
+
+par(op)
 ```

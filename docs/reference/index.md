@@ -83,7 +83,8 @@
   [`pca()`](https://vegandevs.github.io/vegan/reference/cca.md) :
   \[Partial\] \[Constrained\] Correspondence Analysis and Redundancy
   Analysis
-- [`ordiYbar()`](https://vegandevs.github.io/vegan/reference/cca.object.md)
+- [`ordConstrained()`](https://vegandevs.github.io/vegan/reference/cca.object.md)
+  [`ordiYbar()`](https://vegandevs.github.io/vegan/reference/cca.object.md)
   [`model.frame(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/cca.object.md)
   [`model.matrix(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/cca.object.md)
   [`weights(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/cca.object.md)
@@ -149,6 +150,7 @@
   [`envfit(`*`<formula>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`plot(`*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`scores(`*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
+  [`` `names<-`( ``*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`vectorfit()`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`factorfit()`](https://vegandevs.github.io/vegan/reference/envfit.md)
   : Fits an Environmental Vector or Factor onto an Ordination
@@ -185,6 +187,7 @@
   [`rstandard(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`rstudent(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`cooks.distance(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
+  [`influence(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`sigma(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`vcov(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`SSD(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
@@ -403,6 +406,8 @@
 - [`renyi()`](https://vegandevs.github.io/vegan/reference/renyi.md)
   [`renyiaccum()`](https://vegandevs.github.io/vegan/reference/renyi.md)
   [`plot(`*`<renyi>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
+  [`plot(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
+  [`lines(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
   [`persp(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/renyi.md)
   : Renyi and Hill Diversities and Corresponding Accumulation Curves
 - [`reorder(`*`<hclust>`*`)`](https://vegandevs.github.io/vegan/reference/reorder.hclust.md)
@@ -449,6 +454,7 @@
   [`poolaccum()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`estaccumR()`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`summary(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
+  [`plot(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
   : Extrapolated Species Richness in a Species Pool
 - [`` `sppscores<-`() ``](https://vegandevs.github.io/vegan/reference/sppscores.md)
   : Add or Replace Species Scores in Distance-Based Ordination
@@ -475,22 +481,12 @@
   : Vegetation and environment in lichen pastures
 - [`varpart()`](https://vegandevs.github.io/vegan/reference/varpart.md)
   [`summary(`*`<varpart>`*`)`](https://vegandevs.github.io/vegan/reference/varpart.md)
-  [`showvarparts()`](https://vegandevs.github.io/vegan/reference/varpart.md)
+  [`plot(`*`<varpart>`*`)`](https://vegandevs.github.io/vegan/reference/varpart.md)
   [`plot(`*`<varpart234>`*`)`](https://vegandevs.github.io/vegan/reference/varpart.md)
+  [`showvarparts()`](https://vegandevs.github.io/vegan/reference/varpart.md)
   : Partition the Variation of Community Matrix by 2, 3, or 4
   Explanatory Matrices
-- [`ordicloud()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`ordisplom()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`ordiresids()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`ordixyplot()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`plot(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`plot(`*`<renyiaccum>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`permulattice()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`densityplot(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  [`qqmath(`*`<permustats>`*`)`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)
-  : Deprecated lattice Functions in vegan
-- [`as.mcmc.oecosimu()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
-  [`as.mcmc.permat()`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
+- [`vegan-deprecated`](https://vegandevs.github.io/vegan/reference/vegan-deprecated.md)
   : Deprecated Functions in vegan package
 - [`ordiParseFormula()`](https://vegandevs.github.io/vegan/reference/vegan-internal.md)
   [`ordiTerminfo()`](https://vegandevs.github.io/vegan/reference/vegan-internal.md)

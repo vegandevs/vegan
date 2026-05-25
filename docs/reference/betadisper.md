@@ -184,7 +184,7 @@ betadistances(x, ...)
 
   numeric; for the `print` method, sets the number of digits to use (as
   per [`print.default`](https://rdrr.io/r/base/print.default.html)) and
-  the maximum number of axes to display eigenvalues for, repsectively.
+  the maximum number of axes to display eigenvalues for, respectively.
 
 - ...:
 
