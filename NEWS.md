@@ -46,13 +46,6 @@
   function is also invoked from `plot` and `text` functions for
   ordination results with argument `optimize = TRUE`.
 
-  `ordipointlabel` gained argument `points`. Setting `optimize=FALSE`
-  suppresses drawing points which is useful if there already are
-  points (or arrowheads) in the graph.
-
-* Position of arrow labels is improved with `optimize=TRUE` in
-  ordination graphics.
-
 * `varpart` labels the sources of variation by the full definition of
   the term in plots, but switches to `X1` _etc_ if the full name does
   not fit the graph. Tilde is stripped from the term name.
@@ -62,41 +55,9 @@
   [#752](https://github.com/vegandevs/vegan/issues/752). Earlier it
   was possible to use these only _via_ `hiersimu`.
 
-* parallel processing is more robust on Windows, and also closes
-  internally opened socket clusters after error in functions. Pull
-  request [#772](https://github.com/vegandevs/vegan/issues/772).
-
 * `decorana` uses stricter convergence criteria similarly as most
   other **vegan** functions. Usually effects can be seen only in the
   last decimals.
-
-* `scores(..., tidy = TRUE)` for ordination results are now compatible
-  with related `ggvegan::fortify` functions, but do not change
-  dimension names and add column `weight` when appropriate. This also
-  concerns default method and `wcmdscale` which earlier could not be
-  plotted with **ggvegan**.
-
-## Bug Fixes
-
-* `ordistep` and `ordiR2step` could not be embedded in other functions
-  due to scoping issues. See PR
-  [#786](https://github.com/vegandevs/vegan/pull/786) and issue
-  [#785](https://github.com/vegandevs/vegan/issues/785).
-
-* `scores` for the `envfit` results never returned `tidy` data frames
-  although they were prepared.
-
-* `ordihull` and `ordiellipse` (and hence `ordiareatest`) queried and
-  set graphical parameters also when nothing was drawn. Issue
-  [#774](https://github.com/vegandevs/vegan/issues/774).
-
-* `mantel` and `mantel.partial` returned permutation results as
-  one-column matrix instead of a vector in some parallelization
-  schemes. Issue
-  [#773](https://github.com/vegandevs/vegan/issues/773).
-
-* `cascadeKM` failed in parallel processing on Windows. Issue
-  [#771](https://github.com/vegandevs/vegan/issues/771).
 
 ## Deprecated, Defunct and Resurrected
 
@@ -124,6 +85,65 @@
   base `plot` functions are simpler, but the original **lattice**
   implementations can be reproduced with functions in the CRAN package
   **ggvegan**.
+
+# vegan 2.7-5
+
+## Startup
+
+* CRAN releases no longer print startup message "This is vegan...".
+
+## New Features
+
+* parallel processing is more robust on Windows, and also closes
+  internally opened socket clusters after abnormal termination. Pull
+  request [#772](https://github.com/vegandevs/vegan/issues/772).
+
+* `ordipointlabel` gained argument `points`. Setting `points=FALSE`
+  suppresses drawing points which is useful if there already are
+  points (or arrow heads) in the graph.
+
+* Position of arrow labels is improved with `optimize=TRUE` in
+  ordination graphics.
+
+* `scores(..., tidy = TRUE)` for ordination results are now compatible
+  with related `ggvegan::fortify` functions, but do not change
+  dimension names and add column `weight` when appropriate. This also
+  concerns default method of `scores` and `wcmdscale` which earlier
+  could not be plotted with **ggvegan**.
+
+## Bug Fixes
+
+* `ordistep` and `ordiR2step` could not be embedded in other functions
+  due to scoping issues. See PR
+  [#786](https://github.com/vegandevs/vegan/pull/786) and issue
+  [#785](https://github.com/vegandevs/vegan/issues/785).
+
+* `scores` for the `envfit` results never returned `tidy` data frames
+  although they were prepared.
+
+* `ordihull` and `ordiellipse` (and hence `ordiareatest`) queried and
+  set graphical parameters also when nothing was drawn. Issue
+  [#774](https://github.com/vegandevs/vegan/issues/774).
+
+* `mantel` and `mantel.partial` returned permutation results as
+  one-column matrix instead of a vector in some parallelization
+  schemes. Issue
+  [#773](https://github.com/vegandevs/vegan/issues/773).
+
+* `cascadeKM` failed in parallel processing on Windows. Issue
+  [#771](https://github.com/vegandevs/vegan/issues/771).
+
+* `plot.envfit` drew arrows wrongly when making a new plot _and_
+  moving the bunch of arrows from the origin (_i.e._ with arguments
+  `add=FALSE` and `at != c(0,0)` together).
+
+* Text labels were dropped from zero-length arrows.
+
+## Deprecated and Resurrected
+
+* `plot.renyi` was prematurely deprecated in release 2.7-3: its
+  replacement was not included in the **ggvegan** 0.2.1 release. Now
+  it is resurrected as a supported function.
 
 # vegan 2.7-3
 
