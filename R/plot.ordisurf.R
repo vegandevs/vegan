@@ -1,7 +1,8 @@
 `plot.ordisurf` <- function(x, what = c("contour","surface", "persp","gam"),
-                            add = FALSE, bubble = FALSE, col = "red", cex = 1,
-                            nlevels = 10, levels, labcex = 0.6,
-                            lwd.cl = par("lwd"), ...) {
+                            add = FALSE, bubble = FALSE, col = "red",
+                            alpha = 1, cex = 1, nlevels = 10, levels,
+                            labcex = 0.6, lwd.cl = par("lwd"), ...)
+{
     what <- match.arg(what)
     y <- x$model$y
     x1 <- x$model$x1
@@ -16,12 +17,12 @@
             plot(X, Y, asp = 1, type="n", ...)
         if (missing(col)) {
             if (what == "surface") # default image colors
-                col <- hcl.colors(12, "YlOrRd", rev = TRUE)
+                col <- hcl.colors(12, "YlOrRd", rev = TRUE, alpha = alpha)
             else
                 col = 2
         }
         if (what == "surface") {
-            image(X, Y, Z, add = TRUE, col = col, ...)
+            image(X, Y, Z, add = TRUE, col = col)
         }
         if (missing(levels))
             levels <- pretty(range(x$grid$z, finite = TRUE), nlevels)

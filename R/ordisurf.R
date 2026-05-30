@@ -130,31 +130,9 @@
                  as.double(newd[,2]), inpoly = as.integer(inpoly),
                  PACKAGE = "vegan")$inpoly
     is.na(fit) <- inpoly == 0
-    if(plot) {
-        if (!add) {
-            if (bubble) {
-                if (is.numeric(bubble))
-                    cex <- bubble
-                cex <- (y -  min(y))/diff(range(y)) * (cex-0.4) + 0.4
-            }
-            plot(X, asp = 1, cex = cex, ...)
-        }
-        if (!missing(main) || (missing(main) && !add)) {
-            if (missing(main))
-                main <- yname
-            title(main = main)
-        }
-        if (missing(levels))
-            levels <- pretty(range(fit, finite = TRUE), nlevels)
-        ## Only plot surface is select is FALSE or (TRUE and EDF is diff from 0)
-        if(!select ||
-           (select && !isTRUE(all.equal(as.numeric(summary(mod)$edf), 0))))
-            contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
-                    levels = levels, labcex = labcex,
-                    drawlabels = !is.null(labcex) && labcex > 0,
-                    lwd = lwd.cl)
-    }
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
+    if (plot)
+        plot(mod, add = add,...)
     mod
 }
