@@ -1,4 +1,4 @@
-`plot.ordisurf` <- function(x, what = c("contour","persp","gam"),
+`plot.ordisurf` <- function(x, what = c("contour","surface", "persp","gam"),
                             add = FALSE, bubble = FALSE, col = "red", cex = 1,
                             nlevels = 10, levels, labcex = 0.6,
                             lwd.cl = par("lwd"), ...) {
@@ -11,26 +11,35 @@
     Z <- x$grid$z
     force(col)
     force(cex)
-    if(what == "contour") {
-        if(!add) {
-            if(bubble) {
-                if (is.numeric(bubble))
-                    cex <- bubble
-                cex <- (y -  min(y))/diff(range(y)) * (cex-0.4) + 0.4
-            }
-            plot(x1, x2, asp = 1, cex = cex, ...)
+    if(what %in% c("contour", "surface")) {
+        if (!add)
+            plot(X, Y, asp = 1, type="n", ...)
+        if (missing(col)) {
+            if (what == "surface") # default image colors
+                col <- hcl.colors(12, "YlOrRd", rev = TRUE)
+            else
+                col = 2
+        }
+        if (what == "surface") {
+            image(X, Y, Z, add = TRUE, col = col, ...)
         }
         if (missing(levels))
             levels <- pretty(range(x$grid$z, finite = TRUE), nlevels)
-        contour(X, Y, Z, col = col, add = TRUE,
-                levels = levels, labcex = labcex,
+        contour(X, Y, Z, col = if (what == "surface") par("fg") else col[1],
+                add = TRUE, levels = levels, labcex = labcex,
                 drawlabels = !is.null(labcex) && labcex > 0,
                 lwd = lwd.cl)
+        if(bubble && !add) {
+            if (is.numeric(bubble))
+                cex <- bubble
+            cex <- (y -  min(y))/diff(range(y)) * (cex-0.4) + 0.4
+            points(x1, x2, cex = cex, ...)
+        }
     } else if(what == "persp") {
         persp(X, Y, Z, col = col, cex = cex, ...)
     } else {
         class(x) <- class(x)[-1]
-        plot(x, ...) ##col = col, cex = cex, ...)
+        plot(x, asp =1, ...) ##col = col, cex = cex, ...)
         class(x) <- c("ordisurf", class(x))
     }
     invisible(x)
