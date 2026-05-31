@@ -133,6 +133,8 @@
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
     if (plot)
-        plot(mod, add = add,...)
+        plot(mod, add = add, col = col, bubble = bubble, cex = cex,
+             nlevels = nlevels, levels = levels, labcex = labcex,
+             lwd.cl = lwd.cl, ...)
     mod
 }

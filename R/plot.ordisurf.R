@@ -13,17 +13,12 @@
     force(col)
     force(cex)
     if(what %in% c("contour", "surface")) {
+        if (what == "surface" && length(col) < 2) # default image colors
+            col <- hcl.colors(12, "YlOrRd", rev = TRUE, alpha = alpha)
         if (!add)
             plot(X, Y, asp = 1, type="n", ...)
-        if (missing(col)) {
-            if (what == "surface") # default image colors
-                col <- hcl.colors(12, "YlOrRd", rev = TRUE, alpha = alpha)
-            else
-                col = 2
-        }
-        if (what == "surface") {
+        if (what == "surface")
             image(X, Y, Z, add = TRUE, col = col)
-        }
         if (missing(levels))
             levels <- pretty(range(x$grid$z, finite = TRUE), nlevels)
         contour(X, Y, Z, col = if (what == "surface") par("fg") else col[1],
