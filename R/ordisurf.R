@@ -128,6 +128,11 @@
                  as.double(newd[,2]), inpoly = as.integer(inpoly),
                  PACKAGE = "vegan")$inpoly
     is.na(fit) <- inpoly == 0
+    ## poly() models do not save args
+    if (is.null(mod$model$x1) || is.null(mod$model$x2)) {
+        mod$model$x1 <- x1
+        mod$model$x2 <- x2
+    }
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
     if (plot)
