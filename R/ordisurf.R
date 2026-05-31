@@ -19,7 +19,7 @@
     function (x, y, choices = c(1, 2), knots = 10, family = "gaussian",
               col = "red", isotropic = TRUE, bs = "tp", fx = FALSE,
               add = FALSE, display = "sites", w, main, nlevels = 10,
-              levels, npoints = 31, labcex = 0.6, bubble = FALSE, cex = 1,
+              levels, npoints = 51, labcex = 0.6, bubble = FALSE, cex = 1,
               select = TRUE, method = "REML", gamma = 1, plot = TRUE,
               lwd.cl = par("lwd"), ...)
 {
@@ -111,17 +111,15 @@
     ## fit model
     mod <- gam(f, family = family, weights = w, select = select,
                method = method, gamma = gamma)
-    xn1 <- seq(min(x1), max(x1), len=GRID)
-    xn2 <- seq(min(x2), max(x2), len=GRID)
+    ## grid for prediction
+    xpand <- diff(range(x1, x2)) / 25 # 4% expansion like in axes
+    xn1 <- seq(min(x1) - xpand, max(x1) + xpand, len=GRID)
+    xn2 <- seq(min(x2) - xpand, max(x2) + xpand, len=GRID)
     newd <- expand.grid(x1 = xn1, x2 = xn2)
     fit <- predict(mod, type = "response", newdata=as.data.frame(newd))
     poly <- chull(cbind(x1,x2))
-    ## Move out points of the convex hull to have contour for all data
-    ## points
-    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) *
-        diff(range(x1))/(GRID - 1)
-    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) *
-        diff(range(x2))/(GRID - 1)
+    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) * xpand
+    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) * xpand
     npol <- length(poly)
     np <- nrow(newd)
     inpoly <- numeric(np)
