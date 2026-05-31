@@ -13,8 +13,13 @@
     force(col)
     force(cex)
     if(what %in% c("contour", "surface")) {
-        if (what == "surface" && length(col) < 2) # default image colors
-            col <- hcl.colors(12, "YlOrRd", rev = TRUE, alpha = alpha)
+        if (what == "surface") {
+            if (length(col) < 2)  # default image colors
+                col <- hcl.colors(12, "YlOrRd", rev = TRUE, alpha = alpha)
+            else if (alpha < 1) # apply alpha to user palette
+                col <- rgb(t(col2rgb(col)), alpha = alpha * 255,
+                           maxColorValue = 255)
+        }
         if (!add)
             plot(X, Y, asp = 1, type="n", ...)
         if (what == "surface")
