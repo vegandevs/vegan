@@ -25,10 +25,12 @@
                 add = TRUE, levels = levels, labcex = labcex,
                 drawlabels = !is.null(labcex) && labcex > 0,
                 lwd = lwd.cl)
-        if(bubble && !add) {
-            if (is.numeric(bubble))
-                cex <- bubble
-            cex <- (y -  min(y))/diff(range(y)) * (cex-0.4) + 0.4
+        if(!add) {
+            if (bubble) {
+                if (is.numeric(bubble))
+                    cex <- bubble
+                cex <- (y -  min(y))/diff(range(y)) * (cex-0.4) + 0.4
+            }
             points(x1, x2, cex = cex, ...)
         }
     } else if(what == "persp") {
