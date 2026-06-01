@@ -5,7 +5,8 @@
 * `ordisurf` always plotted contours, although documented behaviour
   was to skip contours with `select=TRUE` (default) when effective
   degrees of freedom are nearly zero. Polynomial models invoked by
-  setting `knots` 0, 1 or 2 failed in `plot.ordisurf`.
+  setting `knots` 0, 1 or 2 failed in `plot.ordisurf`. The variable
+  name used as the title of the graph was lost with formula interface.
 
 # vegan 2.7-5
 
