@@ -9,7 +9,7 @@
     x <- formula[[2]]
     x <- eval.parent(x)
     formula[[2]] <- NULL
-    y <- drop(as.matrix(model.frame(formula, data, na.action = na.pass)))
+    y <- as.matrix(model.frame(formula, data, na.action = na.pass))
     if (NCOL(y) > 1)
         stop(gettextf("only one fitted variable allowed in the formula"))
     ordisurf(x, y, ...)
@@ -36,8 +36,12 @@
         w <- NULL
     X <- scores(x, choices = choices, display = display, ...)
     ## The original name of 'y' may be lost in handling NA: save for
-    ## plots
-    yname <- deparse(substitute(y))
+    ## plots. In R 4.4.0 the following can be written as
+    ##     yname <- colnames(y) %||% deparse(substitute(y))
+    yname <- if (is.null(colnames(y)))
+                 deparse(substitute(y))
+             else
+                 colnames(y)
     kk <- complete.cases(X) & !is.na(y)
     if (!all(kk)) {
         X <- X[kk, , drop = FALSE]
