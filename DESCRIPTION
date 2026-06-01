@@ -1,6 +1,6 @@
 Package: vegan
 Title: Community Ecology Package
-Version: 2.7-5
+Version: 2.7-6
 Authors@R: c(person("Jari", "Oksanen", role=c("aut","cre"),
                     email="jhoksane@gmail.com",
 		    comment = c(ORCID="0000-0001-7102-9626")),
