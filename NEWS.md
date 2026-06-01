@@ -1,3 +1,12 @@
+# vegan 2.7-6
+
+## Bug Fixes
+
+* `ordisurf` always plotted contours, although documented behaviour
+  was to skip contours with `select=TRUE` (default) when effective
+  degrees of freedom are nearly zero. Polynomial models invoked by
+  setting `knots` 0, 1 or 2 failed in `plot.ordisurf`.
+
 # vegan 2.7-5
 
 ## Startup
