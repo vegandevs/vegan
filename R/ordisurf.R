@@ -159,6 +159,11 @@
                     lwd = lwd.cl)
     }
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
+    ## poly() models with knots 0,1,2 do not save x1, x2: needed in plot()
+    if (is.null(mod$model$x1) || is.null(mod$model$x2)) {
+        mod$model$x1 <- x1
+        mod$model$x2 <- x2
+    }
     class(mod) <- c("ordisurf", class(mod))
     mod
 }
