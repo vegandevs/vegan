@@ -39,6 +39,12 @@
             points(x1, x2, cex = cex, ...)
         }
     } else if(what == "persp") {
+        if (length(col) > 1) { # use gradient colours for height Z
+            i <- (Z[-1,-1] + Z[-1, -ncol(Z)] + Z[-nrow(Z), - 1] +
+                  Z[-nrow(Z), -ncol(Z)]) / 4 # facet average
+            i <- cut(i, length(col), label = FALSE)
+            col <- col[i]
+        }
         persp(X, Y, Z, col = col, cex = cex, ...)
     } else {
         class(x) <- class(x)[-1]
