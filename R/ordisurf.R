@@ -150,9 +150,9 @@
         }
         if (missing(levels))
             levels <- pretty(range(fit, finite = TRUE), nlevels)
-        ## Only plot surface is select is FALSE or (TRUE and EDF is diff from 0)
-        if(!select ||
-           (select && !isTRUE(all.equal(as.numeric(summary(mod)$edf), 0))))
+        ## Do not draw contours if select is TRUE and gam fit has EDF
+        ## nearly 0 (fixed knots 0, 1 or 2 have no EDF, hence isTRUE)
+        if(!select || !isTRUE(summary(mod)$edf < 1e-4))
             contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
                     levels = levels, labcex = labcex,
                     drawlabels = !is.null(labcex) && labcex > 0,
