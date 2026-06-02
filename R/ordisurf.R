@@ -9,9 +9,7 @@
     x <- formula[[2]]
     x <- eval.parent(x)
     formula[[2]] <- NULL
-    y <- drop(as.matrix(model.frame(formula, data, na.action = na.pass)))
-    if (NCOL(y) > 1)
-        stop(gettextf("only one fitted variable allowed in the formula"))
+    y <- as.matrix(model.frame(formula, data, na.action = na.pass))
     ordisurf(x, y, ...)
 }
 
@@ -23,6 +21,8 @@
               select = TRUE, method = "REML", gamma = 1, plot = TRUE,
               lwd.cl = par("lwd"), ...)
 {
+    if (NCOL(y) > 1)
+        stop(gettextf("only one fitted variable allowed in the formula"))
     ## GRID no user-definable - why 31?
     GRID <- npoints
     if (missing(w))
@@ -31,9 +31,11 @@
     if (!is.null(w) && length(w) == 1)
         w <- NULL
     X <- scores(x, choices = choices, display = display, ...)
-    ## The original name of 'y' may be lost in handling NA: save for
+    ## The original names of 'y' may be lost in handling NA: save for
     ## plots
-    yname <- deparse(substitute(y))
+    if (missing(main))
+        main <- colnames(y) %||% deparse(substitute(y))
+    axlabs <- colnames(X)
     kk <- complete.cases(X) & !is.na(y)
     if (!all(kk)) {
         X <- X[kk, , drop = FALSE]
@@ -135,9 +137,11 @@
     }
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
-    if (plot)
+    if (plot) {
         plot(mod, add = add, col = col, bubble = bubble, cex = cex,
              nlevels = nlevels, levels = levels, labcex = labcex,
-             lwd.cl = lwd.cl, ...)
+             lwd.cl = lwd.cl, xlab = axlabs[1], ylab = axlabs[2],
+             main = main, ...)
+    }
     mod
 }
