@@ -15,7 +15,7 @@
     if(what %in% c("contour", "surface")) {
         if (what == "surface") {
             if (length(col) < 2)  # default image colors
-                col <- hcl.colors(12, "YlOrRd", rev = TRUE, alpha = alpha)
+                col <- hcl.colors(50, "YlOrRd", rev = TRUE, alpha = alpha)
             else if (alpha < 1) # apply alpha to user palette
                 col <- rgb(t(col2rgb(col)), alpha = alpha * 255,
                            maxColorValue = 255)
@@ -48,7 +48,7 @@
         persp(X, Y, Z, col = col, cex = cex, ...)
     } else {
         class(x) <- class(x)[-1]
-        plot(x, asp =1, ...) ##col = col, cex = cex, ...)
+        plot(x, ...) ##col = col, cex = cex, ...)
         class(x) <- c("ordisurf", class(x))
     }
     invisible(x)
