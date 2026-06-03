@@ -14,15 +14,16 @@
 }
 
 `ordisurf.default` <-
-    function (x, y, choices = c(1, 2), knots = 10, family = "gaussian",
-              col = "red", isotropic = TRUE, bs = "tp", fx = FALSE,
-              add = FALSE, display = "sites", w, main, nlevels = 10,
-              levels, npoints = 51, labcex = 0.6, bubble = FALSE, cex = 1,
-              select = TRUE, method = "REML", gamma = 1, plot = TRUE,
+    function (x, y, choices = c(1, 2), what = c("contour", "surface"),
+              knots = 10, family = "gaussian", col = "red", isotropic = TRUE,
+              bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
+              nlevels = 10, levels, npoints = 51, labcex = 0.6, bubble = FALSE,
+              cex = 1, select = TRUE, method = "REML", gamma = 1, plot = TRUE,
               lwd.cl = par("lwd"), ...)
 {
     if (NCOL(y) > 1)
         stop(gettextf("only one fitted variable allowed in the formula"))
+    what <- match.arg(what)
     ## GRID no user-definable - why 31?
     GRID <- npoints
     if (missing(w))
@@ -138,8 +139,8 @@
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
     if (plot) {
-        plot(mod, add = add, col = col, bubble = bubble, cex = cex,
-             nlevels = nlevels, levels = levels, labcex = labcex,
+        plot(mod, add = add, what = what, col = col, bubble = bubble,
+             cex = cex, nlevels = nlevels, levels = levels, labcex = labcex,
              lwd.cl = lwd.cl, xlab = axlabs[1], ylab = axlabs[2],
              main = main, ...)
     }
