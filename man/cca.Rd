@@ -286,6 +286,10 @@ plot(vare.cca, spe.par = list(optimize = TRUE))
 vare.cca <- cca(varespec ~ Al + P*(K + Baresoil), data=varechem)
 vare.cca
 plot(vare.cca, spe.par = list(optimize = TRUE))
+## Interpretation of biplot arrows: project points to the arrow
+plot(vare.cca, type = "p", bip.par = list(type = "t"))
+ordisurf(vare.cca ~ Al, varechem, display = "lc", add = TRUE, knots = 1)
+title(main = "Interpretation of biplot arrow (Al)")
 ## Partialling out and negative components of variance
 cca(varespec ~ Ca, varechem)
 cca(varespec ~ Ca + Condition(pH), varechem)
