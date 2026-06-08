@@ -34,8 +34,17 @@
     X <- scores(x, choices = choices, display = display, ...)
     ## The original names of 'y' may be lost in handling NA: save for
     ## plots
-    if (missing(main))
-        main <- colnames(y) %||% deparse(substitute(y))
+    if (missing(main)) {
+        ## %||% was introduced in R 4.4.0
+        if (getRversion() >= "4.4.0") {
+            main <- colnames(y) %||% deparse(substitute(y))
+        } else {
+            main <- if (is.null(colnames(y)))
+                        deparse(substitute(y))
+                    else
+                        colnames(y)
+        }
+    }
     axlabs <- colnames(X)
     kk <- complete.cases(X) & !is.na(y)
     if (!all(kk)) {
