@@ -1,7 +1,7 @@
 
-R version 4.5.2 (2025-10-31) -- "[Not] Part in a Rumble"
-Copyright (C) 2025 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20
+R version 4.6.0 (2026-04-24) -- "Because it was There"
+Copyright (C) 2026 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin23
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1955,6 +1955,19 @@ Eigenvalues for unconstrained axes:
 (Showing 8 of 17 unconstrained eigenvalues)
 
 > plot(vare.cca, spe.par = list(optimize = TRUE))
+> ## Interpretation of biplot arrows: project points to the arrow
+> plot(vare.cca, type = "p", bip.par = list(type = "t"))
+> ordisurf(vare.cca ~ Al, varechem, display = "lc", add = TRUE, knots = 1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+y ~ poly(x1, 1) + poly(x2, 1)
+Total model degrees of freedom 3 
+
+REML score: 119.8255     
+> title(main = "Interpretation of biplot arrow (Al)")
 > ## Partialling out and negative components of variance
 > cca(varespec ~ Ca, varechem)
 
@@ -3130,6 +3143,22 @@ pH       -0.31130902  0.3658919
 > plot(ord)
 > plot(fit)
 > plot(fit, p.max = 0.05, col = "red")
+> ## Interpretation of fitted arrow: assume linear trend surface, and
+> ## the arrow shows the direction of steepest increase, and fitted
+> ## values are found by projecting points onto the arrow
+> plot(ord, type = "p")
+> plot(envfit(ord ~ Al, varechem, permutations = 0))
+> ordisurf(ord ~ Al, varechem, add = TRUE, knots = 1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+y ~ poly(x1, 1) + poly(x2, 1)
+Total model degrees of freedom 3 
+
+REML score: 125.4219     
+> title(main = "Interpretation of the arrow")
 > ## Adding fitted arrows to CCA. We use "lc" scores, and hope
 > ## that arrows are scaled similarly in cca and envfit plots
 > ord <- cca(varespec ~ Al + P + K, varechem)
@@ -4271,7 +4300,7 @@ Run 2 stress 0.1192678
 ... Procrustes: rmse 5.822837e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
-... Procrustes: rmse 6.697236e-06  max resid 2.061976e-05 
+... Procrustes: rmse 6.697235e-06  max resid 2.061976e-05 
 ... Similar to previous best
 Run 4 stress 0.1183186 
 ... New best solution
@@ -4281,11 +4310,11 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651372e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651365e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505924e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505921e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
@@ -4295,13 +4324,13 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 5.869597e-06  max resid 1.970358e-05 
+... Procrustes: rmse 5.869596e-06  max resid 1.970358e-05 
 ... Similar to previous best
 Run 17 stress 0.2075713 
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 7.276516e-06  max resid 1.734809e-05 
+... Procrustes: rmse 7.276514e-06  max resid 1.734809e-05 
 ... Similar to previous best
 *** Best solution repeated 5 times
 > sol
@@ -4329,7 +4358,7 @@ Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 4.381529e-06  max resid 1.286756e-05 
+... Procrustes: rmse 4.381525e-06  max resid 1.286756e-05 
 ... Similar to previous best
 Run 2 stress 0.1886532 
 Run 3 stress 0.1939202 
@@ -4345,7 +4374,7 @@ Run 10 stress 0.1192678
 Run 11 stress 0.1192678 
 Run 12 stress 0.1192678 
 Run 13 stress 0.1183186 
-... Procrustes: rmse 2.131405e-06  max resid 6.935982e-06 
+... Procrustes: rmse 2.131408e-06  max resid 6.935982e-06 
 ... Similar to previous best
 Run 14 stress 0.2003482 
 Run 15 stress 0.1183186 
@@ -4353,7 +4382,7 @@ Run 15 stress 0.1183186
 ... Similar to previous best
 Run 16 stress 0.2062791 
 Run 17 stress 0.1183186 
-... Procrustes: rmse 3.725123e-05  max resid 0.0001153584 
+... Procrustes: rmse 3.725124e-05  max resid 0.0001153584 
 ... Similar to previous best
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
@@ -4455,11 +4484,11 @@ Run 3 stress 0.1067169
 ... Procrustes: rmse 9.961736e-07  max resid 2.970966e-06 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 8.516169e-06  max resid 2.461974e-05 
+... Procrustes: rmse 8.51617e-06  max resid 2.461974e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1067169 
-... Procrustes: rmse 7.11875e-06  max resid 2.176707e-05 
+... Procrustes: rmse 7.118749e-06  max resid 2.176707e-05 
 ... Similar to previous best
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
@@ -5743,50 +5772,35 @@ Eigenvalues for unconstrained axes:
 > 
 > ### ** Examples
 > 
-> data(varespec)
-> data(varechem)
-> vare.dist <- vegdist(varespec)
-> vare.mds <- monoMDS(vare.dist)
+> data(varespec, varechem)
+> vare.mds <- metaMDS(varespec, trace = 0)
 > ## IGNORE_RDIFF_BEGIN
-> ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
-
-Family: gaussian 
-Link function: identity 
-
-Formula:
-y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-
-Estimated degrees of freedom:
-5.64  total = 6.64 
-
-REML score: 92.95904     
-> 
-> ## as above but without the extra penalties on smooth terms,
-> ## and using GCV smoothness selection (old behaviour of `ordisurf()`):
-> ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
-+                         select = FALSE, method = "GCV.Cp")
-
-Family: gaussian 
-Link function: identity 
-
-Formula:
-y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-
-Estimated degrees of freedom:
-6.49  total = 7.49 
-
-GCV score: 143.7761     
-> 
-> ## Cover of Cladina arbuscula
-> fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
-> ## Get fitted values
-> calibrate(fit)
+> fit <- ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
+> ## fitted values
+> fitted(fit) # or predict(fit)
        18        15        24        27        23        19        22        16 
-21.260676  5.673306  3.677152  3.889980  9.618594  7.665831  7.763242  9.773191 
+23.566062 32.537744 22.771036 17.017242 38.492510 36.435010 37.158670 34.725628 
        28        13        14        20        25         7         5         6 
- 2.699161 29.765355 12.007288  8.286220  5.417317 24.914272 11.045769 25.390480 
+26.761077 26.163261 28.674004 37.267393 23.637713 17.646929 18.672270 17.565521 
         3         4         2         9        12        10        11        21 
- 6.510626  9.424401  4.492914  4.051451 11.563182  4.286884 11.683416 14.189292 
+15.135736 10.581855  3.676970 15.133128 15.889618  9.026284  4.353543 37.890794 
+> 
+> ## Cover of reindeer lichen Cladonia stellaris
+> fit <- ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson,
++     what = "surface")
+> ## Gaussian response function
+> ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson, knots = 2,
++     main = "Clastel: Gaussian Response Surface")
+
+Family: quasipoisson 
+Link function: log 
+
+Formula:
+y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1)
+Total model degrees of freedom 6 
+
+REML score: 32.88196     
+> 
 > ## Variable selection via additional shrinkage penalties
 > ## This allows non-significant smooths to be selected out
 > ## of the model not just to a linear surface. There are 2
@@ -5801,9 +5815,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 
 Estimated degrees of freedom:
-5.64  total = 6.64 
+4.95  total = 5.95 
 
-REML score: 92.95904     
+REML score: 94.82504     
 > ##  - option 2: use a basis with shrinkage
 > ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 
@@ -5814,13 +5828,14 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
 
 Estimated degrees of freedom:
-4.41  total = 5.41 
+4.28  total = 5.28 
 
-REML score: 96.22088     
+REML score: 96.84724     
 > ## or bs = "cs" with `isotropic = FALSE`
 > ## IGNORE_RDIFF_END
 > ## Plot method
-> plot(fit, what = "contour")
+> plot(fit, what = "persp", col = terrain.colors(50),
++     main = "Cladstel: Gaussian Response")
 > 
 > ## Plotting the "gam" object
 > plot(fit, what = "gam") ## 'col' and 'cex' not passed on
@@ -5842,9 +5857,9 @@ Formula:
 y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
 
 Estimated degrees of freedom:
-5.65  total = 6.65 
+5.09  total = 6.09 
 
-REML score: 93.16148     
+REML score: 94.81595     
 > 
 > ## A fixed degrees of freedom smooth, must use 'select = FALSE'
 > ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
@@ -5859,7 +5874,7 @@ y ~ s(x1, x2, k = 4, bs = "tp", fx = TRUE)
 Estimated degrees of freedom:
 3  total = 4 
 
-REML score: 81.86252     
+REML score: 87.49891     
 > 
 > ## An anisotropic smoother with cubic regression spline bases
 > ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
@@ -5873,9 +5888,9 @@ y ~ te(x1, x2, k = c(4, 4), bs = c("cr", "cr"), fx = c(FALSE,
     FALSE))
 
 Estimated degrees of freedom:
-3  total = 4 
+5.78  total = 6.78 
 
-REML score: 90.83453     
+REML score: 95.53829     
 > 
 > ## An anisotropic smoother with cubic regression spline with
 > ## shrinkage bases & different degrees of freedom in each dimension
@@ -5893,7 +5908,7 @@ y ~ te(x1, x2, k = c(3, 4), bs = c("cs", "cs"), fx = c(TRUE,
 Estimated degrees of freedom:
 11  total = 12 
 
-REML score: 39.52198     
+REML score: 45.46794     
 > 
 > 
 > 
@@ -6714,8 +6729,8 @@ Rotation matrix:
 [2,] 0.1160491  0.9932435
 
 Translation of averages:
-              [,1]        [,2]
-[1,] -5.406691e-17 3.10918e-18
+              [,1]         [,2]
+[1,] -6.263448e-17 4.517172e-18
 
 Scaling of target:
 [1] 0.6725743
@@ -8737,7 +8752,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > with(dune.env, legend("topleft", levels(Management), pch = 1:4,
 +   title = "Management"))
 > with(dune.env, ordiellipse(mod, Management, label = TRUE))
-> ## add fitted surface of diversity to the model
+> ## add fitted surface and direction arrow of diversity to the model
 > ordisurf(mod, diversity(dune), add = TRUE)
 
 Family: gaussian 
@@ -8750,6 +8765,7 @@ Estimated degrees of freedom:
 1.28  total = 2.28 
 
 REML score: 3.00623     
+> plot(envfit(mod ~ diversity(dune), permutations=0))
 > ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 > ### permutational anova
 > adonis2(dune ~ ., dune.env, by = "margin")
@@ -9160,13 +9176,13 @@ Protopl 248.4969
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--1.110223e-15  0.000000e+00  0.000000e+00 -2.220446e-16  3.608225e-16 
+-1.110223e-15 -7.771561e-16  0.000000e+00 -1.665335e-16 -5.551115e-17 
           CA6           CA7           CA8           CA9          CA10 
- 3.469447e-16  2.220446e-16  5.551115e-17  3.608225e-16  1.179612e-16 
+ 9.714451e-17 -1.942890e-16 -4.163336e-17  2.775558e-17  5.551115e-17 
          CA11          CA12          CA13          CA14          CA15 
- 9.020562e-17  4.163336e-17  9.020562e-17  6.938894e-18  3.642919e-17 
+ 4.857226e-17 -6.938894e-18  5.551115e-17  3.469447e-18 -6.938894e-18 
          CA16          CA17          CA18          CA19 
- 2.255141e-17  6.938894e-18 -1.214306e-17  3.686287e-17 
+-1.387779e-17  1.040834e-17 -7.025630e-17 -2.168404e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9175,7 +9191,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
--4.263e-14 
+4.263e-14 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9197,7 +9213,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.883 0.404 9.302 0 0 
+Time elapsed:  9.965 0.284 10.263 0 0 
 > grDevices::dev.off()
 null device 
           1 
