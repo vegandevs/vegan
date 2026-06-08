@@ -28,6 +28,11 @@
 * `adonis2` can have `Condition` in formula allowing similar analysis
   of partial models as in `dbrda`.
 
+* `ordisurf` can plot coloured surfaces (or "filled contours") with
+  argument `what = "surface"`. The perspective plots with
+  `plot.ordisurf(..., what = "persp")` can be coloured by height if a
+  colour palette is given.
+
 * `plot.envfit` can use criterion `r2.min` for lower threshold of
   $R^2$ of displayed variables. Both `p.max` and `r2.min` must be
   satisfied for displayed items.
@@ -58,6 +63,14 @@
 * `decorana` uses stricter convergence criteria similarly as most
   other **vegan** functions. Usually effects can be seen only in the
   last decimals.
+
+## Bug Fixes
+
+* `ordisurf` always added contours, although documented behaviour was
+  to skip contours with `select = TRUE` (default) when effective
+  degrees of freedom are nearly zero. Models with fixed `knots` 0, 1
+  or failed in `plot.ordisurf`. The variable name used as the default
+  title was lost with formula interface.
 
 ## Deprecated, Defunct and Resurrected
 
