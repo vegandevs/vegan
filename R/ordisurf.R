@@ -34,8 +34,17 @@
     X <- scores(x, choices = choices, display = display, ...)
     ## The original names of 'y' may be lost in handling NA: save for
     ## plots
-    if (missing(main))
-        main <- colnames(y) %||% deparse(substitute(y))
+    if (missing(main)) {
+        ## %||% was introduced in R 4.4.0
+        if (getRversion() >= "4.4.0") {
+            main <- colnames(y) %||% deparse(substitute(y))
+        } else {
+            main <- if (is.null(colnames(y)))
+                        deparse(substitute(y))
+                    else
+                        colnames(y)
+        }
+    }
     axlabs <- colnames(X)
     kk <- complete.cases(X) & !is.na(y)
     if (!all(kk)) {
@@ -139,10 +148,14 @@
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
     if (plot) {
-        plot(mod, add = add, what = what, col = col, bubble = bubble,
-             cex = cex, nlevels = nlevels, levels = levels, labcex = labcex,
-             lwd.cl = lwd.cl, xlab = axlabs[1], ylab = axlabs[2],
-             main = main, ...)
+        ## Do not draw contours or surface if select is TRUE and gam
+        ## fit has EDF nearly 0 (fixed knots 0, 1 or 2 have no EDF,
+        ## hence isTRUE)
+        if (!select || !isTRUE(summary(mod)$edf < 1e-4))
+            plot(mod, add = add, what = what, col = col, bubble = bubble,
+                 cex = cex, nlevels = nlevels, levels = levels, labcex = labcex,
+                 lwd.cl = lwd.cl, xlab = axlabs[1], ylab = axlabs[2],
+                 main = main, ...)
     }
     mod
 }
