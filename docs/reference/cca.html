@@ -373,6 +373,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="cca-2.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="co">## Interpretation of biplot arrows: project points to the arrow</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">vare.cca</span>, type <span class="op">=</span> <span class="st">"p"</span>, bip.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"t"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ordisurf.html">ordisurf</a></span><span class="op">(</span><span class="va">vare.cca</span> <span class="op">~</span> <span class="va">Al</span>, <span class="va">varechem</span>, display <span class="op">=</span> <span class="st">"lc"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, knots <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Formula:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y ~ poly(x1, 1) + poly(x2, 1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total model degrees of freedom 3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 119.8255     </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/title.html" class="external-link">title</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Interpretation of biplot arrow (Al)"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="cca-3.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Partialling out and negative components of variance</span></span></span>
 <span class="r-in"><span><span class="fu">cca</span><span class="op">(</span><span class="va">varespec</span> <span class="op">~</span> <span class="va">Ca</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -432,7 +446,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Lolipere    Poatriv </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.46983146 0.49534368 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dune.Manure</span>, spe.par <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>optimize<span class="op">=</span><span class="cn">TRUE</span>, select <span class="op">=</span> <span class="va">good</span> <span class="op">&gt;</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="cca-3.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="cca-4.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

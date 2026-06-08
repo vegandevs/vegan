@@ -7,10 +7,11 @@ the result on ordination diagram.
 
 ``` r
 # Default S3 method
-ordisurf(x, y, choices = c(1, 2), knots = 10,
+ordisurf(x, y, choices = c(1, 2),
+    what = c("contour", "surface"), knots = 10,
          family = "gaussian", col = "red", isotropic = TRUE,
          bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
-         nlevels = 10, levels, npoints = 31, labcex = 0.6,
+         nlevels = 10, levels, npoints = 51, labcex = 0.6,
          bubble = FALSE, cex = 1, select = TRUE, method = "REML",
          gamma = 1, plot = TRUE, lwd.cl = par("lwd"), ...)
 
@@ -21,8 +22,8 @@ ordisurf(formula, data, ...)
 calibrate(object, newdata, ...)
 
 # S3 method for class 'ordisurf'
-plot(x, what = c("contour","persp","gam"),
-     add = FALSE, bubble = FALSE, col = "red", cex = 1,
+plot(x, what = c("contour","surface", "persp","gam"),
+     add = FALSE, bubble = FALSE, col = "red", alpha = 1, cex = 1,
      nlevels = 10, levels, labcex = 0.6, lwd.cl = par("lwd"), ...)
 ```
 
@@ -45,6 +46,21 @@ plot(x, what = c("contour","persp","gam"),
 
   Ordination axes.
 
+- what:
+
+  What type of plot to produce. `"contour"` produces a contour plot of
+  the response surface, see
+  [`contour`](https://rdrr.io/r/graphics/contour.html) for details.
+  `"surface"` produces a coloured
+  [`image`](https://rdrr.io/r/graphics/image.html) surface with
+  contours; since image can cover earlier items, you should set it
+  transparent with `alpha` parameter, or draw it before other items.
+  `"persp"` produces a perspective plot of the same, see
+  [`persp`](https://rdrr.io/r/graphics/persp.html) for details. `"gam"`
+  plots the fitted GAM model, an object that inherits from class `"gam"`
+  returned by `ordisurf`, see
+  [`plot.gam`](https://rdrr.io/pkg/mgcv/man/plot.gam.html).
+
 - knots:
 
   Number of initial knots in
@@ -62,7 +78,8 @@ plot(x, what = c("contour","persp","gam"),
 
 - col:
 
-  Colour of contours.
+  Colour of contours. This can also be used to set the colour palette in
+  `what = "surface"` or `"persp"`.
 
 - isotropic:
 
@@ -194,16 +211,10 @@ plot(x, what = c("contour","persp","gam"),
 
   Coordinates in two-dimensional ordination for new points.
 
-- what:
+- alpha:
 
-  character; what type of plot to produce. `"contour"` produces a
-  contour plot of the response surface, see
-  [`contour`](https://rdrr.io/r/graphics/contour.html) for details.
-  `"persp"` produces a perspective plot of the same, see
-  [`persp`](https://rdrr.io/r/graphics/persp.html) for details. `"gam"`
-  plots the fitted GAM model, an object that inherits from class `"gam"`
-  returned by `ordisurf`, see
-  [`plot.gam`](https://rdrr.io/pkg/mgcv/man/plot.gam.html).
+  An alpha-transparency level in the range \[0,1\] (0 means transparent
+  and 1 means opaque) for coloured surface.
 
 - ...:
 
@@ -308,17 +319,11 @@ large number of observations; without many hundreds of observations, the
 default complexities for the smoother will exceed the number of
 observations and fitting will fail.
 
-To get the old behaviour of `ordisurf` use `select = FALSE`,
-`method = "GCV.Cp"`, `fx = FALSE`, and `bs = "tp"`. The latter two
-options are the current defaults.
-
 Graphical arguments supplied to `plot.ordisurf` are passed on to the
-underlying plotting functions, `contour`, `persp`, and
+underlying plotting functions, `contour`, `image`, `persp`, and
 [`plot.gam`](https://rdrr.io/pkg/mgcv/man/plot.gam.html). The exception
 to this is that arguments `col` and `cex` can not currently be passed to
-[`plot.gam`](https://rdrr.io/pkg/mgcv/man/plot.gam.html) because of a
-bug in the way that function evaluates arguments when arranging the
-plot.
+[`plot.gam`](https://rdrr.io/pkg/mgcv/man/plot.gam.html).
 
 A work-around is to call
 [`plot.gam`](https://rdrr.io/pkg/mgcv/man/plot.gam.html) directly on the
@@ -353,59 +358,45 @@ For basic routines [`gam`](https://rdrr.io/pkg/mgcv/man/gam.html), and
 [`scores`](https://vegandevs.github.io/vegan/reference/scores.md).
 Function
 [`envfit`](https://vegandevs.github.io/vegan/reference/envfit.md)
-provides a more traditional and compact alternative.
+provides a more traditional and compact alternative. If the fitted
+surface simplifies to a plane, `envfit` arrowsshow the direction of the
+steepest gradient.
 
 ## Examples
 
 ``` r
-data(varespec)
-data(varechem)
-vare.dist <- vegdist(varespec)
-vare.mds <- monoMDS(vare.dist)
+data(varespec, varechem)
+vare.mds <- metaMDS(varespec, trace = 0)
 ## IGNORE_RDIFF_BEGIN
-ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
+fit <- ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
+
+## fitted values
+fitted(fit) # or predict(fit)
+#>        18        15        24        27        23        19        22        16 
+#> 23.296113 32.024184 23.229078 17.644870 37.940565 35.089235 38.271161 34.722406 
+#>        28        13        14        20        25         7         5         6 
+#> 26.501318 25.539446 29.328816 37.076425 22.616783 17.920654 19.232222 17.433273 
+#>         3         4         2         9        12        10        11        21 
+#> 15.767059 11.785335  1.104810 14.914847 15.316405 10.366603  6.543713 37.114680 
+
+## Cover of reindeer lichen Cladonia stellaris
+fit <- ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson,
+    what = "surface")
+
+## Gaussian response function
+ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson, knots = 2,
+    main = "Clastel: Gaussian Response Surface")
+
 #> 
-#> Family: gaussian 
-#> Link function: identity 
+#> Family: quasipoisson 
+#> Link function: log 
 #> 
 #> Formula:
-#> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
+#> y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1)
+#> Total model degrees of freedom 6 
 #> 
-#> Estimated degrees of freedom:
-#> 5.33  total = 6.33 
-#> 
-#> REML score: 93.94095     
+#> REML score: 35.24222     
 
-## as above but without the extra penalties on smooth terms,
-## and using GCV smoothness selection (old behaviour of `ordisurf()`):
-ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
-                        select = FALSE, method = "GCV.Cp")
-
-#> 
-#> Family: gaussian 
-#> Link function: identity 
-#> 
-#> Formula:
-#> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
-#> 
-#> Estimated degrees of freedom:
-#> 7.34  total = 8.34 
-#> 
-#> GCV score: 154.2917     
-
-## Cover of Cladina arbuscula
-fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
-
-## Get fitted values
-calibrate(fit)
-#>         18         15         24         27         23         19         22 
-#> 21.6245948  8.0343793  3.8615313  2.4594484  6.3958596  5.4260525  6.7159305 
-#>         16         28         13         14         20         25          7 
-#> 11.6759097  0.8040652 31.1725817 16.1942884  9.5897315  5.4220828 29.8214431 
-#>          5          6          3          4          2          9         12 
-#> 22.8499741 29.9937021  7.1653049 15.5309825  2.8467072  0.9051316  3.5541630 
-#>         10         11         21 
-#>  1.3099239 10.7784144  0.9177973 
 ## Variable selection via additional shrinkage penalties
 ## This allows non-significant smooths to be selected out
 ## of the model not just to a linear surface. There are 2
@@ -421,9 +412,9 @@ ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", select = TRUE)
 #> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)
 #> 
 #> Estimated degrees of freedom:
-#> 5.33  total = 6.33 
+#> 4.92  total = 5.92 
 #> 
-#> REML score: 93.94095     
+#> REML score: 95.04065     
 ##  - option 2: use a basis with shrinkage
 ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 
@@ -435,13 +426,14 @@ ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 #> y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)
 #> 
 #> Estimated degrees of freedom:
-#> 6.26  total = 7.26 
+#> 3.99  total = 4.99 
 #> 
-#> REML score: 98.83947     
+#> REML score: 96.95547     
 ## or bs = "cs" with `isotropic = FALSE`
 ## IGNORE_RDIFF_END
 ## Plot method
-plot(fit, what = "contour")
+plot(fit, what = "persp", col = terrain.colors(50),
+    main = "Cladstel: Gaussian Response")
 
 
 ## Plotting the "gam" object
@@ -467,9 +459,9 @@ ordisurf(vare.mds ~ Baresoil, varechem, bs = "ds")
 #> y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)
 #> 
 #> Estimated degrees of freedom:
-#> 5.33  total = 6.33 
+#> 5.06  total = 6.06 
 #> 
-#> REML score: 93.94099     
+#> REML score: 95.02635     
 
 ## A fixed degrees of freedom smooth, must use 'select = FALSE'
 ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
@@ -485,7 +477,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
 #> Estimated degrees of freedom:
 #> 3  total = 4 
 #> 
-#> REML score: 85.55147     
+#> REML score: 87.93142     
 
 ## An anisotropic smoother with cubic regression spline bases
 ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
@@ -500,9 +492,9 @@ ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
 #>     FALSE))
 #> 
 #> Estimated degrees of freedom:
-#> 3.08  total = 4.08 
+#> 5.9  total = 6.9 
 #> 
-#> REML score: 93.02758     
+#> REML score: 94.90999     
 
 ## An anisotropic smoother with cubic regression spline with
 ## shrinkage bases & different degrees of freedom in each dimension
@@ -521,5 +513,5 @@ ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
 #> Estimated degrees of freedom:
 #> 11  total = 12 
 #> 
-#> REML score: 42.9836     
+#> REML score: 43.97109     
 ```

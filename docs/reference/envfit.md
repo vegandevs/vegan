@@ -414,6 +414,23 @@ plot(ord)
 plot(fit)
 plot(fit, p.max = 0.05, col = "red")
 
+## Interpretation of fitted arrow: assume linear trend surface, and
+## the arrow shows the direction of steepest increase, and fitted
+## values are found by projecting points onto the arrow
+plot(ord, type = "p")
+plot(envfit(ord ~ Al, varechem, permutations = 0))
+ordisurf(ord ~ Al, varechem, add = TRUE, knots = 1)
+#> 
+#> Family: gaussian 
+#> Link function: identity 
+#> 
+#> Formula:
+#> y ~ poly(x1, 1) + poly(x2, 1)
+#> Total model degrees of freedom 3 
+#> 
+#> REML score: 125.4218     
+title(main = "Interpretation of the arrow")
+
 ## Adding fitted arrows to CCA. We use "lc" scores, and hope
 ## that arrows are scaled similarly in cca and envfit plots
 ord <- cca(varespec ~ Al + P + K, varechem)

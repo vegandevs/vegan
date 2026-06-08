@@ -47,10 +47,11 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># Default S3 method</span></span>
-<span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>, knots <span class="op">=</span> <span class="fl">10</span>,</span>
+<span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"contour"</span>, <span class="st">"surface"</span><span class="op">)</span>, knots <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>         family <span class="op">=</span> <span class="st">"gaussian"</span>, col <span class="op">=</span> <span class="st">"red"</span>, isotropic <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>         bs <span class="op">=</span> <span class="st">"tp"</span>, fx <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, display <span class="op">=</span> <span class="st">"sites"</span>, <span class="va">w</span>, <span class="va">main</span>,</span>
-<span>         nlevels <span class="op">=</span> <span class="fl">10</span>, <span class="va">levels</span>, npoints <span class="op">=</span> <span class="fl">31</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>         nlevels <span class="op">=</span> <span class="fl">10</span>, <span class="va">levels</span>, npoints <span class="op">=</span> <span class="fl">51</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>,</span>
 <span>         bubble <span class="op">=</span> <span class="cn">FALSE</span>, cex <span class="op">=</span> <span class="fl">1</span>, select <span class="op">=</span> <span class="cn">TRUE</span>, method <span class="op">=</span> <span class="st">"REML"</span>,</span>
 <span>         gamma <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">TRUE</span>, lwd.cl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -61,8 +62,8 @@
 <span><span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">newdata</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ordisurf'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"contour"</span>,<span class="st">"persp"</span>,<span class="st">"gam"</span><span class="op">)</span>,</span>
-<span>     add <span class="op">=</span> <span class="cn">FALSE</span>, bubble <span class="op">=</span> <span class="cn">FALSE</span>, col <span class="op">=</span> <span class="st">"red"</span>, cex <span class="op">=</span> <span class="fl">1</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, what <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"contour"</span>,<span class="st">"surface"</span>, <span class="st">"persp"</span>,<span class="st">"gam"</span><span class="op">)</span>,</span>
+<span>     add <span class="op">=</span> <span class="cn">FALSE</span>, bubble <span class="op">=</span> <span class="cn">FALSE</span>, col <span class="op">=</span> <span class="st">"red"</span>, alpha <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>     nlevels <span class="op">=</span> <span class="fl">10</span>, <span class="va">levels</span>, labcex <span class="op">=</span> <span class="fl">0.6</span>, lwd.cl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="st">"lwd"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -82,6 +83,20 @@
   <dt id="arg-choices">choices<a class="anchor" aria-label="anchor" href="#arg-choices"></a></dt>
 <dd><p>Ordination axes.</p></dd>
 
+
+  <dt id="arg-what">what<a class="anchor" aria-label="anchor" href="#arg-what"></a></dt>
+<dd><p>What type of plot to produce. <code>"contour"</code> produces
+    a contour plot of the response surface, see <code><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></code>
+    for details. <code>"surface"</code> produces a coloured
+    <code><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></code> surface with contours; since image can cover
+    earlier items, you should set it transparent with <code>alpha</code>
+    parameter, or draw it before other items. <code>"persp"</code> produces
+    a perspective plot of the same, see <code><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></code> for
+    details. <code>"gam"</code> plots the fitted GAM model, an object that
+    inherits from class <code>"gam"</code> returned by <code>ordisurf</code>, see
+    <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code>.</p></dd>
+
+
   <dt id="arg-knots">knots<a class="anchor" aria-label="anchor" href="#arg-knots"></a></dt>
 <dd><p>Number of initial knots in <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code> (one
     more than degrees of freedom). If <code>knots = 0</code> or
@@ -92,11 +107,14 @@
     <code>knots</code> referring to the first and second of ordination
     dimensions (as indicated by <code>choices</code>) respectively.</p></dd>
 
+
   <dt id="arg-family">family<a class="anchor" aria-label="anchor" href="#arg-family"></a></dt>
 <dd><p>Error distribution in <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>.</p></dd>
 
+
   <dt id="arg-col">col<a class="anchor" aria-label="anchor" href="#arg-col"></a></dt>
-<dd><p>Colour of contours.</p></dd>
+<dd><p>Colour of contours. This can also be used to set the
+    colour palette in <code>what = "surface"</code> or <code>"persp"</code>.</p></dd>
 
   <dt id="arg-isotropic">isotropic<a class="anchor" aria-label="anchor" href="#arg-isotropic"></a></dt>
 <dd><p>Fit an isotropic smooth surface (i.e. same
@@ -215,14 +233,11 @@
 <dd><p>Coordinates in two-dimensional ordination for new
     points.</p></dd>
 
-  <dt id="arg-what">what<a class="anchor" aria-label="anchor" href="#arg-what"></a></dt>
-<dd><p>character; what type of plot to produce. <code>"contour"</code>
-    produces a contour plot of the response surface, see
-    <code><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></code> for details. <code>"persp"</code> produces a
-    perspective plot of the same, see <code><a href="https://rdrr.io/r/graphics/persp.html" class="external-link">persp</a></code> for
-    details. <code>"gam"</code> plots the fitted GAM model, an object that
-    inherits from class <code>"gam"</code> returned by <code>ordisurf</code>, see
-    <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code>.</p></dd>
+
+  <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
+<dd><p>An alpha-transparency level in the range [0,1] (0 means
+    transparent and 1 means opaque) for coloured surface.</p></dd>
+
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other parameters passed to <code><a href="scores.html">scores</a></code>, or
@@ -313,15 +328,11 @@
   require a large number of observations; without many hundreds of
   observations, the default complexities for the smoother will exceed
   the number of observations and fitting will fail.</p>
-<p>To get the old behaviour of <code>ordisurf</code> use <code>select = FALSE</code>,
-  <code>method = "GCV.Cp"</code>, <code>fx = FALSE</code>, and <code>bs = "tp"</code>. The
-  latter two options are the current defaults.</p>
-<p>Graphical arguments supplied to <code>plot.ordisurf</code> are passed on to
-  the underlying plotting functions, <code>contour</code>, <code>persp</code>, and
-  <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code>. The exception to this is that arguments
-  <code>col</code> and <code>cex</code> can not currently be passed to
-  <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code> because of a bug in the way that function
-  evaluates arguments when arranging the plot.</p>
+<p>Graphical arguments supplied to <code>plot.ordisurf</code> are passed on
+  to the underlying plotting functions, <code>contour</code>, <code>image</code>,
+  <code>persp</code>, and <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code>. The exception to
+  this is that arguments <code>col</code> and <code>cex</code> can not currently
+  be passed to <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code>.</p>
 <p>A work-around is to call <code><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></code> directly on the
   result of a call to <code>ordisurf</code>. See the Examples for an
   illustration of this.</p>
@@ -351,69 +362,54 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>For basic routines <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>,
-  and <code><a href="scores.html">scores</a></code>. Function
-  <code><a href="envfit.html">envfit</a></code> provides a more traditional and compact
-  alternative.</p></div>
+    <div class="dont-index"><p>For basic routines <code><a href="https://rdrr.io/pkg/mgcv/man/gam.html" class="external-link">gam</a></code>, and
+  <code><a href="scores.html">scores</a></code>. Function <code><a href="envfit.html">envfit</a></code> provides a more
+  traditional and compact alternative. If the fitted surface
+  simplifies to a plane, <code>envfit</code> arrowsshow the direction of the
+  steepest gradient.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varechem</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">vare.dist</span> <span class="op">&lt;-</span> <span class="fu"><a href="vegdist.html">vegdist</a></span><span class="op">(</span><span class="va">varespec</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">vare.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="monoMDS.html">monoMDS</a></span><span class="op">(</span><span class="va">vare.dist</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">varespec</span>, <span class="va">varechem</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">vare.mds</span> <span class="op">&lt;-</span> <span class="fu"><a href="metaMDS.html">metaMDS</a></span><span class="op">(</span><span class="va">varespec</span>, trace <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_BEGIN</span></span></span>
-<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, bubble <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Formula:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94095     </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## as above but without the extra penalties on smooth terms,</span></span></span>
-<span class="r-in"><span><span class="co">## and using GCV smoothness selection (old behaviour of `ordisurf()`):</span></span></span>
-<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
-<span class="r-in"><span>                        select <span class="op">=</span> <span class="cn">FALSE</span>, method <span class="op">=</span> <span class="st">"GCV.Cp"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, bubble <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="ordisurf-1.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="co">## fitted values</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html" class="external-link">fitted</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span> <span class="co"># or predict(fit)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        18        15        24        27        23        19        22        16 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23.296113 32.024184 23.229078 17.644870 37.940565 35.089235 38.271161 34.722406 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        28        13        14        20        25         7         5         6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26.501318 25.539446 29.328816 37.076425 22.616783 17.920654 19.232222 17.433273 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         3         4         2         9        12        10        11        21 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15.767059 11.785335  1.104810 14.914847 15.316405 10.366603  6.543713 37.114680 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Cover of reindeer lichen Cladonia stellaris</span></span></span>
+<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Cladstel</span>, <span class="va">varespec</span>, family<span class="op">=</span><span class="va">quasipoisson</span>,</span></span>
+<span class="r-in"><span>    what <span class="op">=</span> <span class="st">"surface"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ordisurf-2.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="co">## Gaussian response function</span></span></span>
+<span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Cladstel</span>, <span class="va">varespec</span>, family<span class="op">=</span><span class="va">quasipoisson</span>, knots <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span>    main <span class="op">=</span> <span class="st">"Clastel: Gaussian Response Surface"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ordisurf-3.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Family: quasipoisson </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Link function: log </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Formula:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total model degrees of freedom 6 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7.34  total = 8.34 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> GCV score: 154.2917     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 35.24222     </span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Cover of Cladina arbuscula</span></span></span>
-<span class="r-in"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Cladarbu</span>, <span class="va">varespec</span>, family<span class="op">=</span><span class="va">quasipoisson</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="co">## Get fitted values</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="predict.cca.html">calibrate</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         18         15         24         27         23         19         22 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21.6245948  8.0343793  3.8615313  2.4594484  6.3958596  5.4260525  6.7159305 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         16         28         13         14         20         25          7 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11.6759097  0.8040652 31.1725817 16.1942884  9.5897315  5.4220828 29.8214431 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          5          6          3          4          2          9         12 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22.8499741 29.9937021  7.1653049 15.5309825  2.8467072  0.9051316  3.5541630 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         10         11         21 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1.3099239 10.7784144  0.9177973 </span>
 <span class="r-in"><span><span class="co">## Variable selection via additional shrinkage penalties</span></span></span>
 <span class="r-in"><span><span class="co">## This allows non-significant smooths to be selected out</span></span></span>
 <span class="r-in"><span><span class="co">## of the model not just to a linear surface. There are 2</span></span></span>
 <span class="r-in"><span><span class="co">## options available:</span></span></span>
 <span class="r-in"><span><span class="co">##  - option 1: `select = TRUE` --- the *default*</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, select <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-3.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-4.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -422,12 +418,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "tp", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4.92  total = 5.92 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94095     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 95.04065     </span>
 <span class="r-in"><span><span class="co">##  - option 2: use a basis with shrinkage</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, method <span class="op">=</span> <span class="st">"REML"</span>, bs <span class="op">=</span> <span class="st">"ts"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-4.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-5.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -436,30 +432,31 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "ts", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6.26  total = 7.26 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3.99  total = 4.99 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 98.83947     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 96.95547     </span>
 <span class="r-in"><span><span class="co">## or bs = "cs" with `isotropic = FALSE`</span></span></span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
 <span class="r-in"><span><span class="co">## Plot method</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, what <span class="op">=</span> <span class="st">"contour"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-5.png" alt="" width="700" height="1133"></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, what <span class="op">=</span> <span class="st">"persp"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">terrain.colors</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    main <span class="op">=</span> <span class="st">"Cladstel: Gaussian Response"</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="ordisurf-6.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Plotting the "gam" object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit</span>, what <span class="op">=</span> <span class="st">"gam"</span><span class="op">)</span> <span class="co">## 'col' and 'cex' not passed on</span></span></span>
-<span class="r-plt img"><img src="ordisurf-6.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-7.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## or via plot.gam directly</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: nlme</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> This is mgcv 1.9-4. For overview type '?mgcv'.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/mgcv/man/plot.gam.html" class="external-link">plot.gam</a></span><span class="op">(</span><span class="va">fit</span>, cex <span class="op">=</span> <span class="fl">2</span>, pch <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-7.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-8.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## 'col' effects all objects drawn...</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### controlling the basis functions used</span></span></span>
 <span class="r-in"><span><span class="co">## Use Duchon splines</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, bs <span class="op">=</span> <span class="st">"ds"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-8.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-9.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -468,14 +465,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> y ~ s(x1, x2, k = 10, bs = "ds", fx = FALSE)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.33  total = 6.33 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.06  total = 6.06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.94099     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 95.02635     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## A fixed degrees of freedom smooth, must use 'select = FALSE'</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, knots <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>                        fx <span class="op">=</span> <span class="cn">TRUE</span>, select <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-9.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-10.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -486,12 +483,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  total = 4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 85.55147     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 87.93142     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## An anisotropic smoother with cubic regression spline bases</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                        bs <span class="op">=</span> <span class="st">"cr"</span>, knots <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-10.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-11.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -501,16 +498,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>     FALSE))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3.08  total = 4.08 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5.9  total = 6.9 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 93.02758     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 94.90999     </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## An anisotropic smoother with cubic regression spline with</span></span></span>
 <span class="r-in"><span><span class="co">## shrinkage bases &amp; different degrees of freedom in each dimension</span></span></span>
 <span class="r-in"><span><span class="fu">ordisurf</span><span class="op">(</span><span class="va">vare.mds</span> <span class="op">~</span> <span class="va">Baresoil</span>, <span class="va">varechem</span>, isotropic <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>                        bs <span class="op">=</span> <span class="st">"cs"</span>, knots <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, fx <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                        select <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="ordisurf-11.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="ordisurf-12.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -522,7 +519,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Estimated degrees of freedom:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11  total = 12 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 42.9836     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 43.97109     </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

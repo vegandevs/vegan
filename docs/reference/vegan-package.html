@@ -298,9 +298,8 @@ individual functions: see credits in function help pages.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/levels.html" class="external-link">levels</a></span><span class="op">(</span><span class="va">Management</span><span class="op">)</span>, pch <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,</span></span>
 <span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Management"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">with</a></span><span class="op">(</span><span class="va">dune.env</span>, <span class="fu"><a href="ordihull.html">ordiellipse</a></span><span class="op">(</span><span class="va">mod</span>, <span class="va">Management</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## add fitted surface of diversity to the model</span></span></span>
+<span class="r-in"><span><span class="co">## add fitted surface and direction arrow of diversity to the model</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ordisurf.html">ordisurf</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="diversity.html">diversity</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="vegan-package-5.png" alt="" width="700" height="1133"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Family: gaussian </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Link function: identity </span>
@@ -312,6 +311,8 @@ individual functions: see credits in function help pages.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1.28  total = 2.28 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> REML score: 3.00623     </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="envfit.html">envfit</a></span><span class="op">(</span><span class="va">mod</span> <span class="op">~</span> <span class="fu"><a href="diversity.html">diversity</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, permutations<span class="op">=</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="vegan-package-5.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">### Example 3: analysis of dissimilarites a.k.a. non-parametric</span></span></span>
 <span class="r-in"><span><span class="co">### permutational anova</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="adonis.html">adonis2</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span>, by <span class="op">=</span> <span class="st">"margin"</span><span class="op">)</span></span></span>

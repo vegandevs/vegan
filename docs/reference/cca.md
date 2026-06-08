@@ -378,6 +378,20 @@ vare.cca
 #> 
 plot(vare.cca, spe.par = list(optimize = TRUE))
 
+## Interpretation of biplot arrows: project points to the arrow
+plot(vare.cca, type = "p", bip.par = list(type = "t"))
+ordisurf(vare.cca ~ Al, varechem, display = "lc", add = TRUE, knots = 1)
+#> 
+#> Family: gaussian 
+#> Link function: identity 
+#> 
+#> Formula:
+#> y ~ poly(x1, 1) + poly(x2, 1)
+#> Total model degrees of freedom 3 
+#> 
+#> REML score: 119.8255     
+title(main = "Interpretation of biplot arrow (Al)")
+
 ## Partialling out and negative components of variance
 cca(varespec ~ Ca, varechem)
 #> 
