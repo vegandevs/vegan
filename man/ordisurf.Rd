@@ -11,10 +11,11 @@
   plots the result on ordination diagram.
 }
 \usage{
-\method{ordisurf}{default}(x, y, choices = c(1, 2), knots = 10,
+\method{ordisurf}{default}(x, y, choices = c(1, 2),
+    what = c("contour", "surface"), knots = 10,
          family = "gaussian", col = "red", isotropic = TRUE,
          bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
-         nlevels = 10, levels, npoints = 31, labcex = 0.6,
+         nlevels = 10, levels, npoints = 51, labcex = 0.6,
          bubble = FALSE, cex = 1, select = TRUE, method = "REML",
          gamma = 1, plot = TRUE, lwd.cl = par("lwd"), ...)
 
@@ -22,8 +23,8 @@
 
 \method{calibrate}{ordisurf}(object, newdata, ...)
 
-\method{plot}{ordisurf}(x, what = c("contour","persp","gam"),
-     add = FALSE, bubble = FALSE, col = "red", cex = 1,
+\method{plot}{ordisurf}(x, what = c("contour","surface", "persp","gam"),
+     add = FALSE, bubble = FALSE, col = "red", alpha = 1, cex = 1,
      nlevels = 10, levels, labcex = 0.6, lwd.cl = par("lwd"), \dots)
 }
 
@@ -35,6 +36,18 @@
   \item{y}{Variable to be plotted / modelled as a function of the
     ordination scores.}
   \item{choices}{Ordination axes. }
+
+  \item{what}{What type of plot to produce. \code{"contour"} produces
+    a contour plot of the response surface, see \code{\link{contour}}
+    for details. \code{"surface"} produces a coloured
+    \code{\link{image}} surface with contours; since image can cover
+    earlier items, you should set it transparent with \code{alpha}
+    parameter, or draw it before other items. \code{"persp"} produces
+    a perspective plot of the same, see \code{\link{persp}} for
+    details. \code{"gam"} plots the fitted GAM model, an object that
+    inherits from class \code{"gam"} returned by \code{ordisurf}, see
+    \code{\link[mgcv]{plot.gam}}.}
+
   \item{knots}{Number of initial knots in \code{\link[mgcv]{gam}} (one
     more than degrees of freedom). If \code{knots = 0} or
     \code{knots = 1}  the function will fit a linear trend surface, and
@@ -43,8 +56,11 @@
     \code{isotropic = FALSE}, with the first and second elements of
     \code{knots} referring to the first and second of ordination
     dimensions (as indicated by \code{choices}) respectively.}
+
   \item{family}{Error distribution in \code{\link[mgcv]{gam}}.}
-  \item{col}{ Colour of contours. }
+
+  \item{col}{ Colour of contours. This can also be used to set the
+    colour palette in \code{what = "surface"} or \code{"persp"}.}
   \item{isotropic}{Fit an isotropic smooth surface (i.e. same
     smoothness in both ordination dimensions) via
     \code{\link[mgcv]{gam}}.}
@@ -66,12 +82,12 @@
   \item{display}{Type of scores known by \code{\link{scores}}: typically
     "sites" for ordinary site scores or "lc" for linear combination
     scores.}
-  
+
   \item{w}{Prior weights on the data. Weights of the ordination object
     will be used if the object has attribute \code{weights} or a
     \code{weights} function. Concerns mainly \code{\link{cca}} and
     \code{\link{decorana}} results which have nonconstant weights.}
-  
+
   \item{main}{The main title for the plot, or as default the name of
     plotted variable in a new plot.}
   \item{nlevels, levels}{Either a vector of \code{levels} for which contours
@@ -122,13 +138,10 @@
   \item{object}{An \code{ordisurf} result object.}
   \item{newdata}{Coordinates in two-dimensional ordination for new
     points.}
-  \item{what}{character; what type of plot to produce. \code{"contour"}
-    produces a contour plot of the response surface, see
-    \code{\link{contour}} for details. \code{"persp"} produces a
-    perspective plot of the same, see \code{\link{persp}} for
-    details. \code{"gam"} plots the fitted GAM model, an object that
-    inherits from class \code{"gam"} returned by \code{ordisurf}, see
-    \code{\link[mgcv]{plot.gam}}.}
+    
+  \item{alpha}{An alpha-transparency level in the range [0,1] (0 means
+    transparent and 1 means opaque) for coloured surface.}
+
   \item{\dots}{Other parameters passed to \code{\link{scores}}, or
     to the graphical functions. See Note below for exceptions.}
 }
@@ -221,16 +234,11 @@
   observations, the default complexities for the smoother will exceed
   the number of observations and fitting will fail.
 
-  To get the old behaviour of \code{ordisurf} use \code{select = FALSE},
-  \code{method = "GCV.Cp"}, \code{fx = FALSE}, and \code{bs = "tp"}. The
-  latter two options are the current defaults.
-
-  Graphical arguments supplied to \code{plot.ordisurf} are passed on to
-  the underlying plotting functions, \code{contour}, \code{persp}, and
-  \code{\link[mgcv]{plot.gam}}. The exception to this is that arguments
-  \code{col} and \code{cex} can not currently be passed to
-  \code{\link[mgcv]{plot.gam}} because of a bug in the way that function
-  evaluates arguments when arranging the plot.
+  Graphical arguments supplied to \code{plot.ordisurf} are passed on
+  to the underlying plotting functions, \code{contour}, \code{image},
+  \code{persp}, and \code{\link[mgcv]{plot.gam}}. The exception to
+  this is that arguments \code{col} and \code{cex} can not currently
+  be passed to \code{\link[mgcv]{plot.gam}}.
 
   A work-around is to call \code{\link[mgcv]{plot.gam}} directly on the
   result of a call to \code{ordisurf}. See the Examples for an
@@ -262,28 +270,27 @@
 
 }
 
-\seealso{ For basic routines \code{\link[mgcv]{gam}},
-  and \code{\link{scores}}. Function
-  \code{\link{envfit}} provides a more traditional and compact
-  alternative. }
+\seealso{ For basic routines \code{\link[mgcv]{gam}}, and
+  \code{\link{scores}}. Function \code{\link{envfit}} provides a more
+  traditional and compact alternative. If the fitted surface
+  simplifies to a plane, \code{envfit} arrowsshow the direction of the
+  steepest gradient. }
 
 \examples{
-data(varespec)
-data(varechem)
-vare.dist <- vegdist(varespec)
-vare.mds <- monoMDS(vare.dist)
+data(varespec, varechem)
+vare.mds <- metaMDS(varespec, trace = 0)
 ## IGNORE_RDIFF_BEGIN
-ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
+fit <- ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
+## fitted values
+fitted(fit) # or predict(fit)
 
-## as above but without the extra penalties on smooth terms,
-## and using GCV smoothness selection (old behaviour of `ordisurf()`):
-ordisurf(vare.mds ~ Baresoil, varechem, col = "blue", add = TRUE,
-                        select = FALSE, method = "GCV.Cp")
+## Cover of reindeer lichen Cladonia stellaris
+fit <- ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson,
+    what = "surface")
+## Gaussian response function
+ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson, knots = 2,
+    main = "Clastel: Gaussian Response Surface")
 
-## Cover of Cladina arbuscula
-fit <- ordisurf(vare.mds ~ Cladarbu, varespec, family=quasipoisson)
-## Get fitted values
-calibrate(fit)
 ## Variable selection via additional shrinkage penalties
 ## This allows non-significant smooths to be selected out
 ## of the model not just to a linear surface. There are 2
@@ -295,7 +302,8 @@ ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 ## or bs = "cs" with `isotropic = FALSE`
 ## IGNORE_RDIFF_END
 ## Plot method
-plot(fit, what = "contour")
+plot(fit, what = "persp", col = terrain.colors(50),
+    main = "Cladstel: Gaussian Response")
 
 ## Plotting the "gam" object
 plot(fit, what = "gam") ## 'col' and 'cex' not passed on

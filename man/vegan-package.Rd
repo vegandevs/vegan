@@ -78,8 +78,9 @@ with(dune.env, points(mod, disp = "si", pch = as.numeric(Management)))
 with(dune.env, legend("topleft", levels(Management), pch = 1:4,
   title = "Management"))
 with(dune.env, ordiellipse(mod, Management, label = TRUE))
-## add fitted surface of diversity to the model
+## add fitted surface and direction arrow of diversity to the model
 ordisurf(mod, diversity(dune), add = TRUE)
+plot(envfit(mod ~ diversity(dune), permutations=0))
 ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 ### permutational anova
 adonis2(dune ~ ., dune.env, by = "margin")

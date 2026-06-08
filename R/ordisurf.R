@@ -9,20 +9,21 @@
     x <- formula[[2]]
     x <- eval.parent(x)
     formula[[2]] <- NULL
-    y <- drop(as.matrix(model.frame(formula, data, na.action = na.pass)))
-    if (NCOL(y) > 1)
-        stop(gettextf("only one fitted variable allowed in the formula"))
+    y <- as.matrix(model.frame(formula, data, na.action = na.pass))
     ordisurf(x, y, ...)
 }
 
 `ordisurf.default` <-
-    function (x, y, choices = c(1, 2), knots = 10, family = "gaussian",
-              col = "red", isotropic = TRUE, bs = "tp", fx = FALSE,
-              add = FALSE, display = "sites", w, main, nlevels = 10,
-              levels, npoints = 31, labcex = 0.6, bubble = FALSE, cex = 1,
-              select = TRUE, method = "REML", gamma = 1, plot = TRUE,
+    function (x, y, choices = c(1, 2), what = c("contour", "surface"),
+              knots = 10, family = "gaussian", col = "red", isotropic = TRUE,
+              bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
+              nlevels = 10, levels, npoints = 51, labcex = 0.6, bubble = FALSE,
+              cex = 1, select = TRUE, method = "REML", gamma = 1, plot = TRUE,
               lwd.cl = par("lwd"), ...)
 {
+    if (NCOL(y) > 1)
+        stop(gettextf("only one fitted variable allowed in the formula"))
+    what <- match.arg(what)
     ## GRID no user-definable - why 31?
     GRID <- npoints
     if (missing(w))
@@ -31,9 +32,11 @@
     if (!is.null(w) && length(w) == 1)
         w <- NULL
     X <- scores(x, choices = choices, display = display, ...)
-    ## The original name of 'y' may be lost in handling NA: save for
+    ## The original names of 'y' may be lost in handling NA: save for
     ## plots
-    yname <- deparse(substitute(y))
+    if (missing(main))
+        main <- colnames(y) %||% deparse(substitute(y))
+    axlabs <- colnames(X)
     kk <- complete.cases(X) & !is.na(y)
     if (!all(kk)) {
         X <- X[kk, , drop = FALSE]
@@ -111,17 +114,15 @@
     ## fit model
     mod <- gam(f, family = family, weights = w, select = select,
                method = method, gamma = gamma)
-    xn1 <- seq(min(x1), max(x1), len=GRID)
-    xn2 <- seq(min(x2), max(x2), len=GRID)
+    ## grid for prediction
+    xpand <- diff(range(x1, x2)) / 25 # 4% expansion like in axes
+    xn1 <- seq(min(x1) - xpand, max(x1) + xpand, len=GRID)
+    xn2 <- seq(min(x2) - xpand, max(x2) + xpand, len=GRID)
     newd <- expand.grid(x1 = xn1, x2 = xn2)
     fit <- predict(mod, type = "response", newdata=as.data.frame(newd))
     poly <- chull(cbind(x1,x2))
-    ## Move out points of the convex hull to have contour for all data
-    ## points
-    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) *
-        diff(range(x1))/(GRID - 1)
-    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) *
-        diff(range(x2))/(GRID - 1)
+    xhull1 <- x1[poly] + sign(x1[poly] - mean(x1[poly])) * xpand
+    xhull2 <- x2[poly] + sign(x2[poly] - mean(x2[poly])) * xpand
     npol <- length(poly)
     np <- nrow(newd)
     inpoly <- numeric(np)
@@ -130,31 +131,18 @@
                  as.double(newd[,2]), inpoly = as.integer(inpoly),
                  PACKAGE = "vegan")$inpoly
     is.na(fit) <- inpoly == 0
-    if(plot) {
-        if (!add) {
-            if (bubble) {
-                if (is.numeric(bubble))
-                    cex <- bubble
-                cex <- (y -  min(y))/diff(range(y)) * (cex-0.4) + 0.4
-            }
-            plot(X, asp = 1, cex = cex, ...)
-        }
-        if (!missing(main) || (missing(main) && !add)) {
-            if (missing(main))
-                main <- yname
-            title(main = main)
-        }
-        if (missing(levels))
-            levels <- pretty(range(fit, finite = TRUE), nlevels)
-        ## Only plot surface is select is FALSE or (TRUE and EDF is diff from 0)
-        if(!select ||
-           (select && !isTRUE(all.equal(as.numeric(summary(mod)$edf), 0))))
-            contour(xn1, xn2, matrix(fit, nrow=GRID), col = col, add = TRUE,
-                    levels = levels, labcex = labcex,
-                    drawlabels = !is.null(labcex) && labcex > 0,
-                    lwd = lwd.cl)
+    ## poly() models do not save args
+    if (is.null(mod$model$x1) || is.null(mod$model$x2)) {
+        mod$model$x1 <- x1
+        mod$model$x2 <- x2
     }
     mod$grid <- list(x = xn1, y = xn2, z = matrix(fit, nrow = GRID))
     class(mod) <- c("ordisurf", class(mod))
+    if (plot) {
+        plot(mod, add = add, what = what, col = col, bubble = bubble,
+             cex = cex, nlevels = nlevels, levels = levels, labcex = labcex,
+             lwd.cl = lwd.cl, xlab = axlabs[1], ylab = axlabs[2],
+             main = main, ...)
+    }
     mod
 }
