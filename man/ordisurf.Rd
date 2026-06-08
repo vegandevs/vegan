@@ -289,7 +289,7 @@ fit <- ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson,
     what = "surface")
 ## Gaussian response function
 ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson, knots = 2,
-    main = "Clastel: Gaussian Response Surface")
+    main = "Cladstel: Gaussian Response Surface")
 
 ## Variable selection via additional shrinkage penalties
 ## This allows non-significant smooths to be selected out

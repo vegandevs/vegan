@@ -69,8 +69,8 @@
 * `ordisurf` always added contours, although documented behaviour was
   to skip contours with `select = TRUE` (default) when effective
   degrees of freedom are nearly zero. Models with fixed `knots` 0, 1
-  or failed in `plot.ordisurf`. The variable name used as the default
-  title was lost with formula interface.
+  or 2 failed in `plot.ordisurf`. The variable name used as the
+  default title was lost with formula interface.
 
 ## Deprecated, Defunct and Resurrected
 
