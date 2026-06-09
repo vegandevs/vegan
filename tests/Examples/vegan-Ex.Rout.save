@@ -5790,7 +5790,7 @@ Eigenvalues for unconstrained axes:
 +     what = "surface")
 > ## Gaussian response function
 > ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson, knots = 2,
-+     main = "Clastel: Gaussian Response Surface")
++     main = "Cladstel: Gaussian Response Surface")
 
 Family: quasipoisson 
 Link function: log 
@@ -5835,7 +5835,7 @@ REML score: 96.84724
 > ## IGNORE_RDIFF_END
 > ## Plot method
 > plot(fit, what = "persp", col = terrain.colors(50),
-+     main = "Cladstel: Gaussian Response")
++     main = "Cladstel: GAM Surface")
 > 
 > ## Plotting the "gam" object
 > plot(fit, what = "gam") ## 'col' and 'cex' not passed on
@@ -6806,10 +6806,8 @@ Total abundance: 505
 > ## Standard plot overlaid for all models
 > ## Preemption model is a line
 > plot(mod)
-> ## log for both axes: Zipf model is a line
+> ## log-log: Zipf model is a line
 > plot(mod, log = "xy")
-> ## Lattice graphics separately for each model
-> radlattice(mod)
 > # Take a subset of BCI to save time and nerves
 > mod <- radfit(BCI[3:6,])
 > mod
@@ -9213,7 +9211,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.965 0.284 10.263 0 0 
+Time elapsed:  9.847 0.305 10.169 0 0 
 > grDevices::dev.off()
 null device 
           1 
