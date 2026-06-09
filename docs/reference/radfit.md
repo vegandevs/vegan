@@ -285,11 +285,8 @@ mod <- radfit(BCI[1,])
 ## Preemption model is a line
 plot(mod)
 
-## log for both axes: Zipf model is a line
+## log-log: Zipf model is a line
 plot(mod, log = "xy")
-
-## Lattice graphics separately for each model
-radlattice(mod)
 
 # Take a subset of BCI to save time and nerves
 mod <- radfit(BCI[3:6,])

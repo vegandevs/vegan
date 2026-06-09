@@ -304,12 +304,9 @@
 <span class="r-in"><span><span class="co">## Preemption model is a line</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="radfit-2.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="co">## log for both axes: Zipf model is a line</span></span></span>
+<span class="r-in"><span><span class="co">## log-log: Zipf model is a line</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, log <span class="op">=</span> <span class="st">"xy"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="radfit-3.png" alt="" width="700" height="1133"></span>
-<span class="r-in"><span><span class="co">## Lattice graphics separately for each model</span></span></span>
-<span class="r-in"><span><span class="fu">radlattice</span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="radfit-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co"># Take a subset of BCI to save time and nerves</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">radfit</span><span class="op">(</span><span class="va">BCI</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span></span></span>
@@ -324,7 +321,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Mandelbrot  5.7342  5.5665 10.5733  5.5973</span>
 <span class="r-in"><span><span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># need 4 panels</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">mod</span>, pch<span class="op">=</span><span class="st">"."</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="radfit-5.png" alt="" width="700" height="1133"></span>
+<span class="r-plt img"><img src="radfit-4.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
