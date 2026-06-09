@@ -303,7 +303,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 ## IGNORE_RDIFF_END
 ## Plot method
 plot(fit, what = "persp", col = terrain.colors(50),
-    main = "Cladstel: Gaussian Response")
+    main = "Cladstel: GAM Surface")
 
 ## Plotting the "gam" object
 plot(fit, what = "gam") ## 'col' and 'cex' not passed on
