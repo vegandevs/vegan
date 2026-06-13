@@ -30,11 +30,13 @@
         warning("some species were removed because they were missing in the data")
     adotj[adotj < Const3] <- Const3
     ## check arguments
+    if (!ira %in% 0:1)
+        stop("'ira' must be 0 or 1")
     if (mk < 10)
         mk <- 10
     if (mk > 46)
         mk <- 46
-    if (ira)
+    if (ira == 1)
         iresc <- 0
     ## Start analysis
     CA <- .Call(do_decorana, veg, ira, iresc, short, mk, as.double(aidot),
