@@ -19,11 +19,11 @@
 
 \usage{
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
-         col = NULL, alpha = 127, show.groups, label = FALSE,
+         col = NULL, alpha = 0.5, show.groups, label = FALSE,
          border = NULL, lty = NULL, lwd = NULL, ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se", "ehull"),
          conf, draw = c("lines","polygon", "none"),
-	 w, col = NULL, alpha = 127, show.groups, label = FALSE,
+	 w, col = NULL, alpha = 0.5, show.groups, label = FALSE,
          border = NULL, lty = NULL, lwd=NULL, ...)
 ordibar(ord, groups, display = "sites", kind = c("sd", "se"), conf,
          w, col = 1, show.groups, label = FALSE, lwd = NULL, length = 0,  ...)
@@ -70,9 +70,8 @@ ordiareatest(ord, groups, area = c("hull", "ellipse"), kind = "sd",
   \item{alpha}{Transparency of the fill \code{col}our with \code{draw
     = "polygon"} in \code{ordihull} and \code{ordiellipse}.  The
     argument takes precedence over possible transparency definitions
-    of the colour. The value must be in range \eqn{0...255}, and low
-    values are more transparent.  Transparency is not available in all
-    graphics devices or file formats.}
+    of the colour. The value must be in range [0, 1], and low
+    values are more transparent.}
 
   \item{show.groups}{Show only given groups. This can be a vector, or
     \code{TRUE} if you want to show items for which condition is

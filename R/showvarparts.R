@@ -1,13 +1,15 @@
 `showvarparts` <-
-    function(parts, labels, bg = NULL, alpha=63, Xnames, id.size=1.2, ...)
+    function(parts, labels, bg = NULL, alpha=0.25, Xnames, id.size=1.2, ...)
 {
     rad <- 0.725
+    if (alpha > 1)
+        alpha <- alpha/255
     ## Default names
     if (missing(Xnames))
         Xnames <- paste("X", seq_len(parts), sep="")
     ## transparent fill colours
     if (!is.null(bg)) {
-        bg <- rgb(t(col2rgb(bg)), alpha = alpha, maxColorValue = 255)
+        bg <- adjustcolor(bg, alpha.f = alpha)
         if (length(bg) < parts)
             bg <- rep(bg, length.out = parts)
     }
