@@ -18,7 +18,7 @@ summary(object, ...)
 plot(x, Xnames = x$tables, ...)
 # S3 method for class 'varpart234'
 plot(x, cutoff = 0, digits = 1, ...)
-showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
+showvarparts(parts, labels, bg = NULL, alpha = 0.25, Xnames,
     id.size = 1.2,  ...)
 ```
 
@@ -116,8 +116,7 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 
   Transparency of the fill colour. The argument takes precedence over
   possible transparency definitions of the colour. The value must be in
-  range \\0...255\\, and low values are more transparent. Transparency
-  is not available in all graphics devices or file formats.
+  range \[0, 1\], and low values are more transparent.
 
 - Xnames, id.size:
 

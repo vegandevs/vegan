@@ -75,7 +75,7 @@ The function partitions the variation in community data or community
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, Xnames <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">tables</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'varpart234'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, cutoff <span class="op">=</span> <span class="fl">0</span>, digits <span class="op">=</span> <span class="fl">1</span>, <span class="va">...</span><span class="op">)</span></span>
-<span><span class="fu">showvarparts</span><span class="op">(</span><span class="va">parts</span>, <span class="va">labels</span>, bg <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">63</span>, <span class="va">Xnames</span>,</span>
+<span><span class="fu">showvarparts</span><span class="op">(</span><span class="va">parts</span>, <span class="va">labels</span>, bg <span class="op">=</span> <span class="cn">NULL</span>, alpha <span class="op">=</span> <span class="fl">0.25</span>, <span class="va">Xnames</span>,</span>
 <span>    id.size <span class="op">=</span> <span class="fl">1.2</span>,  <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -174,9 +174,8 @@ The function partitions the variation in community data or community
 <dt id="arg-alpha">alpha<a class="anchor" aria-label="anchor" href="#arg-alpha"></a></dt>
 <dd><p>Transparency of the fill colour.  The argument takes
     precedence over possible transparency definitions of the
-    colour. The value must be in range \(0...255\), and low values
-    are more transparent.  Transparency is not available in all
-    graphics devices or file formats.</p></dd>
+    colour. The value must be in range [0, 1], and low values
+    are more transparent.</p></dd>
 
 
 <dt id="arg-xnames-id-size">Xnames, id.size<a class="anchor" aria-label="anchor" href="#arg-xnames-id-size"></a></dt>
