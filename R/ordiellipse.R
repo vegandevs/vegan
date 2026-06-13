@@ -1,7 +1,7 @@
 `ordiellipse` <-
     function (ord, groups, display = "sites", kind = c("sd", "se", "ehull"),
               conf, draw = c("lines", "polygon", "none"),
-              w, col = NULL, alpha = 127, show.groups, label = FALSE
+              w, col = NULL, alpha = 0.5, show.groups, label = FALSE
             , border = NULL, lty = NULL, lwd = NULL, ...)
 {
     kind <- match.arg(kind)
@@ -20,10 +20,10 @@
         w <- rep(1, nrow(pts))
     ## make semitransparent fill; alpha should be integer in 0..255,
     ## but users may have given that as real in 0..1
-    if (alpha < 1)
-        alpha <- round(alpha * 255)
+    if (alpha > 1)
+        alpha <- alpha/255
     if (draw == "polygon" && !is.null(col))
-        col <- rgb(t(col2rgb(col)), alpha = alpha, maxColorValue = 255)
+        col <- adjustcolor(col, alpha.f = alpha)
     if (!missing(show.groups)) {
         take <- groups %in% show.groups
         pts <- pts[take, , drop = FALSE]

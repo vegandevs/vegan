@@ -1,7 +1,7 @@
 `ordihull` <-
     function (ord, groups, display = "sites",
               draw = c("lines", "polygon", "none"),
-              col = NULL, alpha = 127, show.groups, label = FALSE,
+              col = NULL, alpha = 0.5, show.groups, label = FALSE,
               border = NULL, lty = NULL, lwd = NULL, ...)
 {
     draw <- match.arg(draw)
@@ -18,10 +18,10 @@
     }
     ## Make semitransparent fill colour; alpha should be integer
     ## 0..255, but we also handle real values < 1
-    if (alpha < 1)
-        alpha <- round(alpha * 255)
+    if (alpha > 1)
+        alpha <- alpha/255
     if (draw == "polygon" && !is.null(col))
-        col <- rgb(t(col2rgb(col)), alpha = alpha, maxColorValue = 255)
+        col <- adjustcolor(col, alpha.f = alpha)
     pts <- scores(ord, display = display, ...)
     if (ncol(pts) > 2)
         pts <- pts[, 1:2, drop = FALSE]

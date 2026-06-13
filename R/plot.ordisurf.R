@@ -17,8 +17,7 @@
             if (length(col) < 2)  # default image colors
                 col <- hcl.colors(50, "YlOrRd", rev = TRUE, alpha = alpha)
             else if (alpha < 1) # apply alpha to user palette
-                col <- rgb(t(col2rgb(col)), alpha = alpha * 255,
-                           maxColorValue = 255)
+                col <- adjustcolor(col, alpha.f = alpha)
         }
         if (!add)
             plot(X, Y, asp = 1, type="n", ...)

@@ -30,7 +30,7 @@ varpart(Y, X, ..., data, chisquare = FALSE, transfo, scale = FALSE,
 \method{summary}{varpart}(object, ...)
 \method{plot}{varpart}(x, Xnames = x$tables, ...)
 \method{plot}{varpart234}(x, cutoff = 0, digits = 1, ...)
-showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
+showvarparts(parts, labels, bg = NULL, alpha = 0.25, Xnames,
     id.size = 1.2,  ...)
 }
 
@@ -99,9 +99,8 @@ showvarparts(parts, labels, bg = NULL, alpha = 63, Xnames,
 \item{bg}{Fill colours of circles or ellipses.}
 \item{alpha}{Transparency of the fill colour.  The argument takes
     precedence over possible transparency definitions of the
-    colour. The value must be in range \eqn{0...255}, and low values
-    are more transparent.  Transparency is not available in all
-    graphics devices or file formats.}
+    colour. The value must be in range [0, 1], and low values
+    are more transparent.}
   
 \item{Xnames, id.size}{Names for sources of variation. \code{Xnames=""}
   or \code{Xnames=NA} plot  no names. If the specified names do not fit
