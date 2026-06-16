@@ -36,8 +36,6 @@
         groups <- groups[take]
         w <- w[take]
     }
-    if (spiders == "median" && sd(w) > sqrt(.Machine$double.eps))
-        warning("weights are ignored with 'median' spiders")
     out <- seq(along = groups)
     inds <- names(table(groups))
     if (label)
@@ -64,7 +62,7 @@
             if (length(gr) > 1) {
                 ave <- switch(spiders,
                               "centroid" = apply(X, 2, weighted.mean, w = W),
-                              "median" = ordimedian(X, rep(1, nrow(X))))
+                              "median" = ordimedian(X, rep(1, nrow(X)), w = W))
                 ordiArgAbsorber(ave[1], ave[2], X[, 1], X[, 2],
                                 FUN = segments, col[match(is, inds)],
                                 lty = lty[match(is,inds)],
