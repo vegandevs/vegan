@@ -2,8 +2,7 @@
     function (names, minlengths = c(4,4), seconditem = FALSE,
               uniqgenera = FALSE, named = FALSE, method)
 {
-    if (named)
-        orignames <- names
+    orignames <- names
     ## do not split by hyphens, but collapse hyphened names
     names <- gsub("-", "", names)
     ## make valid names
@@ -17,6 +16,13 @@
     epi <- sapply(names,
                   function(x) {if (seconditem) x[2]
                                else if (length(x) > 1) x[length(x)] else ""})
+    ## check duplicates of input names
+    if (any(dup <- duplicated(orignames)))
+        warning("some input names were duplicated: ",
+                paste(orignames[dup], collapse = ", "))
+    else if (any(dup <- duplicated(paste(gen, epi))))
+        warning("some inferred binomial names were duplicated: ",
+                paste(paste(gen, epi)[dup], collapse = ", "))
     ## strict=TRUE always takes given minlength even if these are duplicates
     glen <- minlengths[1]
     nmlen <- sum(minlengths)
@@ -33,5 +39,9 @@
                         named = FALSE)
     if (named)
         names(names) <- orignames
+    ## Final warning on duplicates
+    if (any(dup <- duplicated(names)))
+        warning("some cepnames are duplicated: ",
+                paste(names[dup], collapse = ", "))
     names
 }
