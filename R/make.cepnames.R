@@ -39,9 +39,12 @@
                         named = FALSE)
     if (named)
         names(names) <- orignames
-    ## Final warning on duplicates
-    if (any(dup <- duplicated(names)))
-        warning("some cepnames are duplicated: ",
-                paste(names[dup], collapse = ", "))
+    ## break duplicates by adding number to the name
+    if (any(dup <- duplicated(names))) {
+        names <- make.unique(names, sep = "")
+        warning("these cepnames were made unique by appending a number:\n",
+                paste(paste0(names[dup], " (", orignames[dup], ")"),
+                      collapse = ", "))
+    }
     names
 }
