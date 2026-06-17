@@ -55,16 +55,25 @@ make.cepnames(names, minlengths = c(4,4), seconditem = FALSE,
 Cornell Ecology Programs (CEP) used eight-letter abbreviations for
 species and site names. In species, the names were formed by taking four
 first letters of the generic name and four first letters of the specific
-or subspecific epithet. The current function produces CEP names as
-default, but it can also use other lengths. The function is based on
-[`abbreviate`](https://rdrr.io/r/base/abbreviate.html) and can produce
-longer names if basic names are not unique. If generic name is shorter
-than specified minimum length, more characters can be used by the
-epithet. If `uniqgenera = TRUE` genus can use more characters, and these
-reduce the number of characters available for the epithet. The function
-drops characters from the end, but with `method = "both.sides"` the
-function tries to drop characters from other positions, starting with
-lower-case wovels, in the final attempt to abbreviate abbreviations.
+or subspecific epithet. The current function produces 4+4 character CEP
+names as default, but it can also use other lengths. The function is
+based on [`abbreviate`](https://rdrr.io/r/base/abbreviate.html) and can
+produce longer names if constructed names are not unique. If generic
+name is shorter than specified minimum length, more characters can be
+used by the epithet. If `uniqgenera = TRUE`, unique generic name may
+need more characters than the minimum length, and these reduce the
+number of characters available for the epithet. The function drops
+characters from the end, but with `method = "both.sides"` the function
+tries to drop characters from other positions, starting with lower-case
+wovels, in the final attempt to abbreviate abbreviations. The
+constructed names are based on binomial names with two components. If
+there is only one component (typically a genus), it can take also the
+characters reserved for the second component. If there are more than two
+components of input names, the function selects only two: always the
+first, and either the last or second depending on the argument
+`seconditem`. Function will issue a warning of duplicated input names or
+of duplicated inferred binomial names and when the returned names have
+duplicates.
 
 ## Value
 
@@ -81,7 +90,7 @@ Jari Oksanen
 ## Note
 
 The function does not handle Author names except strictly two-part names
-with `seconditem = TRUE`. It is often useful to edit abbreviations
+with `seconditem = TRUE`. It is often necessary to edit abbreviations
 manually.
 
 ## Examples
@@ -89,15 +98,15 @@ manually.
 ``` r
 names <- c("Aa maderoi", "Capsella bursa-pastoris", "Taraxacum",
   "Cladina rangiferina", "Cladonia rangiformis", "Cladonia cornuta",
-  "Cladonia cornuta var. groenlandica", "Rumex acetosa",
-  "Rumex acetosella")
+  "Cladonia cornuta var. groenlandica", "Euphorbia cf. enopla",
+  "Rumex acetosa", "Rumex acetosella")
 make.cepnames(names)
-#> [1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladrangife" "Cladrangifo"
-#> [6] "Cladcorn"    "Cladgroe"    "Rumeacetosa" "Rumeacetose"
+#>  [1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladrangife" "Cladrangifo"
+#>  [6] "Cladcorn"    "Cladgroe"    "Euphenop"    "Rumeacetosa" "Rumeacetose"
 make.cepnames(names, uniqgenera = TRUE)
-#> [1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladiran"    "Cladoran"   
-#> [6] "Cladocor"    "Cladogro"    "Rumeacetosa" "Rumeacetose"
+#>  [1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladiran"    "Cladoran"   
+#>  [6] "Cladocor"    "Cladogro"    "Euphenop"    "Rumeacetosa" "Rumeacetose"
 make.cepnames(names, method = "both.sides")
-#> [1] "Aamadero" "Capsburs" "Taraxacu" "Cladrngf" "Cldrngfo" "Cladcorn" "Cladgroe"
-#> [8] "Rumeacts" "Rmcetose"
+#>  [1] "Aamadero" "Capsburs" "Taraxacu" "Cladrngf" "Cldrngfo" "Cladcorn"
+#>  [7] "Cladgroe" "Euphenop" "Rumeacts" "Rmcetose"
 ```
