@@ -57,23 +57,23 @@ species and site names. In species, the names were formed by taking four
 first letters of the generic name and four first letters of the specific
 or subspecific epithet. The current function produces 4+4 character CEP
 names as default, but it can also use other lengths. The function is
-based on [`abbreviate`](https://rdrr.io/r/base/abbreviate.html) and can
+based on [`abbreviate`](https://rdrr.io/r/base/abbreviate.html) and will
 produce longer names if constructed names are not unique. If generic
 name is shorter than specified minimum length, more characters can be
 used by the epithet. If `uniqgenera = TRUE`, unique generic name may
 need more characters than the minimum length, and these reduce the
 number of characters available for the epithet. The function drops
 characters from the end, but with `method = "both.sides"` the function
-tries to drop characters from other positions, starting with lower-case
-wovels, in the final attempt to abbreviate abbreviations. The
+tries to drop characters from other positions in the final attempt to
+abbreviate abbreviations, starting with lower-case vowels. The
 constructed names are based on binomial names with two components. If
-there is only one component (typically a genus), it can take also the
-characters reserved for the second component. If there are more than two
+there is only one component (typically a genus), it can use also the
+space reserved for the second component. If there are more than two
 components of input names, the function selects only two: always the
 first, and either the last or second depending on the argument
 `seconditem`. Function will issue a warning of duplicated input names or
-of duplicated inferred binomial names and when the returned names have
-duplicates.
+of duplicated inferred binomial names, but resulting CEP names are made
+unique by adding a sequence number (with a warning listing these names).
 
 ## Value
 
