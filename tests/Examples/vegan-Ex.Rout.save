@@ -4101,17 +4101,17 @@ attr(,"class")
 > 
 > names <- c("Aa maderoi", "Capsella bursa-pastoris", "Taraxacum",
 +   "Cladina rangiferina", "Cladonia rangiformis", "Cladonia cornuta",
-+   "Cladonia cornuta var. groenlandica", "Rumex acetosa",
-+   "Rumex acetosella")
++   "Cladonia cornuta var. groenlandica", "Euphorbia cf. enopla",
++   "Rumex acetosa", "Rumex acetosella")
 > make.cepnames(names)
-[1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladrangife" "Cladrangifo"
-[6] "Cladcorn"    "Cladgroe"    "Rumeacetosa" "Rumeacetose"
+ [1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladrangife" "Cladrangifo"
+ [6] "Cladcorn"    "Cladgroe"    "Euphenop"    "Rumeacetosa" "Rumeacetose"
 > make.cepnames(names, uniqgenera = TRUE)
-[1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladiran"    "Cladoran"   
-[6] "Cladocor"    "Cladogro"    "Rumeacetosa" "Rumeacetose"
+ [1] "Aamadero"    "Capsburs"    "Taraxacu"    "Cladiran"    "Cladoran"   
+ [6] "Cladocor"    "Cladogro"    "Euphenop"    "Rumeacetosa" "Rumeacetose"
 > make.cepnames(names, method = "both.sides")
-[1] "Aamadero" "Capsburs" "Taraxacu" "Cladrngf" "Cldrngfo" "Cladcorn" "Cladgroe"
-[8] "Rumeacts" "Rmcetose"
+ [1] "Aamadero" "Capsburs" "Taraxacu" "Cladrngf" "Cldrngfo" "Cladcorn"
+ [7] "Cladgroe" "Euphenop" "Rumeacts" "Rmcetose"
 > 
 > 
 > 
@@ -9211,7 +9211,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.847 0.305 10.169 0 0 
+Time elapsed:  9.991 0.303 10.318 0 0 
 > grDevices::dev.off()
 null device 
           1 
