@@ -72,6 +72,10 @@
   or 2 failed in `plot.ordisurf`. The variable name used as the
   default title was lost with formula interface.
 
+* `make.cepnames` could make duplicated names. Now makes unique names
+  and warns users on the naming decisions. Issue
+  [#787](https://github.com/vegandevs/vegan/issues/787).
+
 ## Deprecated, Defunct and Resurrected
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
