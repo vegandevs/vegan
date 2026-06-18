@@ -8,6 +8,10 @@
   setting `knots` 0, 1 or 2 failed in `plot.ordisurf`. The variable
   name used as the title of the graph was lost with formula interface.
 
+* `make.cepnames` could make duplicated names. Now makes unique names
+  and warns users on the naming decisions. Issue
+  [#787](https://github.com/vegandevs/vegan/issues/787).
+
 # vegan 2.7-5
 
 ## Startup
