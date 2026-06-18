@@ -61,8 +61,8 @@
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
-<ul><li>
-<code>ordisurf</code> always added contours, although documented behaviour was to skip contours with <code>select = TRUE</code> (default) when effective degrees of freedom are nearly zero. Models with fixed <code>knots</code> 0, 1 or 2 failed in <code>plot.ordisurf</code>. The variable name used as the default title was lost with formula interface.</li>
+<ul><li><p><code>ordisurf</code> always added contours, although documented behaviour was to skip contours with <code>select = TRUE</code> (default) when effective degrees of freedom are nearly zero. Models with fixed <code>knots</code> 0, 1 or 2 failed in <code>plot.ordisurf</code>. The variable name used as the default title was lost with formula interface.</p></li>
+<li><p><code>make.cepnames</code> could make duplicated names. Now makes unique names and warns users on the naming decisions. Issue <a href="https://github.com/vegandevs/vegan/issues/787" class="external-link">#787</a>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-defunct-and-resurrected-2-8-0">Deprecated, Defunct and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-defunct-and-resurrected-2-8-0"></a></h3>
