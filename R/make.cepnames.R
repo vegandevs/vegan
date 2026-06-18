@@ -37,8 +37,6 @@
     ## try to remove wovels if names > nmlen
     names <- abbreviate(names, nmlen, use.classes = TRUE, method = method,
                         named = FALSE)
-    if (named)
-        names(names) <- orignames
     ## break duplicates by adding number to the name
     if (any(dup <- duplicated(names))) {
         names <- make.unique(names, sep = "")
@@ -46,5 +44,7 @@
                 paste(paste0(names[dup], " (", orignames[dup], ")"),
                       collapse = ", "))
     }
+    if (named)
+        names(names) <- orignames
     names
 }
