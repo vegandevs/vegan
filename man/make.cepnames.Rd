@@ -82,6 +82,9 @@ names <- c("Aa maderoi", "Capsella bursa-pastoris", "Taraxacum",
 make.cepnames(names)
 make.cepnames(names, uniqgenera = TRUE)
 make.cepnames(names, method = "both.sides")
+## seconditem=TRUE makes subspecies duplicates
+data(BCI)
+names <- make.cepnames(names(BCI), seconditem=TRUE)
 }
 \keyword{ character }
 
