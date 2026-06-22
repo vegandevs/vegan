@@ -1,7 +1,7 @@
 
-R version 4.6.0 (2026-04-24) -- "Because it was There"
-Copyright (C) 2026 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin23
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -22,6 +22,7 @@ Type 'q()' to quit R.
 > options(warn = 1)
 > library('vegan')
 Loading required package: permute
+Warning: package ‘permute’ was built under R version 4.4.3
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
@@ -4112,6 +4113,14 @@ attr(,"class")
 > make.cepnames(names, method = "both.sides")
  [1] "Aamadero" "Capsburs" "Taraxacu" "Cladrngf" "Cldrngfo" "Cladcorn"
  [7] "Cladgroe" "Euphenop" "Rumeacts" "Rmcetose"
+> ## seconditem=TRUE makes subspecies duplicates
+> data(BCI)
+> names <- make.cepnames(names(BCI), seconditem=TRUE)
+Warning in make.cepnames(names(BCI), seconditem = TRUE) :
+  some inferred binomial names were duplicated: Swartzia simplex
+Warning in make.cepnames(names(BCI), seconditem = TRUE) :
+  these cepnames were made unique by appending a number:
+Swarsimp1 (Swartzia.simplex.continentalis)
 > 
 > 
 > 
@@ -4300,7 +4309,7 @@ Run 2 stress 0.1192678
 ... Procrustes: rmse 5.822837e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
-... Procrustes: rmse 6.697235e-06  max resid 2.061976e-05 
+... Procrustes: rmse 6.697236e-06  max resid 2.061976e-05 
 ... Similar to previous best
 Run 4 stress 0.1183186 
 ... New best solution
@@ -4314,7 +4323,7 @@ Run 8 stress 0.1183186
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505921e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505924e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
@@ -4330,7 +4339,7 @@ Run 17 stress 0.2075713
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 7.276514e-06  max resid 1.734809e-05 
+... Procrustes: rmse 7.276516e-06  max resid 1.734809e-05 
 ... Similar to previous best
 *** Best solution repeated 5 times
 > sol
@@ -4358,7 +4367,7 @@ Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 4.381525e-06  max resid 1.286756e-05 
+... Procrustes: rmse 4.381527e-06  max resid 1.286756e-05 
 ... Similar to previous best
 Run 2 stress 0.1886532 
 Run 3 stress 0.1939202 
@@ -4374,7 +4383,7 @@ Run 10 stress 0.1192678
 Run 11 stress 0.1192678 
 Run 12 stress 0.1192678 
 Run 13 stress 0.1183186 
-... Procrustes: rmse 2.131408e-06  max resid 6.935982e-06 
+... Procrustes: rmse 2.131405e-06  max resid 6.935982e-06 
 ... Similar to previous best
 Run 14 stress 0.2003482 
 Run 15 stress 0.1183186 
@@ -4382,7 +4391,7 @@ Run 15 stress 0.1183186
 ... Similar to previous best
 Run 16 stress 0.2062791 
 Run 17 stress 0.1183186 
-... Procrustes: rmse 3.725124e-05  max resid 0.0001153584 
+... Procrustes: rmse 3.725123e-05  max resid 0.0001153584 
 ... Similar to previous best
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
@@ -4481,14 +4490,14 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 9.961736e-07  max resid 2.970966e-06 
+... Procrustes: rmse 9.961513e-07  max resid 2.970966e-06 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 8.51617e-06  max resid 2.461974e-05 
+... Procrustes: rmse 8.516169e-06  max resid 2.461974e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1067169 
-... Procrustes: rmse 7.118749e-06  max resid 2.176707e-05 
+... Procrustes: rmse 7.11875e-06  max resid 2.176707e-05 
 ... Similar to previous best
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
@@ -4504,7 +4513,7 @@ Run 11 stress 0.107471
 Run 12 stress 0.1742031 
 Run 13 stress 0.1736796 
 Run 14 stress 0.1067169 
-... Procrustes: rmse 2.579115e-06  max resid 7.932043e-06 
+... Procrustes: rmse 2.579109e-06  max resid 7.932043e-06 
 ... Similar to previous best
 Run 15 stress 0.1073148 
 Run 16 stress 0.1753398 
@@ -5505,7 +5514,7 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > 
 > ### ** Examples
 > 
-> ## Draw a plot for a non-vegan ordination (cmdscale).
+> ## Draw a plot for a non-vegan ordination (stats:::cmdscale).
 > data(dune)
 > dune.dis <- vegdist(wisconsin(dune))
 > dune.mds <- cmdscale(dune.dis, eig = TRUE)
@@ -5513,6 +5522,11 @@ Area 1.4559842 1.3806668  2.73667419  1.5559135
 > pl <- ordiplot(dune.mds, type = "none")
 > points(pl, "sites", pch=21, col="red", bg="yellow")
 > text(pl, "species", col="blue", cex=0.9)
+> ## stats::prcomp biplot using pipes
+> pc <- prcomp(USArrests, scale=TRUE) # cf example(prcomp)
+> ordiplot(pc, type = "n") |>
++   text("sites", optimize=TRUE, xpd=TRUE) |>
++   text("species", arr.mul=2.5, col=2)
 > 
 > ## same plot using pipes (|>)
 > ordiplot(dune.mds, type="n") |>
@@ -6730,7 +6744,7 @@ Rotation matrix:
 
 Translation of averages:
               [,1]         [,2]
-[1,] -6.263448e-17 4.517172e-18
+[1,] -8.636905e-18 1.659588e-17
 
 Scaling of target:
 [1] 0.6725743
@@ -9174,13 +9188,13 @@ Protopl 248.4969
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--1.110223e-15 -7.771561e-16  0.000000e+00 -1.665335e-16 -5.551115e-17 
+-4.440892e-16  3.330669e-16  8.881784e-16 -1.110223e-16  2.775558e-17 
           CA6           CA7           CA8           CA9          CA10 
- 9.714451e-17 -1.942890e-16 -4.163336e-17  2.775558e-17  5.551115e-17 
+-9.714451e-17 -1.249001e-16 -1.387779e-16  2.775558e-17  9.020562e-17 
          CA11          CA12          CA13          CA14          CA15 
- 4.857226e-17 -6.938894e-18  5.551115e-17  3.469447e-18 -6.938894e-18 
+ 6.938894e-17  6.245005e-17  6.938894e-17  6.938894e-18 -2.602085e-17 
          CA16          CA17          CA18          CA19 
--1.387779e-17  1.040834e-17 -7.025630e-17 -2.168404e-17 
+ 3.469447e-18 -5.204170e-18 -1.561251e-17  1.691355e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9189,7 +9203,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
-4.263e-14 
+-1.421e-14 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9211,7 +9225,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.991 0.303 10.318 0 0 
+Time elapsed:  8.459 0.389 8.858 0 0 
 > grDevices::dev.off()
 null device 
           1 
