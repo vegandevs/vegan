@@ -109,4 +109,10 @@ make.cepnames(names, uniqgenera = TRUE)
 make.cepnames(names, method = "both.sides")
 #>  [1] "Aamadero" "Capsburs" "Taraxacu" "Cladrngf" "Cldrngfo" "Cladcorn"
 #>  [7] "Cladgroe" "Euphenop" "Rumeacts" "Rmcetose"
+## seconditem=TRUE makes subspecies duplicates
+data(BCI)
+names <- make.cepnames(names(BCI), seconditem=TRUE)
+#> Warning: some inferred binomial names were duplicated: Swartzia simplex
+#> Warning: these cepnames were made unique by appending a number:
+#> Swarsimp1 (Swartzia.simplex.continentalis)
 ```

@@ -183,7 +183,7 @@ these accept the arguments of the `ordiplot` methods described here.
 ## Examples
 
 ``` r
-## Draw a plot for a non-vegan ordination (cmdscale).
+## Draw a plot for a non-vegan ordination (stats:::cmdscale).
 data(dune)
 dune.dis <- vegdist(wisconsin(dune))
 dune.mds <- cmdscale(dune.dis, eig = TRUE)
@@ -192,11 +192,18 @@ pl <- ordiplot(dune.mds, type = "none")
 points(pl, "sites", pch=21, col="red", bg="yellow")
 text(pl, "species", col="blue", cex=0.9)
 
+## stats::prcomp biplot using pipes
+pc <- prcomp(USArrests, scale=TRUE) # cf example(prcomp)
+ordiplot(pc, type = "n") |>
+  text("sites", optimize=TRUE, xpd=TRUE) |>
+  text("species", arr.mul=2.5, col=2)
+
 
 ## same plot using pipes (|>)
 ordiplot(dune.mds, type="n") |>
   points("sites", pch=21, col="red", bg="yellow") |>
   text("species", col="blue", cex=0.9)
+
 ## Default plot using identify to label selected points
 if (FALSE) { # \dontrun{
 pl <- ordiplot(dune.mds)
