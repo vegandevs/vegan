@@ -19,18 +19,17 @@ tolerance(x, data, choices = 1:4,
 ## Details
 
 Species tolerance is a measure of response widths in the ordination
-space and it is estimated as a weighted standard deviation. It describes
-the specialist vs. generalist responses of species. For sampling units
-it is a measure of weighted variation of species scores within a
-sampling unit and describes the heterogeneity of species composition in
-a sampling unit.
+space and it is estimated as a weighted dispersion of species scores to
+their site score. It describes the specialist vs. generalist responses
+of species. For sampling units it is a measure of weighted dispersion of
+species scores within a sampling unit and describes the heterogeneity of
+species composition in a sampling unit. Sum of squared tolerances is a
+measure of weighted within-species or within-site variation, while
+eigenvalue is a measure of between-species or between-site variation
+(see Examples).
 
 Function implements Eq 6.47 and 6.48 from the Canoco 4.5 Reference
 Manual (pages 178–179).
-
-Function `wascores` with `stdev = TRUE` uses the same algebra, but bases
-the standard deviations on weighted averages scores instead of linear
-combinations scores of `tolerance`.
 
 ## Value
 
@@ -90,8 +89,7 @@ Gavin L. Simpson and Jari Oksanen (`decorana` method).
 ## Examples
 
 ``` r
-data(dune)
-data(dune.env)
+data(dune, dune.env)
 mod <- cca(dune ~ ., data = dune.env)
 #> 
 #> Some constraints or conditions were aliased because they were redundant. This
@@ -183,4 +181,12 @@ colMeans(tol)
 apply(tol, 2, sd)
 #>      DCA1      DCA2      DCA3      DCA4 
 #> 0.1977766 0.3204058 0.2646871 0.1210739 
+
+## Relation of tolerances (within-species variation) and eigenvalues
+## (between-species variation) - with adequate 'scaling'.
+tol <- tolerance(mod, what = "species", scaling = "sites", choices=1:4)
+w <- weights(mod, "species")
+all.equal(colSums(tol^2 * w),
+          1 - eigenvals(mod)[1:4])
+#> [1] TRUE
 ```

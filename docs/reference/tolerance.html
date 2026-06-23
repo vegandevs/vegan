@@ -59,16 +59,16 @@
 
 
 <p>Species tolerance is a measure of response widths in the ordination
-  space and it is estimated as a weighted standard deviation. It
-  describes the specialist vs. generalist responses of species. For
-  sampling units it is a measure of weighted variation of species
-  scores within a sampling unit and describes the heterogeneity of
-  species composition in a sampling unit.</p>
+  space and it is estimated as a weighted dispersion of species scores
+  to their site score. It describes the specialist vs. generalist
+  responses of species. For sampling units it is a measure of weighted
+  dispersion of species scores within a sampling unit and describes
+  the heterogeneity of species composition in a sampling unit. Sum of
+  squared tolerances is a measure of weighted within-species or
+  within-site variation, while eigenvalue is a measure of
+  between-species or between-site variation (see Examples).</p>
 <p>Function implements Eq 6.47 and 6.48 from the Canoco 4.5 Reference
   Manual (pages 178–179).</p>
-<p>Function <code>wascores</code> with <code>stdev = TRUE</code> uses the same
-  algebra, but bases the standard deviations on weighted averages
-  scores instead of linear combinations scores of <code>tolerance</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -121,8 +121,7 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
@@ -214,6 +213,14 @@
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">tol</span>, <span class="fl">2</span>, <span class="va">sd</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      DCA1      DCA2      DCA3      DCA4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.1977766 0.3204058 0.2646871 0.1210739 </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Relation of tolerances (within-species variation) and eigenvalues</span></span></span>
+<span class="r-in"><span><span class="co">## (between-species variation) - with adequate 'scaling'.</span></span></span>
+<span class="r-in"><span><span class="va">tol</span> <span class="op">&lt;-</span> <span class="fu">tolerance</span><span class="op">(</span><span class="va">mod</span>, what <span class="op">=</span> <span class="st">"species"</span>, scaling <span class="op">=</span> <span class="st">"sites"</span>, choices<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/weights.html" class="external-link">weights</a></span><span class="op">(</span><span class="va">mod</span>, <span class="st">"species"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colSums</a></span><span class="op">(</span><span class="va">tol</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="va">w</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>          <span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="eigenvals.html">eigenvals</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
