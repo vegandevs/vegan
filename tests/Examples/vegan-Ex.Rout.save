@@ -7925,13 +7925,12 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: tolerance
-> ### Title: Species tolerances and sample heterogeneities
+> ### Title: Species tolerances and sample heterogeneities.
 > ### Aliases: tolerance tolerance.cca tolerance.decorana
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
 > mod <- cca(dune ~ ., data = dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
@@ -8023,6 +8022,14 @@ Scaling: 2
 > apply(tol, 2, sd)
      DCA1      DCA2      DCA3      DCA4 
 0.1977766 0.3204058 0.2646871 0.1210739 
+> 
+> ## Relation of tolerances (within-species variation) and eigenvalues
+> ## (between-species variation) - with adequate 'scaling'.
+> tol <- tolerance(mod, what = "species", scaling = "sites", choices=1:4)
+> w <- weights(mod, "species")
+> all.equal(colSums(tol^2 * w),
++           1 - eigenvals(mod)[1:4])
+[1] TRUE
 > 
 > 
 > 
@@ -9225,7 +9232,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.459 0.389 8.858 0 0 
+Time elapsed:  8.48 0.425 8.921 0 0 
 > grDevices::dev.off()
 null device 
           1 
