@@ -467,7 +467,7 @@
   [`taxa2dist()`](https://vegandevs.github.io/vegan/reference/taxondive.md)
   : Indices of Taxonomic Diversity and Distinctness
 - [`tolerance()`](https://vegandevs.github.io/vegan/reference/tolerance.md)
-  : Species tolerances and sample heterogeneities
+  : Species tolerances and sample heterogeneities.
 - [`treedive()`](https://vegandevs.github.io/vegan/reference/treedive.md)
   [`treeheight()`](https://vegandevs.github.io/vegan/reference/treedive.md)
   [`treedist()`](https://vegandevs.github.io/vegan/reference/treedive.md)

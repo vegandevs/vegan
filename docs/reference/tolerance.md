@@ -1,4 +1,4 @@
-# Species tolerances and sample heterogeneities
+# Species tolerances and sample heterogeneities.
 
 Species tolerances and sample heterogeneities.
 
@@ -18,9 +18,15 @@ tolerance(x, data, choices = 1:4,
 
 ## Details
 
-Function to compute species tolerances and site heterogeneity measures
-from unimodal ordinations (CCA & CA). Implements Eq 6.47 and 6.48 from
-the Canoco 4.5 Reference Manual (pages 178–179).
+Species tolerance is a measure of response widths in the ordination
+space and it is estimated as a weighted standard deviation. It describes
+the specialist vs. generalist responses of species. For sampling units
+it is a measure of weighted variation of species scores within a
+sampling unit and describes the heterogeneity of species composition in
+a sampling unit.
+
+Function implements Eq 6.47 and 6.48 from the Canoco 4.5 Reference
+Manual (pages 178–179).
 
 Function `wascores` with `stdev = TRUE` uses the same algebra, but bases
 the standard deviations on weighted averages scores instead of linear
