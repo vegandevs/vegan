@@ -3,7 +3,8 @@
 \alias{tolerance.cca}
 \alias{tolerance.decorana}
 
-\title{Species tolerances and sample heterogeneities}
+\title{Species tolerances and sample heterogeneities.}
+
 \usage{
 tolerance(x, \dots)
 
@@ -18,9 +19,16 @@ tolerance(x, \dots)
   Species tolerances and sample heterogeneities.
 }
 \details{
-  Function to compute species tolerances and site heterogeneity measures
-  from unimodal ordinations (CCA & CA). Implements Eq 6.47 and 6.48 from
-  the Canoco 4.5 Reference Manual (pages 178--179).
+
+  Species tolerance is a measure of response widths in the ordination
+  space and it is estimated as a weighted standard deviation. It
+  describes the specialist vs. generalist responses of species. For
+  sampling units it is a measure of weighted variation of species
+  scores within a sampling unit and describes the heterogeneity of
+  species composition in a sampling unit.
+
+  Function implements Eq 6.47 and 6.48 from the Canoco 4.5 Reference
+  Manual (pages 178--179).
 
   Function \code{wascores} with \code{stdev = TRUE} uses the same
   algebra, but bases the standard deviations on weighted averages
