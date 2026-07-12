@@ -957,9 +957,7 @@ void rswapcount(int *m, int *nr, int *nc, int *mfill)
 
 /* NOTE: Current input 'x' is a 3D array from R function r2dtable
  *  (which is pretty fast). The underlying C function 'rcont2' was
- *  made user callable in R-devel subversion commit 71765 ( hornik |
- *  2016-12-09 17:58:47 +0200 (Fri, 09 Dec 2016) ) and we may consider
- *  calling it directly here in the future.
+ *  briefly user callable in R-devel, but now officially not in API.
  */
 
 static void (*qswap_fun)(int *, int *, int *, int *);
