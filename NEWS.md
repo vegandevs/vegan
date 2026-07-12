@@ -1,8 +1,4 @@
-# vegan 2.8-0 (development version)
-
-## General
-
-* **vegan** depends on **R** version 4.4.0.
+# vegan 2.8-0
 
 ## New Functions
 
