@@ -1038,6 +1038,14 @@ Eigenvalue            0.0018068 0.0009945
 Proportion Explained  0.0009326 0.0005133
 Cumulative Proportion 0.9994867 1.0000000
 > 
+> ### summary.isomap
+> data(dune)
+> ord <- isomap(vegdist(dune), k = 3)
+> summ <- summary(ord)
+> stopifnot(inherits(summ, "summary.isomap"))
+> stopifnot(summ$nnet == nrow(ord$net))
+> stopifnot(summ$ndis == nrow(dune) * (nrow(dune) - 1) / 2)
+> rm(ord, summ)
 > proc.time()
    user  system elapsed 
   1.229   0.055   1.284 

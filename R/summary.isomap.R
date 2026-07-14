@@ -1,7 +1,6 @@
 `summary.isomap` <-
 function (object, ...)
 {
-	axes <- min(axes, ncol(object$points))
 	out <- list()
 	out$call <- object$call
 	out$net <- object$net
