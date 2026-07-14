@@ -287,3 +287,12 @@ ev <- summary(eigenvals(mod))
 stopifnot(inherits(ev, "matrix"))
 stopifnot(!is.list(ev))
 ev
+
+### summary.isomap
+data(dune)
+ord <- isomap(vegdist(dune), k = 3)
+summ <- summary(ord)
+stopifnot(inherits(summ, "summary.isomap"))
+stopifnot(summ$nnet == nrow(ord$net))
+stopifnot(summ$ndis == nrow(dune) * (nrow(dune) - 1) / 2)
+rm(ord, summ)
