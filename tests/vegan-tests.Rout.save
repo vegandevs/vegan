@@ -1,7 +1,7 @@
 
-R version 4.5.0 Patched (2025-04-21 r88173) -- "How About a Twenty-Six"
-Copyright (C) 2025 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20
+R version 4.6.1 (2026-06-24) -- "Happy Hop"
+Copyright (C) 2026 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin23
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1016,10 +1016,10 @@ Eigenvalues for unconstrained axes:
 > ## eigenvals returns a list now (>= 2.5-0)
 > data(varespec, varechem)
 > mod <- cca(varespec ~ Al + P + Condition(pH), varechem)
-> ev <- summary(eigenvals(mod))
-> stopifnot(inherits(ev, "matrix"))
-> stopifnot(!is.list(ev))
-> ev
+> summ <- summary(eigenvals(mod))
+> class(summ)
+[1] "summary.eigenvals" "matrix"           
+> summ
 Importance of components:
                         CCA1    CCA2    CA1    CA2    CA3     CA4     CA5
 Eigenvalue            0.2756 0.13713 0.3504 0.2220 0.2010 0.17366 0.13219
@@ -1037,15 +1037,28 @@ Cumulative Proportion 0.984031 0.989001 0.992735 0.995396 0.997240 0.998554
 Eigenvalue            0.0018068 0.0009945
 Proportion Explained  0.0009326 0.0005133
 Cumulative Proportion 0.9994867 1.0000000
+> rm(mod, summ)
 > 
 > ### summary.isomap
 > data(dune)
 > ord <- isomap(vegdist(dune), k = 3)
-> summ <- summary(ord)
-> stopifnot(inherits(summ, "summary.isomap"))
-> stopifnot(summ$nnet == nrow(ord$net))
-> stopifnot(summ$ndis == nrow(dune) * (nrow(dune) - 1) / 2)
-> rm(ord, summ)
+> summary(ord)
+
+Call:
+isomap(dist = vegdist(dune), k = 3) 
+
+
+Retained dissimilarities between points:
+                                                                             
+row 2 3 4 3 4 10 4 8 9 12 9 6 7 10 17 7 10 18 10 11 9 12 13 16 12 13 11 17 18
+col 1 1 1 2 2  2 3 3 3  3 4 5 5  5  5 6  6  6  7  7 8  8  8  8  9  9 10 10 10
+                                    
+row 18 19 13 15 16 20 16 20 20 19 19
+col 11 11 12 14 14 14 15 15 16 17 18
+
+Retained 40 of 190 dissimilarities
+> rm(ord)
+> 
 > proc.time()
    user  system elapsed 
-  1.229   0.055   1.284 
+  1.397   0.054   1.447 
