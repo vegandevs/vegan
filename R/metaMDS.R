@@ -10,7 +10,7 @@
     ## This could be a character vector of length > 1L
     commname <- deparse(substitute(comm), width.cutoff = 500L)
     if (length(commname) > 1L) {
-        paste(commname, collapse = "", sep = "")
+        commname <- paste(commname, collapse = "", sep = "")
         ## deparse can add more white space, so cull 2 or more spaces to a single space
         commname <- gsub("[ ]{2,}", " ", commname)
     }
