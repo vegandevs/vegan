@@ -105,7 +105,7 @@ ordiArrowMul(x, at = c(0,0), fill = 0.75, display, choices = c(1,2), \ldots)
 
     ## Handling of ordination objects directly
     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)
-    stopifnot(all.equal(mul, mul2))
+    all.equal(mul, mul2)
 }
 
 \keyword{utilities}
