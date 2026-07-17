@@ -2,7 +2,7 @@
     function(x, bstick = FALSE, type = c("barplot", "lines"),
              npcs = min(10, length(x$sdev)), ptype = "o", bst.col = "red",
              bst.lty = "solid", xlab = "Component", ylab = "Inertia",
-             main = deparse(substitute(x)), legend = bstick, ...)
+             main = deparse1(substitute(x)), legend = bstick, ...)
 {
     type <- match.arg(type)
     eig.vals <- x$sdev^2

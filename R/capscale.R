@@ -38,7 +38,7 @@
         if (missing(comm))
             vdata <- NULL
         else
-            vdata <- deparse(substitute(comm))
+            vdata <- deparse1(substitute(comm))
     }
     inertia <- attr(X, "method")
     if (is.null(inertia))

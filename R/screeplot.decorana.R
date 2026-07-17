@@ -2,7 +2,7 @@
     function(x, bstick = FALSE, type = c("barplot", "lines"),  npcs = 4,
              ptype = "o", bst.col = "red", bst.lty = "solid",
              xlab = "Component", ylab = "Inertia",
-             main = deparse(substitute(x)), legend = bstick, ...)
+             main = deparse1(substitute(x)), legend = bstick, ...)
 {
     eig.vals <- if (x$ira == 1) x$evals else x$evals.ortho
     comps <- seq(len=npcs)

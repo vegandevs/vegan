@@ -21,7 +21,7 @@
         ordiArgAbsorber(xy, FUN = lines, col = col, lty = lty, lwd = lwd, ...)
     }
     if(missing(main))
-        main <- deparse(substitute(x))
+        main <- deparse1(substitute(x))
     if(missing(sub))
         sub <- paste("method = \"", attr(x, "method"), "\"", sep = "")
     if(missing(xlab))

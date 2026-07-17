@@ -216,7 +216,7 @@ permutest.default <- function(x, ...)
     sol$Random.seed <- attr(permutations, "seed")
     sol$control <- attr(permutations, "control")
     if (!missing(strata)) {
-        sol$strata <- deparse(substitute(strata))
+        sol$strata <- deparse1(substitute(strata))
         sol$stratum.values <- strata
     }
     class(sol) <- "permutest.cca"

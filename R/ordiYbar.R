@@ -17,7 +17,7 @@
         Ybar <- x$Ybar
     else ## vegan < 2.5 from 2016 did not have Ybar
         stop(gettextf("outdated object from 2016 or before: use update(%s)",
-                      noquote(deparse(substitute(x)))))
+                      noquote(deparse1(substitute(x)))))
     if (model == "initial")
         return(Ybar)
     ## return NULL for missing elements

@@ -15,7 +15,7 @@
 `sppscores<-.dbrda` <-
     function(object, value)
 {
-    object$vdata <- deparse(substitute(value))
+    object$vdata <- deparse1(substitute(value))
     value <- scale(value, center = TRUE, scale = FALSE)
     object$colsum <- apply(value, 2, sd)
     ## pCCA step looks redundant: see comments in commit d915763d
@@ -42,7 +42,7 @@
     function(object, value)
 {
     object <- `sppscores<-.dbrda`(object, value)
-    object$vdata <- deparse(substitute(value))
+    object$vdata <- deparse1(substitute(value))
     object
 }
 
@@ -52,7 +52,7 @@
     function(object, value)
 {
     wa <- wascores(object$points, value, expand = TRUE)
-    attr(wa, "data") <- deparse(substitute(value))
+    attr(wa, "data") <- deparse1(substitute(value))
     object$species <- wa
     object
 }
@@ -63,7 +63,7 @@
     function(object, value)
 {
     wa <- wascores(object$points, value, expand = TRUE)
-    attr(wa, "data") <- deparse(substitute(value))
+    attr(wa, "data") <- deparse1(substitute(value))
     object$species <- wa
     object
 }
@@ -83,7 +83,7 @@
     w <- weights(object)
     spp <- crossprod(value, w * object$points)
     spp <- decostand(spp, "normalize", MARGIN = 2)
-    attr(spp, "vdata") <- deparse(substitute(value))
+    attr(spp, "vdata") <- deparse1(substitute(value))
     object$species <- spp
     object
 }

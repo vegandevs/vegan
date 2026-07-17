@@ -2,7 +2,7 @@
     function (x, ord, cex = 0.7, type = "p", labels, dlim, FUN = sammon, 
               ...) 
 {
-    FUNname <- deparse(substitute(FUN))
+    FUNname <- deparse1(substitute(FUN))
     FUN <- match.fun(FUN)
     n <- x$n
     if (missing(ord)) {

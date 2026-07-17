@@ -37,10 +37,10 @@
     if (missing(main)) {
         ## %||% was introduced in R 4.4.0
         if (getRversion() >= "4.4.0") {
-            main <- colnames(y) %||% deparse(substitute(y))
+            main <- colnames(y) %||% deparse1(substitute(y))
         } else {
             main <- if (is.null(colnames(y)))
-                        deparse(substitute(y))
+                        deparse1(substitute(y))
                     else
                         colnames(y)
         }

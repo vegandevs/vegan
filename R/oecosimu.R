@@ -26,7 +26,7 @@
         nsimul <- dim(x)[3]
         if (nsimul == 1)
             stop(gettextf("only one simulation in '%s'",
-                          deparse(substitute(comm))))
+                          deparse1(substitute(comm))))
         comm <- attr(comm, "data")
         #thin <- attr(comm, "thin")
         burnin <- attr(x, "start") - attr(x, "thin")
