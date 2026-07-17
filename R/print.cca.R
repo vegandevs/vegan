@@ -1,7 +1,7 @@
 `print.cca` <-
     function (x, digits = max(3, getOption("digits") - 3), ...)
 {
-    ord_obj <- deparse(substitute(x))
+    ord_obj <- deparse1(substitute(x))
     msg_w <- 0.95 * getOption("width")
     writeLines(strwrap(pasteCall(x$call), width = msg_w, initial = "\n"))
     cat("\n")
@@ -112,6 +112,6 @@
     ## not vegan rda?
     if (!("CA" %in% names(x)))
         stop(gettextf("%s is not a vegan rda object",
-                      sQuote(deparse(substitute(x)))))
+                      sQuote(deparse1(substitute(x)))))
     NextMethod("print")
 }

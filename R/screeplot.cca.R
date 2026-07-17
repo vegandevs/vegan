@@ -3,7 +3,7 @@
              npcs = min(10, if(is.null(x$CCA) || x$CCA$rank == 0) x$CA$rank else x$CCA$rank),
              ptype = "o", bst.col = "red", bst.lty = "solid",
              xlab = "Component", ylab = "Inertia",
-             main = deparse(substitute(x)), legend = bstick, ...)
+             main = deparse1(substitute(x)), legend = bstick, ...)
 {
     if(is.null(x$CCA) || x$CCA$rank == 0)
         eig.vals <- x$CA$eig

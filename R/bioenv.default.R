@@ -22,7 +22,7 @@ function (comm, env, method = "spearman", index = "bray", upto = ncol(env),
         }
     }
     if (!is.null(partial))
-        partpart <- deparse(substitute(partial))
+        partpart <- deparse1(substitute(partial))
     else
         partpart <- NULL
     if (!is.null(partial) && !inherits(partial, "dist"))

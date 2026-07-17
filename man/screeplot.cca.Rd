@@ -20,28 +20,28 @@
          npcs = min(10, if (is.null(x$CCA) || x$CCA$rank == 0) x$CA$rank else x$CCA$rank),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          \dots)
 
 \method{screeplot}{decorana}(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = 4,
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          \dots)
 
 \method{screeplot}{prcomp}(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = min(10, length(x$sdev)),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          \dots)
 
 \method{screeplot}{princomp}(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = min(10, length(x$sdev)),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          \dots)
 
 bstick(n, \dots)

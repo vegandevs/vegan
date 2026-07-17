@@ -6,9 +6,9 @@
         data <- parent.frame()
     else
         data <- eval(extras$data)
-    y <- deparse(substitute(response))
-    x <- deparse(substitute(treatment))
-    z <- deparse(substitute(time))
+    y <- deparse1(substitute(response))
+    x <- deparse1(substitute(treatment))
+    z <- deparse1(substitute(time))
     oldcon <- options(contrasts = c("contr.treatment", "contr.poly"))
     on.exit(options(oldcon))
     fla <- as.formula(paste("~", x, "+", z))

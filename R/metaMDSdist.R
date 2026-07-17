@@ -9,13 +9,13 @@
         ((is.matrix(comm) || is.data.frame(comm)) &&
              isSymmetric(unname(as.matrix(comm)))))
         return(comm)
-    distname <- deparse(substitute(distfun))
+    distname <- deparse1(substitute(distfun))
     distfun <- match.fun(distfun)
     zerodist <- match.arg(zerodist, c("fail", "add", "ignore"))
     formals(distfun) <- c(formals(distfun), alist(... = ))
     formals(stepacross) <- c(formals(stepacross), alist(... = ))
     if (missing(commname))
-        commname <- deparse(substitute(comm))
+        commname <- deparse1(substitute(comm))
     xam <- max(comm)
     if (autotransform && xam > 50) {
         comm <- sqrt(comm)

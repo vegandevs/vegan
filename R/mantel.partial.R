@@ -90,7 +90,7 @@
                 signif = signif, perm = perm, permutations = permutations,
                 control = attr(permat, "control"))
     if (!missing(strata)) {
-        res$strata <- deparse(substitute(strata))
+        res$strata <- deparse1(substitute(strata))
         res$stratum.values <- strata
     }
     class(res) <- c("mantel.partial", "mantel")
