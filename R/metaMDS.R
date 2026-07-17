@@ -9,13 +9,10 @@
     ## take care that try (minimum) is not larger than trymax (maximum)
     if (try > trymax)
         try <- trymax
-    ## This could be a character vector of length > 1L
-    commname <- deparse(substitute(comm), width.cutoff = 500L)
-    if (length(commname) > 1L) {
-        commname <- paste(commname, collapse = "", sep = "")
-        ## deparse can add more white space, so cull 2 or more spaces to a single space
-        commname <- gsub("[ ]{2,}", " ", commname)
-    }
+    commname <- deparse1(substitute(comm)) # in R 4.0.0
+    ## deparse1 can add more white space, so cull 2 or more spaces to
+    ## a single space
+    commname <- gsub("[ ]{2,}", " ", commname)
     ## metaMDS was written for community data which should be all
     ## positive. Check this here, and set arguments so that they are
     ## suitable for non-negative data.
