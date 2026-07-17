@@ -134,5 +134,6 @@ Jari Oksanen, with modifications by Gavin L. Simpson
 
     ## Handling of ordination objects directly
     mul2 <- ordiArrowMul(ord, display = "bp", fill = 0.8)
-    stopifnot(all.equal(mul, mul2))
+    all.equal(mul, mul2)
+#> [1] TRUE
 ```
