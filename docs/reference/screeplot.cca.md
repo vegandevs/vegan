@@ -14,7 +14,7 @@ screeplot(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = min(10, if (is.null(x$CCA) || x$CCA$rank == 0) x$CA$rank else x$CCA$rank),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          ...)
 
 # S3 method for class 'decorana'
@@ -22,7 +22,7 @@ screeplot(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = 4,
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          ...)
 
 # S3 method for class 'prcomp'
@@ -30,7 +30,7 @@ screeplot(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = min(10, length(x$sdev)),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          ...)
 
 # S3 method for class 'princomp'
@@ -38,7 +38,7 @@ screeplot(x, bstick = FALSE, type = c("barplot", "lines"),
          npcs = min(10, length(x$sdev)),
          ptype = "o", bst.col = "red", bst.lty = "solid",
          xlab = "Component", ylab = "Inertia",
-         main = deparse(substitute(x)), legend = bstick,
+         main = deparse1(substitute(x)), legend = bstick,
          ...)
 
 bstick(n, ...)
