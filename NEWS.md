@@ -76,6 +76,9 @@
   and warns users on the naming decisions. Issue
   [#787](https://github.com/vegandevs/vegan/issues/787).
 
+* `summary.isomap` failed.
+  [PR #789](https://github.com/vegandevs/vegan/pull/789).
+
 ## Deprecated, Defunct and Resurrected
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
