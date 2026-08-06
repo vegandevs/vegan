@@ -1,8 +1,8 @@
 ## CLAM, reproduction of software described in Chazdon et al. 2011
 ## Ecology, 92, 1332--1343
-clamtest <-
-function(comm, groups, coverage.limit = 10,
-specialization = 2/3, npoints = 20, alpha = 0.05/20)
+`clamtest` <-
+    function(comm, groups, coverage.limit = 10,
+             specialization = 2/3, npoints = 20, alpha = 0.05/20)
 {
     ## inital checks
     comm <- as.matrix(comm)
@@ -120,6 +120,6 @@ specialization = 2/3, npoints = 20, alpha = 0.05/20)
         coverage.limit = coverage.limit, specialization = specialization,
         npoints = npoints, alpha = alpha)
     attr(tab, "minv") <- minval
-    attr(tab, "coverage") <- structure(c(C2, C1), .Names=glabel)
+    attr(tab, "coverage") <- structure(c(C2, C1), names = glabel)
     tab
 }
