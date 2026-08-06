@@ -81,9 +81,12 @@
   and warns users on the naming decisions. Issue
   [\#787](https://github.com/vegandevs/vegan/issues/787).
 
-- `summary.isomap` failed.
+- `summary.isomap` failed. Bug was introduced in vegan 2.6-6.
   [PR](https://github.com/vegandevs/vegan/pull/789)
   [\#789](https://github.com/vegandevs/vegan/issues/789).
+
+- Fix CRAN NOTEs on deprecated features in very old code (`clamtest`,
+  `showvarparts`).
 
 ### Deprecated, Defunct and Resurrected
 
