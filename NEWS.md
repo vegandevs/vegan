@@ -1,12 +1,20 @@
 # vegan 2.7-6
 
+## New Features
+
+* Implemented _weighted_ spatial median and used them in
+  `ordispider(..., spiders = "median")`. These will be automatically
+  used in weighted ordinations (correspondence analysis _etc_) where a
+  warning was issued on ignored weights earlier.
+
 ## Bug Fixes
 
 * `ordisurf` always plotted contours, although documented behaviour
   was to skip contours with `select=TRUE` (default) when effective
   degrees of freedom are nearly zero. Polynomial models invoked by
-  setting `knots` 0, 1 or 2 failed in `plot.ordisurf`. The variable
-  name used as the title of the graph was lost with formula interface.
+  setting `knots` 0, 1 or 2 failed in `plot.ordisurf`. The name of the
+  variable used as the title of the graph was lost with formula
+  interface.
 
 * `make.cepnames` could make duplicated names. Now makes unique names
   and warns users on the naming decisions. Issue
