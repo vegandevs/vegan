@@ -1059,6 +1059,20 @@ col 11 11 12 14 14 14 15 15 16 17 18
 Retained 40 of 190 dissimilarities
 > rm(ord)
 > 
+> ### tabasco issue #792: dendrogram and hclust give same order
+> ### Colv, Rowv FALSE retain the original tree order
+> data(dune)
+> pltree <- hclust(vegdist(dune), method="average")
+> sptree <- hclust(vegdist(t(dune), "raup"), method="average")
+> tr <- tabasco(dune, pltree, sptree, Rowv=FALSE, Colv=FALSE)
+> den <- tabasco(dune, as.dendrogram(pltree), as.dendrogram(sptree),
++                Rowv=FALSE, Colv=FALSE)
+> all.equal(tr, den, check.attributes=FALSE)
+[1] TRUE
+> all.equal(pltree$order, tr$sites)
+[1] TRUE
+> rm(pltree, sptree, tr, den)
+> 
 > proc.time()
    user  system elapsed 
-  1.397   0.054   1.447 
+  1.354   0.068   1.418 
