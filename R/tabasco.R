@@ -40,8 +40,8 @@
             ## identical ordering here
             if (inherits(use, "hclust") && !is.null(use$labels))
                 x <- x[use$labels,]
-            else # dendrogram
-                x <- x[labels(use),]
+            else # dendrogram reorders labels (issue #792)
+                x <- x[labels(use)[order(unlist(use))], ]
             ## Reorder tree if Rowv specified
             if (isTRUE(Rowv)) {
                 ## order by first CA axis -- decorana() is fastest
@@ -117,7 +117,7 @@
         if (inherits(sptree, "hclust"))
             x <- x[, sptree$labels]
         else # dendrogram
-            x <- x[, labels(sptree)]
+            x <- x[, labels(sptree)[order(unlist(sptree))]]
         ## Consider reordering species tree
         if (isTRUE(Colv) && !is.null(site.ind)) {
             sptree <- reorder(sptree, wascores(order(site.ind), x),
