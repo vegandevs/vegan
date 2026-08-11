@@ -30,9 +30,9 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
     object from \code{cca}, \code{decorana} \emph{etc.} or \code{hclust}
     or a \code{\link{dendrogram}} for ordering sites and species.}
   \item{sp.ind, site.ind}{Species and site indices. In \code{tabasco},
-    these can also be \code{\link{hclust}} tree,
-    \code{\link[cluster]{agnes}} clusterings or
-    \code{\link{dendrogram}}s. }
+    \code{sp.ind} can also be an \code{\link{hclust}} tree,
+    \code{\link[cluster]{agnes}} clustering or a
+    \code{\link{dendrogram}}. }
   \item{zero}{Character used for zeros. }
   \item{select}{Select a subset of sites.  This can be a logical vector
     (\code{TRUE} for selected sites), or a vector of indices of selected
@@ -84,7 +84,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 }
 \details{
   The function \code{vegemite} prints a traditional community table.
-  The display is transposed, so that species are in rows and sites in
+  The display is transposed so that species are in rows and sites in
   columns.  The table is printed in compact form: only one character
   can be used for abundance, and there are no spaces between
   columns. Species with no occurrences are dropped from the table.
@@ -93,10 +93,10 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   using \code{\link{heatmap}}, where abundances are coded by
   colours. The function scales the abundances to equal intervals for
   colour palette, but either rows or columns can be scaled to equal
-  maxima, or the \code{coverscale} class systems can be used. The
-  function can also display dendrograms for sites (columns) or species
-  if these are given as an argument (\code{use} for sites,
-  \code{sp.ind} for species).
+  maxima, or a \code{coverscale} class systems can be used. The function
+  can also display dendrograms for sites (columns) or species if these
+  are given as an argument (\code{use} for sites, \code{sp.ind} for
+  species).
 
   The parameter \code{use} will be used to re-order output. The
   \code{use} can be a vector or an object from \code{\link{hclust}} or
@@ -109,39 +109,39 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
   \code{vegemite}.  In \code{tabasco} the species dendrogram can be
   given in \code{sp.ind}.
 
-  If \code{use} is a numeric vector, it is used for ordering sites,
-  and if it is a factor, it is used to order sites by classes. If
-  \code{use} is an object from ordination, both sites and species are
-  arranged by the first axis (provided that results are available also
-  for species).  When \code{use} is an object from
-  \code{\link{hclust}}, \code{\link[cluster]{agnes}} or a
-  \code{\link{dendrogram}}, the sites are ordered similarly as in the
-  cluster dendrogram.  Function \code{tabasco} re-orders the
-  dendrogram to give a diagonal pattern if \code{Rowv =
-  TRUE}. Alternatively, if \code{Rowv} is a vector its values are used
-  to re-order dendrogram. With \code{diagonalize = TRUE} the
-  dendrogram will be re-ordered in \code{vegemite} to give a diagonal
-  pattern. If \code{use} is a factor, its levels and sites within
-  levels will be reordered to give a diagonal pattern if
-  \code{diagonalize = TRUE} in \code{vegemite} or \code{Rowv = TRUE}
-  in \code{tabasco}. In all cases where species scores are missing,
-  species are ordered by their weighted averages
-  (\code{\link{wascores}}) on site order or site value.
+  If \code{use} is a numeric vector, it is used for ordering sites, and
+  if it is a factor, it is used to order sites by classes. If \code{use}
+  is an object from ordination, both sites and species are arranged by
+  the first axis (provided that results are available also for species).
+  When \code{use} is an object from \code{\link{hclust}},
+  \code{\link[cluster]{agnes}} or \code{\link{dendrogram}}, the sites
+  are ordered similarly as in the cluster dendrogram.  Function
+  \code{tabasco} re-orders the dendrogram to give a diagonal pattern if
+  \code{Rowv = TRUE}. Alternatively, if \code{Rowv} is a vector its
+  values are used to re-order dendrogram. With \code{diagonalize = TRUE}
+  the dendrogram will be re-ordered in \code{vegemite} to give a
+  diagonal pattern. If \code{use} is a factor, its levels and sites
+  within levels will be reordered to give a diagonal pattern if
+  \code{diagonalize = TRUE} in \code{vegemite} or \code{Rowv = TRUE} in
+  \code{tabasco}. In all cases where species scores are missing, species
+  are ordered by their weighted averages (\code{\link{wascores}}) on
+  site order or site value.
 
   Species and sites can be ordered explicitly giving their indices or
-  names in parameters \code{sp.ind} and \code{site.ind}.  If these are
-  given, they take precedence over \code{use}. A subset of sites can
-  be displayed using argument \code{select}, but this cannot be used
-  to order sites, but you still must give \code{use} or
-  \code{site.ind}.  However, \code{tabasco} makes two exceptions:
-  \code{site.ind} and \code{select} cannot be used when \code{use} is
-  a dendrogram (clustering result). In addition, the \code{sp.ind} can
-  be an \code{\link{hclust}} tree, \code{\link[cluster]{agnes}}
-  clustering or a \code{\link{dendrogram}}, and in that case the
-  dendrogram is plotted on the left side of the
-  \code{\link{heatmap}}. Phylogenetic trees cannot be directly used,
-  but package \pkg{ape} has tools to transform these to
-  \code{\link{hclust}} trees.
+  names in parameters \code{sp.ind} and \code{site.ind}. Argument
+  \code{use} takes precedence, and \code{site.ind} cannot be used
+  together with \code{use}. However, \code{sp.index} takes precedence
+  over species order of \code{use}. A subset of sites can be displayed
+  using argument \code{select}, but this cannot be used to order sites,
+  but you still must give \code{use} or \code{site.ind}.  However,
+  \code{tabasco} makes two exceptions: \code{site.ind} and \code{select}
+  cannot be used when \code{use} is a dendrogram (clustering result). In
+  addition, the \code{sp.ind} can be an \code{\link{hclust}} tree,
+  \code{\link[cluster]{agnes}} clustering or a \code{\link{dendrogram}},
+  and in that case the dendrogram is plotted on the left side of the
+  \code{\link{heatmap}}, and \code{Colv} can be used to reorder the
+  dendrogram. Phylogenetic trees cannot be directly used, but package
+  \pkg{ape} has tools to transform these to \code{\link{hclust}} trees.
 
   If \code{scale} is given, \code{vegemite} calls \code{coverscale} to
   transform percent cover scale or some other scales into traditional
@@ -167,8 +167,8 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 
 \value{The functions are used mainly to display a table, but they return
   (invisibly) a list with items \code{species} for ordered species
-  index, \code{sites} for ordered site index, and \code{table} for the
-  final ordered community table.
+  index, \code{sites} for ordered site index, and \code{vegemite} also
+  \code{table} of the ordered community table.
 
   These items can be used as arguments \code{sp.ind} and \code{site.ind}
   to reproduce the table, or the \code{table} can be further edited. In
@@ -194,7 +194,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 
   The name \code{vegemite} was chosen because the output is so
   compact, and the \code{tabasco} because it is just as compact, but
-  uses heat colours.
+  hotter.
 
 }
 \examples{
