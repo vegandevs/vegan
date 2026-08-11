@@ -85,6 +85,14 @@
   [PR](https://github.com/vegandevs/vegan/pull/789)
   [\#789](https://github.com/vegandevs/vegan/issues/789).
 
+- `tabasco` failed with `dendrogram()` input, see issue
+  [\#792](https://github.com/vegandevs/vegan/issues/792). In addition,
+  `tabasco` uses now more consistent policy. Argument `use` takes
+  precedence, and given explicit site ordering (`site.ind`) together
+  with `use` is an error. On the other hand, `sp.ind` takes precedence
+  over default species ordering of `use`. Species dendrogram can be
+  added to all `use` alternatives.
+
 - Fix CRAN NOTEs on deprecated features in very old code (`clamtest`,
   `showvarparts`).
 

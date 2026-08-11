@@ -35,10 +35,10 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 
 - sp.ind, site.ind:
 
-  Species and site indices. In `tabasco`, these can also be
+  Species and site indices. In `tabasco`, `sp.ind` can also be an
   [`hclust`](https://rdrr.io/r/stats/hclust.html) tree,
-  [`agnes`](https://rdrr.io/pkg/cluster/man/agnes.html) clusterings or
-  [`dendrogram`](https://rdrr.io/r/stats/dendrogram.html)s.
+  [`agnes`](https://rdrr.io/pkg/cluster/man/agnes.html) clustering or a
+  [`dendrogram`](https://rdrr.io/r/stats/dendrogram.html).
 
 - zero:
 
@@ -112,7 +112,7 @@ coverscale(x, scale=c("Braun.Blanquet", "Domin", "Hult", "Hill", "fix","log"),
 ## Details
 
 The function `vegemite` prints a traditional community table. The
-display is transposed, so that species are in rows and sites in columns.
+display is transposed so that species are in rows and sites in columns.
 The table is printed in compact form: only one character can be used for
 abundance, and there are no spaces between columns. Species with no
 occurrences are dropped from the table.
@@ -121,7 +121,7 @@ Function `tabasco` produces a similar table as `vegemite` using
 [`heatmap`](https://rdrr.io/r/stats/heatmap.html), where abundances are
 coded by colours. The function scales the abundances to equal intervals
 for colour palette, but either rows or columns can be scaled to equal
-maxima, or the `coverscale` class systems can be used. The function can
+maxima, or a `coverscale` class systems can be used. The function can
 also display dendrograms for sites (columns) or species if these are
 given as an argument (`use` for sites, `sp.ind` for species).
 
@@ -144,7 +144,7 @@ is a factor, it is used to order sites by classes. If `use` is an object
 from ordination, both sites and species are arranged by the first axis
 (provided that results are available also for species). When `use` is an
 object from [`hclust`](https://rdrr.io/r/stats/hclust.html),
-[`agnes`](https://rdrr.io/pkg/cluster/man/agnes.html) or a
+[`agnes`](https://rdrr.io/pkg/cluster/man/agnes.html) or
 [`dendrogram`](https://rdrr.io/r/stats/dendrogram.html), the sites are
 ordered similarly as in the cluster dendrogram. Function `tabasco`
 re-orders the dendrogram to give a diagonal pattern if `Rowv = TRUE`.
@@ -159,18 +159,20 @@ ordered by their weighted averages
 on site order or site value.
 
 Species and sites can be ordered explicitly giving their indices or
-names in parameters `sp.ind` and `site.ind`. If these are given, they
-take precedence over `use`. A subset of sites can be displayed using
-argument `select`, but this cannot be used to order sites, but you still
-must give `use` or `site.ind`. However, `tabasco` makes two exceptions:
-`site.ind` and `select` cannot be used when `use` is a dendrogram
-(clustering result). In addition, the `sp.ind` can be an
-[`hclust`](https://rdrr.io/r/stats/hclust.html) tree,
+names in parameters `sp.ind` and `site.ind`. Argument `use` takes
+precedence, and `site.ind` cannot be used together with `use`. However,
+`sp.index` takes precedence over species order of `use`. A subset of
+sites can be displayed using argument `select`, but this cannot be used
+to order sites, but you still must give `use` or `site.ind`. However,
+`tabasco` makes two exceptions: `site.ind` and `select` cannot be used
+when `use` is a dendrogram (clustering result). In addition, the
+`sp.ind` can be an [`hclust`](https://rdrr.io/r/stats/hclust.html) tree,
 [`agnes`](https://rdrr.io/pkg/cluster/man/agnes.html) clustering or a
 [`dendrogram`](https://rdrr.io/r/stats/dendrogram.html), and in that
 case the dendrogram is plotted on the left side of the
-[`heatmap`](https://rdrr.io/r/stats/heatmap.html). Phylogenetic trees
-cannot be directly used, but package ape has tools to transform these to
+[`heatmap`](https://rdrr.io/r/stats/heatmap.html), and `Colv` can be
+used to reorder the dendrogram. Phylogenetic trees cannot be directly
+used, but package ape has tools to transform these to
 [`hclust`](https://rdrr.io/r/stats/hclust.html) trees.
 
 If `scale` is given, `vegemite` calls `coverscale` to transform percent
@@ -196,8 +198,8 @@ replaces 10 with `X` and positive values below 1 with `+`.
 
 The functions are used mainly to display a table, but they return
 (invisibly) a list with items `species` for ordered species index,
-`sites` for ordered site index, and `table` for the final ordered
-community table.
+`sites` for ordered site index, and `vegemite` also `table` of the
+ordered community table.
 
 These items can be used as arguments `sp.ind` and `site.ind` to
 reproduce the table, or the `table` can be further edited. In addition
@@ -229,7 +231,7 @@ order species with weighted averages using
 ## Note
 
 The name `vegemite` was chosen because the output is so compact, and the
-`tabasco` because it is just as compact, but uses heat colours.
+`tabasco` because it is just as compact, but hotter.
 
 ## Examples
 
