@@ -104,7 +104,8 @@
                     ord$species <- -ord$species
                 }
                 site.ind <- order(round(ord$constraints, 6), ord$sites)
-                sp.ind <- order(ord$species)
+                if (is.null(sp.ind))
+                    sp.ind <- order(ord$species)
             }
             if (is.null(site.ind))
                 site.ind <- order(tmp)
