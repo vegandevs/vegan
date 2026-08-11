@@ -11,6 +11,11 @@
 {
     if (any(x < 0))
         stop("function cannot be used with negative data values")
+    if (!missing(use) && !is.null(site.ind))
+        stop("'site.ind' cannot be given with 'use'")
+    if(!is.null(site.ind) &&
+       inherits(site.ind, c("hclust", "dendrogram", "twins")))
+        stop("'site.ind' cannot be a tree or dendrogam (only 'use')")
     pltree <- sptree <- NA
     if (missing(scale))
         scale <- "none"
