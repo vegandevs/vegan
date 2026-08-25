@@ -24,8 +24,8 @@
     }
     sitnam <- rownames(x$rproj)
     spenam <- rownames(x$cproj)
-    sites <- sites[, choices]
-    specs <- specs[, choices]
+    sites <- sites[, choices, drop = FALSE]
+    specs <- specs[, choices, drop = FALSE]
     ## Use linestack if only one dim was specified (and exit)
     if (NCOL(sites) == 1 && NCOL(specs) == 1) {
         pl <- linestack(sites,
