@@ -1,3 +1,10 @@
+### plot.decorana is ancient & clumsy. Essential structure is from
+### 2001 (released in vegan 1.2-0) before developing ordiplot (and
+### ordiplot lazily ignored decorana by delegating back to
+### plot.decorana). Function should be rewritten to modern vegan idiom
+### (and ordiplot changed accordingly). In general, decorana support
+### functions are neglected and should be scrutinized.
+
 `plot.decorana` <-
     function (x, choices = c(1, 2), origin = TRUE,
               display = c("both", "sites", "species", "none"), cex = 0.7,
@@ -24,8 +31,8 @@
     }
     sitnam <- rownames(x$rproj)
     spenam <- rownames(x$cproj)
-    sites <- sites[, choices]
-    specs <- specs[, choices]
+    sites <- sites[, choices, drop = FALSE]
+    specs <- specs[, choices, drop = FALSE]
     ## Use linestack if only one dim was specified (and exit)
     if (NCOL(sites) == 1 && NCOL(specs) == 1) {
         pl <- linestack(sites,
