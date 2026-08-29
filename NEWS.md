@@ -7,6 +7,11 @@
   used in weighted ordinations (correspondence analysis _etc_) where a
   warning was issued on ignored weights earlier.
 
+* `text.decorana` is now based on `ordiplot` and knows arguments such
+  as `optimize` to improve text location and `bg` to plot text on
+  opaque background. These features were already available in
+  `plot.decorana` and `text` used in pipe.
+
 ## Bug Fixes
 
 * `ordisurf` always plotted contours, although documented behaviour
@@ -25,11 +30,11 @@
 
 * `tabasco` failed with `dendrogram()` input, see issue
   [#792](https://github.com/vegandevs/vegan/issues/792). In addition,
-  `tabasco` uses now more consistent policy. Argument `use` takes
-  precedence, and given explicit site ordering (`site.ind`) together
-  with `use` is an error. On the other hand, `sp.ind` takes precedence
-  over default species ordering of `use`. Species dendrogram can be
-  added to all `use` alternatives.
+  `tabasco` uses more consistent policy. Argument `use` takes
+  precedence, and explicit site ordering (`site.ind`) together with
+  `use` is an error. On the other hand, `sp.ind` takes precedence over
+  default species ordering of `use`. Species dendrogram can be added
+  to all `use` alternatives.
 
 * Fix CRAN check NOTE on deprecated features in very old code
   (`clamtest`, `showvarparts`).
