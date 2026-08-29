@@ -11,6 +11,11 @@
 {
     if (any(x < 0))
         stop("function cannot be used with negative data values")
+    if (!missing(use) && !is.null(site.ind))
+        stop("'site.ind' cannot be given with 'use'")
+    if(!is.null(site.ind) &&
+       inherits(site.ind, c("hclust", "dendrogram", "twins")))
+        stop("'site.ind' cannot be a tree or dendrogam (only 'use')")
     pltree <- sptree <- NA
     if (missing(scale))
         scale <- "none"
@@ -40,8 +45,8 @@
             ## identical ordering here
             if (inherits(use, "hclust") && !is.null(use$labels))
                 x <- x[use$labels,]
-            else # dendrogram
-                x <- x[labels(use),]
+            else # dendrogram reorders labels (issue #792)
+                x <- x[labels(use)[order(unlist(use))], ]
             ## Reorder tree if Rowv specified
             if (isTRUE(Rowv)) {
                 ## order by first CA axis -- decorana() is fastest
@@ -98,7 +103,7 @@
                     ord$sites <- -ord$sites
                     ord$species <- -ord$species
                 }
-                site.ind <- order(ord$constraints, ord$sites)
+                site.ind <- order(round(ord$constraints, 6), ord$sites)
                 sp.ind <- order(ord$species)
             }
             if (is.null(site.ind))
@@ -117,7 +122,7 @@
         if (inherits(sptree, "hclust"))
             x <- x[, sptree$labels]
         else # dendrogram
-            x <- x[, labels(sptree)]
+            x <- x[, labels(sptree)[order(unlist(sptree))]]
         ## Consider reordering species tree
         if (isTRUE(Colv) && !is.null(site.ind)) {
             sptree <- reorder(sptree, wascores(order(site.ind), x),

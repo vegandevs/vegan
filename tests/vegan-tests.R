@@ -293,3 +293,15 @@ data(dune)
 ord <- isomap(vegdist(dune), k = 3)
 summary(ord)
 rm(ord)
+
+### tabasco issue #792: dendrogram and hclust give same order
+### Colv, Rowv FALSE retain the original tree order
+data(dune)
+pltree <- hclust(vegdist(dune), method="average")
+sptree <- hclust(vegdist(t(dune), "raup"), method="average")
+tr <- tabasco(dune, pltree, sptree, Rowv=FALSE, Colv=FALSE)
+den <- tabasco(dune, as.dendrogram(pltree), as.dendrogram(sptree),
+               Rowv=FALSE, Colv=FALSE)
+all.equal(tr, den, check.attributes=FALSE)
+all.equal(pltree$order, tr$sites)
+rm(pltree, sptree, tr, den)
