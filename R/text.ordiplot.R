@@ -27,7 +27,7 @@
             sco <- ordiArrowTextXY(sco, rownames(sco), rescale = FALSE, ...)
         ## draw something if not arrow
         if (any(zeroarr))
-            points(sco[zeroar, , drop = FALSE], pch = ".", ...)
+            points(sco[zeroarr, , drop = FALSE], pch = ".", ...)
     }
     if (optimize) { # draw no points at arrowheads
         if (missing(bg))
