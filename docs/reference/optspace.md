@@ -47,8 +47,9 @@ This implementation removes the trimming step of the original
 `Roptspace::OptSpace` code in order to leave feature filtering to the
 user. Some of the defaults have been adjusted to better reflect
 ecological data. The implementation has been adjusted for ecological
-applications as in Martino et al. (2019). The imputed matrix (\\M\\) in
-the optspace output includes matrix reconstruction (\\XSY'\\).
+applications as in Martino et al. (2019). The imputed matrix (M) in the
+optspace output includes matrix reconstruction (XSY'), with subsequent
+centering for the columns and rows.
 
 ## Value
 
@@ -73,8 +74,8 @@ Returns a named list containing:
 
 - M:
 
-  an \\(n \times m)\\ imputed matrix as calculated from `X`, `S` and
-  `Y`.
+  an \\(n \times m)\\ imputed matrix, with columns and rows centered to
+  zero.
 
 ## Author
 

@@ -86,7 +86,7 @@ index of diversity also known as Hill number N2 (see
 The numeric results can be accessed with `scores` function. Function
 [`tolerance`](https://vegandevs.github.io/vegan/reference/tolerance.md)
 uses the same algebra for weighted standard deviation, but bases the
-variance on linear combination scores (constraints) variables instead of
+variance on linear combination scores (constaints) variables instead of
 the weighted averages of the sites like `wascores`.
 
 Weighted averages are closely linked to correspondence analysis
@@ -190,7 +190,7 @@ u <- runif(nrow(mite))
 v <- wascores(u, mite, expand = TRUE)
 u <- wascores(v, t(mite), expand = TRUE)
 attr(u, "shrinkage") # current estimate of eigenvalue
-#> [1] 0.3918031
+#> [1] 0.1417159
 ## The strengths of two continuous variables in the data set
 eigengrad(mite.env[, 1:2], mite)
 #>   SubsDens   WatrCont 
