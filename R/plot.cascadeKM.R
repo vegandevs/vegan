@@ -3,7 +3,8 @@
               gridcol = NA, ...)
 {
     wrapres <- x
-    number <- (as.numeric(gsub(" groups", "", colnames(wrapres$results))))
+    number <- as.numeric(gsub(" groups", "", colnames(wrapres$results),
+                              fixed = TRUE))
     if (missing(min.g))
         min.g <- min(number)
     if (missing(max.g))

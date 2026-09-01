@@ -6,7 +6,7 @@
     if (cutoff >= 0)
         vals <- round(vals, digits+1)
     labs <-  format(vals, digits=digits, nsmall=digits+1)
-    labs <- gsub("NA", "", labs)
+    labs <- gsub("NA", "", labs, fixed = TRUE)
     showvarparts(x$nsets, labs, ...)
     if (anyNA(vals)) {
         localMtext <- function(..., Xnames, cutoff) mtext(...)

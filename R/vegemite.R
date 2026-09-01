@@ -115,7 +115,7 @@
         tbl <- apply(x[, istart[st]:iend[st], drop = FALSE],
                      1, paste, sep = "", collapse = "")
         names(tbl) <- NULL
-        tbl <- gsub("0", zero, tbl)
+        tbl <- gsub("0", zero, tbl, fixed = TRUE)
         tbl <- cbind(sp.nam, tbl)
         st.nam <- colnames(x)[istart[st]:iend[st]]
         mathead <- matrix(" ", nrow = length(st.nam), ncol = nlen)
