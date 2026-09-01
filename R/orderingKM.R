@@ -16,7 +16,7 @@
 
     if(!is.matrix(mat)) stop("'mat' must be a matrix")
     if(!is.numeric(mat)) stop("'mat' must be numeric")
-    if(any(is.na(mat))) stop("'NA' value was found in the matrix")
+    if(anyNA(mat)) stop("'NA' value was found in the matrix")
     if(any(is.infinite(mat))) stop("'Inf' value was found in the matrix")
     nb.desc <- ncol(mat)
     nb.obj <- nrow(mat)

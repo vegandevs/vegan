@@ -35,7 +35,7 @@
     net <- which(!is.na(dist))
     attr(dist, "method") <- method
     dist <- stepacross(dist, path = path, toolong = 0, trace = FALSE)
-    if (any(is.na(dist))) {
+    if (anyNA(dist)) {
         ## never get here: we selected non-fragmented subset
         stop("dissimilarities contain NA and cannot be analysed: file a bug report")
     }

@@ -8,7 +8,7 @@
     labs <-  format(vals, digits=digits, nsmall=digits+1)
     labs <- gsub("NA", "", labs)
     showvarparts(x$nsets, labs, ...)
-    if (any(is.na(vals))) {
+    if (anyNA(vals)) {
         localMtext <- function(..., Xnames, cutoff) mtext(...)
         localMtext(paste("Values <", cutoff," not shown", sep=""), side=1, ...)
     }

@@ -6,7 +6,7 @@
     cat(as.character(attr(x,"call")[[1]]), "object\n\n")
     writeLines(strwrap(pasteCall(attr(x, "call"))))
     cat("\n")
-    cat("nullmodel method", sQuote(x$oecosimu$method), "with", 
+    cat("nullmodel method", sQuote(x$oecosimu$method), "with",
         ncol(x$oecosimu$simulated), "simulations\n")
     if (length(att <- attributes(x$oecosimu$simulated)) > 1) {
         att$dim <- NULL
@@ -35,12 +35,12 @@
                "SES" = x$oecosimu$z, "mean" = x$oecosimu$means, t(qu),
                "Pr(sim.)"=x$oecosimu$pval)
     printCoefmat(m, cs.ind = 3:(ncol(m)-1), ...)
-    if (any(is.na(x$oecosimu$simulated))) {
+    if (anyNA(x$oecosimu$simulated)) {
         nacount <- rowSums(is.na(x$oecosimu$simulated))
         cat("\nNumber of NA cases removed from simulations:\n",
             nacount, "\n")
     }
-    invisible(xx)   
+    invisible(xx)
 }
 
 

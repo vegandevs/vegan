@@ -48,7 +48,7 @@
     fmt <- strsplit(fmt, ";")[[1]]
     fmt <- c(strsplit(fmt[1], ",")[[1]], rep(strsplit(fmt[2], ",")[[1]],
                                              nrecord))
-    if (any(is.na(fmt)))
+    if (anyNA(fmt))
         fmt <- fmt[!is.na(fmt)]
     ## vectors to store results (with safe size)
     nlines <- length(cep)-i
