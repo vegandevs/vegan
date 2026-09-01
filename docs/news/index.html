@@ -60,19 +60,27 @@
 <li><p><code>decorana</code> uses stricter convergence criteria similarly as most other <strong>vegan</strong> functions. Usually effects can be seen only in the last decimals.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
-<ul><li><p><code>ordisurf</code> always added contours, although documented behaviour was to skip contours with <code>select = TRUE</code> (default) when effective degrees of freedom are nearly zero. Models with fixed <code>knots</code> 0, 1 or 2 failed in <code>plot.ordisurf</code>. The variable name used as the default title was lost with formula interface.</p></li>
-<li><p><code>make.cepnames</code> could make duplicated names. Now makes unique names and warns users on the naming decisions. Issue <a href="https://github.com/vegandevs/vegan/issues/787" class="external-link">#787</a>.</p></li>
-<li><p><code>summary.isomap</code> failed. Bug was introduced in vegan 2.6-6. <a href="https://github.com/vegandevs/vegan/pull/789" class="external-link">PR </a><a href="https://github.com/vegandevs/vegan/issues/789" class="external-link">#789</a>.</p></li>
-<li><p><code>tabasco</code> failed with <code>dendrogram()</code> input, see issue <a href="https://github.com/vegandevs/vegan/issues/792" class="external-link">#792</a>. In addition, <code>tabasco</code> uses now more consistent policy. Argument <code>use</code> takes precedence, and given explicit site ordering (<code>site.ind</code>) together with <code>use</code> is an error. On the other hand, <code>sp.ind</code> takes precedence over default species ordering of <code>use</code>. Species dendrogram can be added to all <code>use</code> alternatives.</p></li>
-<li><p>Fix CRAN NOTEs on deprecated features in very old code (<code>clamtest</code>, <code>showvarparts</code>).</p></li>
-</ul></div>
-<div class="section level3">
 <h3 id="deprecated-defunct-and-resurrected-2-8-0">Deprecated, Defunct and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-defunct-and-resurrected-2-8-0"></a></h3>
 <ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
 <li><p><strong>lattice</strong> functions <code>ordixyplot</code>, and <code>permulattice</code> (with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>) are defunct. CRAN package <strong>ggvegan</strong> provides <code>autoplot</code> for these defunct functions. The functions were deprecated in CRAN release 2.7-3.</p></li>
 <li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
 <li><p>Several base <code>plot</code> functions internally using <strong>lattice</strong> were marked as deprecated in CRAN release 2.7-3. Now these are resurrected as plain base functions. These include <code>plot</code> for <code>poolaccum</code> (also handling <code>estaccumR</code>), <code>renyi</code> (also handling <code>tsallis</code>), and <code>renyiaccum</code> (also handling <code>tsallisaccum</code>). The base <code>plot</code> functions are simpler, but the original <strong>lattice</strong> implementations can be reproduced with functions in the CRAN package <strong>ggvegan</strong>.</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.7-6" id="vegan-27-6">vegan 2.7-6<a class="anchor" aria-label="anchor" href="#vegan-27-6"></a></h2>
+<div class="section level3">
+<h3 id="new-features-2-7-6">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-7-6"></a></h3>
+<ul><li><p>Implemented <em>weighted</em> spatial median and used them in <code>ordispider(..., spiders = "median")</code>. These will be automatically used in weighted ordinations (correspondence analysis <em>etc</em>) where a warning was issued on ignored weights earlier.</p></li>
+<li><p><code>text.decorana</code> is now based on <code>ordiplot</code> and knows arguments such as <code>optimize</code> to improve text location and <code>bg</code> to plot text on opaque background. These features were already available in <code>plot.decorana</code> and <code>text</code> used in pipe.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-7-6">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-6"></a></h3>
+<ul><li><p><code>ordisurf</code> always plotted contours, although documented behaviour was to skip contours with <code>select=TRUE</code> (default) when effective degrees of freedom are nearly zero. Polynomial models invoked by setting <code>knots</code> 0, 1 or 2 failed in <code>plot.ordisurf</code>. The name of the variable used as the title of the graph was lost with formula interface.</p></li>
+<li><p><code>make.cepnames</code> could make duplicated names. Now makes unique names and warns users on the naming decisions. Issue <a href="https://github.com/vegandevs/vegan/issues/787" class="external-link">#787</a>.</p></li>
+<li><p><code>summary.isomap</code> failed. Bug was introduced in vegan 2.6-6. <a href="https://github.com/vegandevs/vegan/pull/789" class="external-link">PR </a><a href="https://github.com/vegandevs/vegan/issues/789" class="external-link">#789</a>.</p></li>
+<li><p><code>tabasco</code> failed with <code>dendrogram()</code> input, see issue <a href="https://github.com/vegandevs/vegan/issues/792" class="external-link">#792</a>. In addition, <code>tabasco</code> uses more consistent policy. Argument <code>use</code> takes precedence, and explicit site ordering (<code>site.ind</code>) together with <code>use</code> is an error. On the other hand, <code>sp.ind</code> takes precedence over default species ordering of <code>use</code>. Species dendrogram can be added to all <code>use</code> alternatives.</p></li>
+<li><p>Fix CRAN check NOTE on deprecated features in very old code (<code>clamtest</code>, <code>showvarparts</code>).</p></li>
 </ul></div>
 </div>
     <div class="section level2">

@@ -69,33 +69,6 @@
   **vegan** functions. Usually effects can be seen only in the last
   decimals.
 
-### Bug Fixes
-
-- `ordisurf` always added contours, although documented behaviour was to
-  skip contours with `select = TRUE` (default) when effective degrees of
-  freedom are nearly zero. Models with fixed `knots` 0, 1 or 2 failed in
-  `plot.ordisurf`. The variable name used as the default title was lost
-  with formula interface.
-
-- `make.cepnames` could make duplicated names. Now makes unique names
-  and warns users on the naming decisions. Issue
-  [\#787](https://github.com/vegandevs/vegan/issues/787).
-
-- `summary.isomap` failed. Bug was introduced in vegan 2.6-6.
-  [PR](https://github.com/vegandevs/vegan/pull/789)
-  [\#789](https://github.com/vegandevs/vegan/issues/789).
-
-- `tabasco` failed with `dendrogram()` input, see issue
-  [\#792](https://github.com/vegandevs/vegan/issues/792). In addition,
-  `tabasco` uses now more consistent policy. Argument `use` takes
-  precedence, and given explicit site ordering (`site.ind`) together
-  with `use` is an error. On the other hand, `sp.ind` takes precedence
-  over default species ordering of `use`. Species dendrogram can be
-  added to all `use` alternatives.
-
-- Fix CRAN NOTEs on deprecated features in very old code (`clamtest`,
-  `showvarparts`).
-
 ### Deprecated, Defunct and Resurrected
 
 - Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
@@ -119,6 +92,47 @@
   `renyiaccum` (also handling `tsallisaccum`). The base `plot` functions
   are simpler, but the original **lattice** implementations can be
   reproduced with functions in the CRAN package **ggvegan**.
+
+## vegan 2.7-6
+
+### New Features
+
+- Implemented *weighted* spatial median and used them in
+  `ordispider(..., spiders = "median")`. These will be automatically
+  used in weighted ordinations (correspondence analysis *etc*) where a
+  warning was issued on ignored weights earlier.
+
+- `text.decorana` is now based on `ordiplot` and knows arguments such as
+  `optimize` to improve text location and `bg` to plot text on opaque
+  background. These features were already available in `plot.decorana`
+  and `text` used in pipe.
+
+### Bug Fixes
+
+- `ordisurf` always plotted contours, although documented behaviour was
+  to skip contours with `select=TRUE` (default) when effective degrees
+  of freedom are nearly zero. Polynomial models invoked by setting
+  `knots` 0, 1 or 2 failed in `plot.ordisurf`. The name of the variable
+  used as the title of the graph was lost with formula interface.
+
+- `make.cepnames` could make duplicated names. Now makes unique names
+  and warns users on the naming decisions. Issue
+  [\#787](https://github.com/vegandevs/vegan/issues/787).
+
+- `summary.isomap` failed. Bug was introduced in vegan 2.6-6.
+  [PR](https://github.com/vegandevs/vegan/pull/789)
+  [\#789](https://github.com/vegandevs/vegan/issues/789).
+
+- `tabasco` failed with `dendrogram()` input, see issue
+  [\#792](https://github.com/vegandevs/vegan/issues/792). In addition,
+  `tabasco` uses more consistent policy. Argument `use` takes
+  precedence, and explicit site ordering (`site.ind`) together with
+  `use` is an error. On the other hand, `sp.ind` takes precedence over
+  default species ordering of `use`. Species dendrogram can be added to
+  all `use` alternatives.
+
+- Fix CRAN check NOTE on deprecated features in very old code
+  (`clamtest`, `showvarparts`).
 
 ## vegan 2.7-5
 
