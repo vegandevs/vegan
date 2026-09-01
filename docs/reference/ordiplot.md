@@ -100,7 +100,7 @@ identify(x, what, labels,  ...)
 
 - arr.mul:
 
-  Numeric multiplier to arrow lenghts; this will also set
+  Numeric multiplier to arrow lengths; this will also set
   `arrows = TRUE`. The default is to automatically adjust arrow lengths
   with `"biplot"` and `"regression"` scores and else use unmodified
   scores.
@@ -183,7 +183,7 @@ these accept the arguments of the `ordiplot` methods described here.
 ## Examples
 
 ``` r
-## Draw a plot for a non-vegan ordination (cmdscale).
+## Draw a plot for a non-vegan ordination (stats:::cmdscale).
 data(dune)
 dune.dis <- vegdist(wisconsin(dune))
 dune.mds <- cmdscale(dune.dis, eig = TRUE)
@@ -192,23 +192,29 @@ pl <- ordiplot(dune.mds, type = "none")
 points(pl, "sites", pch=21, col="red", bg="yellow")
 text(pl, "species", col="blue", cex=0.9)
 
+## stats::prcomp biplot using pipes
+pc <- prcomp(USArrests, scale=TRUE) # cf example(prcomp)
+ordiplot(pc, type = "n") |>
+  text("sites", optimize=TRUE, xpd=TRUE) |>
+  text("species", arr.mul=2.5, col=2)
+
 
 ## same plot using pipes (|>)
 ordiplot(dune.mds, type="n") |>
   points("sites", pch=21, col="red", bg="yellow") |>
   text("species", col="blue", cex=0.9)
 
-## Some people think that species should be shown with arrows in PCA.
-## Other ordination methods also return an invisible ordiplot object and
-## we can use pipes to draw those arrows.
-mod <- rda(dune)
-plot(mod, type="n") |>
-  points("sites", pch=16, col="red") |>
-  text("species", arrows = TRUE, length=0.05, col="blue")
-
-
-## Default plot of the previous using identify to label selected points
+## Default plot using identify to label selected points
 if (FALSE) { # \dontrun{
 pl <- ordiplot(dune.mds)
 identify(pl, "spec")} # }
+## Some people think that species should be shown with arrows in PCA.
+## Other ordination methods also return an invisible ordiplot object and
+## we can use pipes to draw those arrows. We drop species that are
+## poorly explained by the current graph.
+mod <- rda(dune)
+good <- goodness(mod, choices=1:2, model="CA", summarize = TRUE)
+plot(mod, type="n") |>
+  points("sites", pch=16, col="red") |>
+  text("species", arrows = TRUE, length=0.05, col="blue", select = good > 1/3)
 ```

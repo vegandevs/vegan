@@ -9,7 +9,7 @@ local NMDS, linear and hybrid multidimensional scaling.
 
 ``` r
 monoMDS(dist, y, k = 2, model = c("global", "local", "linear", "hybrid"),
-    threshold = 0.8, maxit = 200, weakties = TRUE, stress = 1,
+    threshold = 0.8, maxit = 500, weakties = TRUE, stress = 1,
     scaling = TRUE, pc = TRUE, smin = 1e-4, sfgrmin = 1e-7,
     sratmax=0.999999, ...)
 # S3 method for class 'monoMDS'
@@ -143,7 +143,7 @@ but `monoMDS` offers the following unique combination of features:
   tied to their maximum value of one. Breaking ties allows these points
   to be at different distances and can help in recovering very long
   coenoclines (gradients). Functions in the
-  [smacof](https://CRAN.R-project.org/package=smacof) package also hav
+  [smacof](https://CRAN.R-project.org/package=smacof) package also have
   adequate tie treatment.
 
 - Handles missing values in a meaningful way.
@@ -305,9 +305,9 @@ m
 #> 20 points, dissimilarity ‘bray’, call ‘vegdist(x = dune)’
 #> 
 #> Dimensions: 2 
-#> Stress:     0.1230276 
+#> Stress:     0.07626801 
 #> Stress type 1, weak ties
 #> Scores scaled to unit root mean square, rotated to principal components
-#> Stopped after 149 iterations: Stress nearly unchanged (ratio > sratmax)
+#> Stopped after 133 iterations: Stress nearly unchanged (ratio > sratmax)
 plot(m)
 ```

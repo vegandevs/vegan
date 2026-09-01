@@ -34,6 +34,8 @@ functions to the `cca` result object.
 ## Usage
 
 ``` r
+ordConstrained(Y, X = NULL, Z = NULL, method = c("cca", "rda",
+    "capscale", "dbrda", "pass"), arg = FALSE)
 ordiYbar(x, model = c("CCA", "CA", "pCCA", "partial", "initial"))
 # S3 method for class 'cca'
 model.frame(formula, ...)
@@ -44,6 +46,22 @@ weights(object, display = "sites", ...)
 ```
 
 ## Arguments
+
+- Y, X, Z:
+
+  Input matrix of responses (`Y`) and model matrices of constraints
+  (`X`) and conditions (`Z`). `NULL` matrices are ignored.
+
+- method:
+
+  Ordination method. If `"pass"`, method is defined by `Y` of fitted
+  ordination model.
+
+- arg:
+
+  Possible extra argument passed to `method`; in
+  [`rda`](https://vegandevs.github.io/vegan/reference/cca.md) this is
+  `scale`.
 
 - object, x, formula:
 
@@ -69,6 +87,32 @@ weights(object, display = "sites", ...)
   Other arguments passed to the the function.
 
 ## Details
+
+Function `ordConstrained` is used as the basic analysis engine in all
+\[partial\] constrained ordination methods
+([`cca`](https://vegandevs.github.io/vegan/reference/cca.md),
+[`rda`](https://vegandevs.github.io/vegan/reference/cca.md),
+[`dbrda`](https://vegandevs.github.io/vegan/reference/dbrda.md)
+\_etc\_). Those higher-level functions set up the data for
+`ordConstrained` and add items used in printing or further analysis of
+the results. Function `ordConstrained` can also be called directly, but
+the user should be very careful in setting up the input arguments and in
+processing the result. All supported ordination methods have an
+`initXXX` function that transforms the data for analysis and sets data
+attributes for analytic steps. These arguments include attribute
+`METHOD` and for
+[`cca`](https://vegandevs.github.io/vegan/reference/cca.md) row and
+column weights (attributes `RW` and `CW`). These are used to select the
+branch of analysis in further steps. Argument `method` selects the
+ordination type. `method = "pass"` is used when the dependent matrix `Y`
+already was processed with an `initXXX` method. This allows embedding
+`ordConstrained` in other functions with any constrained ordination
+method or using your own `initXXX` method (see Examples). Dependent
+matrix `Y` must be supplied but conditions `Z` and constraints `X` can
+be `NULL` and then this analysis step is skipped (if both are `NULL`,
+unconstrained ordination is performed). Steps for conditions
+(partialling) and constraints return residuals of input `Y` for the next
+step, and all methods return their analysis results.
 
 The internal (“working”) form of the dependent (community) data can be
 accessed with function `ordiYbar`. The form depends on the ordination
@@ -214,6 +258,7 @@ defined for this class:
 [`fitted.cca`](https://vegandevs.github.io/vegan/reference/predict.cca.md),
 [`goodness.cca`](https://vegandevs.github.io/vegan/reference/goodness.cca.md),
 [`hatvalues.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
+[`influence.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
 [`labels.cca`](https://vegandevs.github.io/vegan/reference/plot.cca.md),
 `model.frame.cca`, `model.matrix.cca`,
 [`nobs.cca`](https://vegandevs.github.io/vegan/reference/nobs.cca.md),
@@ -264,3 +309,120 @@ ed. Elsevier.
 ## Author
 
 Jari Oksanen
+
+## Examples
+
+``` r
+  data(dune, dune.env)
+  mod0 <- cca(dune ~ Management + Moisture, dune.env)
+  ## refit the model in ordConstrained
+  mrefit <- ordConstrained(ordiYbar(mod0, "initial"),
+                         model.matrix(mod0),
+                         NULL,
+                         "pass")
+
+  ## implement weighted RDA (weights w)
+  initWPCA <- function(Y, w) {
+    Y <- as.matrix(Y)
+    Y <- .Call("do_wcentre", Y, w)
+    attr(Y, "RW") <- w
+    attr(Y, "METHOD") <- "WPCA"
+    Y
+  }
+  mod <- rda(dune ~ Management + Moisture, dune.env)
+  mod
+#> 
+#> Call: rda(formula = dune ~ Management + Moisture, data = dune.env)
+#> 
+#>               Inertia Proportion Rank
+#> Total         84.1237     1.0000     
+#> Constrained   46.4249     0.5519    6
+#> Unconstrained 37.6988     0.4481   13
+#> 
+#> Inertia is variance
+#> 
+#> Eigenvalues for constrained axes:
+#>   RDA1   RDA2   RDA3   RDA4   RDA5   RDA6 
+#> 21.588 14.075  4.123  3.163  2.369  1.107 
+#> 
+#> Eigenvalues for unconstrained axes:
+#>   PC1   PC2   PC3   PC4   PC5   PC6   PC7   PC8   PC9  PC10  PC11  PC12  PC13 
+#> 8.241 7.138 5.355 4.409 3.143 2.770 1.878 1.741 0.952 0.909 0.627 0.311 0.227 
+#> 
+  w <- rowSums(dune)/sum(dune)
+  adjust <- 1 + 1/(nrow(dune) - 1)
+  wmod <- ordConstrained(initWPCA(dune, w * adjust),
+                         model.matrix(~ Management + Moisture,dune.env)[,-1],
+                         NULL, "pass")
+  class(wmod) <- c("wrda", "cca") # for clean print.cca
+  wmod
+#> 
+#> Call: ordConstrained(Y = initWPCA(dune, w * adjust), X =
+#> model.matrix(~Management + Moisture, dune.env)[, -1], Z = NULL, method =
+#> "pass")
+#> 
+#>               Inertia Proportion Rank
+#> Total         84.2528     1.0000     
+#> Constrained   47.8693     0.5682    6
+#> Unconstrained 36.3836     0.4318   13
+#> 
+#> Inertia is
+#> 
+#> Eigenvalues for constrained axes:
+#>      1      2      3      4      5      6 
+#> 22.766 13.150  5.332  3.279  2.400  0.941 
+#> 
+#> Eigenvalues for unconstrained axes:
+#>     1     2     3     4     5     6     7     8     9    10    11    12    13 
+#> 8.208 7.795 5.218 3.585 2.950 2.417 1.911 1.560 0.920 0.703 0.577 0.326 0.214 
+#> 
+
+  ## CCA as weighted RDA (species scores differ, though).
+  dchi <- decostand(dune, "chi.sq")
+  ccmod <- ordConstrained(initWPCA(dchi, w), model.matrix(mod),
+                          NULL, "pass")
+  class(ccmod) <- c("wrda", "cca")
+  ccmod # wrda
+#> 
+#> Call: ordConstrained(Y = initWPCA(dchi, w), X = model.matrix(mod), Z =
+#> NULL, method = "pass")
+#> 
+#>               Inertia Proportion Rank
+#> Total          2.1153     1.0000     
+#> Constrained    1.0024     0.4739    6
+#> Unconstrained  1.1129     0.5261   13
+#> 
+#> Inertia is
+#> 
+#> Eigenvalues for constrained axes:
+#>      1      2      3      4      5      6 
+#> 0.4458 0.2887 0.1124 0.0717 0.0494 0.0344 
+#> 
+#> Eigenvalues for unconstrained axes:
+#>      1      2      3      4      5      6      7      8      9     10     11 
+#> 0.3504 0.1521 0.1251 0.1098 0.0922 0.0771 0.0594 0.0478 0.0370 0.0223 0.0207 
+#>     12     13 
+#> 0.0108 0.0083 
+#> 
+  mod0  # cca
+#> 
+#> Call: cca(formula = dune ~ Management + Moisture, data = dune.env)
+#> 
+#>               Inertia Proportion Rank
+#> Total          2.1153     1.0000     
+#> Constrained    1.0024     0.4739    6
+#> Unconstrained  1.1129     0.5261   13
+#> 
+#> Inertia is scaled Chi-square
+#> 
+#> Eigenvalues for constrained axes:
+#>   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 
+#> 0.4458 0.2887 0.1124 0.0717 0.0494 0.0344 
+#> 
+#> Eigenvalues for unconstrained axes:
+#>    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
+#> 0.3504 0.1521 0.1251 0.1098 0.0922 0.0771 0.0594 0.0478 0.0370 0.0223 0.0207 
+#>   CA12   CA13 
+#> 0.0108 0.0083 
+#> 
+```

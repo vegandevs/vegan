@@ -11,9 +11,8 @@ nested hierarchical sampling design (`hiersimu`).
 ``` r
 adipart(...)
 # Default S3 method
-adipart(y, x, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
-    method = "r2dtable", ...)
+adipart(y, x, index, weights=c("unif", "prop"),
+    relative = FALSE, nsimul=99, method = "r2dtable", ...)
 # S3 method for class 'formula'
 adipart(formula, data, index=c("richness", "shannon", "simpson"),
     weights=c("unif", "prop"), relative = FALSE, nsimul=99,
@@ -50,8 +49,8 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
   Right hand side (`x`) must be grouping variables referring to levels
   of sampling hierarchy, terms from right to left will be treated as
   nested (first column is the lowest, last is the highest level). The
-  formula will add a unique indentifier to rows and constant for the
-  rows to always produce estimates of row-level alpha and overall gamma
+  formula will add a unique identifier to rows and constant for the rows
+  to always produce estimates of row-level alpha and overall gamma
   diversities. You must use non-formula interface to avoid this
   behaviour. Interaction terms are not allowed.
 
@@ -63,7 +62,11 @@ hiersimu(formula, data, FUN, location = c("mean", "median"),
 
 - index:
 
-  Character, the diversity index to be calculated (see Details).
+  Name of the diversity index, one of `"richness"` for the number of
+  species, `"shannon"`, `"simpson"`, `"invsimpson"` of function
+  [`diversity`](https://vegandevs.github.io/vegan/reference/diversity.md),
+  `"hill1"` for Hill number 1 that is the exponent of `"shannon"`, or
+  `"hill2"` for Hill number 2 that is a synonym of `"invsimpson"`.
 
 - weights:
 
