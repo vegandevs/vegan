@@ -55,6 +55,9 @@
                 arrows(tails[keep, 1], tails[keep, 2],
                        heads[keep, 1], heads[keep, 2],
                        col = ar.col, length = length, ...)
+                if (!all(keep))
+                    points(tails[!keep,, drop=FALSE], pch = ".", col = ar.col,
+                           ...)
                 if (type == "text" && !is.null(rownames(tails)))
                     ordilabel(tails, cex = cex, ...)
                 else

@@ -23,6 +23,8 @@
         seeit <- diff(par("usr")[1:2])/par("pin")[1]/1000
         zeroarr <- sqrt(rowSums(sco^2)) < seeit
         arrows(0, 0, sco[!zeroarr,1], sco[!zeroarr,2], length = length, ...)
+        if (any(zeroarr))
+            points(sco[zeroarr, , drop=FALSE], pch = ".", ...)
     } else {
         points(sco, ...)
     }
