@@ -162,7 +162,7 @@
         pless <- rowSums(indstat + EPS >= simind, na.rm = TRUE)
         pmore <- rowSums(indstat - EPS <= simind, na.rm = TRUE)
     }
-    if (any(is.na(simind))) {
+    if (anyNA(simind)) {
         warning("some simulated values were NA and were removed")
         nsimul <- nsimul - rowSums(is.na(simind))
     }

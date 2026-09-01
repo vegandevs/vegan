@@ -180,7 +180,7 @@
     clog <- clog - means
 
     # Replace missing values with 0
-    if (na.rm && any(is.na(clog))) {
+    if (na.rm && anyNA(clog)) {
         warning("replacing missing values with zero for `method = \"clr\"`
 	         - disable this with `na.rm = FALSE`")
         clog[is.na(clog)] <- 0
@@ -218,7 +218,7 @@
 
    # Impute NAs if impute=TRUE
    # Otherwise return the transformation with NAs
-   if (impute && any(is.na(xx))) {
+   if (impute && anyNA(xx)) {
      xx <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
                     verbose = verbose)$M
      ## Centring is common operation supporting output visualization
@@ -260,7 +260,7 @@
     clog <- clog[, -reference] - refvector
 
     # Replace missing values with 0
-    if (na.rm && any(is.na(clog))) {
+    if (na.rm && anyNA(clog)) {
         warning("replacing missing values with zero for `method = \"alr\"`
 	         - disable this with `na.rm = FALSE`")
         clog[is.na(clog)] <- 0

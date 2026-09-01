@@ -12,7 +12,7 @@
     ## see PR #742
     if (prod(dim(x)) == 0)
         stop("'x' cannot have NULL rows or columns")
-    if (any(is.na(x)))
+    if (anyNA(x))
         stop("'NA' values not allowed")
     if (any(x<0))
         stop("negative values not allowed")

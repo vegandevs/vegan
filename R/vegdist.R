@@ -69,7 +69,7 @@
     }
     d <- .Call(do_vegdist, x, as.integer(method), PACKAGE = "vegan")
     d[d < ZAP] <- 0
-    if (any(is.na(d)))
+    if (anyNA(d))
         warning("missing values in results")
     ## add attribute maxdist: the maximum value of the distance function
     attr(d, "maxdist") <-

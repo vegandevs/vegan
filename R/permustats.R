@@ -29,7 +29,7 @@
         alt <- TAB[match(object$alternative, TAB)]
     else
         alt <- match.arg(alternative, TAB, several.ok = TRUE)
-    if (any(is.na(alt)))
+    if (anyNA(alt))
         stop("alternative missing")
     nstat <- length(object$statistic)
     nalt <- length(alt)
@@ -67,7 +67,7 @@
                          na.rm = TRUE)
     }
     nsimul <- nrow(permutations)
-    if (any(is.na(permutations))) {
+    if (anyNA(permutations)) {
         warning("some simulated values were NA and were removed")
         nsimul <- nsimul - colSums(is.na(permutations))
     }
