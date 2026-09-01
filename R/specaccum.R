@@ -33,14 +33,14 @@
             weights <- as.matrix(apply(permat, 1, function(i) cumsum(w[i])))
         sites <- seq_len(n)
         if (is.null(w)) {
-            specaccum <- apply(perm, 1, mean)
+            specaccum <- rowMeans(perm)
             sdaccum <- apply(perm, 1, sd)
         } else {
             sumw <- sum(w)
             xout <- seq(sumw/n, sumw, length.out = n)
             intx <- sapply(seq_len(NCOL(perm)), function(i)
                            approx(weights[,i], perm[,i], xout = xout)$y)
-            specaccum <- apply(intx, 1, mean)
+            specaccum <- rowMeans(intx)
             sdaccum <- apply(intx, 1, sd)
         }
     }, exact = {

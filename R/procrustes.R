@@ -19,8 +19,8 @@
         X <- X/sqrt(ctrace(X))
         Y <- Y/sqrt(ctrace(Y))
     }
-    xmean <- apply(X, 2, mean)
-    ymean <- apply(Y, 2, mean)
+    xmean <- colMeans(X)
+    ymean <- colMeans(Y)
     if (!symmetric) {
         X <- scale(X, scale = FALSE)
         Y <- scale(Y, scale = FALSE)
