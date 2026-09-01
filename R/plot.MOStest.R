@@ -21,11 +21,11 @@
         s <- summary(x$mod)
         k <- coef(s)[2:3, 1:2]
         ## Fix level to 0.95 (should be changed to an argument?)
-        level = 0.95
+        level <- 0.95
         if (family(x$mod)$family %in% c("poisson", "binomial"))
             scale <- sqrt(qchisq(level, 2))
         else
-            scale <- sqrt(2 * qf(level, 2, s$df[2])) 
+            scale <- sqrt(2 * qf(level, 2, s$df[2]))
         ci <- veganCovEllipse(s$cov.scaled[2:3, 2:3], k[,1], scale)
         plot(ci, type="l", lwd=2, xlim=range(ci[,1],0), ylim=range(ci[,2],0), ...)
         abline(h=0, lty=2, ...)

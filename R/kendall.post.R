@@ -98,9 +98,10 @@
     }
     if(length(vec) != p) stop("error in putting together vector 'vec'")
 
+    ## FIXME: Vector should not build vector like this!
     if(mult == "sidak") {
-        vec.corr = NA
-        for(i in 1:p) vec.corr = c(vec.corr, (1-(1-vec[i])^p))
+        vec.corr <- NA
+        for(i in 1:p) vec.corr <- c(vec.corr, (1-(1-vec[i])^p))
         vec.corr <- vec.corr[-1]
     } else {
         vec.corr <- p.adjust(vec, method=mult)

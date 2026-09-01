@@ -1,5 +1,5 @@
 `prestonfit` <-
-    function (x, tiesplit = TRUE, ...) 
+    function (x, tiesplit = TRUE, ...)
 {
     x <- as.preston(x, tiesplit = tiesplit)
     oct <- as.numeric(names(x))
@@ -18,7 +18,7 @@
     }
     names(p) <- c("mode", "width", "S0")
     out <- list(freq = unclass(x), fitted = fv, coefficients = p)
-    out$method = "Poisson fit to octaves"
+    out$method <- "Poisson fit to octaves"
     if(tiesplit)
         out$method <- paste("Quasi-", out$method, sep="")
     class(out) <- c("prestonfit")

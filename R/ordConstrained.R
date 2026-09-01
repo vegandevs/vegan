@@ -396,7 +396,7 @@
              method = c("cca", "rda", "capscale", "dbrda", "pass"),
              arg = FALSE)
 {
-    method = match.arg(method)
+    method <- match.arg(method)
     partial <- constraint <- resid <- NULL
     ## init; "pass" returns unchanged Y, presumably from previous init
     Y <- switch(method,

@@ -68,77 +68,77 @@
     m4 <- dummy$m
     if (m4 != mm4)
         collinwarn("X4", mm4, m4)
-    mm5 = mm1 + mm2
+    mm5 <- mm1 + mm2
     dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, permat)
     abefghiklmno.ua <- dummy$Rsquare
     abefghiklmno <- dummy$RsquareAdj
     m5 <- dummy$m
     if (m5 != mm5)
         collinwarn("cbind(X1,X2)", mm5, m5)
-    mm6 = mm1 + mm3
+    mm6 <- mm1 + mm3
     dummy <- simpleRDA2(Y, cbind(X1, X3), SS.Y, permat)
     acefghjklmno.ua <- dummy$Rsquare
     acefghjklmno <- dummy$RsquareAdj
     m6 <- dummy$m
     if (m6 != mm6)
         collinwarn("cbind(X1,X3", mm6, m6)
-    mm7 = mm1 + mm4
+    mm7 <- mm1 + mm4
     dummy <- simpleRDA2(Y, cbind(X1, X4), SS.Y, permat)
     adeghijklmno.ua <- dummy$Rsquare
     adeghijklmno <- dummy$RsquareAdj
     m7 <- dummy$m
     if (m7 != mm7)
         collinwarn("cbind(X1,X4)", mm7, m7)
-    mm8 = mm2 + mm3
+    mm8 <- mm2 + mm3
     dummy <- simpleRDA2(Y, cbind(X2, X3), SS.Y, permat)
     bcefgijklmno.ua <- dummy$Rsquare
     bcefgijklmno <- dummy$RsquareAdj
     m8 <- dummy$m
     if (m8 != mm8)
         collinwarn("cbind(X2,X3)", mm8, m8)
-    mm9 = mm2 + mm4
+    mm9 <- mm2 + mm4
     dummy <- simpleRDA2(Y, cbind(X2, X4), SS.Y, permat)
     bdefhijklmno.ua <- dummy$Rsquare
     bdefhijklmno <- dummy$RsquareAdj
     m9 <- dummy$m
     if (m9 != mm9)
         collinwarn("cbind(X2,X4)", mm9, m9)
-    mm10 = mm3 + mm4
+    mm10 <- mm3 + mm4
     dummy <- simpleRDA2(Y, cbind(X3, X4), SS.Y, permat)
     cdfghijklmno.ua <- dummy$Rsquare
     cdfghijklmno <- dummy$RsquareAdj
     m10 <- dummy$m
     if (m10 != mm10)
         collinwarn("cbind(X3,X4)", mm10, m10)
-    mm11 = mm1 + mm2 + mm3
+    mm11 <- mm1 + mm2 + mm3
     dummy <- simpleRDA2(Y, cbind(X1, X2, X3), SS.Y, permat)
     abcefghijklmno.ua <- dummy$Rsquare
     abcefghijklmno <- dummy$RsquareAdj
     m11 <- dummy$m
     if (m11 != mm11)
         collinwarn("cbind(X1,X2,X3)", mm11, m11)
-    mm12 = mm1 + mm2 + mm4
+    mm12 <- mm1 + mm2 + mm4
     dummy <- simpleRDA2(Y, cbind(X1, X2, X4), SS.Y, permat)
     abdefghijklmno.ua <- dummy$Rsquare
     abdefghijklmno <- dummy$RsquareAdj
     m12 <- dummy$m
     if (m12 != mm12)
         collinwarn("c(X1,X2,X4)", mm12, m12)
-    mm13 = mm1 + mm3 + mm4
+    mm13 <- mm1 + mm3 + mm4
     dummy <- simpleRDA2(Y, cbind(X1, X3, X4), SS.Y, permat)
     acdefghijklmno.ua <- dummy$Rsquare
     acdefghijklmno <- dummy$RsquareAdj
     m13 <- dummy$m
     if (m13 != mm13)
         collinwarn("cbind(X1,X3,X4)", mm13, m13)
-    mm14 = mm2 + mm3 + mm4
+    mm14 <- mm2 + mm3 + mm4
     dummy <- simpleRDA2(Y, cbind(X2, X3, X4), SS.Y, permat)
     bcdefghijklmno.ua <- dummy$Rsquare
     bcdefghijklmno <- dummy$RsquareAdj
     m14 <- dummy$m
     if (m14 != mm14)
         collinwarn("cbind(X2,X3,X4)", mm14, m14)
-    mm15 = mm1 + mm2 + mm3 + mm4
+    mm15 <- mm1 + mm2 + mm3 + mm4
     dummy <- simpleRDA2(Y, cbind(X1, X2, X3, X4), SS.Y, permat)
     abcdefghijklmno.ua <- dummy$Rsquare
     abcdefghijklmno <- dummy$RsquareAdj
@@ -177,27 +177,32 @@
                         acdefghijklmno.ua, bcdefghijklmno.ua, abcdefghijklmno.ua),
                         Adj.R.square = c(aeghklno, befiklmo, cfgjlmno, dhijkmno,
                         abefghiklmno, acefghjklmno, adeghijklmno, bcefgijklmno,
-                        bdefhijklmno, cdfghijklmno, abcefghijklmno, abdefghijklmno,
-                        acdefghijklmno, bcdefghijklmno, abcdefghijklmno),
-                        Testable = rep(TRUE, 15) & Df)
+                        bdefhijklmno, cdfghijklmno, abcefghijklmno,
+                        abdefghijklmno, acdefghijklmno, bcdefghijklmno,
+                        abcdefghijklmno), Testable = rep(TRUE, 15) & Df)
     rownames(fract) <- c("[aeghklno] = X1", "[befiklmo] = X2",
-                         "[cfgjlmno] = X3", "[dhijkmno] = X4", "[abefghiklmno] = X1+X2",
-                         "[acefghjklmno] = X1+X3", "[adeghijklmno] = X1+X4", "[bcefgijklmno] = X2+X3",
-                         "[bdefhijklmno] = X2+X4", "[cdfghijklmno] = X3+X4", "[abcefghijklmno] = X1+X2+X3",
-                         "[abdefghijklmno] = X1+X2+X4", "[acdefghijklmno] = X1+X3+X4",
-                         "[bcdefghijklmno] = X2+X3+X4", "[abcdefghijklmno] = All")
-    ae = acdefghijklmno - cdfghijklmno
-    ag = abdefghijklmno - bdefhijklmno
-    ah = abcefghijklmno - bcefgijklmno
-    be = bcdefghijklmno - cdfghijklmno
-    bf = abdefghijklmno - adeghijklmno
-    bi = abcefghijklmno - acefghjklmno
-    cf = acdefghijklmno - adeghijklmno
-    cg = bcdefghijklmno - bdefhijklmno
-    cj = abcefghijklmno - abefghiklmno
-    dh = bcdefghijklmno - bcefgijklmno
-    di = acdefghijklmno - acefghjklmno
-    dj = abdefghijklmno - abefghiklmno
+                         "[cfgjlmno] = X3", "[dhijkmno] = X4",
+                         "[abefghiklmno] = X1+X2",
+                         "[acefghjklmno] = X1+X3", "[adeghijklmno] = X1+X4",
+                         "[bcefgijklmno] = X2+X3",
+                         "[bdefhijklmno] = X2+X4", "[cdfghijklmno] = X3+X4",
+                         "[abcefghijklmno] = X1+X2+X3",
+                         "[abdefghijklmno] = X1+X2+X4",
+                         "[acdefghijklmno] = X1+X3+X4",
+                         "[bcdefghijklmno] = X2+X3+X4",
+                         "[abcdefghijklmno] = All")
+    ae <- acdefghijklmno - cdfghijklmno
+    ag <- abdefghijklmno - bdefhijklmno
+    ah <- abcefghijklmno - bcefgijklmno
+    be <- bcdefghijklmno - cdfghijklmno
+    bf <- abdefghijklmno - adeghijklmno
+    bi <- abcefghijklmno - acefghjklmno
+    cf <- acdefghijklmno - adeghijklmno
+    cg <- bcdefghijklmno - bdefhijklmno
+    cj <- abcefghijklmno - abefghiklmno
+    dh <- bcdefghijklmno - bcefgijklmno
+    di <- acdefghijklmno - acefghjklmno
+    dj <- abdefghijklmno - abefghiklmno
     Df <- c(m13-m10, m12-m9, m11-m8, m14-m10, m12-m7, m11-m6, m13-m7, m14-m9,
             m11-m5, m14-m8, m13-m6, m12-m5)
     contr2 <- data.frame(Df = Df,
@@ -206,22 +211,23 @@
                          be, bf, bi, cf, cg, cj, dh, di, dj),
                          Testable = rep(TRUE, 12) & Df)
     rownames(contr2) <- c("[ae] = X1 | X3+X4", "[ag] = X1 | X2+X4",
-                          "[ah] = X1 | X2+X3", "[be] = X2 | X3+X4", "[bf] = X2 | X1+X4",
-                          "[bi] = X2 | X1+X3", "[cf] = X3 | X1+X4", "[cg] = X3 | X2+X4",
-                          "[cj] = X3 | X1+X2", "[dh] = X4 | X2+X3", "[di] = X4 | X1+X3",
-                          "[dj] = X4 | X1+X2")
-    aghn = abefghiklmno - befiklmo
-    aehk = acefghjklmno - cfgjlmno
-    aegl = adeghijklmno - dhijkmno
-    bfim = abefghiklmno - aeghklno
-    beik = bcefgijklmno - cfgjlmno
-    befl = bdefhijklmno - dhijkmno
-    cfjm = acefghjklmno - aeghklno
-    cgjn = bcefgijklmno - befiklmo
-    cfgl = cdfghijklmno - dhijkmno
-    dijm = adeghijklmno - aeghklno
-    dhjn = bdefhijklmno - befiklmo
-    dhik = cdfghijklmno - cfgjlmno
+                          "[ah] = X1 | X2+X3", "[be] = X2 | X3+X4",
+                          "[bf] = X2 | X1+X4", "[bi] = X2 | X1+X3",
+                          "[cf] = X3 | X1+X4", "[cg] = X3 | X2+X4",
+                          "[cj] = X3 | X1+X2", "[dh] = X4 | X2+X3",
+                          "[di] = X4 | X1+X3", "[dj] = X4 | X1+X2")
+    aghn <- abefghiklmno - befiklmo
+    aehk <- acefghjklmno - cfgjlmno
+    aegl <- adeghijklmno - dhijkmno
+    bfim <- abefghiklmno - aeghklno
+    beik <- bcefgijklmno - cfgjlmno
+    befl <- bdefhijklmno - dhijkmno
+    cfjm <- acefghjklmno - aeghklno
+    cgjn <- bcefgijklmno - befiklmo
+    cfgl <- cdfghijklmno - dhijkmno
+    dijm <- adeghijklmno - aeghklno
+    dhjn <- bdefhijklmno - befiklmo
+    dhik <- cdfghijklmno - cfgjlmno
     Df <- c(m5-m2, m6-m3, m7-m4, m5-m1, m8-m3, m9-m4, m6-m1, m8-m2, m10-m4,
             m7-m1, m9-m2, m10-m3)
     contr1 <- data.frame(Df = Df,
@@ -231,10 +237,11 @@
                                                  dhik),
                          Testable = rep(TRUE, 12) & Df)
     rownames(contr1) <- c("[aghn] = X1 | X2", "[aehk] = X1 | X3",
-                          "[aegl] = X1 | X4", "[bfim] = X2 | X1", "[beik] = X2 | X3",
-                          "[befl] = X2 | X4", "[cfjm] = X3 | X1", "[cgjn] = X3 | X2",
-                          "[cfgl] = X3 | X4", "[dijm] = X4 | X1 ", "[dhjn] = X4 | X2",
-                          "[dhik] = X4 | X3")
+                          "[aegl] = X1 | X4", "[bfim] = X2 | X1",
+                          "[beik] = X2 | X3", "[befl] = X2 | X4",
+                          "[cfjm] = X3 | X1", "[cgjn] = X3 | X2",
+                          "[cfgl] = X3 | X4", "[dijm] = X4 | X1",
+                          "[dhjn] = X4 | X2", "[dhik] = X4 | X3")
     a <- abcdefghijklmno - bcdefghijklmno
     b <- abcdefghijklmno - acdefghijklmno
     c <- abcdefghijklmno - abdefghijklmno
@@ -250,14 +257,17 @@
     m <- bfim - bf - i
     n <- aghn - ag - h
     o <- aeghklno - aehk - g - l - n
-    indfract <- data.frame(Df = c(m15-m14, m15-m13, m15-m12, m15-m11, rep(0, 12)),
-                           R.square = rep(NA, 16), Adj.R.square = c(a, b, c, d,
-                                                   e, f, g, h, i, j, k, l, m, n, o, 1 - abcdefghijklmno),
+    indfract <- data.frame(Df = c(m15-m14, m15-m13, m15-m12, m15-m11,
+                                  rep(0, 12)),
+                           R.square = rep(NA, 16),
+                           Adj.R.square =
+                               c(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o,
+                                 1 - abcdefghijklmno),
                            Testable = c(rep(TRUE, 4), rep(FALSE, 12)))
     rownames(indfract) <- c("[a] = X1 | X2+X3+X4", "[b] = X2 | X1+X3+X4",
-                            "[c] = X3 | X1+X2+X4", "[d] = X4 | X1+X2+X3", "[e]",
-                            "[f]", "[g]", "[h]", "[i]", "[j]", "[k]", "[l]", "[m]",
-                            "[n]", "[o]", "[p] = Residuals")
+                            "[c] = X3 | X1+X2+X4", "[d] = X4 | X1+X2+X3",
+                            "[e]", "[f]", "[g]", "[h]", "[i]", "[j]", "[k]",
+                            "[l]", "[m]", "[n]", "[o]", "[p] = Residuals")
     out <- list(fract = fract, indfract = indfract, contr1 = contr1,
                 contr2 = contr2, SS.Y = SS.Y, nsets = 4, bigwarning = bigwarning,
                 n = n1)
