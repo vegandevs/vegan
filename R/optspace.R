@@ -21,13 +21,13 @@
   idxna <- is.na(x)
 
   if (!is.matrix(x)) {
-    stop("* optspace : input 'x' should be a matrix")
+    stop("input 'x' should be a matrix")
   }
   if (!any(idxna)) {
     x # no NAs to be filled in and can be returned immediately
   }
   if (any(is.infinite(x))) {
-    stop("* optspace : infinite values are not allowed in 'x'")
+    stop("infinite values are not allowed in 'x'")
   }
 
   m_e <- array(0, c(nrow(x), ncol(x)))
@@ -47,19 +47,19 @@
   if (ropt) {
     r <- round(ropt)
     if (!is.numeric(ropt) || (!is.numeric(r)) || (r < 1) || (r > m) || (r > n)) {
-      stop("* optspace: value of argument 'ropt' should be integer
+      stop("value of argument 'ropt' should be integer
             in [1, min(nrow(x), ncol(x))]")
     }
   } else {
     r <- min(max(round(.guess_rank(m_e, nnz_e)), 2), m - 1)
     if (verbose) {
-      message(paste0("* optspace: Guessing an implicit rank: Estimated rank 'ropt': ", r))
+      message("guessing an implicit rank: Estimated rank 'ropt': ", r)
     }
   }
 
   ## Preprocessing : niter : maximum number of iterations
   if ((is.infinite(niter)) || (niter <= 1) || (!is.numeric(niter))) {
-    stop("* optspace: invalid number provided for argument 'niter'")
+    stop("optspace: invalid number provided for argument 'niter'")
   }
   niter <- round(niter)
   rho <-  eps * n
@@ -70,7 +70,7 @@
 
   # 1. SVD
   if (verbose) {
-    message("* optspace: Step 2: SVD ...")
+    message("optspace step 2: SVD ...")
   }
 
   svdEt <- svd(m_e)
@@ -82,7 +82,7 @@
 
   # 3. Initial Guess
   if (verbose) {
-    message("* optspace: Step 3: Initial Guess ...")
+    message("optspace step 3: Initial Guess ...")
   }
   X0 <- X0 * sqrt(n)
   Y0 <- Y0 * sqrt(m)
@@ -90,7 +90,7 @@
 
   # 4. Gradient Descent
   if (verbose) {
-    message("* optspace: Step 4: Gradient Descent ...")
+    message("optspace step 4: Gradient Descent ...")
   }
   X <- X0
   Y <- Y0
@@ -132,7 +132,7 @@
   out$Y <- Y
   out$dist <- dist
   if (verbose) {
-    message('* optspace: estimation finished.')
+    message('optspace: estimation finished.')
   }
 
   # -------------------------------------------
