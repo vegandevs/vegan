@@ -59,14 +59,14 @@
         tops <- which(w[c(2:nc)] - w[c(1:(nc - 1))] > 0) + 1
         maxx.o <- NA
         if (length(tops) != 0) {
-            if (length(which(tops > maxx)) != 0)
-                maxx.o <- tops[which(tops > maxx)]
+            if (any(tops > maxx))
+                maxx.o <- tops[tops > maxx]
         }
         tops <- which(w[c(2:nc)] - w[c(1:(nc - 1))] < 0) + 1
         minx.o <- NA
         if (length(tops) != 0) {
-            if (length(which(tops > minx)) != 0)
-                minx.o <- tops[which(tops > minx)]
+            if (any(tops > minx))
+                minx.o <- tops[tops > minx]
         }
         if (tolower(criterion) == "calinski") {
             if (!is.na(maxx.o[1]))
