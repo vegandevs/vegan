@@ -21,12 +21,13 @@
         da <- lda(x, vec)
         vec <- predict(da, dimen = N - 1)$x
         message(sprintf(ngettext(NCOL(vec),
-                         "factor replaced with discriminant axis",
-                         "factor replaced with %d discriminant axes",
-                                 ), NCOL(vec)))
+                         "factor replaced with %d discriminant axis",
+                         "factor replaced with %d discriminant axes"),
+                        NCOL(vec)))
         if (NCOL(vec) > 1)
-            message(gettextf("proportional traces: %.3f",
-                             da$svd[1:NCOL(vec)]^2/sum(da$svd^2)))
+            message("proportional traces: ",
+                    paste(round(da$svd[1:NCOL(vec)]^2/sum(da$svd^2), 3),
+                          collapse = " "))
     }
     vec <- as.matrix(vec)
     NV <- NCOL(vec)
@@ -62,7 +63,7 @@
     ## Two or more free axes are (optionally) rotated to PCs
     if (N - NV > 1 && attr(object$points, "pc")) {
         rot <- svd(x[,-seq_len(NV)], nu = 0)$v
-        x[,-seq_len(NV)] <- x[, seq_len(NV)] %*% rot
+        x[,-seq_len(NV)] <- x[, -seq_len(NV)] %*% rot
         if (!all(is.na(sp)))
             sp[,-seq_len(NV)] <- sp[,-seq_len(NV)] %*% rot
     }
