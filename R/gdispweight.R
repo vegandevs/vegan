@@ -41,7 +41,7 @@
     dhat <- stat/df
     w <- ifelse(p < plimit, 1/dhat, 1)
     ## do not upweight underdispersed species
-    w <- ifelse(w > 1, 1, w)
+    w <- pmin(w, 1)
     ## done
     comm <- sweep(comm, 2, w, "*")
     class(comm) <- c("dispweight", class(comm))
