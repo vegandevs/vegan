@@ -85,7 +85,7 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         nas <- attr(mf, "na.action")
         ## Check if there are one-level factors after subset and na.action
         for (i in 1:ncol(mf))
-            if (is.factor(mf[[i]]) && length(levels(mf[[i]])) <= 1)
+            if (is.factor(mf[[i]]) && nlevels(mf[[i]]) <= 1)
                 levels(mf[[i]]) <- c(levels(mf[[i]]), ".ThisVarHasOnly1Level")
     } else {
         nas <- NULL
