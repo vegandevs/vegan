@@ -8,7 +8,7 @@ bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
     }
     else {
         mat1 <- decostand(mat, "pa")
-        if (PAonly == FALSE) mat2 <- mat
+        if (!PAonly) mat2 <- mat
     }
     n <- nrow(mat)
     ## p <- ncol(mat) # unused
