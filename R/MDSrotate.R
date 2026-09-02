@@ -62,7 +62,7 @@
     ## Two or more free axes are (optionally) rotated to PCs
     if (N - NV > 1 && attr(object$points, "pc")) {
         rot <- svd(x[,-seq_len(NV)], nu = 0)$v
-        x[,-seq_len(NV)] <- x[, seq_len(NV)] %*% rot
+        x[,-seq_len(NV)] <- x[, -seq_len(NV)] %*% rot
         if (!all(is.na(sp)))
             sp[,-seq_len(NV)] <- sp[,-seq_len(NV)] %*% rot
     }
