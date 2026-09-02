@@ -13,8 +13,8 @@
         return(invisible(out))
     fv <- fitted(x)
     if (BIC)
-        k = log(length(x$y))
-    else k = 2
+        k <- log(length(x$y))
+    else k <- 2
     emph <- which.min(sapply(x$models, AIC, k = k))
     lwd <- rep(1, ncol(fv))
     lwd[emph] <- 3

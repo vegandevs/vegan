@@ -51,17 +51,15 @@
         p.i <- n.per.gr[i]
         if(p.i < 2) stop(gettextf("there is only one variable in group %d",
                                   gr.lev[i]))
-                                        #CC# Extract variables part of
-                                        #group i
-        R.gr <- R[,gr[[i]]]     # Table with species of group 'i' only
-                                        #as columns CC# Calculate the
-                                        #mean of the Spearman
-                                        #correlations for each species
-                                        #in a group
+        ## Extract variables part of group i
+        R.gr <- R[,gr[[i]]]
+        ## Table with species of group 'i' only as columns. Calculate
+        ## the mean of the Spearman correlations for each species in a
+        ## group
         spear.mat <- cor(R.gr)
         diag(spear.mat) <- NA
-        spear.mean <- apply(spear.mat, 1, mean, na.rm=TRUE)
-                                        #CC# Calculate Kendall's W for each variable
+        spear.mean <- rowMeans(spear.mat, na.rm = TRUE)
+        ##CC# Calculate Kendall's W for each variable
         W.var <- ((p.i-1)*spear.mean+1)/p.i
 
                                         #for(j in 1:n.per.gr[i]){
@@ -98,9 +96,10 @@
     }
     if(length(vec) != p) stop("error in putting together vector 'vec'")
 
+    ## FIXME: Vector should not build vector like this!
     if(mult == "sidak") {
-        vec.corr = NA
-        for(i in 1:p) vec.corr = c(vec.corr, (1-(1-vec[i])^p))
+        vec.corr <- NA
+        for(i in 1:p) vec.corr <- c(vec.corr, (1-(1-vec[i])^p))
         vec.corr <- vec.corr[-1]
     } else {
         vec.corr <- p.adjust(vec, method=mult)

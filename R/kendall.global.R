@@ -77,13 +77,14 @@
     }
     ## Correction to P-values for multiple testing
     if(ngr > 1) {
+        ## FIXME: loop should not be collected like this!
         if(mult == "sidak") {
             perm.corr <- NA
-            for(i in 1:ngr) perm.corr = c(perm.corr, (1-(1-prob.perm.gr[i])^ngr))
+            for(i in 1:ngr)
+                perm.corr <- c(perm.corr, (1-(1-prob.perm.gr[i])^ngr))
             perm.corr <- perm.corr[-1]
-                                        #
             prob.F.corr <- NA
-            for(i in 1:ngr) prob.F.corr = c(prob.F.corr, (1-(1-prob.F.gr[i])^ngr))
+            for(i in 1:ngr) prob.F.corr <- c(prob.F.corr, (1-(1-prob.F.gr[i])^ngr))
             prob.F.corr <- prob.F.corr[-1]
         } else {
             perm.corr <- p.adjust(prob.perm.gr, method=mult)

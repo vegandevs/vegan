@@ -56,28 +56,28 @@
     m3 <- dummy$m
     if (m3 != mm3)
         collinwarn("X3", mm3, m3)
-    mm4 = mm1 + mm2
+    mm4 <- mm1 + mm2
     dummy <- simpleRDA2(Y, cbind(X1, X2), SS.Y, permat)
     abdefg.ua <- dummy$Rsquare
     abdefg <- dummy$RsquareAdj
     m4 <- dummy$m
     if (m4 != mm4)
         collinwarn("cbind(X1,X2)", mm4, m4)
-    mm5 = mm1 + mm3
+    mm5 <- mm1 + mm3
     dummy <- simpleRDA2(Y, cbind(X1, X3), SS.Y, permat)
     acdefg.ua <- dummy$Rsquare
     acdefg <- dummy$RsquareAdj
     m5 <- dummy$m
     if (m5 != mm5)
         collinwarn("cbind(X1,X3)", mm5, m5)
-    mm6 = mm2 + mm3
+    mm6 <- mm2 + mm3
     dummy <- simpleRDA2(Y, cbind(X2, X3), SS.Y, permat)
     bcdefg.ua <- dummy$Rsquare
     bcdefg <- dummy$RsquareAdj
     m6 <- dummy$m
     if (m6 != mm6)
         collinwarn("cbind(X2,X3)", mm6, m6)
-    mm7 = mm1 + mm2 + mm3
+    mm7 <- mm1 + mm2 + mm3
     dummy <- simpleRDA2(Y, cbind(X1, X2, X3), SS.Y, permat)
     abcdefg.ua <- dummy$Rsquare
     abcdefg <- dummy$RsquareAdj
@@ -100,7 +100,8 @@
                         Adj.R.square = c(adfg, bdeg, cefg, abdefg, acdefg, bcdefg,
                         abcdefg), Testable = rep(TRUE, 7) & Df)
     rownames(fract) <- c("[a+d+f+g] = X1", "[b+d+e+g] = X2",
-                         "[c+e+f+g] = X3", "[a+b+d+e+f+g] = X1+X2", "[a+c+d+e+f+g] = X1+X3",
+                         "[c+e+f+g] = X3", "[a+b+d+e+f+g] = X1+X2",
+                         "[a+c+d+e+f+g] = X1+X3",
                          "[b+c+d+e+f+g] = X2+X3", "[a+b+c+d+e+f+g] = All")
     a <- abcdefg - bcdefg
     b <- abcdefg - acdefg
@@ -124,15 +125,17 @@
                            Adj.R.square = c(a, b, c, d, e, f, g, 1 - abcdefg),
                            Testable = c(rep(TRUE, 3), rep(FALSE, 5)) & Df)
     rownames(indfract) <- c("[a] = X1 | X2+X3", "[b] = X2 | X1+X3",
-                            "[c] = X3 | X1+X2", "[d]", "[e]", "[f]", "[g]", "[h] = Residuals")
+                            "[c] = X3 | X1+X2", "[d]", "[e]", "[f]", "[g]",
+                            "[h] = Residuals")
     Df <- c(mad, maf, mbd, mbe, mce, mcf)
     contr1 <- data.frame(Df = Df,
                          R.square = rep(NA, 6),
-                         Adj.R.square = c(a + d, a + f, b + d, b + e, c + e, c + f),
+                         Adj.R.square =
+                             c(a + d, a + f, b + d, b + e, c + e, c + f),
                          Testable = rep(TRUE, 6) & Df)
     rownames(contr1) <- c("[a+d] = X1 | X3", "[a+f] = X1 | X2",
-                          "[b+d] = X2 | X3", "[b+e] = X2 | X1", "[c+e] = X3 | X1",
-                          "[c+f] = X3 | X2")
+                          "[b+d] = X2 | X3", "[b+e] = X2 | X1",
+                          "[c+e] = X3 | X1", "[c+f] = X3 | X2")
     out <- list(fract = fract, indfract = indfract, contr1 = contr1,
                 SS.Y = SS.Y, nsets = 3, bigwarning = bigwarning, n = n1)
     class(out) <- "varpart234"

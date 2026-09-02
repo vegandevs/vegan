@@ -34,7 +34,7 @@
         sqrt(qchisq(conf, df = 2))
     }
     g <- scores(x, choices = axes)
-    ng <- length(levels(x$group))
+    ng <- nlevels(x$group)
     lev <- levels(x$group)
     ## sort out colour vector if none supplied
     if (is.null(col)) {

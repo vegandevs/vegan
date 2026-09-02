@@ -8,7 +8,7 @@ bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
     }
     else {
         mat1 <- decostand(mat, "pa")
-        if (PAonly == FALSE) mat2 <- mat
+        if (!PAonly) mat2 <- mat
     }
     n <- nrow(mat)
     ## p <- ncol(mat) # unused
@@ -24,18 +24,18 @@ bgdispersal <- function (mat, PAonly = FALSE, abc = FALSE)
     pP.Mc <- matrix(NA, n, n, dimnames=list(names,names))
     for (j in 1:(n - 1)) {
         for (jj in (j + 1):n) {
-            bb = b[j, jj]
-            cc = c[j, jj]
+            bb <- b[j, jj]
+            cc <- c[j, jj]
             if ((bb + cc) == 0) {
-                McNemar[j, jj] = 0
-                pP.Mc[j, jj] = 1
+                McNemar[j, jj] <- 0
+                pP.Mc[j, jj] <- 1
             } else {
-                if(bb == 0) { B = 0 } else { B = bb*log(bb) }
-                if(cc == 0) { C = 0 } else { C = cc*log(cc) }
+                if(bb == 0) { B <- 0 } else { B <- bb*log(bb) }
+                if(cc == 0) { C <- 0 } else { C <- cc*log(cc) }
                 ## Williams correction
                 q = 1 + 1/(2*(bb+cc))
                 ## McNemar = 2*(b*log(b) + c*log(c) - (b+c)*log((b+c)/2))
-                McNemar[j, jj] = 2*(B + C - (bb+cc)*log((bb+cc)/2)) / q
+                McNemar[j, jj] <- 2*(B + C - (bb+cc)*log((bb+cc)/2)) / q
                 pP.Mc[j, jj] <- pchisq(McNemar[j, jj], 1, lower.tail = FALSE)
                 if ((b[j, jj] + c[j, jj]) == 0)
                     pP.Mc[j, jj] <- 1

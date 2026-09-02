@@ -41,7 +41,7 @@
         cmaxi <- cord[ncl, ]
         cmini <- cord[1, ]
         meanmean <- mean(centers)
-        absmdif <- abs(apply(centers, 2, mean) - meanmean)
+        absmdif <- abs(colMeans(centers) - meanmean)
         span <- cmax - cmin
         csizemax <- clsize[cmaxi]
         csizemin <- clsize[cmini]

@@ -90,8 +90,8 @@
         } else {
             row.sums <- rowSums(mat.D2)
             ## check.sums[k,1] = length(which(row.sums == 0))
-            if((cutoff==FALSE) ||
-               !(cutoff==TRUE && k > half.cl && any(row.sums == 0))) {
+            if((!cutoff) ||
+               !(cutoff && k > half.cl && any(row.sums == 0))) {
                 temp <- mantel(mat.D2, D.eco, method=r.type, permutations=nperm)
                 mantel.r <- c(mantel.r, -temp$statistic)
                 temp.p <- temp$signif

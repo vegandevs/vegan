@@ -27,7 +27,7 @@
     V <- family$variance
     ## fit models to all species separately and extract results
     comm <- as.data.frame(comm)
-    if (any(!sapply(comm, is.numeric)))
+    if (!all(sapply(comm, is.numeric)))
         stop("input data must be numeric")
     mods <- lapply(comm, function(y) glm.fit(x, y, family = family))
     y <- sapply(mods, '[[', "y")
@@ -41,7 +41,7 @@
     dhat <- stat/df
     w <- ifelse(p < plimit, 1/dhat, 1)
     ## do not upweight underdispersed species
-    w <- ifelse(w > 1, 1, w)
+    w <- pmin(w, 1)
     ## done
     comm <- sweep(comm, 2, w, "*")
     class(comm) <- c("dispweight", class(comm))

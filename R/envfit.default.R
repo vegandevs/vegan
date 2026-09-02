@@ -13,7 +13,7 @@
         env <- as.data.frame(env, nm=env.name)
     }
     keep <- complete.cases(X) & complete.cases(env)
-    if (any(!keep)) {
+    if (!all(keep)) {
         if (!na.rm)
             stop("missing values in data: consider na.rm = TRUE")
         X <- X[keep,, drop=FALSE]
@@ -31,7 +31,7 @@
 
     if (is.data.frame(env)) {
         vects <- sapply(env, is.numeric)
-        if (any(!vects)) {  # have factors
+        if (!all(vects)) {  # have factors
             Pfac <- env[, !vects, drop = FALSE]
             P <- env[, vects, drop = FALSE]
             if (length(P)) { # also have vectors

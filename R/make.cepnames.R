@@ -4,7 +4,7 @@
 {
     orignames <- names
     ## do not split by hyphens, but collapse hyphened names
-    names <- gsub("-", "", names)
+    names <- gsub("-", "", names, fixed = TRUE)
     ## make valid names
     names <- make.names(names, unique = FALSE, allow_ = FALSE)
     ## remove trailing and duplicated dots

@@ -13,7 +13,9 @@
     if (x$nsets > 2)
         out <- rbind(out, "Controlling 1 table X" = NA, x$contr1)
     out[,2:3] <- round(out[,2:3], digits=digits)
-    out[,1:4] <- sapply(out[,1:4], function(x) gsub("NA", "  ", format(x, digits=digits)))
+    out[,1:4] <- sapply(out[,1:4],
+                        function(x) gsub("NA", "  ", format(x, digits=digits),
+                                         fixed = TRUE))
     print(out)
     cat("---\nUse function", sQuote(x$ordination),
         "to test significance of fractions of interest\n")

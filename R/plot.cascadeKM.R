@@ -3,13 +3,14 @@
               gridcol = NA, ...)
 {
     wrapres <- x
-    number <- (as.numeric(gsub(" groups", "", colnames(wrapres$results))))
+    number <- as.numeric(gsub(" groups", "", colnames(wrapres$results),
+                              fixed = TRUE))
     if (missing(min.g))
         min.g <- min(number)
     if (missing(max.g))
         max.g <- max(number)
     if (min.g < 2)
-        min.g = 2
+        min.g <- 2
     c.min <- which(number == min.g)
     c.max <- which(number == max.g)
     if (length(c.min) == 0) {
@@ -25,10 +26,10 @@
     if (sortg) {
         x <- orderingKM(x)
     }
-    main = (paste("K-means partitions comparison"))
-    xlab = ("Number of groups in each partition")
-    ylab = ("Objects")
-    nc = ncol(x)
+    main <- "K-means partitions comparison"
+    xlab <- "Number of groups in each partition"
+    ylab <- "Objects"
+    nc <- ncol(x)
     colo <- (rainbow(max.g + 1))
     if (grpmts.plot) {
         def.par <- par(no.readonly = TRUE)
@@ -53,19 +54,19 @@
         axis(2, seq(min.g, max.g, by = 1), labels = seq(min.g, max.g,
                                            by = 1), col.axis = "black")
         axis(1)
-        maxx = which.max(w[])
-        minx = which.min(w[])
+        maxx <- which.max(w[])
+        minx <- which.min(w[])
         tops <- which(w[c(2:nc)] - w[c(1:(nc - 1))] > 0) + 1
         maxx.o <- NA
         if (length(tops) != 0) {
-            if (length(which(tops > maxx)) != 0)
-                maxx.o <- tops[which(tops > maxx)]
+            if (any(tops > maxx))
+                maxx.o <- tops[tops > maxx]
         }
         tops <- which(w[c(2:nc)] - w[c(1:(nc - 1))] < 0) + 1
         minx.o <- NA
         if (length(tops) != 0) {
-            if (length(which(tops > minx)) != 0)
-                minx.o <- tops[which(tops > minx)]
+            if (any(tops > minx))
+                minx.o <- tops[tops > minx]
         }
         if (tolower(criterion) == "calinski") {
             if (!is.na(maxx.o[1]))

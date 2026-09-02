@@ -279,12 +279,12 @@
                     seq_len(sum(posev)))
     if (!any(posev)) # issue #670: no positive eigenvalues in dbrda
         axnam <- NULL
-    if (DISTBASED && any(!posev))
+    if (DISTBASED && !all(posev))
         negnam <- paste0("idbRDA", seq_len(sum(!posev)))
     else
         negnam <- NULL
     dnam <- dimnames(Y)
-    if (any(posev) || any(!posev))
+    if (any(posev) || !all(posev))
         names(lambda) <- c(axnam, negnam)
     if (ncol(u))
         dimnames(u) <- list(dnam[[1]], c(axnam, negnam))
@@ -366,7 +366,7 @@
                            "CAPSCALE" = "MDS",
                            "DISTBASED" = "MDS"),
                     seq_len(sum(posev)))
-    if (DISTBASED && any(!posev))
+    if (DISTBASED && !all(posev))
         negnam <- paste0("iMDS", seq_len(sum(!posev)))
     else
         negnam <- NULL
@@ -396,7 +396,7 @@
              method = c("cca", "rda", "capscale", "dbrda", "pass"),
              arg = FALSE)
 {
-    method = match.arg(method)
+    method <- match.arg(method)
     partial <- constraint <- resid <- NULL
     ## init; "pass" returns unchanged Y, presumably from previous init
     Y <- switch(method,

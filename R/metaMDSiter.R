@@ -161,7 +161,7 @@
         tries <- tries + previous.best$tries
     }
     out <- s0
-    out$ndim = k
+    out$ndim <- k
     out$data <- attr(dist, "commname")
     out$distance <- attr(dist, "method")
     out$converged <- converged
