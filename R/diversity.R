@@ -27,7 +27,8 @@
         total <- apply(x, MARGIN, sum)
         x <- sweep(x, MARGIN, total, "/")
     } else {
-        x <- x/(total <- sum(x))
+        total <- sum(x)
+        x <- x/total
     }
     if (index == "shannon")
         x <- -x * log(x, base)
