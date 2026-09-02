@@ -122,7 +122,7 @@
     dist.pos <- Resids(vectors[, pos, drop=FALSE],
                        centroids[group, pos, drop=FALSE])
     dist.neg <- 0
-    if(any(!pos))
+    if(!all(pos))
         dist.neg <- Resids(vectors[, !pos, drop=FALSE],
                            centroids[group, !pos, drop=FALSE])
 

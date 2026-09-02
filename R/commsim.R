@@ -2,13 +2,13 @@
 ## there is a finite number of useful arguments here
 ## but I added ... to allow for unforeseen algorithms,
 ## or being able to reference to external objects
-commsim <- 
-function(method, fun, binary, isSeq, mode) 
+`commsim` <-
+    function(method, fun, binary, isSeq, mode)
 {
     fun <- if (!missing(fun))
         match.fun(fun) else stop("'fun' missing")
-    if (any(!(names(formals(fun)) %in% 
-        c("x", "n", "nr", "nc", "rs", "cs", "rf", "cf", "s", "fill", "thin", "..."))))
+    if (!all(names(formals(fun)) %in%
+        c("x", "n", "nr", "nc", "rs", "cs", "rf", "cf", "s", "fill", "thin", "...")))
             stop("unexpected arguments in 'fun'")
     out <- structure(list(method = if (!missing(method))
             as.character(method)[1L] else stop("'method' missing"),

@@ -27,7 +27,7 @@
     V <- family$variance
     ## fit models to all species separately and extract results
     comm <- as.data.frame(comm)
-    if (any(!sapply(comm, is.numeric)))
+    if (!all(sapply(comm, is.numeric)))
         stop("input data must be numeric")
     mods <- lapply(comm, function(y) glm.fit(x, y, family = family))
     y <- sapply(mods, '[[', "y")

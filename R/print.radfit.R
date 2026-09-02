@@ -5,7 +5,7 @@
     cat("No. of species ", length(x$y), ", total abundance ",
         sum(x$y), "\n\n", sep = "")
     p <- coef(x)
-    if (any(!is.na(p)))
+    if (!all(is.na(p)))
         p <- formatC(p, format="g", flag = " ", digits = digits)
     p <- apply(p, 2, function(x) gsub("NA", " ", x, fixed = TRUE))
     aic <- sapply(x$models, AIC)

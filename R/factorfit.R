@@ -4,11 +4,11 @@
     EPS <- sqrt(.Machine$double.eps)
     P <- as.data.frame(P)
     ## Check that all variables are factors, and coerce if necessary
-    if(any(!sapply(P, is.factor)))
+    if (!all(sapply(P, is.factor)))
         P <- data.frame(lapply(P, function(x)
                         if (is.factor(x)) x else factor(x)))
     P <- droplevels(P, exclude = NA) ## make sure only the used levels are present
-    if (any(!sapply(P, is.factor)))
+    if (!all(sapply(P, is.factor)))
         stop("all non-numeric variables must be factors")
     NR <- nrow(X)
     if (missing(w) || is.null(w))
