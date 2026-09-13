@@ -1,0 +1,647 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{Comparisons in constrained ordination}
+\documentclass[a4paper,10pt]{article}
+\usepackage{vegan}
+
+\title{Comparisons in constrained ordination}
+\author{Vegan development team}
+
+\date{\footnotesize{
+  processed with vegan
+\Sexpr{packageDescription("vegan", field="Version")}
+in \Sexpr{R.version.string} on \today}}
+
+\begin{document}
+
+\SweaveOpts{strip.white=true}
+<<echo=false>>=
+options(width = 72, digits = 4)
+options("prompt" = "> ", "continue" = "  ")
+@
+
+\maketitle
+
+\begin{abstract}
+  Function \code{comparisons} asks focused questions about a factor in
+  a fitted constrained ordination model. It provides common sets of
+  comparisons, user-written comparisons, comparisons within
+  interactions, joint tests, multiplicity adjustments, and control
+  over the population to which a comparison applies. Each question is
+  tested using additional constrained inertia and vegan's permutation
+  pseudo-$F$ statistic. This document introduces the interface without
+  assuming knowledge of contrast algebra. A technical description of
+  the implementation is given in the appendix.
+\end{abstract}
+
+\tableofcontents
+
+\section{What is a comparison?}
+
+An overall permutation test can tell us whether a factor is associated
+with multivariate composition. It does not answer more focused
+questions such as ``does management type HF differ from BF?'', ``does
+each treatment differ from the control?'', or ``does the treatment
+difference change between habitats?'' Function \code{comparisons}
+asks these questions after a model has been fitted with \code{rda},
+\code{cca}, or \code{dbrda}.
+
+The function changes the focal factor to the levels named in a
+comparison while retaining the rest of the fitted model. This matters
+when a model contains covariates, interactions, or transformed terms.
+The comparison is then tested with the same kind of permutation
+pseudo-$F$ statistic used elsewhere in vegan. It is not a test of an
+individual model coefficient, and its result does not depend on the
+contrast coding used to fit the factor.
+
+The returned inertia, $R^2$, and pseudo-$F$ measure the magnitude of a
+difference, but not its direction. Consequently, reversing a
+comparison gives the same test. Inspect the community data, fitted
+values, or ordination scores when the ecological direction of a
+difference is also needed.
+
+All examples use only 99 permutations to keep this vignette quick to
+build. More permutations should normally be used in an analysis. With
+99 permutations, the smallest attainable permutation $p$-value is
+0.01.
+
+\section{A first example}
+
+We first fit a redundancy analysis in which plant community composition
+is related to management and the numeric variable \code{A1}.
+
+<<first-model>>=
+library(vegan)
+data(dune)
+data(dune.env)
+
+mod <- rda(dune ~ Management + A1, data = dune.env)
+set.seed(2718)
+perm <- shuffleSet(nrow(dune), nset = 99)
+@
+
+The default is every pairwise comparison between levels of the named
+factor.
+
+<<first-pairwise>>=
+pw <- comparisons(mod, "Management", permutations = perm,
+                  parallel = 1)
+pw
+@
+
+Each row is a separate test. The columns have the following meanings:
+
+\begin{itemize}
+  \item \code{Comparison} identifies the factor levels being compared.
+  \item \code{Df} is the number of independent dimensions in the
+    hypothesis. An ordinary pairwise comparison has one degree of
+    freedom.
+  \item \code{Inertia} is the variation attributed to this comparison,
+    after allowing for everything permitted by its null model.
+  \item \code{R2} is that inertia as a proportion of the total inertia
+    in the response.
+  \item \code{F} is the observed pseudo-$F$ statistic.
+  \item \code{N.Perm} and \code{Pr(>F)} give the number of permutations
+    and the permutation $p$-value.
+\end{itemize}
+
+The tests share the supplied permutation matrix, which makes an analysis
+reproducible. They nevertheless have different null models and should
+be regarded as separate tests.
+
+\section{Ready-made sets of comparisons}
+
+The \code{comparison} argument selects a ready-made recipe. Table
+\ref{tab:recipes} summarizes the available choices. The order of factor
+levels is important for consecutive, reference, Helmert, and polynomial
+comparisons; inspect it with \code{levels} before using those recipes.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ll}
+\toprule
+Value & Question represented \\
+\midrule
+\code{"pairwise"} & Every pair of levels \\
+\code{"revpairwise"} & Every pair, with labels reversed \\
+\code{"sequential"}, \code{"consecutive"} & Each level versus the preceding level \\
+\code{"revsequential"} & Consecutive comparisons in reverse \\
+\code{"reference"} & Every other level versus a reference \\
+\code{"revreference"} & Reference versus every other level \\
+\code{"trt.vs.ctrl"} & Every treatment versus an explicitly named control \\
+\code{"deviation"}, \code{"effect"} & Each level versus the equal-weight level mean \\
+\code{"helmert"} & Successive Helmert comparisons \\
+\code{"poly"} & Linear and higher polynomial patterns across levels \\
+\bottomrule
+\end{tabular}
+\caption{Built-in comparison recipes. Aliases on the same row are
+equivalent.}
+\label{tab:recipes}
+\end{table}
+
+For example, all management types can be compared with BF:
+
+<<reference>>=
+comparisons(mod, "Management", comparison = "reference",
+            reference = "BF", permutations = perm, parallel = 1)
+@
+
+If the wording of the study identifies a control, \code{"trt.vs.ctrl"}
+expresses the same family of questions but requires the control to be
+stated explicitly. This prevents an accidental choice based only on
+factor-level order.
+
+<<control>>=
+comparisons(mod, "Management", comparison = "trt.vs.ctrl",
+            reference = "BF", permutations = perm, parallel = 1)
+@
+
+Consecutive comparisons are useful when levels have a meaningful
+ordering.
+
+<<consecutive>>=
+comparisons(mod, "Management", comparison = "sequential",
+            permutations = perm, parallel = 1)
+@
+
+Helmert and polynomial recipes are available from base R. Polynomial
+comparisons are usually meaningful only when the factor levels really
+describe an ordered progression. They operate on equally spaced level
+positions; they do not infer numerical spacing from level labels.
+
+\section{Writing specific comparisons}
+
+Specific scientific questions can be written directly as character
+strings. Factor-level names stand for their fitted multivariate
+scenarios. The right-hand side must currently be zero.
+
+<<specific>>=
+specific <- comparisons(
+    mod, "Management",
+    comparison = c(
+        "HF - BF = 0",
+        "(NM + SF) / 2 - BF = 0"
+    ),
+    permutations = perm, parallel = 1)
+specific
+@
+
+The second row compares BF with the average of NM and SF. Parentheses,
+addition, subtraction, unary signs, and multiplication or division by
+numeric constants are supported. A level name containing spaces or
+operator characters must be enclosed in backticks. Expressions are
+parsed by a restricted parser: R functions cannot be called from them.
+
+Names can make the output easier to read.
+
+<<named-specific>>=
+comparisons(
+    mod, "Management",
+    comparison = c(
+        HF_vs_BF = "HF - BF = 0",
+        managed_mean_vs_BF = "(NM + SF) / 2 - BF = 0"
+    ),
+    permutations = perm, parallel = 1)
+@
+
+Programmatic code can instead supply weights. A named numeric vector
+defines one comparison; a matrix defines one comparison per row. There
+must be one weight for every fitted factor level, and the weights in
+each row must sum to zero.
+
+<<numeric-comparisons>>=
+cmat <- rbind(
+    HF_vs_BF = c(BF = -1, HF = 1, NM = 0, SF = 0),
+    managed_mean_vs_BF = c(BF = -1, HF = 0, NM = 0.5, SF = 0.5)
+)
+comparisons(mod, "Management", comparison = cmat,
+            permutations = perm, parallel = 1)
+@
+
+A named list may mix individual character and numeric specifications.
+This can be convenient when a program constructs the comparisons one at
+a time.
+
+<<list-comparisons>>=
+clist <- list(
+    HF_vs_BF = "HF - BF = 0",
+    SF_vs_NM = c(BF = 0, HF = 0, NM = -1, SF = 1)
+)
+comparisons(mod, "Management", comparison = clist,
+            permutations = perm, parallel = 1)
+@
+
+\section{Combining comparisons and joint tests}
+
+The \code{hypothesis} argument combines comparisons that were generated
+in a first step. Names \code{b1}, \code{b2}, and so on refer to those
+rows in their displayed order. For example, with BF as the reference,
+the first two rows are HF--BF and NM--BF. Their difference is therefore
+NM--HF:
+
+<<composed>>=
+comparisons(mod, "Management", comparison = "reference",
+            reference = "BF", hypothesis = "b2 - b1 = 0",
+            permutations = perm, parallel = 1)
+@
+
+This is a new comparison test. The function combines the underlying
+fitted scenarios and then calculates a fresh inertia and pseudo-$F$; it
+does not subtract two pseudo-$F$ statistics or two $p$-values. Named
+first-stage comparisons can also be used in the expression.
+
+Longer linear combinations use the same notation. For example, the
+following combines the first three rows of the pairwise set:
+
+<<general-hypothesis>>=
+comparisons(mod, "Management", comparison = "pairwise",
+            hypothesis = "b1 + b2 - b3 = 0",
+            permutations = perm, parallel = 1)
+@
+
+The row numbers always refer to the generated comparisons, not to model
+coefficients. Inspecting the first-stage result before composing a
+hypothesis makes the intended question explicit.
+
+Several comparison rows can be tested together with \code{joint = TRUE}.
+The result is one multi-degree-of-freedom test of the whole set.
+
+<<joint>>=
+comparisons(mod, "Management", comparison = "trt.vs.ctrl",
+            reference = "BF", joint = TRUE,
+            permutations = perm, parallel = 1)
+@
+
+A joint test asks whether any independent dimension in the set is
+present. It does not identify which row is responsible. Redundant rows
+are reduced to their independent rank automatically.
+
+When separate tests are retained, their $p$-values can be adjusted with
+any method accepted by \code{p.adjust}. For example:
+
+<<adjust>>=
+comparisons(mod, "Management", comparison = "pairwise",
+            adjust = "holm", permutations = perm, parallel = 1)
+@
+
+Adjustment changes only the reported multiplicity correction. It does
+not change the individual pseudo-$F$ tests. A common maximum-statistic
+adjustment is not provided because the separate comparisons generally
+have different null models.
+
+\section{Interactions and simple effects}
+
+When the model contains an interaction, a difference between treatment
+levels may depend on the interacting variable. We use a small balanced
+example with three treatments in two habitats. The response has six
+species, and blocks will later be used to restrict permutations.
+
+<<interaction-data>>=
+set.seed(42)
+idat <- expand.grid(
+    block = factor(seq_len(6)),
+    habitat = factor(c("grass", "heath")),
+    treatment = factor(c("control", "low", "high"),
+                       levels = c("control", "low", "high"))
+)
+iY <- matrix(rpois(nrow(idat) * 6, lambda = 5), ncol = 6)
+iY[, 1] <- iY[, 1] + 3 * (idat$treatment == "high")
+iY[, 2] <- iY[, 2] + 3 * (idat$habitat == "heath")
+iY[, 3] <- iY[, 3] +
+    4 * (idat$treatment == "high" & idat$habitat == "heath")
+imod <- rda(iY ~ treatment * habitat, data = idat)
+
+set.seed(314)
+iper <- shuffleSet(nrow(idat), nset = 99,
+                   control = how(blocks = idat$block))
+@
+
+By default, \code{newdata = NULL} makes a counterfactual copy of every
+analysis row at every treatment level and averages the resulting model
+rows. The other variables retain their observed distribution. The
+following result is therefore an average treatment comparison over the
+observed habitats:
+
+<<interaction-average>>=
+comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+            reference = "control", permutations = iper, parallel = 1)
+@
+
+The \code{by} argument instead calculates treatment comparisons within
+each habitat. These are often called simple effects.
+
+<<interaction-by>>=
+iby <- comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+                   reference = "control", by = "habitat",
+                   permutations = iper, parallel = 1)
+iby
+@
+
+More than one variable may be named in \code{by}. Each observed
+combination becomes a group.
+
+An explicit \code{newdata} data frame asks about a chosen population or
+setting. Here treatment comparisons are evaluated only in heath. The
+factor is created with the levels used in the fitted model.
+
+<<interaction-newdata>>=
+heath <- data.frame(
+    habitat = factor("heath", levels = levels(idat$habitat))
+)
+comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+            reference = "control", newdata = heath,
+            permutations = iper, parallel = 1)
+@
+
+Supplying several rows in \code{newdata} averages over those rows; it
+does not automatically produce a separate result for each row. Use
+\code{by} when separate results are wanted.
+
+The \code{hypothesis} argument can compare simple effects between
+groups. The next call first generates high--control within each habitat;
+its \code{b1} and \code{b2} rows are then compared. This is a
+difference-in-differences test:
+
+<<difference-in-differences>>=
+comparisons(imod, "treatment", comparison = "high - control = 0",
+            by = "habitat", hypothesis = "b2 - b1 = 0",
+            permutations = iper, parallel = 1)
+@
+
+When \code{by} and \code{hypothesis} are used together, the \code{b}
+indices cover all grouped rows in their printed order. It is often
+safest to first run the grouped comparison, inspect its row order, and
+then write the second-stage hypothesis.
+
+The same approach extends to higher-order interactions: include all
+moderators needed to identify the desired slice in \code{by} or
+\code{newdata}, then compare the resulting simple effects.
+
+\section{Choosing the averaging population}
+
+The meaning of a comparison in a model with other predictors depends on
+the values over which those predictors are averaged. There are three
+main choices:
+
+\begin{description}
+  \item[\code{newdata = NULL}] Average counterfactual model rows over
+    the fitted analysis observations. This is the default and reflects
+    the observed mix of covariates and factor levels.
+  \item[\code{newdata = "balanced"}] Give every combination of
+    non-focal factor levels equal representation, with numeric variables
+    fixed at their means. This describes a balanced reference grid
+    rather than the observed sample composition.
+  \item[\code{newdata = data.frame(...)}] Average over a population or
+    settings supplied by the user. It must contain the variables needed
+    to reconstruct the fitted model terms, apart from the focal factor,
+    which \code{comparisons} supplies in turn.
+\end{description}
+
+For the balanced interaction example, the empirical and balanced
+averages coincide closely because both habitats have equal
+representation. The syntax is:
+
+<<balanced-grid>>=
+comparisons(imod, "treatment", comparison = "high - control = 0",
+            newdata = "balanced", permutations = iper, parallel = 1)
+@
+
+Use \code{wts} when rows should contribute unequally. It can be a
+non-negative numeric vector or the name of a column in \code{newdata}.
+Weights are normalized within each \code{by} group. In this artificial
+example, heath observations receive twice the averaging weight of grass
+observations:
+
+<<weighted>>=
+ipop <- idat[!duplicated(idat[c("block", "habitat")]),
+             c("block", "habitat")]
+ipop$sampling_weight <- ifelse(ipop$habitat == "heath", 2, 1)
+comparisons(imod, "treatment", comparison = "high - control = 0",
+            newdata = ipop, wts = "sampling_weight",
+            permutations = iper, parallel = 1)
+@
+
+The weights control only averaging of fitted scenarios. They are not
+observation weights in the fitted ordination model.
+
+Numeric values outside the range of the fitted data are allowed but are
+flagged as extrapolations in the result:
+
+<<extrapolation>>=
+xmod <- rda(dune ~ Management * A1, data = dune.env)
+xcmp <- comparisons(
+    xmod, "Management", comparison = "HF - BF = 0",
+    newdata = data.frame(A1 = 10), permutations = perm, parallel = 1)
+attr(xcmp, "extrapolation")
+@
+
+Such a result may answer a mathematically defined question while having
+little empirical support, so it should be interpreted cautiously.
+
+\section{Conditions and permutation designs}
+
+Original \code{Condition} terms are retained in every comparison test.
+Here moisture is partialled out before management comparisons are
+tested in correspondence analysis:
+
+<<cca-condition>>=
+cmod <- cca(dune ~ Management + Condition(Moisture), data = dune.env)
+comparisons(cmod, "Management", comparison = "reference",
+            reference = "BF", permutations = perm, parallel = 1)
+@
+
+Permutation restrictions can be supplied in any form accepted by
+vegan's permutation infrastructure. A predefined permutation matrix,
+as used throughout this vignette, is particularly useful because it is
+reused for all rows. Alternatively, \code{strata} restricts
+permutations to blocks:
+
+<<strata-example,eval=false>>=
+comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+            reference = "control", permutations = 99,
+            strata = idat$block)
+@
+
+The \code{parallel} argument is passed to \code{permutest.cca}. At
+present, comparison rows are processed sequentially and the
+permutations within each row are parallelized. An integer gives the
+number of workers; an existing socket cluster may also be supplied.
+Using \code{parallel = 1}, as in this vignette, avoids parallel startup
+overhead for these deliberately small tests.
+
+\section{CCA, dbRDA, and PERMANOVA}
+
+The user interface is shared by RDA, CCA, and distance-based RDA. The
+meaning of inertia follows the fitted method: variance for RDA,
+chi-square inertia for CCA, and squared-distance inertia for dbRDA. CCA
+also uses its weighted chi-square geometry in constructing the
+comparison test.
+
+<<dbrda>>=
+dmod <- dbrda(dune ~ Management + A1, data = dune.env,
+              distance = "bray")
+comparisons(dmod, "Management", comparison = "reference",
+            reference = "BF", permutations = perm, parallel = 1)
+@
+
+For PERMANOVA, the default return value of \code{adonis2} remains its
+ANOVA table. Request \code{return = "model"} when post-fit comparisons
+will be needed:
+
+<<adonis-model>>=
+afit <- adonis2(dune ~ Management + A1, data = dune.env,
+                method = "bray", return = "model")
+comparisons(afit, "Management", comparison = "trt.vs.ctrl",
+            reference = "BF", permutations = perm, parallel = 1)
+@
+
+Retaining the model is opt-in because it requires more information to
+remain in memory than the usual \code{adonis2} table. For non-Euclidean
+dissimilarities, negative eigenvalues retain their existing dbRDA
+interpretation; the comparison output should not be described as a
+response-vector effect size.
+
+\section{Using the ANOVA interface}
+
+Code organized around \code{anova} can request \code{by = "contrast"}.
+This is a thin interface to the same compiler and testing code:
+
+<<anova-bridge>>=
+anova(mod, by = "contrast", variables = "Management",
+      comparison = "reference", reference = "BF",
+      permutations = perm, parallel = 1)
+@
+
+The result uses the familiar \code{anova.cca} layout. The full
+\code{comparisons} interface is preferable when reference populations,
+grouped comparisons, composed hypotheses, or multiplicity adjustments
+are needed. Existing \code{by = "onedf"} tests have a different
+purpose: they are sequential tests of the columns produced by the
+factor coding and do not define coding-invariant scientific
+comparisons.
+
+\section{Limitations and useful checks}
+
+The initial interface intentionally has a narrow boundary:
+
+\begin{itemize}
+  \item exactly one focal factor is named in \code{variables};
+  \item the model must have been fitted with the formula interface and
+    must have a full-rank constraint matrix;
+  \item character expressions must be linear and have zero on the
+    right-hand side;
+  \item ratios between fitted levels, nonlinear functions,
+    inequalities, equivalence regions, and non-zero null values are not
+    supported;
+  \item factor levels and interaction cells needed for a comparison
+    must be represented well enough for the comparison to be estimable;
+  \item separate tests use separate contrast-specific null models, even
+    though they share a permutation matrix.
+\end{itemize}
+
+The returned object retains information useful for checking an
+analysis. For example:
+
+<<attributes>>=
+names(attributes(pw))
+attr(pw, "control")
+attr(pw, "extrapolation")
+@
+
+The \code{comparison.matrices} attribute contains the reference rows and
+compiled hypotheses. These are mainly intended for diagnostics and
+method development; most users should define questions with the public
+arguments rather than modifying these matrices.
+
+\appendix
+\section{Technical implementation}
+
+This appendix describes why the tests are invariant to the coding of a
+factor and how a requested comparison is turned into a pseudo-$F$
+test. Coefficients appear here only as an internal coordinate system.
+They are not the reported estimands or test statistics.
+
+\subsection{From reference rows to a hypothesis}
+
+Let $X$ be the $n \times p$ constraint matrix of the fitted model,
+after vegan's usual handling of its intercept and centering. For every
+level of the focal factor, \code{comparisons} constructs counterfactual
+data, rebuilds the model matrix using the fitted terms, factor levels,
+and contrast coding, and averages its rows over the requested
+population. Put the resulting level-specific rows into a matrix $R$.
+Because the complete model matrix is rebuilt, interactions and
+transformations enter $R$ exactly as they entered the fitted model.
+
+A built-in recipe, expression, or numeric specification produces a
+matrix $A$ of weights on the factor levels. Ordinary comparison rows
+sum to zero. The requested hypothesis in the coordinates of the fitted
+constraint space is
+\[
+  L = AR.
+\]
+If a second-stage \code{hypothesis} is supplied, its weight matrix $B$
+is applied first, giving $L = BAR$. In particular, \code{b1},
+\code{b2}, and so on identify rows of $AR$. This composition happens
+before any inertia or test statistic is calculated.
+
+Changing the contrast coding of the original factor changes the
+coordinates in $R$ and $X$ together, but not the scientific scenario
+difference or the subspace ultimately tested. This is why the result
+does not depend on whether treatment, sum, or another full-rank coding
+was used.
+
+\subsection{The tested and null spaces}
+
+Suppose $L$ has rank $q$. A complete QR decomposition of $L^\mathsf{T}$
+provides an orthonormal basis
+\[
+  Q = [M\;N],
+\]
+where the $q$ columns of $M$ span the tested directions and the columns
+of $N$ span their null-space complement. The fitted constraint space
+is reparameterized as
+\[
+  X_1 = XM, \qquad X_0 = XN.
+\]
+The temporary constrained ordination uses $X_1$ as its constraints and
+conditions on both $X_0$ and any original condition matrix $Z$:
+\[
+  Y \sim X_1 + \operatorname{Condition}(Z, X_0).
+\]
+Thus all fitted-model directions allowed under the comparison null are
+retained rather than discarded. Adding $X_0$ and $X_1$ recovers the
+original fitted constraint space, so the residual inertia and residual
+degrees of freedom are those of the full fitted model.
+
+The observed statistic is
+\[
+  F = \frac{I_L/q}{I_E/df_E},
+\]
+where $I_L$ is the additional constrained inertia assigned to the
+hypothesis and $I_E$ and $df_E$ are the full-model residual inertia and
+degrees of freedom. For a one-response RDA this reduces to the usual
+partial $F$ test. For multivariate RDA it uses variance, for CCA it
+uses weighted chi-square inertia, and for dbRDA it uses the geometry of
+the fitted distance representation.
+
+\subsection{Permutation test}
+
+The temporary object is passed to \code{permutest.cca} with
+\code{model = "reduced"}. In each permutation, residuals under the
+conditioned comparison-null model are permuted and the pseudo-$F$ is
+recalculated. The permutation $p$-value is
+\[
+  p = \frac{1 + \#\{F^{(b)} \geq F_{obs}\}}{1 + B},
+\]
+where $B$ is the number of permutations. One validated permutation
+matrix is reused across requested rows, but each row is fitted and
+tested separately because its null space can differ. With
+\code{joint = TRUE}, rows are stacked, reduced to rank $q$, and tested
+as one hypothesis.
+
+This construction explains two deliberate interface choices. First,
+a second-stage hypothesis must combine the underlying design-space
+rows, not already calculated inertias or pseudo-$F$ values. Second,
+only linear zero-null hypotheses are currently admitted: they identify
+a constrained subspace with a direct partial-inertia pseudo-$F$ test.
+
+\end{document}

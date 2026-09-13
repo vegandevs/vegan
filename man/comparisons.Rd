@@ -78,6 +78,9 @@ original \code{Condition} terms, and the complementary tested space is
 passed to vegan's reduced-model permutation machinery. Inertia and
 pseudo-\eqn{F} use the geometry of the fitted method. Encoded coefficients
 are not reported or tested individually.
+
+See \code{vignette("comparisons-vegan")} for a user-oriented guide to the
+complete interface and a technical appendix describing the tested space.
 }
 \value{
 A data frame of class \code{"vegan_comparisons"} containing the comparison,

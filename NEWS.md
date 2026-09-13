@@ -6,7 +6,9 @@
   model-matrix rows and tests them with contrast-specific permutation
   pseudo-$F$ statistics. It supports interactions, built-in pairwise and
   reference comparisons, custom linear equations, joint hypotheses and
-  multiple-testing adjustments for `rda`, `cca` and `dbrda` models.
+  multiple-testing adjustments for `rda`, `cca` and `dbrda` models. See
+  `vignette("comparisons-vegan")` for a practical guide and technical
+  description.
 
 * `influence.cca`: a new wrapper function to return `hatvalues`,
   `rstandard`, `rstudent` and `cooks.distance`. The result can be
