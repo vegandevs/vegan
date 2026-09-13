@@ -463,18 +463,32 @@ comparisons(weighted.sc, comparison = "b3 - b1 = 0",
 The weights control only averaging of fitted scenarios. They are not
 observation weights in the fitted ordination model.
 
-Numeric values outside the range of the fitted data are allowed but are
-flagged as extrapolations in the result:
+An explicit numeric value can be used to condition the scenarios at a
+chosen setting. The observed range of \code{A1} is 2.8 to 11.5, so
+\code{A1 = 5} is within the fitted data range. It is shown under
+\code{Fixed at}, and \code{Extrapolated} is false:
 
-<<extrapolation>>=
+<<numeric-setting>>=
 xmod <- rda(dune ~ Management * A1, data = dune.env)
-xsc <- model_scenarios(xmod, "Management",
-                       newdata = data.frame(A1 = 10))
-xsc
+range(dune.env$A1)
+within.sc <- model_scenarios(xmod, "Management",
+                             newdata = data.frame(A1 = 5))
+within.sc
 @
 
-Such a result may answer a mathematically defined question while having
-little empirical support, so it should be interpreted cautiously.
+Values outside that range are allowed, but are flagged. Here
+\code{A1 = 12.5} lies above the observed maximum, so every displayed
+scenario has \code{Extrapolated = TRUE}:
+
+<<extrapolation>>=
+outside.sc <- model_scenarios(xmod, "Management",
+                              newdata = data.frame(A1 = 12.5))
+outside.sc
+@
+
+An extrapolated result may answer a mathematically defined question
+while having little empirical support, so it should be interpreted
+cautiously.
 
 \section{Conditions and permutation designs}
 

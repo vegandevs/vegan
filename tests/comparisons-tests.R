@@ -64,6 +64,13 @@ named.bcmp <- comparisons(scenario.mod, "Management",
                           comparison = "HF - BF = 0", permutations = per)
 stopifnot(all.equal(named.bcmp$Inertia, bcmp$Inertia, tolerance = 1e-8),
           all.equal(named.bcmp$F, bcmp$F, tolerance = 1e-8))
+within.sc <- model_scenarios(scenario.mod, "Management",
+                             newdata = data.frame(A1 = 5))
+outside.sc <- model_scenarios(scenario.mod, "Management",
+                              newdata = data.frame(A1 = 12.5))
+stopifnot(!any(within.sc$Extrapolated), all(outside.sc$Extrapolated),
+          identical(unname(attr(within.sc, "extrapolation")), FALSE),
+          identical(unname(attr(outside.sc, "extrapolation")), TRUE))
 stopifnot(inherits(try(model_scenarios(mod, "Use"), silent = TRUE),
                      "try-error"),
           inherits(try(comparisons(sc[1:2, ], permutations = per),
