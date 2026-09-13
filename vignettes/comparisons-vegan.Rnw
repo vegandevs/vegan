@@ -1,15 +1,35 @@
 % -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
 %\VignetteIndexEntry{Comparisons in constrained ordination}
-\documentclass[a4paper,10pt]{article}
-\usepackage{vegan}
+\documentclass[nojss]{jss}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{Sweave}
 
 \title{Comparisons in constrained ordination}
 \author{Vegan development team}
+\Plainauthor{Vegan development team}
+\Plaintitle{Comparisons in constrained ordination}
+\Shorttitle{Comparisons in constrained ordination}
+\Keywords{constrained ordination, contrasts, permutation tests,
+  pseudo-$F$, vegan}
+\Plainkeywords{constrained ordination, contrasts, permutation tests,
+  pseudo-F, vegan}
+\Address{Vegan development team\\
+  URL: \url{https://vegandevs.github.io/vegan/}}
 
-\date{\footnotesize{
-  processed with vegan
-\Sexpr{packageDescription("vegan", field="Version")}
-in \Sexpr{R.version.string} on \today}}
+\Abstract{
+  Function \texttt{model\_scenarios} displays the fitted situations being
+  compared, and \texttt{comparisons} asks focused questions about them.
+  The interface provides common sets of comparisons, user-written
+  comparisons, comparisons within interactions, joint tests,
+  multiplicity adjustments, and control over the population to which
+  a comparison applies. Each question is tested using additional
+  constrained inertia and vegan's permutation pseudo-$F$ statistic.
+  This document introduces the interface without assuming knowledge of
+  contrast algebra. A technical description of the implementation is
+  given in the appendix.
+}
 
 \begin{document}
 
@@ -19,20 +39,11 @@ options(width = 72, digits = 4)
 options("prompt" = "> ", "continue" = "  ")
 @
 
-\maketitle
-
-\begin{abstract}
-  Function \code{model_scenarios} displays the fitted situations being
-  compared, and \code{comparisons} asks focused questions about them.
-  The interface provides common sets of
-  comparisons, user-written comparisons, comparisons within
-  interactions, joint tests, multiplicity adjustments, and control
-  over the population to which a comparison applies. Each question is
-  tested using additional constrained inertia and vegan's permutation
-  pseudo-$F$ statistic. This document introduces the interface without
-  assuming knowledge of contrast algebra. A technical description of
-  the implementation is given in the appendix.
-\end{abstract}
+\begin{center}
+\footnotesize processed with vegan
+\Sexpr{packageDescription("vegan", field="Version")}
+in \Sexpr{R.version.string} on \today
+\end{center}
 
 \tableofcontents
 
