@@ -22,8 +22,9 @@ options("prompt" = "> ", "continue" = "  ")
 \maketitle
 
 \begin{abstract}
-  Function \code{comparisons} asks focused questions about a factor in
-  a fitted constrained ordination model. It provides common sets of
+  Function \code{model_scenarios} displays the fitted situations being
+  compared, and \code{comparisons} asks focused questions about them.
+  The interface provides common sets of
   comparisons, user-written comparisons, comparisons within
   interactions, joint tests, multiplicity adjustments, and control
   over the population to which a comparison applies. Each question is
@@ -79,8 +80,25 @@ set.seed(2718)
 perm <- shuffleSet(nrow(dune), nset = 99)
 @
 
-The default is every pairwise comparison between levels of the named
-factor.
+Before testing anything, we can display the scenarios underlying the
+comparison. There is one row for each level of \code{Management}.
+
+<<first-scenarios>>=
+sc <- model_scenarios(mod, "Management")
+sc
+@
+
+The labels \code{b1}, \code{b2}, and so on give stable, short names to
+these rows. \code{Averaged over: A1} says that each management scenario
+is averaged over the observed values of \code{A1}. The scenarios are
+multivariate fitted states rather than single estimates, so there is no
+scalar estimate column. \code{N.reference} is the number of reference
+rows used in the average, not a new sample size, and
+\code{Extrapolated} warns if supplied numeric values fall outside the
+fitted data range.
+
+The default comparison is every pair of levels of the named factor. The
+one-call form below constructs the same scenarios internally.
 
 <<first-pairwise>>=
 pw <- comparisons(mod, "Management", permutations = perm,
@@ -93,7 +111,7 @@ Each row is a separate test. The columns have the following meanings:
 \begin{itemize}
   \item \code{Comparison} identifies the factor levels being compared.
   \item \code{Df} is the number of independent dimensions in the
-    hypothesis. An ordinary pairwise comparison has one degree of
+    comparison. An ordinary pairwise comparison has one degree of
     freedom.
   \item \code{Inertia} is the variation attributed to this comparison,
     after allowing for everything permitted by its null model.
@@ -234,37 +252,33 @@ comparisons(mod, "Management", comparison = clist,
             permutations = perm, parallel = 1)
 @
 
-\section{Combining comparisons and joint tests}
+\section{Comparing displayed scenario rows}
 
-The \code{hypothesis} argument combines comparisons that were generated
-in a first step. Names \code{b1}, \code{b2}, and so on refer to those
-rows in their displayed order. For example, with BF as the reference,
-the first two rows are HF--BF and NM--BF. Their difference is therefore
-NM--HF:
+The scenario table makes the \code{b} notation concrete: \code{b1},
+\code{b2}, and so on always refer to rows of that table. In \code{sc},
+the first two rows are BF and HF, so the following is the same question
+as \code{"HF - BF = 0"}:
 
-<<composed>>=
-comparisons(mod, "Management", comparison = "reference",
-            reference = "BF", hypothesis = "b2 - b1 = 0",
+<<scenario-pair>>=
+comparisons(sc, comparison = "b2 - b1 = 0",
             permutations = perm, parallel = 1)
 @
 
-This is a new comparison test. The function combines the underlying
-fitted scenarios and then calculates a fresh inertia and pseudo-$F$; it
-does not subtract two pseudo-$F$ statistics or two $p$-values. Named
-first-stage comparisons can also be used in the expression.
+The notation is especially helpful for more involved questions. This
+compares BF with the average of the third and fourth displayed
+scenarios:
 
-Longer linear combinations use the same notation. For example, the
-following combines the first three rows of the pairwise set:
-
-<<general-hypothesis>>=
-comparisons(mod, "Management", comparison = "pairwise",
-            hypothesis = "b1 + b2 - b3 = 0",
+<<scenario-average>>=
+comparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
             permutations = perm, parallel = 1)
 @
 
-The row numbers always refer to the generated comparisons, not to model
-coefficients. Inspecting the first-stage result before composing a
-hypothesis makes the intended question explicit.
+These identifiers do not refer to model coefficients, previously
+calculated comparisons, inertia values, or pseudo-$F$ statistics. The
+expression combines the scenario model rows first and then performs a
+fresh pseudo-$F$ test.
+
+\subsection{Joint tests and adjusted p-values}
 
 Several comparison rows can be tested together with \code{joint = TRUE}.
 The result is one multi-degree-of-freedom test of the whole set.
@@ -330,18 +344,28 @@ comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
             reference = "control", permutations = iper, parallel = 1)
 @
 
-The \code{by} argument instead calculates treatment comparisons within
-each habitat. These are often called simple effects.
+The \code{by} argument instead constructs treatment scenarios within
+each habitat. These rows make the simple effects and their ordering
+visible before a test is specified.
 
 <<interaction-by>>=
-iby <- comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
-                   reference = "control", by = "habitat",
-                   permutations = iper, parallel = 1)
-iby
+isc <- model_scenarios(imod, "treatment", by = "habitat")
+isc
 @
 
-More than one variable may be named in \code{by}. Each observed
-combination becomes a group.
+Here \code{Averaged over: none} is expected. Habitat is displayed as a
+grouping column, so it is held at the value in each row rather than
+averaged away. A built-in recipe is applied separately within each
+habitat:
+
+<<interaction-by-comparisons>>=
+comparisons(isc, comparison = "trt.vs.ctrl",
+            permutations = iper, parallel = 1)
+@
+
+More than one variable may be named in \code{by}; each observed
+combination becomes a group. Other model variables that vary within
+those groups are still listed under \code{Averaged over}.
 
 An explicit \code{newdata} data frame asks about a chosen population or
 setting. Here treatment comparisons are evaluated only in heath. The
@@ -351,8 +375,9 @@ factor is created with the levels used in the fitted model.
 heath <- data.frame(
     habitat = factor("heath", levels = levels(idat$habitat))
 )
-comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
-            reference = "control", newdata = heath,
+heath.sc <- model_scenarios(imod, "treatment", newdata = heath)
+heath.sc
+comparisons(heath.sc, comparison = "trt.vs.ctrl",
             permutations = iper, parallel = 1)
 @
 
@@ -360,21 +385,28 @@ Supplying several rows in \code{newdata} averages over those rows; it
 does not automatically produce a separate result for each row. Use
 \code{by} when separate results are wanted.
 
-The \code{hypothesis} argument can compare simple effects between
-groups. The next call first generates high--control within each habitat;
-its \code{b1} and \code{b2} rows are then compared. This is a
-difference-in-differences test:
+The scenario identifiers can select simple effects directly. From the
+printed table, high--control is \code{b3 - b1} in grass and
+\code{b6 - b4} in heath:
 
-<<difference-in-differences>>=
-comparisons(imod, "treatment", comparison = "high - control = 0",
-            by = "habitat", hypothesis = "b2 - b1 = 0",
+<<two-simple-effects>>=
+comparisons(isc,
+            comparison = c(grass = "b3 - b1 = 0",
+                           heath = "b6 - b4 = 0"),
             permutations = iper, parallel = 1)
 @
 
-When \code{by} and \code{hypothesis} are used together, the \code{b}
-indices cover all grouped rows in their printed order. It is often
-safest to first run the grouped comparison, inspect its row order, and
-then write the second-stage hypothesis.
+They can also be combined into a difference-in-differences test:
+
+<<difference-in-differences>>=
+comparisons(isc,
+            comparison = "(b6 - b4) - (b3 - b1) = 0",
+            permutations = iper, parallel = 1)
+@
+
+The \code{b} indices cover all scenario rows in their printed order.
+Always inspect that table before writing an expression that crosses
+groups.
 
 The same approach extends to higher-order interactions: include all
 moderators needed to identify the desired slice in \code{by} or
@@ -402,11 +434,13 @@ main choices:
 
 For the balanced interaction example, the empirical and balanced
 averages coincide closely because both habitats have equal
-representation. The syntax is:
+representation. Printing the scenarios shows the population used:
 
 <<balanced-grid>>=
-comparisons(imod, "treatment", comparison = "high - control = 0",
-            newdata = "balanced", permutations = iper, parallel = 1)
+balanced.sc <- model_scenarios(imod, "treatment", newdata = "balanced")
+balanced.sc
+comparisons(balanced.sc, comparison = "b3 - b1 = 0",
+            permutations = iper, parallel = 1)
 @
 
 Use \code{wts} when rows should contribute unequally. It can be a
@@ -419,8 +453,10 @@ observations:
 ipop <- idat[!duplicated(idat[c("block", "habitat")]),
              c("block", "habitat")]
 ipop$sampling_weight <- ifelse(ipop$habitat == "heath", 2, 1)
-comparisons(imod, "treatment", comparison = "high - control = 0",
-            newdata = ipop, wts = "sampling_weight",
+weighted.sc <- model_scenarios(imod, "treatment", newdata = ipop,
+                               wts = "sampling_weight")
+weighted.sc
+comparisons(weighted.sc, comparison = "b3 - b1 = 0",
             permutations = iper, parallel = 1)
 @
 
@@ -432,10 +468,9 @@ flagged as extrapolations in the result:
 
 <<extrapolation>>=
 xmod <- rda(dune ~ Management * A1, data = dune.env)
-xcmp <- comparisons(
-    xmod, "Management", comparison = "HF - BF = 0",
-    newdata = data.frame(A1 = 10), permutations = perm, parallel = 1)
-attr(xcmp, "extrapolation")
+xsc <- model_scenarios(xmod, "Management",
+                       newdata = data.frame(A1 = 10))
+xsc
 @
 
 Such a result may answer a mathematically defined question while having
@@ -516,9 +551,10 @@ anova(mod, by = "contrast", variables = "Management",
 @
 
 The result uses the familiar \code{anova.cca} layout. The full
-\code{comparisons} interface is preferable when reference populations,
-grouped comparisons, composed hypotheses, or multiplicity adjustments
-are needed. Existing \code{by = "onedf"} tests have a different
+\code{model_scenarios} and \code{comparisons} interface is preferable
+when reference populations, grouped or cross-group comparisons, or
+multiplicity adjustments are needed. Existing \code{by = "onedf"}
+tests have a different
 purpose: they are sequential tests of the columns produced by the
 factor coding and do not define coding-invariant scientific
 comparisons.
@@ -551,8 +587,9 @@ attr(pw, "control")
 attr(pw, "extrapolation")
 @
 
-The \code{comparison.matrices} attribute contains the reference rows and
-compiled hypotheses. These are mainly intended for diagnostics and
+The \code{scenarios} attribute contains the displayed scenario object,
+and \code{comparison.matrices} contains its design rows and the compiled
+comparison rows. These are mainly intended for diagnostics and
 method development; most users should define questions with the public
 arguments rather than modifying these matrices.
 
@@ -564,11 +601,11 @@ factor and how a requested comparison is turned into a pseudo-$F$
 test. Coefficients appear here only as an internal coordinate system.
 They are not the reported estimands or test statistics.
 
-\subsection{From reference rows to a hypothesis}
+\subsection{From scenario rows to a comparison}
 
 Let $X$ be the $n \times p$ constraint matrix of the fitted model,
 after vegan's usual handling of its intercept and centering. For every
-level of the focal factor, \code{comparisons} constructs counterfactual
+level of the focal factor, \code{model_scenarios} constructs counterfactual
 data, rebuilds the model matrix using the fitted terms, factor levels,
 and contrast coding, and averages its rows over the requested
 population. Put the resulting level-specific rows into a matrix $R$.
@@ -576,16 +613,17 @@ Because the complete model matrix is rebuilt, interactions and
 transformations enter $R$ exactly as they entered the fitted model.
 
 A built-in recipe, expression, or numeric specification produces a
-matrix $A$ of weights on the factor levels. Ordinary comparison rows
-sum to zero. The requested hypothesis in the coordinates of the fitted
+matrix $A$ of weights on the scenario rows. Ordinary comparison rows
+sum to zero. The requested comparison in the coordinates of the fitted
 constraint space is
 \[
   L = AR.
 \]
-If a second-stage \code{hypothesis} is supplied, its weight matrix $B$
-is applied first, giving $L = BAR$. In particular, \code{b1},
-\code{b2}, and so on identify rows of $AR$. This composition happens
-before any inertia or test statistic is calculated.
+The identifiers \code{b1}, \code{b2}, and so on name rows of $R$
+directly. Thus \code{"b2 - b1 = 0"} is a row of $A$ with weights $-1$
+and $1$, and a difference-in-differences places four signed weights on
+four rows of $R$. This composition happens before any inertia or test
+statistic is calculated.
 
 Changing the contrast coding of the original factor changes the
 coordinates in $R$ and $X$ together, but not the scientific scenario
@@ -621,7 +659,7 @@ The observed statistic is
   F = \frac{I_L/q}{I_E/df_E},
 \]
 where $I_L$ is the additional constrained inertia assigned to the
-hypothesis and $I_E$ and $df_E$ are the full-model residual inertia and
+comparison and $I_E$ and $df_E$ are the full-model residual inertia and
 degrees of freedom. For a one-response RDA this reduces to the usual
 partial $F$ test. For multivariate RDA it uses variance, for CCA it
 uses weighted chi-square inertia, and for dbRDA it uses the geometry of
@@ -640,12 +678,12 @@ where $B$ is the number of permutations. One validated permutation
 matrix is reused across requested rows, but each row is fitted and
 tested separately because its null space can differ. With
 \code{joint = TRUE}, rows are stacked, reduced to rank $q$, and tested
-as one hypothesis.
+as one comparison.
 
 This construction explains two deliberate interface choices. First,
-a second-stage hypothesis must combine the underlying design-space
-rows, not already calculated inertias or pseudo-$F$ values. Second,
-only linear zero-null hypotheses are currently admitted: they identify
-a constrained subspace with a direct partial-inertia pseudo-$F$ test.
+scenario expressions combine underlying design-space rows, not already
+calculated inertias or pseudo-$F$ values. Second, only linear zero-null
+comparisons are currently admitted: they identify a constrained
+subspace with a direct partial-inertia pseudo-$F$ test.
 
 \end{document}

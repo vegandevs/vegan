@@ -7,7 +7,7 @@ export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason, SSlomolino,
 adipart, adonis2, anosim, beals, betadisper, betadistances, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, ca, calibrate, capscale,
 cascadeKM, cca, chaodist, contribdiv, clamtest, commsim,
-comparisons,
+comparisons, model_scenarios,
 cutreeord, dbrda, decobackstand, decorana, decostand, designdist, designdist2,
 dist2xy, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
@@ -187,6 +187,10 @@ S3method(cooks.distance, cca)
 # comparisons: vegan
 S3method(comparisons, cca)
 S3method(comparisons, default)
+S3method(comparisons, vegan_scenarios)
+# model_scenarios: vegan
+S3method(model_scenarios, cca)
+S3method(model_scenarios, default)
 # cophenetic: stats
 S3method(cophenetic, spantree)
 # density: stats
@@ -398,6 +402,7 @@ S3method(print, betadisper)
 S3method(print, bioenv)
 S3method(print, cca)
 S3method(print, vegan_comparisons)
+S3method(print, vegan_scenarios)
 S3method(print, commsim)
 S3method(print, decorana)
 S3method(print, eigenvals)

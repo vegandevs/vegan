@@ -1,0 +1,107 @@
+\name{model_scenarios}
+\alias{model_scenarios}
+\alias{model_scenarios.default}
+\alias{model_scenarios.cca}
+\alias{print.vegan_scenarios}
+\title{Construct Model Scenarios for Constrained Ordination}
+\description{
+Construct one marginal model scenario for every level of a focal factor,
+optionally within groups. The displayed rows are labelled \code{b1},
+\code{b2}, and so on, and can be used directly in \code{comparisons}
+expressions.
+}
+\usage{
+model_scenarios(object, ...)
+
+\method{model_scenarios}{cca}(object, variables, newdata = NULL,
+    by = NULL, wts = NULL, ...)
+
+\method{print}{vegan_scenarios}(x, ...)
+}
+\arguments{
+\item{object}{A constrained ordination object fitted by the formula
+interface, such as a result from \code{rda}, \code{cca}, or \code{dbrda}.}
+\item{variables}{The name of one focal factor in the fitted model.}
+\item{newdata}{The reference population used to construct scenarios.
+The default uses the fitted analysis data. Character value \code{"balanced"}
+constructs a balanced reference grid, and a data frame supplies an explicit
+population or setting.}
+\item{by}{Optional model variables defining groups within which scenarios
+are averaged.}
+\item{wts}{Optional non-negative averaging weights, or the name of a weight
+column in \code{newdata}.}
+\item{x}{A \code{"vegan_scenarios"} object.}
+\item{\dots}{Arguments passed to methods or to \code{print.data.frame}.}
+}
+\details{
+A model scenario describes the fitted multivariate response for one level of
+the focal factor after accounting for the other model variables. It is a
+vector-valued fitted state, not a single scalar estimate. Consequently the
+printed table identifies what is being compared but does not display an
+estimate for an individual row. \code{comparisons} tests differences among
+the retained scenario rows using constrained inertia and a permutation
+pseudo-\eqn{F} statistic.
+
+With \code{newdata = NULL}, every fitted analysis row is copied once for each
+focal-factor level. Model-matrix rows are then averaged over the observed
+values of the remaining variables. The printed \sQuote{Averaged over} field
+states which variables vary in that reference population. If \code{by} is
+used, averaging is performed separately within each displayed group. A
+variable shown in a \code{by} column therefore does not also appear under
+\sQuote{Averaged over}.
+
+With \code{newdata = "balanced"}, non-focal factors form an equally weighted
+grid and numeric variables are fixed at their means. With an explicit data
+frame, variables that have one supplied value are printed under
+\sQuote{Fixed at}; variables that vary are printed under
+\sQuote{Averaged over}. \code{N.reference} is the number of rows used to
+construct a scenario, not a sample size for a separate fitted model.
+
+The stable \code{Scenario} identifiers make otherwise cumbersome questions
+easy to state. For example, \code{"b2 - b1 = 0"} compares two displayed rows,
+and \code{"(b6 - b4) - (b3 - b1) = 0"} compares two simple effects across
+groups. Because the identifiers depend on the displayed order, inspect the
+scenario table before writing a cross-group expression.
+
+The method reconstructs the complete fitted model matrix, including
+interactions and transformations, with the original factor levels and
+contrast coding. Attributes retain these averaged design rows, the fitted
+model, reference data, weights, grouping, and extrapolation diagnostics.
+Because the displayed rows and retained design rows form one object, do not
+edit or subset a scenario table before passing it to \code{comparisons};
+reconstruct the desired scenarios instead.
+}
+\value{
+A data frame of class \code{"vegan_scenarios"}. Columns contain the scenario
+identifier, focal-factor value, optional \code{by} values,
+\code{N.reference}, and an \code{Extrapolated} flag. Attributes retain the
+model-matrix representation and construction metadata used by
+\code{comparisons}.
+}
+\examples{
+data(dune)
+data(dune.env)
+
+mod <- rda(dune ~ Management + A1, data = dune.env)
+sc <- model_scenarios(mod, "Management")
+sc
+comparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
+
+set.seed(42)
+idat <- expand.grid(treatment = factor(c("control", "low", "high"),
+                                      levels = c("control", "low", "high")),
+                    habitat = factor(c("grass", "heath")), replicate = 1:3)
+iY <- matrix(rpois(nrow(idat) * 4, 5), ncol = 4)
+imod <- rda(iY ~ treatment * habitat, data = idat)
+isc <- model_scenarios(imod, "treatment", by = "habitat")
+isc
+comparisons(isc, comparison = "pairwise", permutations = 99)
+
+fixed <- model_scenarios(imod, "treatment", newdata = data.frame(
+    habitat = factor("heath", levels = levels(idat$habitat))))
+fixed
+}
+\seealso{\code{\link{comparisons}}, \code{\link{rda}},
+\code{\link{cca}}, \code{\link{dbrda}}}
+\keyword{models}
+\keyword{multivariate}

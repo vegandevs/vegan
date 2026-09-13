@@ -3,25 +3,18 @@
 #' Construct scientifically meaningful comparisons of factor levels and test
 #' them with contrast-specific permutation pseudo-F statistics.
 #'
-#' @param object A fitted constrained ordination model.
+#' @param object A fitted constrained ordination model or a scenario table
+#'   returned by `model_scenarios()`.
 #' @param variables The name of one factor in the model.
 #' @param comparison A built-in comparison name, character equations, or a
 #'   numeric contrast vector or matrix.
 #' @param reference Optional reference or control level. The first fitted
 #'   factor level is used when this is omitted.
-#' @param newdata The population over which comparisons are averaged. `NULL`
-#'   uses the analysis data, `"balanced"` uses a balanced reference grid, and
-#'   a data frame supplies an explicit population.
-#' @param by Optional variables defining groups within which comparisons are
-#'   averaged.
-#' @param hypothesis Optional linear hypotheses combining the generated
-#'   comparisons.
 #' @param joint Test all resulting comparisons jointly.
 #' @param permutations A permutation count, matrix, or `permute::how()` object.
 #' @param strata Optional permutation strata.
 #' @param parallel Number of parallel workers or a socket cluster.
 #' @param adjust A method accepted by `stats::p.adjust()`.
-#' @param wts Optional averaging weights or the name of a weight column.
 #' @param ... Arguments passed to methods.
 #'
 #' @return A data frame of class `vegan_comparisons`.
@@ -42,27 +35,62 @@ comparisons.default <- function(object, ...)
     stop("no 'comparisons' method for objects of class ",
          paste(class(object), collapse = "/"))
 
-#' Comparisons for constrained ordination
+#' Construct model scenarios
 #'
-#' Compile factor-level comparisons into model-matrix hypotheses and test
-#' their additional constrained inertia under a contrast-specific reduced
-#' permutation model. This method is inherited by `rda`, `cca`, and `dbrda`
-#' objects.
+#' Construct one marginal model scenario for each level of a focal factor,
+#' optionally within groups. Each displayed row retains its averaged
+#' model-matrix representation for later permutation comparisons.
 #'
-#' @inheritParams comparisons
+#' @param object A fitted constrained ordination model.
+#' @param variables The name of one focal factor in the model.
+#' @param newdata The population over which scenarios are averaged. `NULL`
+#'   uses the analysis data, `"balanced"` uses a balanced reference grid, and
+#'   a data frame supplies an explicit population.
+#' @param by Optional model variables defining groups within which scenarios
+#'   are averaged.
+#' @param wts Optional non-negative averaging weights or the name of a weight
+#'   column in `newdata`.
+#' @param ... Arguments passed to methods.
 #'
-#' @return A data frame of class `vegan_comparisons` with the hypothesis
-#'   degrees of freedom, inertia, pseudo-F statistic, and permutation p-value.
+#' @return A data frame of class `vegan_scenarios`. Its attributes retain the
+#'   original model, averaged design rows, grouping, reference population,
+#'   weights, and extrapolation diagnostics.
 #' @export
-comparisons.cca <-
-    function(object, variables, comparison = "pairwise", reference = NULL,
-             newdata = NULL, by = NULL, hypothesis = NULL, joint = FALSE,
-             permutations = how(nperm = 999), strata = NULL,
-             parallel = getOption("mc.cores"), adjust = "none", wts = NULL,
-             ...)
+model_scenarios <- function(object, ...)
+    UseMethod("model_scenarios")
+
+#' Default model-scenarios method
+#'
+#' Report that model scenarios are unavailable for an object.
+#'
+#' @param object An unsupported object.
+#' @param ... Unused arguments.
+#'
+#' @return This method always throws an error.
+#' @keywords internal
+model_scenarios.default <- function(object, ...)
+    stop("no 'model_scenarios' method for objects of class ",
+         paste(class(object), collapse = "/"))
+
+#' Model scenarios for constrained ordination
+#'
+#' Rebuild the fitted model matrix under every level of one factor and average
+#' it over an observed, balanced, or user-supplied reference population. This
+#' method is inherited by `rda`, `cca`, `dbrda`, and retained `adonis2` fits.
+#' The scenarios are vector-valued model states rather than scalar estimates;
+#' `comparisons()` tests linear differences between their design rows.
+#'
+#' @inheritParams model_scenarios
+#'
+#' @return A `vegan_scenarios` data frame with stable `b1`, `b2`, ... row
+#'   identifiers, focal and grouping values, reference-row counts, and
+#'   extrapolation flags.
+#' @export
+model_scenarios.cca <- function(object, variables, newdata = NULL, by = NULL,
+                                wts = NULL, ...)
 {
     if (is.null(object$terms) || is.null(object$terminfo))
-        stop("comparisons need a model fitted with the formula interface")
+        stop("model scenarios need a model fitted with the formula interface")
     if (length(variables) != 1L || !is.character(variables))
         stop("'variables' must name exactly one factor")
     variable <- variables[[1L]]
@@ -72,15 +100,15 @@ comparisons.cca <-
                       variable))
     if (!is.factor(dat[[variable]]))
         stop(gettextf("variable '%s' must be a factor", variable))
+    if (!variable %in% all.vars(.comparisonFormula(object)))
+        stop(gettextf("variable '%s' is not a constraint in the model",
+                      variable))
     if (!is.null(by)) {
         if (!is.character(by) || any(!by %in% names(dat)))
             stop("'by' must name variables in the model data")
         if (variable %in% by)
             stop("the focal variable cannot also be a 'by' variable")
     }
-    adjust <- match.arg(adjust, p.adjust.methods)
-    if (length(joint) != 1L || is.na(joint))
-        stop("'joint' must be TRUE or FALSE")
 
     Xs <- model.matrix(object)
     if (is.list(Xs)) {
@@ -93,55 +121,173 @@ comparisons.cca <-
     if (is.null(X) || !ncol(X))
         stop("model has no constraints")
     if (object$CCA$qrank < ncol(X))
-        stop("comparisons are not available for aliased constraint matrices")
+        stop("model scenarios are not available for aliased constraint matrices")
 
     base <- .comparisonNewdata(object, dat, variable, newdata)
-    extrapolation <- .comparisonExtrapolation(base, dat, variable)
+    meta <- .scenarioMetadata(object, dat, base, variable, by, newdata, wts)
     base$..vegan_rowid <- seq_len(nrow(base))
     split <- .comparisonSplit(base, by)
     lev <- levels(dat[[variable]])
-    perm <- getPermuteMatrix(permutations, nobs(object), strata = strata)
+    ordered <- isTRUE(object$terminfo$ordered[[variable]])
     refs <- lapply(seq_along(split), function(g) {
         gd <- split[[g]]
         gw <- .comparisonWeights(gd, wts, nrow(base))
         R <- .comparisonRows(object, gd, variable, lev, gw, colnames(X))
-        A <- .comparisonContrasts(comparison, lev, reference)
         group <- if (length(by)) gd[1L, by, drop = FALSE] else NULL
-        list(reference.rows = R, contrast.weights = A, group = group)
+        extra <- .comparisonExtrapolation(gd, dat, variable)
+        list(reference.rows = R, group = group, weights = gw,
+             n.reference = nrow(gd), extrapolated = any(extra),
+             extrapolation = extra)
     })
 
-    ## A hypothesis with 'by' combines the complete ordered set of grouped
-    ## comparisons. This permits interaction contrasts such as differences
-    ## of simple effects. Without a hypothesis, groups remain separate rows.
-    if (length(by) && !is.null(hypothesis)) {
-        L0 <- do.call(rbind, lapply(refs, function(z) {
-            a <- z$contrast.weights %*% z$reference.rows
-            grp <- paste(paste(by, unlist(z$group), sep = "="),
-                         collapse = ", ")
-            rownames(a) <- paste0(rownames(a), " | ", grp)
-            a
-        }))
-        ident <- diag(nrow(L0))
-        rownames(ident) <- colnames(ident) <- rownames(L0)
-        H <- .comparisonHypothesis(ident, hypothesis)
-        L <- H %*% L0
-        specs <- lapply(seq_len(nrow(L)), function(i)
-            list(label = rownames(L)[i], L = L[i, , drop = FALSE],
+    tabs <- lapply(refs, function(z) {
+        tab <- data.frame(Scenario = rep.int("", length(lev)),
+                          stringsAsFactors = FALSE)
+        tab[[variable]] <- factor(lev, levels = lev, ordered = ordered)
+        if (!is.null(z$group))
+            tab <- cbind(tab, z$group[rep.int(1L, length(lev)), , drop = FALSE],
+                         row.names = NULL)
+        tab$N.reference <- rep.int(z$n.reference, length(lev))
+        tab$Extrapolated <- rep.int(z$extrapolated, length(lev))
+        tab
+    })
+    out <- do.call(rbind, tabs)
+    rownames(out) <- NULL
+    out$Scenario <- paste0("b", seq_len(nrow(out)))
+    R <- do.call(rbind, lapply(refs, `[[`, "reference.rows"))
+    rownames(R) <- out$Scenario
+    group.index <- rep(seq_along(refs), each = length(lev))
+
+    attr(out, "scenario.matrix") <- R
+    attr(out, "group.index") <- group.index
+    attr(out, "reference") <- refs
+    attr(out, "reference.data") <- base[, names(base) != "..vegan_rowid",
+                                         drop = FALSE]
+    attr(out, "model") <- object
+    attr(out, "constraints") <- X
+    attr(out, "conditions") <- Z
+    attr(out, "variable") <- variable
+    attr(out, "levels") <- lev
+    attr(out, "by") <- by
+    attr(out, "newdata") <- newdata
+    attr(out, "weights") <- wts
+    attr(out, "population") <- meta$population
+    attr(out, "averaged") <- meta$averaged
+    attr(out, "fixed") <- meta$fixed
+    attr(out, "weight.label") <- meta$weights
+    attr(out, "extrapolation") <- .comparisonExtrapolation(base, dat,
+                                                             variable)
+    class(out) <- c("vegan_scenarios", "data.frame")
+    out
+}
+
+#' Print model scenarios
+#'
+#' Print scenario rows together with the reference population, averaging,
+#' fixed-value, grouping, and weight choices that define them. Identifiers
+#' `b1`, `b2`, ... can be used in `comparisons()` expressions.
+#'
+#' @param x A `vegan_scenarios` object.
+#' @param ... Arguments passed to `print.data.frame()`.
+#'
+#' @return `x`, invisibly.
+#' @export
+print.vegan_scenarios <- function(x, ...)
+{
+    none <- function(z) if (length(z)) paste(z, collapse = ", ") else "none"
+    cat("Model scenarios for constrained ordination\n\n")
+    cat("Focal variable:      ", attr(x, "variable"), "\n")
+    if (length(attr(x, "by")))
+        cat("By:                  ", paste(attr(x, "by"), collapse = ", "),
+            "\n")
+    cat("Reference population:", attr(x, "population"), "\n")
+    cat("Averaged over:       ", none(attr(x, "averaged")), "\n")
+    if (length(attr(x, "fixed")))
+        cat("Fixed at:            ", none(attr(x, "fixed")), "\n")
+    cat("Weights:             ", attr(x, "weight.label"), "\n\n")
+    print.data.frame(x, row.names = FALSE, ...)
+    invisible(x)
+}
+
+#' Comparisons for constrained ordination
+#'
+#' Construct model scenarios and pass them to the scenario comparison method.
+#' This is the one-call interface inherited by `rda`, `cca`, `dbrda`, and
+#' retained `adonis2` fits.
+#'
+#' @inheritParams model_scenarios
+#' @inheritParams comparisons
+#'
+#' @return A data frame of class `vegan_comparisons` with the comparison
+#'   degrees of freedom, inertia, pseudo-F statistic, and permutation p-value.
+#' @export
+comparisons.cca <-
+    function(object, variables, comparison = "pairwise", reference = NULL,
+             newdata = NULL, by = NULL, joint = FALSE,
+             permutations = how(nperm = 999), strata = NULL,
+             parallel = getOption("mc.cores"), adjust = "none", wts = NULL,
+             ...)
+{
+    scenarios <- model_scenarios(object, variables = variables,
+                                 newdata = newdata, by = by, wts = wts)
+    comparisons(scenarios, comparison = comparison, reference = reference,
+                joint = joint, permutations = permutations, strata = strata,
+                parallel = parallel, adjust = adjust, ...)
+}
+
+#' Compare model scenarios
+#'
+#' Translate recipes or linear expressions into differences between rows of a
+#' `vegan_scenarios` table, then test their additional constrained inertia
+#' using contrast-specific reduced-model permutation pseudo-F tests. Scenario
+#' identifiers such as `b2 - b1 = 0` refer directly to the displayed rows, not
+#' to previously calculated comparisons or test statistics.
+#'
+#' @param object A `vegan_scenarios` object.
+#' @inheritParams comparisons
+#'
+#' @return A data frame of class `vegan_comparisons`.
+#' @export
+comparisons.vegan_scenarios <-
+    function(object, comparison = "pairwise", reference = NULL,
+             joint = FALSE, permutations = how(nperm = 999), strata = NULL,
+             parallel = getOption("mc.cores"), adjust = "none", ...)
+{
+    adjust <- match.arg(adjust, p.adjust.methods)
+    if (length(joint) != 1L || is.na(joint))
+        stop("'joint' must be TRUE or FALSE")
+
+    fit <- attr(object, "model")
+    X <- attr(object, "constraints")
+    Z <- attr(object, "conditions")
+    R <- attr(object, "scenario.matrix")
+    ids <- object$Scenario
+    lev <- attr(object, "levels")
+    by <- attr(object, "by")
+    groups <- attr(object, "group.index")
+    if (is.null(R) || nrow(R) != nrow(object) ||
+        !identical(rownames(R), ids) || length(groups) != nrow(object))
+        stop("scenario rows no longer match their retained model matrix; ",
+             "reconstruct them with 'model_scenarios()'")
+    perm <- getPermuteMatrix(permutations, nobs(fit), strata = strata)
+
+    global <- .comparisonUsesScenarioRows(comparison, ids, length(lev))
+    if (global) {
+        A <- .comparisonContrasts(comparison, ids, reference = NULL)
+        L <- A %*% R
+        specs <- lapply(seq_len(nrow(A)), function(i)
+            list(label = rownames(A)[i], L = L[i, , drop = FALSE],
                  group = NULL))
     } else {
-        specs <- unlist(lapply(refs, function(z) {
-            A <- z$contrast.weights
-            if (!is.null(hypothesis))
-                A <- .comparisonHypothesis(A, hypothesis)
-            if (joint && nrow(A) > 1L) {
-                return(list(list(label = paste(rownames(A), collapse = "; "),
-                                      L = A %*% z$reference.rows,
-                                      group = z$group)))
-            }
+        specs <- unlist(lapply(unique(groups), function(g) {
+            take <- which(groups == g)
+            A <- .comparisonContrasts(comparison, lev, reference)
+            L <- A %*% R[take, , drop = FALSE]
+            group <- if (length(by)) object[take[1L], by, drop = FALSE]
+                     else NULL
             lapply(seq_len(nrow(A)), function(i)
                 list(label = rownames(A)[i],
-                     L = A[i, , drop = FALSE] %*% z$reference.rows,
-                     group = z$group))
+                     L = L[i, , drop = FALSE], group = group))
         }), recursive = FALSE)
     }
     if (joint && length(specs) > 1L) {
@@ -152,10 +298,10 @@ comparisons.cca <-
     }
 
     ans <- lapply(specs, function(spec) {
-        z <- .comparisonTest(object, X, Z, spec$L, perm, parallel)
+        z <- .comparisonTest(fit, X, Z, spec$L, perm, parallel)
         tab <- data.frame(Comparison = spec$label, Df = z$df,
                           Inertia = z$inertia,
-                          R2 = z$inertia / object$tot.chi,
+                          R2 = z$inertia / fit$tot.chi,
                           F = z$F, N.Perm = nrow(perm),
                           check.names = FALSE)
         tab[["Pr(>F)"]] <- z$p
@@ -168,19 +314,18 @@ comparisons.cca <-
     rownames(out) <- NULL
     if (adjust != "none")
         out[["Pr(>F).adj"]] <- p.adjust(out[["Pr(>F)"]], method = adjust)
-    attr(out, "comparison.matrices") <- list(reference = refs,
-                                               hypotheses = lapply(specs, `[[`,
-                                                                   "L"))
-    attr(out, "model") <- object
+    attr(out, "comparison.matrices") <- list(
+        scenarios = R, comparisons = lapply(specs, `[[`, "L"))
+    attr(out, "scenarios") <- object
+    attr(out, "model") <- fit
     attr(out, "estimable") <- rep.int(TRUE, nrow(out))
-    attr(out, "extrapolation") <- extrapolation
-    attr(out, "variable") <- variable
+    attr(out, "extrapolation") <- attr(object, "extrapolation")
+    attr(out, "variable") <- attr(object, "variable")
     attr(out, "comparison") <- comparison
-    attr(out, "hypothesis") <- hypothesis
-    attr(out, "newdata") <- newdata
+    attr(out, "newdata") <- attr(object, "newdata")
     attr(out, "by") <- by
     attr(out, "adjust") <- adjust
-    attr(out, "weights") <- wts
+    attr(out, "weights") <- attr(object, "weights")
     attr(out, "joint") <- joint
     attr(out, "Random.seed") <- attr(perm, "seed")
     attr(out, "control") <- attr(perm, "control")
@@ -269,6 +414,60 @@ print.vegan_comparisons <- function(x, ...)
     if (!is.data.frame(newdata))
         stop("'newdata' must be NULL, \"balanced\", or a data frame")
     newdata
+}
+
+#' Describe scenario averaging
+#'
+#' Summarize the reference population, averaged variables, fixed numeric or
+#' user-supplied values, and weights used to construct model scenarios. The
+#' metadata is printed with the scenario table and retained for diagnostics.
+#'
+#' @param object A fitted constrained ordination model.
+#' @param dat Analysis data.
+#' @param base Reference data used for scenario construction.
+#' @param variable Focal factor name.
+#' @param by Optional grouping variables.
+#' @param newdata Original `newdata` specification.
+#' @param wts Original averaging-weight specification.
+#'
+#' @return A list of printable metadata.
+#' @keywords internal
+.scenarioMetadata <- function(object, dat, base, variable, by, newdata, wts)
+{
+    vars <- setdiff(all.vars(.comparisonFormula(object)), c(variable, by))
+    fixed <- character()
+    if (is.null(newdata)) {
+        population <- paste0("fitted analysis data (", nrow(base), " rows)")
+        averaged <- vars
+    } else if (is.character(newdata)) {
+        population <- paste0("balanced reference grid (", nrow(base),
+                             " rows)")
+        numeric <- vars[vapply(dat[vars], is.numeric, logical(1))]
+        averaged <- setdiff(vars, numeric)
+        if (length(numeric))
+            fixed <- paste0(numeric, " = ", vapply(base[numeric], function(x)
+                format(signif(x[[1L]], 6L), trim = TRUE), character(1)))
+    } else {
+        population <- paste0("user-supplied data (", nrow(base), " rows)")
+        present <- intersect(vars, names(base))
+        is.fixed <- vapply(base[present], function(x)
+            length(unique(x[!is.na(x)])) <= 1L, logical(1))
+        fixed.vars <- present[is.fixed]
+        averaged <- setdiff(vars, fixed.vars)
+        if (length(fixed.vars))
+            fixed <- paste0(fixed.vars, " = ", vapply(base[fixed.vars],
+                function(x) as.character(x[which(!is.na(x))[1L]]),
+                character(1)))
+    }
+    if (length(by) && length(averaged))
+        averaged <- paste0(averaged, " within ", paste(by, collapse = ", "))
+    weights <- if (is.null(wts)) "equal" else if (is.character(wts)) wts
+               else "supplied numeric weights"
+    if (length(by))
+        weights <- paste(weights, "within", paste(by, collapse = ", "),
+                         "groups")
+    list(population = population, averaged = averaged, fixed = fixed,
+         weights = weights)
 }
 
 #' Diagnose extrapolation in comparison data
@@ -389,6 +588,44 @@ print.vegan_comparisons <- function(x, ...)
     out
 }
 
+#' Detect comparisons written against scenario rows
+#'
+#' Distinguish global expressions or numeric weights over displayed `b` rows
+#' from recipes and factor-level templates that should be repeated within each
+#' `by` group.
+#'
+#' @param comparison Comparison specification.
+#' @param ids Scenario identifiers.
+#' @param nlevels Number of focal-factor levels per group.
+#'
+#' @return A single logical value.
+#' @keywords internal
+.comparisonUsesScenarioRows <- function(comparison, ids, nlevels)
+{
+    recipes <- c("pairwise", "sequential", "consecutive", "reference",
+                 "trt.vs.ctrl", "deviation", "effect", "helmert", "poly")
+    if (is.character(comparison)) {
+        if (length(comparison) == 1L && comparison %in% recipes)
+            return(FALSE)
+        return(any(vapply(comparison, function(z) {
+            expr <- try(str2lang(z), silent = TRUE)
+            !inherits(expr, "try-error") && any(all.vars(expr) %in% ids)
+        }, logical(1))))
+    }
+    if (is.list(comparison))
+        return(any(vapply(comparison, .comparisonUsesScenarioRows, logical(1),
+                          ids = ids, nlevels = nlevels)))
+    if (is.numeric(comparison)) {
+        n <- if (is.matrix(comparison)) ncol(comparison) else length(comparison)
+        keys <- if (is.matrix(comparison)) colnames(comparison)
+                else names(comparison)
+        if (!is.null(keys) && any(keys %in% ids))
+            return(TRUE)
+        return(length(ids) != nlevels && n == length(ids))
+    }
+    FALSE
+}
+
 #' Generate comparison weights
 #'
 #' Translate built-in recipes, equations, lists, vectors, and matrices into
@@ -422,7 +659,7 @@ print.vegan_comparisons <- function(x, ...)
         } else if (comparison %in% c("reference", "trt.vs.ctrl")) {
             if (is.null(reference)) reference <- keys[[1L]]
             ref <- match(reference, keys)
-            if (is.na(ref)) stop("'reference' is not a fitted factor level")
+            if (is.na(ref)) stop("'reference' is not one of the quantities")
             take <- setdiff(seq_len(k), ref)
             A <- matrix(0, nrow = length(take), ncol = k)
             for (i in seq_along(take)) A[i, c(ref, take[i])] <- c(-1, 1)
@@ -457,10 +694,10 @@ print.vegan_comparisons <- function(x, ...)
         }
         if (!is.null(colnames(A))) {
             if (!all(keys %in% colnames(A)))
-                stop("contrast matrix columns must contain all factor levels")
+                stop("contrast matrix columns must contain all quantities")
             A <- A[, keys, drop = FALSE]
         } else if (ncol(A) != k) {
-            stop("numeric comparisons must have one column per factor level")
+            stop("numeric comparisons must have one column per quantity")
         }
         if (is.null(rownames(A))) rownames(A) <- .comparisonLabels(A, keys)
     } else {
@@ -470,43 +707,6 @@ print.vegan_comparisons <- function(x, ...)
     if (zero && any(abs(rowSums(A)) > sqrt(.Machine$double.eps)))
         stop("comparison weights must sum to zero")
     A
-}
-
-#' Compose generated comparisons into new hypotheses
-#'
-#' @param A First-stage comparison matrix.
-#' @param hypothesis Character equations or a numeric matrix.
-#'
-#' @return A composed comparison matrix.
-#' @keywords internal
-.comparisonHypothesis <- function(A, hypothesis)
-{
-    keys <- paste0("b", seq_len(nrow(A)))
-    recipe <- length(hypothesis) == 1L && is.character(hypothesis) &&
-        hypothesis %in% c("pairwise", "sequential", "consecutive",
-                          "reference", "trt.vs.ctrl", "deviation",
-                          "effect", "helmert", "poly")
-    if (is.character(hypothesis) && !recipe) {
-        labs <- rownames(A)
-        if (anyDuplicated(labs))
-            labs <- rep.int("", length(labs))
-        allowed <- c(keys, setdiff(labs[nzchar(labs)], keys))
-        C <- do.call(rbind, lapply(hypothesis, .comparisonExpression,
-                                   keys = allowed))
-        colnames(C) <- allowed
-        B <- C[, keys, drop = FALSE]
-        for (i in seq_along(labs))
-            if (nzchar(labs[i]) && labs[i] %in% colnames(C))
-                B[, i] <- B[, i] + C[, labs[i]]
-        rownames(B) <- if (!is.null(names(hypothesis)) &&
-                           all(nzchar(names(hypothesis)))) names(hypothesis)
-                      else hypothesis
-    } else {
-        B <- .comparisonContrasts(hypothesis, keys, zero = FALSE)
-    }
-    out <- B %*% A
-    rownames(out) <- rownames(B)
-    out
 }
 
 #' Parse a safe linear comparison expression
@@ -572,7 +772,7 @@ print.vegan_comparisons <- function(x, ...)
     }
     z <- walk(expr)
     if (abs(z$constant) > sqrt(.Machine$double.eps))
-        stop("only hypotheses with a zero right-hand side are supported")
+        stop("only comparisons with a zero right-hand side are supported")
     unname(z$coef)
 }
 
@@ -603,7 +803,7 @@ print.vegan_comparisons <- function(x, ...)
 #' @param object Original constrained ordination model.
 #' @param X Constraint matrix.
 #' @param Z Original condition matrix.
-#' @param L Compiled hypothesis matrix.
+#' @param L Compiled comparison matrix.
 #' @param permutations Shared permutation matrix.
 #' @param parallel Parallel-processing specification.
 #'

@@ -49,7 +49,28 @@ sum.cmp <- comparisons(sum.mod, "Management", comparison = "HF - BF = 0",
 stopifnot(all.equal(cmp$Inertia, sum.cmp$Inertia, tolerance = 1e-8),
           all.equal(cmp$F, sum.cmp$F, tolerance = 1e-8))
 
-## Built-in generators, safe equations, composition, joint tests and p.adjust.
+## Scenario rows expose the population being compared. Positional names refer
+## to these rows, and are equivalent to unambiguous factor-level names.
+scenario.mod <- rda(dune ~ Management + A1, data = dune.env)
+sc <- model_scenarios(scenario.mod, "Management")
+stopifnot(inherits(sc, "vegan_scenarios"),
+          identical(sc$Scenario, paste0("b", 1:4)),
+          identical(as.character(sc$Management), levels(dune.env$Management)),
+          all(sc$N.reference == nrow(dune)), !any(sc$Extrapolated),
+          identical(attr(sc, "averaged"), "A1"),
+          grepl("Reference population:", capture.output(print(sc))[4L]))
+bcmp <- comparisons(sc, comparison = "b2 - b1 = 0", permutations = per)
+named.bcmp <- comparisons(scenario.mod, "Management",
+                          comparison = "HF - BF = 0", permutations = per)
+stopifnot(all.equal(named.bcmp$Inertia, bcmp$Inertia, tolerance = 1e-8),
+          all.equal(named.bcmp$F, bcmp$F, tolerance = 1e-8))
+stopifnot(inherits(try(model_scenarios(mod, "Use"), silent = TRUE),
+                     "try-error"),
+          inherits(try(comparisons(sc[1:2, ], permutations = per),
+                       silent = TRUE), "try-error"))
+
+## Built-in generators, safe equations, scenario expressions, joint tests,
+## and p.adjust.
 pw <- comparisons(mod, "Management", permutations = per, adjust = "holm")
 stopifnot(nrow(pw) == choose(nlevels(dune.env$Management), 2),
           "Pr(>F).adj" %in% names(pw), all(pw$N.Perm == nrow(per)),
@@ -73,14 +94,17 @@ stopifnot(nrow(custom) == 2L)
 named <- comparisons(mod, "Management",
                      comparison = c(one = "HF - BF = 0",
                                     two = "NM - BF = 0"),
-                     hypothesis = "two - one = 0", permutations = per)
-stopifnot(nrow(named) == 1L)
-composed <- comparisons(mod, "Management", comparison = "pairwise",
-                        hypothesis = "b2 - b1 = 0", permutations = per)
-stopifnot(nrow(composed) == 1L, composed$Df == 1L)
-general <- comparisons(mod, "Management", comparison = "pairwise",
-                       hypothesis = "b1 + b2 - b3 = 0", permutations = per)
-stopifnot(nrow(general) == 1L)
+                     permutations = per)
+stopifnot(nrow(named) == 2L)
+scenario.custom <- comparisons(model_scenarios(mod, "Management"),
+                               comparison = c("b2 - b1 = 0",
+                                   "(b3 + b4) / 2 - b1 = 0"),
+                               permutations = per)
+stopifnot(nrow(scenario.custom) == 2L,
+          all.equal(custom$F, scenario.custom$F, tolerance = 1e-8))
+general <- comparisons(sc, comparison = "b1 + b2 - b3 - b4 = 0",
+                       permutations = per)
+stopifnot(nrow(general) == 1L, general$Df == 1L)
 joint <- comparisons(mod, "Management", comparison = "trt.vs.ctrl",
                      reference = "BF", joint = TRUE, permutations = per)
 stopifnot(nrow(joint) == 1L, joint$Df == 3L)
@@ -93,19 +117,27 @@ Y <- matrix(rpois(nrow(idat) * 5, 5), ncol = 5)
 imod <- rda(Y ~ trt * season, data = idat)
 iper <- shuffleSet(nrow(idat), 49)
 iavg <- comparisons(imod, "trt", permutations = iper)
+isc <- model_scenarios(imod, "trt", by = "season")
 iat <- comparisons(imod, "trt", newdata = data.frame(
     season = factor(c("spring", "autumn"), levels = levels(idat$season))),
     permutations = iper)
 iby <- comparisons(imod, "trt", by = "season",
                    permutations = iper)
-idiff <- comparisons(imod, "trt", by = "season",
-                     hypothesis = "b4 - b1 = 0", permutations = iper)
+iby.sc <- comparisons(isc, comparison = "pairwise", permutations = iper)
+idiff <- comparisons(isc, comparison = "(b5 - b4) - (b2 - b1) = 0",
+                     permutations = iper)
 stopifnot(nrow(iavg) == 3L, nrow(iat) == 3L, nrow(iby) == 6L,
-          "season" %in% names(iby), nrow(idiff) == 1L)
+          "season" %in% names(iby), nrow(idiff) == 1L,
+          all.equal(iby$F, iby.sc$F, tolerance = 1e-8),
+          nrow(isc) == 6L, all(isc$N.reference == 12L),
+          identical(attr(isc, "averaged"), character()))
 ibal <- comparisons(imod, "trt", newdata = "balanced", permutations = iper)
 iwgt <- comparisons(imod, "trt", by = "season", wts = seq_len(nrow(idat)),
                     permutations = iper)
-stopifnot(nrow(ibal) == 3L, nrow(iwgt) == 6L)
+fixed <- model_scenarios(imod, "trt", newdata = data.frame(
+    season = factor("spring", levels = levels(idat$season))))
+stopifnot(nrow(ibal) == 3L, nrow(iwgt) == 6L,
+          identical(attr(fixed, "fixed"), "season = spring"))
 
 ## Conditions and CCA use the same compiler with weighted chi-square geometry.
 ccamod <- cca(dune ~ Management + Condition(Moisture), data = dune.env)
@@ -130,7 +162,7 @@ atab <- anova(mod, by = "contrast", variables = "Management",
               permutations = per)
 stopifnot(inherits(atab, "anova.cca"), nrow(atab) == 3L)
 
-## Invalid and unsafe hypotheses are rejected.
+## Invalid and unsafe comparisons are rejected.
 stopifnot(all(vapply(c("revpairwise", "revsequential", "revreference"),
                      function(recipe)
                          inherits(try(comparisons(
