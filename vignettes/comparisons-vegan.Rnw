@@ -19,7 +19,7 @@
   URL: \url{https://vegandevs.github.io/vegan/}}
 
 \Abstract{
-  Function \texttt{model\_scenarios} displays the fitted situations being
+  Function \texttt{comparison\_scenarios} displays the fitted situations being
   compared, and \texttt{comparisons} asks focused questions about them.
   The interface provides common sets of comparisons, user-written
   comparisons, comparisons within interactions, joint tests,
@@ -93,7 +93,7 @@ Before testing anything, we can display the scenarios underlying the
 comparison. There is one row for each level of \code{Management}.
 
 <<first-scenarios>>=
-sc <- model_scenarios(mod, "Management")
+sc <- comparison_scenarios(mod, "Management")
 sc
 @
 
@@ -358,7 +358,7 @@ each habitat. These rows make the simple effects and their ordering
 visible before a test is specified.
 
 <<interaction-by>>=
-isc <- model_scenarios(imod, "treatment", by = "habitat")
+isc <- comparison_scenarios(imod, "treatment", by = "habitat")
 isc
 @
 
@@ -384,7 +384,7 @@ factor is created with the levels used in the fitted model.
 heath <- data.frame(
     habitat = factor("heath", levels = levels(idat$habitat))
 )
-heath.sc <- model_scenarios(imod, "treatment", newdata = heath)
+heath.sc <- comparison_scenarios(imod, "treatment", newdata = heath)
 heath.sc
 comparisons(heath.sc, comparison = "trt.vs.ctrl",
             permutations = iper, parallel = 1)
@@ -446,7 +446,7 @@ averages coincide closely because both habitats have equal
 representation. Printing the scenarios shows the population used:
 
 <<balanced-grid>>=
-balanced.sc <- model_scenarios(imod, "treatment", newdata = "balanced")
+balanced.sc <- comparison_scenarios(imod, "treatment", newdata = "balanced")
 balanced.sc
 comparisons(balanced.sc, comparison = "b3 - b1 = 0",
             permutations = iper, parallel = 1)
@@ -462,7 +462,7 @@ observations:
 ipop <- idat[!duplicated(idat[c("block", "habitat")]),
              c("block", "habitat")]
 ipop$sampling_weight <- ifelse(ipop$habitat == "heath", 2, 1)
-weighted.sc <- model_scenarios(imod, "treatment", newdata = ipop,
+weighted.sc <- comparison_scenarios(imod, "treatment", newdata = ipop,
                                wts = "sampling_weight")
 weighted.sc
 comparisons(weighted.sc, comparison = "b3 - b1 = 0",
@@ -480,7 +480,7 @@ chosen setting. The observed range of \code{A1} is 2.8 to 11.5, so
 <<numeric-setting>>=
 xmod <- rda(dune ~ Management * A1, data = dune.env)
 range(dune.env$A1)
-within.sc <- model_scenarios(xmod, "Management",
+within.sc <- comparison_scenarios(xmod, "Management",
                              newdata = data.frame(A1 = 5))
 within.sc
 @
@@ -490,7 +490,7 @@ Values outside that range are allowed, but are flagged. Here
 scenario has \code{Extrapolated = TRUE}:
 
 <<extrapolation>>=
-outside.sc <- model_scenarios(xmod, "Management",
+outside.sc <- comparison_scenarios(xmod, "Management",
                               newdata = data.frame(A1 = 12.5))
 outside.sc
 @
@@ -574,7 +574,7 @@ anova(mod, by = "contrast", variable = "Management",
 @
 
 The result uses the familiar \code{anova.cca} layout. The full
-\code{model_scenarios} and \code{comparisons} interface is preferable
+\code{comparison_scenarios} and \code{comparisons} interface is preferable
 when reference populations, grouped or cross-group comparisons, or
 multiplicity adjustments are needed. Existing \code{by = "onedf"}
 tests have a different
@@ -628,7 +628,7 @@ They are not the reported estimands or test statistics.
 
 Let $X$ be the $n \times p$ constraint matrix of the fitted model,
 after vegan's usual handling of its intercept and centering. For every
-level of the focal factor, \code{model_scenarios} constructs counterfactual
+level of the focal factor, \code{comparison_scenarios} constructs counterfactual
 data, rebuilds the model matrix using the fitted terms, factor levels,
 and contrast coding, and averages its rows over the requested
 population. Put the resulting level-specific rows into a matrix $R$.

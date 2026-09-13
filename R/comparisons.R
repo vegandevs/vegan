@@ -4,7 +4,7 @@
 #' them with contrast-specific permutation pseudo-F statistics.
 #'
 #' @param object A fitted constrained ordination model or a scenario table
-#'   returned by `model_scenarios()`.
+#'   returned by `comparison_scenarios()`.
 #' @param variable The name of one focal factor in the model.
 #' @param comparison A built-in comparison name, character equations, or a
 #'   numeric contrast vector or matrix.
@@ -35,9 +35,9 @@ comparisons.default <- function(object, ...)
     stop("no 'comparisons' method for objects of class ",
          paste(class(object), collapse = "/"))
 
-#' Construct model scenarios
+#' Construct comparison scenarios
 #'
-#' Construct one marginal model scenario for each level of a focal factor,
+#' Construct one marginal comparison scenario for each level of a focal factor,
 #' optionally within groups. Each displayed row retains its averaged
 #' model-matrix representation for later permutation comparisons.
 #'
@@ -56,23 +56,23 @@ comparisons.default <- function(object, ...)
 #'   original model, averaged design rows, grouping, reference population,
 #'   weights, and extrapolation diagnostics.
 #' @export
-model_scenarios <- function(object, ...)
-    UseMethod("model_scenarios")
+comparison_scenarios <- function(object, ...)
+    UseMethod("comparison_scenarios")
 
-#' Default model-scenarios method
+#' Default comparison-scenarios method
 #'
-#' Report that model scenarios are unavailable for an object.
+#' Report that comparison scenarios are unavailable for an object.
 #'
 #' @param object An unsupported object.
 #' @param ... Unused arguments.
 #'
 #' @return This method always throws an error.
 #' @keywords internal
-model_scenarios.default <- function(object, ...)
-    stop("no 'model_scenarios' method for objects of class ",
+comparison_scenarios.default <- function(object, ...)
+    stop("no 'comparison_scenarios' method for objects of class ",
          paste(class(object), collapse = "/"))
 
-#' Model scenarios for constrained ordination
+#' Comparison scenarios for constrained ordination
 #'
 #' Rebuild the fitted model matrix under every level of one factor and average
 #' it over an observed, balanced, or user-supplied reference population. This
@@ -80,17 +80,17 @@ model_scenarios.default <- function(object, ...)
 #' The scenarios are vector-valued model states rather than scalar estimates;
 #' `comparisons()` tests linear differences between their design rows.
 #'
-#' @inheritParams model_scenarios
+#' @inheritParams comparison_scenarios
 #'
 #' @return A `vegan_scenarios` data frame with stable `b1`, `b2`, ... row
 #'   identifiers, focal and grouping values, reference-row counts, and
 #'   extrapolation flags.
 #' @export
-model_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL,
+comparison_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL,
                                 wts = NULL, ...)
 {
     if (is.null(object$terms) || is.null(object$terminfo))
-        stop("model scenarios need a model fitted with the formula interface")
+        stop("comparison scenarios need a model fitted with the formula interface")
     if (length(variable) != 1L || !is.character(variable))
         stop("'variable' must name exactly one factor")
     dat <- .comparisonData(object)
@@ -120,7 +120,7 @@ model_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL,
     if (is.null(X) || !ncol(X))
         stop("model has no constraints")
     if (object$CCA$qrank < ncol(X))
-        stop("model scenarios are not available for aliased constraint matrices")
+        stop("comparison scenarios are not available for aliased constraint matrices")
 
     base <- .comparisonNewdata(object, dat, variable, newdata)
     meta <- .scenarioMetadata(object, dat, base, variable, by, newdata, wts)
@@ -180,7 +180,7 @@ model_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL,
     out
 }
 
-#' Print model scenarios
+#' Print comparison scenarios
 #'
 #' Print scenario rows together with the reference population, averaging,
 #' fixed-value, grouping, and weight choices that define them. Identifiers
@@ -194,7 +194,7 @@ model_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL,
 print.vegan_scenarios <- function(x, ...)
 {
     none <- function(z) if (length(z)) paste(z, collapse = ", ") else "none"
-    cat("Model scenarios for constrained ordination\n\n")
+    cat("Comparison scenarios for constrained ordination\n\n")
     cat("Focal variable:      ", attr(x, "variable"), "\n")
     if (length(attr(x, "by")))
         cat("By:                  ", paste(attr(x, "by"), collapse = ", "),
@@ -210,11 +210,11 @@ print.vegan_scenarios <- function(x, ...)
 
 #' Comparisons for constrained ordination
 #'
-#' Construct model scenarios and pass them to the scenario comparison method.
+#' Construct comparison scenarios and pass them to the scenario comparison method.
 #' This is the one-call interface inherited by `rda`, `cca`, `dbrda`, and
 #' retained `adonis2` fits.
 #'
-#' @inheritParams model_scenarios
+#' @inheritParams comparison_scenarios
 #' @inheritParams comparisons
 #'
 #' @return A data frame of class `vegan_comparisons` with the comparison
@@ -227,14 +227,14 @@ comparisons.cca <-
              parallel = getOption("mc.cores"), adjust = "none", wts = NULL,
              ...)
 {
-    scenarios <- model_scenarios(object, variable = variable,
+    scenarios <- comparison_scenarios(object, variable = variable,
                                  newdata = newdata, by = by, wts = wts)
     comparisons(scenarios, comparison = comparison, reference = reference,
                 joint = joint, permutations = permutations, strata = strata,
                 parallel = parallel, adjust = adjust, ...)
 }
 
-#' Compare model scenarios
+#' Compare fitted scenarios
 #'
 #' Translate recipes or linear expressions into differences between rows of a
 #' `vegan_scenarios` table, then test their additional constrained inertia
@@ -267,7 +267,7 @@ comparisons.vegan_scenarios <-
     if (is.null(R) || nrow(R) != nrow(object) ||
         !identical(rownames(R), ids) || length(groups) != nrow(object))
         stop("scenario rows no longer match their retained model matrix; ",
-             "reconstruct them with 'model_scenarios()'")
+             "reconstruct them with 'comparison_scenarios()'")
     perm <- getPermuteMatrix(permutations, nobs(fit), strata = strata)
 
     global <- .comparisonUsesScenarioRows(comparison, ids, length(lev))
@@ -418,7 +418,7 @@ print.vegan_comparisons <- function(x, ...)
 #' Describe scenario averaging
 #'
 #' Summarize the reference population, averaged variables, fixed numeric or
-#' user-supplied values, and weights used to construct model scenarios. The
+#' user-supplied values, and weights used to construct comparison scenarios. The
 #' metadata is printed with the scenario table and retained for diagnostics.
 #'
 #' @param object A fitted constrained ordination model.

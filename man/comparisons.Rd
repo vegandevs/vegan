@@ -6,7 +6,7 @@
 \alias{print.vegan_comparisons}
 \title{Comparisons for Constrained Ordination Models}
 \description{
-Construct scientifically meaningful comparisons among model scenarios and
+Construct scientifically meaningful comparisons among fitted scenarios and
 test their additional constrained inertia with permutation pseudo-\eqn{F}
 statistics. Interactions and other fitted terms are represented through the
 complete fitted model matrix.
@@ -27,7 +27,7 @@ comparisons(object, ...)
 }
 \arguments{
 \item{object}{A formula-fitted constrained ordination object, or a scenario
-table returned by \code{model_scenarios}.}
+table returned by \code{comparison_scenarios}.}
 \item{variable}{The name of one factor whose levels define scenarios.}
 \item{comparison}{A built-in comparison name, character equations, a named
 list, or a numeric comparison vector or matrix.}
@@ -53,7 +53,7 @@ a weight column in \code{newdata}.}
 }
 \details{
 The model method is a convenience interface: it first calls
-\code{model_scenarios} and then compares those rows. Constructing the scenario
+\code{comparison_scenarios} and then compares those rows. Constructing the scenario
 table explicitly is useful when the meaning and ordering of the rows should be
 checked, especially for interactions.
 
@@ -115,7 +115,7 @@ comparisons(mod, "Management",
             comparison = c("HF - BF = 0", "(NM + SF) / 2 - BF = 0"),
             permutations = 99)
 
-sc <- model_scenarios(mod, "Management")
+sc <- comparison_scenarios(mod, "Management")
 sc
 comparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
 comparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
@@ -127,11 +127,11 @@ idat <- expand.grid(treatment = factor(c("control", "low", "high"),
                     habitat = factor(c("grass", "heath")), replicate = 1:3)
 iY <- matrix(rpois(nrow(idat) * 4, 5), ncol = 4)
 imod <- rda(iY ~ treatment * habitat, data = idat)
-isc <- model_scenarios(imod, "treatment", by = "habitat")
+isc <- comparison_scenarios(imod, "treatment", by = "habitat")
 isc
 comparisons(isc, comparison = "pairwise", permutations = 99)
 }
-\seealso{\code{\link{model_scenarios}}, \code{\link{anova.cca}},
+\seealso{\code{\link{comparison_scenarios}}, \code{\link{anova.cca}},
 \code{\link{rda}}, \code{\link{cca}}, \code{\link{dbrda}},
 \code{\link[permute]{how}}}
 \keyword{models}

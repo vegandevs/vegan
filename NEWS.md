@@ -2,7 +2,7 @@
 
 ## New Functions
 
-* `model_scenarios` constructs and displays the fitted factor-level scenarios
+* `comparison_scenarios` constructs and displays the fitted factor-level scenarios
   underlying comparisons, including their reference population, averaging,
   fixed values, grouping, and extrapolation status. Stable `b1`, `b2`, ...
   identifiers allow comparisons to refer directly to displayed rows.

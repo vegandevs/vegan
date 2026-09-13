@@ -117,7 +117,7 @@
     level. With \code{by = "contrast"}, arguments in \code{\dots} are
     passed to \code{comparisons}, including \code{variable},
     \code{comparison}, \code{reference}, \code{newdata}, and
-    \code{joint}. Use \code{\link{model_scenarios}} to inspect and name
+    \code{joint}. Use \code{\link{comparison_scenarios}} to inspect and name
     scenario rows before testing. }
 }
 

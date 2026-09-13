@@ -1,19 +1,19 @@
-\name{model_scenarios}
-\alias{model_scenarios}
-\alias{model_scenarios.default}
-\alias{model_scenarios.cca}
+\name{comparison_scenarios}
+\alias{comparison_scenarios}
+\alias{comparison_scenarios.default}
+\alias{comparison_scenarios.cca}
 \alias{print.vegan_scenarios}
-\title{Construct Model Scenarios for Constrained Ordination}
+\title{Construct Comparison Scenarios for Constrained Ordination}
 \description{
-Construct one marginal model scenario for every level of a focal factor,
+Construct one marginal comparison scenario for every level of a focal factor,
 optionally within groups. The displayed rows are labelled \code{b1},
 \code{b2}, and so on, and can be used directly in \code{comparisons}
 expressions.
 }
 \usage{
-model_scenarios(object, ...)
+comparison_scenarios(object, ...)
 
-\method{model_scenarios}{cca}(object, variable, newdata = NULL,
+\method{comparison_scenarios}{cca}(object, variable, newdata = NULL,
     by = NULL, wts = NULL, ...)
 
 \method{print}{vegan_scenarios}(x, ...)
@@ -34,7 +34,7 @@ column in \code{newdata}.}
 \item{\dots}{Arguments passed to methods or to \code{print.data.frame}.}
 }
 \details{
-A model scenario describes the fitted multivariate response for one level of
+A comparison scenario describes the fitted multivariate response for one level of
 the focal factor after accounting for the other model variables. It is a
 vector-valued fitted state, not a single scalar estimate. Consequently the
 printed table identifies what is being compared but does not display an
@@ -83,7 +83,7 @@ data(dune)
 data(dune.env)
 
 mod <- rda(dune ~ Management + A1, data = dune.env)
-sc <- model_scenarios(mod, "Management")
+sc <- comparison_scenarios(mod, "Management")
 sc
 comparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
 
@@ -93,11 +93,11 @@ idat <- expand.grid(treatment = factor(c("control", "low", "high"),
                     habitat = factor(c("grass", "heath")), replicate = 1:3)
 iY <- matrix(rpois(nrow(idat) * 4, 5), ncol = 4)
 imod <- rda(iY ~ treatment * habitat, data = idat)
-isc <- model_scenarios(imod, "treatment", by = "habitat")
+isc <- comparison_scenarios(imod, "treatment", by = "habitat")
 isc
 comparisons(isc, comparison = "pairwise", permutations = 99)
 
-fixed <- model_scenarios(imod, "treatment", newdata = data.frame(
+fixed <- comparison_scenarios(imod, "treatment", newdata = data.frame(
     habitat = factor("heath", levels = levels(idat$habitat))))
 fixed
 }

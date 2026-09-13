@@ -52,8 +52,8 @@ stopifnot(all.equal(cmp$Inertia, sum.cmp$Inertia, tolerance = 1e-8),
 ## Scenario rows expose the population being compared. Positional names refer
 ## to these rows, and are equivalent to unambiguous factor-level names.
 scenario.mod <- rda(dune ~ Management + A1, data = dune.env)
-sc <- model_scenarios(scenario.mod, "Management")
-named.sc <- model_scenarios(scenario.mod, variable = "Management")
+sc <- comparison_scenarios(scenario.mod, "Management")
+named.sc <- comparison_scenarios(scenario.mod, variable = "Management")
 stopifnot(inherits(sc, "vegan_scenarios"),
           identical(sc$Scenario, named.sc$Scenario),
           identical(sc$Scenario, paste0("b", 1:4)),
@@ -70,14 +70,14 @@ named.arg.bcmp <- comparisons(scenario.mod, variable = "Management",
 stopifnot(all.equal(named.bcmp$Inertia, bcmp$Inertia, tolerance = 1e-8),
           all.equal(named.bcmp$F, bcmp$F, tolerance = 1e-8),
           all.equal(named.bcmp$F, named.arg.bcmp$F, tolerance = 1e-8))
-within.sc <- model_scenarios(scenario.mod, "Management",
+within.sc <- comparison_scenarios(scenario.mod, "Management",
                              newdata = data.frame(A1 = 5))
-outside.sc <- model_scenarios(scenario.mod, "Management",
+outside.sc <- comparison_scenarios(scenario.mod, "Management",
                               newdata = data.frame(A1 = 12.5))
 stopifnot(!any(within.sc$Extrapolated), all(outside.sc$Extrapolated),
           identical(unname(attr(within.sc, "extrapolation")), FALSE),
           identical(unname(attr(outside.sc, "extrapolation")), TRUE))
-stopifnot(inherits(try(model_scenarios(mod, "Use"), silent = TRUE),
+stopifnot(inherits(try(comparison_scenarios(mod, "Use"), silent = TRUE),
                      "try-error"),
           inherits(try(comparisons(sc[1:2, ], permutations = per),
                        silent = TRUE), "try-error"))
@@ -109,7 +109,7 @@ named <- comparisons(mod, "Management",
                                     two = "NM - BF = 0"),
                      permutations = per)
 stopifnot(nrow(named) == 2L)
-scenario.custom <- comparisons(model_scenarios(mod, "Management"),
+scenario.custom <- comparisons(comparison_scenarios(mod, "Management"),
                                comparison = c("b2 - b1 = 0",
                                    "(b3 + b4) / 2 - b1 = 0"),
                                permutations = per)
@@ -130,7 +130,7 @@ Y <- matrix(rpois(nrow(idat) * 5, 5), ncol = 5)
 imod <- rda(Y ~ trt * season, data = idat)
 iper <- shuffleSet(nrow(idat), 49)
 iavg <- comparisons(imod, "trt", permutations = iper)
-isc <- model_scenarios(imod, "trt", by = "season")
+isc <- comparison_scenarios(imod, "trt", by = "season")
 iat <- comparisons(imod, "trt", newdata = data.frame(
     season = factor(c("spring", "autumn"), levels = levels(idat$season))),
     permutations = iper)
@@ -147,7 +147,7 @@ stopifnot(nrow(iavg) == 3L, nrow(iat) == 3L, nrow(iby) == 6L,
 ibal <- comparisons(imod, "trt", newdata = "balanced", permutations = iper)
 iwgt <- comparisons(imod, "trt", by = "season", wts = seq_len(nrow(idat)),
                     permutations = iper)
-fixed <- model_scenarios(imod, "trt", newdata = data.frame(
+fixed <- comparison_scenarios(imod, "trt", newdata = data.frame(
     season = factor("spring", levels = levels(idat$season))))
 stopifnot(nrow(ibal) == 3L, nrow(iwgt) == 6L,
           identical(attr(fixed, "fixed"), "season = spring"))
