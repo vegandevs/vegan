@@ -115,7 +115,7 @@
     \code{by = "axis"} you can use argument \code{cutoff} (defaults
     \code{1}) which stops permutations after exceeding the given
     level. With \code{by = "contrast"}, arguments in \code{\dots} are
-    passed to \code{comparisons}, including \code{variables},
+    passed to \code{comparisons}, including \code{variable},
     \code{comparison}, \code{reference}, \code{newdata}, and
     \code{joint}. Use \code{\link{model_scenarios}} to inspect and name
     scenario rows before testing. }

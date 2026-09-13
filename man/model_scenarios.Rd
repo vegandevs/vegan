@@ -13,7 +13,7 @@ expressions.
 \usage{
 model_scenarios(object, ...)
 
-\method{model_scenarios}{cca}(object, variables, newdata = NULL,
+\method{model_scenarios}{cca}(object, variable, newdata = NULL,
     by = NULL, wts = NULL, ...)
 
 \method{print}{vegan_scenarios}(x, ...)
@@ -21,7 +21,7 @@ model_scenarios(object, ...)
 \arguments{
 \item{object}{A constrained ordination object fitted by the formula
 interface, such as a result from \code{rda}, \code{cca}, or \code{dbrda}.}
-\item{variables}{The name of one focal factor in the fitted model.}
+\item{variable}{The name of one focal factor in the fitted model.}
 \item{newdata}{The reference population used to construct scenarios.
 The default uses the fitted analysis data. Character value \code{"balanced"}
 constructs a balanced reference grid, and a data frame supplies an explicit

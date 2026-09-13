@@ -53,7 +53,9 @@ stopifnot(all.equal(cmp$Inertia, sum.cmp$Inertia, tolerance = 1e-8),
 ## to these rows, and are equivalent to unambiguous factor-level names.
 scenario.mod <- rda(dune ~ Management + A1, data = dune.env)
 sc <- model_scenarios(scenario.mod, "Management")
+named.sc <- model_scenarios(scenario.mod, variable = "Management")
 stopifnot(inherits(sc, "vegan_scenarios"),
+          identical(sc$Scenario, named.sc$Scenario),
           identical(sc$Scenario, paste0("b", 1:4)),
           identical(as.character(sc$Management), levels(dune.env$Management)),
           all(sc$N.reference == nrow(dune)), !any(sc$Extrapolated),
@@ -62,8 +64,12 @@ stopifnot(inherits(sc, "vegan_scenarios"),
 bcmp <- comparisons(sc, comparison = "b2 - b1 = 0", permutations = per)
 named.bcmp <- comparisons(scenario.mod, "Management",
                           comparison = "HF - BF = 0", permutations = per)
+named.arg.bcmp <- comparisons(scenario.mod, variable = "Management",
+                              comparison = "HF - BF = 0",
+                              permutations = per)
 stopifnot(all.equal(named.bcmp$Inertia, bcmp$Inertia, tolerance = 1e-8),
-          all.equal(named.bcmp$F, bcmp$F, tolerance = 1e-8))
+          all.equal(named.bcmp$F, bcmp$F, tolerance = 1e-8),
+          all.equal(named.bcmp$F, named.arg.bcmp$F, tolerance = 1e-8))
 within.sc <- model_scenarios(scenario.mod, "Management",
                              newdata = data.frame(A1 = 5))
 outside.sc <- model_scenarios(scenario.mod, "Management",
@@ -164,7 +170,7 @@ stopifnot(inherits(afit, "adonis2_fit"),
           all.equal(cmp$F, acmp$F, tolerance = 1e-8))
 
 ## ANOVA bridge.
-atab <- anova(mod, by = "contrast", variables = "Management",
+atab <- anova(mod, by = "contrast", variable = "Management",
               comparison = "reference", reference = "BF",
               permutations = per)
 stopifnot(inherits(atab, "anova.cca"), nrow(atab) == 3L)

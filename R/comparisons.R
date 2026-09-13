@@ -5,7 +5,7 @@
 #'
 #' @param object A fitted constrained ordination model or a scenario table
 #'   returned by `model_scenarios()`.
-#' @param variables The name of one factor in the model.
+#' @param variable The name of one focal factor in the model.
 #' @param comparison A built-in comparison name, character equations, or a
 #'   numeric contrast vector or matrix.
 #' @param reference Optional reference or control level. The first fitted
@@ -42,7 +42,7 @@ comparisons.default <- function(object, ...)
 #' model-matrix representation for later permutation comparisons.
 #'
 #' @param object A fitted constrained ordination model.
-#' @param variables The name of one focal factor in the model.
+#' @param variable The name of one focal factor in the model.
 #' @param newdata The population over which scenarios are averaged. `NULL`
 #'   uses the analysis data, `"balanced"` uses a balanced reference grid, and
 #'   a data frame supplies an explicit population.
@@ -86,14 +86,13 @@ model_scenarios.default <- function(object, ...)
 #'   identifiers, focal and grouping values, reference-row counts, and
 #'   extrapolation flags.
 #' @export
-model_scenarios.cca <- function(object, variables, newdata = NULL, by = NULL,
+model_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL,
                                 wts = NULL, ...)
 {
     if (is.null(object$terms) || is.null(object$terminfo))
         stop("model scenarios need a model fitted with the formula interface")
-    if (length(variables) != 1L || !is.character(variables))
-        stop("'variables' must name exactly one factor")
-    variable <- variables[[1L]]
+    if (length(variable) != 1L || !is.character(variable))
+        stop("'variable' must name exactly one factor")
     dat <- .comparisonData(object)
     if (!variable %in% names(dat))
         stop(gettextf("variable '%s' was not found in the model data",
@@ -222,13 +221,13 @@ print.vegan_scenarios <- function(x, ...)
 #'   degrees of freedom, inertia, pseudo-F statistic, and permutation p-value.
 #' @export
 comparisons.cca <-
-    function(object, variables, comparison = "pairwise", reference = NULL,
+    function(object, variable, comparison = "pairwise", reference = NULL,
              newdata = NULL, by = NULL, joint = FALSE,
              permutations = how(nperm = 999), strata = NULL,
              parallel = getOption("mc.cores"), adjust = "none", wts = NULL,
              ...)
 {
-    scenarios <- model_scenarios(object, variables = variables,
+    scenarios <- model_scenarios(object, variable = variable,
                                  newdata = newdata, by = by, wts = wts)
     comparisons(scenarios, comparison = comparison, reference = reference,
                 joint = joint, permutations = permutations, strata = strata,

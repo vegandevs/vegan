@@ -568,7 +568,7 @@ Code organized around \code{anova} can request \code{by = "contrast"}.
 This is a thin interface to the same compiler and testing code:
 
 <<anova-bridge>>=
-anova(mod, by = "contrast", variables = "Management",
+anova(mod, by = "contrast", variable = "Management",
       comparison = "reference", reference = "BF",
       permutations = perm, parallel = 1)
 @
@@ -587,7 +587,7 @@ comparisons.
 The initial interface intentionally has a narrow boundary:
 
 \begin{itemize}
-  \item exactly one focal factor is named in \code{variables};
+  \item exactly one focal factor is named in \code{variable};
   \item the model must have been fitted with the formula interface and
     must have a full-rank constraint matrix;
   \item character expressions must be linear and have zero on the

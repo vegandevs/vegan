@@ -14,7 +14,7 @@ complete fitted model matrix.
 \usage{
 comparisons(object, ...)
 
-\method{comparisons}{cca}(object, variables, comparison = "pairwise",
+\method{comparisons}{cca}(object, variable, comparison = "pairwise",
     reference = NULL, newdata = NULL, by = NULL, joint = FALSE,
     permutations = how(nperm = 999), strata = NULL,
     parallel = getOption("mc.cores"), adjust = "none", wts = NULL, ...)
@@ -28,7 +28,7 @@ comparisons(object, ...)
 \arguments{
 \item{object}{A formula-fitted constrained ordination object, or a scenario
 table returned by \code{model_scenarios}.}
-\item{variables}{The name of one factor whose levels define scenarios.}
+\item{variable}{The name of one factor whose levels define scenarios.}
 \item{comparison}{A built-in comparison name, character equations, a named
 list, or a numeric comparison vector or matrix.}
 \item{reference}{The reference or control factor level. The first fitted
