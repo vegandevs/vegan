@@ -7,7 +7,8 @@
 #' @param variables The name of one factor in the model.
 #' @param comparison A built-in comparison name, character equations, or a
 #'   numeric contrast vector or matrix.
-#' @param reference Optional reference level for reference comparisons.
+#' @param reference Optional reference or control level. The first fitted
+#'   factor level is used when this is omitted.
 #' @param newdata The population over which comparisons are averaged. `NULL`
 #'   uses the analysis data, `"balanced"` uses a balanced reference grid, and
 #'   a data frame supplies an explicit population.
@@ -405,34 +406,26 @@ print.vegan_comparisons <- function(x, ...)
 {
     k <- length(keys)
     recipe <- length(comparison) == 1L && is.character(comparison) &&
-        comparison %in% c("pairwise", "revpairwise", "sequential",
-                          "consecutive", "revsequential", "reference",
-                          "revreference", "trt.vs.ctrl", "deviation",
+        comparison %in% c("pairwise", "sequential", "consecutive",
+                          "reference", "trt.vs.ctrl", "deviation",
                           "effect", "helmert", "poly")
     if (recipe) {
         if (k < 2L)
             stop("at least two quantities are needed for comparisons")
-        if (comparison %in% c("pairwise", "revpairwise")) {
+        if (comparison == "pairwise") {
             cmb <- combn(k, 2L)
             A <- matrix(0, ncol = k, nrow = ncol(cmb))
             for (i in seq_len(nrow(A))) A[i, cmb[, i]] <- c(-1, 1)
-            if (comparison == "revpairwise") A <- -A
-        } else if (comparison %in% c("sequential", "consecutive",
-                                     "revsequential")) {
+        } else if (comparison %in% c("sequential", "consecutive")) {
             A <- matrix(0, ncol = k, nrow = k - 1L)
             for (i in seq_len(k - 1L)) A[i, i:(i + 1L)] <- c(-1, 1)
-            if (comparison == "revsequential") A <- -A
-        } else if (comparison %in% c("reference", "revreference",
-                                     "trt.vs.ctrl")) {
-            if (comparison == "trt.vs.ctrl" && is.null(reference))
-                stop("'trt.vs.ctrl' requires an explicit 'reference'")
+        } else if (comparison %in% c("reference", "trt.vs.ctrl")) {
             if (is.null(reference)) reference <- keys[[1L]]
             ref <- match(reference, keys)
             if (is.na(ref)) stop("'reference' is not a fitted factor level")
             take <- setdiff(seq_len(k), ref)
             A <- matrix(0, nrow = length(take), ncol = k)
             for (i in seq_along(take)) A[i, c(ref, take[i])] <- c(-1, 1)
-            if (comparison == "revreference") A <- -A
         } else if (comparison %in% c("deviation", "effect")) {
             A <- diag(k) - matrix(1 / k, k, k)
         } else if (comparison == "helmert") {
@@ -490,9 +483,8 @@ print.vegan_comparisons <- function(x, ...)
 {
     keys <- paste0("b", seq_len(nrow(A)))
     recipe <- length(hypothesis) == 1L && is.character(hypothesis) &&
-        hypothesis %in% c("pairwise", "revpairwise", "sequential",
-                          "consecutive", "revsequential", "reference",
-                          "revreference", "trt.vs.ctrl", "deviation",
+        hypothesis %in% c("pairwise", "sequential", "consecutive",
+                          "reference", "trt.vs.ctrl", "deviation",
                           "effect", "helmert", "poly")
     if (is.character(hypothesis) && !recipe) {
         labs <- rownames(A)

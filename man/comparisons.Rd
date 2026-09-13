@@ -26,8 +26,9 @@ interface, such as a result from \code{rda}, \code{cca}, or \code{dbrda}.}
 \item{variables}{The name of one factor whose levels are compared.}
 \item{comparison}{A built-in comparison name, character equations, a named
 list, or a numeric contrast vector or matrix.}
-\item{reference}{The reference factor level. The first level is used when
-this is omitted.}
+\item{reference}{The reference or control factor level. The first fitted
+factor level is used when this is omitted, including for
+\code{comparison = "trt.vs.ctrl"}.}
 \item{newdata}{The population over which model-matrix rows are averaged.
 The default uses the fitted analysis data. Character value \code{"balanced"}
 constructs a reference grid, and a data frame supplies an explicit population.}
@@ -49,11 +50,13 @@ column in \code{newdata}.}
 \item{\dots}{Arguments passed to methods or to \code{print.data.frame}.}
 }
 \details{
-Built-in specifications are \code{"pairwise"}, \code{"revpairwise"},
-\code{"sequential"} (also \code{"consecutive"}),
-\code{"revsequential"}, \code{"reference"}, \code{"revreference"},
+Built-in specifications are \code{"pairwise"}, \code{"sequential"}
+(also \code{"consecutive"}), \code{"reference"},
 \code{"trt.vs.ctrl"}, \code{"deviation"} (also \code{"effect"}),
-\code{"helmert"}, and \code{"poly"}.
+\code{"helmert"}, and \code{"poly"}. Reverse variants are not provided
+because reversing every row does not change an inertia-based pseudo-\eqn{F}
+test; write a specific character comparison when its displayed direction
+matters.
 
 Character comparisons are linear equations in factor-level names, for
 example \code{"HF - BF = 0"} or \code{"(NM + SF) / 2 - BF = 0"}.

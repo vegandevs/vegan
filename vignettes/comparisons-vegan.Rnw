@@ -122,12 +122,9 @@ comparisons; inspect it with \code{levels} before using those recipes.
 Value & Question represented \\
 \midrule
 \code{"pairwise"} & Every pair of levels \\
-\code{"revpairwise"} & Every pair, with labels reversed \\
 \code{"sequential"}, \code{"consecutive"} & Each level versus the preceding level \\
-\code{"revsequential"} & Consecutive comparisons in reverse \\
 \code{"reference"} & Every other level versus a reference \\
-\code{"revreference"} & Reference versus every other level \\
-\code{"trt.vs.ctrl"} & Every treatment versus an explicitly named control \\
+\code{"trt.vs.ctrl"} & Every treatment versus the control level \\
 \code{"deviation"}, \code{"effect"} & Each level versus the equal-weight level mean \\
 \code{"helmert"} & Successive Helmert comparisons \\
 \code{"poly"} & Linear and higher polynomial patterns across levels \\
@@ -138,6 +135,11 @@ equivalent.}
 \label{tab:recipes}
 \end{table}
 
+There are no reverse variants of these recipes. Reversing a comparison
+does not change its inertia, pseudo-$F$, or permutation $p$-value. When
+the displayed direction is important, write the desired character
+comparison explicitly.
+
 For example, all management types can be compared with BF:
 
 <<reference>>=
@@ -146,13 +148,15 @@ comparisons(mod, "Management", comparison = "reference",
 @
 
 If the wording of the study identifies a control, \code{"trt.vs.ctrl"}
-expresses the same family of questions but requires the control to be
-stated explicitly. This prevents an accidental choice based only on
-factor-level order.
+expresses the same family of questions. By default, the first fitted
+factor level is the control. Use \code{relevel} before fitting to change
+the factor's reference level, or supply \code{reference} to override it
+for this call. BF is already the first level of \code{Management}, so no
+override is needed here.
 
 <<control>>=
 comparisons(mod, "Management", comparison = "trt.vs.ctrl",
-            reference = "BF", permutations = perm, parallel = 1)
+            permutations = perm, parallel = 1)
 @
 
 Consecutive comparisons are useful when levels have a meaningful

@@ -54,12 +54,15 @@ pw <- comparisons(mod, "Management", permutations = per, adjust = "holm")
 stopifnot(nrow(pw) == choose(nlevels(dune.env$Management), 2),
           "Pr(>F).adj" %in% names(pw), all(pw$N.Perm == nrow(per)),
           inherits(attr(pw, "model"), "rda"))
-ref <- comparisons(mod, "Management", comparison = "trt.vs.ctrl",
-                   reference = "BF", permutations = per)
-stopifnot(nrow(ref) == nlevels(dune.env$Management) - 1L)
-for (recipe in c("revpairwise", "sequential", "consecutive",
-                 "revsequential", "reference", "revreference",
-                 "deviation", "effect", "helmert", "poly"))
+ctrl <- comparisons(mod, "Management", comparison = "trt.vs.ctrl",
+                    permutations = per)
+ctrl.explicit <- comparisons(mod, "Management", comparison = "trt.vs.ctrl",
+                             reference = "BF", permutations = per)
+stopifnot(nrow(ctrl) == nlevels(dune.env$Management) - 1L,
+          identical(ctrl$Comparison, ctrl.explicit$Comparison),
+          all.equal(ctrl$F, ctrl.explicit$F, tolerance = 1e-8))
+for (recipe in c("sequential", "consecutive", "reference", "deviation",
+                 "effect", "helmert", "poly"))
     stopifnot(nrow(comparisons(mod, "Management", comparison = recipe,
                               permutations = per)) >= 3L)
 custom <- comparisons(mod, "Management",
@@ -128,7 +131,13 @@ atab <- anova(mod, by = "contrast", variables = "Management",
 stopifnot(inherits(atab, "anova.cca"), nrow(atab) == 3L)
 
 ## Invalid and unsafe hypotheses are rejected.
-stopifnot(inherits(try(comparisons(mod, "Management",
+stopifnot(all(vapply(c("revpairwise", "revsequential", "revreference"),
+                     function(recipe)
+                         inherits(try(comparisons(
+                             mod, "Management", comparison = recipe,
+                             permutations = per), silent = TRUE),
+                                  "try-error"), logical(1))),
+          inherits(try(comparisons(mod, "Management",
                                   comparison = "HF / BF = 0",
                                   permutations = per), silent = TRUE),
                    "try-error"),
