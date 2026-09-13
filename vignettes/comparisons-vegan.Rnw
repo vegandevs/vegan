@@ -45,8 +45,6 @@ options("prompt" = "> ", "continue" = "  ")
 in \Sexpr{R.version.string} on \today
 \end{center}
 
-\tableofcontents
-
 \section{What is a comparison?}
 
 An overall permutation test can tell us whether a factor is associated
