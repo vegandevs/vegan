@@ -2,6 +2,12 @@
 
 ## New Functions
 
+* `comparisons` defines factor-level comparisons from counterfactual
+  model-matrix rows and tests them with contrast-specific permutation
+  pseudo-$F$ statistics. It supports interactions, built-in pairwise and
+  reference comparisons, custom linear equations, joint hypotheses and
+  multiple-testing adjustments for `rda`, `cca` and `dbrda` models.
+
 * `influence.cca`: a new wrapper function to return `hatvalues`,
   `rstandard`, `rstudent` and `cooks.distance`. The result can be
   amended with working fitted values, and returned in `tidy` format
@@ -25,6 +31,10 @@
   require separately specified error terms and permutation schemes. The
   compressed `norwegianShelf` data reproduce the paper's Norwegian
   continental-shelf example and provide a published numerical benchmark.
+
+* `anova.cca` accepts `by = "contrast"` as an ANOVA-style interface to
+  `comparisons`. `adonis2(return = "model")` retains its fitted distance
+  model so that comparisons can be performed after fitting.
 
 * `metaMDS` can use any MDS function as an `engine` if the function
   takes as input dissimilarities, initial configuration and number of

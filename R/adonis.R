@@ -2,10 +2,12 @@
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
-             strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
+             strata = NULL, return = c("anova", "model"), ...,
+             permustat = c("pseudo-F", "modified-F"),
              groups = NULL)
 {
     permustat <- match.arg(permustat)
+    return <- match.arg(return)
     group.expr <- substitute(groups)
     ## Do not force 'groups' here: like formula variables, it may exist only
     ## in 'data' and must be evaluated in that environment below.
@@ -80,8 +82,15 @@
     }
     sol <- adonis0(lhs, d$Y, d$Z)
     sol$formula <- match.call()
+    sol$call <- match.call()
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, data)
+    if (!is.null(d$na.action))
+        sol$na.action <- d$na.action
+    if (return == "model") {
+        class(sol) <- c("adonis2_fit", "dbrda", "rda", "cca")
+        return(sol)
+    }
     ## handle permutations
     perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
     out <- anova(sol, permutations = perm, by = by,

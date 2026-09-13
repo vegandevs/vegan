@@ -106,13 +106,16 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         Y <- model.matrix(formula, mf)
         ## save assign attribute
         assign <- attr(Y, "assign")
+        contrasts <- attr(Y, "contrasts")
         assign <- assign[assign > 0]
         if (any(colnames(Y) == "(Intercept)"))
             Y <- Y[, -which(colnames(Y) == "(Intercept)"), drop = FALSE]
         if (NCOL(Y) == 0)
             Y <- NULL
-        else
+        else {
             attr(Y, "assign") <- assign
+            attr(Y, "contrasts") <- contrasts
+        }
     }
     X <- as.matrix(X) # if X was dist
     rownames(X) <- rownames(X, do.NULL = FALSE, prefix = "") # if X was matrix

@@ -14,7 +14,8 @@
 adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = NULL,
     parallel = getOption("mc.cores"), na.action = na.fail,
-    strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
+    strata = NULL, return = c("anova", "model"), ...,
+    permustat = c("pseudo-F", "modified-F"),
     groups = NULL)
 }
 
@@ -86,6 +87,9 @@ adonis2(formula, data, permutations = 999, method = "bray",
     factors and all their interactions, supply a factor identifying each
     combination of factor levels, for example \code{interaction(A, B)}
     for the model \code{Y ~ A * B}. See Details for the supported models.}
+  \item{return}{Return the usual permutation ANOVA table, or retain the
+    fitted distance model for post-fit operations such as
+    \code{\link{comparisons}}.}
 
   \item{\dots}{Other arguments passed to \code{\link{vegdist}}.}
 }
@@ -171,11 +175,15 @@ in the \pkg{ade4} package) for both crossed and nested factors.
 
 \value{
 
-  The function returns an \code{\link{anova.cca}} result object with a
+  With \code{return = "anova"}, the function returns an
+  \code{\link{anova.cca}} result object with a
   new column for partial \eqn{R^2}{R-squared}: This is the proportion
   of sum of squares from the total, and in marginal models
   (\code{by = "margin"}) the \eqn{R^2}{R-squared} terms do not add up to
-  1.
+  1. With \code{return = "model"}, the function returns an object of
+  class \code{"adonis2_fit"} that inherits from \code{"dbrda"},
+  \code{"rda"}, and \code{"cca"}. The retained fit can be passed to
+  \code{comparisons}; no permutation test is run until requested.
 
 }
 
@@ -224,7 +232,7 @@ Ecology and Evolution}, 3, 89--101.
 
 \author{Martin Henry H. Stevens and Jari Oksanen.}
 
-\seealso{ \code{\link{mrpp}}, \code{\link{anosim}},
+\seealso{ \code{\link{comparisons}}, \code{\link{mrpp}}, \code{\link{anosim}},
   \code{\link{mantel}}, \code{\link{varpart}}. }
 \examples{
 data(dune)
@@ -261,6 +269,11 @@ with(dat, ordispider(mod, field, lty=3, col="red", label = TRUE))
 adonis2(Y ~ NO3, data = dat, permutations = 199)
 ## Correct with strata
 with(dat, adonis2(Y ~ NO3, data = dat, permutations = 199, strata = field))
+
+## Retain the fitted distance model for post-fit comparisons
+afit <- adonis2(dune ~ Management, data = dune.env, return = "model")
+comparisons(afit, "Management", comparison = "reference",
+            reference = "BF", permutations = 99)
 }
 
 \keyword{multivariate }
