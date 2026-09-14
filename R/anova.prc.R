@@ -5,9 +5,9 @@
     ## on its result
     extras <- match.call(expand.dots = FALSE)
     if ("by" %in% names(extras$...)) {
-        Y <- as.character(object$call$response)
-        X <- as.character(object$call$treatment)
-        Z <- as.character(object$call$time)
+        Y <- deparse1(object$call$response)
+        X <- deparse1(object$call$treatment)
+        Z <- deparse1(object$call$time)
         fla <- paste(Y, "~", X, "*", Z, "+ Condition(", Z, ")")
         fla <- as.formula(fla)
         ## get extras
