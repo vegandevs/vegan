@@ -62,7 +62,7 @@
 <div class="section level3">
 <h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
 <ul><li>
-<code>anova</code> for <code>prc</code> result failed with <code>by</code> argument if <code>prc</code> was called with expressions instead of plain names, for instance with <code>prc(t(spe), md$treatment, md$time)</code>. The <code>prc</code> call was parsed with <code>as.character</code> which splits an expression into its components instead of returning the expression as a character string. Now the call is parsed with <code>deparse1</code> similarly as in <code>prc</code>. Issue <a href="https://github.com/vegandevs/vegan/issues/797" class="external-link">#797</a>.</li>
+<code>anova</code> for <code>prc</code> result failed with <code>by</code> argument if <code>prc</code> was called with expressions instead of plain names, for instance with <code>prc(t(spe), md$treatment, md$time)</code>. Issue <a href="https://github.com/vegandevs/vegan/issues/797" class="external-link">#797</a>, PR <a href="https://github.com/vegandevs/vegan/pull/798" class="external-link">#798</a>.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-defunct-and-resurrected-2-8-0">Deprecated, Defunct and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-defunct-and-resurrected-2-8-0"></a></h3>
