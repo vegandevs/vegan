@@ -24,8 +24,9 @@ interface, such as a result from \code{rda}, \code{cca}, or \code{dbrda}.}
 \item{variable}{The name of one focal factor in the fitted model.}
 \item{newdata}{The reference population used to construct scenarios.
 The default uses the fitted analysis data. Character value \code{"balanced"}
-constructs a balanced reference grid, and a data frame supplies an explicit
-population or setting.}
+constructs a balanced reference grid, \code{"mean"} constructs a mean-or-mode
+reference profile, and a data frame supplies an explicit population or
+setting.}
 \item{by}{Optional model variables defining groups within which scenarios
 are averaged.}
 \item{wts}{Optional non-negative averaging weights, or the name of a weight
@@ -51,8 +52,15 @@ variable shown in a \code{by} column therefore does not also appear under
 \sQuote{Averaged over}.
 
 With \code{newdata = "balanced"}, non-focal factors form an equally weighted
-grid and numeric variables are fixed at their means. With an explicit data
-frame, variables that have one supplied value are printed under
+grid and numeric variables are fixed at their means. With
+\code{newdata = "mean"}, numeric variables are fixed at their arithmetic
+means and other variables at their modes. This gives one representative
+profile, or one profile within each \code{by} group. Tied factor modes are
+resolved using fitted factor-level order; other ties use order of first
+appearance. These comparisons are conditional on the resulting typical
+profile rather than averaged over the observed sample or over factor levels.
+
+With an explicit data frame, variables that have one supplied value are printed under
 \sQuote{Fixed at}; variables that vary are printed under
 \sQuote{Averaged over}. \code{N.reference} is the number of rows used to
 construct a scenario, not a sample size for a separate fitted model.
@@ -86,6 +94,11 @@ mod <- rda(dune ~ Management + A1, data = dune.env)
 sc <- comparison_scenarios(mod, "Management")
 sc
 comparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
+
+## Compare management types at the mean observed value of A1
+mean.sc <- comparison_scenarios(mod, "Management", newdata = "mean")
+mean.sc
+comparisons(mean.sc, comparison = "b2 - b1 = 0", permutations = 99)
 
 set.seed(42)
 idat <- expand.grid(treatment = factor(c("control", "low", "high"),

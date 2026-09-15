@@ -36,7 +36,8 @@ factor level is used when this is omitted, including for
 \code{comparison = "trt.vs.ctrl"}.}
 \item{newdata}{The reference population over which scenarios are averaged.
 The default uses fitted analysis data, \code{"balanced"} constructs a
-balanced grid, and a data frame supplies an explicit population or setting.}
+balanced grid, \code{"mean"} constructs one mean-or-mode profile (or one per
+\code{by} group), and a data frame supplies an explicit population or setting.}
 \item{by}{Optional model variables defining groups within which scenarios
 and recipe comparisons are computed.}
 \item{joint}{Test all resulting rows as one joint comparison.}

@@ -74,9 +74,18 @@ within.sc <- comparison_scenarios(scenario.mod, "Management",
                              newdata = data.frame(A1 = 5))
 outside.sc <- comparison_scenarios(scenario.mod, "Management",
                               newdata = data.frame(A1 = 12.5))
+mean.sc <- comparison_scenarios(scenario.mod, "Management", newdata = "mean")
+mean.explicit <- comparison_scenarios(scenario.mod, "Management",
+                                      newdata = data.frame(
+                                          A1 = mean(dune.env$A1)))
 stopifnot(!any(within.sc$Extrapolated), all(outside.sc$Extrapolated),
           identical(unname(attr(within.sc, "extrapolation")), FALSE),
-          identical(unname(attr(outside.sc, "extrapolation")), TRUE))
+          identical(unname(attr(outside.sc, "extrapolation")), TRUE),
+          all(mean.sc$N.reference == 1L),
+          identical(attr(mean.sc, "averaged"), character()),
+          grepl("mean-or-mode reference profile", attr(mean.sc, "population")),
+          all.equal(attr(mean.sc, "scenario.matrix"),
+                    attr(mean.explicit, "scenario.matrix"), tolerance = 1e-8))
 stopifnot(inherits(try(comparison_scenarios(mod, "Use"), silent = TRUE),
                      "try-error"),
           inherits(try(comparisons(sc[1:2, ], permutations = per),
@@ -131,6 +140,8 @@ imod <- rda(Y ~ trt * season, data = idat)
 iper <- shuffleSet(nrow(idat), 49)
 iavg <- comparisons(imod, "trt", permutations = iper)
 isc <- comparison_scenarios(imod, "trt", by = "season")
+imean.by <- comparison_scenarios(imod, "trt", by = "season",
+                                 newdata = "mean")
 iat <- comparisons(imod, "trt", newdata = data.frame(
     season = factor(c("spring", "autumn"), levels = levels(idat$season))),
     permutations = iper)
@@ -143,7 +154,9 @@ stopifnot(nrow(iavg) == 3L, nrow(iat) == 3L, nrow(iby) == 6L,
           "season" %in% names(iby), nrow(idiff) == 1L,
           all.equal(iby$F, iby.sc$F, tolerance = 1e-8),
           nrow(isc) == 6L, all(isc$N.reference == 12L),
-          identical(attr(isc, "averaged"), character()))
+          identical(attr(isc, "averaged"), character()),
+          nrow(imean.by) == 6L, all(imean.by$N.reference == 1L),
+          nrow(attr(imean.by, "reference.data")) == 2L)
 ibal <- comparisons(imod, "trt", newdata = "balanced", permutations = iper)
 iwgt <- comparisons(imod, "trt", by = "season", wts = seq_len(nrow(idat)),
                     permutations = iper)
@@ -151,6 +164,22 @@ fixed <- comparison_scenarios(imod, "trt", newdata = data.frame(
     season = factor("spring", levels = levels(idat$season))))
 stopifnot(nrow(ibal) == 3L, nrow(iwgt) == 6L,
           identical(attr(fixed, "fixed"), "season = spring"))
+
+## A mean-or-mode profile uses the modal non-focal factor level.
+midx <- c(seq_len(nrow(idat)), which(idat$season == "spring")[1:3])
+mdat <- idat[midx, , drop = FALSE]
+mY <- Y[midx, , drop = FALSE]
+mmod <- rda(mY ~ trt * season, data = mdat)
+modal.sc <- comparison_scenarios(mmod, "trt", newdata = "mean")
+modal.explicit <- comparison_scenarios(mmod, "trt", newdata = data.frame(
+    season = factor("spring", levels = levels(mdat$season))))
+stopifnot(identical(as.character(attr(modal.sc, "reference.data")$season),
+                    "spring"),
+          all.equal(attr(modal.sc, "scenario.matrix"),
+                    attr(modal.explicit, "scenario.matrix"),
+                    tolerance = 1e-8),
+          inherits(try(comparison_scenarios(mmod, "trt", newdata = "median"),
+                       silent = TRUE), "try-error"))
 
 ## Conditions and CCA use the same compiler with weighted chi-square geometry.
 ccamod <- cca(dune ~ Management + Condition(Moisture), data = dune.env)

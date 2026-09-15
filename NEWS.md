@@ -6,6 +6,8 @@
   underlying comparisons, including their reference population, averaging,
   fixed values, grouping, and extrapolation status. Stable `b1`, `b2`, ...
   identifiers allow comparisons to refer directly to displayed rows.
+  Reference populations may use the fitted observations, a balanced grid, a
+  mean-or-mode profile, or explicitly supplied data.
   `comparisons` tests linear differences among these scenarios with
   contrast-specific permutation pseudo-$F$ statistics. It supports
   interactions, built-in pairwise and reference comparisons, custom linear

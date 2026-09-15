@@ -44,8 +44,9 @@ comparisons.default <- function(object, ...)
 #' @param object A fitted constrained ordination model.
 #' @param variable The name of one focal factor in the model.
 #' @param newdata The population over which scenarios are averaged. `NULL`
-#'   uses the analysis data, `"balanced"` uses a balanced reference grid, and
-#'   a data frame supplies an explicit population.
+#'   uses the analysis data, `"balanced"` uses a balanced reference grid,
+#'   `"mean"` uses one mean-or-mode profile, and a data frame supplies an
+#'   explicit population.
 #' @param by Optional model variables defining groups within which scenarios
 #'   are averaged.
 #' @param wts Optional non-negative averaging weights or the name of a weight
@@ -75,8 +76,9 @@ comparison_scenarios.default <- function(object, ...)
 #' Comparison scenarios for constrained ordination
 #'
 #' Rebuild the fitted model matrix under every level of one factor and average
-#' it over an observed, balanced, or user-supplied reference population. This
-#' method is inherited by `rda`, `cca`, `dbrda`, and retained `adonis2` fits.
+#' it over an observed, balanced, mean-or-mode, or user-supplied reference
+#' population. This method is inherited by `rda`, `cca`, `dbrda`, and retained
+#' `adonis2` fits.
 #' The scenarios are vector-valued model states rather than scalar estimates;
 #' `comparisons()` tests linear differences between their design rows.
 #'
@@ -122,7 +124,7 @@ comparison_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL
     if (object$CCA$qrank < ncol(X))
         stop("comparison scenarios are not available for aliased constraint matrices")
 
-    base <- .comparisonNewdata(object, dat, variable, newdata)
+    base <- .comparisonNewdata(object, dat, variable, by, newdata)
     meta <- .scenarioMetadata(object, dat, base, variable, by, newdata, wts)
     base$..vegan_rowid <- seq_len(nrow(base))
     split <- .comparisonSplit(base, by)
@@ -380,24 +382,29 @@ print.vegan_comparisons <- function(x, ...)
 
 #' Construct the comparison population
 #'
-#' Select the observed population, build a balanced reference grid, or validate
-#' explicit new data.
+#' Select the observed population, build a balanced or mean-or-mode reference
+#' grid, or validate explicit new data.
 #'
 #' @param object A fitted constrained ordination model.
 #' @param dat Analysis data.
 #' @param variable Focal factor name.
+#' @param by Optional grouping variables.
 #' @param newdata Requested comparison population.
 #'
 #' @return A data frame used to construct counterfactual model matrices.
 #' @keywords internal
-.comparisonNewdata <- function(object, dat, variable, newdata)
+.comparisonNewdata <- function(object, dat, variable, by, newdata)
 {
     if (is.null(newdata))
         return(dat)
     if (is.character(newdata)) {
-        if (length(newdata) != 1L || newdata != "balanced")
-            stop("character 'newdata' must be \"balanced\"")
-        vars <- setdiff(all.vars(.comparisonFormula(object)), variable)
+        choices <- c("balanced", "mean")
+        if (length(newdata) != 1L || !newdata %in% choices)
+            stop("character 'newdata' must be \"balanced\" or \"mean\"")
+        vars <- unique(c(setdiff(all.vars(.comparisonFormula(object)),
+                                 variable), by))
+        if (newdata == "mean")
+            return(.comparisonMeanData(dat, vars, by))
         vals <- lapply(vars, function(v) {
             x <- dat[[v]]
             if (is.factor(x)) levels(x)
@@ -406,13 +413,71 @@ print.vegan_comparisons <- function(x, ...)
         })
         names(vals) <- vars
         if (!length(vals))
-            return(dat[1L, , drop = FALSE])
+            return(dat[1L, vars, drop = FALSE])
         return(expand.grid(vals, KEEP.OUT.ATTRS = FALSE,
                            stringsAsFactors = FALSE))
     }
     if (!is.data.frame(newdata))
-        stop("'newdata' must be NULL, \"balanced\", or a data frame")
+        stop("'newdata' must be NULL, \"balanced\", \"mean\", or a data frame")
     newdata
+}
+
+#' Select a typical value
+#'
+#' Return the arithmetic mean of a numeric variable or the mode of another
+#' variable. Factor ties are resolved by fitted level order; other ties are
+#' resolved by order of first appearance.
+#'
+#' @param x A model variable.
+#'
+#' @return A length-one value retaining the class and levels of `x` where
+#'   applicable.
+#' @keywords internal
+.comparisonTypicalValue <- function(x)
+{
+    ok <- !is.na(x)
+    if (!any(ok))
+        stop("cannot construct a mean-or-mode profile from all-missing values")
+    if (is.numeric(x))
+        return(mean(x[ok]))
+    if (is.factor(x)) {
+        count <- tabulate(as.integer(x[ok]), nbins = nlevels(x))
+        return(factor(levels(x)[which.max(count)], levels = levels(x),
+                      ordered = is.ordered(x)))
+    }
+    observed <- x[ok]
+    values <- unique(observed)
+    values[which.max(tabulate(match(observed, values)))]
+}
+
+#' Construct mean-or-mode reference profiles
+#'
+#' Construct one typical reference row globally, or one within every observed
+#' combination of `by` variables. Numeric variables are represented by their
+#' means and other non-grouping variables by their modes.
+#'
+#' @param dat Analysis data.
+#' @param vars Model variables required in the reference data.
+#' @param by Optional grouping variables.
+#'
+#' @return A data frame containing one mean-or-mode profile per group.
+#' @keywords internal
+.comparisonMeanData <- function(dat, vars, by)
+{
+    if (!length(vars))
+        return(dat[1L, vars, drop = FALSE])
+    groups <- if (length(by)) .comparisonSplit(dat, by) else list(dat)
+    rows <- lapply(groups, function(gd) {
+        values <- lapply(vars, function(v) {
+            if (v %in% by) gd[[v]][1L]
+            else .comparisonTypicalValue(gd[[v]])
+        })
+        names(values) <- vars
+        as.data.frame(values, optional = TRUE, stringsAsFactors = FALSE)
+    })
+    out <- do.call(rbind, rows)
+    rownames(out) <- NULL
+    out
 }
 
 #' Describe scenario averaging
@@ -439,13 +504,36 @@ print.vegan_comparisons <- function(x, ...)
         population <- paste0("fitted analysis data (", nrow(base), " rows)")
         averaged <- vars
     } else if (is.character(newdata)) {
-        population <- paste0("balanced reference grid (", nrow(base),
-                             " rows)")
-        numeric <- vars[vapply(dat[vars], is.numeric, logical(1))]
-        averaged <- setdiff(vars, numeric)
-        if (length(numeric))
-            fixed <- paste0(numeric, " = ", vapply(base[numeric], function(x)
-                format(signif(x[[1L]], 6L), trim = TRUE), character(1)))
+        if (newdata == "balanced") {
+            population <- paste0("balanced reference grid (", nrow(base),
+                                 " rows)")
+            numeric <- vars[vapply(dat[vars], is.numeric, logical(1))]
+            averaged <- setdiff(vars, numeric)
+            if (length(numeric))
+                fixed <- paste0(numeric, " = ",
+                    vapply(base[numeric], function(x)
+                        format(signif(x[[1L]], 6L), trim = TRUE),
+                        character(1)))
+        } else {
+            what <- if (nrow(base) == 1L) "profile" else "profiles"
+            population <- paste0("mean-or-mode reference ", what, " (",
+                                 nrow(base), if (nrow(base) == 1L) " row)"
+                                 else " rows)")
+            averaged <- character()
+            if (length(vars)) {
+                if (length(by))
+                    fixed <- paste0(vars, " = mean/mode within ",
+                                    paste(by, collapse = ", "))
+                else
+                    fixed <- paste0(vars, " = ", vapply(base[vars],
+                        function(x) {
+                            z <- x[[1L]]
+                            if (is.numeric(z))
+                                format(signif(z, 6L), trim = TRUE)
+                            else as.character(z)
+                        }, character(1)))
+            }
+        }
     } else {
         population <- paste0("user-supplied data (", nrow(base), " rows)")
         present <- intersect(vars, names(base))

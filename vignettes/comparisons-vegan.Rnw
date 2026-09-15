@@ -318,18 +318,19 @@ have different null models.
 \section{Interactions and simple effects}
 
 When the model contains an interaction, a difference between treatment
-levels may depend on the interacting variable. We use a small balanced
+levels may depend on the interacting variable. We use a small unbalanced
 example with three treatments in two habitats. The response has six
 species, and blocks will later be used to restrict permutations.
 
 <<interaction-data>>=
 set.seed(42)
 idat <- expand.grid(
-    block = factor(seq_len(6)),
+    block = factor(seq_len(8)),
     habitat = factor(c("grass", "heath")),
     treatment = factor(c("control", "low", "high"),
                        levels = c("control", "low", "high"))
 )
+idat <- subset(idat, !(block %in% c("7", "8") & habitat == "heath"))
 iY <- matrix(rpois(nrow(idat) * 6, lambda = 5), ncol = 6)
 iY[, 1] <- iY[, 1] + 3 * (idat$treatment == "high")
 iY[, 2] <- iY[, 2] + 3 * (idat$habitat == "heath")
@@ -424,26 +425,53 @@ moderators needed to identify the desired slice in \code{by} or
 \section{Choosing the averaging population}
 
 The meaning of a comparison in a model with other predictors depends on
-the values over which those predictors are averaged. There are three
-main choices:
+the values over which those predictors are averaged. The available
+choices are summarized below.
 
-\begin{description}
-  \item[\code{newdata = NULL}] Average counterfactual model rows over
-    the fitted analysis observations. This is the default and reflects
-    the observed mix of covariates and factor levels.
-  \item[\code{newdata = "balanced"}] Give every combination of
-    non-focal factor levels equal representation, with numeric variables
-    fixed at their means. This describes a balanced reference grid
-    rather than the observed sample composition.
-  \item[\code{newdata = data.frame(...)}] Average over a population or
-    settings supplied by the user. It must contain the variables needed
-    to reconstruct the fitted model terms, apart from the focal factor,
-    which \code{comparisons} supplies in turn.
-\end{description}
+\begin{center}
+\small
+\begin{tabular}{p{0.23\textwidth}p{0.29\textwidth}p{0.37\textwidth}}
+\toprule
+Option & Categorical variables & Numeric variables \\
+\midrule
+\code{NULL} & Retain their observed values and frequencies &
+  Retain their observed values \\
+\code{"balanced"} & Use every level combination with equal weight &
+  Fix at their arithmetic means \\
+\code{"mean"} & Fix at their most frequent levels (modes) &
+  Fix at their arithmetic means \\
+\code{data.frame(...)} & Use the values and frequencies supplied by the user &
+  Use the values supplied by the user \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-For the balanced interaction example, the empirical and balanced
-averages coincide closely because both habitats have equal
-representation. Printing the scenarios shows the population used:
+Thus, \code{NULL} performs counterfactual averaging over the fitted
+sample. The \code{"balanced"} option describes a balanced reference
+grid rather than the observed sample composition. An explicit data
+frame describes a chosen population or setting and must contain the
+variables needed to reconstruct the fitted model terms, apart from the
+focal factor, which \code{comparisons} supplies in turn.
+
+Because grass is more frequent than heath in this example,
+\code{newdata = "mean"} asks for treatment comparisons at the modal
+habitat, grass. Numeric predictors, if present, would be fixed at their
+means. This is a comparison for one typical profile, not an average over
+habitats:
+
+<<mean-grid>>=
+mean.sc <- comparison_scenarios(imod, "treatment", newdata = "mean")
+mean.sc
+comparisons(mean.sc, comparison = "b3 - b1 = 0",
+            permutations = iper, parallel = 1)
+@
+
+With \code{by}, a separate mean-or-mode profile is constructed within
+each group. If factor levels are tied for the mode, the first tied level
+in the fitted factor-level order is used.
+
+The balanced grid instead gives grass and heath equal representation.
+Printing the scenarios shows the population used:
 
 <<balanced-grid>>=
 balanced.sc <- comparison_scenarios(imod, "treatment", newdata = "balanced")
@@ -451,6 +479,8 @@ balanced.sc
 comparisons(balanced.sc, comparison = "b3 - b1 = 0",
             permutations = iper, parallel = 1)
 @
+
+\medskip
 
 Use \code{wts} when rows should contribute unequally. It can be a
 non-negative numeric vector or the name of a column in \code{newdata}.
