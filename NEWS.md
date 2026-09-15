@@ -1,3 +1,13 @@
+# vegan 2.7-7
+
+## Bug Fixes
+
+* `anova` for `prc` result failed with `by` argument if `prc` was
+  called with expressions instead of plain names, for instance with
+  `prc(t(spe), md$treatment, md$time)`. Issue
+  [#797](https://github.com/vegandevs/vegan/issues/797),
+  PR [#798](https://github.com/vegandevs/vegan/pull/798).
+
 # vegan 2.7-6
 
 ## New Features
