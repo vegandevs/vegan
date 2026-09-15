@@ -60,6 +60,11 @@
 <li><p><code>decorana</code> uses stricter convergence criteria similarly as most other <strong>vegan</strong> functions. Usually effects can be seen only in the last decimals.</p></li>
 </ul></div>
 <div class="section level3">
+<h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
+<ul><li>
+<code>anova</code> for <code>prc</code> result failed with <code>by</code> argument if <code>prc</code> was called with expressions instead of plain names, for instance with <code>prc(t(spe), md$treatment, md$time)</code>. The <code>prc</code> call was parsed with <code>as.character</code> which splits an expression into its components instead of returning the expression as a character string. Now the call is parsed with <code>deparse1</code> similarly as in <code>prc</code>. Issue <a href="https://github.com/vegandevs/vegan/issues/797" class="external-link">#797</a>.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="deprecated-defunct-and-resurrected-2-8-0">Deprecated, Defunct and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-defunct-and-resurrected-2-8-0"></a></h3>
 <ul><li><p>Lattice functions <code>ordicloud</code>, <code>ordiresids</code>and <code>ordisplom</code> are defunct. <code>ordicloud</code> is available in CRAN package <strong>vegan3d</strong> as <code>ordilattice3d</code>. New function <code>influence.cca</code> can prepare data to be used in similar graphics as <code>ordiresids</code> using <strong>ggplot2</strong> or <strong>lattice</strong>.</p></li>
 <li><p><strong>lattice</strong> functions <code>ordixyplot</code>, and <code>permulattice</code> (with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>) are defunct. CRAN package <strong>ggvegan</strong> provides <code>autoplot</code> for these defunct functions. The functions were deprecated in CRAN release 2.7-3.</p></li>
@@ -68,7 +73,7 @@
 </ul></div>
 </div>
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="2.7-6" id="vegan-27-6">vegan 2.7-6<a class="anchor" aria-label="anchor" href="#vegan-27-6"></a></h2>
+<h2 class="pkg-version" data-toc-text="2.7-6" id="vegan-27-6">vegan 2.7-6<a class="anchor" aria-label="anchor" href="#vegan-27-6"></a></h2><p class="text-muted">CRAN release: 2026-08-31</p>
 <div class="section level3">
 <h3 id="new-features-2-7-6">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-7-6"></a></h3>
 <ul><li><p>Implemented <em>weighted</em> spatial median and used them in <code>ordispider(..., spiders = "median")</code>. These will be automatically used in weighted ordinations (correspondence analysis <em>etc</em>) where a warning was issued on ignored weights earlier.</p></li>

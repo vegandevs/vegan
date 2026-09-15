@@ -69,6 +69,16 @@
   **vegan** functions. Usually effects can be seen only in the last
   decimals.
 
+### Bug Fixes
+
+- `anova` for `prc` result failed with `by` argument if `prc` was called
+  with expressions instead of plain names, for instance with
+  `prc(t(spe), md$treatment, md$time)`. The `prc` call was parsed with
+  `as.character` which splits an expression into its components instead
+  of returning the expression as a character string. Now the call is
+  parsed with `deparse1` similarly as in `prc`. Issue
+  [\#797](https://github.com/vegandevs/vegan/issues/797).
+
 ### Deprecated, Defunct and Resurrected
 
 - Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
@@ -94,6 +104,8 @@
   reproduced with functions in the CRAN package **ggvegan**.
 
 ## vegan 2.7-6
+
+CRAN release: 2026-08-31
 
 ### New Features
 
