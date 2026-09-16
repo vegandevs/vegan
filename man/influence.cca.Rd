@@ -32,6 +32,8 @@
 }
 
 \usage{
+\method{influence}{cca}(model, type = c("response", "canoco"),
+    addFit = FALSE, tidy = FALSE, ...)
 
 \method{hatvalues}{cca}(model, ...)
 \method{rstandard}{cca}(model, type = c("response", "canoco"), ...)
@@ -39,8 +41,8 @@
 \method{cooks.distance}{cca}(model, type = c("response", "canoco"), ...)
 
 \method{sigma}{cca}(object, type = c("response", "canoco"), ...)
+\method{SSD}{cca}(object, type = c("response", "canoco"), ...)
 \method{vcov}{cca}(object, type = "canoco", ...)
-\method{SSD}{cca}(object, type = "canoco", ...)
 
 \method{qr}{cca}(x, ...)
 \method{df.residual}{cca}(object, ...)
