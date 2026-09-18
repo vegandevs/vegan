@@ -5,11 +5,13 @@
     cat("\nPermutation test for", x$method, "under", x$model, "model", "\n\n")
     if (x$nperm > 0)
         cat(howHead(x$control), "\n")
+    else
+        cat("Number of permutations: 0\n\n")
     writeLines(strwrap(pasteCall(x$testcall, prefix = "Model:")))
     if (x$nperm > 0)
         Pval <- (colSums(sweep(x$F.perm, 2, x$F.0 - EPS, ">=")) + 1)/(x$nperm + 1)
     else
-        Pval <- NA
+        Pval <- rep(NA, length(x$F.0))
     cat("Permutation test for ")
     if (x$first)
         cat("first constrained eigenvalue\n")
