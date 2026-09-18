@@ -101,20 +101,25 @@
     Chisq <- sapply(mods, function(x) x$chi[2]) - chibig
     Fstat <- (Chisq/Df)/(chibig/dfbig)
     ## Simulated F-values
-    Fval <- sapply(mods, function(x){
-        ## Get the permutation test results for a certain variable
-        temp <- x$num
-        ## If this variable did not explain any variance, no permutation test
-        ## was applied. In that case, give vector with zeroes.
-        if( x$nperm == 0 ) temp <- rep(0, nperm)
-        return(temp)
+    if (nperm > 0) {
+        Fval <- sapply(mods, function(x){
+            ## Get the permutation test results for a certain variable
+            temp <- x$num
+            ## If this variable did not explain any variance, no permutation test
+            ## was applied. In that case, give vector with zeroes.
+            if( x$nperm == 0 ) temp <- rep(0, nperm)
+            return(temp)
         })
-    ## Calculate explained variance
-    Fval <- sweep(-Fval, 1, big$num, "+")
-    Fval <- sweep(Fval, 2, Df, "/")
-    Fval <- sweep(Fval, 1, scale, "/")
-    ## Simulated P-values
-    Pval <- (colSums(sweep(Fval, 2, Fstat - EPS, ">=")) + 1)/(nperm + 1)
+        ## Calculate explained variance
+        Fval <- sweep(-Fval, 1, big$num, "+")
+        Fval <- sweep(Fval, 2, Df, "/")
+        Fval <- sweep(Fval, 1, scale, "/")
+        ## Simulated P-values
+        Pval <- (colSums(sweep(Fval, 2, Fstat - EPS, ">=")) + 1)/(nperm + 1)
+    } else {
+        Fval <- NA
+        Pval <- rep(NA, length(Fstat))
+    }
     ## Collect results to anova data.frame
     out <- data.frame(c(Df, dfbig), c(Chisq, chibig),
                       c(Fstat, NA), c(Pval, NA))
