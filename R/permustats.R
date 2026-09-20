@@ -129,15 +129,14 @@
 ### without observed statistic.
 
 `density.permustats` <-
-    function(x, observed = TRUE, ...)
+    function(x, observed = TRUE, which, ...)
 {
-    ## only works with statistic
-    if (length(x$statistic) > 1)
-        stop(gettextf("only works with one statistic: you got %d",
-                      length(x$statistic)))
-    p <- x$permutations
+    if (length(x$statistic) > 1 && missing(which))
+        stop("more than one statistic, and no 'which' given")
+    if (missing(which)) which <- 1L
+    p <- x$permutations[, which]
     if (observed)
-        p <- c(x$statistic, p)
+        p <- c(x$statistic[which], p)
     out <- density(p)
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
@@ -147,18 +146,17 @@
 ### QQ-plot against Guaussian distribution
 
 `qqnorm.permustats` <-
-    function(y, observed = TRUE, ...)
+    function(y, observed = TRUE, which, ...)
 {
-    ## only works with statistic
-    if (length(y$statistic) > 1)
-        stop(gettextf("only works with one statistic: you got %d",
-                      length(y$statistic)))
-    p <- y$permutations
+    if (length(y$statistic) > 1 && missing(which))
+        stop("more than one statistic, and no 'which' given")
+    if (missing(which)) which <- 1L
+    p <- y$permutations[, which]
     if (observed)
-        p <- c(y$statistic, p)
+        p <- c(y$statistic[which], p)
     q <- qqnorm(p, ...)
     if (observed)
-        abline(h = y$statistic, ...)
+        abline(h = y$statistic[which], ...)
     invisible(q)
 }
 
