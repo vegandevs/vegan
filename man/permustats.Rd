@@ -36,8 +36,7 @@
 permustats(x, ...)
 \method{summary}{permustats}(object, interval = 0.95, alternative, ...)
 \method{density}{permustats}(x, observed = TRUE, which, ...)
-\method{qqnorm}{permustats}(y, x, observed = TRUE, which,
-   distribution = qnorm, dparams = list(), xlab, ylab, ...)
+\method{qqnorm}{permustats}(y, x, observed = TRUE, which, xlab, ylab, ...)
 \method{boxplot}{permustats}(x, scale = FALSE, names, ...)
 \method{pairs}{permustats}(x, ...)
 }
@@ -45,8 +44,7 @@ permustats(x, ...)
 \arguments{
   \item{object, x, y}{The object to be handled. Usually this is
     \code{x}, but in \code{qqnorm} the permutation values are displayed
-    on \eqn{y}-axis, and \code{x} can be used for user-supplied expected
-    values. }
+    on \eqn{y}-axis, and \code{x} can be used for user-supplied quantiles. }
   \item{interval}{numeric; the coverage interval reported.}
   \item{alternative}{A character string specifying the limits used for
     the \code{interval} and the direction of the test when evaluating
@@ -57,10 +55,6 @@ permustats(x, ...)
   \item{observed}{Add observed statistic among permutations.}
   \item{which}{\code{which} (integer) of permutation statistics is
     displayed.}
-  \item{distribution, dparams}{Quantile \code{distribution} function
-    used to calculate \eqn{x}-axis in \code{qqnorm} if \code{x} is not
-    given. Extra parameters for \code{distribution} can be given in
-    \code{dparams}. }
   \item{xlab, ylab}{Axis labels to replace defaults.}
   \item{scale}{Use standardized effect size (SES).}
   \item{names}{Names of boxes (default: names of statistics).}
@@ -103,7 +97,8 @@ permustats(x, ...)
   The \code{qqnorm} method displays Q-Q plots of permutations, optionally
   together with the observed value (default) which is shown as
   horizontal line in plots. \code{qqnorm} plots permutation values
-  against standard Normal variate. The permutations are standardized
+  against standard Normal variate, but users can supply other reference
+  axis with argument \code{x}. The permutations are standardized
   without the observed statistic, similarly as in \code{summary}. Only
   one statistic can be displayed: use \code{which} to select the
   displayed statistic.
