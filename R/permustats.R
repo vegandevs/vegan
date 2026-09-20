@@ -183,8 +183,7 @@
 ### QQ-plot against Gaussian distribution
 
 `qqnorm.permustats` <-
-    function(y, x, observed = TRUE, which, distribution = qnorm,
-             dparams = list(), xlab, ylab, ...)
+    function(y, x, observed = TRUE, which, xlab, ylab, ...)
 {
     if (length(y$statistic) > 1 && missing(which))
         stop("more than one statistic, and no 'which' given")
@@ -195,19 +194,12 @@
     n <- length(p)
     ## axis labels
     if (missing(ylab))
-        ylab <- paste("Permutation Values", names(y$statistic[which]))
+        ylab <- paste(names(y$statistic[which]), "Permutation Values")
     if (missing(xlab))
-        xlab <- paste(deparse(substitute(distribution)),
-                      "Theoretical Quantiles")
+        xlab <- "Theoretical Quantiles"
     ## reference axis x for theoretical quantiles
-    if (missing(x)) {
-        if (!is.null(dparams)) {
-            dparams <- modifyList(list(p = ppoints(n)), dparams)
-            x <- do.call(distribution, dparams)[order(p)]
-        } else {
-            x <- distribution(ppoints(n))
-        }
-    }
+    if (missing(x))
+        x <- qnorm(ppoints(n))
     q <- qqplot(x, p, xlab = xlab, ylab = ylab, ...)
     if (observed)
         abline(h = y$statistic[which], ...)
