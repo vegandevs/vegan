@@ -235,6 +235,15 @@
             mod <- permutest(object, permutations, model = model,
                              parallel = parallel, first = TRUE)
         }
+        ## Building 'object' for i > 1 increases residual degrees of
+        ## freedom at each step and this inflates F values (but does
+        ## not change P values, because both F.perm and F.0 inflate)
+        if (i > 1) {
+            fixF <- resdf/(resdf + i - 1)
+            mod$F.0 <- mod$F.0 * fixF
+            if (nperm > 0)
+                mod$F.perm <- mod$F.perm * fixF
+        }
         Pvals[i] <- (sum(mod$F.perm >= mod$F.0 - EPS) + 1) / (nperm + 1)
         Fstat[i] <- mod$F.0
         ## follow Canoco: P-values of later axes cannot be lower than
