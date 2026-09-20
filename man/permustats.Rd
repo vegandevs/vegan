@@ -36,13 +36,17 @@
 permustats(x, ...)
 \method{summary}{permustats}(object, interval = 0.95, alternative, ...)
 \method{density}{permustats}(x, observed = TRUE, which, ...)
-\method{qqnorm}{permustats}(y, observed = TRUE, which, ...)
+\method{qqnorm}{permustats}(y, x, observed = TRUE, which,
+   distribution = qnorm, dparams = list(), xlab, ylab, ...)
 \method{boxplot}{permustats}(x, scale = FALSE, names, ...)
 \method{pairs}{permustats}(x, ...)
 }
 
 \arguments{
-  \item{object, x, y}{The object to be handled.}
+  \item{object, x, y}{The object to be handled. Usually this is
+    \code{x}, but in \code{qqnorm} the permutation values are displayed
+    on \eqn{y}-axis, and \code{x} can be used for user-supplied expected
+    values. }
   \item{interval}{numeric; the coverage interval reported.}
   \item{alternative}{A character string specifying the limits used for
     the \code{interval} and the direction of the test when evaluating
@@ -53,6 +57,11 @@ permustats(x, ...)
   \item{observed}{Add observed statistic among permutations.}
   \item{which}{\code{which} (integer) of permutation statistics is
     displayed.}
+  \item{distribution, dparams}{Quantile \code{distribution} function
+    used to calculate \eqn{x}-axis in \code{qqnorm} if \code{x} is not
+    given. Extra parameters for \code{distribution} can be given in
+    \code{dparams}. }
+  \item{xlab, ylab}{Axis labels to replace defaults.}
   \item{scale}{Use standardized effect size (SES).}
   \item{names}{Names of boxes (default: names of statistics).}
   \item{\dots}{ Other arguments passed to the function. In
