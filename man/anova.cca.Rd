@@ -44,13 +44,16 @@
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.}
 
-  \item{by}{Setting \code{by = "axis"} will assess significance for
-    each constrained axis, and setting \code{by = "terms"} will assess
-    significance for each term (sequentially from first to last), and
-    setting \code{by = "margin"} will assess the marginal effects of
-    the terms (each marginal term analysed in a model with all other
-    variables), and \code{by = "onedf"} will assess sequentially
-    one-degree-of-freedom contrasts of split factors.}
+  \item{by}{The default (\code{NULL}) performs overall test for the
+    model. In \code{permutest} and \code{anova} you can set \code{by =
+    "term"} for sequential test of terms (from first to last), and
+    \code{by = "onedf"} for sequential test of one-degree-of-freedom
+    contrasts of split factors. In \code{anova} you can also set
+    \code{by = "margin"} for marginal effecs of terms (each marginal
+    term analysed in a model with all other variables), and \code{by =
+    "axis"} for each constrained axis. Choices \code{"terms"} and
+    \code{"margin"} can be used only with models fitted with
+    formula. \code{by} cannot be used together with \code{first = TRUE}.}
 
   \item{model}{Permutation model: \code{model="direct"} permutes
     community data, \code{model="reduced"} permutes residuals
@@ -106,9 +109,7 @@
   perform significance tests for each axis or for each term
   (constraining variable) using argument \code{by} in \code{anova.cca}.
   Setting \code{by = "axis"} will perform separate significance tests
-  for each constrained axis.  All previous constrained axes will be used
-  as conditions (\dQuote{partialled out}) and a test for the first
-  constrained eigenvalues is performed (Legendre et al. 2011).  You can
+  for each constrained axis (Legendre et al. 2011).  You can
   stop permutation tests after exceeding a given significance level with
   argument \code{cutoff} to speed up calculations in large
   models. Setting \code{by = "terms"} will perform separate significance
@@ -163,12 +164,14 @@
 }
 \author{Jari Oksanen}
 
-\seealso{\code{\link{anova.cca}}, \code{\link{cca}},
-  \code{\link{rda}}, \code{\link{dbrda}} to get something to
-  analyse. Function \code{\link{drop1.cca}} calls \code{anova.cca}
-  with \code{by = "margin"}, and \code{\link{add1.cca}} an analysis
-  for single terms additions, which can be used in automatic or
-  semiautomatic model building (see \code{\link{deviance.cca}}). }
+\seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} to
+  get something to analyse. Function \code{\link{drop1.cca}} calls
+  \code{anova.cca} with \code{by = "margin"}, and
+  \code{\link{add1.cca}} an analysis for single terms additions, which
+  can be used in automatic or semiautomatic model building (see
+  \code{\link{deviance.cca}}).  Function
+  \code{\link[=permustats.permutest.cca]{permustats}} extracts
+  permutation results for further analysis. }
 
 \examples{
 data(dune, dune.env)
