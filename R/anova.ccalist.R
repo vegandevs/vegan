@@ -64,19 +64,24 @@
     fval <- changedev/df/scale
     ## Collect permutation results: denominator of F varies in each
     ## permutation.
-    pscale <- mods[[big]]$den/resdf[big]
-    ## Numerator of F
-    pfvals <- sapply(mods, function(z) z$num)
-    if (is.list(pfvals))
-        pfvals <- do.call(cbind, pfvals)
-    pfvals <- apply(pfvals, 1, diff)
-    ## dropped to vector?
-    if (!is.matrix(pfvals))
-        pfvals <- matrix(pfvals, nrow = 1, ncol = nperm)
-    pfvals <- sweep(pfvals, 1, df, "/")
-    pfvals <- sweep(pfvals, 2, pscale, "/")
-    pval <- rowSums(sweep(pfvals, 1, fval - EPS, ">="))
-    pval <- (pval + 1)/(nperm + 1)
+    if (nperm > 0) {
+        pscale <- mods[[big]]$den/resdf[big]
+        ## Numerator of F
+        pfvals <- sapply(mods, function(z) z$num)
+        if (is.list(pfvals))
+            pfvals <- do.call(cbind, pfvals)
+        pfvals <- apply(pfvals, 1, diff)
+        ## dropped to vector?
+        if (!is.matrix(pfvals))
+            pfvals <- matrix(pfvals, nrow = 1, ncol = nperm)
+        pfvals <- sweep(pfvals, 1, df, "/")
+        pfvals <- sweep(pfvals, 2, pscale, "/")
+        pval <- rowSums(sweep(pfvals, 1, fval - EPS, ">="))
+        pval <- (pval + 1)/(nperm + 1)
+    } else {
+        pfvals <- matrix(0, length(fval), nperm)
+        pval <- rep(NA, length(fval))
+    }
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
@@ -94,7 +99,7 @@
                        function(z) deparse(formula(z), width.cutoff = 500))
     head <- paste0("Permutation tests for ", method, " under ",
                   mods[[big]]$model, " model\n",
-                   howHead(attr(permutations, "control")))
+                  howHead(attr(permutations, "control")))
     topnote <- paste("Model ", format(1L:nmodels), ": ", formulae,
                      sep = "", collapse = "\n")
     structure(table, heading = c(head,topnote),
