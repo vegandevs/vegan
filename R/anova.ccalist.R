@@ -34,6 +34,10 @@
         if (!all(trms[[o[i-1]]] %in% trms[[o[i]]]))
             stop("models must be nested")
 
+    ## models should be ordered since tests are between successive
+    ## models
+    object <- object[o]
+
     ## Check permutation matrix
     nperm <- nrow(permutations)
     ## check

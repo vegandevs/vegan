@@ -33,9 +33,10 @@
 
   \item{object}{One or several result objects from \code{\link{cca}},
     \code{\link{rda}}, \code{\link{dbrda}} or \code{\link{capscale}}. If
-    there are several result objects, they are compared against each
-    other in the order they were supplied. For a single object, a test
-    specified in \code{by} or an overall test is given.}
+    there are several result objects, they should be nested, and they
+    are compared against previous model in the order of nestedness. For
+    a single object, a test specified in \code{by} or an overall test is
+    given.}
 
   \item{x}{A single ordination result object.}
 
