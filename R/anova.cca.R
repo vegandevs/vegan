@@ -23,13 +23,17 @@
         if (any(isCCA)) {
             dotargs <- dotargs[isCCA]
             object <- c(list(object), dotargs)
-            sol <-
-                anovaCCAlist(object,
-                              permutations = permutations,
-                              model = model,
-                              parallel = parallel)
+            sol <- anovaCCAlist(object,
+                                permutations = permutations,
+                                model = model,
+                                parallel = parallel)
             attr(sol, "Random.seed") <- seed
             attr(sol, "control") <- control
+            if (test == "F") {
+                big <- which.max(sapply(object, function(z)
+                    length(labels(terms(z)))))
+                sol <- anovaCCAparametric(object[[big]], sol)
+            }
             return(sol)
         }
     }

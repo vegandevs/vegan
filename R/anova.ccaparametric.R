@@ -15,9 +15,15 @@
     u <- solve(diag(nrow = NC), ssd)
     lam <- Re(eigen(u, only.values = TRUE)$values)
     GG.eps <- sum(lam)^2 / sum(lam^2) / NC
-    ## Parametric F-values
-    df <- anotab[-nrow(anotab), "Df"] * NC * GG.eps
-    dfres <- anotab[nrow(anotab), "Df"] * NC * GG.eps
+    ## Parametric F-values. anovaCCAlist and other methods have
+    ## different numbers of columns and residual Df in different place.
+    if (ncol(anotab) == 4) {
+        dfres <- anotab[nrow(anotab), "Df"] * NC * GG.eps
+        df <- anotab[-nrow(anotab), "Df"] * NC * GG.eps
+    } else if (ncol(anotab) == 6) { # anovaCCAlist
+        dfres <- anotab[nrow(anotab), "ResDf"] * NC * GG.eps
+        df <- anotab[, "Df"] * NC * GG.eps
+    }
     anotab[,"Pr(>F)"] <- pf(anotab[, "F"], df, dfres, lower.tail = FALSE)
     ## Edit heading
     head <- attr(anotab, "heading")[1]
