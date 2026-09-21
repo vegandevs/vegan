@@ -23,7 +23,7 @@
 \method{anova}{cca}(object, ..., permutations = how(nperm=999),
      by = NULL, model = c("reduced", "direct", "full"),
      parallel = getOption("mc.cores"), strata = NULL,
-     cutoff = 1, scope = NULL)
+     cutoff = 1, scope = NULL, test = c("permutation", "F"))
 \method{permutest}{cca}(x, permutations = how(nperm = 99),
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
      strata = NULL, parallel = getOption("mc.cores"), ...)
@@ -79,6 +79,12 @@
   \item{scope}{Only effective with \code{by="margin"} where it can be
     used to select the marginal terms for testing. The default is to
     test all marginal terms in \code{\link{drop.scope}}.}
+
+  \item{test}{Test type, either permutation test or parametric
+    \eqn{F}-test. Parametric test is only available for
+    \code{\link{rda}}. It is similar as \code{\link{anova.mlm}} option
+    \code{test = "Spherical"} with Greenhouse-Geisser correction for
+    asphericity.}
 
   \item{first}{Analyse only significance of the first axis.}
 
