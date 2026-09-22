@@ -32,7 +32,7 @@
         bycase <- paste0("\n", headlines[2])
     else
         bycase <- NULL
-    head <- paste("Parametric test for", object$method,
+    head <- paste("Parametric F-test for", object$method,
                   bycase,
                   "\nGreenhouse-Geisser epsilon:",
                   format(GG.eps, digits = 4L), "\n")
