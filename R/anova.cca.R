@@ -2,10 +2,13 @@
     function(object, ..., permutations = how(nperm=999), by = NULL,
              model = c("reduced", "direct", "full"),
              parallel = getOption("mc.cores"), strata = NULL,
-             cutoff = 1, scope = NULL)
+             cutoff = 1, scope = NULL, test = c("permutation", "F"))
 {
     EPS <- sqrt(.Machine$double.eps) # for permutation P-values
     model <- match.arg(model)
+    test <- match.arg(test)
+    if (test == "F")
+        permutations <- 0
     ## permutation matrix
     N <- nrow(object$CA$u)
     permutations <- getPermuteMatrix(permutations, N, strata = strata)
@@ -20,13 +23,17 @@
         if (any(isCCA)) {
             dotargs <- dotargs[isCCA]
             object <- c(list(object), dotargs)
-            sol <-
-                anovaCCAlist(object,
-                              permutations = permutations,
-                              model = model,
-                              parallel = parallel)
+            sol <- anovaCCAlist(object,
+                                permutations = permutations,
+                                model = model,
+                                parallel = parallel)
             attr(sol, "Random.seed") <- seed
             attr(sol, "control") <- control
+            if (test == "F") {
+                big <- which.max(sapply(object, function(z)
+                    length(labels(terms(z)))))
+                sol <- anovaCCAparametric(object[[big]], sol)
+            }
             return(sol)
         }
     }
@@ -57,6 +64,8 @@
                       )
         attr(sol, "Random.seed") <- seed
         attr(sol, "control") <- control
+        if (test == "F")
+            sol <- anovaCCAparametric(object, sol)
         return(sol)
     }
     ## basic overall test: pass other arguments except 'strata'
@@ -77,7 +86,10 @@
     head <- paste0("Permutation test for ", tst$method, " under ",
                   tst$model, " model\n", howHead(control))
     mod <- paste("Model:", c(object$call))
-    structure(table, heading = c(head, mod), Random.seed = seed,
-              control = control, F.perm = tst$F.perm,
-              class = c("anova.cca", "anova", "data.frame"))
+    mod <- structure(table, heading = c(head, mod), Random.seed = seed,
+                     control = control, F.perm = tst$F.perm,
+                     class = c("anova.cca", "anova", "data.frame"))
+    if (test == "F")
+        mod <- anovaCCAparametric(object, mod)
+    mod
 }

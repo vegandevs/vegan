@@ -35,14 +35,16 @@
 \usage{
 permustats(x, ...)
 \method{summary}{permustats}(object, interval = 0.95, alternative, ...)
-\method{density}{permustats}(x, observed = TRUE, ...)
-\method{qqnorm}{permustats}(y, observed = TRUE, ...)
+\method{density}{permustats}(x, observed = TRUE, which, ...)
+\method{qqnorm}{permustats}(y, x, observed = TRUE, which, xlab, ylab, ...)
 \method{boxplot}{permustats}(x, scale = FALSE, names, ...)
 \method{pairs}{permustats}(x, ...)
 }
 
 \arguments{
-  \item{object, x, y}{The object to be handled.}
+  \item{object, x, y}{The object to be handled. Usually this is
+    \code{x}, but in \code{qqnorm} the permutation values are displayed
+    on \eqn{y}-axis, and \code{x} can be used for user-supplied quantiles. }
   \item{interval}{numeric; the coverage interval reported.}
   \item{alternative}{A character string specifying the limits used for
     the \code{interval} and the direction of the test when evaluating
@@ -51,6 +53,9 @@ permustats(x, ...)
     (lower limit). Usually \code{alternative} is given in the result
     object, but it can be specified with this argument.}
   \item{observed}{Add observed statistic among permutations.}
+  \item{which}{\code{which} (integer) of permutation statistics is
+    displayed.}
+  \item{xlab, ylab}{Axis labels to replace defaults.}
   \item{scale}{Use standardized effect size (SES).}
   \item{names}{Names of boxes (default: names of statistics).}
   \item{\dots}{ Other arguments passed to the function. In
@@ -85,22 +90,18 @@ permustats(x, ...)
   \pkg{ggplot2} graphics using \code{autoplot} function in
   \CRANpkg{ggvegan} package.
   
-  The \code{density} and \code{densityplot} methods display the
-  kernel density estimates of permuted values. When observed value of
-  the statistic is included in the permuted values, the
-  \code{densityplot} method marks the observed statistic as a vertical
-  line. However the \code{density} method uses its standard \code{plot}
-  method and cannot mark the observed value. Only one statistic can be
-  displayed with \code{density} and for several statistics
-  \code{permulattice} or \code{densityplot} must be used.
+  The \code{density} prepares kernel density estimates of permuted
+  values; these can be displayed with \code{plot}. Only one statistic
+  can be displayed: use \code{which} to select the displayed statistic.
 
-  The \code{qqnorm} method display Q-Q plots of permutations, optionally
+  The \code{qqnorm} method displays Q-Q plots of permutations, optionally
   together with the observed value (default) which is shown as
   horizontal line in plots. \code{qqnorm} plots permutation values
-  against standard Normal variate. The permutations are standardized
-  without the observed statistic, similarly as in \code{summary}.  Only
-  one statistic can be shown with \code{qqnorm} and for several
-  statistics \pkg{ggvegan} package must be used.
+  against standard Normal variate, but users can supply other reference
+  axis with argument \code{x}. The permutations are standardized
+  without the observed statistic, similarly as in \code{summary}. Only
+  one statistic can be displayed: use \code{which} to select the
+  displayed statistic.
 
   Function \code{boxplot} draws the box-and-whiskers plots of effect
   size, or the difference of permutations and observed statistic. If
@@ -139,7 +140,9 @@ permustats(x, ...)
 }
 
 \seealso{ \code{\link{density}}, \code{\link{qqnorm}},
-  \code{\link{boxplot}}.  }
+  \code{\link{boxplot}}. Package \pkg{ggvegan} may have (depending on
+  version) alternative functions to display \code{permustats} results.
+  }
 
 \examples{
 data(dune, dune.env)

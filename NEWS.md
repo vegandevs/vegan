@@ -28,6 +28,14 @@
 * `adonis2` can have `Condition` in formula allowing similar analysis
   of partial models as in `dbrda`.
 
+* `anova.cca` calculates parametric _F_-values as an alternative to
+  permutation tests. The parametric _F_-values are similar as the
+  "spherical" test in `anova.mlm` for multivariate linear models.
+  Parametric tests and permutation tests have been consistent in
+  preliminary tests for `rda`.  Tests were inconsistent with `cca`,
+  and parametric test is only enabled for `rda`, and it cannot be
+  calculated for distance-based ordination (`dbrda`, `capscale`).
+
 * `ordisurf` can plot coloured surfaces (or "filled contours") with
   argument `what = "surface"`. The perspective plots with
   `plot.ordisurf(..., what = "persp")` can be coloured by height if a
@@ -64,6 +72,15 @@
   other **vegan** functions. Usually effects can be seen only in the
   last decimals.
 
+* `qqnorm.permustats` gained argument `which` to select the displayed
+  statistic. Earlier it refused to handle `permustats` results with
+  several statistics. The function also gained argument `x` for user
+  supplied theoretical quantiles. With this it can show permutation
+  values against other reference distributions than standard Normal.
+
+* `SSD.cca` can return `type = "response"` of sum of squares and
+  products. Earlier it only knew `type = "canoco"`.
+
 ## Bug Fixes
 
 * `anova` for `prc` result failed with `by` argument if `prc` was
@@ -71,6 +88,13 @@
   `prc(t(spe), md$treatment, md$time)`. Issue
   [#797](https://github.com/vegandevs/vegan/issues/797),
   PR [#798](https://github.com/vegandevs/vegan/pull/798).
+
+* `anova.cca` and `permutest.cca` failed in several cases with
+  `permutations = 0`.
+
+* `anova.cca(..., by = "axis")` inflated _F_-values after first
+  axis. Similar inflation was used both in the test statistic and
+  permutation, and _P_-values are unchanged.
 
 ## Deprecated, Defunct and Resurrected
 

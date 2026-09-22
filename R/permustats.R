@@ -129,36 +129,43 @@
 ### without observed statistic.
 
 `density.permustats` <-
-    function(x, observed = TRUE, ...)
+    function(x, observed = TRUE, which, ...)
 {
-    ## only works with statistic
-    if (length(x$statistic) > 1)
-        stop(gettextf("only works with one statistic: you got %d",
-                      length(x$statistic)))
-    p <- x$permutations
+    if (length(x$statistic) > 1 && missing(which))
+        stop("more than one statistic, and no 'which' given")
+    if (missing(which)) which <- 1L
+    p <- x$permutations[, which]
     if (observed)
-        p <- c(x$statistic, p)
+        p <- c(x$statistic[which], p)
     out <- density(p)
     out$call <- match.call()
     out$call[[1]] <- as.name("density")
     out
 }
 
-### QQ-plot against Guaussian distribution
+### QQ-plot against Gaussian distribution
 
 `qqnorm.permustats` <-
-    function(y, observed = TRUE, ...)
+    function(y, x, observed = TRUE, which, xlab, ylab, ...)
 {
-    ## only works with statistic
-    if (length(y$statistic) > 1)
-        stop(gettextf("only works with one statistic: you got %d",
-                      length(y$statistic)))
-    p <- y$permutations
+    if (length(y$statistic) > 1 && missing(which))
+        stop("more than one statistic, and no 'which' given")
+    if (missing(which)) which <- 1L
+    p <- y$permutations[, which]
     if (observed)
-        p <- c(y$statistic, p)
-    q <- qqnorm(p, ...)
+        p <- c(y$statistic[which], p)
+    n <- length(p)
+    ## axis labels
+    if (missing(ylab))
+        ylab <- paste(names(y$statistic[which]), "Permutation Values")
+    if (missing(xlab))
+        xlab <- "Theoretical Quantiles"
+    ## reference axis x for theoretical quantiles
+    if (missing(x))
+        x <- qnorm(ppoints(n))
+    q <- qqplot(x, p, xlab = xlab, ylab = ylab, ...)
     if (observed)
-        abline(h = y$statistic, ...)
+        abline(h = y$statistic[which], ...)
     invisible(q)
 }
 
