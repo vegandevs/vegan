@@ -1,5 +1,16 @@
 # vegan 2.7-7
 
+## New Features
+
+* `qqnorm.permustats` gained argument `which` to select the displayed
+  statistic. Earlier it refused to handle `permustats` results with
+  several statistics. The function also gained argument `x` for user
+  supplied theoretical quantiles. With this it can show permutation
+  values against other reference distributions than standard Normal.
+
+* `SSD.cca` can return `type = "response"` of sum of squares and
+  products. Earlier it only knew `type = "canoco"`.
+
 ## Bug Fixes
 
 * `anova` for `prc` result failed with `by` argument if `prc` was
@@ -7,6 +18,13 @@
   `prc(t(spe), md$treatment, md$time)`. Issue
   [#797](https://github.com/vegandevs/vegan/issues/797),
   PR [#798](https://github.com/vegandevs/vegan/pull/798).
+
+* `anova.cca` and `permutest.cca` failed in several cases with
+  `permutations = 0`.
+
+* `anova.cca(..., by = "axis")` inflated _F_-values after first
+  axis. Similar inflation was used both in the test statistic and
+  permutation, and _P_-values are unchanged.
 
 # vegan 2.7-6
 
