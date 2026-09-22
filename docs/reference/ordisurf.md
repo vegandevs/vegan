@@ -373,11 +373,11 @@ fit <- ordisurf(vare.mds ~ Baresoil, varechem, bubble = 5)
 ## fitted values
 fitted(fit) # or predict(fit)
 #>        18        15        24        27        23        19        22        16 
-#> 23.565979 32.537513 22.769598 17.019908 38.492514 36.434425 37.159032 34.725524 
+#> 23.565864 32.537463 22.770254 17.018014 38.492595 36.434430 37.159050 34.725426 
 #>        28        13        14        20        25         7         5         6 
-#> 26.759545 26.163470 28.674423 37.267379 23.638698 17.647581 18.673587 17.565577 
+#> 26.760828 26.163217 28.674250 37.267272 23.638291 17.647430 18.672909 17.565468 
 #>         3         4         2         9        12        10        11        21 
-#> 15.135718 10.581099  3.673060 15.132846 15.890012  9.027062  4.354854 37.890597 
+#> 15.135923 10.581707  3.675111 15.132912 15.889857  9.026733  4.354490 37.890508 
 
 ## Cover of reindeer lichen Cladonia stellaris
 fit <- ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson,
@@ -395,7 +395,7 @@ ordisurf(vare.mds ~ Cladstel, varespec, family=quasipoisson, knots = 2,
 #> y ~ poly(x1, 2) + poly(x2, 2) + poly(x1, 1):poly(x2, 1)
 #> Total model degrees of freedom 6 
 #> 
-#> REML score: 32.88122     
+#> REML score: 32.8813     
 
 ## Variable selection via additional shrinkage penalties
 ## This allows non-significant smooths to be selected out
@@ -414,7 +414,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", select = TRUE)
 #> Estimated degrees of freedom:
 #> 4.95  total = 5.95 
 #> 
-#> REML score: 94.82501     
+#> REML score: 94.82505     
 ##  - option 2: use a basis with shrinkage
 ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 
@@ -428,7 +428,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, method = "REML", bs = "ts")
 #> Estimated degrees of freedom:
 #> 4.28  total = 5.28 
 #> 
-#> REML score: 96.84751     
+#> REML score: 96.84735     
 ## or bs = "cs" with `isotropic = FALSE`
 ## IGNORE_RDIFF_END
 ## Plot method
@@ -461,7 +461,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, bs = "ds")
 #> Estimated degrees of freedom:
 #> 5.09  total = 6.09 
 #> 
-#> REML score: 94.81594     
+#> REML score: 94.81597     
 
 ## A fixed degrees of freedom smooth, must use 'select = FALSE'
 ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
@@ -477,7 +477,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, knots = 4,
 #> Estimated degrees of freedom:
 #> 3  total = 4 
 #> 
-#> REML score: 87.49958     
+#> REML score: 87.49922     
 
 ## An anisotropic smoother with cubic regression spline bases
 ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
@@ -494,7 +494,7 @@ ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
 #> Estimated degrees of freedom:
 #> 5.78  total = 6.78 
 #> 
-#> REML score: 95.53829     
+#> REML score: 95.53826     
 
 ## An anisotropic smoother with cubic regression spline with
 ## shrinkage bases & different degrees of freedom in each dimension
@@ -513,5 +513,5 @@ ordisurf(vare.mds ~ Baresoil, varechem, isotropic = FALSE,
 #> Estimated degrees of freedom:
 #> 11  total = 12 
 #> 
-#> REML score: 45.47003     
+#> REML score: 45.46885     
 ```

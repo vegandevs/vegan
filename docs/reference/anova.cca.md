@@ -16,7 +16,7 @@ assess the significance of constraints.
 anova(object, ..., permutations = how(nperm=999),
      by = NULL, model = c("reduced", "direct", "full"),
      parallel = getOption("mc.cores"), strata = NULL,
-     cutoff = 1, scope = NULL)
+     cutoff = 1, scope = NULL, test = c("permutation", "F"))
 # S3 method for class 'cca'
 permutest(x, permutations = how(nperm = 99),
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
@@ -31,10 +31,10 @@ permutest(x, permutations = how(nperm = 99),
   [`cca`](https://vegandevs.github.io/vegan/reference/cca.md),
   [`rda`](https://vegandevs.github.io/vegan/reference/cca.md),
   [`dbrda`](https://vegandevs.github.io/vegan/reference/dbrda.md) or
-  [`capscale`](https://vegandevs.github.io/vegan/reference/dbrda.md). If
-  there are several result objects, they are compared against each other
-  in the order they were supplied. For a single object, a test specified
-  in `by` or an overall test is given.
+  [`capscale`](https://vegandevs.github.io/vegan/reference/dbrda.md).
+  For a single object, a test specified in `by` or an overall test is
+  given. If there are several result objects, they should be nested, and
+  they are compared against previous model in the order of nestedness.
 
 - x:
 
@@ -49,12 +49,15 @@ permutest(x, permutations = how(nperm = 99),
 
 - by:
 
-  Setting `by = "axis"` will assess significance for each constrained
-  axis, and setting `by = "terms"` will assess significance for each
-  term (sequentially from first to last), and setting `by = "margin"`
-  will assess the marginal effects of the terms (each marginal term
-  analysed in a model with all other variables), and `by = "onedf"` will
-  assess sequentially one-degree-of-freedom contrasts of split factors.
+  The default (`NULL`) performs overall test for the model. In
+  `permutest` and `anova` you can set `by = "term"` for sequential test
+  of terms (from first to last), and `by = "onedf"` for sequential test
+  of one-degree-of-freedom contrasts of factor levels. In `anova` you
+  can also set `by = "margin"` for marginal effecs of terms (each
+  marginal term analysed in a model with all other variables), and
+  `by = "axis"` for each constrained axis. Choices `"terms"` and
+  `"margin"` can be used only with models fitted with formula. `by`
+  cannot be used together with `first = TRUE`.
 
 - model:
 
@@ -73,7 +76,7 @@ permutest(x, permutations = how(nperm = 99),
   supplied, observations are permuted only within the specified strata.
   It is an error to use this when `permutations` is a matrix, or a
   [`how`](https://rdrr.io/pkg/permute/man/how.html) defines `blocks`.
-  This is a legacy argument that will be deprecated in the future: use
+  This is a legacy argument: it is better to use
   `permutations = how(..., blocks)` instead.
 
 - cutoff:
@@ -86,6 +89,15 @@ permutest(x, permutations = how(nperm = 99),
   Only effective with `by="margin"` where it can be used to select the
   marginal terms for testing. The default is to test all marginal terms
   in [`drop.scope`](https://rdrr.io/r/stats/factor.scope.html).
+
+- test:
+
+  Test type, either permutation test or parametric \\F\\-test.
+  Parametric test is only available for
+  [`rda`](https://vegandevs.github.io/vegan/reference/cca.md). It is
+  similar as [`anova.mlm`](https://rdrr.io/r/stats/anova.mlm.html)
+  `test = "Spherical"` with Greenhouse-Geisser correction for
+  asphericity.
 
 - first:
 
@@ -119,15 +131,13 @@ Argument `first` can be set either in `anova.cca` or in `permutest.cca`.
 It is also possible to perform significance tests for each axis or for
 each term (constraining variable) using argument `by` in `anova.cca`.
 Setting `by = "axis"` will perform separate significance tests for each
-constrained axis. All previous constrained axes will be used as
-conditions (“partialled out”) and a test for the first constrained
-eigenvalues is performed (Legendre et al. 2011). You can stop
-permutation tests after exceeding a given significance level with
-argument `cutoff` to speed up calculations in large models. Setting
-`by = "terms"` will perform separate significance test for each term
-(constraining variable). The terms are assessed sequentially from first
-to last, and the order of the terms will influence their significances.
-Setting `by = "onedf"` will perform a similar sequential test for
+constrained axis (Legendre et al. 2011). You can stop permutation tests
+after exceeding a given significance level with argument `cutoff` to
+speed up calculations in large models. Setting `by = "terms"` will
+perform separate significance test for each term (constraining
+variable). The terms are assessed sequentially from first to last, and
+the order of the terms will influence their significances. Setting
+`by = "onedf"` will perform a similar sequential test for
 one-degree-of-freedom effects, where multi-level factors are split in
 their contrasts. Setting `by = "margin"` will perform separate
 significance test for each marginal term in a model with all other
@@ -154,6 +164,20 @@ In partial CCA/ RDA/ dbRDA, the effect of conditioning variables
 is not fixed, and test based on pseudo-\\F\\ would differ from the test
 based on plain eigenvalues.
 
+Function can also perform parametric \\F\\-test on
+[`rda`](https://vegandevs.github.io/vegan/reference/cca.md) models. This
+test is similar to `test = "Spherical"` in
+[`anova.mlm`](https://rdrr.io/r/stats/anova.mlm.html). The test uses the
+tabulated \\F\\-values but multiplies the degrees of freedom with number
+of variables (species, columns) times correction factor epsilon, using
+Greenhouse-Geisser correction for asphericity. Preliminary tests
+indicate that this test is often consistent with permutation tests in
+[`rda`](https://vegandevs.github.io/vegan/reference/cca.md) (but not in
+[`cca`](https://vegandevs.github.io/vegan/reference/cca.md) and cannot
+be used with distance-based methods). However, if you use this test, it
+is best to check that it gives consistent results with permutation tests
+(see Examples).
+
 ## Value
 
 The function `anova.cca` calls `permutest.cca` and fills an
@@ -177,23 +201,30 @@ Jari Oksanen
 
 ## See also
 
-`anova.cca`,
 [`cca`](https://vegandevs.github.io/vegan/reference/cca.md),
 [`rda`](https://vegandevs.github.io/vegan/reference/cca.md),
 [`dbrda`](https://vegandevs.github.io/vegan/reference/dbrda.md) to get
 something to analyse. Function
+[`adonis2`](https://vegandevs.github.io/vegan/reference/adonis.md) is
+similar to `anova` of a
+[`dbrda`](https://vegandevs.github.io/vegan/reference/dbrda.md) result.
+Function
 [`drop1.cca`](https://vegandevs.github.io/vegan/reference/add1.cca.md)
 calls `anova.cca` with `by = "margin"`, and
 [`add1.cca`](https://vegandevs.github.io/vegan/reference/add1.cca.md) an
 analysis for single terms additions, which can be used in automatic or
 semiautomatic model building (see
-[`deviance.cca`](https://vegandevs.github.io/vegan/reference/deviance.cca.md)).
+[`ordistep`](https://vegandevs.github.io/vegan/reference/ordistep.md)).
+Function
+[`permustats`](https://vegandevs.github.io/vegan/reference/permustats.md)
+extracts permutation results for further analysis.
 
 ## Examples
 
 ``` r
 data(dune, dune.env)
 mod <- cca(dune ~ Moisture + Management, dune.env)
+
 ## overall test
 anova(mod)
 #> Permutation test for cca under reduced model
@@ -206,8 +237,9 @@ anova(mod)
 #> Residual 13    1.1129                 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-## tests for individual terms
-anova(mod, by="term")
+
+## tests for individual terms and contrasts
+anova(mod, by = "term")
 #> Permutation test for cca under reduced model
 #> Terms added sequentially (first to last)
 #> Permutation: free
@@ -220,7 +252,7 @@ anova(mod, by="term")
 #> Residual   13   1.11289                  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-anova(mod, by="margin")
+anova(mod, by = "margin")
 #> Permutation test for cca under reduced model
 #> Marginal effects of terms
 #> Permutation: free
@@ -233,7 +265,6 @@ anova(mod, by="margin")
 #> Residual   13   1.11289                
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-## sequential test for contrasts
 anova(mod, by = "onedf")
 #> Permutation test for cca under reduced model
 #> Sequential test for contrasts
@@ -251,18 +282,55 @@ anova(mod, by = "onedf")
 #> Residual     13   1.11289                  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-## test for adding all environmental variables
-anova(mod, cca(dune ~ ., dune.env))
+
+## compare several models in succession
+mod0 <- cca(dune ~ 1, dune.env)
+mod1 <- cca(dune ~ Moisture + A1, dune.env)
+mod2 <- update(mod1, . ~ . + Management + Manure, dune.env)
 #> 
 #> Some constraints or conditions were aliased because they were redundant. This
 #> can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
+anova(mod0, mod1, mod2)
 #> Permutation tests for cca under reduced model
 #> Permutation: free
 #> Number of permutations: 999
 #> 
-#> Model 1: dune ~ Moisture + Management
-#> Model 2: dune ~ A1 + Moisture + Management + Use + Manure
-#>   ResDf ResChiSquare Df ChiSquare      F Pr(>F)
-#> 1    13       1.1129                           
-#> 2     7       0.6121  6   0.50079 0.9545  0.532
+#> Model 1: dune ~ 1
+#> Model 2: dune ~ Moisture + A1
+#> Model 3: dune ~ Moisture + A1 + Management + Manure
+#>   ResDf ResChiSquare Df ChiSquare      F Pr(>F)   
+#> 1    19       2.1153                              
+#> 2    15       1.3715  4   0.74374 2.2546  0.003 **
+#> 3     9       0.7422  6   0.62933 1.2719  0.105   
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+## See that permutation and F-distribution are consistent
+mod <- rda(dune ~ Moisture + Management, dune.env)
+(ano <- anova(mod))
+#> Permutation test for rda under reduced model
+#> Permutation: free
+#> Number of permutations: 999
+#> 
+#> Model: rda(formula = dune ~ Moisture + Management, data = dune.env)
+#>          Df Variance      F Pr(>F)    
+#> Model     6   46.425 2.6682  0.001 ***
+#> Residual 13   37.699                  
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+anova(mod, test = "F")
+#> Parametric F-test for rda  
+#> Greenhouse-Geisser epsilon: 0.245 
+#> 
+#> Model: rda(formula = dune ~ Moisture + Management, data = dune.env)
+#>          Df Variance      F    Pr(>F)    
+#> Model     6   46.425 2.6682 3.256e-05 ***
+#> Residual 13   37.699                     
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+## adjustment for degrees of freedom in F distribution
+adj <- ncol(dune) * 0.245 # Greenhouse-Geisser epsilon
+qqnorm(permustats(ano), x = qf(ppoints(999), 6*adj, 13*adj, lower.tail=FALSE),
+  observed = FALSE)
+abline(0, 1, col = 2) # line of equality
 ```

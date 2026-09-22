@@ -221,7 +221,7 @@ data(sipoo)
 ## Matrix temperature
 out <- nestedtemp(sipoo)
 out
-#> nestedness temperature: 10.24281 
+#> nestedness temperature: 10.22541 
 #> with matrix fill 0.2233333 
 plot(out)
 
@@ -245,7 +245,7 @@ oecosimu(sipoo, nestedchecker, "quasiswap")
 #> C-score (species mean): 2.258776 
 #> 
 #>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-#> checkerboards      2767 0.64972 2712.5 2589.0 2697.0 2876.4     0.53
+#> checkerboards      2767 0.83538 2695.1 2580.4 2684.0 2881.2     0.43
 ## Another Null model and standardized checkerboard score
 oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
 #> oecosimu object
@@ -261,7 +261,7 @@ oecosimu(sipoo, nestedchecker, "r00", statistic = "C.score")
 #> C-score (species mean): 2.258776 
 #> 
 #>         statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)   
-#> C.score    2.2588 -28.589 9.2288 8.6398 9.2098 9.6356     0.01 **
+#> C.score    2.2588 -31.965 9.2518 8.7817 9.2898 9.6022     0.01 **
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```

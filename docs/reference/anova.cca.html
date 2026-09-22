@@ -56,7 +56,7 @@
 <span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">...</span>, permutations <span class="op">=</span> <span class="fu">how</span><span class="op">(</span>nperm<span class="op">=</span><span class="fl">999</span><span class="op">)</span>,</span>
 <span>     by <span class="op">=</span> <span class="cn">NULL</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"reduced"</span>, <span class="st">"direct"</span>, <span class="st">"full"</span><span class="op">)</span>,</span>
 <span>     parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, strata <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>     cutoff <span class="op">=</span> <span class="fl">1</span>, scope <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span>     cutoff <span class="op">=</span> <span class="fl">1</span>, scope <span class="op">=</span> <span class="cn">NULL</span>, test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"permutation"</span>, <span class="st">"F"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
 <span><span class="fu">permutest</span><span class="op">(</span><span class="va">x</span>, permutations <span class="op">=</span> <span class="fu">how</span><span class="op">(</span>nperm <span class="op">=</span> <span class="fl">99</span><span class="op">)</span>,</span>
 <span>     model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"reduced"</span>, <span class="st">"direct"</span>, <span class="st">"full"</span><span class="op">)</span>, by <span class="op">=</span> <span class="cn">NULL</span>, first <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -70,10 +70,11 @@
 <p></p>
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p>One or several result objects from <code><a href="cca.html">cca</a></code>,
-    <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code> or <code><a href="dbrda.html">capscale</a></code>. If
-    there are several result objects, they are compared against each
-    other in the order they were supplied. For a single object, a test
-    specified in <code>by</code> or an overall test is given.</p></dd>
+    <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code> or
+    <code><a href="dbrda.html">capscale</a></code>. For a single object, a test specified in
+    <code>by</code> or an overall test is given. If there are several result
+    objects, they should be nested, and they are compared against
+    previous model in the order of nestedness.</p></dd>
 
 
   <dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
@@ -88,13 +89,16 @@
 
 
   <dt id="arg-by">by<a class="anchor" aria-label="anchor" href="#arg-by"></a></dt>
-<dd><p>Setting <code>by = "axis"</code> will assess significance for
-    each constrained axis, and setting <code>by = "terms"</code> will assess
-    significance for each term (sequentially from first to last), and
-    setting <code>by = "margin"</code> will assess the marginal effects of
-    the terms (each marginal term analysed in a model with all other
-    variables), and <code>by = "onedf"</code> will assess sequentially
-    one-degree-of-freedom contrasts of split factors.</p></dd>
+<dd><p>The default (<code>NULL</code>) performs overall test for the
+    model. In <code>permutest</code> and <code>anova</code> you can set <code>by =
+    "term"</code> for sequential test of terms (from first to last), and
+    <code>by = "onedf"</code> for sequential test of one-degree-of-freedom
+    contrasts of factor levels. In <code>anova</code> you can also set
+    <code>by = "margin"</code> for marginal effecs of terms (each marginal
+    term analysed in a model with all other variables), and <code>by =
+    "axis"</code> for each constrained axis. Choices <code>"terms"</code> and
+    <code>"margin"</code> can be used only with models fitted with
+    formula. <code>by</code> cannot be used together with <code>first = TRUE</code>.</p></dd>
 
 
   <dt id="arg-model">model<a class="anchor" aria-label="anchor" href="#arg-model"></a></dt>
@@ -115,9 +119,8 @@
     permutation. If supplied, observations are permuted only within
     the specified strata. It is an error to use this when
     <code>permutations</code> is a matrix, or a <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>
-    defines <code>blocks</code>. This is a legacy argument that will be
-    deprecated in the future: use
-    <code>permutations = how(..., blocks)</code> instead.</p></dd>
+    defines <code>blocks</code>. This is a legacy argument: it is better to
+    use <code>permutations = how(..., blocks)</code> instead.</p></dd>
 
 
   <dt id="arg-cutoff">cutoff<a class="anchor" aria-label="anchor" href="#arg-cutoff"></a></dt>
@@ -130,6 +133,14 @@
 <dd><p>Only effective with <code>by="margin"</code> where it can be
     used to select the marginal terms for testing. The default is to
     test all marginal terms in <code><a href="https://rdrr.io/r/stats/factor.scope.html" class="external-link">drop.scope</a></code>.</p></dd>
+
+
+  <dt id="arg-test">test<a class="anchor" aria-label="anchor" href="#arg-test"></a></dt>
+<dd><p>Test type, either permutation test or parametric
+    \(F\)-test. Parametric test is only available for
+    <code><a href="cca.html">rda</a></code>. It is similar as <code><a href="https://rdrr.io/r/stats/anova.mlm.html" class="external-link">anova.mlm</a></code>
+    <code>test = "Spherical"</code> with Greenhouse-Geisser correction for
+    asphericity.</p></dd>
 
 
   <dt id="arg-first">first<a class="anchor" aria-label="anchor" href="#arg-first"></a></dt>
@@ -164,9 +175,7 @@
   perform significance tests for each axis or for each term
   (constraining variable) using argument <code>by</code> in <code>anova.cca</code>.
   Setting <code>by = "axis"</code> will perform separate significance tests
-  for each constrained axis.  All previous constrained axes will be used
-  as conditions (“partialled out”) and a test for the first
-  constrained eigenvalues is performed (Legendre et al. 2011).  You can
+  for each constrained axis (Legendre et al. 2011).  You can
   stop permutation tests after exceeding a given significance level with
   argument <code>cutoff</code> to speed up calculations in large
   models. Setting <code>by = "terms"</code> will perform separate significance
@@ -199,6 +208,17 @@
   permutation, and the total Chi-square is not fixed, and test based on
   pseudo-\(F\) would differ from the test based on plain
   eigenvalues.</p>
+<p>Function can also perform parametric \(F\)-test on
+  <code><a href="cca.html">rda</a></code> models. This test is similar to <code>test =
+  "Spherical"</code> in <code><a href="https://rdrr.io/r/stats/anova.mlm.html" class="external-link">anova.mlm</a></code>. The test uses the tabulated
+  \(F\)-values but multiplies the degrees of freedom with number of
+  variables (species, columns) times correction factor epsilon, using
+  Greenhouse-Geisser correction for asphericity. Preliminary tests
+  indicate that this test is often consistent with permutation tests
+  in <code><a href="cca.html">rda</a></code> (but not in <code><a href="cca.html">cca</a></code> and cannot be
+  used with distance-based methods). However, if you use this test, it
+  is best to check that it gives consistent results with permutation
+  tests (see Examples).</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -222,18 +242,22 @@
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><code>anova.cca</code>, <code><a href="cca.html">cca</a></code>,
-  <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code> to get something to
-  analyse. Function <code><a href="add1.cca.html">drop1.cca</a></code> calls <code>anova.cca</code>
-  with <code>by = "margin"</code>, and <code><a href="add1.cca.html">add1.cca</a></code> an analysis
-  for single terms additions, which can be used in automatic or
-  semiautomatic model building (see <code><a href="deviance.cca.html">deviance.cca</a></code>).</p></div>
+    <div class="dont-index"><p><code><a href="cca.html">cca</a></code>, <code><a href="cca.html">rda</a></code>, <code><a href="dbrda.html">dbrda</a></code> to
+  get something to analyse. Function <code><a href="adonis.html">adonis2</a></code> is similar
+  to <code>anova</code> of a <code><a href="dbrda.html">dbrda</a></code> result.  Function
+  <code><a href="add1.cca.html">drop1.cca</a></code> calls <code>anova.cca</code> with <code>by =
+  "margin"</code>, and <code><a href="add1.cca.html">add1.cca</a></code> an analysis for single terms
+  additions, which can be used in automatic or semiautomatic model
+  building (see <code><a href="ordistep.html">ordistep</a></code>).  Function
+  <code><a href="permustats.html">permustats</a></code> extracts
+  permutation results for further analysis.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">Management</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## overall test</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for cca under reduced model</span>
@@ -246,8 +270,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13    1.1129                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span><span class="co">## tests for individual terms</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by<span class="op">=</span><span class="st">"term"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## tests for individual terms and contrasts</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by <span class="op">=</span> <span class="st">"term"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for cca under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Terms added sequentially (first to last)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
@@ -260,7 +285,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by<span class="op">=</span><span class="st">"margin"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by <span class="op">=</span> <span class="st">"margin"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for cca under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Marginal effects of terms</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
@@ -273,7 +298,6 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span><span class="co">## sequential test for contrasts</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by <span class="op">=</span> <span class="st">"onedf"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for cca under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Sequential test for contrasts</span>
@@ -291,20 +315,58 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual     13   1.11289                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span><span class="co">## test for adding all environmental variables</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## compare several models in succession</span></span></span>
+<span class="r-in"><span><span class="va">mod0</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod1</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">A1</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">mod2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">mod1</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">+</span> <span class="va">Management</span> <span class="op">+</span> <span class="va">Manure</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod0</span>, <span class="va">mod1</span>, <span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation tests for cca under reduced model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model 1: dune ~ Moisture + Management</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model 2: dune ~ A1 + Moisture + Management + Use + Manure</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ResDf ResChiSquare Df ChiSquare      F Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    13       1.1129                           </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     7       0.6121  6   0.50079 0.9545  0.532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model 1: dune ~ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model 2: dune ~ Moisture + A1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model 3: dune ~ Moisture + A1 + Management + Manure</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ResDf ResChiSquare Df ChiSquare      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    19       2.1153                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    15       1.3715  4   0.74374 2.2546  0.003 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     9       0.7422  6   0.62933 1.2719  0.105   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## See that permutation and F-distribution are consistent</span></span></span>
+<span class="r-in"><span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">Moisture</span> <span class="op">+</span> <span class="va">Management</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">ano</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for rda under reduced model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: free</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: rda(formula = dune ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df Variance      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     6   46.425 2.6682  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13   37.699                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, test <span class="op">=</span> <span class="st">"F"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Parametric F-test for rda  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Greenhouse-Geisser epsilon: 0.245 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: rda(formula = dune ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df Variance      F    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     6   46.425 2.6682 3.256e-05 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13   37.699                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-in"><span><span class="co">## adjustment for degrees of freedom in F distribution</span></span></span>
+<span class="r-in"><span><span class="va">adj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span> <span class="op">*</span> <span class="fl">0.245</span> <span class="co"># Greenhouse-Geisser epsilon</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="fu"><a href="permustats.html">permustats</a></span><span class="op">(</span><span class="va">ano</span><span class="op">)</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html" class="external-link">qf</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ppoints.html" class="external-link">ppoints</a></span><span class="op">(</span><span class="fl">999</span><span class="op">)</span>, <span class="fl">6</span><span class="op">*</span><span class="va">adj</span>, <span class="fl">13</span><span class="op">*</span><span class="va">adj</span>, lower.tail<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  observed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># line of equality</span></span></span>
+<span class="r-plt img"><img src="anova.cca-1.png" alt="" width="700" height="1133"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

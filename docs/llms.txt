@@ -235,14 +235,14 @@ install.packages('vegan',
   Scaling
 - [`indpower()`](https://vegandevs.github.io/vegan/reference/indpower.md)
   : Indicator Power of Species
-- [`hatvalues(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
+- [`influence(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
+  [`hatvalues(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`rstandard(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`rstudent(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`cooks.distance(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
-  [`influence(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`sigma(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
-  [`vcov(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`SSD(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
+  [`vcov(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`qr(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`df.residual(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   : Linear Model Diagnostics for Constrained Ordination

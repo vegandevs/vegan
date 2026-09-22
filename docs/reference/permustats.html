@@ -53,9 +53,9 @@
 <span><span class="co"># S3 method for class 'permustats'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, interval <span class="op">=</span> <span class="fl">0.95</span>, <span class="va">alternative</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">x</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">x</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">which</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="va">y</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, observed <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">which</span>, <span class="va">xlab</span>, <span class="va">ylab</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">x</span>, scale <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">names</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'permustats'</span></span>
@@ -66,7 +66,9 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <p></p>
 <dl><dt id="arg-object-x-y">object, x, y<a class="anchor" aria-label="anchor" href="#arg-object-x-y"></a></dt>
-<dd><p>The object to be handled.</p></dd>
+<dd><p>The object to be handled. Usually this is
+    <code>x</code>, but in <code>qqnorm</code> the permutation values are displayed
+    on \(y\)-axis, and <code>x</code> can be used for user-supplied quantiles.</p></dd>
 
   <dt id="arg-interval">interval<a class="anchor" aria-label="anchor" href="#arg-interval"></a></dt>
 <dd><p>numeric; the coverage interval reported.</p></dd>
@@ -81,6 +83,13 @@
 
   <dt id="arg-observed">observed<a class="anchor" aria-label="anchor" href="#arg-observed"></a></dt>
 <dd><p>Add observed statistic among permutations.</p></dd>
+
+  <dt id="arg-which">which<a class="anchor" aria-label="anchor" href="#arg-which"></a></dt>
+<dd><p><code>which</code> (integer) of permutation statistics is
+    displayed.</p></dd>
+
+  <dt id="arg-xlab-ylab">xlab, ylab<a class="anchor" aria-label="anchor" href="#arg-xlab-ylab"></a></dt>
+<dd><p>Axis labels to replace defaults.</p></dd>
 
   <dt id="arg-scale">scale<a class="anchor" aria-label="anchor" href="#arg-scale"></a></dt>
 <dd><p>Use standardized effect size (SES).</p></dd>
@@ -120,21 +129,17 @@
 <p>The results can be displayed with conventional graphics or as
   <span class="pkg">ggplot2</span> graphics using <code>autoplot</code> function in
   <a href="https://CRAN.R-project.org/package=ggvegan" class="external-link"><span class="pkg">ggvegan</span></a> package.</p>
-<p>The <code>density</code> and <code>densityplot</code> methods display the
-  kernel density estimates of permuted values. When observed value of
-  the statistic is included in the permuted values, the
-  <code>densityplot</code> method marks the observed statistic as a vertical
-  line. However the <code>density</code> method uses its standard <code>plot</code>
-  method and cannot mark the observed value. Only one statistic can be
-  displayed with <code>density</code> and for several statistics
-  <code>permulattice</code> or <code>densityplot</code> must be used.</p>
-<p>The <code>qqnorm</code> method display Q-Q plots of permutations, optionally
+<p>The <code>density</code> prepares kernel density estimates of permuted
+  values; these can be displayed with <code>plot</code>. Only one statistic
+  can be displayed: use <code>which</code> to select the displayed statistic.</p>
+<p>The <code>qqnorm</code> method displays Q-Q plots of permutations, optionally
   together with the observed value (default) which is shown as
   horizontal line in plots. <code>qqnorm</code> plots permutation values
-  against standard Normal variate. The permutations are standardized
-  without the observed statistic, similarly as in <code>summary</code>.  Only
-  one statistic can be shown with <code>qqnorm</code> and for several
-  statistics <span class="pkg">ggvegan</span> package must be used.</p>
+  against standard Normal variate, but users can supply other reference
+  axis with argument <code>x</code>. The permutations are standardized
+  without the observed statistic, similarly as in <code>summary</code>. Only
+  one statistic can be displayed: use <code>which</code> to select the
+  displayed statistic.</p>
 <p>Function <code>boxplot</code> draws the box-and-whiskers plots of effect
   size, or the difference of permutations and observed statistic. If
   <code>scale = TRUE</code>, permutations are standardized to unit standard
@@ -170,7 +175,8 @@
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code>, <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code>,
-  <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>.</p></div>
+  <code><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></code>. Package <span class="pkg">ggvegan</span> may have (depending on
+  version) alternative functions to display <code>permustats</code> results.</p></div>
     </div>
 
     <div class="section level2">

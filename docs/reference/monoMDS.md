@@ -305,9 +305,9 @@ m
 #> 20 points, dissimilarity ‘bray’, call ‘vegdist(x = dune)’
 #> 
 #> Dimensions: 2 
-#> Stress:     0.07626801 
+#> Stress:     0.07596761 
 #> Stress type 1, weak ties
 #> Scores scaled to unit root mean square, rotated to principal components
-#> Stopped after 133 iterations: Stress nearly unchanged (ratio > sratmax)
+#> Stopped after 74 iterations: Stress nearly unchanged (ratio > sratmax)
 plot(m)
 ```

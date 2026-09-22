@@ -27,6 +27,10 @@ for these, but they can be used directly.
 
 ``` r
 # S3 method for class 'cca'
+influence(model, type = c("response", "canoco"),
+    addFit = FALSE, tidy = FALSE, ...)
+
+# S3 method for class 'cca'
 hatvalues(model, ...)
 # S3 method for class 'cca'
 rstandard(model, type = c("response", "canoco"), ...)
@@ -34,16 +38,13 @@ rstandard(model, type = c("response", "canoco"), ...)
 rstudent(model, type = c("response", "canoco"), ...)
 # S3 method for class 'cca'
 cooks.distance(model, type = c("response", "canoco"), ...)
-# S3 method for class 'cca'
-influence(model, type = c("response", "canoco"),
-    addFit = FALSE, tidy = FALSE, ...)
 
 # S3 method for class 'cca'
 sigma(object, type = c("response", "canoco"), ...)
 # S3 method for class 'cca'
-vcov(object, type = "canoco", ...)
+SSD(object, type = c("response", "canoco"), ...)
 # S3 method for class 'cca'
-SSD(object, type = "canoco", ...)
+vcov(object, type = "canoco", ...)
 
 # S3 method for class 'cca'
 qr(x, ...)

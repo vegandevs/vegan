@@ -11,9 +11,9 @@ permustats(x, ...)
 # S3 method for class 'permustats'
 summary(object, interval = 0.95, alternative, ...)
 # S3 method for class 'permustats'
-density(x, observed = TRUE, ...)
+density(x, observed = TRUE, which, ...)
 # S3 method for class 'permustats'
-qqnorm(y, observed = TRUE, ...)
+qqnorm(y, x, observed = TRUE, which, xlab, ylab, ...)
 # S3 method for class 'permustats'
 boxplot(x, scale = FALSE, names, ...)
 # S3 method for class 'permustats'
@@ -24,7 +24,9 @@ pairs(x, ...)
 
 - object, x, y:
 
-  The object to be handled.
+  The object to be handled. Usually this is `x`, but in `qqnorm` the
+  permutation values are displayed on \\y\\-axis, and `x` can be used
+  for user-supplied quantiles.
 
 - interval:
 
@@ -41,6 +43,14 @@ pairs(x, ...)
 - observed:
 
   Add observed statistic among permutations.
+
+- which:
+
+  `which` (integer) of permutation statistics is displayed.
+
+- xlab, ylab:
+
+  Axis labels to replace defaults.
 
 - scale:
 
@@ -83,20 +93,17 @@ The results can be displayed with conventional graphics or as ggplot2
 graphics using `autoplot` function in
 [ggvegan](https://CRAN.R-project.org/package=ggvegan) package.
 
-The `density` and `densityplot` methods display the kernel density
-estimates of permuted values. When observed value of the statistic is
-included in the permuted values, the `densityplot` method marks the
-observed statistic as a vertical line. However the `density` method uses
-its standard `plot` method and cannot mark the observed value. Only one
-statistic can be displayed with `density` and for several statistics
-`permulattice` or `densityplot` must be used.
+The `density` prepares kernel density estimates of permuted values;
+these can be displayed with `plot`. Only one statistic can be displayed:
+use `which` to select the displayed statistic.
 
-The `qqnorm` method display Q-Q plots of permutations, optionally
+The `qqnorm` method displays Q-Q plots of permutations, optionally
 together with the observed value (default) which is shown as horizontal
 line in plots. `qqnorm` plots permutation values against standard Normal
-variate. The permutations are standardized without the observed
-statistic, similarly as in `summary`. Only one statistic can be shown
-with `qqnorm` and for several statistics ggvegan package must be used.
+variate, but users can supply other reference axis with argument `x`.
+The permutations are standardized without the observed statistic,
+similarly as in `summary`. Only one statistic can be displayed: use
+`which` to select the displayed statistic.
 
 Function `boxplot` draws the box-and-whiskers plots of effect size, or
 the difference of permutations and observed statistic. If
@@ -143,7 +150,9 @@ Jari Oksanen with contributions from Gavin L. Simpson
 
 [`density`](https://rdrr.io/r/stats/density.html),
 [`qqnorm`](https://rdrr.io/r/stats/qqnorm.html),
-[`boxplot`](https://rdrr.io/r/graphics/boxplot.html).
+[`boxplot`](https://rdrr.io/r/graphics/boxplot.html). Package ggvegan
+may have (depending on version) alternative functions to display
+`permustats` results.
 
 ## Examples
 
