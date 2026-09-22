@@ -32,9 +32,6 @@
 }
 
 \usage{
-\method{influence}{cca}(model, type = c("response", "canoco"),
-    addFit = FALSE, tidy = FALSE, ...)
-
 \method{hatvalues}{cca}(model, ...)
 \method{rstandard}{cca}(model, type = c("response", "canoco"), ...)
 \method{rstudent}{cca}(model, type = c("response", "canoco"), ...)
