@@ -32,11 +32,11 @@
 \arguments{
 
   \item{object}{One or several result objects from \code{\link{cca}},
-    \code{\link{rda}}, \code{\link{dbrda}} or \code{\link{capscale}}. If
-    there are several result objects, they should be nested, and they
-    are compared against previous model in the order of nestedness. For
-    a single object, a test specified in \code{by} or an overall test is
-    given.}
+    \code{\link{rda}}, \code{\link{dbrda}} or
+    \code{\link{capscale}}. For a single object, a test specified in
+    \code{by} or an overall test is given. If there are several result
+    objects, they should be nested, and they are compared against
+    previous model in the order of nestedness. }
 
   \item{x}{A single ordination result object.}
 
@@ -49,7 +49,7 @@
     model. In \code{permutest} and \code{anova} you can set \code{by =
     "term"} for sequential test of terms (from first to last), and
     \code{by = "onedf"} for sequential test of one-degree-of-freedom
-    contrasts of split factors. In \code{anova} you can also set
+    contrasts of factor levels. In \code{anova} you can also set
     \code{by = "margin"} for marginal effecs of terms (each marginal
     term analysed in a model with all other variables), and \code{by =
     "axis"} for each constrained axis. Choices \code{"terms"} and
@@ -69,9 +69,8 @@
     permutation. If supplied, observations are permuted only within
     the specified strata. It is an error to use this when
     \code{permutations} is a matrix, or a \code{\link[permute]{how}}
-    defines \code{blocks}. This is a legacy argument that will be
-    deprecated in the future: use
-    \code{permutations = how(\dots, blocks)} instead. }
+    defines \code{blocks}. This is a legacy argument: it is better to
+    use \code{permutations = how(\dots, blocks)} instead. }
 
   \item{cutoff}{Only effective with \code{by="axis"} where stops
     permutations after an axis equals or exceeds the \code{cutoff}
@@ -83,7 +82,7 @@
 
   \item{test}{Test type, either permutation test or parametric
     \eqn{F}-test. Parametric test is only available for
-    \code{\link{rda}}. It is similar as \code{\link{anova.mlm}} option
+    \code{\link{rda}}. It is similar as \code{\link{anova.mlm}}
     \code{test = "Spherical"} with Greenhouse-Geisser correction for
     asphericity.}
 
@@ -151,6 +150,18 @@
   pseudo-\eqn{F} would differ from the test based on plain
   eigenvalues.
 
+  Function can also perform parametric \eqn{F}-test on
+  \code{\link{rda}} models. This test is similar to \code{test =
+  "Spherical"} in \code{\link{anova.mlm}}. The test uses the tabulated
+  \eqn{F}-values but multiplies the degrees of freedom with number of
+  variables (species, columns) times correction factor epsilon, using
+  Greenhouse-Geisser correction for asphericity. Preliminary tests
+  indicate that this test is often consistent with permutation tests
+  in \code{\link{rda}} (but not in \code{\link{cca}} and cannot be
+  used with distance-based methods). However, if you use this test, it
+  is best to check that it gives consistent results with permutation
+  tests (see Examples).
+
 }
 
 \value{
@@ -172,26 +183,42 @@
 \author{Jari Oksanen}
 
 \seealso{\code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} to
-  get something to analyse. Function \code{\link{drop1.cca}} calls
-  \code{anova.cca} with \code{by = "margin"}, and
-  \code{\link{add1.cca}} an analysis for single terms additions, which
-  can be used in automatic or semiautomatic model building (see
-  \code{\link{deviance.cca}}).  Function
+  get something to analyse. Function \code{\link{adonis2}} is similar
+  to \code{anova} of a \code{\link{dbrda}} result.  Function
+  \code{\link{drop1.cca}} calls \code{anova.cca} with \code{by =
+  "margin"}, and \code{\link{add1.cca}} an analysis for single terms
+  additions, which can be used in automatic or semiautomatic model
+  building (see \code{\link{ordistep}}).  Function
   \code{\link[=permustats.permutest.cca]{permustats}} extracts
   permutation results for further analysis. }
 
 \examples{
 data(dune, dune.env)
 mod <- cca(dune ~ Moisture + Management, dune.env)
+
 ## overall test
 anova(mod)
-## tests for individual terms
-anova(mod, by="term")
-anova(mod, by="margin")
-## sequential test for contrasts
+
+## tests for individual terms and contrasts
+anova(mod, by = "term")
+anova(mod, by = "margin")
 anova(mod, by = "onedf")
-## test for adding all environmental variables
-anova(mod, cca(dune ~ ., dune.env))
+
+## compare several models in succession
+mod0 <- cca(dune ~ 1, dune.env)
+mod1 <- cca(dune ~ Moisture + A1, dune.env)
+mod2 <- update(mod1, . ~ . + Management + Manure, dune.env)
+anova(mod0, mod1, mod2)
+
+## See that permutation and F-distribution are consistent
+mod <- rda(dune ~ Moisture + Management, dune.env)
+(ano <- anova(mod))
+anova(mod, test = "F")
+## adjustment for degrees of freedom in F distribution
+adj <- ncol(dune) * 0.245 # Greenhouse-Geisser epsilon
+qqnorm(permustats(ano), x = qf(ppoints(999), 6*adj, 13*adj, lower.tail=FALSE),
+  observed = FALSE)
+abline(0, 1, col = 2) # line of equality
 }
 \keyword{ multivariate }
 \keyword{ htest }
