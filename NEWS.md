@@ -28,11 +28,11 @@
 * `adonis2` can have `Condition` in formula allowing similar analysis
   of partial models as in `dbrda`.
 
-* `anova.cca` calculates parametric _F_-values as an alternative to
-  permutation tests. The parametric _F_-values are similar as the
+* `anova.cca` calculates parametric _F_-test as an alternative to
+  permutation test. The parametric _F_-test is similar as the
   "spherical" test in `anova.mlm` for multivariate linear models.
   Parametric tests and permutation tests have been consistent in
-  preliminary tests for `rda`.  Tests were inconsistent with `cca`,
+  preliminary comparisons for `rda`.  Tests were inconsistent with `cca`,
   and parametric test is only enabled for `rda`, and it cannot be
   calculated for distance-based ordination (`dbrda`, `capscale`).
 
