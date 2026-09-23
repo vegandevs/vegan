@@ -133,6 +133,14 @@
               class = "SSD")
 }
 
+## Estimated residual variance matrix
+
+`estVar.cca` <-
+    function(object, type = c("response", "canoco"), ...)
+{
+    estVar(SSD(object, type = type))
+}
+
 ## variances and covariances of coefficients. The sqrt(diag()) will be
 ## standard errors of regression coefficients, and for constrained
 ## ordination model m, the t-values of regression coefficients will be
@@ -140,7 +148,7 @@
 ## be determined by the output of SSD.
 
 `vcov.cca` <-
-    function(object, type = "canoco", ...)
+    function(object, type = c("response", "canoco"), ...)
 {
     type <- match.arg(type)
     QR <- qr(object)
