@@ -254,6 +254,7 @@ defined for this class:
 [`df.residual.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
 [`drop1.cca`](https://vegandevs.github.io/vegan/reference/add1.cca.md),
 [`eigenvals.cca`](https://vegandevs.github.io/vegan/reference/eigenvals.md),
+[`estVar.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
 [`extractAIC.cca`](https://vegandevs.github.io/vegan/reference/deviance.cca.md),
 [`fitted.cca`](https://vegandevs.github.io/vegan/reference/predict.cca.md),
 [`goodness.cca`](https://vegandevs.github.io/vegan/reference/goodness.cca.md),

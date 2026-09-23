@@ -190,6 +190,7 @@
   [`cooks.distance(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`sigma(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`SSD(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
+  [`estVar(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`vcov(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`qr(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
   [`df.residual(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/influence.cca.md)

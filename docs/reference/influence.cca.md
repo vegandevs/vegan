@@ -44,13 +44,29 @@ sigma(object, type = c("response", "canoco"), ...)
 # S3 method for class 'cca'
 SSD(object, type = c("response", "canoco"), ...)
 # S3 method for class 'cca'
-vcov(object, type = "canoco", ...)
+estVar(object, type = c("response", "canoco"), ...)
+# S3 method for class 'cca'
+vcov(object, type = c("response", "canoco"), ...)
 
 # S3 method for class 'cca'
 qr(x, ...)
 # S3 method for class 'cca'
 df.residual(object, ...)
 ```
+
+## See also
+
+Similar linear mmodel functions
+[`influence.measures`](https://rdrr.io/r/stats/influence.measures.html),
+[`hatvalues`](https://rdrr.io/r/stats/influence.measures.html),
+[`rstandard`](https://rdrr.io/r/stats/influence.measures.html),
+[`rstudent`](https://rdrr.io/r/stats/influence.measures.html),
+[`cooks.distance`](https://rdrr.io/r/stats/influence.measures.html),
+[`sigma`](https://rdrr.io/r/stats/sigma.html),
+[`SSD`](https://rdrr.io/r/stats/SSD.html),
+[`estVar`](https://rdrr.io/r/stats/SSD.html),
+[`vcov`](https://rdrr.io/r/stats/vcov.html),
+[`df.residual`](https://rdrr.io/r/stats/df.residual.html).
 
 ## Arguments
 
