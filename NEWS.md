@@ -78,8 +78,8 @@
   supplied theoretical quantiles. With this it can show permutation
   values against other reference distributions than standard Normal.
 
-* `SSD.cca` can return `type = "response"` of sum of squares and
-  products. Earlier it only knew `type = "canoco"`.
+* `SSD.cca` and `vcov.cca` can return `type = "response"`. Earlier
+  they only knew `type = "canoco"`. Added `estVar.cca`.
 
 ## Bug Fixes
 
