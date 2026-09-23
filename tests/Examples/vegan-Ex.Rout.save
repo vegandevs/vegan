@@ -519,10 +519,14 @@ Arrhenius   Gleason     Gitay  Lomolino    MicMen
 > 
 > ### ** Examples
 > 
-> data(dune)
-> data(dune.env)
+> data(dune, dune.env)
+> 
 > ## Automatic model building based on AIC but with permutation tests
-> step(cca(dune ~  1, dune.env), reformulate(names(dune.env)), test="perm")
+> step(cca(dune ~  1, dune.env), formula(cca(dune ~ ., dune.env)),
++   test="permutation")
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
 Start:  AIC=87.66
 dune ~ 1
 
@@ -568,54 +572,103 @@ Eigenvalues for unconstrained axes:
   CA12   CA13   CA14   CA15   CA16 
 0.0201 0.0143 0.0099 0.0085 0.0080 
 
-> ## see ?ordistep to do the same, but based on permutation P-values
-> ## Not run: 
-> ##D ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)))
-> ## End(Not run)
-> ## Manual model building
-> ## -- define the maximal model for scope
+> ## vegan ordistep does the same, but based on P-values
+> ordistep(cca(dune ~  1, dune.env), cca(dune ~ ., dune.env))
+
+Some constraints or conditions were aliased because they were redundant. This
+can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
+
+Start: dune ~ 1 
+
+             Df    AIC      F Pr(>F)   
++ Moisture    3 86.608 2.2536  0.005 **
++ Management  3 86.935 2.1307  0.005 **
++ A1          1 87.411 2.1400  0.015 * 
++ Manure      4 88.832 1.5251  0.025 * 
++ Use         2 89.134 1.1431  0.210   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Step: dune ~ Moisture 
+
+           Df    AIC      F Pr(>F)   
+- Moisture  3 87.657 2.2536  0.005 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+             Df    AIC      F Pr(>F)  
++ Management  3 86.813 1.4565  0.065 .
++ Manure      4 87.342 1.3143  0.090 .
++ Use         2 87.259 1.2760  0.095 .
++ A1          1 86.992 1.2624  0.200  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Call: cca(formula = dune ~ Moisture, data = dune.env)
+
+              Inertia Proportion Rank
+Total          2.1153     1.0000     
+Constrained    0.6283     0.2970    3
+Unconstrained  1.4870     0.7030   16
+
+Inertia is scaled Chi-square
+
+Eigenvalues for constrained axes:
+  CCA1   CCA2   CCA3 
+0.4187 0.1330 0.0766 
+
+Eigenvalues for unconstrained axes:
+   CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 
+0.4098 0.2259 0.1761 0.1234 0.1082 0.0908 0.0859 0.0609 0.0566 0.0467 0.0419 
+  CA12   CA13   CA14   CA15   CA16 
+0.0201 0.0143 0.0099 0.0085 0.0080 
+
+> 
+> ## Manual model building using parametric F test
+> ## define the maximal model for scope
 > mbig <- rda(dune ~  ., dune.env)
 
 Some constraints or conditions were aliased because they were redundant. This
 can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’
-> ## -- define an empty model to start with
+> ## define an empty model to start with
 > m0 <- rda(dune ~ 1, dune.env)
-> ## -- manual selection and updating
-> add1(m0, scope=formula(mbig), test="perm")
-           Df    AIC      F Pr(>F)   
-<none>        89.620                 
-A1          1 89.591 1.9217  0.010 **
-Moisture    3 87.707 2.5883  0.005 **
-Management  3 87.082 2.8400  0.005 **
-Use         2 91.032 1.1741  0.245   
-Manure      4 89.232 1.9539  0.025 * 
+> ## manual selection and updating
+> add1(m0, scope=formula(mbig), test="F")
+           Df    AIC      F    Pr(>F)    
+<none>        89.620                     
+A1          1 89.591 1.9217 0.0756455 .  
+Moisture    3 87.707 2.5883 0.0006449 ***
+Management  3 87.082 2.8400 0.0002105 ***
+Use         2 91.032 1.1741 0.3118780    
+Manure      4 89.232 1.9539 0.0128953 *  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Management)
-> add1(m0, scope=formula(mbig), test="perm")
-         Df    AIC      F Pr(>F)   
+> add1(m0, scope=formula(mbig), test="F")
+         Df    AIC      F  Pr(>F)  
 <none>      87.082                 
-A1        1 87.424 1.2965  0.190   
-Moisture  3 85.567 1.9764  0.010 **
-Use       2 88.284 1.0510  0.365   
-Manure    3 87.517 1.3902  0.115   
+A1        1 87.424 1.2965 0.25819  
+Moisture  3 85.567 1.9764 0.01264 *
+Use       2 88.284 1.0510 0.41125  
+Manure    3 87.517 1.3902 0.15614  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Moisture)
-> ## -- included variables still significant?
-> drop1(m0, test="perm")
-           Df    AIC      F Pr(>F)  
-<none>        85.567                
-Management  3 87.707 2.1769  0.015 *
-Moisture    3 87.082 1.9764  0.025 *
+> ## included variables still significant?
+> drop1(m0, test="F")
+           Df    AIC      F   Pr(>F)   
+<none>        85.567                   
+Management  3 87.707 2.1769 0.005154 **
+Moisture    3 87.082 1.9764 0.012644 * 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> add1(m0, scope=formula(mbig), test="perm")
+> add1(m0, scope=formula(mbig), test="F")
        Df    AIC      F Pr(>F)
 <none>    85.567              
-A1      1 86.220 0.8359   0.55
-Use     2 86.842 0.8027   0.67
-Manure  3 85.762 1.1225   0.29
+A1      1 86.220 0.8359 0.5597
+Use     2 86.842 0.8027 0.6580
+Manure  3 85.762 1.1225 0.3539
 > 
 > 
 > 
@@ -3758,8 +3811,8 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 > ### Name: influence.cca
 > ### Title: Linear Model Diagnostics for Constrained Ordination
 > ### Aliases: influence.cca hatvalues.cca hatvalues.rda sigma.cca
-> ###   rstandard.cca rstudent.cca cooks.distance.cca SSD.cca vcov.cca qr.cca
-> ###   df.residual.cca
+> ###   rstandard.cca rstudent.cca cooks.distance.cca SSD.cca estVar.cca
+> ###   vcov.cca qr.cca df.residual.cca
 > ### Keywords: models multivariate
 > 
 > ### ** Examples
@@ -9270,7 +9323,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.024 0.319 9.365 0 0 
+Time elapsed:  9.085 0.303 9.408 0 0 
 > grDevices::dev.off()
 null device 
           1 
