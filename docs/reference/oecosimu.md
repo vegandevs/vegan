@@ -338,14 +338,13 @@ oecosimu(sipoo, nestedchecker, "r0")
 #> Checkerboard Units    : 2767 
 #> C-score (species mean): 2.258776 
 #> 
-#>               statistic    SES   mean   2.5%    50%  97.5% Pr(sim.)   
-#> checkerboards      2767 -18.58 8059.8 7359.0 8060.0 8564.3     0.01 **
+#>               statistic     SES   mean   2.5%    50% 97.5% Pr(sim.)   
+#> checkerboards      2767 -18.147 8092.2 7485.7 8135.0  8609     0.01 **
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ## sequential model, one-sided test, a vector statistic
 out <- oecosimu(sipoo, decorana, "swap", burnin=100, thin=10, 
    statistic="evals", alt = "greater")
-#> Warning: residual bigger than tolerance on axis 3                        
 out
 #> oecosimu object
 #> 
@@ -372,10 +371,10 @@ out
 #> 
 #> 
 #>      statistic      SES    mean     50%    95% Pr(sim.)  
-#> DCA1  0.382249  1.77971 0.32860 0.32645 0.3770     0.05 *
-#> DCA2  0.261208  1.60373 0.21791 0.21972 0.2642     0.08 .
-#> DCA3  0.166788  0.42952 0.15664 0.15560 0.1949     0.33  
-#> DCA4  0.087226 -1.67657 0.12892 0.12818 0.1670     0.98  
+#> DCA1  0.382249  2.26569 0.32033 0.32050 0.3612     0.02 *
+#> DCA2  0.261208  1.66597 0.21891 0.21814 0.2588     0.06 .
+#> DCA3  0.166788  0.41425 0.15831 0.15930 0.1949     0.31  
+#> DCA4  0.087226 -1.78744 0.12412 0.12253 0.1578     0.97  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ## Inspect the swap sequence as a time series object
@@ -400,7 +399,7 @@ mbc1
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
 #>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)   
-#> statistic   0.64565 16.604 0.46366 0.44239 0.46246 0.4841     0.01 **
+#> statistic   0.64565 12.427 0.46857 0.43955 0.46961 0.4953     0.01 **
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -423,8 +422,8 @@ oecosimu(dune, meandist, cf)
 #> 
 #> alternative hypothesis: statistic is less or greater than simulated values
 #> 
-#>           statistic    SES    mean    2.5%     50%  97.5% Pr(sim.)  
-#> statistic   0.64565 3.1014 0.63518 0.63028 0.63497 0.6423     0.03 *
+#>           statistic   SES    mean    2.5%     50% 97.5% Pr(sim.)   
+#> statistic   0.64565 2.975 0.63494 0.62948 0.63453 0.642     0.01 **
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -443,7 +442,7 @@ oecosimu(nm, nestedchecker)
 #> C-score (species mean): 2.258776 
 #> 
 #>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-#> checkerboards      2767 0.36365 2748.1 2649.5 2753.0 2846.4     0.77
+#> checkerboards      2767 0.61845 2702.5 2604.9 2675.0 3005.3     0.35
 ## Several chains of a sequential model -- this can be generalized
 ## for parallel processing (see ?smbind)
 nm <- replicate(5, simulate(nullmodel(sipoo, "swap"), 99,
@@ -472,7 +471,7 @@ oecosimu(nm, nestedchecker)
 #> C-score (species mean): 2.258776 
 #> 
 #>               statistic     SES   mean   2.5%    50%  97.5% Pr(sim.)
-#> checkerboards      2767 0.56429 2715.4 2578.8 2698.0 2916.7   0.5423
+#> checkerboards      2767 0.38312 2726.7 2575.3 2707.0 2983.3   0.5343
 ## IGNORE_RDIFF_END
 ## After this you can use toCoda() and tools in the coda package to
 ## analyse the chains (these will show that thin, burnin and nsimul are

@@ -47,10 +47,10 @@ constrained ordination model.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'cca'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">scope</span>, test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"permutation"</span><span class="op">)</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">scope</span>, test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"permutation"</span>, <span class="st">"F"</span><span class="op">)</span>,</span>
 <span>    permutations <span class="op">=</span> <span class="fu">how</span><span class="op">(</span>nperm<span class="op">=</span><span class="fl">199</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span><span class="co"># S3 method for class 'cca'</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">drop1</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">scope</span>, test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"permutation"</span><span class="op">)</span>, </span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">drop1</a></span><span class="op">(</span><span class="va">object</span>, <span class="va">scope</span>, test <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"none"</span>, <span class="st">"permutation"</span>, <span class="st">"F"</span><span class="op">)</span>, </span>
 <span>    permutations <span class="op">=</span> <span class="fu">how</span><span class="op">(</span>nperm<span class="op">=</span><span class="fl">199</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -64,10 +64,13 @@ constrained ordination model.</p>
 
   <dt id="arg-scope">scope<a class="anchor" aria-label="anchor" href="#arg-scope"></a></dt>
 <dd><p>A formula giving the terms to be considered for adding
-  or dropping; see <code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></code> for details.</p></dd>
+    or dropping; see <code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></code> for details.</p></dd>
+
 
   <dt id="arg-test">test<a class="anchor" aria-label="anchor" href="#arg-test"></a></dt>
-<dd><p>Should a permutation test be added using <code><a href="anova.cca.html">anova.cca</a></code>.</p></dd>
+<dd><p>Should a <code>"permutation"</code> or parametric <code>"F"</code>
+    test be added using <code><a href="anova.cca.html">anova.cca</a></code>. <code>test = "F"</code> can
+    be only used with <code><a href="cca.html">rda</a></code> models.</p></dd>
 
 
   <dt id="arg-permutations">permutations<a class="anchor" aria-label="anchor" href="#arg-permutations"></a></dt>
@@ -84,13 +87,17 @@ constrained ordination model.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>With argument <code>test = "none"</code> the functions will only call
-  <code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1.default</a></code> or <code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">drop1.default</a></code>. With
-  argument <code>test = "permutation"</code> the functions will add test
-  results from <code><a href="anova.cca.html">anova.cca</a></code>. Function <code>drop1.cca</code> will
-  call <code><a href="anova.cca.html">anova.cca</a></code> with argument <code>by = "margin"</code>.
-  Function <code>add1.cca</code> will implement a test for single term
-  additions that is not directly available in <code><a href="anova.cca.html">anova.cca</a></code>.</p>
+
+
+<p>With argument <code>test = "none"</code> the functions will only call
+  <code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1.default</a></code> or <code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">drop1.default</a></code>. With other
+  choice the functions will add test results from
+  <code><a href="anova.cca.html">anova.cca</a></code>, either a permutation test or a parameteric
+  \(F\)-test (only with <code><a href="cca.html">rda</a></code> models). Function
+  <code>drop1.cca</code> will call <code><a href="anova.cca.html">anova.cca</a></code> with argument
+  <code>by = "margin"</code>.  Function <code>add1.cca</code> will implement a test
+  for single term additions that is not directly available in
+  <code><a href="anova.cca.html">anova.cca</a></code>.</p>
 <p>Functions are used implicitly in <code><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></code>,
   <code><a href="ordistep.html">ordiR2step</a></code> and <code><a href="ordistep.html">ordistep</a></code>. The
   <code><a href="deviance.cca.html">deviance.cca</a></code> and <code><a href="deviance.cca.html">deviance.rda</a></code> used in
@@ -118,19 +125,24 @@ constrained ordination model.</p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></code>, <code><a href="https://rdrr.io/r/stats/add1.html" class="external-link">drop1</a></code> and
-  <code><a href="anova.cca.html">anova.cca</a></code> for basic methods. You probably need these
-  functions with <code><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></code> and <code><a href="ordistep.html">ordistep</a></code>. Functions
+  <code><a href="anova.cca.html">anova.cca</a></code> for basic methods. Functions
   <code><a href="deviance.cca.html">deviance.cca</a></code> and <code><a href="deviance.cca.html">extractAIC.cca</a></code> are used
   to produce the other arguments than test results in the
-  output.</p></div>
+  output. <code>add1</code> and <code>drop1</code> are the basic functions in
+  automatic model building with <code><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></code>,
+  <code><a href="ordistep.html">ordistep</a></code> and <code><a href="ordistep.html">ordiR2step</a></code>.</p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">dune</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Automatic model building based on AIC but with permutation tests</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span>  <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/delete.response.html" class="external-link">reformulate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span><span class="op">)</span>, test<span class="op">=</span><span class="st">"perm"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/step.html" class="external-link">step</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span>  <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  test<span class="op">=</span><span class="st">"permutation"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Start:  AIC=87.66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dune ~ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -176,54 +188,136 @@ constrained ordination model.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   CA12   CA13   CA14   CA15   CA16 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.0201 0.0143 0.0099 0.0085 0.0080 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span><span class="co">## see ?ordistep to do the same, but based on permutation P-values</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="ordistep.html">ordistep</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span>  <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/delete.response.html" class="external-link">reformulate</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dune.env</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
-<span class="r-in"><span><span class="co">## Manual model building</span></span></span>
-<span class="r-in"><span><span class="co">## -- define the maximal model for scope</span></span></span>
+<span class="r-in"><span><span class="co">## vegan ordistep does the same, but based on P-values</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="ordistep.html">ordistep</a></span><span class="op">(</span><span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span>  <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span>, <span class="fu"><a href="cca.html">cca</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Start: dune ~ 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 88.832 1.5251  0.005 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 86.608 2.2536  0.010 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 86.935 2.1307  0.010 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 87.411 2.1400  0.020 * </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 89.134 1.1431  0.185   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Manure </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Manure  4 87.657 1.5251  0.025 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Moisture    3 87.342 1.8171  0.020 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 87.896 2.2139  0.025 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  2 88.954 1.3911  0.120  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 90.037 0.9752  0.410  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Manure + Moisture </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Manure    4 86.608 1.3143  0.105  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture  3 88.832 1.8171  0.015 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Moisture </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Management  3 86.813 1.4565  0.030 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure      4 87.342 1.3143  0.105  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use         2 87.259 1.2760  0.160  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1          1 86.992 1.2624  0.220  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Step: dune ~ Moisture + Management </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Management  3 86.608 1.4565  0.055 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - Moisture    3 86.935 1.5518  0.055 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + A1      1 86.190 1.6817  0.085 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Use     2 88.245 0.7534  0.715  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + Manure  3 88.430 0.8167  0.735  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Call: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Inertia Proportion Rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total          2.1153     1.0000     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Constrained    1.0024     0.4739    6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Unconstrained  1.1129     0.5261   13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Inertia is scaled Chi-square</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for constrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   CCA1   CCA2   CCA3   CCA4   CCA5   CCA6 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.4458 0.2887 0.1124 0.0717 0.0494 0.0344 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Eigenvalues for unconstrained axes:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    CA1    CA2    CA3    CA4    CA5    CA6    CA7    CA8    CA9   CA10   CA11 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.3504 0.1521 0.1251 0.1098 0.0922 0.0771 0.0594 0.0478 0.0370 0.0223 0.0207 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   CA12   CA13 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.0108 0.0083 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Manual model building using parametric F test</span></span></span>
+<span class="r-in"><span><span class="co">## define the maximal model for scope</span></span></span>
 <span class="r-in"><span><span class="va">mbig</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span>  <span class="va">.</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Some constraints or conditions were aliased because they were redundant. This</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> can happen if terms are constant or linearly dependent (collinear): ‘Manure^4’</span>
-<span class="r-in"><span><span class="co">## -- define an empty model to start with</span></span></span>
+<span class="r-in"><span><span class="co">## define an empty model to start with</span></span></span>
 <span class="r-in"><span><span class="va">m0</span> <span class="op">&lt;-</span> <span class="fu"><a href="cca.html">rda</a></span><span class="op">(</span><span class="va">dune</span> <span class="op">~</span> <span class="fl">1</span>, <span class="va">dune.env</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## -- manual selection and updating</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">m0</span>, scope<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mbig</span><span class="op">)</span>, test<span class="op">=</span><span class="st">"perm"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;        89.620                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1          1 89.591 1.9217  0.015 * </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3 87.707 2.5883  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3 87.082 2.8400  0.005 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Use         2 91.032 1.1741  0.225   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Manure      4 89.232 1.9539  0.005 **</span>
+<span class="r-in"><span><span class="co">## manual selection and updating</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">m0</span>, scope<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mbig</span><span class="op">)</span>, test<span class="op">=</span><span class="st">"F"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F    Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;        89.620                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1          1 89.591 1.9217 0.0756455 .  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3 87.707 2.5883 0.0006449 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3 87.082 2.8400 0.0002105 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use         2 91.032 1.1741 0.3118780    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Manure      4 89.232 1.9539 0.0128953 *  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span><span class="va">m0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">m0</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">+</span> <span class="va">Management</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">m0</span>, scope<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mbig</span><span class="op">)</span>, test<span class="op">=</span><span class="st">"perm"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;      87.082                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1        1 87.424 1.2965  0.270  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture  3 85.567 1.9764  0.015 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Use       2 88.284 1.0510  0.415  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Manure    3 87.517 1.3902  0.130  </span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">m0</span>, scope<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mbig</span><span class="op">)</span>, test<span class="op">=</span><span class="st">"F"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df    AIC      F  Pr(&gt;F)  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;      87.082                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1        1 87.424 1.2965 0.25819  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture  3 85.567 1.9764 0.01264 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use       2 88.284 1.0510 0.41125  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Manure    3 87.517 1.3902 0.15614  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span><span class="va">m0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">m0</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">+</span> <span class="va">Moisture</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## -- included variables still significant?</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">drop1</a></span><span class="op">(</span><span class="va">m0</span>, test<span class="op">=</span><span class="st">"perm"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;        85.567                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3 87.707 2.1769  0.010 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3 87.082 1.9764  0.015 * </span>
+<span class="r-in"><span><span class="co">## included variables still significant?</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">drop1</a></span><span class="op">(</span><span class="va">m0</span>, test<span class="op">=</span><span class="st">"F"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df    AIC      F   Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;        85.567                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3 87.707 2.1769 0.005154 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3 87.082 1.9764 0.012644 * </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">m0</span>, scope<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mbig</span><span class="op">)</span>, test<span class="op">=</span><span class="st">"perm"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/add1.html" class="external-link">add1</a></span><span class="op">(</span><span class="va">m0</span>, scope<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">formula</a></span><span class="op">(</span><span class="va">mbig</span><span class="op">)</span>, test<span class="op">=</span><span class="st">"F"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Df    AIC      F Pr(&gt;F)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;none&gt;    85.567              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A1      1 86.220 0.8359   0.62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Use     2 86.842 0.8027   0.78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Manure  3 85.762 1.1225   0.34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A1      1 86.220 0.8359 0.5597</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Use     2 86.842 0.8027 0.6580</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Manure  3 85.762 1.1225 0.3539</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

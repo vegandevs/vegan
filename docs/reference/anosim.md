@@ -179,14 +179,14 @@ summary(dune.ano)
 #> Dissimilarity: bray 
 #> 
 #> ANOSIM statistic R: 0.2579 
-#>       Significance: 0.009 
+#>       Significance: 0.017 
 #> 
 #> Permutation: free
 #> Number of permutations: 999
 #> 
 #> Upper quantiles of permutations (null model):
 #>   90%   95% 97.5%   99% 
-#> 0.121 0.164 0.205 0.242 
+#> 0.134 0.178 0.218 0.286 
 #> 
 #> Dissimilarity ranks between and within classes:
 #>         0%   25%    50%     75%  100%   N

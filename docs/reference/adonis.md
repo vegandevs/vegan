@@ -209,7 +209,7 @@ adonis2(dune ~ Management*A1, data = dune.env)
 #> 
 #> adonis2(formula = dune ~ Management * A1, data = dune.env)
 #>          Df SumOfSqs      R2      F Pr(>F)   
-#> Model     7   2.4987 0.58122 2.3792  0.002 **
+#> Model     7   2.4987 0.58122 2.3792  0.004 **
 #> Residual 12   1.8004 0.41878                 
 #> Total    19   4.2990 1.00000                 
 #> ---
@@ -222,12 +222,12 @@ adonis2(dune ~ Management*A1, data = dune.env, by = "terms")
 #> Number of permutations: 999
 #> 
 #> adonis2(formula = dune ~ Management * A1, data = dune.env, by = "terms")
-#>               Df SumOfSqs      R2      F Pr(>F)    
-#> Management     3   1.4686 0.34161 3.2629  0.001 ***
-#> A1             1   0.4409 0.10256 2.9387  0.020 *  
-#> Management:A1  3   0.5892 0.13705 1.3090  0.214    
-#> Residual      12   1.8004 0.41878                  
-#> Total         19   4.2990 1.00000                  
+#>               Df SumOfSqs      R2      F Pr(>F)   
+#> Management     3   1.4686 0.34161 3.2629  0.002 **
+#> A1             1   0.4409 0.10256 2.9387  0.019 * 
+#> Management:A1  3   0.5892 0.13705 1.3090  0.225   
+#> Residual      12   1.8004 0.41878                 
+#> Total         19   4.2990 1.00000                 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -266,12 +266,10 @@ adonis2(Y ~ NO3, data = dat, permutations = 199)
 #> Number of permutations: 199
 #> 
 #> adonis2(formula = Y ~ NO3, data = dat, permutations = 199)
-#>          Df SumOfSqs      R2      F Pr(>F)  
-#> Model     1 0.036688 0.24632 3.2682   0.06 .
-#> Residual 10 0.112256 0.75368                
-#> Total    11 0.148944 1.00000                
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#>          Df SumOfSqs      R2      F Pr(>F)
+#> Model     1  0.02565 0.13671 1.5835  0.235
+#> Residual 10  0.16198 0.86329              
+#> Total    11  0.18763 1.00000              
 ## Correct with strata
 with(dat, adonis2(Y ~ NO3, data = dat, permutations = 199, strata = field))
 #> Permutation test for adonis under reduced model
@@ -280,10 +278,10 @@ with(dat, adonis2(Y ~ NO3, data = dat, permutations = 199, strata = field))
 #> Number of permutations: 199
 #> 
 #> adonis2(formula = Y ~ NO3, data = dat, permutations = 199, strata = field)
-#>          Df SumOfSqs      R2      F Pr(>F)   
-#> Model     1 0.036688 0.24632 3.2682  0.005 **
-#> Residual 10 0.112256 0.75368                 
-#> Total    11 0.148944 1.00000                 
+#>          Df SumOfSqs      R2      F Pr(>F)  
+#> Model     1  0.02565 0.13671 1.5835  0.015 *
+#> Residual 10  0.16198 0.86329                
+#> Total    11  0.18763 1.00000                
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 ```

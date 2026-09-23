@@ -424,7 +424,7 @@ permutest(mod, pairwise = TRUE, permutations = 99)
 #> 
 #> Response: Distances
 #>           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-#> Groups     1 0.07931 0.079306 4.6156     99   0.02 *
+#> Groups     1 0.07931 0.079306 4.6156     99   0.09 .
 #> Residuals 22 0.37801 0.017182                       
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -432,7 +432,7 @@ permutest(mod, pairwise = TRUE, permutations = 99)
 #> Pairwise comparisons:
 #> (Observed p-value below diagonal, permuted p-value above diagonal)
 #>           grazed ungrazed
-#> grazed               0.05
+#> grazed               0.08
 #> ungrazed 0.04295         
 
 ## Tukey's Honest Significant Differences
@@ -570,9 +570,11 @@ permutest(mod3B, permutations = 99)
 #> Number of permutations: 99
 #> 
 #> Response: Distances
-#>           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)
-#> Groups     1 0.07193 0.071927 3.7826     99   0.12
-#> Residuals 22 0.41834 0.019015                     
+#>           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
+#> Groups     1 0.07193 0.071927 3.7826     99   0.06 .
+#> Residuals 22 0.41834 0.019015                       
+#> ---
+#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 ## should always work for a single group
 group <- factor(rep("grazed", NROW(varespec)))
@@ -643,7 +645,7 @@ permutest(mod2, permutations = 99)
 #> 
 #> Response: Distances
 #>           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-#> Groups     1 0.039979 0.039979 2.4237     99   0.24
+#> Groups     1 0.039979 0.039979 2.4237     99   0.18
 #> Residuals 18 0.296910 0.016495                     
 anova(mod2)
 #> Analysis of Variance Table
@@ -688,7 +690,7 @@ permutest(mod3, permutations = 99)
 #> 
 #> Response: Distances
 #>           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-#> Groups     1 0.033468 0.033468 3.1749     99   0.08 .
+#> Groups     1 0.033468 0.033468 3.1749     99   0.09 .
 #> Residuals 18 0.189749 0.010542                       
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

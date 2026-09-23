@@ -232,9 +232,9 @@ anova(mod)
 #> Number of permutations: 999
 #> 
 #> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
-#>          Df ChiSquare      F Pr(>F)   
-#> Model     6    1.0024 1.9515  0.003 **
-#> Residual 13    1.1129                 
+#>          Df ChiSquare      F Pr(>F)    
+#> Model     6    1.0024 1.9515  0.001 ***
+#> Residual 13    1.1129                  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
@@ -246,10 +246,10 @@ anova(mod, by = "term")
 #> Number of permutations: 999
 #> 
 #> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
-#>            Df ChiSquare      F Pr(>F)    
-#> Moisture    3   0.62831 2.4465  0.001 ***
-#> Management  3   0.37407 1.4565  0.049 *  
-#> Residual   13   1.11289                  
+#>            Df ChiSquare      F Pr(>F)   
+#> Moisture    3   0.62831 2.4465  0.002 **
+#> Management  3   0.37407 1.4565  0.053 . 
+#> Residual   13   1.11289                 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 anova(mod, by = "margin")
@@ -260,8 +260,8 @@ anova(mod, by = "margin")
 #> 
 #> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
 #>            Df ChiSquare      F Pr(>F)  
-#> Moisture    3   0.39854 1.5518  0.036 *
-#> Management  3   0.37407 1.4565  0.053 .
+#> Moisture    3   0.39854 1.5518  0.037 *
+#> Management  3   0.37407 1.4565  0.065 .
 #> Residual   13   1.11289                
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -274,11 +274,11 @@ anova(mod, by = "onedf")
 #> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)
 #>              Df ChiSquare      F Pr(>F)    
 #> Moisture.L    1   0.41081 4.7988  0.001 ***
-#> Moisture.Q    1   0.11261 1.3154  0.167    
-#> Moisture.C    1   0.10489 1.2253  0.226    
-#> ManagementHF  1   0.08849 1.0337  0.359    
-#> ManagementNM  1   0.20326 2.3744  0.011 *  
-#> ManagementSF  1   0.08231 0.9615  0.455    
+#> Moisture.Q    1   0.11261 1.3154  0.148    
+#> Moisture.C    1   0.10489 1.2253  0.206    
+#> ManagementHF  1   0.08849 1.0337  0.364    
+#> ManagementNM  1   0.20326 2.3744  0.007 ** 
+#> ManagementSF  1   0.08231 0.9615  0.418    
 #> Residual     13   1.11289                  
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -300,8 +300,8 @@ anova(mod0, mod1, mod2)
 #> Model 3: dune ~ Moisture + A1 + Management + Manure
 #>   ResDf ResChiSquare Df ChiSquare      F Pr(>F)   
 #> 1    19       2.1153                              
-#> 2    15       1.3715  4   0.74374 2.2546  0.003 **
-#> 3     9       0.7422  6   0.62933 1.2719  0.105   
+#> 2    15       1.3715  4   0.74374 2.2546  0.002 **
+#> 3     9       0.7422  6   0.62933 1.2719  0.094 . 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 

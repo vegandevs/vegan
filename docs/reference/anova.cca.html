@@ -265,9 +265,9 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          Df ChiSquare      F Pr(&gt;F)   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Model     6    1.0024 1.9515  0.003 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13    1.1129                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          Df ChiSquare      F Pr(&gt;F)    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     6    1.0024 1.9515  0.001 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 13    1.1129                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span></span></span>
@@ -279,10 +279,10 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 999</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.62831 2.4465  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.049 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.62831 2.4465  0.002 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.053 . </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod</span>, by <span class="op">=</span> <span class="st">"margin"</span><span class="op">)</span></span></span>
@@ -293,8 +293,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Df ChiSquare      F Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.39854 1.5518  0.036 *</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.053 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture    3   0.39854 1.5518  0.037 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Management  3   0.37407 1.4565  0.065 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual   13   1.11289                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -307,11 +307,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model: cca(formula = dune ~ Moisture + Management, data = dune.env)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Df ChiSquare      F Pr(&gt;F)    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.L    1   0.41081 4.7988  0.001 ***</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.Q    1   0.11261 1.3154  0.167    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.C    1   0.10489 1.2253  0.226    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementHF  1   0.08849 1.0337  0.359    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM  1   0.20326 2.3744  0.011 *  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF  1   0.08231 0.9615  0.455    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.Q    1   0.11261 1.3154  0.148    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Moisture.C    1   0.10489 1.2253  0.206    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementHF  1   0.08849 1.0337  0.364    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementNM  1   0.20326 2.3744  0.007 ** </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ManagementSF  1   0.08231 0.9615  0.418    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residual     13   1.11289                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -333,8 +333,8 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Model 3: dune ~ Moisture + A1 + Management + Manure</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ResDf ResChiSquare Df ChiSquare      F Pr(&gt;F)   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    19       2.1153                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    15       1.3715  4   0.74374 2.2546  0.003 **</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     9       0.7422  6   0.62933 1.2719  0.105   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    15       1.3715  4   0.74374 2.2546  0.002 **</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     9       0.7422  6   0.62933 1.2719  0.094 . </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-in"><span></span></span>

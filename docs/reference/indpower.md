@@ -80,10 +80,10 @@ os <- oecosimu(dune, fun, "c0", i=i, nsimul=99)
 z <- os$oecosimu$z
 ## p-value
 (p <- sum(z) / sqrt(length(z)))
-#> [1] -1.759715
+#> [1] -1.827495
 ## 'heterogeneity' measure
 (chi2 <- sum((z - mean(z))^2))
-#> [1] 90.88248
+#> [1] 95.58478
 pchisq(chi2, df=length(z)-1)
 #> [1] 1
 ## Halme et al.'s suggested output
@@ -94,5 +94,5 @@ out <- c(TIP=TIP[i],
     varIP=sd(fun(dune, i=i)^2))
 out
 #> TIP.i.Achimill   significance  heterogeneity          minIP          varIP 
-#>      0.3186250     -1.7597150     90.8824799      0.0000000      0.2142097 
+#>      0.3186250     -1.8274949     95.5847839      0.0000000      0.2142097 
 ```

@@ -109,39 +109,42 @@ mod <- metaMDS(varespec)
 #> Square root transformation
 #> Wisconsin double standardization
 #> Run 0 stress 0.1843196 
-#> Run 1 stress 0.1858401 
-#> Run 2 stress 0.1974406 
-#> Run 3 stress 0.1825658 
+#> Run 1 stress 0.2265716 
+#> Run 2 stress 0.2085949 
+#> Run 3 stress 0.1974408 
+#> Run 4 stress 0.1948413 
+#> Run 5 stress 0.2169272 
+#> Run 6 stress 0.18584 
+#> Run 7 stress 0.1993238 
+#> Run 8 stress 0.2109617 
+#> Run 9 stress 0.2095882 
+#> Run 10 stress 0.2467729 
+#> Run 11 stress 0.1869637 
+#> Run 12 stress 0.2136761 
+#> Run 13 stress 0.1955837 
+#> Run 14 stress 0.2120074 
+#> Run 15 stress 0.1955836 
+#> Run 16 stress 0.2223246 
+#> Run 17 stress 0.1843196 
 #> ... New best solution
-#> ... Procrustes: rmse 0.04162106  max resid 0.1517781 
-#> Run 4 stress 0.1843196 
-#> Run 5 stress 0.1825658 
-#> ... Procrustes: rmse 1.535964e-06  max resid 4.192083e-06 
+#> ... Procrustes: rmse 2.174359e-05  max resid 8.703476e-05 
 #> ... Similar to previous best
-#> Run 6 stress 0.2066173 
-#> Run 7 stress 0.18458 
-#> Run 8 stress 0.2240417 
-#> Run 9 stress 0.2066172 
-#> Run 10 stress 0.2032569 
-#> Run 11 stress 0.3840929 
-#> Run 12 stress 0.2142384 
-#> Run 13 stress 0.2093088 
-#> Run 14 stress 0.1962451 
-#> Run 15 stress 0.2095882 
-#> Run 16 stress 0.1948413 
-#> Run 17 stress 0.1969805 
-#> Run 18 stress 0.2154577 
-#> Run 19 stress 0.2260499 
-#> Run 20 stress 0.2085515 
-#> *** Best solution repeated 1 times
+#> Run 18 stress 0.1825658 
+#> ... New best solution
+#> ... Procrustes: rmse 0.04160835  max resid 0.1517228 
+#> Run 19 stress 0.1948413 
+#> Run 20 stress 0.2467726 
+#> *** Best solution was not repeated -- monoMDS stopping criteria:
+#>     18: stress ratio > sratmax
+#>      2: scale factor of the gradient < sfgrmin
 stressplot(mod)
 
 gof <- goodness(mod)
 gof
-#>  [1] 0.02984511 0.03513707 0.04189386 0.04598159 0.04003109 0.03441405
-#>  [7] 0.03294962 0.03050081 0.03060795 0.02994109 0.03526186 0.02621450
-#> [13] 0.03831029 0.02980914 0.03369406 0.02225902 0.03561640 0.03505262
-#> [19] 0.06577460 0.03268381 0.03503005 0.02956652 0.05168192 0.04601909
+#>  [1] 0.02984504 0.03513702 0.04189246 0.04598225 0.04003107 0.03441430
+#>  [7] 0.03294944 0.03050109 0.03060787 0.02994079 0.03526289 0.02621421
+#> [13] 0.03831039 0.02980915 0.03369525 0.02225912 0.03561578 0.03505285
+#> [19] 0.06577445 0.03268360 0.03503085 0.02956629 0.05168079 0.04601964
 plot(mod, display = "sites", type = "n")
 points(mod, display = "sites", cex = 2*gof/mean(gof))
 ```
