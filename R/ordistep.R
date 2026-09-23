@@ -1,7 +1,7 @@
 `ordistep` <-
     function(object, scope, direction =c("both", "backward", "forward"),
              Pin = 0.05, Pout = 0.1, permutations = how(nperm = 199),
-             steps=50, trace = TRUE, ...)
+             steps=50, trace = TRUE, test = c("permutation", "F"), ...)
 {
     if (!inherits(object, "cca"))
         stop("function can be only used with 'cca' and related objects")
@@ -9,6 +9,7 @@
         stop("ordination model must be fitted using formula")
     ## handling 'direction' and 'scope' directly copied from
     ## stats::step()
+    test <- match.arg(test)
     md <- missing(direction)
     direction <- match.arg(direction)
     backward <- direction == "both" | direction == "backward"
@@ -49,7 +50,7 @@
         ## Consider dropping
         if (backward && length(scope$drop)) {
             aod <- suppressMessages(
-                drop1(object, scope = scope$drop, test="perm",
+                drop1(object, scope = scope$drop, test = test,
                       permutations = permutations,
                       alpha = Pout, trace = trace, ...))
             aod <- aod[-1,]
@@ -64,7 +65,7 @@
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- suppressMessages(
-                    eval(update(object, paste("~  .", change), evaluate = FALSE), 
+                    eval(update(object, paste("~  .", change), evaluate = FALSE),
                          envir = environment(formula(object))))
                 scope <- factor.scope(attr(terms(object), "factors"),
                                       list(add = fadd, drop = fdrop))
@@ -77,7 +78,7 @@
         ## Consider adding
         if (forward && length(scope$add)) {
             aod <- suppressMessages(
-                add1(object, scope = scope$add, test = "perm",
+                add1(object, scope = scope$add, test = test,
                      permutations = permutations,
                      alpha = Pin, trace = trace, ...))
             aod <- aod[-1,]
@@ -92,7 +93,7 @@
                 anotab <- rbind(anotab, aod[1,])
                 change <- rownames(aod)[1]
                 object <- suppressMessages(
-                    eval(update(object, paste("~  .", change), evaluate = FALSE), 
+                    eval(update(object, paste("~  .", change), evaluate = FALSE),
                          envir = environment(formula(object))))         # <--- THE FIX
                 scope <- factor.scope(attr(terms(object), "factors"),
                                       list(add = fadd, drop = fdrop))

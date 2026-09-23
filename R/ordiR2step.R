@@ -4,8 +4,8 @@
 
 `ordiR2step` <-
     function(object, scope, Pin = 0.05, R2scope = TRUE,
-             permutations = how(nperm=499),
-             trace = TRUE, R2permutations = 1000, ...)
+             permutations = how(nperm=499), trace = TRUE, R2permutations = 1000,
+             test = c("permutation", "F"), ...)
 {
     if (is.null(object$terms))
         stop("ordination model must be fitted using formula")
@@ -15,6 +15,7 @@
         scope <- delete.response(formula(scope))
     if (!inherits(scope, "formula"))
         scope <- reformulate(scope)
+    test = match.arg(test)
     ## Get R2 of the original object
     if (is.null(object$CCA))
         R2.0 <- 0
@@ -59,7 +60,7 @@
         for (trm in seq_along(R2.adds)) {
             fla <- paste(". ~ .", names(R2.adds[trm]))
             R2.tmp <- suppressMessages(
-                RsquareAdj(eval(update(object, fla, evaluate = FALSE), 
+                RsquareAdj(eval(update(object, fla, evaluate = FALSE),
                                 envir = environment(formula(object))),
                            permutations = R2permutations, ...)$adj.r.squared)
             if (!length(R2.tmp) || is.na(R2.tmp))
@@ -82,7 +83,7 @@
             (!R2scope || R2scope && R2.adds[best] <= R2.all)) {
             ## Second criterion: added variable is significant
             tst <- suppressMessages(
-                add1(object, scope = adds[best], test="permu",
+                add1(object, scope = adds[best], test = test,
                      permutations = permutations,
                      alpha = Pin, trace = FALSE, ...))
             if (trace) {
