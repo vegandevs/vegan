@@ -217,6 +217,8 @@ S3method(envfit, formula)
 S3method(estimateR, data.frame)
 S3method(estimateR, default)
 S3method(estimateR, matrix)
+# estVar: stats
+S3method(estVar, cca)
 # extractAIC: stats
 S3method(extractAIC, cca)
 # fitted: stats
