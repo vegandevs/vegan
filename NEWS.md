@@ -36,6 +36,10 @@
   and parametric test is only enabled for `rda`, and it cannot be
   calculated for distance-based ordination (`dbrda`, `capscale`).
 
+  `add1`, `drop1`, `ordistep`and `ordiR2step` can use parametric
+  _F_-tests with `rda` models. `stats::step` was able to use them
+  automatically.
+
 * `ordisurf` can plot coloured surfaces (or "filled contours") with
   argument `what = "surface"`. The perspective plots with
   `plot.ordisurf(..., what = "persp")` can be coloured by height if a

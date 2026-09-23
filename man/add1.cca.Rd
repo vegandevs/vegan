@@ -8,9 +8,9 @@ Compute all single terms that can be added to or dropped from a
 constrained ordination model.
 }
 \usage{
-\method{add1}{cca}(object, scope, test = c("none", "permutation"),
+\method{add1}{cca}(object, scope, test = c("none", "permutation", "F"),
     permutations = how(nperm=199), ...)
-\method{drop1}{cca}(object, scope, test = c("none", "permutation"), 
+\method{drop1}{cca}(object, scope, test = c("none", "permutation", "F"), 
     permutations = how(nperm=199), ...)
 }
 
@@ -19,8 +19,11 @@ constrained ordination model.
   \code{\link{cca}}, \code{\link{rda}}, \code{\link{dbrda}} or
     \code{\link{capscale}}. }
   \item{scope}{ A formula giving the terms to be considered for adding
-  or dropping; see \code{\link{add1}} for details.}
-  \item{test}{ Should a permutation test be added using \code{\link{anova.cca}}. }
+    or dropping; see \code{\link{add1}} for details.}
+  
+  \item{test}{ Should a \code{"permutation"} or parametric \code{"F"}
+    test be added using \code{\link{anova.cca}}. \code{test = "F"} can
+    be only used with \code{\link{rda}} models. }
  
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
@@ -31,14 +34,17 @@ constrained ordination model.
   \code{\link{drop1.default}}, and \code{\link{anova.cca}}.}
 }
 
-\details{ 
+\details{
+
   With argument \code{test = "none"} the functions will only call
-  \code{\link{add1.default}} or \code{\link{drop1.default}}. With
-  argument \code{test = "permutation"} the functions will add test
-  results from \code{\link{anova.cca}}. Function \code{drop1.cca} will
-  call \code{\link{anova.cca}} with argument \code{by = "margin"}.
-  Function \code{add1.cca} will implement a test for single term
-  additions that is not directly available in \code{\link{anova.cca}}.
+  \code{\link{add1.default}} or \code{\link{drop1.default}}. With other
+  choice the functions will add test results from
+  \code{\link{anova.cca}}, either a permutation test or a parameteric
+  \eqn{F}-test (only with \code{\link{rda}} models). Function
+  \code{drop1.cca} will call \code{\link{anova.cca}} with argument
+  \code{by = "margin"}.  Function \code{add1.cca} will implement a test
+  for single term additions that is not directly available in
+  \code{\link{anova.cca}}.
 
   Functions are used implicitly in \code{\link{step}},
   \code{\link{ordiR2step}} and \code{\link{ordistep}}. The
@@ -66,34 +72,35 @@ constrained ordination model.
 \author{Jari Oksanen}
 
 \seealso{ \code{\link{add1}}, \code{\link{drop1}} and
-  \code{\link{anova.cca}} for basic methods. You probably need these
-  functions with \code{\link{step}} and \code{\link{ordistep}}. Functions
+  \code{\link{anova.cca}} for basic methods. Functions
   \code{\link{deviance.cca}} and \code{\link{extractAIC.cca}} are used
   to produce the other arguments than test results in the
-  output.}
+  output. \code{add1} and \code{drop1} are the basic functions in
+  automatic model building with \code{\link{step}},
+  \code{\link{ordistep}} and \code{\link{ordiR2step}}.}
 
 \examples{
-data(dune)
-data(dune.env)
+data(dune, dune.env)
+
 ## Automatic model building based on AIC but with permutation tests
-step(cca(dune ~  1, dune.env), reformulate(names(dune.env)), test="perm")
-## see ?ordistep to do the same, but based on permutation P-values
-\dontrun{
-ordistep(cca(dune ~  1, dune.env), reformulate(names(dune.env)))
-}
-## Manual model building
-## -- define the maximal model for scope
+step(cca(dune ~  1, dune.env), formula(cca(dune ~ ., dune.env)),
+  test="permutation")
+## vegan ordistep does the same, but based on P-values
+ordistep(cca(dune ~  1, dune.env), cca(dune ~ ., dune.env))
+
+## Manual model building using parametric F test
+## define the maximal model for scope
 mbig <- rda(dune ~  ., dune.env)
-## -- define an empty model to start with
+## define an empty model to start with
 m0 <- rda(dune ~ 1, dune.env)
-## -- manual selection and updating
-add1(m0, scope=formula(mbig), test="perm")
+## manual selection and updating
+add1(m0, scope=formula(mbig), test="F")
 m0 <- update(m0, . ~ . + Management)
-add1(m0, scope=formula(mbig), test="perm")
+add1(m0, scope=formula(mbig), test="F")
 m0 <- update(m0, . ~ . + Moisture)
-## -- included variables still significant?
-drop1(m0, test="perm")
-add1(m0, scope=formula(mbig), test="perm")
+## included variables still significant?
+drop1(m0, test="F")
+add1(m0, scope=formula(mbig), test="F")
 }
 \keyword{multivariate }
 \keyword{ models}

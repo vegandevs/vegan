@@ -1,5 +1,5 @@
 `add1.cca`<-
-    function(object, scope, test = c("none", "permutation"),
+    function(object, scope, test = c("none", "permutation", "F"),
              permutations = how(nperm = 199), ...)
 {
     if (inherits(object, "prc"))
@@ -12,7 +12,7 @@
     out <- suppressMessages(NextMethod("add1", object, test = "none"))
     cl <- class(out)
     ## Loop over terms in 'scope' and do anova.cca
-    if (test == "permutation") {
+    if (test != "none") {
         ## Avoid nested Condition(Condition(x) + z)
         if (!is.character(scope))
             scope <- add.scope(object, update.formula(object, scope))
@@ -26,13 +26,15 @@
                 nfit <- suppressMessages(
                     eval(update(object, as.formula(paste(". ~ . +", tt)), evaluate = FALSE),
                          envir = environment(formula(object))))
-                tmp <- anova(object, nfit, permutations = permutations, ...)
+                tmp <- anova(object, nfit, permutations = permutations,
+                             test = test, ...)
                 adds[i+1,] <- unlist(tmp[2, 5:6])
             }
             else { # first term: simple anova
                 nfit <- eval(update(object, as.formula(paste(". ~ . +", tt)), evaluate = FALSE),
                              envir = environment(formula(object)))
-                tmp <- anova(nfit,  permutations = permutations, ...)
+                tmp <- anova(nfit,  permutations = permutations, test = test,
+                             ...)
                 adds[i+1,] <- unlist(tmp[1, 3:4])
             }
         }
