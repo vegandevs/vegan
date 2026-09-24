@@ -20,7 +20,7 @@
     ## R warns on "zero-length" arrows shorter than 1/1000 inches in
     ## the current device: do not draw them, see help(arrows)
     if (arrows) { # optimize w.r.t. arrowheads
-        seeit <- diff(par("usr")[1:2])/par("pin")[1]/1000
+        seeit <- diff(par("usr")[1:2])/par("pin")[1]/500
         zeroarr <- sqrt(rowSums(sco^2)) < seeit
         arrows(0, 0, sco[!zeroarr,1], sco[!zeroarr,2], length = length, ...)
         if (!optimize)

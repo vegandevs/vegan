@@ -35,7 +35,7 @@
             ## arrowhead; R uses 1/1000 inch in device as the limit of
             ## zero-length (see ?arrows).
             nonzeroarrow <- sqrt(rowSums(diff(X)^2)) >
-                diff(par("usr")[1:2])/par("pin")[1]/1000
+                diff(par("usr")[1:2])/par("pin")[1]/500
             if (!all(nonzeroarrow))
                 X <- X[c(TRUE, nonzeroarrow),, drop=FALSE]
             if (nrow(X) < 2)
