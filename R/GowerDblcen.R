@@ -35,7 +35,10 @@ addCailliez <- function(d)
     ## Largest real eigenvalue
     e <- eigen(z, symmetric = FALSE, only.values = TRUE)$values
     out <- max(Re(e))
-    max(out, 0)
+    ## Result is numerically zero with metric index
+    if (out < sqrt(.Machine$double.eps))
+        out <- 0
+    out
 }
 
 addLingoes <- function(d)
@@ -43,6 +46,9 @@ addLingoes <- function(d)
     ## smallest negative eigenvalue (or zero)
     d <- -GowerDblcen(d^2)/2
     e <- eigen(d, symmetric = TRUE, only.values = TRUE)$values
-    out <- min(e)
-    max(-out, 0)
+    out <- -min(e)
+    ## Numerically zero with metrix index
+    if (out < sqrt(.Machine$double.eps))
+        out <- 0
+    out
 }
