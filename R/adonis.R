@@ -50,6 +50,9 @@
             ac <- addCailliez(as.matrix(lhs))
             lhs <- lhs + ac
         }
+        ## even adjusted distances have zero-diagonal
+        if (is.matrix(lhs))
+            diag(lhs) <- 0
     }
     sol <- adonis0(lhs, d$Y, d$Z)
     sol$formula <- match.call()
