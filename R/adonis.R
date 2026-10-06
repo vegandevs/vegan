@@ -36,6 +36,9 @@
             ac <- addCailliez(as.matrix(lhs))
             lhs <- lhs + ac
         }
+        ## even adjusted distances have zero-diagonal
+        if (is.matrix(lhs))
+            diag(lhs) <- 0
     }
     ## adonis0 & anova.cca should see only dissimilarities (lhs)
     if (!missing(data)) # expand and check terms
