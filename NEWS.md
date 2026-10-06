@@ -100,6 +100,13 @@
   axis. Similar inflation was used both in the test statistic and
   permutation, and _P_-values are unchanged.
 
+* `anova.cca(<list of models>)` output table did not adopt headers to
+  `rda` or distance-based methods. Issue
+  [#801](https://github.com/vegandevs/vegan/issues/801).
+
+* `adonis2` did not apply correctly Lingoes and Caillez adjustments of
+  input dissimilarities.
+
 ## Deprecated, Defunct and Resurrected
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
