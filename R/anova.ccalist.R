@@ -14,20 +14,25 @@
         stop("same ordination method must be used in all models")
     else
         method <- method[1]
-    ## 2. All models must be fitted with formula interface
+    ## 2. All models must be based on the same inertia: can vary in
+    ## dbrda, capscale, and rda (variance/correlation).
+    inertia <- sapply(object, function(z) z$inertia)
+    if (!all(inertia == inertia[[1]]))
+        stop("same kind of inertia must be used in all models")
+    ## 3. All models must be fitted with formula interface
     if (any(sapply(object, function(x) is.null(x$terms))))
         stop("all models must be fitted with formula interface")
-    ## 3. Same response
+    ## 4. Same response
     resp <- sapply(object, function(z) deparse(formula(z)[[2]]))
     if (!all(resp == resp[1]))
         stop("response must be same in all models")
-    ## 4. Same no. of observations
+    ## 5. Same no. of observations
     N <- sapply(object, nobs)
     if (!all(N == N[1]))
         stop("number of observations must be same in all models")
     else
         N <- N[1]
-    ## 5. Terms must be nested
+    ## 6. Terms must be nested
     trms <- lapply(object, function(z) labels(terms(z)))
     o  <- order(sapply(trms, length))
     for (i in 2:nmodels)
@@ -85,9 +90,10 @@
     ## collect table
     table <- data.frame(resdf, resdev, c(NA, df),
                         c(NA,changedev), c(NA,fval), c(NA,pval))
-    if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
+    if (inherits(object[[1]], c("capscale", "dbrda")) &&
+        object[[1]]$adjust == 1)
         varname <- "SumOfSqs"
-    else if (inherits(object, "rda"))
+    else if (inherits(object[[1]], "rda"))
         varname <- "Variance"
     else
         varname <- "ChiSquare"
