@@ -36,11 +36,6 @@
     }
     ## get the name of the inertia
     inertia <- attr(X, "method")
-    if (is.null(inertia))
-        inertia <- "unknown"
-    inertia <- paste(toupper(substr(inertia, 1, 1)),
-                     substring(inertia, 2), sep = "")
-    inertia <- paste(inertia, "distance")
 
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
@@ -81,20 +76,15 @@
     } else {
         ac <- 0
     }
-    ## update the name of the inertia
-    if (!sqrt.dist)
-        inertia <- paste("squared", inertia)
-    if (ac > sqrt(.Machine$double.eps))
-        inertia <- paste(paste0(toupper(substring(add, 1, 1)),
-                              substring(add, 2)), "adjusted", inertia)
     if (max(X) >= 4 + .Machine$double.eps) {
-        inertia <- paste("mean", inertia)
         adjust <- sqrt(k)
         X <- X/adjust
     }
     else {
         adjust <- 1
     }
+    ## update name of inerita
+    inertia <- inertstring(inertia, sqrt.dist, adjust, ac, add)
     ## Get components of inertia with negative eigenvalues following
     ## McArdle & Anderson (2001), section "Theory". G is their
     ## double-centred Gower matrix, but instead of hat matrix, we use
