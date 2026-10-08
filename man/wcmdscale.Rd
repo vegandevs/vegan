@@ -92,7 +92,7 @@ wcmdscale(d, k, eig = FALSE, add = FALSE, x.ret = FALSE, w)
   \item{x}{the doubly centred and weighted distance matrix if
     \code{x.ret} is true.}
   \item{ac, add}{additive constant and adjustment method used to avoid
-    negative eigenvalues. These are \code{NA} and \code{FALSE} if no
+    negative eigenvalues. These are \code{0} and \code{FALSE} if no
     adjustment was done.}
   \item{GOF}{Goodness of fit statistics for \code{k} axes. The first
     value is based on the sum of absolute values of all eigenvalues,

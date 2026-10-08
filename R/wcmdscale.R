@@ -24,8 +24,9 @@
             d <- d + ac
         }
     } else {
-        ac <- NA
+        ac <- 0
     }
+    inertia <- inertstring(attr(d, "method"), FALSE, 1, ac, add)
     ## Gower centring
     m <- as.matrix(d^2)
     n <- nrow(m)
@@ -64,7 +65,8 @@
             colnames(points) <- paste("Dim", seq_len(NCOL(points)), sep="")
         out <- list(points = points, eig = if (eig) e$values,
                     x = if (x.ret) m, ac = ac, add = add, GOF = GOF,
-                    weights = w, negaxes = negaxes, call = match.call())
+                    weights = w, negaxes = negaxes, inertia = inertia,
+                    call = match.call())
         class(out) <- "wcmdscale"
     }
     else out <- points
