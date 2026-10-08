@@ -177,7 +177,12 @@ all(abs(cooks.distance(lmod1) - cooks.distance(mod)[, "Cladstel"]) < 1e-8)
 ## t-values of regression coefficients based on type = "canoco"
 ## residuals
 coef(mod)
-coef(mod)/sqrt(diag(vcov(mod, type = "canoco")))
+tval <- coef(mod)/sqrt(diag(vcov(mod, type = "canoco")))
+tval
+## P-values
+zapsmall(2 * pt(abs(tval), df.residual(mod), lower.tail=FALSE))
+plot(mod, scaling = "sites", display = c("lc", "reg"))
+title(main = "Linear Combination and Regression Scores")
 }
 
 \keyword{ models }
