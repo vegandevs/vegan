@@ -13,15 +13,8 @@
     ## transfo and scale can be used only with non-distance data
     if (inherits(Y, "dist")) {
         inert <- attr(Y, "method")
-        if (is.null(inert))
-            inert <- "unknown user-supplied"
-        inert <- paste(paste0(toupper(substring(inert, 1, 1)),
-                              substring(inert, 2)), "distance")
-        ## sqrt of distances?
         if (sqrt.dist)
             Y <- sqrt(Y)
-        else
-            inert <- paste("squared", inert)
         ## additive constant to euclidify distances?
         if (is.logical(add) && add)
             add <- "lingoes"
@@ -34,15 +27,15 @@
                 ac <- addCailliez(as.matrix(Y))
                 Y <- Y + ac
             }
-            if (ac > sqrt(.Machine$double.eps))
-                inert <- paste(paste0(toupper(substring(add, 1, 1)),
-                                    substring(add, 2)), "adjusted", inert)
+        } else {
+            ac <- 0
         }
+        inert <- inertstring(inert, sqrt.dist, 1, ac, add)
         RDA <- "dbRDA"
         if(!missing(transfo) || !missing(scale))
             message("arguments 'transfo' and 'scale' are ignored with distances")
     } else if (chisquare) {
-        inert = "Chi-square"
+        inert = "scaled Chi-square"
         RDA = "CCA"
         permutations = getPermuteMatrix(permutations, nrow(Y))
     } else {
