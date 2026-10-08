@@ -62,7 +62,10 @@
             ac <- addCailliez(as.matrix(d))
             d <- d + ac
         }
+    } else {
+        ac <- 0
     }
+    inertia <- inertstring(attr(d, "method"), sqrt.dist, 1, ac, add)
     if(missing(type))
         type <- "median"
     type <- match.arg(type)
@@ -152,7 +155,8 @@
     rownames(vectors) <- names(zij) <- labs
     retval <- list(eig = eig, vectors = vectors, distances = zij,
                    group = group, centroids = centroids,
-                   group.distances = grp.zij, call = match.call())
+                   group.distances = grp.zij, inertia = inertia,
+                   call = match.call())
     class(retval) <- "betadisper"
     attr(retval, "method") <- attr(d, "method")
     attr(retval, "type") <- type
