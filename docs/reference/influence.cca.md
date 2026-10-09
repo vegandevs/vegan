@@ -335,9 +335,18 @@ coef(mod)
 #> Al  0.007478556 -0.001883637  0.003380774
 #> P  -0.006491081 -0.102189737 -0.022306682
 #> K  -0.006755568  0.015343662  0.017067351
-coef(mod)/sqrt(diag(vcov(mod, type = "canoco")))
+tval <- coef(mod)/sqrt(diag(vcov(mod, type = "canoco")))
+tval
 #>          CCA1      CCA2      CCA3
 #> Al  6.5615451 -1.397643  3.313629
 #> P  -0.4576132 -6.092557 -1.756774
 #> K  -2.0862129  4.007159  5.887926
+## P-values
+zapsmall(2 * pt(abs(tval), df.residual(mod), lower.tail=FALSE))
+#>         CCA1      CCA2      CCA3
+#> Al 0.0000022 0.1775320 0.0034662
+#> P  0.6521628 0.0000059 0.0942569
+#> K  0.0499751 0.0006918 0.0000093
+plot(mod, scaling = "sites", display = c("lc", "reg"))
+title(main = "Linear Combination and Regression Scores")
 ```

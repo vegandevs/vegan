@@ -120,6 +120,7 @@ mod <- betadisper(dis, groups)
 mod
 #> 
 #>  Homogeneity of multivariate dispersions
+#>  squared Bray distance
 #> 
 #> Call: betadisper(d = dis, group = groups)
 #> 
