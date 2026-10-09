@@ -108,6 +108,8 @@
                   howHead(attr(permutations, "control")))
     topnote <- paste("Model ", format(1L:nmodels), ": ", formulae,
                      sep = "", collapse = "\n")
+    if (varname == "SumOfSqs")
+        topnote <- paste0(topnote, "\nSumOfSqs is ", object$inertia)
     structure(table, heading = c(head,topnote),
               F.perm = t(pfvals),
               class = c("anova.cca", "anova", "data.frame"))

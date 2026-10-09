@@ -975,6 +975,7 @@ Number of permutations: 49
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
+Inertia is scaled Chi-square 
          Df Inertia    F Pr(>F)
 Model     4    0.45 1.27   0.42
 Residual 12    1.06            
@@ -988,6 +989,7 @@ Number of permutations: 49
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
+Inertia is variance 
          Df Inertia    F Pr(>F)
 Model     4    16.8 1.32   0.46
 Residual 12    38.1            
@@ -1001,6 +1003,7 @@ Number of permutations: 49
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, scale = TRUE)
 Permutation test for all constrained eigenvalues
+Inertia is correlations 
          Df Inertia    F Pr(>F)
 Model     4    6.14 1.22   0.66
 Residual 12   15.08            
@@ -1014,6 +1017,7 @@ Number of permutations: 49
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
+Inertia is squared Bray distance 
          Df Inertia    F Pr(>F)
 Model     4    1.07 1.59   0.26
 Residual 12    2.02            
@@ -1027,6 +1031,7 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
+Inertia is squared Bray distance 
          Df Inertia    F Pr(>F)
 Model     4    1.03 1.73    0.2
 Residual 12    1.80            
@@ -1040,6 +1045,7 @@ Number of permutations: 49
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
+Inertia is mean squared Manhattan distance 
          Df Inertia    F Pr(>F)
 Model     4     213 1.41   0.42
 Residual 12     452            
@@ -1053,6 +1059,7 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
+Inertia is mean squared Manhattan distance 
          Df Inertia    F Pr(>F)
 Model     4     203 1.57   0.32
 Residual 12     387            
@@ -1065,6 +1072,7 @@ Number of permutations: 49
  
 Model: rda(formula = H ~ A1, data = dune.env)
 Permutation test for all constrained eigenvalues
+Inertia is variance 
          Df Inertia    F Pr(>F)
 Model     1  0.0029 0.75   0.44
 Residual 18  0.0703            
@@ -1139,6 +1147,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Model     4     1.07 1.59   0.26
 Residual 12     2.02            
@@ -1148,6 +1157,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Model     4     1.03 1.73    0.2
 Residual 12     1.80            
@@ -1217,6 +1227,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.703 1.39    0.2
 A1        1    0.370 2.19    0.5
@@ -1228,6 +1239,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.667 1.49   0.20
 A1        1    0.367 2.46   0.44
@@ -1307,6 +1319,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.627 1.24   0.60
 A1        1    0.370 2.19   0.12
@@ -1318,6 +1331,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.594 1.32   0.52
 A1        1    0.367 2.46   0.10
@@ -1401,6 +1415,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 CAP1      1    0.674 4.00   0.22
 CAP2      1    0.243 1.44   0.60
@@ -1414,6 +1429,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 dbRDA1    1    0.667 4.45   0.22
 dbRDA2    1    0.238 1.59   0.58
@@ -1470,6 +1486,7 @@ Number of permutations: 49
 Model: cca(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
+Inertia is scaled Chi-square 
          Df Inertia    F Pr(>F)
 Model     4    0.45 1.27   0.42
 Residual 12    1.06            
@@ -1483,6 +1500,7 @@ Number of permutations: 49
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env)
 Permutation test for all constrained eigenvalues
+Inertia is variance 
          Df Inertia    F Pr(>F)
 Model     4    16.8 1.32   0.46
 Residual 12    38.1            
@@ -1496,6 +1514,7 @@ Number of permutations: 49
 Model: rda(formula = dune ~ Condition(Management) + Manure + A1, data =
 dune.env, scale = TRUE)
 Permutation test for all constrained eigenvalues
+Inertia is correlations 
          Df Inertia    F Pr(>F)
 Model     4    6.14 1.22   0.66
 Residual 12   15.08            
@@ -1509,6 +1528,7 @@ Number of permutations: 49
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
+Inertia is squared Bray distance 
          Df Inertia    F Pr(>F)
 Model     4    1.07 1.59   0.26
 Residual 12    2.02            
@@ -1522,6 +1542,7 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "bray")
 Permutation test for all constrained eigenvalues
+Inertia is squared Bray distance 
          Df Inertia    F Pr(>F)
 Model     4    1.03 1.73    0.2
 Residual 12    1.80            
@@ -1535,6 +1556,7 @@ Number of permutations: 49
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1,
 data = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
+Inertia is mean squared Manhattan distance 
          Df Inertia    F Pr(>F)
 Model     4     213 1.41   0.42
 Residual 12     452            
@@ -1548,6 +1570,7 @@ Number of permutations: 49
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data
 = dune.env, distance = "manhattan")
 Permutation test for all constrained eigenvalues
+Inertia is mean squared Manhattan distance 
          Df Inertia    F Pr(>F)
 Model     4     203 1.57   0.32
 Residual 12     387            
@@ -1560,6 +1583,7 @@ Number of permutations: 49
  
 Model: rda(formula = H ~ A1, data = dune.env)
 Permutation test for all constrained eigenvalues
+Inertia is variance 
          Df Inertia    F Pr(>F)
 Model     1  0.0029 0.75   0.44
 Residual 18  0.0703            
@@ -1635,6 +1659,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Model     4     1.07 1.59   0.26
 Residual 12     2.02            
@@ -1644,6 +1669,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Model     4     1.03 1.73    0.2
 Residual 12     1.80            
@@ -1713,6 +1739,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.703 1.39    0.2
 A1        1    0.370 2.19    0.5
@@ -1724,6 +1751,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.667 1.49   0.20
 A1        1    0.367 2.46   0.44
@@ -1803,6 +1831,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.627 1.24   0.60
 A1        1    0.370 2.19   0.12
@@ -1814,6 +1843,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 Manure    3    0.594 1.32   0.52
 A1        1    0.367 2.46   0.10
@@ -1897,6 +1927,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: capscale(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 CAP1      1    0.674 4.00   0.22
 CAP2      1    0.243 1.44   0.60
@@ -1910,6 +1941,7 @@ Permutation: free
 Number of permutations: 49
 
 Model: dbrda(formula = dune ~ Condition(Management) + Manure + A1, data = dune.env, distance = "bray")
+SumOfSqs is squared Bray distance
          Df SumOfSqs    F Pr(>F)
 dbRDA1    1    0.667 4.45   0.22
 dbRDA2    1    0.238 1.59   0.58
@@ -2257,4 +2289,4 @@ Alopgeni 0.031859 0.35291 0.051066 0.12889917 0.190337 0.197400 0.181314
 > 
 > proc.time()
    user  system elapsed 
-  0.915   0.088   1.643 
+  0.909   0.083   1.617 

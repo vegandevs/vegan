@@ -32,6 +32,8 @@
                    "Terms added sequentially (first to last)\n",
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
+    if (varname == "SumOfSqs")
+        mod <- paste0(mod, "\nSumOfSqs is ", object$inertia)
     attr(out, "heading") <- c(head, mod)
     attr(out, "F.perm") <- sol$F.perm
     class(out) <- c("anova.cca", "anova","data.frame")
@@ -136,6 +138,8 @@
                    "Marginal effects of terms\n",
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
+    if (varname == "SumOfSqs")
+        mod <- paste0(mod, "\nSumOfSqs is ", object$inertia)
     attr(out, "heading") <- c(head, mod)
     attr(out, "F.perm") <- Fval
     class(out) <- c("anova.cca", "anova", "data.frame")
@@ -187,7 +191,10 @@
                    model, " model\n",
                    "Forward tests for axes\n",
                    howHead(attr(permutations, "control")))
-    head <- c(head, paste("Model:", c(object$call)))
+    mod <- paste("Model:", c(object$call))
+    if (varname == "SumOfSqs")
+        mod <- paste0(mod, "\nSumOfSqs is ", object$inertia)
+    head <- c(head, mod)
 
     ## constraints and model matrices
     Y <- object$Ybar
@@ -290,6 +297,8 @@
                    "Sequential test for contrasts\n",
                    howHead(attr(permutations, "control")))
     mod <- paste("Model:", c(object$call))
+    if (varname == "SumOfSqs")
+        mod <- paste0(mod, "\nSumOfSqs is ", object$inertia)
     attr(out, "heading") <- c(head, mod)
     attr(out, "F.perm") <- sol$F.perm
     class(out) <- c("anova.cca", "anova","data.frame")

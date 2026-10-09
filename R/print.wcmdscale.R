@@ -20,8 +20,9 @@
     }
     tbl <- cbind("Inertia" = evs, "Rank" = ranks)
     printCoefmat(tbl, digits = digits, na.print = "")
+    cat("Inertia is", x$inertia, "\n")
     if (!is.na(x$ac) && x$ac > 0)
-        cat("additive constant ", x$ac, " (method ", x$add, ")\n", sep = "")
+        cat("additive constant ", x$ac, "\n", sep = "")
     cat("\nResults have", NROW(x$points), "points,", NCOL(x$points), "axes\n")
     ## print eigenvalues, but truncate very long lists
     PRINLIM <- 120

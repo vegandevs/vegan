@@ -41,14 +41,6 @@
             vdata <- deparse1(substitute(comm))
     }
     inertia <- attr(X, "method")
-    if (is.null(inertia))
-        inertia <- "unknown"
-    inertia <- paste(toupper(substr(inertia, 1, 1)),
-                     substring(inertia,  2), sep = "")
-    inertia <- paste(inertia, "distance")
-    if (!sqrt.dist)
-        inertia <- paste("squared", inertia)
-    ## postpone info on euclidification till we have done so
 
     ## evaluate formula: ordiParseFormula will return dissimilarities
     ## as a symmetric square matrix (except that some rows may be
@@ -74,7 +66,6 @@
     if (sqrt.dist)
         X <- sqrt(X)
     if (max(X) >= 4 + .Machine$double.eps) {
-        inertia <- paste("mean", inertia)
         adjust <- sqrt(k)
         X <- X/adjust
     }
@@ -87,10 +78,8 @@
     if(any(dim(X$points) == 0)) # there may be no positive dims
         X$points <- matrix(0, NROW(X$points), 1)
     ## this may have been euclidified: update inertia
-    if (!is.na(X$ac) && X$ac > sqrt(.Machine$double.eps))
-        inertia <- paste(paste0(toupper(substring(X$add, 1, 1)),
-                                substring(X$add, 2)),
-                         "adjusted", inertia)
+    inertia <- inertstring(inertia, sqrt.dist, adjust, X$ac, X$add)
+
     if (is.null(rownames(X$points)))
         rownames(X$points) <- nm
 
