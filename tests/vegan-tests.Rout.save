@@ -191,6 +191,7 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+SumOfSqs is squared Bray distance
          Df SumOfSqs      F Pr(>F)
 Model     6  1.54840 1.6423   0.11
 Residual  5  0.78568              
@@ -201,6 +202,7 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+SumOfSqs is squared Bray distance
             Df SumOfSqs      F Pr(>F)  
 Management   3  1.17117 2.4844   0.04 *
 poly(A1, 2)  2  0.30602 0.9737   0.52  
@@ -215,6 +217,7 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+SumOfSqs is squared Bray distance
             Df SumOfSqs      F Pr(>F)
 Management   3  0.64888 1.3765   0.25
 poly(A1, 2)  2  0.26160 0.8324   0.67
@@ -227,6 +230,7 @@ Permutation: free
 Number of permutations: 99
 
 Model: capscale(formula = dis ~ Management + poly(A1, 2) + spno, data = df, na.action = na.exclude, subset = Use != "Pasture" & spno > 7)
+SumOfSqs is squared Bray distance
          Df SumOfSqs      F Pr(>F)  
 CAP1      1  0.77834 4.9533   0.08 .
 CAP2      1  0.45691 2.9078   0.37  
@@ -782,6 +786,7 @@ Number of permutations: 99
  
 Model: rda(formula = dune ~ z)
 Permutation test for all constrained eigenvalues
+Inertia is variance 
          Df Inertia      F Pr(>F)  
 z         1   7.376 1.7298   0.08 .
 Residual 18  76.748                
@@ -1075,4 +1080,4 @@ Retained 40 of 190 dissimilarities
 > 
 > proc.time()
    user  system elapsed 
-  1.314   0.060   1.371 
+  1.325   0.056   1.378 
