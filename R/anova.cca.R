@@ -86,6 +86,8 @@
     head <- paste0("Permutation test for ", tst$method, " under ",
                   tst$model, " model\n", howHead(control))
     mod <- paste("Model:", c(object$call))
+    if (varname == "SumOfSqs")
+        mod <- paste0(mod, "\nSumOfSqs is ", object$inertia)
     mod <- structure(table, heading = c(head, mod), Random.seed = seed,
                      control = control, F.perm = tst$F.perm,
                      class = c("anova.cca", "anova", "data.frame"))

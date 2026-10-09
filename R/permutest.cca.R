@@ -212,7 +212,8 @@ permutest.default <- function(x, ...)
     sol <- list(call = Call, testcall = x$call, model = model,
                 F.0 = F.0, F.perm = F.perm,  chi = c(Chi.z, Chi.xz),
                 num = num, den = den, df = c(q, r), nperm = nperm,
-                method = x$method, first = first, termlabels = termlabs)
+                method = x$method, inertia = x$inertia, first = first,
+                termlabels = termlabs)
     sol$Random.seed <- attr(permutations, "seed")
     sol$control <- attr(permutations, "control")
     if (!missing(strata)) {

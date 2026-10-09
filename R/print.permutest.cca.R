@@ -6,7 +6,7 @@
     if (x$nperm > 0)
         cat(howHead(x$control), "\n")
     else
-        cat("Number of permutations: 0\n\n")
+        cat("Number of permutations: 0\n")
     writeLines(strwrap(pasteCall(x$testcall, prefix = "Model:")))
     if (x$nperm > 0)
         Pval <- (colSums(sweep(x$F.perm, 2, x$F.0 - EPS, ">=")) + 1)/(x$nperm + 1)
@@ -19,6 +19,7 @@
         cat("all constrained eigenvalues\n")
     else
         cat("sequential contrasts\n")
+    cat("Inertia is", x$inertia, "\n")
     anotab <- data.frame(x$df, x$chi, c(x$F.0, NA), c(Pval, NA))
     colnames(anotab) <- c("Df", "Inertia", "F", "Pr(>F)")
     rownames(anotab) <- c(x$termlabels, "Residual")
