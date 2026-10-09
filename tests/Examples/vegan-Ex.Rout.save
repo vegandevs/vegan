@@ -1446,6 +1446,7 @@ Warning in avgdist(BCI, sample = 450, iterations = 10) :
 > mod
 
 	Homogeneity of multivariate dispersions
+	squared Bray distance
 
 Call: betadisper(d = dis, group = groups)
 
@@ -1589,6 +1590,7 @@ ungrazed  0.2786095 -0.21114993 -0.03475586  0.0220129
 > (mod3B <- betadisper(dis, groups, type = "median", bias.adjust=TRUE))
 
 	Homogeneity of multivariate dispersions
+	squared Bray distance
 
 Call: betadisper(d = dis, group = groups, type = "median", bias.adjust
 = TRUE)
@@ -1631,6 +1633,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > (tmp <- betadisper(dis, group, type = "median"))
 
 	Homogeneity of multivariate dispersions
+	squared Bray distance
 
 Call: betadisper(d = dis, group = group, type = "median")
 
@@ -1648,6 +1651,7 @@ Eigenvalues for PCoA axes:
 > (tmp <- betadisper(dis, group, type = "centroid"))
 
 	Homogeneity of multivariate dispersions
+	squared Bray distance
 
 Call: betadisper(d = dis, group = group, type = "centroid")
 
@@ -1673,6 +1677,7 @@ missing observations due to 'd' removed
 > mod2
 
 	Homogeneity of multivariate dispersions
+	squared Bray distance
 
 Call: betadisper(d = dis, group = groups)
 
@@ -1715,6 +1720,7 @@ missing observations due to 'd' removed
 > mod3
 
 	Homogeneity of multivariate dispersions
+	squared Bray distance
 
 Call: betadisper(d = dis, group = groups, type = "centroid")
 
@@ -3971,11 +3977,20 @@ TIP.i.Achimill   significance  heterogeneity          minIP          varIP
 Al  0.007478556 -0.001883637  0.003380774
 P  -0.006491081 -0.102189737 -0.022306682
 K  -0.006755568  0.015343662  0.017067351
-> coef(mod)/sqrt(diag(vcov(mod, type = "canoco")))
+> tval <- coef(mod)/sqrt(diag(vcov(mod, type = "canoco")))
+> tval
          CCA1      CCA2      CCA3
 Al  6.5615451 -1.397643  3.313629
 P  -0.4576132 -6.092557 -1.756774
 K  -2.0862129  4.007159  5.887926
+> ## P-values
+> zapsmall(2 * pt(abs(tval), df.residual(mod), lower.tail=FALSE))
+        CCA1      CCA2      CCA3
+Al 0.0000022 0.1775320 0.0034662
+P  0.6521628 0.0000059 0.0942569
+K  0.0499751 0.0006918 0.0000093
+> plot(mod, scaling = "sites", display = c("lc", "reg"))
+> title(main = "Linear Combination and Regression Scores")
 > 
 > 
 > 
@@ -6422,6 +6437,7 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > mod
 
 	Homogeneity of multivariate dispersions
+	squared Bray distance
 
 Call: betadisper(d = dis, group = groups)
 
@@ -9323,7 +9339,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.085 0.303 9.408 0 0 
+Time elapsed:  9.07 0.288 9.371 0 0 
 > grDevices::dev.off()
 null device 
           1 
