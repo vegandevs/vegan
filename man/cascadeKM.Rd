@@ -142,6 +142,11 @@ cIndexKM(y, x, index = "all")
   in the maximum of these indices, and also explore the groups
   corresponding to other values of \eqn{K}.
 }
+
+\note{ The analysis can be replicated with the same random number seed
+  only in non-parallel analysis. Runs with parallel processing
+  cannot be replicated. }
+
 \references{
 
   Calinski, T. and J. Harabasz. 1974. A dendrite method for cluster
