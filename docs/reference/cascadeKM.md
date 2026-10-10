@@ -178,6 +178,12 @@ equal sizes, one should not put too much faith in the maximum of these
 indices, and also explore the groups corresponding to other values of
 \\K\\.
 
+## Note
+
+The analysis can be replicated with the same random number seed only in
+non-parallel analysis. Runs with parallel processing cannot be
+replicated.
+
 ## References
 
 Calinski, T. and J. Harabasz. 1974. A dendrite method for cluster
