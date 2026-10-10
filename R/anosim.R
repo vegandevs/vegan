@@ -78,6 +78,7 @@
     } else { # no permutations
         p.val <- perm <- NA
     }
+    names(perm) <- NULL # all names were 'TRUE' (or missing)
     sol$signif <- p.val
     sol$perm <- perm
     sol$permutations <- permutations

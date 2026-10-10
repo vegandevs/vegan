@@ -26,9 +26,8 @@ pfork <- anosim(dune, dune.env$Management, permutations = perm,
                 parallel = NCPU)
 psock <- anosim(dune, dune.env$Management, permutations = perm,
                 parallel = SOCK)
-expect_equivalent(pfork$perm, p1$perm)
-## R 4.1 drops names in socket cluster in git tests
-expect_equivalent(psock$perm, p1$perm)
+expect_equal(pfork$perm, p1$perm)
+expect_equal(psock$perm, p1$perm)
 
 ## bioenv: models can be compared in parallel
 data(varespec, varechem)
