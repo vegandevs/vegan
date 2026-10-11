@@ -146,6 +146,12 @@
     V <- vu$V
     ## dissimilarities
     dis <- eval(parse(text = method))
+    if (anyNA(dis)) {
+        if (any(U == 0 & V == 0))
+            warning("some U & V were both 0: result contains NaN")
+        else
+            warning("result contains NA")
+    }
     dis <- structure(dis, Size = N, Labels = rownames(x), Diag = FALSE,
                      Upper = FALSE, call = match.call(), class = "dist")
     if (missing(name))
