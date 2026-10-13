@@ -4,7 +4,9 @@
     UseMethod("RsquareAdj")
 }
 
-
+## default method does not return a list(x, r2) like other methods,
+## but making this consistent breaks RsquareAdj.rda, CCorA, and
+## simpleRDA2
 `RsquareAdj.default` <-
     function(x, n, m, ...)
 {
@@ -69,6 +71,10 @@
 RsquareAdj.lm <-
   function(x, ...)
 {
+    ## Does not work with summary.mlm which returns a list of
+    ## univariate summary.lm objects.
+    if (inherits(x, "mlm"))
+        stop("'mlm' models are not supported")
     summary(x)[c("r.squared", "adj.r.squared")]
 }
 
