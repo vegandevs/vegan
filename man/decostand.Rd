@@ -31,19 +31,25 @@ decobackstand(x, zap = TRUE)
     are ignored in standardization of other values.}
   \item{zap}{Make near-zero values exact zeros to avoid negative
     values and exaggerated estimates of species richness.}
-  \item{\dots}{Other arguments to the function (ignored).}
+  \item{\dots}{Other arguments to the function. For methods
+    \code{"clr"}, \code{"rclr"} and \code{"alr"} see Details.}
 }
 \details{
   The function offers following standardization methods for community
   data:
   \itemize{
     \item \code{total}: divide by margin total (default \code{MARGIN = 1}).
+
     \item \code{max}: divide by margin maximum (default \code{MARGIN = 2}).
+
     \item \code{frequency}: divide by margin total and multiply by the
     number of non-zero items, so that the average of non-zero entries is
     one (Oksanen 1983; default \code{MARGIN = 2}).
-    \item \code{normalize}: make margin sum of squares equal to one (default
-    \code{MARGIN = 1}).
+
+    \item \code{normalize}: make margin sum of squares equal to one.
+    With Euclidean distances these give Chord distances (see
+    \code{\link{vegdist}}). (default \code{MARGIN = 1}).
+
     \item \code{range}: standardize values into range 0 \dots 1 (default
     \code{MARGIN = 2}).  If all values are constant, they will be
     transformed to 0.
@@ -55,16 +61,21 @@ decobackstand(x, zap = TRUE)
 
     \item \code{standardize}: scale \code{x} to zero mean and unit variance
     (default \code{MARGIN = 2}).
+
     \item \code{pa}: scale \code{x} to presence/absence scale (0/1).
+
     \item \code{chi.square}: divide by row sums and square root of
-    column sums, and adjust for square root of matrix total
-    (Legendre & Gallagher 2001). When used with the Euclidean
-    distance, the distances should be similar to the
-    Chi-square distance used in correspondence analysis. However, the
-    results from \code{\link{cmdscale}} would still differ, since
-    CA is a weighted ordination method (default \code{MARGIN = 1}).
+    column sums, and adjust for square root of matrix total (Legendre &
+    Gallagher 2001). When used with the Euclidean distance in weighted
+    metric scaling (principal coordinates analysis) they are Chi-square
+    distances used in correspondence analysis; see
+    \code{\link{wcmdscale}}. (default \code{MARGIN = 1}).
+
     \item \code{hellinger}: square root of \code{method = "total"}
-    (Legendre & Gallagher 2001).
+    (Legendre & Gallagher 2001). With Euclidean distances these give
+    Hellinger distances (see \code{\link{vegdist}}). (default
+    \code{MARGIN = 1}).
+
     \item \code{log}: logarithmic transformation as suggested by
      Anderson et al. (2006): \eqn{\log_b (x) + 1}{log_b (x) + 1} for
      \eqn{x > 0}, where \eqn{b} is the base of the logarithm; zeros are
@@ -142,7 +153,7 @@ decobackstand(x, zap = TRUE)
   in a normal data set) and \code{MARGIN=2} means columns (species in a
   normal data set).
 
-  Command \code{wisconsin} is a shortcut to common Wisconsin double
+  Function \code{wisconsin} is a shortcut to common Wisconsin double
   standardization where species (\code{MARGIN=2}) are first standardized
   by maxima (\code{max}) and then sites (\code{MARGIN=1}) by
   site totals (\code{tot}).
@@ -153,18 +164,32 @@ decobackstand(x, zap = TRUE)
   \code{method =  "range"}), many standardization will change these into
   \code{NaN}.
 
+  Most methods will retain original absences as zeros. Exceptions are
+  \code{"standardize"} where zeros of standardized values correspond to
+  \code{MARGIN} average, and original zeros are negative values. The
+  Aitchison methods \code{"clr"}, \code{"rclr"} and \code{"alr"}
+  replace zeros or use \code{NA}. With \code{"clr"} the zeros are
+  always replaced with negative values which is constant for row, but
+  with others negative and positive values can occur both for original
+  zeros and positive values.
+
+  Most methods will retain the rank order of input data by \code{MARGIN}
+  (but not the other margin). Exceptions are \code{"chi.square"} and
+  function \code{wisconsin} which standardize by both margins, and
+  methods \code{"rclr"} and \code{"alr"} (and naturally \code{"pa"}
+  which only has values 0 and 1).
+
   Function \code{decobackstand} can be used to transform standardized
   data back to original. This is not possible for all standardization
-  and may not be implemented to all cases where it would be
+  methods and may not be implemented to all cases where it would be
   possible. There are round-off errors and back-transformation is not
   exact, and it is wise not to overwrite the original data. With
-  \code{zap=TRUE} original zeros should be exact.
-}
+  \code{zap=TRUE} original zeros should be exact.  }
 
 \value{
-  Returns the standardized data frame, and adds an attribute
+  Returns the standardized data frame or matrix, and adds an attribute
   \code{"decostand"} giving the name of applied standardization
-  \code{"method"} and attribute \code{"parameters"} with appropriate
+  \code{"method"} and attribute \code{"parameters"} with
   transformation parameters.  }
 
 \author{Jari Oksanen, Etienne \enc{Laliberté}{Laliberte}
