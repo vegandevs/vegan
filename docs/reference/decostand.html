@@ -84,7 +84,8 @@ methods for community ecologists.</p>
     values and exaggerated estimates of species richness.</p></dd>
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Other arguments to the function (ignored).</p></dd>
+<dd><p>Other arguments to the function. For methods
+    <code>"clr"</code>, <code>"rclr"</code> and <code>"alr"</code> see Details.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -95,8 +96,9 @@ methods for community ecologists.</p>
 <li><p><code>frequency</code>: divide by margin total and multiply by the
     number of non-zero items, so that the average of non-zero entries is
     one (Oksanen 1983; default <code>MARGIN = 2</code>).</p></li>
-<li><p><code>normalize</code>: make margin sum of squares equal to one (default
-    <code>MARGIN = 1</code>).</p></li>
+<li><p><code>normalize</code>: make margin sum of squares equal to one.
+    With Euclidean distances these give Chord distances (see
+    <code><a href="vegdist.html">vegdist</a></code>). (default <code>MARGIN = 1</code>).</p></li>
 <li><p><code>range</code>: standardize values into range 0 ... 1 (default
     <code>MARGIN = 2</code>).  If all values are constant, they will be
     transformed to 0.</p></li>
@@ -108,14 +110,15 @@ methods for community ecologists.</p>
     (default <code>MARGIN = 2</code>).</p></li>
 <li><p><code>pa</code>: scale <code>x</code> to presence/absence scale (0/1).</p></li>
 <li><p><code>chi.square</code>: divide by row sums and square root of
-    column sums, and adjust for square root of matrix total
-    (Legendre &amp; Gallagher 2001). When used with the Euclidean
-    distance, the distances should be similar to the
-    Chi-square distance used in correspondence analysis. However, the
-    results from <code><a href="https://rdrr.io/r/stats/cmdscale.html" class="external-link">cmdscale</a></code> would still differ, since
-    CA is a weighted ordination method (default <code>MARGIN = 1</code>).</p></li>
+    column sums, and adjust for square root of matrix total (Legendre &amp;
+    Gallagher 2001). When used with the Euclidean distance in weighted
+    metric scaling (principal coordinates analysis) they are Chi-square
+    distances used in correspondence analysis; see
+    <code><a href="wcmdscale.html">wcmdscale</a></code>. (default <code>MARGIN = 1</code>).</p></li>
 <li><p><code>hellinger</code>: square root of <code>method = "total"</code>
-    (Legendre &amp; Gallagher 2001).</p></li>
+    (Legendre &amp; Gallagher 2001). With Euclidean distances these give
+    Hellinger distances (see <code><a href="vegdist.html">vegdist</a></code>). (default
+    <code>MARGIN = 1</code>).</p></li>
 <li><p><code>log</code>: logarithmic transformation as suggested by
      Anderson et al. (2006): \(\log_b (x) + 1\) for
      \(x &gt; 0\), where \(b\) is the base of the logarithm; zeros are
@@ -183,7 +186,7 @@ methods for community ecologists.</p>
 <p>All methods have a default margin. <code>MARGIN=1</code> means rows (sites
   in a normal data set) and <code>MARGIN=2</code> means columns (species in a
   normal data set).</p>
-<p>Command <code>wisconsin</code> is a shortcut to common Wisconsin double
+<p>Function <code>wisconsin</code> is a shortcut to common Wisconsin double
   standardization where species (<code>MARGIN=2</code>) are first standardized
   by maxima (<code>max</code>) and then sites (<code>MARGIN=1</code>) by
   site totals (<code>tot</code>).</p>
@@ -192,18 +195,31 @@ methods for community ecologists.</p>
   data. If there are empty sites or species (or constant with
   <code>method =  "range"</code>), many standardization will change these into
   <code>NaN</code>.</p>
+<p>Most methods will retain original absences as zeros. Exceptions are
+  <code>"standardize"</code> where zeros of standardized values correspond to
+  <code>MARGIN</code> average, and original zeros are negative values. The
+  Aitchison methods <code>"clr"</code>, <code>"rclr"</code> and <code>"alr"</code>
+  replace zeros or use <code>NA</code>. With <code>"clr"</code> the zeros are
+  always replaced with negative values which is constant for row, but
+  with others negative and positive values can occur both for original
+  zeros and positive values.</p>
+<p>Most methods will retain the rank order of input data by <code>MARGIN</code>
+  (but not the other margin). Exceptions are <code>"chi.square"</code> and
+  function <code>wisconsin</code> which standardize by both margins, and
+  methods <code>"rclr"</code> and <code>"alr"</code> (and naturally <code>"pa"</code>
+  which only has values 0 and 1).</p>
 <p>Function <code>decobackstand</code> can be used to transform standardized
   data back to original. This is not possible for all standardization
-  and may not be implemented to all cases where it would be
+  methods and may not be implemented to all cases where it would be
   possible. There are round-off errors and back-transformation is not
   exact, and it is wise not to overwrite the original data. With
   <code>zap=TRUE</code> original zeros should be exact.</p>
     </div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Returns the standardized data frame, and adds an attribute
+    <p>Returns the standardized data frame or matrix, and adds an attribute
   <code>"decostand"</code> giving the name of applied standardization
-  <code>"method"</code> and attribute <code>"parameters"</code> with appropriate
+  <code>"method"</code> and attribute <code>"parameters"</code> with
   transformation parameters.</p>
     </div>
     <div class="section level2">

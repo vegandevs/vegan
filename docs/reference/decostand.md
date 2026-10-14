@@ -50,7 +50,8 @@ decobackstand(x, zap = TRUE)
 
 - ...:
 
-  Other arguments to the function (ignored).
+  Other arguments to the function. For methods `"clr"`, `"rclr"` and
+  `"alr"` see Details.
 
 ## Details
 
@@ -65,8 +66,10 @@ data:
   non-zero items, so that the average of non-zero entries is one
   (Oksanen 1983; default `MARGIN = 2`).
 
-- `normalize`: make margin sum of squares equal to one (default
-  `MARGIN = 1`).
+- `normalize`: make margin sum of squares equal to one. With Euclidean
+  distances these give Chord distances (see
+  [`vegdist`](https://vegandevs.github.io/vegan/reference/vegdist.md)).
+  (default `MARGIN = 1`).
 
 - `range`: standardize values into range 0 ... 1 (default `MARGIN = 2`).
   If all values are constant, they will be transformed to 0.
@@ -83,14 +86,16 @@ data:
 
 - `chi.square`: divide by row sums and square root of column sums, and
   adjust for square root of matrix total (Legendre & Gallagher 2001).
-  When used with the Euclidean distance, the distances should be similar
-  to the Chi-square distance used in correspondence analysis. However,
-  the results from [`cmdscale`](https://rdrr.io/r/stats/cmdscale.html)
-  would still differ, since CA is a weighted ordination method (default
-  `MARGIN = 1`).
+  When used with the Euclidean distance in weighted metric scaling
+  (principal coordinates analysis) they are Chi-square distances used in
+  correspondence analysis; see
+  [`wcmdscale`](https://vegandevs.github.io/vegan/reference/wcmdscale.md).
+  (default `MARGIN = 1`).
 
 - `hellinger`: square root of `method = "total"` (Legendre & Gallagher
-  2001).
+  2001). With Euclidean distances these give Hellinger distances (see
+  [`vegdist`](https://vegandevs.github.io/vegan/reference/vegdist.md)).
+  (default `MARGIN = 1`).
 
 - `log`: logarithmic transformation as suggested by Anderson et al.
   (2006): \\\log_b (x) + 1\\ for \\x \> 0\\, where \\b\\ is the base of
@@ -158,7 +163,7 @@ All methods have a default margin. `MARGIN=1` means rows (sites in a
 normal data set) and `MARGIN=2` means columns (species in a normal data
 set).
 
-Command `wisconsin` is a shortcut to common Wisconsin double
+Function `wisconsin` is a shortcut to common Wisconsin double
 standardization where species (`MARGIN=2`) are first standardized by
 maxima (`max`) and then sites (`MARGIN=1`) by site totals (`tot`).
 
@@ -167,18 +172,31 @@ data entries that normally should not occur in the community data. If
 there are empty sites or species (or constant with `method = "range"`),
 many standardization will change these into `NaN`.
 
+Most methods will retain original absences as zeros. Exceptions are
+`"standardize"` where zeros of standardized values correspond to
+`MARGIN` average, and original zeros are negative values. The Aitchison
+methods `"clr"`, `"rclr"` and `"alr"` replace zeros or use `NA`. With
+`"clr"` the zeros are always replaced with negative values which is
+constant for row, but with others negative and positive values can occur
+both for original zeros and positive values.
+
+Most methods will retain the rank order of input data by `MARGIN` (but
+not the other margin). Exceptions are `"chi.square"` and function
+`wisconsin` which standardize by both margins, and methods `"rclr"` and
+`"alr"` (and naturally `"pa"` which only has values 0 and 1).
+
 Function `decobackstand` can be used to transform standardized data back
-to original. This is not possible for all standardization and may not be
-implemented to all cases where it would be possible. There are round-off
-errors and back-transformation is not exact, and it is wise not to
-overwrite the original data. With `zap=TRUE` original zeros should be
-exact.
+to original. This is not possible for all standardization methods and
+may not be implemented to all cases where it would be possible. There
+are round-off errors and back-transformation is not exact, and it is
+wise not to overwrite the original data. With `zap=TRUE` original zeros
+should be exact.
 
 ## Value
 
-Returns the standardized data frame, and adds an attribute `"decostand"`
-giving the name of applied standardization `"method"` and attribute
-`"parameters"` with appropriate transformation parameters.
+Returns the standardized data frame or matrix, and adds an attribute
+`"decostand"` giving the name of applied standardization `"method"` and
+attribute `"parameters"` with transformation parameters.
 
 ## Author
 
