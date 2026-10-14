@@ -308,6 +308,11 @@
                 )
     if (zap)
         x[abs(x) < sqrt(.Machine$double.eps)] <- 0
+    ## decostand attributes are stripped from data.frame, kept in matrix
+    if (!is.null(attr(x, "decostand"))) {
+        attr(x, "decostand") <- NULL
+        attr(x, "parameters") <- NULL
+    }
     x
 }
 
