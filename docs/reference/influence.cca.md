@@ -82,7 +82,8 @@ Similar linear mmodel functions
 
 - addFit:
 
-  Add fit in working scale to the result.
+  Add fit in working scale to the result when `type="response"` (this is
+  impossible with `type="canoco"`).
 
 - tidy:
 

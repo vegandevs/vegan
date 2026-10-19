@@ -110,8 +110,8 @@ sppscores(mod) <- BCI
 plot(vegdist(BCI), dist(BCI))
 
 ## more linear relationship
-plot(vegdist(BCI), dist(sqrt(decostand(BCI, "total"))))
+plot(vegdist(BCI), dist(decostand(BCI, "hellinger")))
 
 ## better species scores
-sppscores(mod) <- sqrt(decostand(BCI, "total"))
+sppscores(mod) <- decostand(BCI, "hellinger")
 ```
