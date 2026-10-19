@@ -171,8 +171,12 @@
                 "rstandard" = rstandard(model, type = type),
                 "rstudent" = rstudent(model, type = type),
                 "cooks.distance" = cooks.distance(model, type = type))
-    if (addFit)
-        out$fitted <- fitted(model, type = "working")
+    if (addFit) {
+        if (type == "response")
+            out$fitted <- fitted(model, type = "working")
+        else
+            warning("'addFit=TRUE' does not work with 'type=\"canoco\"")
+    }
     if (tidy) {
         colnam <- rep(colnames(out$rstudent), each = nrow(out$rstudent))
         rownam <- rep(rownames(out$rstudent), ncol(out$rstudent))
