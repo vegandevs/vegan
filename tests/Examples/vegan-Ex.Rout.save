@@ -4595,7 +4595,7 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 9.961736e-07  max resid 2.970966e-06 
+... Procrustes: rmse 9.961624e-07  max resid 2.970966e-06 
 ... Similar to previous best
 Run 4 stress 0.1067169 
 ... Procrustes: rmse 8.516169e-06  max resid 2.461974e-05 
@@ -7891,9 +7891,9 @@ se.ACE     5.736054   5.571998   6.191618   5.367571   5.848474
 > ## Euclidean distances of BCI differ from used dissimilarity
 > plot(vegdist(BCI), dist(BCI))
 > ## more linear relationship
-> plot(vegdist(BCI), dist(sqrt(decostand(BCI, "total"))))
+> plot(vegdist(BCI), dist(decostand(BCI, "hellinger")))
 > ## better species scores
-> sppscores(mod) <- sqrt(decostand(BCI, "total"))
+> sppscores(mod) <- decostand(BCI, "hellinger")
 > 
 > 
 > 
@@ -9339,7 +9339,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.07 0.288 9.371 0 0 
+Time elapsed:  9.041 0.294 9.354 0 0 
 > grDevices::dev.off()
 null device 
           1 
