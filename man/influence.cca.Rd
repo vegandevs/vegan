@@ -67,7 +67,9 @@
     \code{"response"} for species data or difference of WA and LC
     scores for \code{"canoco"}.}
 
-  \item{addFit}{Add fit in working scale to the result.}
+  \item{addFit}{Add fit in working scale to the result when
+    \code{type="response"} (this is impossible with
+    \code{type="canoco"}).}
 
   \item{tidy}{Return a data frame suitable for \CRANpkg{ggplot2} or
     \CRANpkg{lattice}. Each statistic is in one long vector with added
