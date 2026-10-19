@@ -105,9 +105,9 @@ sppscores(mod) <- BCI
 ## Euclidean distances of BCI differ from used dissimilarity
 plot(vegdist(BCI), dist(BCI))
 ## more linear relationship
-plot(vegdist(BCI), dist(sqrt(decostand(BCI, "total"))))
+plot(vegdist(BCI), dist(decostand(BCI, "hellinger")))
 ## better species scores
-sppscores(mod) <- sqrt(decostand(BCI, "total"))
+sppscores(mod) <- decostand(BCI, "hellinger")
 }
 
 \keyword{ multivariate }
