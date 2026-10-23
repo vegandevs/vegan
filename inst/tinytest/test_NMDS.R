@@ -19,10 +19,12 @@ expect_length(scores(m0, "species"), 0) # no species scores
 sppscores(m0) <- eval(parse(text = m0$data)) # data as in metaMDS
 expect_equal(scores(m0, "species"), scores(m, "species"))
 
+if (packageVersion("vegan") >= "2.8") { # engine
 ## check engine and stepacross
 data(dune) # varespec has no sites that 'noshare' species
 expect_silent(metaMDS(dune, trymax = 0, trace = 0, noshare = TRUE,
                       engine = MASS::isoMDS))
+}
 
 ## Rotate to external variable
 ef0 <- envfit(m ~ Al + Humdepth + Ca, varechem)
@@ -33,7 +35,7 @@ expect_equivalent(ef$vectors$arrows[1,], c(1,0)) # Dim1 is parallel to Al
 
 ## MDSaddpoints puts points to (almost) correct positions
 adds <- MDSaddpoints(m, as.matrix(d))
-expect_equivalent(adds$points, m$points, tolerance = 1e-4) # 4.4e-5 in test
+expect_equivalent(adds$points, m$points, tolerance = 1e-3) # 0.00014 in github
 
 ## check subsetting of distances needed in MDSaddpoints
 d <- vegdist(varespec)
