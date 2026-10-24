@@ -52,7 +52,7 @@ ord <- metaMDS(varespec)
 #> Run 4 stress 0.1962451 
 #> Run 5 stress 0.1974408 
 #> Run 6 stress 0.1948413 
-#> Run 7 stress 0.2143612 
+#> Run 7 stress 0.2143613 
 #> Run 8 stress 0.2032569 
 #> Run 9 stress 0.2382234 
 #> Run 10 stress 0.18584 
@@ -63,7 +63,7 @@ ord <- metaMDS(varespec)
 #> Run 13 stress 0.1985584 
 #> Run 14 stress 0.1969805 
 #> Run 15 stress 0.2048307 
-#> Run 16 stress 0.1955836 
+#> Run 16 stress 0.1955837 
 #> Run 17 stress 0.2075787 
 #> Run 18 stress 0.248631 
 #> Run 19 stress 0.2397793 

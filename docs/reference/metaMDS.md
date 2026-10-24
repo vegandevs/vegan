@@ -544,14 +544,14 @@ sol <- metaMDS(dune)
 #> Run 0 stress 0.1192678 
 #> Run 1 stress 0.1809577 
 #> Run 2 stress 0.1192678 
-#> ... Procrustes: rmse 1.976157e-05  max resid 4.845058e-05 
+#> ... Procrustes: rmse 1.977825e-05  max resid 4.840224e-05 
 #> ... Similar to previous best
 #> Run 3 stress 0.1192679 
-#> ... Procrustes: rmse 9.4792e-05  max resid 0.0002862898 
+#> ... Procrustes: rmse 9.461367e-05  max resid 0.0002856542 
 #> ... Similar to previous best
 #> Run 4 stress 0.1808911 
 #> Run 5 stress 0.1192679 
-#> ... Procrustes: rmse 0.0001810283  max resid 0.0005536289 
+#> ... Procrustes: rmse 0.000181029  max resid 0.0005536312 
 #> ... Similar to previous best
 #> Run 6 stress 0.1889643 
 #> Run 7 stress 0.1183186 
@@ -564,13 +564,13 @@ sol <- metaMDS(dune)
 #> ... Similar to previous best
 #> Run 11 stress 0.1183186 
 #> ... New best solution
-#> ... Procrustes: rmse 2.754094e-06  max resid 7.935809e-06 
+#> ... Procrustes: rmse 2.754094e-06  max resid 7.935807e-06 
 #> ... Similar to previous best
 #> Run 12 stress 0.1183186 
-#> ... Procrustes: rmse 1.733624e-05  max resid 5.710201e-05 
+#> ... Procrustes: rmse 1.733624e-05  max resid 5.710202e-05 
 #> ... Similar to previous best
 #> Run 13 stress 0.1183186 
-#> ... Procrustes: rmse 8.656421e-06  max resid 3.04843e-05 
+#> ... Procrustes: rmse 8.65642e-06  max resid 3.04843e-05 
 #> ... Similar to previous best
 #> Run 14 stress 0.1192678 
 #> Run 15 stress 0.1192679 
@@ -580,9 +580,9 @@ sol <- metaMDS(dune)
 #> ... Procrustes: rmse 4.18773e-06  max resid 1.190266e-05 
 #> ... Similar to previous best
 #> Run 18 stress 0.1192679 
-#> Run 19 stress 0.3679464 
+#> Run 19 stress 0.3679469 
 #> Run 20 stress 0.1183186 
-#> ... Procrustes: rmse 1.368242e-05  max resid 3.984606e-05 
+#> ... Procrustes: rmse 1.36862e-05  max resid 3.985175e-05 
 #> ... Similar to previous best
 #> *** Best solution repeated 2 times
 sol
@@ -610,7 +610,7 @@ sol <- metaMDS(dune, previous.best = sol)
 #> Starting from 2-dimensional configuration
 #> Run 0 stress 0.1183186 
 #> Run 1 stress 0.1183186 
-#> ... Procrustes: rmse 8.471274e-06  max resid 2.520447e-05 
+#> ... Procrustes: rmse 2.194683e-05  max resid 5.955707e-05 
 #> ... Similar to previous best
 #> Run 2 stress 0.1192678 
 #> Run 3 stress 0.1808911 
@@ -619,29 +619,29 @@ sol <- metaMDS(dune, previous.best = sol)
 #> Run 6 stress 0.1889637 
 #> Run 7 stress 0.1889639 
 #> Run 8 stress 0.1183186 
-#> ... Procrustes: rmse 5.576227e-06  max resid 1.509153e-05 
+#> ... Procrustes: rmse 5.576216e-06  max resid 1.509151e-05 
 #> ... Similar to previous best
 #> Run 9 stress 0.1192678 
 #> Run 10 stress 0.1192678 
 #> Run 11 stress 0.2034853 
 #> Run 12 stress 0.1183186 
-#> ... Procrustes: rmse 5.973862e-06  max resid 1.625764e-05 
+#> ... Procrustes: rmse 5.97386e-06  max resid 1.625763e-05 
 #> ... Similar to previous best
 #> Run 13 stress 0.1192678 
 #> Run 14 stress 0.1183186 
 #> ... New best solution
-#> ... Procrustes: rmse 4.10116e-06  max resid 8.520275e-06 
+#> ... Procrustes: rmse 4.101156e-06  max resid 8.520267e-06 
 #> ... Similar to previous best
 #> Run 15 stress 0.1192679 
 #> Run 16 stress 0.1808911 
 #> Run 17 stress 0.1183186 
-#> ... Procrustes: rmse 1.517859e-05  max resid 4.804113e-05 
+#> ... Procrustes: rmse 1.517859e-05  max resid 4.804114e-05 
 #> ... Similar to previous best
 #> Run 18 stress 0.1183186 
 #> ... Procrustes: rmse 4.190876e-06  max resid 1.334594e-05 
 #> ... Similar to previous best
 #> Run 19 stress 0.1183186 
-#> ... Procrustes: rmse 1.594564e-05  max resid 5.128093e-05 
+#> ... Procrustes: rmse 1.783328e-05  max resid 5.816765e-05 
 #> ... Similar to previous best
 #> Run 20 stress 0.1192679 
 #> *** Best solution repeated 4 times
@@ -654,23 +654,23 @@ sol2 <- metaMDS(dune, model = "local", stress=2)
 #> ... Similar to previous best
 #> Run 2 stress 0.1928475 
 #> ... New best solution
-#> ... Procrustes: rmse 4.401963e-05  max resid 0.0001060229 
+#> ... Procrustes: rmse 4.401969e-05  max resid 0.0001060233 
 #> ... Similar to previous best
 #> Run 3 stress 0.1928479 
-#> ... Procrustes: rmse 0.0003502963  max resid 0.001028741 
+#> ... Procrustes: rmse 0.000350293  max resid 0.00102873 
 #> ... Similar to previous best
 #> Run 4 stress 0.1928478 
-#> ... Procrustes: rmse 0.0003403394  max resid 0.0009991898 
+#> ... Procrustes: rmse 0.0003403347  max resid 0.0009991761 
 #> ... Similar to previous best
 #> Run 5 stress 0.1928486 
-#> ... Procrustes: rmse 0.000460011  max resid 0.001388425 
+#> ... Procrustes: rmse 0.0004600147  max resid 0.001388435 
 #> ... Similar to previous best
 #> Run 6 stress 0.1928477 
-#> ... Procrustes: rmse 0.0001888092  max resid 0.00052194 
+#> ... Procrustes: rmse 0.0001888093  max resid 0.0005219403 
 #> ... Similar to previous best
 #> Run 7 stress 0.1928475 
 #> ... New best solution
-#> ... Procrustes: rmse 3.436681e-05  max resid 0.0001065286 
+#> ... Procrustes: rmse 3.436674e-05  max resid 0.0001065283 
 #> ... Similar to previous best
 #> Run 8 stress 0.1928476 
 #> ... Procrustes: rmse 0.0001744718  max resid 0.0005037104 
@@ -679,16 +679,16 @@ sol2 <- metaMDS(dune, model = "local", stress=2)
 #> ... Procrustes: rmse 0.0002961276  max resid 0.0008419025 
 #> ... Similar to previous best
 #> Run 10 stress 0.1928475 
-#> ... Procrustes: rmse 7.015343e-05  max resid 0.000175725 
+#> ... Procrustes: rmse 7.015329e-05  max resid 0.0001757249 
 #> ... Similar to previous best
 #> Run 11 stress 0.1928475 
 #> ... Procrustes: rmse 7.790369e-05  max resid 0.0002267589 
 #> ... Similar to previous best
 #> Run 12 stress 0.1928479 
-#> ... Procrustes: rmse 0.0002606266  max resid 0.0007451797 
+#> ... Procrustes: rmse 0.0002606266  max resid 0.0007451796 
 #> ... Similar to previous best
 #> Run 13 stress 0.1928476 
-#> ... Procrustes: rmse 0.0001799589  max resid 0.0005188495 
+#> ... Procrustes: rmse 0.0001799633  max resid 0.0005188581 
 #> ... Similar to previous best
 #> Run 14 stress 0.1928479 
 #> ... Procrustes: rmse 0.0002764831  max resid 0.0007894786 
@@ -697,13 +697,13 @@ sol2 <- metaMDS(dune, model = "local", stress=2)
 #> ... Procrustes: rmse 0.0001950511  max resid 0.0005554912 
 #> ... Similar to previous best
 #> Run 16 stress 0.1928487 
-#> ... Procrustes: rmse 0.0004267454  max resid 0.001288558 
+#> ... Procrustes: rmse 0.000426742  max resid 0.001288548 
 #> ... Similar to previous best
 #> Run 17 stress 0.1928478 
-#> ... Procrustes: rmse 0.0002939714  max resid 0.0008489439 
+#> ... Procrustes: rmse 0.0002939923  max resid 0.0008489977 
 #> ... Similar to previous best
 #> Run 18 stress 0.1928477 
-#> ... Procrustes: rmse 0.0002214433  max resid 0.0006276386 
+#> ... Procrustes: rmse 0.0002214434  max resid 0.0006276387 
 #> ... Similar to previous best
 #> Run 19 stress 0.1928481 
 #> ... Procrustes: rmse 0.0003752541  max resid 0.001097019 
@@ -735,34 +735,34 @@ sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 #> Run 0 stress 0.1067169 
 #> Run 1 stress 0.1067169 
 #> ... New best solution
-#> ... Procrustes: rmse 3.595382e-06  max resid 8.848901e-06 
+#> ... Procrustes: rmse 3.595008e-06  max resid 8.848495e-06 
 #> ... Similar to previous best
 #> Run 2 stress 0.107471 
 #> Run 3 stress 0.1067169 
-#> ... Procrustes: rmse 1.013137e-06  max resid 2.933758e-06 
+#> ... Procrustes: rmse 1.01352e-06  max resid 2.934463e-06 
 #> ... Similar to previous best
 #> Run 4 stress 0.1073148 
 #> Run 5 stress 0.1067169 
-#> ... Procrustes: rmse 5.977117e-06  max resid 1.365502e-05 
+#> ... Procrustes: rmse 5.978652e-06  max resid 1.36604e-05 
 #> ... Similar to previous best
 #> Run 6 stress 0.107471 
 #> Run 7 stress 0.1073148 
 #> Run 8 stress 0.1649903 
 #> Run 9 stress 0.1073148 
 #> Run 10 stress 0.1067169 
-#> ... Procrustes: rmse 6.133644e-06  max resid 1.589587e-05 
+#> ... Procrustes: rmse 6.133211e-06  max resid 1.589526e-05 
 #> ... Similar to previous best
 #> Run 11 stress 0.1067169 
-#> ... Procrustes: rmse 2.595702e-05  max resid 6.045721e-05 
+#> ... Procrustes: rmse 2.595756e-05  max resid 6.045908e-05 
 #> ... Similar to previous best
-#> Run 12 stress 0.1742032 
+#> Run 12 stress 0.1742031 
 #> Run 13 stress 0.1073148 
 #> Run 14 stress 0.1073148 
 #> Run 15 stress 0.1069788 
 #> ... Procrustes: rmse 0.006829443  max resid 0.02412131 
 #> Run 16 stress 0.1689844 
 #> Run 17 stress 0.1067169 
-#> ... Procrustes: rmse 1.892134e-06  max resid 5.352068e-06 
+#> ... Procrustes: rmse 1.89275e-06  max resid 5.352759e-06 
 #> ... Similar to previous best
 #> Run 18 stress 0.1822664 
 #> Run 19 stress 0.107471 

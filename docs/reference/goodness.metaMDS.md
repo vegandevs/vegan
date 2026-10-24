@@ -113,7 +113,7 @@ mod <- metaMDS(varespec)
 #> Run 2 stress 0.2085949 
 #> Run 3 stress 0.1974408 
 #> Run 4 stress 0.1948413 
-#> Run 5 stress 0.2169272 
+#> Run 5 stress 0.2169269 
 #> Run 6 stress 0.18584 
 #> Run 7 stress 0.1993238 
 #> Run 8 stress 0.2109617 
@@ -127,16 +127,16 @@ mod <- metaMDS(varespec)
 #> Run 16 stress 0.2223246 
 #> Run 17 stress 0.1843196 
 #> ... New best solution
-#> ... Procrustes: rmse 2.174359e-05  max resid 8.703476e-05 
+#> ... Procrustes: rmse 2.174326e-05  max resid 8.703356e-05 
 #> ... Similar to previous best
 #> Run 18 stress 0.1825658 
 #> ... New best solution
 #> ... Procrustes: rmse 0.04160835  max resid 0.1517228 
 #> Run 19 stress 0.1948413 
-#> Run 20 stress 0.2467726 
+#> Run 20 stress 0.2467725 
 #> *** Best solution was not repeated -- monoMDS stopping criteria:
-#>     18: stress ratio > sratmax
-#>      2: scale factor of the gradient < sfgrmin
+#>     17: stress ratio > sratmax
+#>      3: scale factor of the gradient < sfgrmin
 stressplot(mod)
 
 gof <- goodness(mod)
