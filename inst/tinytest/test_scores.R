@@ -149,8 +149,10 @@ EPS <- 100 * sqrt(.Machine$double.eps)
 triangle <- matrix(c(-EPS, -EPS, 1+EPS, 0-EPS, 0.5, sqrt(0.75)+EPS),
                    nrow=3, ncol=2, byrow=TRUE)
 expect_equal(.C(vegan:::pnpoly,
-                length(triangle), triangle[,1], triangle[,2],
-                nrow(sco), sco[,1], sco[,2],
+                as.integer(length(triangle)),
+                as.double(triangle[,1]), as.double(triangle[,2]),
+                as.integer(nrow(sco)),
+                as.double(sco[,1]), as.double(sco[,2]),
                 inpoly = integer(nrow(sco)))$inpoly, # inpoly=1 in triangle
              rep(1, nrow(sco)))
 
