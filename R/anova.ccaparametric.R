@@ -37,5 +37,8 @@
                   "\nGreenhouse-Geisser epsilon:",
                   format(GG.eps, digits = 4L), "\n")
     attr(anotab, "heading")[1] <- head
+    ## remove permutation attributes
+    attr(anotab, "F.perm") <- NULL
+    attr(anotab, "control") <- NULL
     anotab
 }
