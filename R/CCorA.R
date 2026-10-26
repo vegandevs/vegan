@@ -59,9 +59,11 @@
     p <- ncol(Y)
     if(is.null(colnames(Y))) {
         Ynoms <- paste("VarY", 1:p, sep="")
-        } else {
+    } else {
         Ynoms <- colnames(Y)
-        }
+    }
+    if (is.data.frame(X) && any(sapply(X, is.factor)))
+        X <- model.matrix(~ ., X)[, -1, drop=FALSE]
     X <- as.matrix(X, rownames.force = TRUE)
     var.null(X,2)
     nX <- nrow(X)
