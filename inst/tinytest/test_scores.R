@@ -142,7 +142,7 @@ expect_silent(sco <- scores(m))
 
 ## betadiver
 expect_silent(m <- betadiver(mite, method=NA))
-Expect_silent(sco <- scores(m, triangular=TRUE))
+expect_silent(sco <- scores(m, triangular=TRUE))
 ## all points are within unit-side equilateral triangle, EPS is a
 ## buffer for numerical accuracy of points at the triangle border.
 EPS <- 100 * sqrt(.Machine$double.eps)
