@@ -141,18 +141,16 @@ expect_silent(m <- betadisper(vegdist(dune), dune.env$Management))
 expect_silent(sco <- scores(m))
 
 ## betadiver
-expect_silent(m <- betadiver(dune, method=NA))
-expect_silent(sco <- scores(m, triangular=TRUE))
+expect_silent(m <- betadiver(mite, method=NA))
+Expect_silent(sco <- scores(m, triangular=TRUE))
 ## all points are within unit-side equilateral triangle, EPS is a
-## security buffer for numerical problems of points at the triangle side.
+## buffer for numerical accuracy of points at the triangle border.
 EPS <- 100 * sqrt(.Machine$double.eps)
 triangle <- matrix(c(-EPS, -EPS, 1+EPS, 0-EPS, 0.5, sqrt(0.75)+EPS),
                    nrow=3, ncol=2, byrow=TRUE)
 expect_equal(.C(vegan:::pnpoly,
-                as.integer(length(triangle)),
-                as.double(triangle[,1]), as.double(triangle[,2]),
-                as.integer(nrow(sco)),
-                as.double(sco[,1]), as.double(sco[,2]),
+                3L, as.double(triangle[,1]), as.double(triangle[,2]),
+                as.integer(nrow(sco)), as.double(sco[,1]), as.double(sco[,2]),
                 inpoly = integer(nrow(sco)))$inpoly, # inpoly=1 in triangle
              rep(1, nrow(sco)))
 
