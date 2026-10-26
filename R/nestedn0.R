@@ -1,9 +1,10 @@
-"nestedn0" <-
-function(comm)
+`nestedn0` <-
+    function(comm)
 {
     comm <- ifelse(comm > 0, 1, 0)
     R <- rowSums(comm)
     spmin <- apply(comm, 2, function(x) min((x*R)[x > 0]))
+    spmin <- as.integer(spmin) # take care that result is formally integer
     n0 <- spmin
     for (i in 1:ncol(comm))
         n0[i] <- sum(comm[,i] == 0 & R > spmin[i])
