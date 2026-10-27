@@ -116,7 +116,10 @@
     else
         alt <- NA
     ## combine permutations
-    p <- do.call(rbind, lapply(mods, function(z) z$permutations))
+    if (is.matrix(mods[[1]]$permutations))
+        p <- do.call(rbind, lapply(mods, function(z) z$permutations))
+    else
+        p <- do.call(c, lapply(mods, function(z) z$permutations))
     ## return permustats
     structure(list(statistic = stats,
                    permutations = p,
