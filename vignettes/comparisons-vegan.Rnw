@@ -80,7 +80,7 @@ We first fit a redundancy analysis in which plant community composition
 is related to management and the numeric variable \code{A1}.
 
 <<first-model>>=
-library(vegan)
+library("vegan")
 data(dune)
 data(dune.env)
 

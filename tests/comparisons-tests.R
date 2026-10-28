@@ -1,7 +1,7 @@
 ## permutation comparisons for constrained ordination
 
-library(vegan)
-library(permute)
+library("vegan")
+library("permute")
 
 data(dune)
 data(dune.env)
@@ -202,7 +202,9 @@ stopifnot(inherits(afit, "adonis2_fit"),
 atab <- anova(mod, by = "contrast", variable = "Management",
               comparison = "reference", reference = "BF",
               permutations = per)
-stopifnot(inherits(atab, "anova.cca"), nrow(atab) == 3L)
+stopifnot(inherits(atab, "anova.cca"), nrow(atab) == 3L,
+          inherits(try(anova(mod, by = "contrast", variable = "Management",
+                             test = "F"), silent = TRUE), "try-error"))
 
 ## Invalid and unsafe comparisons are rejected.
 stopifnot(all(vapply(c("revpairwise", "revsequential", "revreference"),
