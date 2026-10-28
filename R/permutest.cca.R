@@ -7,10 +7,22 @@ permutest.default <- function(x, ...)
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
               model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
-              strata = NULL, parallel = getOption("mc.cores"), ...)
+              strata = NULL, parallel = getOption("mc.cores"), ...,
+              statistic = c("pseudo-F", "modified-F"), groups = NULL)
 {
+    statistic <- match.arg(statistic)
+    if (statistic == "modified-F") {
+        if (inherits(x, "capscale"))
+            stop("'statistic = \"modified-F\"' is not available for capscale")
+        if (!inherits(x, "rda"))
+            stop("'statistic = \"modified-F\"' is not available for cca; ",
+                 "use adonis2() or dbrda() with explicit dissimilarities")
+    }
     ## do something sensible with insensible input (no constraints)
     if (is.null(x$CCA) || x$CCA$rank == 0) {
+        if (statistic == "modified-F")
+            stop("the model must have a saturated group constraint space ",
+                 "for 'statistic = \"modified-F\"'")
         sol <- list(call = match.call(), testcall = x$call, model = NA,
                     F.0 = NA, F.perm = NA, chi = c(0, max(x$CA$tot.chi,0)),
                     num = 0, den = x$CA$tot.chi,
@@ -34,6 +46,78 @@ permutest.default <- function(x, ...)
     isCCA <- !is.null(w)
     isPartial <- !is.null(x$pCCA) && x$pCCA$rank > 0   # handle conditions
     isDB <- inherits(x, c("dbrda")) # only dbrda is distance-based
+    if (statistic == "modified-F") {
+        if (!is.null(by))
+            stop("'by' must be NULL with 'statistic = \"modified-F\"'")
+        if (first)
+            stop("'first' must be FALSE with 'statistic = \"modified-F\"'")
+        if (model == "full")
+            stop("'model = \"full\"' is not available with modified-F")
+        group.info <- modifiedFGroups(x, groups)
+        Q <- x$CCA$QR
+        E <- ordiYbar(x, "initial")
+        N <- nrow(E)
+        permutations <- getPermuteMatrix(permutations, N, strata = strata)
+        nperm <- nrow(permutations)
+        observed <- modifiedFStatistic(E, Q, group.info, isDB)
+
+        getF2lapply <- function(i, permutations, E, Q, group.info, isDB) {
+            modifiedFPermutations(permutations[i, , drop = FALSE], E, Q,
+                                  group.info, isDB)
+        }
+        if (is.null(parallel))
+            parallel <- 1
+        hasClus <- inherits(parallel, "cluster")
+        if (hasClus || parallel > 1) {
+            if (.Platform$OS.type == "unix" && !hasClus) {
+                tmp <- do.call(rbind,
+                    mclapply(splitIndices(nperm, parallel), getF2lapply,
+                             mc.cores = parallel, permutations = permutations,
+                             E = E, Q = Q, group.info = group.info,
+                             isDB = isDB))
+            } else {
+                if (!hasClus) {
+                    parallel <- makeCluster(parallel)
+                    on.exit(stopCluster(parallel))
+                }
+                tmp <- do.call(rbind,
+                    parLapply(parallel, splitIndices(nperm, length(parallel)),
+                              getF2lapply, permutations = permutations,
+                              E = E, Q = Q, group.info = group.info,
+                              isDB = isDB))
+            }
+        } else {
+            tmp <- modifiedFPermutations(permutations, E, Q, group.info, isDB)
+        }
+
+        Call <- match.call()
+        Call[[1L]] <- as.name("permutest")
+        res.df <- nobs(x) - Q$rank - 1
+        sol <- list(call = Call, testcall = x$call, model = model,
+                    statistic = statistic,
+                    F.0 = structure(observed$statistic, names = "Model"),
+                    F.perm = matrix(tmp[, "F"], ncol = 1L),
+                    chi = c(Model = x$CCA$tot.chi,
+                            Residual = x$CA$tot.chi),
+                    num = tmp[, "num"], den = tmp[, "den"],
+                    den.0 = observed$denominator, den.df = observed$den.df,
+                    res.df = res.df,
+                    df = c(group.info$rank, observed$den.df),
+                    groups = group.info$groups,
+                    group.size = group.info$size,
+                    group.dispersion = observed$dispersion,
+                    dispersion.coefficients = observed$coefficients,
+                    nperm = nperm, method = x$method, first = FALSE,
+                    termlabels = "Model")
+        sol$Random.seed <- attr(permutations, "seed")
+        sol$control <- attr(permutations, "control")
+        if (!missing(strata)) {
+            sol$strata <- deparse1(substitute(strata))
+            sol$stratum.values <- strata
+        }
+        class(sol) <- "permutest.cca"
+        return(sol)
+    }
     ## C function to get the statistics in one loop
     getF <- function(indx, E, Q, QZ, effects, w, first, isPartial, isCCA,
                      isDB, q, r)
