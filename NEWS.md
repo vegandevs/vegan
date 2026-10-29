@@ -22,7 +22,7 @@
   supports one-way and saturated fixed-factor cell models fitted with
   `adonis2`, `dbrda` or `rda`; term-specific mixed and random-factor tests
   require separately specified error terms and permutation schemes. The
-  compressed `norwegianShelf.rds` data reproduce the paper's Norwegian
+  compressed `norwegianShelf` data reproduce the paper's Norwegian
   continental-shelf example and provide a published numerical benchmark.
 
 * `metaMDS` can use any MDS function as an `engine` if the function

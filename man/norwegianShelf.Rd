@@ -2,6 +2,9 @@
 \alias{norwegianShelf}
 \docType{data}
 \title{Norwegian Continental Shelf Macrofauna Data}
+\usage{
+data("norwegianShelf")
+}
 \description{
   Counts of 809 benthic soft-sediment macrofaunal species at 101 sites
   from five areas along the Norwegian continental shelf. Anderson et al.
@@ -9,7 +12,7 @@
   modified PERMANOVA statistic for heterogeneous dispersions.
 }
 \format{
-  An xz-compressed RDS file containing a list with three components:
+  A list with three components:
   \describe{
     \item{comm}{An integer matrix with 101 sites as rows and 809 species
       as columns.}
@@ -19,9 +22,7 @@
 }
 \details{
   The published presence/absence analysis is obtained with
-  \code{1L * (norwegianShelf$comm > 0L)}. The data are stored in
-  \file{inst/extdata} rather than \file{data} because base R does not
-  recognize RDS files as \code{data()} data sets.
+  \code{1L * (norwegianShelf$comm > 0L)}.
 }
 \source{
   Supporting Data S1 for Anderson et al. (2017),
@@ -34,8 +35,7 @@
   Zealand Journal of Statistics} 59, 57--79.
 }
 \examples{
-path <- system.file("extdata", "norwegianShelf.rds", package = "vegan")
-norwegianShelf <- readRDS(path)
+data("norwegianShelf")
 str(norwegianShelf, max.level = 1)
 }
 \keyword{datasets}

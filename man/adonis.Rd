@@ -201,8 +201,7 @@ adonis2(dune ~ Management*A1, data = dune.env)
 ## sequential tests
 adonis2(dune ~ Management*A1, data = dune.env, by = "terms")
 ## Published omnibus test allowing heterogeneous dispersions
-norwegianShelf <- readRDS(system.file("extdata", "norwegianShelf.rds",
-                                     package = "vegan"))
+data("norwegianShelf")
 take23 <- norwegianShelf$area \%in\% c("2", "3")
 shelf23 <- 1L * (norwegianShelf$comm[take23, , drop = FALSE] > 0L)
 area23 <- droplevels(norwegianShelf$area[take23])

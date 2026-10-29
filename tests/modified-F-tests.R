@@ -178,9 +178,7 @@ stopifnot(all.equal(data.group.test$F[1], unname(ptest$F.0), tolerance = tol))
 ## Published benchmark from Anderson et al. (2017), Section 4. For Areas 2
 ## and 3, presence/absence data and Jaccard dissimilarities gave ordinary
 ## pseudo-F = 6.53, modified F2 = 6.84, and P = 0.0001 (9999 permutations).
-norwegian.file <- system.file("extdata", "norwegianShelf.rds",
-                              package = "vegan", mustWork = TRUE)
-norwegianShelf <- readRDS(norwegian.file)
+data("norwegianShelf", package = "vegan")
 stopifnot(
     identical(dim(norwegianShelf$comm), c(101L, 809L)),
     identical(unname(as.integer(table(norwegianShelf$area))),
