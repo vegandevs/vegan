@@ -87,6 +87,10 @@
 
 ## Bug Fixes
 
+* `procrustes` guards against negative residual sums of squares caused
+  by rounding in perfect fits, preventing warnings and `NaN` root mean
+  squared errors in `summary`.
+
 * `anova` for `prc` result failed with `by` argument if `prc` was
   called with expressions instead of plain names, for instance with
   `prc(t(spe), md$treatment, md$time)`. Issue
