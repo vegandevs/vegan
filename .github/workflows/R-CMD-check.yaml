@@ -47,8 +47,11 @@ jobs:
       - run: tlmgr update --self
 
       - name: Install additional LaTeX packages
+        timeout-minutes: 10
+        env:
+          TEXLIVE_PREFER_OWN: "1"
         run: |
-          tlmgr install ae babel-english pdflscape pdfpages sidecap
+          tlmgr -v install ae babel-english pdflscape pdfpages sidecap
           tlmgr list --only-installed
       
       - name: Install ghostscript
