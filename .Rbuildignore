@@ -9,3 +9,4 @@ LICENSE
 ^\.github$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^AGENTS\.md$
