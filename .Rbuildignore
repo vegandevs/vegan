@@ -9,3 +9,5 @@ LICENSE
 ^\.github$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^AGENTS\.md$
+^codecov\.yml$

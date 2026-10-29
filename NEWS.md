@@ -96,6 +96,10 @@
 
 ## Bug Fixes
 
+* `procrustes` guards against negative residual sums of squares caused
+  by rounding in perfect fits, preventing warnings and `NaN` root mean
+  squared errors in `summary`.
+
 * User-supplied permutation matrices now carry a complete permutation
   control object, retaining compatibility with both released and
   development versions of **permute**.

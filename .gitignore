@@ -14,3 +14,6 @@ src/*.so
 
 # Apple stuff
 .DS_Store
+
+# Local agent instructions
+/AGENTS.md
