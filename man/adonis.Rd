@@ -124,6 +124,9 @@ denominator degrees of freedom agree with those of Welch's test.
 With three or more groups, the statistics and denominator degrees of
 freedom generally differ because the Brown--Forsythe and Welch methods
 use different variance weighting and degrees-of-freedom approximations.
+The univariate Brown--Forsythe statistic and denominator degrees of
+freedom can be compared with \code{onewaytests::bf.test()}, described by
+Dag et al. (2018).
 
 This modified statistic is the published omnibus test for a one-way
 factor, or for a saturated fixed-factor model whose highest-order cells
@@ -183,6 +186,11 @@ Anderson, M.J., Walsh, D.C.I., Clarke, K.R., Gorley, R.N. and Guerra-
 Castro, E. 2017. Some solutions to the multivariate Behrens--Fisher
 problem for dissimilarity-based analyses. \emph{Australian & New Zealand
 Journal of Statistics}, \strong{59}: 57--79.
+
+Dag, O., Dolgun, A. and Konar, N.M. (2018). onewaytests: An R Package
+for One-Way Tests in Independent Groups Designs. \emph{The R Journal},
+\strong{10}(1): 175--199.
+\url{https://journal.r-project.org/articles/RJ-2018-022/}.
 
 Excoffier, L., P.E. Smouse, and J.M. Quattro. 1992. Analysis of
 molecular variance inferred from metric distances among DNA haplotypes:

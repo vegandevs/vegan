@@ -202,6 +202,9 @@
   With three or more groups, the statistics and denominator degrees of
   freedom generally differ because the Brown--Forsythe and Welch methods
   use different variance weighting and degrees-of-freedom approximations.
+  The univariate Brown--Forsythe statistic and denominator degrees of
+  freedom can be compared with \code{onewaytests::bf.test()}, described by
+  Dag et al. (2018).
 
 }
 
@@ -221,6 +224,11 @@
   Castro, E. (2017). Some solutions to the multivariate Behrens--Fisher
   problem for dissimilarity-based analyses. \emph{Australian & New
   Zealand Journal of Statistics} 59, 57--79.
+
+  Dag, O., Dolgun, A. and Konar, N.M. (2018). onewaytests: An R Package
+  for One-Way Tests in Independent Groups Designs. \emph{The R Journal},
+  \strong{10}(1): 175--199.
+  \url{https://journal.r-project.org/articles/RJ-2018-022/}.
 
   Legendre, P. and Legendre, L. (2012). \emph{Numerical Ecology}. 3rd
   English ed. Elsevier.
