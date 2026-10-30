@@ -303,6 +303,39 @@ for (i in seq_along(univariate.areas)) {
     }
 }
 
+## Optional external validation of the univariate PR #804 example.
+## This compares the statistic and denominator df with the Brown--Forsythe
+## implementation in onewaytests::bf.test, for both two and three areas.
+## The entire block is commented out to avoid adding onewaytests (and its
+## dependencies) to vegan's tests. To run it manually, uncomment the code
+## below, including the installation command if onewaytests is not installed.
+## Dag et al. (2018): https://journal.r-project.org/articles/RJ-2018-022/
+# install.packages("onewaytests")
+# library("vegan")
+# data("norwegianShelf", package = "vegan")
+# for (areas in list(c("2", "3"), c("1", "2", "3"))) {
+#     keep <- norwegianShelf$area %in% areas
+#     S <- specnumber(norwegianShelf$comm[keep, , drop = FALSE])
+#     area <- droplevels(norwegianShelf$area[keep])
+#     dat <- data.frame(S, area)
+#     bf <- onewaytests::bf.test(S ~ area, data = dat, verbose = FALSE)
+#     reference <- unname(c(bf$statistic, bf$parameter[2]))
+#     results <- list(
+#         adonis2(S ~ area, method = "euclidean", permutations = 0,
+#                 permustat = "modified-F", parallel = 1),
+#         anova(rda(S ~ area), permutations = 0,
+#               permustat = "modified-F", groups = area, parallel = 1),
+#         anova(rda(S ~ area, scale = TRUE), permutations = 0,
+#               permustat = "modified-F", groups = area, parallel = 1),
+#         anova(dbrda(dist(S) ~ area), permutations = 0,
+#               permustat = "modified-F", groups = area, parallel = 1)
+#     )
+#     for (result in results) {
+#         stopifnot(all.equal(unname(c(result$F[1], result$Df[2])),
+#                             reference, tolerance = 1e-8))
+#     }
+# }
+
 ## Validation of the published method's scope.
 singleton <- factor(c("single", as.character(group[-1])))
 wrong.groups <- factor(c(rep("x", 4), rep("y", 4), rep("z", 4)))
