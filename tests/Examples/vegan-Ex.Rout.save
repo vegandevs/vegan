@@ -634,7 +634,7 @@ can happen if terms are constant or linearly dependent (collinear): ‘Manure^4�
 > ## define an empty model to start with
 > m0 <- rda(dune ~ 1, dune.env)
 > ## manual selection and updating
-> add1(m0, scope=formula(mbig), test="F")
+> add1(m0, scope=formula(mbig), test="parametric")
            Df    AIC      F    Pr(>F)    
 <none>        89.620                     
 A1          1 89.591 1.9217 0.0756455 .  
@@ -645,7 +645,7 @@ Manure      4 89.232 1.9539 0.0128953 *
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Management)
-> add1(m0, scope=formula(mbig), test="F")
+> add1(m0, scope=formula(mbig), test="parametric")
          Df    AIC      F  Pr(>F)  
 <none>      87.082                 
 A1        1 87.424 1.2965 0.25819  
@@ -656,14 +656,14 @@ Manure    3 87.517 1.3902 0.15614
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > m0 <- update(m0, . ~ . + Moisture)
 > ## included variables still significant?
-> drop1(m0, test="F")
+> drop1(m0, test="parametric")
            Df    AIC      F   Pr(>F)   
 <none>        85.567                   
 Management  3 87.707 2.1769 0.005154 **
 Moisture    3 87.082 1.9764 0.012644 * 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> add1(m0, scope=formula(mbig), test="F")
+> add1(m0, scope=formula(mbig), test="parametric")
        Df    AIC      F Pr(>F)
 <none>    85.567              
 A1      1 86.220 0.8359 0.5597
@@ -1080,7 +1080,7 @@ Model     6   46.425 2.6682  0.001 ***
 Residual 13   37.699                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> anova(mod, test = "F")
+> anova(mod, test = "parametric")
 Parametric F-test for rda  
 Greenhouse-Geisser epsilon: 0.245 
 

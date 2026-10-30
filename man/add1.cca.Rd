@@ -8,9 +8,11 @@ Compute all single terms that can be added to or dropped from a
 constrained ordination model.
 }
 \usage{
-\method{add1}{cca}(object, scope, test = c("none", "permutation", "F"),
+\method{add1}{cca}(object, scope,
+    test = c("none", "permutation", "parametric"),
     permutations = how(nperm=199), ...)
-\method{drop1}{cca}(object, scope, test = c("none", "permutation", "F"), 
+\method{drop1}{cca}(object, scope,
+    test = c("none", "permutation", "parametric"),
     permutations = how(nperm=199), ...)
 }
 
@@ -21,9 +23,9 @@ constrained ordination model.
   \item{scope}{ A formula giving the terms to be considered for adding
     or dropping; see \code{\link{add1}} for details.}
   
-  \item{test}{ Should a \code{"permutation"} or parametric \code{"F"}
-    test be added using \code{\link{anova.cca}}. \code{test = "F"} can
-    be only used with \code{\link{rda}} models. }
+  \item{test}{Should a \code{"permutation"} or \code{"parametric"}
+    test be added using \code{\link{anova.cca}}. Parametric \eqn{F}-tests
+    can only be used with \code{\link{rda}} models.}
  
   \item{permutations}{a list of control values for the permutations
     as returned by the function \code{\link[permute]{how}}, or the
@@ -94,13 +96,13 @@ mbig <- rda(dune ~  ., dune.env)
 ## define an empty model to start with
 m0 <- rda(dune ~ 1, dune.env)
 ## manual selection and updating
-add1(m0, scope=formula(mbig), test="F")
+add1(m0, scope=formula(mbig), test="parametric")
 m0 <- update(m0, . ~ . + Management)
-add1(m0, scope=formula(mbig), test="F")
+add1(m0, scope=formula(mbig), test="parametric")
 m0 <- update(m0, . ~ . + Moisture)
 ## included variables still significant?
-drop1(m0, test="F")
-add1(m0, scope=formula(mbig), test="F")
+drop1(m0, test="parametric")
+add1(m0, scope=formula(mbig), test="parametric")
 }
 \keyword{multivariate }
 \keyword{ models}

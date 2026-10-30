@@ -14,7 +14,7 @@
 adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = NULL,
     parallel = getOption("mc.cores"), na.action = na.fail,
-    strata = NULL, ..., statistic = c("pseudo-F", "modified-F"),
+    strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
     groups = NULL)
 }
 
@@ -74,13 +74,14 @@ adonis2(formula, data, permutations = 999, method = "bray",
     \CRANpkg{permute} package, but some more flexible alternatives may
     be more appropriate.}
 
-  \item{statistic}{The permutation statistic. The default
+  \item{permustat}{The permutation statistic. The default
     \code{"pseudo-F"} retains the ordinary pseudo-\eqn{F} test.
     \code{"modified-F"} uses the omnibus statistic allowing
-    heterogeneous within-group dispersions.}
+    heterogeneous within-group dispersions. The argument name must be
+    supplied in full.}
 
   \item{groups}{A factor identifying the cells whose dispersions may
-    differ when \code{statistic = "modified-F"}. It is inferred for a
+    differ when \code{permustat = "modified-F"}. It is inferred for a
     formula containing a single factor; otherwise it must be supplied.}
 
   \item{\dots}{Other arguments passed to \code{\link{vegdist}}.}
@@ -99,7 +100,7 @@ negative eigenvalues. The \code{adonis2} tests are identical to
 distances, the tests are also identical to \code{\link{anova.cca}} of
 \code{\link{rda}}.
 
-With \code{statistic = "modified-F"}, the test statistic is
+With \code{permustat = "modified-F"}, the test statistic is
 \deqn{F_2 = \frac{\mathop{tr}(HG)}
 {\sum_i (1-n_i/N)V_i},}
 where \eqn{H} projects onto the fitted cell-centroid model, \eqn{G} is
@@ -113,7 +114,7 @@ The residual and total inertia, and hence \eqn{R^2}, retain their usual
 definitions.
 
 For a one-way model with a single response variable (and Euclidean
-distances for distance-based analyses), \code{statistic = "modified-F"}
+distances for distance-based analyses), \code{permustat = "modified-F"}
 reduces to the Brown--Forsythe statistic for testing equality of group
 means under unequal variances. This differs from Welch's test used by
 \code{\link[stats]{oneway.test}} with \code{var.equal = FALSE}.
@@ -220,7 +221,7 @@ area23 <- droplevels(norwegianShelf$area[take23])
 shelf.perms <- rbind(rev(seq_len(nrow(shelf23))),
                      c(2:nrow(shelf23), 1))
 adonis2(shelf23 ~ area23, method = "jaccard", binary = TRUE,
-        permutations = shelf.perms, statistic = "modified-F")
+        permutations = shelf.perms, permustat = "modified-F")
 
 ### Example of use with strata, for nested (e.g., block) designs.
 dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )

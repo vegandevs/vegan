@@ -3,7 +3,7 @@
 {
     EPS <- sqrt(.Machine$double.eps)
     cat("\nPermutation test for", x$method, "under", x$model, "model", "\n\n")
-    if (identical(x$statistic, "modified-F"))
+    if (identical(x$permustat, "modified-F"))
         cat("Modified pseudo-F allowing heterogeneous dispersions\n\n")
     if (x$nperm > 0)
         cat(howHead(x$control), "\n")

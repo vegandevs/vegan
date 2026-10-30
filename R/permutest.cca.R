@@ -8,21 +8,21 @@ permutest.default <- function(x, ...)
     function (x, permutations = how(nperm=99),
               model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
               strata = NULL, parallel = getOption("mc.cores"), ...,
-              statistic = c("pseudo-F", "modified-F"), groups = NULL)
+              permustat = c("pseudo-F", "modified-F"), groups = NULL)
 {
-    statistic <- match.arg(statistic)
-    if (statistic == "modified-F") {
+    permustat <- match.arg(permustat)
+    if (permustat == "modified-F") {
         if (inherits(x, "capscale"))
-            stop("'statistic = \"modified-F\"' is not available for capscale")
+            stop("'permustat = \"modified-F\"' is not available for capscale")
         if (!inherits(x, "rda"))
-            stop("'statistic = \"modified-F\"' is not available for cca; ",
+            stop("'permustat = \"modified-F\"' is not available for cca; ",
                  "use adonis2() or dbrda() with explicit dissimilarities")
     }
     ## do something sensible with insensible input (no constraints)
     if (is.null(x$CCA) || x$CCA$rank == 0) {
-        if (statistic == "modified-F")
+        if (permustat == "modified-F")
             stop("the model must have a saturated group constraint space ",
-                 "for 'statistic = \"modified-F\"'")
+                 "for 'permustat = \"modified-F\"'")
         sol <- list(call = match.call(), testcall = x$call, model = NA,
                     F.0 = NA, F.perm = NA, chi = c(0, max(x$CA$tot.chi,0)),
                     num = 0, den = x$CA$tot.chi,
@@ -46,11 +46,11 @@ permutest.default <- function(x, ...)
     isCCA <- !is.null(w)
     isPartial <- !is.null(x$pCCA) && x$pCCA$rank > 0   # handle conditions
     isDB <- inherits(x, c("dbrda")) # only dbrda is distance-based
-    if (statistic == "modified-F") {
+    if (permustat == "modified-F") {
         if (!is.null(by))
-            stop("'by' must be NULL with 'statistic = \"modified-F\"'")
+            stop("'by' must be NULL with 'permustat = \"modified-F\"'")
         if (first)
-            stop("'first' must be FALSE with 'statistic = \"modified-F\"'")
+            stop("'first' must be FALSE with 'permustat = \"modified-F\"'")
         if (model == "full")
             stop("'model = \"full\"' is not available with modified-F")
         group.info <- modifiedFGroups(x, groups)
@@ -94,7 +94,7 @@ permutest.default <- function(x, ...)
         Call[[1L]] <- as.name("permutest")
         res.df <- nobs(x) - Q$rank - 1
         sol <- list(call = Call, testcall = x$call, model = model,
-                    statistic = statistic,
+                    permustat = permustat,
                     F.0 = structure(observed$statistic, names = "Model"),
                     F.perm = matrix(tmp[, "F"], ncol = 1L),
                     chi = c(Model = x$CCA$tot.chi,
