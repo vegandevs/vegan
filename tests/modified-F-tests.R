@@ -221,6 +221,66 @@ stopifnot(
               43.6590318640301, tolerance = tol)
 )
 
+## Univariate Euclidean equivalence: Brown--Forsythe, rather than Welch
+## for three or more groups. These fixed reference values were checked
+## against onewaytests::bf.test (R/bf.test.R, blob
+## 3ea07058bbd6985292766699b22ab833ee4afaa7), without making that package
+## a test dependency. Compare the statistic and effective denominator df.
+univariate.areas <- list(c("2", "3"), c("1", "2", "3"))
+univariate.reference <- list(
+    c(F = 9.87954250841054, df2 = 38.1002239917547),
+    c(F = 22.4776937134492, df2 = 42.9384336720883)
+)
+for (i in seq_along(univariate.areas)) {
+    univariate.take <- norwegianShelf$area %in% univariate.areas[[i]]
+    univariate.response <- specnumber(
+        norwegianShelf$comm[univariate.take, , drop = FALSE])
+    univariate.group <- droplevels(norwegianShelf$area[univariate.take])
+    univariate.expected <- univariate.reference[[i]]
+    univariate.results <- list(
+        adonis2(univariate.response ~ univariate.group,
+                method = "euclidean", permutations = 0,
+                statistic = "modified-F", parallel = 1),
+        anova(rda(univariate.response ~ univariate.group),
+              permutations = 0, statistic = "modified-F",
+              groups = univariate.group, parallel = 1),
+        anova(rda(univariate.response ~ univariate.group, scale = TRUE),
+              permutations = 0, statistic = "modified-F",
+              groups = univariate.group, parallel = 1),
+        anova(dbrda(dist(univariate.response) ~ univariate.group),
+              permutations = 0, statistic = "modified-F",
+              groups = univariate.group, parallel = 1)
+    )
+    for (univariate.result in univariate.results) {
+        stopifnot(all.equal(unname(c(univariate.result$F[1],
+                                     univariate.result$Df[2])),
+                            unname(univariate.expected), tolerance = tol))
+    }
+    univariate.welch <- stats::oneway.test(
+        univariate.response ~ univariate.group)
+    univariate.welch.values <- unname(c(univariate.welch$statistic,
+                                        univariate.welch$parameter[2]))
+    if (nlevels(univariate.group) == 2L) {
+        univariate.t <- stats::t.test(univariate.response ~ univariate.group)
+        stopifnot(
+            all.equal(univariate.welch.values, unname(univariate.expected),
+                      tolerance = tol),
+            all.equal(unname(c(univariate.t$statistic^2,
+                                univariate.t$parameter)),
+                      unname(univariate.expected), tolerance = tol)
+        )
+    } else {
+        stopifnot(
+            all.equal(univariate.welch.values,
+                      c(31.9190976281607, 34.9358914201467), tolerance = tol),
+            !isTRUE(all.equal(univariate.welch.values[1],
+                              unname(univariate.expected["F"]), tolerance = tol)),
+            !isTRUE(all.equal(univariate.welch.values[2],
+                              unname(univariate.expected["df2"]), tolerance = tol))
+        )
+    }
+}
+
 ## Validation of the published method's scope.
 singleton <- factor(c("single", as.character(group[-1])))
 wrong.groups <- factor(c(rep("x", 4), rep("y", 4), rep("z", 4)))
