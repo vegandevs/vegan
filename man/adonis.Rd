@@ -112,6 +112,18 @@ freedom are the Brown--Forsythe/Satterthwaite approximation
 The residual and total inertia, and hence \eqn{R^2}, retain their usual
 definitions.
 
+For a one-way model with a single response variable (and Euclidean
+distances for distance-based analyses), \code{statistic = "modified-F"}
+reduces to the Brown--Forsythe statistic for testing equality of group
+means under unequal variances. This differs from Welch's test used by
+\code{\link[stats]{oneway.test}} with \code{var.equal = FALSE}.
+With two groups, the modified statistic equals the square of Welch's
+\eqn{t} statistic from \code{\link[stats]{t.test}}, and its effective
+denominator degrees of freedom agree with those of Welch's test.
+With three or more groups, the statistics and denominator degrees of
+freedom generally differ because the Brown--Forsythe and Welch methods
+use different variance weighting and degrees-of-freedom approximations.
+
 This modified statistic is the published omnibus test for a one-way
 factor, or for a saturated fixed-factor model whose highest-order cells
 span exactly the same constraint space as \code{groups}. It requires at
