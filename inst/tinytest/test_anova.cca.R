@@ -10,7 +10,7 @@ expect_silent(anova(mod0, by="term", permutations = 49))
 expect_silent(anova(mod0, by = "margin", permutations = 49))
 expect_silent(anova(mod0, by ="onedf", permutations = 49))
 expect_silent(anova(mod0, by = "axis", permutations = 49))
-expect_silent(anova(mod0, by = "margin", test = "F"))
+expect_silent(anova(mod0, by = "margin", test = "parametric"))
 
 ### Euclidean methods
 an0 <- anova(mod0, permutations = perm)
@@ -120,12 +120,44 @@ expect_equal(permustats(ano)$permutations, permustats(anow)$permutations,
 data(varespec, varechem)
 mod <- rda(varespec ~ Al + P + N, varechem)
 mod0 <- lm(as.matrix(varespec) ~ Al + P + N, varechem)
-ano <- anova(mod, by = "term", test = "F")
+ano <- anova(mod, by = "term", test = "parametric")
 an0 <- anova(mod0, test="Spherical")
 expect_equal(ano[["Pr(>F)"]], an0[["G-G Pr"]][-1],  # minus (Intercept)
              info = "parametric rda and mlm match")
 ## univariate model
 mod <- rda(diversity(varespec) ~ Baresoil + Ca + P, varechem)
 mod0 <- lm(diversity(varespec) ~ Baresoil + Ca + P, varechem)
-expect_equal(anova(mod, test="F", by="term")$Pr, anova(mod0)$Pr,
+expect_equal(anova(mod, test="parametric", by="term")$Pr, anova(mod0)$Pr,
              info = "univariate parametric rda and lm match")
+
+### Parametric interface and forwarding through model-selection functions
+interface.response <- dune.env$A1 + rep(c(-0.1, 0.1), length.out = nrow(dune))
+interface.null <- rda(interface.response ~ 1, dune.env)
+interface.full <- rda(interface.response ~ A1, dune.env)
+interface.lm0 <- lm(interface.response ~ 1, dune.env)
+interface.lm1 <- lm(interface.response ~ A1, dune.env)
+expect_equal(anova(interface.full, test = "parametric")$Pr[1],
+             anova(interface.lm1)$Pr[1])
+expect_equal(anova(interface.null, interface.full, test = "parametric")$Pr[2],
+             anova(interface.lm0, interface.lm1)$Pr[2])
+expect_equal(anova(interface.full, test = "para"),
+             anova(interface.full, test = "parametric"))
+expect_equal(add1(interface.null, scope = formula(interface.full),
+                  test = "parametric")$Pr,
+             add1(interface.lm0, scope = formula(interface.lm1), test = "F")$Pr)
+expect_equal(drop1(interface.full, test = "parametric")$Pr,
+             drop1(interface.lm1, test = "F")$Pr)
+interface.step <- ordistep(interface.null, scope = formula(interface.full),
+                           direction = "forward", test = "parametric",
+                           trace = FALSE)
+expect_equal(attr(terms(interface.step), "term.labels"), "A1")
+interface.r2step <- ordiR2step(interface.null, scope = formula(interface.full),
+                               test = "parametric", trace = FALSE)
+expect_equal(attr(terms(interface.r2step), "term.labels"), "A1")
+expect_error(anova(interface.full, test = "F"))
+expect_error(add1(interface.null, scope = formula(interface.full), test = "F"))
+expect_error(drop1(interface.full, test = "F"))
+expect_error(ordistep(interface.null, scope = formula(interface.full),
+                      test = "F", trace = FALSE))
+expect_error(ordiR2step(interface.null, scope = formula(interface.full),
+                        test = "F", trace = FALSE))

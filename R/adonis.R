@@ -2,10 +2,10 @@
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
-             strata = NULL, ..., statistic = c("pseudo-F", "modified-F"),
+             strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
              groups = NULL)
 {
-    statistic <- match.arg(statistic)
+    permustat <- match.arg(permustat)
     group.expr <- substitute(groups)
     ## Do not force 'groups' here: like formula variables, it may exist only
     ## in 'data' and must be evaluated in that environment below.
@@ -39,7 +39,7 @@
     if (is.null(d$Y))
         stop("needs explanatory variables on the right-hand-side")
     lhs <- d$X
-    if (statistic == "modified-F") {
+    if (permustat == "modified-F") {
         if (groups.missing) {
             mf <- d$modelframe
             if (ncol(mf) != 1L ||
@@ -85,7 +85,7 @@
     ## handle permutations
     perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
     out <- anova(sol, permutations = perm, by = by,
-                 parallel = parallel, statistic = statistic, groups = groups)
+                 parallel = parallel, permustat = permustat, groups = groups)
     ## attributes will be lost when adding a new column
     att <- attributes(out)
     ## add traditional adonis output on R2

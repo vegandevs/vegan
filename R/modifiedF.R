@@ -7,12 +7,12 @@
     function(x, groups)
 {
     if (inherits(x, "capscale"))
-        stop("'statistic = \"modified-F\"' is not available for capscale")
+        stop("'permustat = \"modified-F\"' is not available for capscale")
     if (!inherits(x, "rda"))
-        stop("'statistic = \"modified-F\"' is not available for cca; ",
+        stop("'permustat = \"modified-F\"' is not available for cca; ",
              "use adonis2() or dbrda() with explicit dissimilarities")
     if (!is.null(x$pCCA) && x$pCCA$rank > 0)
-        stop("'statistic = \"modified-F\"' is not available with Conditions")
+        stop("'permustat = \"modified-F\"' is not available with Conditions")
     if (is.null(groups))
         stop("'groups' must identify the groups with heterogeneous dispersions")
 

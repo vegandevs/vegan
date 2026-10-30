@@ -23,12 +23,12 @@
 \method{anova}{cca}(object, ..., permutations = how(nperm=999),
      by = NULL, model = c("reduced", "direct", "full"),
      parallel = getOption("mc.cores"), strata = NULL,
-     cutoff = 1, scope = NULL, test = c("permutation", "F"),
-     statistic = c("pseudo-F", "modified-F"), groups = NULL)
+     cutoff = 1, scope = NULL, test = c("permutation", "parametric"),
+     permustat = c("pseudo-F", "modified-F"), groups = NULL)
 \method{permutest}{cca}(x, permutations = how(nperm = 99),
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
      strata = NULL, parallel = getOption("mc.cores"), ...,
-     statistic = c("pseudo-F", "modified-F"), groups = NULL)
+     permustat = c("pseudo-F", "modified-F"), groups = NULL)
 }
 
 \arguments{
@@ -82,21 +82,22 @@
     used to select the marginal terms for testing. The default is to
     test all marginal terms in \code{\link{drop.scope}}.}
 
-  \item{test}{Test type, either permutation test or parametric
-    \eqn{F}-test. Parametric test is only available for
+  \item{test}{Test type, either \code{"permutation"} for a permutation
+    test or \code{"parametric"} for a parametric \eqn{F}-test.
+    Parametric test is only available for
     \code{\link{rda}}. It is similar as \code{\link{anova.mlm}}
     \code{test = "Spherical"} with Greenhouse-Geisser correction for
     asphericity.}
 
   \item{first}{Analyse only significance of the first axis.}
 
-  \item{statistic}{The permutation statistic. The default
+  \item{permustat}{The permutation statistic. The default
     \code{"pseudo-F"} retains the ordinary pseudo-\eqn{F} test.
     \code{"modified-F"} uses the omnibus statistic allowing
-    heterogeneous dispersions.}
+    heterogeneous dispersions. The argument name must be supplied in full.}
 
   \item{groups}{A factor identifying the cells whose dispersions may
-    differ for \code{statistic = "modified-F"}. This must be supplied
+    differ for \code{permustat = "modified-F"}. This must be supplied
     for fitted ordination objects.}
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
@@ -191,7 +192,7 @@
   terms and permutation schemes.
 
   For a one-way model with a single response variable (and Euclidean
-  distances for distance-based analyses), \code{statistic = "modified-F"}
+  distances for distance-based analyses), \code{permustat = "modified-F"}
   reduces to the Brown--Forsythe statistic for testing equality of group
   means under unequal variances. This differs from Welch's test used by
   \code{\link[stats]{oneway.test}} with \code{var.equal = FALSE}.
@@ -210,7 +211,7 @@
   \code{Random.seed} (the random seeds used),
   \code{control} (the permutation design, see \link[permute]{how}) and
   \code{F.perm} (the permuted test statistics). For modified tests the
-  result also records \code{statistic}, \code{groups}, group sizes and
+  result also records \code{permustat}, \code{groups}, group sizes and
   observed dispersions, the modified denominator, its effective degrees
   of freedom, and the permuted modified pseudo-\eqn{F} values.
 }
@@ -261,7 +262,7 @@ anova(mod0, mod1, mod2)
 ## See that permutation and F-distribution are consistent
 mod <- rda(dune ~ Moisture + Management, dune.env)
 (ano <- anova(mod))
-anova(mod, test = "F")
+anova(mod, test = "parametric")
 ## adjustment for degrees of freedom in F distribution
 adj <- ncol(dune) * 0.245 # Greenhouse-Geisser epsilon
 qqnorm(permustats(ano), x = qf(ppoints(999), 6*adj, 13*adj, lower.tail=FALSE),
@@ -271,7 +272,7 @@ abline(0, 1, col = 2) # line of equality
 ## omnibus RDA test allowing heterogeneous dispersions
 rmod <- rda(dune ~ Management, dune.env)
 anova(rmod, permutations = rbind(20:1, c(2:20, 1)),
-      groups = dune.env$Management, statistic = "modified-F")
+      groups = dune.env$Management, permustat = "modified-F")
 }
 \keyword{ multivariate }
 \keyword{ htest }
