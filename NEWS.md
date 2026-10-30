@@ -16,6 +16,16 @@
 
 ## New Features
 
+* `adonis2`, `anova.cca` and `permutest.cca` can use the modified
+  pseudo-*F* statistic of Anderson et al. (2017) for omnibus tests that
+  allow heterogeneous within-group dispersions, selected with
+  `permustat = "modified-F"`. The first implementation
+  supports one-way and saturated fixed-factor cell models fitted with
+  `adonis2`, `dbrda` or `rda`; term-specific mixed and random-factor tests
+  require separately specified error terms and permutation schemes. The
+  compressed `norwegianShelf` data reproduce the paper's Norwegian
+  continental-shelf example and provide a published numerical benchmark.
+
 * `metaMDS` can use any MDS function as an `engine` if the function
   takes as input dissimilarities, initial configuration and number of
   axes, and returns a list with elements stress and points for final
@@ -28,17 +38,17 @@
 * `adonis2` can have `Condition` in formula allowing similar analysis
   of partial models as in `dbrda`.
 
-* `anova.cca` calculates parametric _F_-test as an alternative to
-  permutation test. The parametric _F_-test is similar as the
-  "spherical" test in `anova.mlm` for multivariate linear models.
+* `anova.cca` calculates a parametric _F_-test with `test = "parametric"`
+  as an alternative to a permutation test. The parametric _F_-test is
+  similar as the "spherical" test in `anova.mlm` for multivariate linear models.
   Parametric tests and permutation tests have been consistent in
   preliminary comparisons for `rda`.  Tests were inconsistent with `cca`,
   and parametric test is only enabled for `rda`, and it cannot be
   calculated for distance-based ordination (`dbrda`, `capscale`).
 
-  `add1`, `drop1`, `ordistep`and `ordiR2step` can use parametric
-  _F_-tests with `rda` models. `stats::step` was able to use them
-  automatically.
+  `add1`, `drop1`, `ordistep` and `ordiR2step` can use parametric
+  _F_-tests with `rda` models using `test = "parametric"`.
+  `stats::step` was able to use them automatically.
 
 * `ordisurf` can plot coloured surfaces (or "filled contours") with
   argument `what = "surface"`. The perspective plots with
@@ -90,6 +100,10 @@
 * `procrustes` guards against negative residual sums of squares caused
   by rounding in perfect fits, preventing warnings and `NaN` root mean
   squared errors in `summary`.
+
+* User-supplied permutation matrices now carry a complete permutation
+  control object, retaining compatibility with both released and
+  development versions of **permute**.
 
 * `anova` for `prc` result failed with `by` argument if `prc` was
   called with expressions instead of plain names, for instance with

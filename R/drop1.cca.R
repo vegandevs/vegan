@@ -1,5 +1,5 @@
 `drop1.cca` <-
-    function(object, scope, test = c("none", "permutation", "F"),
+    function(object, scope, test = c("none", "permutation", "parametric"),
              permutations = how(nperm = 199), ...)
 {
     if (inherits(object, "prc"))
