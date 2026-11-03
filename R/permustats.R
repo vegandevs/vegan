@@ -218,7 +218,7 @@
 {
     structure(list(
         "statistic" = structure(x$statistic, names = "R"),
-        "permutations" = x$perm,
+        "permutations" = matrix(x$perm, ncol = 1L),
         "alternative" = "greater"),
               class = "permustats")
 }
@@ -230,7 +230,7 @@
 {
     structure(list(
         "statistic" = structure(x$statistic, names = "r"),
-        "permutations" = x$perm,
+        "permutations" = matrix(x$perm, ncol = 1L),
         "alternative" = "greater"),
               class = "permustats")
 }
@@ -246,7 +246,7 @@
 {
     structure(list(
         "statistic" = structure(x$delta, names = "delta"),
-        "permutations" = x$boot.deltas,
+        "permutations" = matrix(x$boot.deltas, ncol = 1L),
         "alternative" = "less"),
               class = "permustats")
 }
@@ -306,7 +306,7 @@
 {
     structure(list(
         "statistic" = structure(x$t0, names = "r"),
-        "permutations" = x$t,
+        "permutations" = matrix(x$t, ncol = 1L),
         "alternative" = "greater"),
               class = "permustats")
 }
@@ -354,7 +354,7 @@
         "greater"
     }
     structure(list("statistic" = x$statistic,
-                   "permutations" = x$perm,
+                   "permutations" = as.matrix(x$perm, ncol=length(x$statistic)),
                    "alternative" = alt),
               class = "permustats")
 }
