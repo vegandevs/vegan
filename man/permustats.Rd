@@ -125,11 +125,12 @@ permustats(x, ...)
 \value{
   The \code{permustats} function returns an object of class
   \code{"permustats"}. This is a list of items \code{"statistic"} for
-  observed statistics, \code{permutations} which contains permuted
-  values, and \code{alternative} which contains text defining the
-  character of the test (\code{"two.sided"}, \code{"less"} or
-  \code{"greater"}). The \code{\link{qqnorm}} and
-  \code{\link{density}} methods return their standard result objects.
+  observed statistics, \code{permutations} as a matrix with a row for
+  each permutation and each statistic as a column, and
+  \code{alternative} which contains text defining the character of the
+  test (\code{"two.sided"}, \code{"less"} or \code{"greater"}). The
+  \code{\link{qqnorm}} and \code{\link{density}} methods return their
+  standard result objects.
 }
 
 \author{

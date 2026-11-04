@@ -2,7 +2,7 @@
     function(dist, grouping, ...)
 {
     if (!inherits(dist, "dist"))
-        stop("'dist' must be dissimilarity object inheriting from", dQuote(dist))
+        stop("'dist' must be a dissimilarity object inheriting from stats::dist()")
     ## check that 'dist' are dissimilarities (non-negative)
     if (any(dist < -sqrt(.Machine$double.eps)))
         warning("some dissimilarities are negative: is this intentional?")

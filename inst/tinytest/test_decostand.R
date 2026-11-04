@@ -2,6 +2,7 @@
 ### NB. "clr", "rclr", "alr" are tested in tests/decostand-tests.R
 
 data(dune)
+data(varespec)
 
 ## helpers to check that standardization maintains rank order (by
 ## MARGIN) of original data and maintains original absences (zeros)
@@ -46,6 +47,11 @@ expect_equivalent(apply(x, 2, max), rep(1, ncol(dune)))
 expect_true(keepranks(x, dune, 2))
 expect_true(keepzeros(x, dune))
 expect_equal(decobackstand(x), dune)
+## arg range.global: same range, divides by range max
+expect_silent(
+    x <- decostand(dune, "range",
+                   range.global=matrix(c(0,10), ncol=ncol(dune), nrow=2)))
+expect_equal(10*x, dune)
 
 ## rank: original data cannot be reconstructed
 expect_silent(x <- decostand(dune, "rank"))
@@ -99,6 +105,10 @@ expect_equal(x[dune > 0], log2(dune[dune > 0]) + 1)
 expect_true(all(rank(x) == rank(dune))) # either way as transforms each element
 expect_true(keepzeros(x, dune))
 expect_equal(decobackstand(x), dune)
+## non-integer data with min(x[x>0]) < 1
+expect_warning(x <- decostand(varespec, "log"), "non-integer data")
+expect_true(keepzeros(x, varespec))
+expect_equal(decobackstand(x), varespec)
 
 ## Following clr, rclr (and alr) are more completely tested in
 ## tests/decostand-tests.R and tests/aitchison-tests.R. Here only
