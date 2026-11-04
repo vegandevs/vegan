@@ -2,6 +2,14 @@
 
 ## New Features
 
+* `anova.cca` orders fitted models when it is analysing differencens
+  of several models.
+
+* `decorana` uses stricter convergence and is now similar to other
+  ordination methods in **vegan**.
+
+* `CCoRA`: the right matrix `X` can be a data frame with factors.
+
 * `qqnorm.permustats` gained argument `which` to select the displayed
   statistic. Earlier it refused to handle `permustats` results with
   several statistics. The function also gained argument `x` for user
@@ -12,6 +20,9 @@
   they only knew `type = "canoco"`. Added `estVar.cca`.
 
 ## Bug Fixes
+
+* `adonis2`: additive constant (Lingoes or Cailliez) was wrongly
+  implemented.
 
 * `procrustes` guards against negative residual sums of squares caused
   by rounding in perfect fits, preventing warnings and `NaN` root mean
@@ -29,6 +40,12 @@
 * `anova.cca(..., by = "axis")` inflated _F_-values after first
   axis. Similar inflation was used both in the test statistic and
   permutation, and _P_-values are unchanged.
+
+* `permustats` support methods `c`, `boxplot(..., scale=TRUE)`,
+  `density` and `qqnorm` failed when permuted values of the single
+  statistic were given as a vector instead of a one-column matrix. Now
+  all `permustats` methods return permuted values as a matrix. Issue
+  [#803](https://github.com/vegandevs/vegan/issues/803).
 
 # vegan 2.7-6
 
