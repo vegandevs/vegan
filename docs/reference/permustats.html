@@ -159,11 +159,12 @@
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>The <code>permustats</code> function returns an object of class
   <code>"permustats"</code>. This is a list of items <code>"statistic"</code> for
-  observed statistics, <code>permutations</code> which contains permuted
-  values, and <code>alternative</code> which contains text defining the
-  character of the test (<code>"two.sided"</code>, <code>"less"</code> or
-  <code>"greater"</code>). The <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code> and
-  <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code> methods return their standard result objects.</p>
+  observed statistics, <code>permutations</code> as a matrix with a row for
+  each permutation and each statistic as a column, and
+  <code>alternative</code> which contains text defining the character of the
+  test (<code>"two.sided"</code>, <code>"less"</code> or <code>"greater"</code>). The
+  <code><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqnorm</a></code> and <code><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></code> methods return their
+  standard result objects.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

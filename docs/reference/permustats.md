@@ -132,9 +132,9 @@ and
 
 The `permustats` function returns an object of class `"permustats"`.
 This is a list of items `"statistic"` for observed statistics,
-`permutations` which contains permuted values, and `alternative` which
-contains text defining the character of the test (`"two.sided"`,
-`"less"` or `"greater"`). The
+`permutations` as a matrix with a row for each permutation and each
+statistic as a column, and `alternative` which contains text defining
+the character of the test (`"two.sided"`, `"less"` or `"greater"`). The
 [`qqnorm`](https://rdrr.io/r/stats/qqnorm.html) and
 [`density`](https://rdrr.io/r/stats/density.html) methods return their
 standard result objects.
