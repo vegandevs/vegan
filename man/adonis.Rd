@@ -125,21 +125,17 @@ Chi-square dissimilarities can instead be supplied explicitly to
 \code{adonis2} or \code{dbrda} when those dissimilarities are appropriate
 for the analysis.
 
-The modified test statistic is
-\deqn{F_2 = \frac{\mathop{tr}(HG)}
-{\sum_i (1-n_i/N)V_i},}
-where the numerator is the between-group sum of squares, \eqn{n_i} is
-the number of observations in group \eqn{i}, \eqn{N} is the total
-number of observations, and \eqn{V_i} is the within-group sum of squares
-divided by \eqn{n_i-1}. In the matrix notation, \eqn{H} fits the group
-means and \eqn{G} is the centred Gower matrix. Both numerator and
-denominator are recalculated in every permutation. The displayed residual degrees of
-freedom can be non-integer: they use the Brown--Forsythe/Satterthwaite
-approximation
-\deqn{\nu = \frac{[\sum_i(1-n_i/N)V_i]^2}
-{\sum_i[(1-n_i/N)V_i]^2/(n_i-1)}.}
-The residual and total inertia, and hence \eqn{R^2}, retain their usual
-definitions.
+The modified test uses the same between-group and within-group sums of
+squares as the ordinary pseudo-\eqn{F} test. Instead of pooling
+within-group variation across all observations, it estimates variation
+separately for each group and combines these estimates using weights
+based on group sizes. The test statistic is recalculated for every
+permutation.
+
+The residual degrees of freedom reported for the modified test use the
+Brown--Forsythe/Satterthwaite approximation and may be non-integer.
+The residual and total sums of squares, and hence \eqn{R^2}, retain
+their usual definitions.
 
 For a one-way model with a single response variable (and Euclidean
 distances for distance-based analyses), \code{permustat = "modified-F"}

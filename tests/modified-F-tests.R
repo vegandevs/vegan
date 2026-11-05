@@ -29,11 +29,10 @@ manual_F2 <- function(response, group) {
     ## rda() expresses inertia as variance, so its working response has
     ## the usual sqrt(N - 1) divisor.
     response <- scale(response, scale = FALSE) / sqrt(nrow(response) - 1)
-    X <- scale(model.matrix(~ group)[, -1, drop = FALSE], scale = FALSE)
-    H <- X %*% solve(crossprod(X), t(X))
-    fit <- H %*% response
-    residual <- response - fit
     ni <- as.vector(table(group))
+    group.means <- rowsum(response, group) / ni
+    fit <- group.means[as.integer(group), , drop = FALSE]
+    residual <- response - fit
     Vi <- vapply(split(seq_len(nrow(response)), group),
                  function(i) sum(residual[i, , drop = FALSE]^2), numeric(1)) /
         (ni - 1)

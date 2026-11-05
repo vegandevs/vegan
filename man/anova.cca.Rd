@@ -203,12 +203,13 @@
   explicitly to \code{adonis2} or \code{dbrda} when those dissimilarities
   are appropriate for the analysis.
 
-  The modified statistic divides the between-group inertia by
-  \eqn{\sum_i(1-n_i/N)V_i}, where \eqn{n_i} is the number of observations
-  in group \eqn{i}, \eqn{N} is the total number of observations, and
-  \eqn{V_i} is the within-group inertia divided by \eqn{n_i-1}.
-  Both numerator and denominator are recalculated for every permutation.
-  The residual degrees of freedom printed for this test use the
+  The modified test uses the same between-group and within-group inertia
+  as the ordinary pseudo-\eqn{F} test. Instead of pooling within-group
+  variation across all observations, it estimates variation separately
+  for each group and combines these estimates using weights based on
+  group sizes. The test statistic is recalculated for every permutation.
+
+  The residual degrees of freedom reported for the modified test use the
   Brown--Forsythe/Satterthwaite approximation and may be non-integer.
   The residual and total inertia retain their usual definitions.
 
