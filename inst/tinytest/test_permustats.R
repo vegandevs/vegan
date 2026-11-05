@@ -104,7 +104,7 @@ expect_equivalent(sum[c("statistic", "p")], m[c("areas","pvalues")])
 if (packageVersion("vegan") >= "2.8") {
 ## parameteric anova.cca
 mod <- rda(dune ~ Management + Moisture, dune.env)
-ano <- anova(mod, by="margin", test = "F")
+ano <- anova(mod, by="margin", test = "parametric")
 expect_error(permustats(ano), "no permutation data available")
 }
 
