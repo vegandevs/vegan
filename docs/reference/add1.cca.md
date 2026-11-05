@@ -7,10 +7,12 @@ constrained ordination model.
 
 ``` r
 # S3 method for class 'cca'
-add1(object, scope, test = c("none", "permutation", "F"),
+add1(object, scope,
+    test = c("none", "permutation", "parametric"),
     permutations = how(nperm=199), ...)
 # S3 method for class 'cca'
-drop1(object, scope, test = c("none", "permutation", "F"), 
+drop1(object, scope,
+    test = c("none", "permutation", "parametric"),
     permutations = how(nperm=199), ...)
 ```
 
@@ -31,9 +33,9 @@ drop1(object, scope, test = c("none", "permutation", "F"),
 
 - test:
 
-  Should a `"permutation"` or parametric `"F"` test be added using
+  Should a `"permutation"` or `"parametric"` test be added using
   [`anova.cca`](https://vegandevs.github.io/vegan/reference/anova.cca.md).
-  `test = "F"` can be only used with
+  Parametric \\F\\-tests can only be used with
   [`rda`](https://vegandevs.github.io/vegan/reference/cca.md) models.
 
 - permutations:
@@ -264,7 +266,7 @@ mbig <- rda(dune ~  ., dune.env)
 ## define an empty model to start with
 m0 <- rda(dune ~ 1, dune.env)
 ## manual selection and updating
-add1(m0, scope=formula(mbig), test="F")
+add1(m0, scope=formula(mbig), test="parametric")
 #>            Df    AIC      F    Pr(>F)    
 #> <none>        89.620                     
 #> A1          1 89.591 1.9217 0.0756455 .  
@@ -275,7 +277,7 @@ add1(m0, scope=formula(mbig), test="F")
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 m0 <- update(m0, . ~ . + Management)
-add1(m0, scope=formula(mbig), test="F")
+add1(m0, scope=formula(mbig), test="parametric")
 #>          Df    AIC      F  Pr(>F)  
 #> <none>      87.082                 
 #> A1        1 87.424 1.2965 0.25819  
@@ -286,14 +288,14 @@ add1(m0, scope=formula(mbig), test="F")
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 m0 <- update(m0, . ~ . + Moisture)
 ## included variables still significant?
-drop1(m0, test="F")
+drop1(m0, test="parametric")
 #>            Df    AIC      F   Pr(>F)   
 #> <none>        85.567                   
 #> Management  3 87.707 2.1769 0.005154 **
 #> Moisture    3 87.082 1.9764 0.012644 * 
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-add1(m0, scope=formula(mbig), test="F")
+add1(m0, scope=formula(mbig), test="parametric")
 #>        Df    AIC      F Pr(>F)
 #> <none>    85.567              
 #> A1      1 86.220 0.8359 0.5597

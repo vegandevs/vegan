@@ -55,7 +55,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">adonis2</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, permutations <span class="op">=</span> <span class="fl">999</span>, method <span class="op">=</span> <span class="st">"bray"</span>,</span>
 <span>    sqrt.dist <span class="op">=</span> <span class="cn">FALSE</span>, add <span class="op">=</span> <span class="cn">FALSE</span>, by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>    parallel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"mc.cores"</span><span class="op">)</span>, na.action <span class="op">=</span> <span class="va">na.fail</span>,</span>
-<span>    strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span>    strata <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, permustat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pseudo-F"</span>, <span class="st">"modified-F"</span><span class="op">)</span>,</span>
+<span>    groups <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -137,6 +138,23 @@
     be more appropriate.</p></dd>
 
 
+  <dt id="arg-permustat">permustat<a class="anchor" aria-label="anchor" href="#arg-permustat"></a></dt>
+<dd><p>The permutation statistic. The default
+    <code>"pseudo-F"</code> retains the ordinary pseudo-\(F\) test.
+    <code>"modified-F"</code> compares groups while allowing their
+    within-group variation (dispersion) to differ. The argument name must be
+    supplied in full.</p></dd>
+
+
+  <dt id="arg-groups">groups<a class="anchor" aria-label="anchor" href="#arg-groups"></a></dt>
+<dd><p>A factor identifying the groups to compare when
+    <code>permustat = "modified-F"</code>. For a formula containing a single
+    factor, that factor is used automatically. For a model with several
+    factors and all their interactions, supply a factor identifying each
+    combination of factor levels, for example <code>interaction(A, B)</code>
+    for the model <code>Y ~ A * B</code>. See Details for the supported models.</p></dd>
+
+
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Other arguments passed to <code><a href="vegdist.html">vegdist</a></code>.</p></dd>
 
@@ -155,6 +173,50 @@ negative eigenvalues. The <code>adonis2</code> tests are identical to
 <code><a href="anova.cca.html">anova.cca</a></code> of <code><a href="dbrda.html">dbrda</a></code>. With Euclidean
 distances, the tests are also identical to <code><a href="anova.cca.html">anova.cca</a></code> of
 <code><a href="cca.html">rda</a></code>.</p>
+<p>With <code>permustat = "modified-F"</code>, the modified pseudo-\(F\)
+statistic of Anderson et al. (2017) compares all groups in a one-way
+analysis, allowing their within-group variation to differ. A model
+containing several factors and all their interactions can also be used
+for an overall test, treating each combination of factor levels as a
+group. For example, <code>Y ~ A * B</code> with
+<code>groups = interaction(A, B)</code> gives the same overall test as a
+one-way analysis using the combined grouping factor. Supply this factor
+in <code>groups</code>; it does not need to be added to the model formula.
+All factors are treated as fixed. Separate tests of individual factors
+or interactions are not currently supported.</p>
+<p>There must be at least two groups and at least two observations in every
+group. The modified test does not support continuous predictors, models
+that omit interactions between factors, <code>Condition</code> terms,
+<code>by</code> tests, or <code>model = "full"</code> permutations. Tests for mixed
+or random-factor models would require further development.
+The modified test is not available for <code>cca</code> or <code>capscale</code>.
+Chi-square dissimilarities can instead be supplied explicitly to
+<code>adonis2</code> or <code>dbrda</code> when those dissimilarities are appropriate
+for the analysis.</p>
+<p>The modified test uses the same between-group and within-group sums of
+squares as the ordinary pseudo-\(F\) test. Instead of pooling
+within-group variation across all observations, it estimates variation
+separately for each group and combines these estimates using weights
+based on group sizes. The test statistic is recalculated for every
+permutation.</p>
+<p>The residual degrees of freedom reported for the modified test use the
+Brown–Forsythe/Satterthwaite approximation and may be non-integer.
+The residual and total sums of squares, and hence \(R^2\), retain
+their usual definitions.</p>
+<p>For a one-way model with a single response variable (and Euclidean
+distances for distance-based analyses), <code>permustat = "modified-F"</code>
+reduces to the Brown–Forsythe statistic for testing equality of group
+means under unequal variances. This differs from Welch's test used by
+<code><a href="https://rdrr.io/r/stats/oneway.test.html" class="external-link">oneway.test</a></code> with <code>var.equal = FALSE</code>.
+With two groups, the modified statistic equals the square of Welch's
+\(t\) statistic from <code><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></code>, and its effective
+denominator degrees of freedom agree with those of Welch's test.
+With three or more groups, the statistics and denominator degrees of
+freedom generally differ because the Brown–Forsythe and Welch methods
+use different variance weighting and degrees-of-freedom approximations.
+The univariate Brown–Forsythe statistic and denominator degrees of
+freedom can be compared with <code>onewaytests::bf.test()</code>, described by
+Dag et al. (2018).</p>
 <p>The function partitions sums of squares of a multivariate data set,
 and they are directly analogous to MANOVA (multivariate analysis of
 variance). McArdle and Anderson (2001) and Anderson (2001) refer to
@@ -196,6 +258,14 @@ in the <span class="pkg">ade4</span> package) for both crossed and nested factor
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Anderson, M.J. 2001. A new method for non-parametric multivariate
 analysis of variance. <em>Austral Ecology</em>, <strong>26</strong>: 32–46.</p>
+<p>Anderson, M.J., Walsh, D.C.I., Clarke, K.R., Gorley, R.N. and Guerra-
+Castro, E. 2017. Some solutions to the multivariate Behrens–Fisher
+problem for dissimilarity-based analyses. <em>Australian &amp; New Zealand
+Journal of Statistics</em>, <strong>59</strong>: 57–79.</p>
+<p>Dag, O., Dolgun, A. and Konar, N.M. (2018). onewaytests: An R Package
+for One-Way Tests in Independent Groups Designs. <em>The R Journal</em>,
+<strong>10</strong>(1): 175–199.
+<a href="https://journal.r-project.org/articles/RJ-2018-022/" class="external-link">https://journal.r-project.org/articles/RJ-2018-022/</a>.</p>
 <p>Excoffier, L., P.E. Smouse, and J.M. Quattro. 1992. Analysis of
 molecular variance inferred from metric distances among DNA haplotypes:
 Application to human mitochondrial DNA restriction data. <em>Genetics</em>,
@@ -253,6 +323,25 @@ Ecology and Evolution</em>, 3, 89–101.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Total         19   4.2990 1.00000                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-in"><span><span class="co">## Published omnibus test allowing heterogeneous dispersions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"norwegianShelf"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">take23</span> <span class="op">&lt;-</span> <span class="va">norwegianShelf</span><span class="op">$</span><span class="va">area</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2"</span>, <span class="st">"3"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">shelf23</span> <span class="op">&lt;-</span> <span class="fl">1L</span> <span class="op">*</span> <span class="op">(</span><span class="va">norwegianShelf</span><span class="op">$</span><span class="va">comm</span><span class="op">[</span><span class="va">take23</span>, , drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span> <span class="op">&gt;</span> <span class="fl">0L</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">area23</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/droplevels.html" class="external-link">droplevels</a></span><span class="op">(</span><span class="va">norwegianShelf</span><span class="op">$</span><span class="va">area</span><span class="op">[</span><span class="va">take23</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">shelf.perms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rev.html" class="external-link">rev</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">shelf23</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                     <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">shelf23</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">adonis2</span><span class="op">(</span><span class="va">shelf23</span> <span class="op">~</span> <span class="va">area23</span>, method <span class="op">=</span> <span class="st">"jaccard"</span>, binary <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>        permutations <span class="op">=</span> <span class="va">shelf.perms</span>, permustat <span class="op">=</span> <span class="st">"modified-F"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Permutation test for adonis under reduced model</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Modified pseudo-F allowing heterogeneous dispersions</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Permutation: supplied matrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> adonis2(formula = shelf23 ~ area23, permutations = shelf.perms, method = "jaccard", binary = TRUE, permustat = "modified-F")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Df SumOfSqs      R2      F Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model     1.000   1.7613 0.12919 6.8388 0.3333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residual 43.659  11.8717 0.87081              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Total    45.000  13.6330 1.00000              </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">### Example of use with strata, for nested (e.g., block) designs.</span></span></span>
 <span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span>rep<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span><span class="op">)</span>, NO3<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span>,field<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">1</span><span class="op">)</span> <span class="op">)</span></span></span>

@@ -315,6 +315,8 @@ install.packages('vegan',
   : Nestedness Indices for Communities of Islands or Patches
 - [`nobs(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/nobs.cca.md)
   : Extract the Number of Observations from a vegan Fit.
+- [`norwegianShelf`](https://vegandevs.github.io/vegan/reference/norwegianShelf.md)
+  : Norwegian Continental Shelf Macrofauna Data
 - [`nullmodel()`](https://vegandevs.github.io/vegan/reference/nullmodel.md)
   [`print(`*`<nullmodel>`*`)`](https://vegandevs.github.io/vegan/reference/nullmodel.md)
   [`simulate(`*`<nullmodel>`*`)`](https://vegandevs.github.io/vegan/reference/nullmodel.md)
