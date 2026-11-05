@@ -93,12 +93,18 @@
 
   \item{permustat}{The permutation statistic. The default
     \code{"pseudo-F"} retains the ordinary pseudo-\eqn{F} test.
-    \code{"modified-F"} uses the omnibus statistic allowing
-    heterogeneous dispersions. The argument name must be supplied in full.}
+    \code{"modified-F"} compares groups while allowing their
+    within-group variation (dispersion) to differ. The argument name must
+    be supplied in full.}
 
-  \item{groups}{A factor identifying the cells whose dispersions may
-    differ for \code{permustat = "modified-F"}. This must be supplied
-    for fitted ordination objects.}
+  \item{groups}{A factor identifying the groups to compare when
+    \code{permustat = "modified-F"}. This must be supplied, even for a
+    model with only one factor. Use that factor for a one-way model.
+    For a model with several factors and all their interactions, use a
+    factor identifying each combination of factor levels, for example
+    \code{interaction(A, B)} for the model \code{Y ~ A * B}. The values
+    must be in the same order as the observations used to fit the model.
+    See Details for the supported models.}
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with
@@ -175,21 +181,36 @@
   tests (see Examples).
 
   The modified pseudo-\eqn{F} statistic of Anderson et al. (2017) is
-  available for omnibus tests of \code{rda} and \code{dbrda} models.
-  The constraint space must equal the centred indicator space of
-  \code{groups}, so a one-way or saturated fixed-factor cell model is
-  required, with at least two observations per group. Its denominator
-  is \eqn{\sum_i(1-n_i/N)V_i}, where \eqn{V_i} is residual inertia in
-  group \eqn{i} divided by \eqn{n_i-1}; numerator and denominator are
-  both recalculated for every permutation. The residual degrees of
-  freedom printed for this test are the effective
-  Brown--Forsythe/Satterthwaite degrees of freedom and may be
-  non-integer. Conditions, \code{by} and first-axis tests,
-  \code{model = "full"}, and multiple-model comparisons are not
-  available. Neither \code{cca} nor \code{capscale} is supported because
-  their weighted geometry needs a separate derivation. More complex
-  fixed, mixed, or random-factor tests also need term-specific error
-  terms and permutation schemes.
+  available for overall tests of \code{rda} and \code{dbrda} models
+  with \code{test = "permutation"}. It compares all groups in a one-way
+  analysis, allowing their within-group variation to differ. A model
+  containing several factors and all their interactions can also be
+  used for an overall test, treating each combination of factor levels
+  as a group. For example, a model fitted with \code{Y ~ A * B}, tested
+  with \code{groups = interaction(A, B)}, gives the same overall test
+  as a one-way analysis using the combined grouping factor. Supply this
+  factor in \code{groups}; it does not need to be added to the model
+  formula. All factors are treated as fixed. Separate tests of
+  individual factors or interactions are not currently supported.
+
+  There must be at least two groups and at least two observations in
+  every group. The modified test does not support continuous predictors,
+  models that omit interactions between factors, \code{Condition} terms,
+  \code{by} or first-axis tests, \code{model = "full"}, or
+  multiple-model comparisons. Tests for mixed or random-factor models would require
+  further development. The modified test is not available for \code{cca}
+  or \code{capscale}. Chi-square dissimilarities can instead be supplied
+  explicitly to \code{adonis2} or \code{dbrda} when those dissimilarities
+  are appropriate for the analysis.
+
+  The modified statistic divides the between-group inertia by
+  \eqn{\sum_i(1-n_i/N)V_i}, where \eqn{n_i} is the number of observations
+  in group \eqn{i}, \eqn{N} is the total number of observations, and
+  \eqn{V_i} is the within-group inertia divided by \eqn{n_i-1}.
+  Both numerator and denominator are recalculated for every permutation.
+  The residual degrees of freedom printed for this test use the
+  Brown--Forsythe/Satterthwaite approximation and may be non-integer.
+  The residual and total inertia retain their usual definitions.
 
   For a one-way model with a single response variable (and Euclidean
   distances for distance-based analyses), \code{permustat = "modified-F"}

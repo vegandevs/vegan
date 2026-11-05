@@ -76,13 +76,16 @@ adonis2(formula, data, permutations = 999, method = "bray",
 
   \item{permustat}{The permutation statistic. The default
     \code{"pseudo-F"} retains the ordinary pseudo-\eqn{F} test.
-    \code{"modified-F"} uses the omnibus statistic allowing
-    heterogeneous within-group dispersions. The argument name must be
+    \code{"modified-F"} compares groups while allowing their
+    within-group variation (dispersion) to differ. The argument name must be
     supplied in full.}
 
-  \item{groups}{A factor identifying the cells whose dispersions may
-    differ when \code{permustat = "modified-F"}. It is inferred for a
-    formula containing a single factor; otherwise it must be supplied.}
+  \item{groups}{A factor identifying the groups to compare when
+    \code{permustat = "modified-F"}. For a formula containing a single
+    factor, that factor is used automatically. For a model with several
+    factors and all their interactions, supply a factor identifying each
+    combination of factor levels, for example \code{interaction(A, B)}
+    for the model \code{Y ~ A * B}. See Details for the supported models.}
 
   \item{\dots}{Other arguments passed to \code{\link{vegdist}}.}
 }
@@ -100,14 +103,39 @@ negative eigenvalues. The \code{adonis2} tests are identical to
 distances, the tests are also identical to \code{\link{anova.cca}} of
 \code{\link{rda}}.
 
-With \code{permustat = "modified-F"}, the test statistic is
+With \code{permustat = "modified-F"}, the modified pseudo-\eqn{F}
+statistic of Anderson et al. (2017) compares all groups in a one-way
+analysis, allowing their within-group variation to differ. A model
+containing several factors and all their interactions can also be used
+for an overall test, treating each combination of factor levels as a
+group. For example, \code{Y ~ A * B} with
+\code{groups = interaction(A, B)} gives the same overall test as a
+one-way analysis using the combined grouping factor. Supply this factor
+in \code{groups}; it does not need to be added to the model formula.
+All factors are treated as fixed. Separate tests of individual factors
+or interactions are not currently supported.
+
+There must be at least two groups and at least two observations in every
+group. The modified test does not support continuous predictors, models
+that omit interactions between factors, \code{Condition} terms,
+\code{by} tests, or \code{model = "full"} permutations. Tests for mixed
+or random-factor models would require further development.
+The modified test is not available for \code{cca} or \code{capscale}.
+Chi-square dissimilarities can instead be supplied explicitly to
+\code{adonis2} or \code{dbrda} when those dissimilarities are appropriate
+for the analysis.
+
+The modified test statistic is
 \deqn{F_2 = \frac{\mathop{tr}(HG)}
 {\sum_i (1-n_i/N)V_i},}
-where \eqn{H} projects onto the fitted cell-centroid model, \eqn{G} is
-the centred Gower matrix, and \eqn{V_i} is the within-cell residual
-inertia divided by \eqn{n_i-1}. Both numerator and denominator are
-recalculated in every permutation. The displayed residual degrees of
-freedom are the Brown--Forsythe/Satterthwaite approximation
+where the numerator is the between-group sum of squares, \eqn{n_i} is
+the number of observations in group \eqn{i}, \eqn{N} is the total
+number of observations, and \eqn{V_i} is the within-group sum of squares
+divided by \eqn{n_i-1}. In the matrix notation, \eqn{H} fits the group
+means and \eqn{G} is the centred Gower matrix. Both numerator and
+denominator are recalculated in every permutation. The displayed residual degrees of
+freedom can be non-integer: they use the Brown--Forsythe/Satterthwaite
+approximation
 \deqn{\nu = \frac{[\sum_i(1-n_i/N)V_i]^2}
 {\sum_i[(1-n_i/N)V_i]^2/(n_i-1)}.}
 The residual and total inertia, and hence \eqn{R^2}, retain their usual
@@ -127,18 +155,6 @@ use different variance weighting and degrees-of-freedom approximations.
 The univariate Brown--Forsythe statistic and denominator degrees of
 freedom can be compared with \code{onewaytests::bf.test()}, described by
 Dag et al. (2018).
-
-This modified statistic is the published omnibus test for a one-way
-factor, or for a saturated fixed-factor model whose highest-order cells
-span exactly the same constraint space as \code{groups}. It requires at
-least two observations in every cell. Conditions, continuous or
-unsaturated constraint spaces, term/axis tests, and full-model
-permutations are not supported. More complex fixed, mixed, and random
-factor tests require term-specific denominators and permutation schemes.
-The weighted geometry of \code{cca} and \code{capscale} requires a
-separate derivation; chi-square dissimilarities can instead be supplied
-explicitly to \code{adonis2} or \code{dbrda} when that geometry is the
-analysis of interest.
 
 The function partitions sums of squares of a multivariate data set,
 and they are directly analogous to MANOVA (multivariate analysis of
