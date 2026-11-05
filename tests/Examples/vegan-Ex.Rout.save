@@ -1,5 +1,5 @@
 
-R version 4.6.1 (2026-06-24) -- "Happy Hop"
+R version 4.6.2 (2026-10-29) -- "Diversified Portfolio"
 Copyright (C) 2026 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin23
 
@@ -867,6 +867,25 @@ Residual      12   1.8004 0.41878
 Total         19   4.2990 1.00000                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## Published omnibus test allowing heterogeneous dispersions
+> data("norwegianShelf")
+> take23 <- norwegianShelf$area %in% c("2", "3")
+> shelf23 <- 1L * (norwegianShelf$comm[take23, , drop = FALSE] > 0L)
+> area23 <- droplevels(norwegianShelf$area[take23])
+> shelf.perms <- rbind(rev(seq_len(nrow(shelf23))),
++                      c(2:nrow(shelf23), 1))
+> adonis2(shelf23 ~ area23, method = "jaccard", binary = TRUE,
++         permutations = shelf.perms, permustat = "modified-F")
+Permutation test for adonis under reduced model
+Modified pseudo-F allowing heterogeneous dispersions
+Permutation: supplied matrix
+Number of permutations: 2
+
+adonis2(formula = shelf23 ~ area23, permutations = shelf.perms, method = "jaccard", binary = TRUE, permustat = "modified-F")
+             Df SumOfSqs      R2      F Pr(>F)
+Model     1.000   1.7613 0.12919 6.8388 0.3333
+Residual 43.659  11.8717 0.87081              
+Total    45.000  13.6330 1.00000              
 > 
 > ### Example of use with strata, for nested (e.g., block) designs.
 > dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
@@ -920,6 +939,18 @@ Residual 10 0.097321 0.82394
 Total    11 0.118116 1.00000                 
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> 
+> ## Retain the fitted distance model for post-fit comparisons
+> afit <- adonis2(dune ~ Management, data = dune.env, return = "model")
+> ordicomparisons(afit, "Management", comparison = "reference",
++             reference = "BF", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+  Comparison Df   Inertia         R2         F N.Perm Pr(>F)
+1    HF - BF  1 0.1617135 0.03761634 0.9141421     99   0.52
+2    NM - BF  1 0.5662456 0.13171500 3.2009023     99   0.06
+3    SF - BF  1 0.4016624 0.09343111 2.2705377     99   0.06
 > 
 > 
 > 
@@ -1095,6 +1126,20 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > qqnorm(permustats(ano), x = qf(ppoints(999), 6*adj, 13*adj, lower.tail=FALSE),
 +   observed = FALSE)
 > abline(0, 1, col = 2) # line of equality
+> 
+> ## omnibus RDA test allowing heterogeneous dispersions
+> rmod <- rda(dune ~ Management, dune.env)
+> anova(rmod, permutations = rbind(20:1, c(2:20, 1)),
++       groups = dune.env$Management, permustat = "modified-F")
+Permutation test for rda under reduced model
+Modified pseudo-F allowing heterogeneous dispersions
+Permutation: supplied matrix
+Number of permutations: 2
+
+Model: rda(formula = dune ~ Management, data = dune.env)
+             Df Variance     F Pr(>F)
+Model     3.000   29.231 2.958 0.3333
+Residual 14.216   54.893             
 > 
 > 
 > 
@@ -4414,7 +4459,7 @@ Run 2 stress 0.1192678
 ... Procrustes: rmse 5.822837e-06  max resid 1.845818e-05 
 ... Similar to previous best
 Run 3 stress 0.1192678 
-... Procrustes: rmse 6.697236e-06  max resid 2.061976e-05 
+... Procrustes: rmse 6.697235e-06  max resid 2.061976e-05 
 ... Similar to previous best
 Run 4 stress 0.1183186 
 ... New best solution
@@ -4424,11 +4469,11 @@ Run 6 stress 0.1939202
 Run 7 stress 0.1808911 
 Run 8 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 1.651372e-06  max resid 5.655239e-06 
+... Procrustes: rmse 1.651365e-06  max resid 5.655239e-06 
 ... Similar to previous best
 Run 9 stress 0.1192678 
 Run 10 stress 0.1183186 
-... Procrustes: rmse 1.505924e-06  max resid 4.480433e-06 
+... Procrustes: rmse 1.505921e-06  max resid 4.480433e-06 
 ... Similar to previous best
 Run 11 stress 0.1192679 
 Run 12 stress 0.1192678 
@@ -4438,13 +4483,13 @@ Run 14 stress 0.1183186
 ... Similar to previous best
 Run 15 stress 0.1192678 
 Run 16 stress 0.1183186 
-... Procrustes: rmse 5.869597e-06  max resid 1.970358e-05 
+... Procrustes: rmse 5.869596e-06  max resid 1.970358e-05 
 ... Similar to previous best
 Run 17 stress 0.2075713 
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
 Run 20 stress 0.1183186 
-... Procrustes: rmse 7.276516e-06  max resid 1.734809e-05 
+... Procrustes: rmse 7.276514e-06  max resid 1.734809e-05 
 ... Similar to previous best
 *** Best solution repeated 5 times
 > sol
@@ -4472,7 +4517,7 @@ Starting from 2-dimensional configuration
 Run 0 stress 0.1183186 
 Run 1 stress 0.1183186 
 ... New best solution
-... Procrustes: rmse 4.381529e-06  max resid 1.286756e-05 
+... Procrustes: rmse 4.381525e-06  max resid 1.286756e-05 
 ... Similar to previous best
 Run 2 stress 0.1886532 
 Run 3 stress 0.1939202 
@@ -4488,7 +4533,7 @@ Run 10 stress 0.1192678
 Run 11 stress 0.1192678 
 Run 12 stress 0.1192678 
 Run 13 stress 0.1183186 
-... Procrustes: rmse 2.131405e-06  max resid 6.935982e-06 
+... Procrustes: rmse 2.131408e-06  max resid 6.935982e-06 
 ... Similar to previous best
 Run 14 stress 0.2003482 
 Run 15 stress 0.1183186 
@@ -4496,7 +4541,7 @@ Run 15 stress 0.1183186
 ... Similar to previous best
 Run 16 stress 0.2062791 
 Run 17 stress 0.1183186 
-... Procrustes: rmse 3.725123e-05  max resid 0.0001153584 
+... Procrustes: rmse 3.725124e-05  max resid 0.0001153584 
 ... Similar to previous best
 Run 18 stress 0.1192678 
 Run 19 stress 0.1192679 
@@ -4595,14 +4640,14 @@ Run 1 stress 0.1073148
 Run 2 stress 0.1073148 
 Run 3 stress 0.1067169 
 ... New best solution
-... Procrustes: rmse 9.961624e-07  max resid 2.970966e-06 
+... Procrustes: rmse 9.96168e-07  max resid 2.970966e-06 
 ... Similar to previous best
 Run 4 stress 0.1067169 
-... Procrustes: rmse 8.516169e-06  max resid 2.461974e-05 
+... Procrustes: rmse 8.51617e-06  max resid 2.461974e-05 
 ... Similar to previous best
 Run 5 stress 0.1073148 
 Run 6 stress 0.1067169 
-... Procrustes: rmse 7.11875e-06  max resid 2.176707e-05 
+... Procrustes: rmse 7.118749e-06  max resid 2.176707e-05 
 ... Similar to previous best
 Run 7 stress 0.1073148 
 Run 8 stress 0.1067169 
@@ -5089,6 +5134,29 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > 
 > cleanEx()
+> nameEx("norwegianShelf")
+> ### * norwegianShelf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norwegianShelf
+> ### Title: Norwegian Continental Shelf Macrofauna Data
+> ### Aliases: norwegianShelf
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data("norwegianShelf")
+> str(norwegianShelf, max.level = 1)
+List of 3
+ $ comm: int [1:101, 1:809] 1 0 0 1 0 0 0 0 0 0 ...
+  ..- attr(*, "dimnames")=List of 2
+ $ area: Factor w/ 5 levels "1","2","3","4",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ site: int [1:101] 1 2 3 4 5 6 7 8 9 10 ...
+> 
+> 
+> 
+> cleanEx()
 > nameEx("nullmodel")
 > ### * nullmodel
 > 
@@ -5516,6 +5584,244 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ordiarrows(mod, ditch, label = TRUE, show = c("6", "9"),
 +    col = 2)
 > legend("topright", c("Control", "Pyrifos 44"), lty = 1, col = c(1,2))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ordicomparisons")
+> ### * ordicomparisons
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ordicomparisons
+> ### Title: Comparisons for Constrained Ordination Models
+> ### Aliases: ordicomparisons ordicomparisons.default ordicomparisons.cca
+> ###   ordicomparisons.vegan_contrasts print.vegan_comparisons
+> ### Keywords: models multivariate
+> 
+> ### ** Examples
+> 
+> data(dune)
+> data(dune.env)
+> mod <- rda(dune ~ Management + A1, data = dune.env)
+> 
+> ordicomparisons(mod, "Management", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+  Comparison Df   Inertia         R2        F N.Perm Pr(>F)
+1    HF - BF  1  3.811531 0.04530866 1.131558     99   0.29
+2    NM - BF  1  7.802778 0.09275364 2.316469     99   0.04
+3    SF - BF  1  7.926396 0.09422312 2.353168     99   0.03
+4    NM - HF  1 10.405557 0.12369354 3.089175     99   0.01
+5    SF - HF  1  7.140615 0.08488234 2.119887     99   0.03
+6    SF - NM  1 12.484793 0.14840996 3.706453     99   0.01
+> ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
++             permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+  Comparison Df  Inertia         R2        F N.Perm Pr(>F)
+1    HF - BF  1 3.811531 0.04530866 1.131558     99   0.30
+2    NM - BF  1 7.802778 0.09275364 2.316469     99   0.02
+3    SF - BF  1 7.926396 0.09422312 2.353168     99   0.04
+> ordicomparisons(mod, "Management",
++             comparison = c("HF - BF = 0", "(NM + SF) / 2 - BF = 0"),
++             permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+              Comparison Df  Inertia         R2        F N.Perm Pr(>F)
+1            HF - BF = 0  1 3.811531 0.04530866 1.131558     99   0.29
+2 (NM + SF) / 2 - BF = 0  1 6.988174 0.08307023 2.074631     99   0.03
+> 
+> sc <- ordicontrasts(mod, "Management")
+> sc
+Comparison profiles for constrained ordination
+
+Focal variable:       Management 
+Reference population: fitted analysis data (20 rows) 
+Averaged over:        A1 
+Weights:              equal 
+
+ Profile Management N.reference Extrapolated
+      b1         BF          20        FALSE
+      b2         HF          20        FALSE
+      b3         NM          20        FALSE
+      b4         SF          20        FALSE
+> ordicomparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+   Comparison Df  Inertia         R2        F N.Perm Pr(>F)
+1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99   0.28
+> ordicomparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
++             permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+              Comparison Df  Inertia         R2        F N.Perm Pr(>F)
+1 (b3 + b4) / 2 - b1 = 0  1 6.988174 0.08307023 2.074631     99   0.06
+> 
+> set.seed(42)
+> idat <- expand.grid(treatment = factor(c("control", "low", "high"),
++                                       levels = c("control", "low", "high")),
++                     habitat = factor(c("grass", "heath")), replicate = 1:3)
+> iY <- matrix(rpois(nrow(idat) * 4, 5), ncol = 4)
+> imod <- rda(iY ~ treatment * habitat, data = idat)
+> isc <- ordicontrasts(imod, "treatment", by = "habitat")
+> isc
+Comparison profiles for constrained ordination
+
+Focal variable:       treatment 
+By:                   habitat 
+Reference population: fitted analysis data (18 rows) 
+Averaged over:        none 
+Weights:              equal within habitat groups 
+
+ Profile treatment habitat N.reference Extrapolated
+      b1   control   grass           9        FALSE
+      b2       low   grass           9        FALSE
+      b3      high   grass           9        FALSE
+      b4   control   heath           9        FALSE
+      b5       low   heath           9        FALSE
+      b6      high   heath           9        FALSE
+> ordicomparisons(isc, comparison = "pairwise", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: treatment 
+
+  habitat     Comparison Df    Inertia         R2          F N.Perm Pr(>F)
+1   grass  low - control  1 2.67647059 0.10924370 1.73150106     99   0.17
+2   grass high - control  1 1.35294118 0.05522209 0.87526427     99   0.39
+3   grass     high - low  1 0.34313725 0.01400560 0.22198732     99   0.86
+4   heath  low - control  1 0.06862745 0.00280112 0.04439746     99   0.99
+5   heath high - control  1 1.15686275 0.04721889 0.74841438     99   0.49
+6   heath     high - low  1 1.12745098 0.04601841 0.72938689     99   0.52
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ordicontrasts")
+> ### * ordicontrasts
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ordicontrasts
+> ### Title: Construct Reference Profiles for Ordination Contrasts
+> ### Aliases: ordicontrasts ordicontrasts.default ordicontrasts.cca
+> ###   print.vegan_contrasts
+> ### Keywords: models multivariate
+> 
+> ### ** Examples
+> 
+> data(dune)
+> data(dune.env)
+> 
+> mod <- rda(dune ~ Management + A1, data = dune.env)
+> sc <- ordicontrasts(mod, "Management")
+> sc
+Comparison profiles for constrained ordination
+
+Focal variable:       Management 
+Reference population: fitted analysis data (20 rows) 
+Averaged over:        A1 
+Weights:              equal 
+
+ Profile Management N.reference Extrapolated
+      b1         BF          20        FALSE
+      b2         HF          20        FALSE
+      b3         NM          20        FALSE
+      b4         SF          20        FALSE
+> ordicomparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+   Comparison Df  Inertia         R2        F N.Perm Pr(>F)
+1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99   0.29
+> 
+> ## Compare management types at the mean observed value of A1
+> mean.sc <- ordicontrasts(mod, "Management", newdata = "mean")
+> mean.sc
+Comparison profiles for constrained ordination
+
+Focal variable:       Management 
+Reference population: mean-or-mode reference profile (1 row) 
+Averaged over:        none 
+Fixed at:             A1 = 4.85 
+Weights:              equal 
+
+ Profile Management N.reference Extrapolated
+      b1         BF           1        FALSE
+      b2         HF           1        FALSE
+      b3         NM           1        FALSE
+      b4         SF           1        FALSE
+> ordicomparisons(mean.sc, comparison = "b2 - b1 = 0", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+   Comparison Df  Inertia         R2        F N.Perm Pr(>F)
+1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99    0.3
+> 
+> ## Keep the fitted polynomial basis when comparing at the mean of A1
+> pmod <- rda(dune ~ Management + poly(A1, 2), data = dune.env)
+> ordicomparisons(pmod, "Management", comparison = "HF - BF = 0",
++                newdata = "mean", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+   Comparison Df  Inertia         R2       F N.Perm Pr(>F)
+1 HF - BF = 0  1 3.457631 0.04110176 1.01739     99   0.39
+> 
+> set.seed(42)
+> idat <- expand.grid(treatment = factor(c("control", "low", "high"),
++                                       levels = c("control", "low", "high")),
++                     habitat = factor(c("grass", "heath")), replicate = 1:3)
+> iY <- matrix(rpois(nrow(idat) * 4, 5), ncol = 4)
+> imod <- rda(iY ~ treatment * habitat, data = idat)
+> isc <- ordicontrasts(imod, "treatment", by = "habitat")
+> isc
+Comparison profiles for constrained ordination
+
+Focal variable:       treatment 
+By:                   habitat 
+Reference population: fitted analysis data (18 rows) 
+Averaged over:        none 
+Weights:              equal within habitat groups 
+
+ Profile treatment habitat N.reference Extrapolated
+      b1   control   grass           9        FALSE
+      b2       low   grass           9        FALSE
+      b3      high   grass           9        FALSE
+      b4   control   heath           9        FALSE
+      b5       low   heath           9        FALSE
+      b6      high   heath           9        FALSE
+> ordicomparisons(isc, comparison = "pairwise", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: treatment 
+
+  habitat     Comparison Df    Inertia         R2          F N.Perm Pr(>F)
+1   grass  low - control  1 2.67647059 0.10924370 1.73150106     99   0.17
+2   grass high - control  1 1.35294118 0.05522209 0.87526427     99   0.39
+3   grass     high - low  1 0.34313725 0.01400560 0.22198732     99   0.86
+4   heath  low - control  1 0.06862745 0.00280112 0.04439746     99   0.99
+5   heath high - control  1 1.15686275 0.04721889 0.74841438     99   0.49
+6   heath     high - low  1 1.12745098 0.04601841 0.72938689     99   0.52
+> 
+> fixed <- ordicontrasts(imod, "treatment", newdata = data.frame(
++     habitat = factor("heath", levels = levels(idat$habitat))))
+> fixed
+Comparison profiles for constrained ordination
+
+Focal variable:       treatment 
+Reference population: user-supplied data (1 rows) 
+Averaged over:        none 
+Fixed at:             habitat = heath 
+Weights:              equal 
+
+ Profile treatment N.reference Extrapolated
+      b1   control           1        FALSE
+      b2       low           1        FALSE
+      b3      high           1        FALSE
 > 
 > 
 > 
@@ -6850,8 +7156,8 @@ Rotation matrix:
 [2,] 0.1160491  0.9932435
 
 Translation of averages:
-              [,1]        [,2]
-[1,] -2.703345e-17 1.55459e-18
+              [,1]          [,2]
+[1,] -5.139447e-17 -3.872595e-17
 
 Scaling of target:
 [1] 0.6725743
@@ -9302,13 +9608,13 @@ Protopl 248.4969
 > ## Eigevalues are numerically similar
 > ca$CA$eig - ord$eig
           CA1           CA2           CA3           CA4           CA5 
--6.661338e-16 -1.665335e-16 -7.216450e-16 -1.942890e-16  1.110223e-16 
+-8.881784e-16 -7.771561e-16  1.665335e-16 -1.665335e-16 -2.775558e-17 
           CA6           CA7           CA8           CA9          CA10 
- 1.249001e-16 -8.326673e-17 -1.942890e-16  1.387779e-16  8.326673e-17 
+ 1.110223e-16 -1.804112e-16 -2.775558e-17  5.551115e-17  1.110223e-16 
          CA11          CA12          CA13          CA14          CA15 
- 4.163336e-17  8.326673e-17  1.040834e-16 -1.734723e-17  4.336809e-17 
+ 6.938894e-17  1.040834e-16  8.326673e-17  3.469447e-17  3.295975e-17 
          CA16          CA17          CA18          CA19 
- 1.908196e-17  1.734723e-18 -1.908196e-17  3.599551e-17 
+ 3.469447e-18  1.214306e-17 -2.515349e-17  1.734723e-17 
 > ## Configurations are similar when site scores are scaled by
 > ## eigenvalues in CA
 > procrustes(ord, ca, choices=1:19, scaling = "sites")
@@ -9317,7 +9623,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
--1.421e-14 
+    0 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9339,7 +9645,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.041 0.294 9.354 0 0 
+Time elapsed:  10.592 0.345 10.969 0 0 
 > grDevices::dev.off()
 null device 
           1 

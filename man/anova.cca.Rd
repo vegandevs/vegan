@@ -56,7 +56,12 @@
     term analysed in a model with all other variables), and \code{by =
     "axis"} for each constrained axis. Choices \code{"terms"} and
     \code{"margin"} can be used only with models fitted with
-    formula. \code{by} cannot be used together with \code{first = TRUE}.}
+    formula. In \code{anova}, \code{by = "contrast"} calls
+    \code{\link{ordicomparisons}} using arguments supplied through \code{\dots}
+    and returns an ANOVA table. It is available only with permutation tests
+    under the reduced model with \code{permustat = "pseudo-F"}.
+    \code{by} cannot be used together with
+    \code{first = TRUE}.}
 
   \item{model}{Permutation model: \code{model="direct"} permutes
     community data, \code{model="reduced"} permutes residuals
@@ -110,7 +115,11 @@
     passes all arguments to \code{permutest.cca}. In \code{anova} with
     \code{by = "axis"} you can use argument \code{cutoff} (defaults
     \code{1}) which stops permutations after exceeding the given
-    level. }
+    level. With \code{by = "contrast"}, arguments in \code{\dots} are
+    passed to \code{ordicomparisons}, including \code{variable},
+    \code{comparison}, \code{reference}, \code{newdata}, and
+    \code{joint}. Use \code{\link{ordicontrasts}} to inspect and name
+    profile rows before testing. }
 }
 
 \details{

@@ -7,6 +7,7 @@ export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason, SSlomolino,
 adipart, adonis2, anosim, beals, betadisper, betadistances, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, ca, calibrate, capscale,
 cascadeKM, cca, chaodist, contribdiv, clamtest, commsim,
+ordicomparisons, ordicontrasts,
 cutreeord, dbrda, decobackstand, decorana, decostand, designdist, designdist2,
 dist2xy, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
@@ -85,6 +86,7 @@ importFrom(stats, .getXlevels, add.scope, aggregate, aov, approx,
            p.adjust.methods, pchisq, pf, plogis, pnorm, poisson,
            ppoints, printCoefmat, pt, qchisq, qf, qlogis, qnorm,
            qqplot, qt, quantile, quasipoisson, r2dtable, reformulate,
+           setNames,
            rmultinom, rnorm, runif, sd, spline, summary.lm, terms, ts,
            uniroot, update.formula, var, weighted.mean)
 ## S3methods for these
@@ -182,6 +184,13 @@ S3method(coef, rda)
 S3method(confint, MOStest)
 # cooks.distance: stats
 S3method(cooks.distance, cca)
+# ordicomparisons: vegan
+S3method(ordicomparisons, cca)
+S3method(ordicomparisons, default)
+S3method(ordicomparisons, vegan_contrasts)
+# ordicontrasts: vegan
+S3method(ordicontrasts, cca)
+S3method(ordicontrasts, default)
 # cophenetic: stats
 S3method(cophenetic, spantree)
 # density: stats
@@ -392,6 +401,8 @@ S3method(print, rad)
 S3method(print, betadisper)
 S3method(print, bioenv)
 S3method(print, cca)
+S3method(print, vegan_comparisons)
+S3method(print, vegan_contrasts)
 S3method(print, commsim)
 S3method(print, decorana)
 S3method(print, eigenvals)
