@@ -1,7 +1,7 @@
 `ordistep` <-
     function(object, scope, direction =c("both", "backward", "forward"),
              Pin = 0.05, Pout = 0.1, permutations = how(nperm = 199),
-             steps=50, trace = TRUE, test = c("permutation", "F"), ...)
+             steps=50, trace = TRUE, test = c("permutation", "parametric"), ...)
 {
     if (!inherits(object, "cca"))
         stop("function can be only used with 'cca' and related objects")

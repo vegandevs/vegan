@@ -29,9 +29,13 @@
     ## now 'perm' is a matrix (or always was). If it is a plain
     ## matrix, set minimal attributes for printing. This is a dirty
     ## kluge: should be handled more cleanly.
-    if (is.null(attr(perm, "control")))
-        attr(perm, "control") <-
-            structure(list(within=list(type="supplied matrix"),
-                           nperm = nrow(perm)), class = "how")
+    if (is.null(attr(perm, "control"))) {
+        ## Use valid permute classes instead of a minimal list. Recent
+        ## permute versions dispatch getType() on the Within component,
+        ## whereas older releases also accept this complete structure.
+        control <- how(nperm = nrow(perm))
+        control$within$type <- "supplied matrix"
+        attr(perm, "control") <- control
+    }
     perm
 }

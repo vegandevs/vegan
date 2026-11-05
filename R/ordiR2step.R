@@ -5,7 +5,7 @@
 `ordiR2step` <-
     function(object, scope, Pin = 0.05, R2scope = TRUE,
              permutations = how(nperm=499), trace = TRUE, R2permutations = 1000,
-             test = c("permutation", "F"), ...)
+             test = c("permutation", "parametric"), ...)
 {
     if (is.null(object$terms))
         stop("ordination model must be fitted using formula")

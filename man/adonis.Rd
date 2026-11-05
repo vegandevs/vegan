@@ -14,7 +14,8 @@
 adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = NULL,
     parallel = getOption("mc.cores"), na.action = na.fail,
-    strata = NULL, ...)
+    strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
+    groups = NULL)
 }
 
 \arguments{
@@ -73,6 +74,19 @@ adonis2(formula, data, permutations = 999, method = "bray",
     \CRANpkg{permute} package, but some more flexible alternatives may
     be more appropriate.}
 
+  \item{permustat}{The permutation statistic. The default
+    \code{"pseudo-F"} retains the ordinary pseudo-\eqn{F} test.
+    \code{"modified-F"} compares groups while allowing their
+    within-group variation (dispersion) to differ. The argument name must be
+    supplied in full.}
+
+  \item{groups}{A factor identifying the groups to compare when
+    \code{permustat = "modified-F"}. For a formula containing a single
+    factor, that factor is used automatically. For a model with several
+    factors and all their interactions, supply a factor identifying each
+    combination of factor levels, for example \code{interaction(A, B)}
+    for the model \code{Y ~ A * B}. See Details for the supported models.}
+
   \item{\dots}{Other arguments passed to \code{\link{vegdist}}.}
 }
 
@@ -88,6 +102,55 @@ negative eigenvalues. The \code{adonis2} tests are identical to
 \code{\link{anova.cca}} of \code{\link{dbrda}}. With Euclidean
 distances, the tests are also identical to \code{\link{anova.cca}} of
 \code{\link{rda}}.
+
+With \code{permustat = "modified-F"}, the modified pseudo-\eqn{F}
+statistic of Anderson et al. (2017) compares all groups in a one-way
+analysis, allowing their within-group variation to differ. A model
+containing several factors and all their interactions can also be used
+for an overall test, treating each combination of factor levels as a
+group. For example, \code{Y ~ A * B} with
+\code{groups = interaction(A, B)} gives the same overall test as a
+one-way analysis using the combined grouping factor. Supply this factor
+in \code{groups}; it does not need to be added to the model formula.
+All factors are treated as fixed. Separate tests of individual factors
+or interactions are not currently supported.
+
+There must be at least two groups and at least two observations in every
+group. The modified test does not support continuous predictors, models
+that omit interactions between factors, \code{Condition} terms,
+\code{by} tests, or \code{model = "full"} permutations. Tests for mixed
+or random-factor models would require further development.
+The modified test is not available for \code{cca} or \code{capscale}.
+Chi-square dissimilarities can instead be supplied explicitly to
+\code{adonis2} or \code{dbrda} when those dissimilarities are appropriate
+for the analysis.
+
+The modified test uses the same between-group and within-group sums of
+squares as the ordinary pseudo-\eqn{F} test. Instead of pooling
+within-group variation across all observations, it estimates variation
+separately for each group and combines these estimates using weights
+based on group sizes. The test statistic is recalculated for every
+permutation.
+
+The residual degrees of freedom reported for the modified test use the
+Brown--Forsythe/Satterthwaite approximation and may be non-integer.
+The residual and total sums of squares, and hence \eqn{R^2}, retain
+their usual definitions.
+
+For a one-way model with a single response variable (and Euclidean
+distances for distance-based analyses), \code{permustat = "modified-F"}
+reduces to the Brown--Forsythe statistic for testing equality of group
+means under unequal variances. This differs from Welch's test used by
+\code{\link[stats]{oneway.test}} with \code{var.equal = FALSE}.
+With two groups, the modified statistic equals the square of Welch's
+\eqn{t} statistic from \code{\link[stats]{t.test}}, and its effective
+denominator degrees of freedom agree with those of Welch's test.
+With three or more groups, the statistics and denominator degrees of
+freedom generally differ because the Brown--Forsythe and Welch methods
+use different variance weighting and degrees-of-freedom approximations.
+The univariate Brown--Forsythe statistic and denominator degrees of
+freedom can be compared with \code{onewaytests::bf.test()}, described by
+Dag et al. (2018).
 
 The function partitions sums of squares of a multivariate data set,
 and they are directly analogous to MANOVA (multivariate analysis of
@@ -131,6 +194,16 @@ in the \pkg{ade4} package) for both crossed and nested factors.
 Anderson, M.J. 2001. A new method for non-parametric multivariate
 analysis of variance. \emph{Austral Ecology}, \strong{26}: 32--46.
 
+Anderson, M.J., Walsh, D.C.I., Clarke, K.R., Gorley, R.N. and Guerra-
+Castro, E. 2017. Some solutions to the multivariate Behrens--Fisher
+problem for dissimilarity-based analyses. \emph{Australian & New Zealand
+Journal of Statistics}, \strong{59}: 57--79.
+
+Dag, O., Dolgun, A. and Konar, N.M. (2018). onewaytests: An R Package
+for One-Way Tests in Independent Groups Designs. \emph{The R Journal},
+\strong{10}(1): 175--199.
+\url{https://journal.r-project.org/articles/RJ-2018-022/}.
+
 Excoffier, L., P.E. Smouse, and J.M. Quattro. 1992. Analysis of
 molecular variance inferred from metric distances among DNA haplotypes:
 Application to human mitochondrial DNA restriction data. \emph{Genetics},
@@ -160,6 +233,15 @@ data(dune.env)
 adonis2(dune ~ Management*A1, data = dune.env)
 ## sequential tests
 adonis2(dune ~ Management*A1, data = dune.env, by = "terms")
+## Published omnibus test allowing heterogeneous dispersions
+data("norwegianShelf")
+take23 <- norwegianShelf$area \%in\% c("2", "3")
+shelf23 <- 1L * (norwegianShelf$comm[take23, , drop = FALSE] > 0L)
+area23 <- droplevels(norwegianShelf$area[take23])
+shelf.perms <- rbind(rev(seq_len(nrow(shelf23))),
+                     c(2:nrow(shelf23), 1))
+adonis2(shelf23 ~ area23, method = "jaccard", binary = TRUE,
+        permutations = shelf.perms, permustat = "modified-F")
 
 ### Example of use with strata, for nested (e.g., block) designs.
 dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )

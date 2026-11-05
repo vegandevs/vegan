@@ -23,10 +23,12 @@
 \method{anova}{cca}(object, ..., permutations = how(nperm=999),
      by = NULL, model = c("reduced", "direct", "full"),
      parallel = getOption("mc.cores"), strata = NULL,
-     cutoff = 1, scope = NULL, test = c("permutation", "F"))
+     cutoff = 1, scope = NULL, test = c("permutation", "parametric"),
+     permustat = c("pseudo-F", "modified-F"), groups = NULL)
 \method{permutest}{cca}(x, permutations = how(nperm = 99),
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
-     strata = NULL, parallel = getOption("mc.cores"), ...)
+     strata = NULL, parallel = getOption("mc.cores"), ...,
+     permustat = c("pseudo-F", "modified-F"), groups = NULL)
 }
 
 \arguments{
@@ -80,13 +82,29 @@
     used to select the marginal terms for testing. The default is to
     test all marginal terms in \code{\link{drop.scope}}.}
 
-  \item{test}{Test type, either permutation test or parametric
-    \eqn{F}-test. Parametric test is only available for
+  \item{test}{Test type, either \code{"permutation"} for a permutation
+    test or \code{"parametric"} for a parametric \eqn{F}-test.
+    Parametric test is only available for
     \code{\link{rda}}. It is similar as \code{\link{anova.mlm}}
     \code{test = "Spherical"} with Greenhouse-Geisser correction for
     asphericity.}
 
   \item{first}{Analyse only significance of the first axis.}
+
+  \item{permustat}{The permutation statistic. The default
+    \code{"pseudo-F"} retains the ordinary pseudo-\eqn{F} test.
+    \code{"modified-F"} compares groups while allowing their
+    within-group variation (dispersion) to differ. The argument name must
+    be supplied in full.}
+
+  \item{groups}{A factor identifying the groups to compare when
+    \code{permustat = "modified-F"}. This must be supplied, even for a
+    model with only one factor. Use that factor for a one-way model.
+    For a model with several factors and all their interactions, use a
+    factor identifying each combination of factor levels, for example
+    \code{interaction(A, B)} for the model \code{Y ~ A * B}. The values
+    must be in the same order as the observations used to fit the model.
+    See Details for the supported models.}
 
   \item{\dots}{Parameters passed to other functions.  \code{anova.cca}
     passes all arguments to \code{permutest.cca}. In \code{anova} with
@@ -162,6 +180,54 @@
   is best to check that it gives consistent results with permutation
   tests (see Examples).
 
+  The modified pseudo-\eqn{F} statistic of Anderson et al. (2017) is
+  available for overall tests of \code{rda} and \code{dbrda} models
+  with \code{test = "permutation"}. It compares all groups in a one-way
+  analysis, allowing their within-group variation to differ. A model
+  containing several factors and all their interactions can also be
+  used for an overall test, treating each combination of factor levels
+  as a group. For example, a model fitted with \code{Y ~ A * B}, tested
+  with \code{groups = interaction(A, B)}, gives the same overall test
+  as a one-way analysis using the combined grouping factor. Supply this
+  factor in \code{groups}; it does not need to be added to the model
+  formula. All factors are treated as fixed. Separate tests of
+  individual factors or interactions are not currently supported.
+
+  There must be at least two groups and at least two observations in
+  every group. The modified test does not support continuous predictors,
+  models that omit interactions between factors, \code{Condition} terms,
+  \code{by} or first-axis tests, \code{model = "full"}, or
+  multiple-model comparisons. Tests for mixed or random-factor models would require
+  further development. The modified test is not available for \code{cca}
+  or \code{capscale}. Chi-square dissimilarities can instead be supplied
+  explicitly to \code{adonis2} or \code{dbrda} when those dissimilarities
+  are appropriate for the analysis.
+
+  The modified test uses the same between-group and within-group inertia
+  as the ordinary pseudo-\eqn{F} test. Instead of pooling within-group
+  variation across all observations, it estimates variation separately
+  for each group and combines these estimates using weights based on
+  group sizes. The test statistic is recalculated for every permutation.
+
+  The residual degrees of freedom reported for the modified test use the
+  Brown--Forsythe/Satterthwaite approximation and may be non-integer.
+  The residual and total inertia retain their usual definitions.
+
+  For a one-way model with a single response variable (and Euclidean
+  distances for distance-based analyses), \code{permustat = "modified-F"}
+  reduces to the Brown--Forsythe statistic for testing equality of group
+  means under unequal variances. This differs from Welch's test used by
+  \code{\link[stats]{oneway.test}} with \code{var.equal = FALSE}.
+  With two groups, the modified statistic equals the square of Welch's
+  \eqn{t} statistic from \code{\link[stats]{t.test}}, and its effective
+  denominator degrees of freedom agree with those of Welch's test.
+  With three or more groups, the statistics and denominator degrees of
+  freedom generally differ because the Brown--Forsythe and Welch methods
+  use different variance weighting and degrees-of-freedom approximations.
+  The univariate Brown--Forsythe statistic and denominator degrees of
+  freedom can be compared with \code{onewaytests::bf.test()}, described by
+  Dag et al. (2018).
+
 }
 
 \value{
@@ -169,10 +235,23 @@
   \code{\link{anova}} table. Additional attributes are
   \code{Random.seed} (the random seeds used),
   \code{control} (the permutation design, see \link[permute]{how}) and
-  \code{F.perm} (the permuted test statistics).
+  \code{F.perm} (the permuted test statistics). For modified tests the
+  result also records \code{permustat}, \code{groups}, group sizes and
+  observed dispersions, the modified denominator, its effective degrees
+  of freedom, and the permuted modified pseudo-\eqn{F} values.
 }
 
 \references{
+  Anderson, M.J., Walsh, D.C.I., Clarke, K.R., Gorley, R.N. and Guerra-
+  Castro, E. (2017). Some solutions to the multivariate Behrens--Fisher
+  problem for dissimilarity-based analyses. \emph{Australian & New
+  Zealand Journal of Statistics} 59, 57--79.
+
+  Dag, O., Dolgun, A. and Konar, N.M. (2018). onewaytests: An R Package
+  for One-Way Tests in Independent Groups Designs. \emph{The R Journal},
+  \strong{10}(1): 175--199.
+  \url{https://journal.r-project.org/articles/RJ-2018-022/}.
+
   Legendre, P. and Legendre, L. (2012). \emph{Numerical Ecology}. 3rd
   English ed. Elsevier.
 
@@ -213,12 +292,17 @@ anova(mod0, mod1, mod2)
 ## See that permutation and F-distribution are consistent
 mod <- rda(dune ~ Moisture + Management, dune.env)
 (ano <- anova(mod))
-anova(mod, test = "F")
+anova(mod, test = "parametric")
 ## adjustment for degrees of freedom in F distribution
 adj <- ncol(dune) * 0.245 # Greenhouse-Geisser epsilon
 qqnorm(permustats(ano), x = qf(ppoints(999), 6*adj, 13*adj, lower.tail=FALSE),
   observed = FALSE)
 abline(0, 1, col = 2) # line of equality
+
+## omnibus RDA test allowing heterogeneous dispersions
+rmod <- rda(dune ~ Management, dune.env)
+anova(rmod, permutations = rbind(20:1, c(2:20, 1)),
+      groups = dune.env$Management, permustat = "modified-F")
 }
 \keyword{ multivariate }
 \keyword{ htest }

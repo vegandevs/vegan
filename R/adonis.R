@@ -2,8 +2,14 @@
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
-             strata = NULL, ...)
+             strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
+             groups = NULL)
 {
+    permustat <- match.arg(permustat)
+    group.expr <- substitute(groups)
+    ## Do not force 'groups' here: like formula variables, it may exist only
+    ## in 'data' and must be evaluated in that environment below.
+    groups.missing <- missing(groups) || identical(group.expr, quote(NULL))
     ## handle missing data
     if (missing(data))
         data <- parent.frame()
@@ -23,6 +29,7 @@
         lhs <- as.dist(lhs)
     if (!inherits(lhs, "dist"))
         lhs <- vegdist(as.matrix(lhs), method=method, ...)
+    nobs.response <- attr(lhs, "Size")
     ## evaluate terms like in dbrda
     d <- ordiParseFormula(formula = formula,
                           data = data,
@@ -32,9 +39,26 @@
     if (is.null(d$Y))
         stop("needs explanatory variables on the right-hand-side")
     lhs <- d$X
+    if (permustat == "modified-F") {
+        if (groups.missing) {
+            mf <- d$modelframe
+            if (ncol(mf) != 1L ||
+                !(is.factor(mf[[1L]]) || is.character(mf[[1L]])))
+                stop("'groups' must be supplied for a factorial modified-F model")
+            groups <- mf[[1L]]
+        } else {
+            groups <- eval(group.expr, envir = data,
+                           enclos = environment(formula))
+            ## Explicit groups are normally evaluated before model-frame NA
+            ## handling. Accept an already aligned vector as well.
+            if (!is.null(d$na.action) && length(groups) == nobs.response)
+                groups <- groups[-d$na.action]
+        }
+    }
     ## handle missing data
     if (!is.null(d$na.action))
-        lhs <- lhs[-d$na.action, -d$na.action, drop = FALSE]
+        ## ordiParseFormula() already removed rows: remove matching columns
+        lhs <- lhs[, -d$na.action, drop = FALSE]
     ## adjust distances if requested
     if (sqrt.dist)
         lhs <- sqrt(lhs)
@@ -61,7 +85,7 @@
     ## handle permutations
     perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
     out <- anova(sol, permutations = perm, by = by,
-                 parallel = parallel)
+                 parallel = parallel, permustat = permustat, groups = groups)
     ## attributes will be lost when adding a new column
     att <- attributes(out)
     ## add traditional adonis output on R2

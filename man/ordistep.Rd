@@ -19,10 +19,10 @@
 \usage{
 ordistep(object, scope, direction = c("both", "backward", "forward"),
   Pin = 0.05, Pout = 0.1, permutations = how(nperm = 199), steps = 50,
-  trace = TRUE, test = c("permutation", "F"), ...)
+  trace = TRUE, test = c("permutation", "parametric"), ...)
 ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
   permutations = how(nperm = 499), trace = TRUE, R2permutations = 1000,
-  test = c("permutation", "F"),  ...)
+  test = c("permutation", "parametric"),  ...)
 }
 
 \arguments{
@@ -80,8 +80,9 @@ ordiR2step(object, scope, Pin = 0.05, R2scope = TRUE,
   \code{\link{RsquareAdj}}.
 }
 
-  \item{test}{Use \code{"permutation"} test or parametric \code{"F"}
-    test in \code{\link{anova.cca}}. \code{"F"} can be only used with
+  \item{test}{Use a \code{"permutation"} or \code{"parametric"}
+    test in \code{\link{anova.cca}}. Parametric \eqn{F}-tests can only be
+    used with
     \code{\link{rda}} models.}
 
   \item{\dots}{
