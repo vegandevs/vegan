@@ -26,6 +26,9 @@ fit <- envfit(ord, varechem, permutations = 0)
 for (v in c("N", "Al", "pH")) {
     y <- wc(varechem[v])
     m <- lm(y ~ wc(X) - 1)
+    ## r2 is cor(fitted, y)^2 on the transformed data, which re-centres
+    ## without weights and so differs slightly from a weighted lm R2
+    ## (0.21957 vs 0.21979 for N). This pins current behaviour.
     expect_equal(unname(fit$vectors$r[v]), cor(fitted(m), y)[1]^2)
     b <- coef(m)
     expect_equal(unname(fit$vectors$arrows[v, ]), unname(b / sqrt(sum(b^2))))
@@ -64,15 +67,16 @@ expect_equal(f1$factors$pvals, f2$factors$pvals)
 p <- c(f1$vectors$pvals, f1$factors$pvals)
 expect_true(all(p > 0 & p <= 1))
 expect_equal(f1$vectors$r, fit$vectors$r)
+EPS <- sqrt(.Machine$double.eps) # as in vectorfit and factorfit
 ## P-value counts the observed statistic among permutations
 rp <- apply(perm, 1, function(i)
     envfit(ord, dune.env[i, "A1", drop = FALSE], permutations = 0)$vectors$r)
 expect_equal(unname(f1$vectors$pvals),
-             (sum(rp >= fit$vectors$r - 1e-8) + 1) / (nrow(perm) + 1))
+             (sum(rp >= fit$vectors$r - EPS) + 1) / (nrow(perm) + 1))
 rp <- apply(perm, 1, function(i)
     envfit(ord, dune.env[i, "Moisture", drop = FALSE], permutations = 0)$factors$r)
 expect_equal(unname(f1$factors$pvals),
-             (sum(rp >= fit$factors$r - 1e-8) + 1) / (nrow(perm) + 1))
+             (sum(rp >= fit$factors$r - EPS) + 1) / (nrow(perm) + 1))
 
 ## missing values
 env <- dune.env
@@ -85,4 +89,6 @@ X <- scores(ord, display = "sites", choices = 1:2)
 fit2 <- envfit(X[-3, ], env[-3, c("A1", "Moisture")], permutations = 0,
                w = weights(ord)[-3])
 expect_equal(fit$vectors$r, fit2$vectors$r)
+expect_equal(fit$vectors$arrows, fit2$vectors$arrows)
+expect_equal(fit$factors$r, fit2$factors$r)
 expect_equal(fit$factors$centroids, fit2$factors$centroids)
