@@ -19,7 +19,7 @@
                 stop("comparison tests require 'model = \"reduced\"'")
             if (test != "permutation")
                 stop("comparison tests require 'test = \"permutation\"'")
-            cmp <- comparisons(object, ..., permutations = permutations,
+            cmp <- ordicomparisons(object, ..., permutations = permutations,
                                strata = strata, parallel = parallel)
             return(.comparisonsAnova(cmp, object))
         }

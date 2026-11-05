@@ -19,8 +19,10 @@
   URL: \url{https://vegandevs.github.io/vegan/}}
 
 \Abstract{
-  Function \texttt{comparison\_scenarios} displays the fitted situations being
-  compared, and \texttt{comparisons} asks focused questions about them.
+  Function \texttt{ordicomparisons} specifies and tests focused comparisons
+  after fitting a constrained ordination model. Function
+  \texttt{ordicontrasts} optionally displays the adjusted factor-level
+  profiles used to define custom contrasts.
   The interface provides common sets of comparisons, user-written
   comparisons, comparisons within interactions, joint tests,
   multiplicity adjustments, and control over the population to which
@@ -51,7 +53,7 @@ An overall permutation test can tell us whether a factor is associated
 with multivariate composition. It does not answer more focused
 questions such as ``does management type HF differ from BF?'', ``does
 each treatment differ from the control?'', or ``does the treatment
-difference change between habitats?'' Function \code{comparisons}
+difference change between habitats?'' Function \code{ordicomparisons}
 asks these questions after a model has been fitted with \code{rda},
 \code{cca}, or \code{dbrda}.
 
@@ -89,11 +91,23 @@ set.seed(2718)
 perm <- shuffleSet(nrow(dune), nset = 99)
 @
 
-Before testing anything, we can display the scenarios underlying the
-comparison. There is one row for each level of \code{Management}.
+The main interface is \code{ordicomparisons}. By default, it tests every
+pair of levels of the named factor, accounting for the other model terms.
+
+<<first-pairwise>>=
+pw <- ordicomparisons(mod, "Management", permutations = perm,
+                      parallel = 1)
+pw
+@
+
+For custom questions, we can optionally inspect the adjusted profiles
+underlying the contrasts with \code{ordicontrasts}. There is one row for
+each level of \code{Management}. These rows identify quantities that can
+be combined in a contrast; an individual row is not itself a zero-sum
+contrast.
 
 <<first-scenarios>>=
-sc <- comparison_scenarios(mod, "Management")
+sc <- ordicontrasts(mod, "Management")
 sc
 @
 
@@ -106,16 +120,8 @@ rows used in the average, not a new sample size, and
 \code{Extrapolated} warns if supplied numeric values fall outside the
 fitted data range.
 
-The default comparison is every pair of levels of the named factor. The
-one-call form below constructs the same scenarios internally.
-
-<<first-pairwise>>=
-pw <- comparisons(mod, "Management", permutations = perm,
-                  parallel = 1)
-pw
-@
-
-Each row is a separate test. The columns have the following meanings:
+In the \code{pw} results, each row is a separate test. The columns have
+the following meanings:
 
 \begin{itemize}
   \item \code{Comparison} identifies the factor levels being compared.
@@ -170,7 +176,7 @@ comparison explicitly.
 For example, all management types can be compared with BF:
 
 <<reference>>=
-comparisons(mod, "Management", comparison = "reference",
+ordicomparisons(mod, "Management", comparison = "reference",
             reference = "BF", permutations = perm, parallel = 1)
 @
 
@@ -182,7 +188,7 @@ for this call. BF is already the first level of \code{Management}, so no
 override is needed here.
 
 <<control>>=
-comparisons(mod, "Management", comparison = "trt.vs.ctrl",
+ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
             permutations = perm, parallel = 1)
 @
 
@@ -190,7 +196,7 @@ Consecutive comparisons are useful when levels have a meaningful
 ordering.
 
 <<consecutive>>=
-comparisons(mod, "Management", comparison = "sequential",
+ordicomparisons(mod, "Management", comparison = "sequential",
             permutations = perm, parallel = 1)
 @
 
@@ -206,7 +212,7 @@ strings. Factor-level names stand for their fitted multivariate
 scenarios. The right-hand side must currently be zero.
 
 <<specific>>=
-specific <- comparisons(
+specific <- ordicomparisons(
     mod, "Management",
     comparison = c(
         "HF - BF = 0",
@@ -225,7 +231,7 @@ parsed by a restricted parser: R functions cannot be called from them.
 Names can make the output easier to read.
 
 <<named-specific>>=
-comparisons(
+ordicomparisons(
     mod, "Management",
     comparison = c(
         HF_vs_BF = "HF - BF = 0",
@@ -244,7 +250,7 @@ cmat <- rbind(
     HF_vs_BF = c(BF = -1, HF = 1, NM = 0, SF = 0),
     managed_mean_vs_BF = c(BF = -1, HF = 0, NM = 0.5, SF = 0.5)
 )
-comparisons(mod, "Management", comparison = cmat,
+ordicomparisons(mod, "Management", comparison = cmat,
             permutations = perm, parallel = 1)
 @
 
@@ -257,7 +263,7 @@ clist <- list(
     HF_vs_BF = "HF - BF = 0",
     SF_vs_NM = c(BF = 0, HF = 0, NM = -1, SF = 1)
 )
-comparisons(mod, "Management", comparison = clist,
+ordicomparisons(mod, "Management", comparison = clist,
             permutations = perm, parallel = 1)
 @
 
@@ -269,7 +275,7 @@ the first two rows are BF and HF, so the following is the same question
 as \code{"HF - BF = 0"}:
 
 <<scenario-pair>>=
-comparisons(sc, comparison = "b2 - b1 = 0",
+ordicomparisons(sc, comparison = "b2 - b1 = 0",
             permutations = perm, parallel = 1)
 @
 
@@ -278,7 +284,7 @@ compares BF with the average of the third and fourth displayed
 scenarios:
 
 <<scenario-average>>=
-comparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
+ordicomparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
             permutations = perm, parallel = 1)
 @
 
@@ -293,7 +299,7 @@ Several comparison rows can be tested together with \code{joint = TRUE}.
 The result is one multi-degree-of-freedom test of the whole set.
 
 <<joint>>=
-comparisons(mod, "Management", comparison = "trt.vs.ctrl",
+ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
             reference = "BF", joint = TRUE,
             permutations = perm, parallel = 1)
 @
@@ -306,7 +312,7 @@ When separate tests are retained, their $p$-values can be adjusted with
 any method accepted by \code{p.adjust}. For example:
 
 <<adjust>>=
-comparisons(mod, "Management", comparison = "pairwise",
+ordicomparisons(mod, "Management", comparison = "pairwise",
             adjust = "holm", permutations = perm, parallel = 1)
 @
 
@@ -350,7 +356,7 @@ following result is therefore an average treatment comparison over the
 observed habitats:
 
 <<interaction-average>>=
-comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+ordicomparisons(imod, "treatment", comparison = "trt.vs.ctrl",
             reference = "control", permutations = iper, parallel = 1)
 @
 
@@ -359,7 +365,7 @@ each habitat. These rows make the simple effects and their ordering
 visible before a test is specified.
 
 <<interaction-by>>=
-isc <- comparison_scenarios(imod, "treatment", by = "habitat")
+isc <- ordicontrasts(imod, "treatment", by = "habitat")
 isc
 @
 
@@ -369,7 +375,7 @@ averaged away. A built-in recipe is applied separately within each
 habitat:
 
 <<interaction-by-comparisons>>=
-comparisons(isc, comparison = "trt.vs.ctrl",
+ordicomparisons(isc, comparison = "trt.vs.ctrl",
             permutations = iper, parallel = 1)
 @
 
@@ -385,9 +391,9 @@ factor is created with the levels used in the fitted model.
 heath <- data.frame(
     habitat = factor("heath", levels = levels(idat$habitat))
 )
-heath.sc <- comparison_scenarios(imod, "treatment", newdata = heath)
+heath.sc <- ordicontrasts(imod, "treatment", newdata = heath)
 heath.sc
-comparisons(heath.sc, comparison = "trt.vs.ctrl",
+ordicomparisons(heath.sc, comparison = "trt.vs.ctrl",
             permutations = iper, parallel = 1)
 @
 
@@ -400,7 +406,7 @@ printed table, high--control is \code{b3 - b1} in grass and
 \code{b6 - b4} in heath:
 
 <<two-simple-effects>>=
-comparisons(isc,
+ordicomparisons(isc,
             comparison = c(grass = "b3 - b1 = 0",
                            heath = "b6 - b4 = 0"),
             permutations = iper, parallel = 1)
@@ -409,7 +415,7 @@ comparisons(isc,
 They can also be combined into a difference-in-differences test:
 
 <<difference-in-differences>>=
-comparisons(isc,
+ordicomparisons(isc,
             comparison = "(b6 - b4) - (b3 - b1) = 0",
             permutations = iper, parallel = 1)
 @
@@ -451,7 +457,7 @@ sample. The \code{"balanced"} option describes a balanced reference
 grid rather than the observed sample composition. An explicit data
 frame describes a chosen population or setting and must contain the
 variables needed to reconstruct the fitted model terms, apart from the
-focal factor, which \code{comparisons} supplies in turn.
+focal factor, which \code{ordicomparisons} supplies in turn.
 
 Because grass is more frequent than heath in this example,
 \code{newdata = "mean"} asks for treatment comparisons at the modal
@@ -460,9 +466,9 @@ means. This is a comparison for one typical profile, not an average over
 habitats:
 
 <<mean-grid>>=
-mean.sc <- comparison_scenarios(imod, "treatment", newdata = "mean")
+mean.sc <- ordicontrasts(imod, "treatment", newdata = "mean")
 mean.sc
-comparisons(mean.sc, comparison = "b3 - b1 = 0",
+ordicomparisons(mean.sc, comparison = "b3 - b1 = 0",
             permutations = iper, parallel = 1)
 @
 
@@ -474,9 +480,9 @@ The balanced grid instead gives grass and heath equal representation.
 Printing the scenarios shows the population used:
 
 <<balanced-grid>>=
-balanced.sc <- comparison_scenarios(imod, "treatment", newdata = "balanced")
+balanced.sc <- ordicontrasts(imod, "treatment", newdata = "balanced")
 balanced.sc
-comparisons(balanced.sc, comparison = "b3 - b1 = 0",
+ordicomparisons(balanced.sc, comparison = "b3 - b1 = 0",
             permutations = iper, parallel = 1)
 @
 
@@ -492,10 +498,10 @@ observations:
 ipop <- idat[!duplicated(idat[c("block", "habitat")]),
              c("block", "habitat")]
 ipop$sampling_weight <- ifelse(ipop$habitat == "heath", 2, 1)
-weighted.sc <- comparison_scenarios(imod, "treatment", newdata = ipop,
+weighted.sc <- ordicontrasts(imod, "treatment", newdata = ipop,
                                wts = "sampling_weight")
 weighted.sc
-comparisons(weighted.sc, comparison = "b3 - b1 = 0",
+ordicomparisons(weighted.sc, comparison = "b3 - b1 = 0",
             permutations = iper, parallel = 1)
 @
 
@@ -510,7 +516,7 @@ chosen setting. The observed range of \code{A1} is 2.8 to 11.5, so
 <<numeric-setting>>=
 xmod <- rda(dune ~ Management * A1, data = dune.env)
 range(dune.env$A1)
-within.sc <- comparison_scenarios(xmod, "Management",
+within.sc <- ordicontrasts(xmod, "Management",
                              newdata = data.frame(A1 = 5))
 within.sc
 @
@@ -520,7 +526,7 @@ Values outside that range are allowed, but are flagged. Here
 scenario has \code{Extrapolated = TRUE}:
 
 <<extrapolation>>=
-outside.sc <- comparison_scenarios(xmod, "Management",
+outside.sc <- ordicontrasts(xmod, "Management",
                               newdata = data.frame(A1 = 12.5))
 outside.sc
 @
@@ -537,7 +543,7 @@ tested in correspondence analysis:
 
 <<cca-condition>>=
 cmod <- cca(dune ~ Management + Condition(Moisture), data = dune.env)
-comparisons(cmod, "Management", comparison = "reference",
+ordicomparisons(cmod, "Management", comparison = "reference",
             reference = "BF", permutations = perm, parallel = 1)
 @
 
@@ -548,7 +554,7 @@ reused for all rows. Alternatively, \code{strata} restricts
 permutations to blocks:
 
 <<strata-example,eval=false>>=
-comparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+ordicomparisons(imod, "treatment", comparison = "trt.vs.ctrl",
             reference = "control", permutations = 99,
             strata = idat$block)
 @
@@ -571,7 +577,7 @@ comparison test.
 <<dbrda>>=
 dmod <- dbrda(dune ~ Management + A1, data = dune.env,
               distance = "bray")
-comparisons(dmod, "Management", comparison = "reference",
+ordicomparisons(dmod, "Management", comparison = "reference",
             reference = "BF", permutations = perm, parallel = 1)
 @
 
@@ -582,7 +588,7 @@ will be needed:
 <<adonis-model>>=
 afit <- adonis2(dune ~ Management + A1, data = dune.env,
                 method = "bray", return = "model")
-comparisons(afit, "Management", comparison = "trt.vs.ctrl",
+ordicomparisons(afit, "Management", comparison = "trt.vs.ctrl",
             reference = "BF", permutations = perm, parallel = 1)
 @
 
@@ -604,7 +610,7 @@ anova(mod, by = "contrast", variable = "Management",
 @
 
 The result uses the familiar \code{anova.cca} layout. The full
-\code{comparison_scenarios} and \code{comparisons} interface is preferable
+\code{ordicontrasts} and \code{ordicomparisons} interface is preferable
 when reference populations, grouped or cross-group comparisons, or
 multiplicity adjustments are needed. Existing \code{by = "onedf"}
 tests have a different
@@ -613,6 +619,10 @@ factor coding and do not define coding-invariant scientific
 comparisons.
 
 \section{Limitations and useful checks}
+
+These comparisons use the ordinary pseudo-$F$ statistic. The modified-$F$
+option available in \code{adonis2} and \code{anova.cca} supports omnibus
+group tests; it does not yet support these contrast-specific tests.
 
 The initial interface intentionally has a narrow boundary:
 
@@ -658,7 +668,7 @@ They are not the reported estimands or test statistics.
 
 Let $X$ be the $n \times p$ constraint matrix of the fitted model,
 after vegan's usual handling of its intercept and centering. For every
-level of the focal factor, \code{comparison_scenarios} constructs counterfactual
+level of the focal factor, \code{ordicontrasts} constructs counterfactual
 data, rebuilds the model matrix using the fitted terms, factor levels,
 and contrast coding, and averages its rows over the requested
 population. Put the resulting level-specific rows into a matrix $R$.

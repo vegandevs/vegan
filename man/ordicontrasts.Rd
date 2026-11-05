@@ -1,19 +1,19 @@
-\name{comparison_scenarios}
-\alias{comparison_scenarios}
-\alias{comparison_scenarios.default}
-\alias{comparison_scenarios.cca}
+\name{ordicontrasts}
+\alias{ordicontrasts}
+\alias{ordicontrasts.default}
+\alias{ordicontrasts.cca}
 \alias{print.vegan_scenarios}
-\title{Construct Comparison Scenarios for Constrained Ordination}
+\title{Construct Reference Profiles for Ordination Contrasts}
 \description{
-Construct one marginal comparison scenario for every level of a focal factor,
-optionally within groups. The displayed rows are labelled \code{b1},
-\code{b2}, and so on, and can be used directly in \code{comparisons}
+Construct adjusted factor-level profiles from which ordination contrasts
+are formed, optionally within groups. The displayed rows are labelled \code{b1},
+\code{b2}, and so on, and can be used directly in \code{ordicomparisons}
 expressions.
 }
 \usage{
-comparison_scenarios(object, ...)
+ordicontrasts(object, ...)
 
-\method{comparison_scenarios}{cca}(object, variable, newdata = NULL,
+\method{ordicontrasts}{cca}(object, variable, newdata = NULL,
     by = NULL, wts = NULL, ...)
 
 \method{print}{vegan_scenarios}(x, ...)
@@ -35,11 +35,17 @@ column in \code{newdata}.}
 \item{\dots}{Arguments passed to methods or to \code{print.data.frame}.}
 }
 \details{
+Use \code{\link{ordicomparisons}} as the main interface for specifying and
+testing comparisons. Use \code{ordicontrasts} to inspect the adjusted
+profiles or refer to their rows in custom expressions. Individual rows
+are quantities to be contrasted; they are not themselves necessarily
+zero-sum contrasts.
+
 A comparison scenario describes the fitted multivariate response for one level of
 the focal factor after accounting for the other model variables. It is a
 vector-valued fitted state, not a single scalar estimate. Consequently the
 printed table identifies what is being compared but does not display an
-estimate for an individual row. \code{comparisons} tests differences among
+estimate for an individual row. \code{ordicomparisons} tests differences among
 the retained scenario rows using constrained inertia and a permutation
 pseudo-\eqn{F} statistic.
 
@@ -76,7 +82,7 @@ interactions and transformations, with the original factor levels and
 contrast coding. Attributes retain these averaged design rows, the fitted
 model, reference data, weights, grouping, and extrapolation diagnostics.
 Because the displayed rows and retained design rows form one object, do not
-edit or subset a scenario table before passing it to \code{comparisons};
+edit or subset a scenario table before passing it to \code{ordicomparisons};
 reconstruct the desired scenarios instead.
 }
 \value{
@@ -84,21 +90,21 @@ A data frame of class \code{"vegan_scenarios"}. Columns contain the scenario
 identifier, focal-factor value, optional \code{by} values,
 \code{N.reference}, and an \code{Extrapolated} flag. Attributes retain the
 model-matrix representation and construction metadata used by
-\code{comparisons}.
+\code{ordicomparisons}.
 }
 \examples{
 data(dune)
 data(dune.env)
 
 mod <- rda(dune ~ Management + A1, data = dune.env)
-sc <- comparison_scenarios(mod, "Management")
+sc <- ordicontrasts(mod, "Management")
 sc
-comparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
+ordicomparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
 
 ## Compare management types at the mean observed value of A1
-mean.sc <- comparison_scenarios(mod, "Management", newdata = "mean")
+mean.sc <- ordicontrasts(mod, "Management", newdata = "mean")
 mean.sc
-comparisons(mean.sc, comparison = "b2 - b1 = 0", permutations = 99)
+ordicomparisons(mean.sc, comparison = "b2 - b1 = 0", permutations = 99)
 
 set.seed(42)
 idat <- expand.grid(treatment = factor(c("control", "low", "high"),
@@ -106,15 +112,15 @@ idat <- expand.grid(treatment = factor(c("control", "low", "high"),
                     habitat = factor(c("grass", "heath")), replicate = 1:3)
 iY <- matrix(rpois(nrow(idat) * 4, 5), ncol = 4)
 imod <- rda(iY ~ treatment * habitat, data = idat)
-isc <- comparison_scenarios(imod, "treatment", by = "habitat")
+isc <- ordicontrasts(imod, "treatment", by = "habitat")
 isc
-comparisons(isc, comparison = "pairwise", permutations = 99)
+ordicomparisons(isc, comparison = "pairwise", permutations = 99)
 
-fixed <- comparison_scenarios(imod, "treatment", newdata = data.frame(
+fixed <- ordicontrasts(imod, "treatment", newdata = data.frame(
     habitat = factor("heath", levels = levels(idat$habitat))))
 fixed
 }
-\seealso{\code{\link{comparisons}}, \code{\link{rda}},
+\seealso{\code{\link{ordicomparisons}}, \code{\link{rda}},
 \code{\link{cca}}, \code{\link{dbrda}}}
 \keyword{models}
 \keyword{multivariate}

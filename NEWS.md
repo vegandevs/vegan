@@ -2,13 +2,13 @@
 
 ## New Functions
 
-* `comparison_scenarios` constructs and displays the fitted factor-level scenarios
+* `ordicontrasts` constructs and displays the fitted factor-level scenarios
   underlying comparisons, including their reference population, averaging,
   fixed values, grouping, and extrapolation status. Stable `b1`, `b2`, ...
   identifiers allow comparisons to refer directly to displayed rows.
   Reference populations may use the fitted observations, a balanced grid, a
   mean-or-mode profile, or explicitly supplied data.
-  `comparisons` tests linear differences among these scenarios with
+  `ordicomparisons` tests linear differences among these scenarios with
   contrast-specific permutation pseudo-$F$ statistics. It supports
   interactions, built-in pairwise and reference comparisons, custom linear
   equations, joint comparisons and multiple-testing adjustments for `rda`,
@@ -40,7 +40,7 @@
   continental-shelf example and provide a published numerical benchmark.
 
 * `anova.cca` accepts `by = "contrast"` as an ANOVA-style interface to
-  `comparisons`. `adonis2(return = "model")` retains its fitted distance
+  `ordicomparisons`. `adonis2(return = "model")` retains its fitted distance
   model so that comparisons can be performed after fitting.
 
 * `metaMDS` can use any MDS function as an `engine` if the function

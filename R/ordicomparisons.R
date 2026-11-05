@@ -4,7 +4,7 @@
 #' them with contrast-specific permutation pseudo-F statistics.
 #'
 #' @param object A fitted constrained ordination model or a scenario table
-#'   returned by `comparison_scenarios()`.
+#'   returned by `ordicontrasts()`.
 #' @param variable The name of one focal factor in the model.
 #' @param comparison A built-in comparison name, character equations, or a
 #'   numeric contrast vector or matrix.
@@ -19,8 +19,8 @@
 #'
 #' @return A data frame of class `vegan_comparisons`.
 #' @export
-comparisons <- function(object, ...)
-    UseMethod("comparisons")
+ordicomparisons <- function(object, ...)
+    UseMethod("ordicomparisons")
 
 #' Default comparisons method
 #'
@@ -31,15 +31,18 @@ comparisons <- function(object, ...)
 #'
 #' @return This method always throws an error.
 #' @keywords internal
-comparisons.default <- function(object, ...)
-    stop("no 'comparisons' method for objects of class ",
+ordicomparisons.default <- function(object, ...)
+    stop("no 'ordicomparisons' method for objects of class ",
          paste(class(object), collapse = "/"))
 
-#' Construct comparison scenarios
+#' Construct reference profiles for ordination contrasts
 #'
-#' Construct one marginal comparison scenario for each level of a focal factor,
-#' optionally within groups. Each displayed row retains its averaged
-#' model-matrix representation for later permutation comparisons.
+#' Construct adjusted factor-level profiles from which ordination contrasts
+#' are formed, optionally within groups. Each displayed row retains its
+#' averaged model-matrix representation for use by `ordicomparisons()`.
+#' The rows identify the quantities to combine in contrasts; they are not
+#' individually zero-sum contrasts. Use `ordicomparisons()` directly for
+#' routine comparisons and this constructor to inspect or name profile rows.
 #'
 #' @param object A fitted constrained ordination model.
 #' @param variable The name of one focal factor in the model.
@@ -57,8 +60,8 @@ comparisons.default <- function(object, ...)
 #'   original model, averaged design rows, grouping, reference population,
 #'   weights, and extrapolation diagnostics.
 #' @export
-comparison_scenarios <- function(object, ...)
-    UseMethod("comparison_scenarios")
+ordicontrasts <- function(object, ...)
+    UseMethod("ordicontrasts")
 
 #' Default comparison-scenarios method
 #'
@@ -69,8 +72,8 @@ comparison_scenarios <- function(object, ...)
 #'
 #' @return This method always throws an error.
 #' @keywords internal
-comparison_scenarios.default <- function(object, ...)
-    stop("no 'comparison_scenarios' method for objects of class ",
+ordicontrasts.default <- function(object, ...)
+    stop("no 'ordicontrasts' method for objects of class ",
          paste(class(object), collapse = "/"))
 
 #' Comparison scenarios for constrained ordination
@@ -80,15 +83,15 @@ comparison_scenarios.default <- function(object, ...)
 #' population. This method is inherited by `rda`, `cca`, `dbrda`, and retained
 #' `adonis2` fits.
 #' The scenarios are vector-valued model states rather than scalar estimates;
-#' `comparisons()` tests linear differences between their design rows.
+#' `ordicomparisons()` tests linear differences between their design rows.
 #'
-#' @inheritParams comparison_scenarios
+#' @inheritParams ordicontrasts
 #'
 #' @return A `vegan_scenarios` data frame with stable `b1`, `b2`, ... row
 #'   identifiers, focal and grouping values, reference-row counts, and
 #'   extrapolation flags.
 #' @export
-comparison_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL,
+ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
                                 wts = NULL, ...)
 {
     if (is.null(object$terms) || is.null(object$terminfo))
@@ -186,7 +189,7 @@ comparison_scenarios.cca <- function(object, variable, newdata = NULL, by = NULL
 #'
 #' Print scenario rows together with the reference population, averaging,
 #' fixed-value, grouping, and weight choices that define them. Identifiers
-#' `b1`, `b2`, ... can be used in `comparisons()` expressions.
+#' `b1`, `b2`, ... can be used in `ordicomparisons()` expressions.
 #'
 #' @param x A `vegan_scenarios` object.
 #' @param ... Arguments passed to `print.data.frame()`.
@@ -216,22 +219,22 @@ print.vegan_scenarios <- function(x, ...)
 #' This is the one-call interface inherited by `rda`, `cca`, `dbrda`, and
 #' retained `adonis2` fits.
 #'
-#' @inheritParams comparison_scenarios
-#' @inheritParams comparisons
+#' @inheritParams ordicontrasts
+#' @inheritParams ordicomparisons
 #'
 #' @return A data frame of class `vegan_comparisons` with the comparison
 #'   degrees of freedom, inertia, pseudo-F statistic, and permutation p-value.
 #' @export
-comparisons.cca <-
+ordicomparisons.cca <-
     function(object, variable, comparison = "pairwise", reference = NULL,
              newdata = NULL, by = NULL, joint = FALSE,
              permutations = how(nperm = 999), strata = NULL,
              parallel = getOption("mc.cores"), adjust = "none", wts = NULL,
              ...)
 {
-    scenarios <- comparison_scenarios(object, variable = variable,
+    scenarios <- ordicontrasts(object, variable = variable,
                                  newdata = newdata, by = by, wts = wts)
-    comparisons(scenarios, comparison = comparison, reference = reference,
+    ordicomparisons(scenarios, comparison = comparison, reference = reference,
                 joint = joint, permutations = permutations, strata = strata,
                 parallel = parallel, adjust = adjust, ...)
 }
@@ -245,11 +248,11 @@ comparisons.cca <-
 #' to previously calculated comparisons or test statistics.
 #'
 #' @param object A `vegan_scenarios` object.
-#' @inheritParams comparisons
+#' @inheritParams ordicomparisons
 #'
 #' @return A data frame of class `vegan_comparisons`.
 #' @export
-comparisons.vegan_scenarios <-
+ordicomparisons.vegan_scenarios <-
     function(object, comparison = "pairwise", reference = NULL,
              joint = FALSE, permutations = how(nperm = 999), strata = NULL,
              parallel = getOption("mc.cores"), adjust = "none", ...)
@@ -269,7 +272,7 @@ comparisons.vegan_scenarios <-
     if (is.null(R) || nrow(R) != nrow(object) ||
         !identical(rownames(R), ids) || length(groups) != nrow(object))
         stop("scenario rows no longer match their retained model matrix; ",
-             "reconstruct them with 'comparison_scenarios()'")
+             "reconstruct them with 'ordicontrasts()'")
     perm <- getPermuteMatrix(permutations, nobs(fit), strata = strata)
 
     global <- .comparisonUsesScenarioRows(comparison, ids, length(lev))

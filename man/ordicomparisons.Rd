@@ -1,8 +1,8 @@
-\name{comparisons}
-\alias{comparisons}
-\alias{comparisons.default}
-\alias{comparisons.cca}
-\alias{comparisons.vegan_scenarios}
+\name{ordicomparisons}
+\alias{ordicomparisons}
+\alias{ordicomparisons.default}
+\alias{ordicomparisons.cca}
+\alias{ordicomparisons.vegan_scenarios}
 \alias{print.vegan_comparisons}
 \title{Comparisons for Constrained Ordination Models}
 \description{
@@ -12,14 +12,14 @@ statistics. Interactions and other fitted terms are represented through the
 complete fitted model matrix.
 }
 \usage{
-comparisons(object, ...)
+ordicomparisons(object, ...)
 
-\method{comparisons}{cca}(object, variable, comparison = "pairwise",
+\method{ordicomparisons}{cca}(object, variable, comparison = "pairwise",
     reference = NULL, newdata = NULL, by = NULL, joint = FALSE,
     permutations = how(nperm = 999), strata = NULL,
     parallel = getOption("mc.cores"), adjust = "none", wts = NULL, ...)
 
-\method{comparisons}{vegan_scenarios}(object, comparison = "pairwise",
+\method{ordicomparisons}{vegan_scenarios}(object, comparison = "pairwise",
     reference = NULL, joint = FALSE, permutations = how(nperm = 999),
     strata = NULL, parallel = getOption("mc.cores"), adjust = "none", ...)
 
@@ -27,7 +27,7 @@ comparisons(object, ...)
 }
 \arguments{
 \item{object}{A formula-fitted constrained ordination object, or a scenario
-table returned by \code{comparison_scenarios}.}
+table returned by \code{ordicontrasts}.}
 \item{variable}{The name of one factor whose levels define scenarios.}
 \item{comparison}{A built-in comparison name, character equations, a named
 list, or a numeric comparison vector or matrix.}
@@ -49,12 +49,20 @@ by \code{\link[permute]{how}}.}
 \code{\link[stats]{p.adjust}}.}
 \item{wts}{Optional non-negative scenario-averaging weights, or the name of
 a weight column in \code{newdata}.}
-\item{x}{A result returned by \code{comparisons}.}
+\item{x}{A result returned by \code{ordicomparisons}.}
 \item{\dots}{Arguments passed to methods or to \code{print.data.frame}.}
 }
 \details{
+This is the main user interface for ordination comparisons. Supply a fitted
+model for routine comparisons, or first use \code{\link{ordicontrasts}} to
+inspect and label the adjusted factor-level profiles for a custom contrast.
+Tests use the ordinary pseudo-\eqn{F} statistic. The modified statistic
+selected by \code{permustat = "modified-F"} in \code{anova.cca} and
+\code{adonis2} is currently limited to omnibus group tests and is not
+available for these contrast-specific reduced-model tests.
+
 The model method is a convenience interface: it first calls
-\code{comparison_scenarios} and then compares those rows. Constructing the scenario
+\code{ordicontrasts} and then compares those rows. Constructing the scenario
 table explicitly is useful when the meaning and ordering of the rows should be
 checked, especially for interactions.
 
@@ -109,17 +117,17 @@ data(dune)
 data(dune.env)
 mod <- rda(dune ~ Management + A1, data = dune.env)
 
-comparisons(mod, "Management", permutations = 99)
-comparisons(mod, "Management", comparison = "trt.vs.ctrl",
+ordicomparisons(mod, "Management", permutations = 99)
+ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
             permutations = 99)
-comparisons(mod, "Management",
+ordicomparisons(mod, "Management",
             comparison = c("HF - BF = 0", "(NM + SF) / 2 - BF = 0"),
             permutations = 99)
 
-sc <- comparison_scenarios(mod, "Management")
+sc <- ordicontrasts(mod, "Management")
 sc
-comparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
-comparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
+ordicomparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
+ordicomparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
             permutations = 99)
 
 set.seed(42)
@@ -128,11 +136,11 @@ idat <- expand.grid(treatment = factor(c("control", "low", "high"),
                     habitat = factor(c("grass", "heath")), replicate = 1:3)
 iY <- matrix(rpois(nrow(idat) * 4, 5), ncol = 4)
 imod <- rda(iY ~ treatment * habitat, data = idat)
-isc <- comparison_scenarios(imod, "treatment", by = "habitat")
+isc <- ordicontrasts(imod, "treatment", by = "habitat")
 isc
-comparisons(isc, comparison = "pairwise", permutations = 99)
+ordicomparisons(isc, comparison = "pairwise", permutations = 99)
 }
-\seealso{\code{\link{comparison_scenarios}}, \code{\link{anova.cca}},
+\seealso{\code{\link{ordicontrasts}}, \code{\link{anova.cca}},
 \code{\link{rda}}, \code{\link{cca}}, \code{\link{dbrda}},
 \code{\link[permute]{how}}}
 \keyword{models}

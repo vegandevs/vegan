@@ -7,7 +7,7 @@ export(CCorA, MOStest, RsquareAdj, SSarrhenius, SSgitay, SSgleason, SSlomolino,
 adipart, adonis2, anosim, beals, betadisper, betadistances, betadiver,
 bgdispersal, bioenv, bioenvdist, bstick, cIndexKM, ca, calibrate, capscale,
 cascadeKM, cca, chaodist, contribdiv, clamtest, commsim,
-comparisons, comparison_scenarios,
+ordicomparisons, ordicontrasts,
 cutreeord, dbrda, decobackstand, decorana, decostand, designdist, designdist2,
 dist2xy, coverscale, dispweight, dispindmorisita, distconnected,
 diversity, downweight, drarefy, eigengrad, eigenvals, envfit,
@@ -184,13 +184,13 @@ S3method(coef, rda)
 S3method(confint, MOStest)
 # cooks.distance: stats
 S3method(cooks.distance, cca)
-# comparisons: vegan
-S3method(comparisons, cca)
-S3method(comparisons, default)
-S3method(comparisons, vegan_scenarios)
-# comparison_scenarios: vegan
-S3method(comparison_scenarios, cca)
-S3method(comparison_scenarios, default)
+# ordicomparisons: vegan
+S3method(ordicomparisons, cca)
+S3method(ordicomparisons, default)
+S3method(ordicomparisons, vegan_scenarios)
+# ordicontrasts: vegan
+S3method(ordicontrasts, cca)
+S3method(ordicontrasts, default)
 # cophenetic: stats
 S3method(cophenetic, spantree)
 # density: stats
