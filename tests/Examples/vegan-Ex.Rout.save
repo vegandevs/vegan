@@ -5596,7 +5596,7 @@ pyrifs> dose <- factor(rep(c(0.1, 0, 0, 0.9, 0, 44, 6, 0.1, 44, 0.9, 0, 6), 11))
 > ### Name: ordicomparisons
 > ### Title: Comparisons for Constrained Ordination Models
 > ### Aliases: ordicomparisons ordicomparisons.default ordicomparisons.cca
-> ###   ordicomparisons.vegan_scenarios print.vegan_comparisons
+> ###   ordicomparisons.vegan_contrasts print.vegan_comparisons
 > ### Keywords: models multivariate
 > 
 > ### ** Examples
@@ -5637,18 +5637,18 @@ Variable: Management
 > 
 > sc <- ordicontrasts(mod, "Management")
 > sc
-Comparison scenarios for constrained ordination
+Comparison profiles for constrained ordination
 
 Focal variable:       Management 
 Reference population: fitted analysis data (20 rows) 
 Averaged over:        A1 
 Weights:              equal 
 
- Scenario Management N.reference Extrapolated
-       b1         BF          20        FALSE
-       b2         HF          20        FALSE
-       b3         NM          20        FALSE
-       b4         SF          20        FALSE
+ Profile Management N.reference Extrapolated
+      b1         BF          20        FALSE
+      b2         HF          20        FALSE
+      b3         NM          20        FALSE
+      b4         SF          20        FALSE
 > ordicomparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
 Permutation comparisons for constrained ordination
 Variable: Management 
@@ -5671,7 +5671,7 @@ Variable: Management
 > imod <- rda(iY ~ treatment * habitat, data = idat)
 > isc <- ordicontrasts(imod, "treatment", by = "habitat")
 > isc
-Comparison scenarios for constrained ordination
+Comparison profiles for constrained ordination
 
 Focal variable:       treatment 
 By:                   habitat 
@@ -5679,13 +5679,13 @@ Reference population: fitted analysis data (18 rows)
 Averaged over:        none 
 Weights:              equal within habitat groups 
 
- Scenario treatment habitat N.reference Extrapolated
-       b1   control   grass           9        FALSE
-       b2       low   grass           9        FALSE
-       b3      high   grass           9        FALSE
-       b4   control   heath           9        FALSE
-       b5       low   heath           9        FALSE
-       b6      high   heath           9        FALSE
+ Profile treatment habitat N.reference Extrapolated
+      b1   control   grass           9        FALSE
+      b2       low   grass           9        FALSE
+      b3      high   grass           9        FALSE
+      b4   control   heath           9        FALSE
+      b5       low   heath           9        FALSE
+      b6      high   heath           9        FALSE
 > ordicomparisons(isc, comparison = "pairwise", permutations = 99)
 Permutation comparisons for constrained ordination
 Variable: treatment 
@@ -5709,7 +5709,7 @@ Variable: treatment
 > ### Name: ordicontrasts
 > ### Title: Construct Reference Profiles for Ordination Contrasts
 > ### Aliases: ordicontrasts ordicontrasts.default ordicontrasts.cca
-> ###   print.vegan_scenarios
+> ###   print.vegan_contrasts
 > ### Keywords: models multivariate
 > 
 > ### ** Examples
@@ -5720,18 +5720,18 @@ Variable: treatment
 > mod <- rda(dune ~ Management + A1, data = dune.env)
 > sc <- ordicontrasts(mod, "Management")
 > sc
-Comparison scenarios for constrained ordination
+Comparison profiles for constrained ordination
 
 Focal variable:       Management 
 Reference population: fitted analysis data (20 rows) 
 Averaged over:        A1 
 Weights:              equal 
 
- Scenario Management N.reference Extrapolated
-       b1         BF          20        FALSE
-       b2         HF          20        FALSE
-       b3         NM          20        FALSE
-       b4         SF          20        FALSE
+ Profile Management N.reference Extrapolated
+      b1         BF          20        FALSE
+      b2         HF          20        FALSE
+      b3         NM          20        FALSE
+      b4         SF          20        FALSE
 > ordicomparisons(sc, comparison = "b2 - b1 = 0", permutations = 99)
 Permutation comparisons for constrained ordination
 Variable: Management 
@@ -5742,7 +5742,7 @@ Variable: Management
 > ## Compare management types at the mean observed value of A1
 > mean.sc <- ordicontrasts(mod, "Management", newdata = "mean")
 > mean.sc
-Comparison scenarios for constrained ordination
+Comparison profiles for constrained ordination
 
 Focal variable:       Management 
 Reference population: mean-or-mode reference profile (1 row) 
@@ -5750,17 +5750,27 @@ Averaged over:        none
 Fixed at:             A1 = 4.85 
 Weights:              equal 
 
- Scenario Management N.reference Extrapolated
-       b1         BF           1        FALSE
-       b2         HF           1        FALSE
-       b3         NM           1        FALSE
-       b4         SF           1        FALSE
+ Profile Management N.reference Extrapolated
+      b1         BF           1        FALSE
+      b2         HF           1        FALSE
+      b3         NM           1        FALSE
+      b4         SF           1        FALSE
 > ordicomparisons(mean.sc, comparison = "b2 - b1 = 0", permutations = 99)
 Permutation comparisons for constrained ordination
 Variable: Management 
 
    Comparison Df  Inertia         R2        F N.Perm Pr(>F)
 1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99    0.3
+> 
+> ## Keep the fitted polynomial basis when comparing at the mean of A1
+> pmod <- rda(dune ~ Management + poly(A1, 2), data = dune.env)
+> ordicomparisons(pmod, "Management", comparison = "HF - BF = 0",
++                newdata = "mean", permutations = 99)
+Permutation comparisons for constrained ordination
+Variable: Management 
+
+   Comparison Df  Inertia         R2       F N.Perm Pr(>F)
+1 HF - BF = 0  1 3.457631 0.04110176 1.01739     99   0.39
 > 
 > set.seed(42)
 > idat <- expand.grid(treatment = factor(c("control", "low", "high"),
@@ -5770,7 +5780,7 @@ Variable: Management
 > imod <- rda(iY ~ treatment * habitat, data = idat)
 > isc <- ordicontrasts(imod, "treatment", by = "habitat")
 > isc
-Comparison scenarios for constrained ordination
+Comparison profiles for constrained ordination
 
 Focal variable:       treatment 
 By:                   habitat 
@@ -5778,13 +5788,13 @@ Reference population: fitted analysis data (18 rows)
 Averaged over:        none 
 Weights:              equal within habitat groups 
 
- Scenario treatment habitat N.reference Extrapolated
-       b1   control   grass           9        FALSE
-       b2       low   grass           9        FALSE
-       b3      high   grass           9        FALSE
-       b4   control   heath           9        FALSE
-       b5       low   heath           9        FALSE
-       b6      high   heath           9        FALSE
+ Profile treatment habitat N.reference Extrapolated
+      b1   control   grass           9        FALSE
+      b2       low   grass           9        FALSE
+      b3      high   grass           9        FALSE
+      b4   control   heath           9        FALSE
+      b5       low   heath           9        FALSE
+      b6      high   heath           9        FALSE
 > ordicomparisons(isc, comparison = "pairwise", permutations = 99)
 Permutation comparisons for constrained ordination
 Variable: treatment 
@@ -5800,7 +5810,7 @@ Variable: treatment
 > fixed <- ordicontrasts(imod, "treatment", newdata = data.frame(
 +     habitat = factor("heath", levels = levels(idat$habitat))))
 > fixed
-Comparison scenarios for constrained ordination
+Comparison profiles for constrained ordination
 
 Focal variable:       treatment 
 Reference population: user-supplied data (1 rows) 
@@ -5808,10 +5818,10 @@ Averaged over:        none
 Fixed at:             habitat = heath 
 Weights:              equal 
 
- Scenario treatment N.reference Extrapolated
-       b1   control           1        FALSE
-       b2       low           1        FALSE
-       b3      high           1        FALSE
+ Profile treatment N.reference Extrapolated
+      b1   control           1        FALSE
+      b2       low           1        FALSE
+      b3      high           1        FALSE
 > 
 > 
 > 
@@ -9635,7 +9645,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.368 0.309 10.699 0 0 
+Time elapsed:  10.592 0.345 10.969 0 0 
 > grDevices::dev.off()
 null device 
           1 

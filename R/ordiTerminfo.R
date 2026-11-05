@@ -11,5 +11,5 @@
     assign <- attr(d$Y, "assign")
     contrasts <- attr(d$Y, "contrasts")
     list(terms = Terms, assign = assign, xlev = xlev, ordered = ordered,
-         contrasts = contrasts)
+         contrasts = contrasts, constraint.terms = d$constraint.terms)
 }

@@ -2,15 +2,16 @@
 
 ## New Functions
 
-* `ordicontrasts` constructs and displays the fitted factor-level scenarios
+* `ordicontrasts` constructs and displays the fitted factor-level profiles
   underlying comparisons, including their reference population, averaging,
   fixed values, grouping, and extrapolation status. Stable `b1`, `b2`, ...
   identifiers allow comparisons to refer directly to displayed rows.
   Reference populations may use the fitted observations, a balanced grid, a
   mean-or-mode profile, or explicitly supplied data.
-  `ordicomparisons` tests linear differences among these scenarios with
+  `ordicomparisons` tests linear differences among these profiles with
   contrast-specific permutation pseudo-$F$ statistics. It supports
-  interactions, built-in pairwise and reference comparisons, custom linear
+  interactions, fitted polynomial and scaling transformations, built-in
+  pairwise and reference comparisons, custom linear
   equations, joint comparisons and multiple-testing adjustments for `rda`,
   `cca` and `dbrda` models. See `vignette("comparisons-vegan")` for a
   practical guide and technical description.

@@ -119,7 +119,7 @@
     passed to \code{ordicomparisons}, including \code{variable},
     \code{comparison}, \code{reference}, \code{newdata}, and
     \code{joint}. Use \code{\link{ordicontrasts}} to inspect and name
-    scenario rows before testing. }
+    profile rows before testing. }
 }
 
 \details{
