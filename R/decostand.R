@@ -142,6 +142,7 @@
         attr <- attr(x, "parameters")
         if (!is.null(attr)) # no transformation parameters with imputed matrix
             attr$margin <- MARGIN
+        attr$ropt <- attr(x, "ropt")
     })
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical
@@ -299,7 +300,11 @@
                               x * para$minpos},
                 "clr" = exp(sweep(x, para$margin, para$means, "+")) -
                     para$pseudocount,
-                "rclr" = { x[is.na(x)] <- -Inf # no imputation: 0 |-> NA
+                "rclr" = { if (!is.null(para$ropt))
+                               stop("no backtransformation for ",
+                                    sQuote(method),
+                                    " with imputation")
+                           x[is.na(x)] <- -Inf # no imputation: 0 |-> NA
                            exp(sweep(x, para$margin, para$means, "+"))},
                 "wisconsin" = { x <- sweep(x, 1, para$total, "*")
                                 sweep(x, 2, para$max, "*") },

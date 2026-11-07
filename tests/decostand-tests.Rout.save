@@ -333,6 +333,8 @@ row17 -1.15104467
 row18 -0.14885299
 row19  0.91755915
 row20  0.33766080
+attr(,"ropt")
+[1] 3
 attr(,"scaled:center")
          row1          row2          row3          row4          row5 
 -0.0031079619 -0.0463480942 -0.0267762284  0.0089869339  0.0380073003 
@@ -342,6 +344,10 @@ attr(,"scaled:center")
  0.0813752690  0.0153170116 -0.0001358339 -0.0203385433 -0.0102092705 
         row16         row17         row18         row19         row20 
 -0.0133788389  0.0543704488 -0.0876478093  0.0272043261 -0.0319186959 
+attr(,"parameters")
+attr(,"parameters")$ropt
+[1] 3
+
 attr(,"decostand")
 [1] "rclr"
 > decostand(testdata, method = "clr", pseudocount = 1)
@@ -609,4 +615,4 @@ attr(,"decostand")
 > 
 > proc.time()
    user  system elapsed 
-  0.487   0.042   0.524 
+  0.487   0.043   0.526 
