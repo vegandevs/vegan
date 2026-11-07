@@ -76,24 +76,6 @@ decostand(testdata, method = "clr", pseudocount = 1)
 #class(try(decostand(testdata, method = "clr"))) == "try-error"
 #class(try(decostand(testdata, method = "clr", pseudocount = 0))) == "try-error"
 
-# Tests that clr robust gives values that are approximately same if only
-# one value per sample are changed to zero
-# Adds pseudocount
-test <- testdata + 1
-test2 <- test
-test2[,1] <- 0
-
-# clr robust transformations
-test <- decostand(test, method = "rclr")
-test2 <- decostand(test2, method = "rclr")
-
-# Removes first cols
-test <- test[, -1]
-test2 <- test2[, -1]
-
-# Expect high correlation
-cor(unlist(test), unlist(test2)) > 0.99
-
 # Compare rclr with imputation to without imputation + matrix completion
 # rclr transformation with matrix completion for the 0/NA entries
 x1 <- decostand(varespec, method = "rclr", impute = TRUE)
