@@ -163,9 +163,8 @@
     x <- x + pseudocount
     # Error with negative values (note: at this step we always use na.rm = TRUE)
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("'method = \"clr\"' cannot be used with non-positive data:
-              use pseudocount '> -min(x, na.rm = TRUE) + pseudocount'",
-	      call. = FALSE)
+        stop("'method = \"clr\"' cannot be used with non-positive data: use pseudocount > ", -min(x, na.rm = TRUE),
+             call. = FALSE)
     }
 
     # In every sample, calculate the log of individual entries.
@@ -240,9 +239,9 @@
     # If there is negative values, gives an error.
     # Always na.rm = TRUE at this step
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("the 'method = \"alr\"' cannot be used with non-positive data: ",
-              "use pseudocount '> -min(x, na.rm = na.rm) + pseudocount'",
-	      call. = FALSE)
+        stop("'method = \"alr\"' cannot be used with non-positive data: ",
+             "use pseudocount > ", -min(x, na.rm = TRUE),
+             call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
     if (is.character(reference)) {
