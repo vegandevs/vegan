@@ -17,21 +17,22 @@ for (v in names(varechem)) {
 expect_equal(rowSums(fit$vectors$arrows^2), rep(1, ncol(varechem)),
              check.attributes = FALSE)
 
-## weighted ordination: fit on weighted-centred data scaled by sqrt(w)
+## weighted ordination: arrow directions from lm with cca site weights
 ord <- cca(varespec)
 X <- scores(ord, display = "sites", choices = 1:2)
 w <- weights(ord)
-wc <- function(x) sqrt(w) * sweep(as.matrix(x), 2, colSums(x * w) / sum(w))
 fit <- envfit(ord, varechem, permutations = 0)
 for (v in c("N", "Al", "pH")) {
-    y <- wc(varechem[v])
-    m <- lm(y ~ wc(X) - 1)
-    ## r2 is cor(fitted, y)^2 on the transformed data, which re-centres
-    ## without weights and so differs slightly from a weighted lm R2
-    ## (0.21957 vs 0.21979 for N). This pins current behaviour.
-    expect_equal(unname(fit$vectors$r[v]), cor(fitted(m), y)[1]^2)
-    b <- coef(m)
+    m <- lm(varechem[[v]] ~ X, weights = w)
+    b <- coef(m)[-1]
     expect_equal(unname(fit$vectors$arrows[v, ]), unname(b / sqrt(sum(b^2))))
+    ## r2 is cor after w-centring as in vectorfit, which re-centres without
+    ## weights and so differs slightly from summary(m)$r.squared
+    ## (0.21957 vs 0.21979 for N). This pins current behaviour.
+    Xw <- sqrt(w) * sweep(as.matrix(X), 2, colSums(X * w) / sum(w))
+    yw <- sqrt(w) * (varechem[[v]] - weighted.mean(varechem[[v]], w))
+    m0 <- lm(yw ~ Xw - 1)
+    expect_equal(unname(fit$vectors$r[v]), cor(fitted(m0), yw)^2)
 }
 
 ## factors: centroids are weighted class means, r2 is the between-class
