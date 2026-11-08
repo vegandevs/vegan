@@ -137,14 +137,17 @@ decobackstand(x, zap = TRUE)
      that result from log transformation of the zero entries in the
      original input data. See \link[vegan]{optspace} for more details.
      The following parameters can be passed to optspace
-     through decostand: "ropt" NA to guess the rank, or a positive
-     integer as a pre-defined rank (default: 3); "niter" maximum
-     number of iterations allowed (default: 5); "tol" stopping
+     through decostand: \code{ropt} NA to guess the rank, or a positive
+     integer as a pre-defined rank (default: 3); \code{niter} maximum
+     number of iterations allowed (default: 5); \code{tol} stopping
      criterion for reconstruction in Frobenius norm (default: 1e-5);
-     "verbose" a logical value; TRUE to show progress, FALSE otherwise
-     (default: FALSE); "impute" to switch on/off the matrix completion
-     (default: impute=TRUE).
-  }
+     \code{verbose} a logical value; TRUE to show progress, FALSE otherwise
+     (default: FALSE); \code{impute} to select imputation: \code{"all"}
+     (default) will replace complete matrix with imputed values,
+     \code{"zero"} will replace only original zeros (and \code{NA}) with
+     imputed values,  and \code{"none"} will skip imputation leaving
+     original zeros \code{NA}.
+   }
 
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.
