@@ -193,8 +193,16 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE, impute = TRUE, ...)
+    function(x, na.rm, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE,
+             impute = "all", ...)
 {
+    ## impute uses now three alternatives (character), but to maintain
+    ## complatibility with old code, accept also TRUE and FALSE for
+    ## two of these
+    if (is.logical(impute))
+        impute <- if (impute) "all" else "none"
+    else
+        impute <- match.arg(impute, c("all", "none", "zero"))
     # Error with negative values
     if (any(x < 0, na.rm = na.rm)) {
         stop("the 'method = \"rclr\"' cannot be used with negative data",
@@ -218,9 +226,13 @@
 
    # Impute NAs if impute=TRUE
    # Otherwise return the transformation with NAs
-   if (impute && anyNA(xx)) {
-     xx <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
-                    verbose = verbose)$M
+   if (impute != "none" && anyNA(xx)) {
+     M <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
+                   verbose = verbose)$M
+     if (impute == "zero") # impute original zeros that now are NA
+         xx[is.na(xx)] <- M[is.na(xx)]
+     else # impute complete matrix
+         xx <- M
      ## Centring is common operation supporting output visualization
      ## Centre cols to 0
      xx <- as.matrix(scale(xx, center = TRUE, scale = FALSE))
