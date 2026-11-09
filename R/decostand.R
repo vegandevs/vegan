@@ -316,7 +316,14 @@
                                     sQuote(method),
                                     " with imputation")
                            x[is.na(x)] <- -Inf # no imputation: 0 |-> NA
-                           exp(sweep(x, para$margin, para$means, "+"))},
+                               exp(sweep(x, para$margin, para$means, "+"))},
+                "alr" = {if (para$margin == 2) x <- t(x) # casts to matrix
+                         if (para$index == 1) x <- cbind(0, x)
+                         else x <- cbind(x[,seq_len(para$index-1)], 0,
+                                         x[,-seq_len(para$index-1)])
+                         x <- para$reference + x
+                         if (para$margin == 2) x <- t(x)
+                         exp(x) - para$pseudocount},
                 "wisconsin" = { x <- sweep(x, 1, para$total, "*")
                                 sweep(x, 2, para$max, "*") },
                 stop("no backtransformation available for method ",
