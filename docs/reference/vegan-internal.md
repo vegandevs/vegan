@@ -62,14 +62,14 @@ arguments, you should update `ordiArgAbsorber`.
 matrix where each row gives indices of observations for a permutation.
 The input `perm` can be a single number for the number of simple
 permutations, a result of
-[`how`](https://rdrr.io/pkg/permute/man/how.html) defining a permutation
-scheme or a permutation matrix.
+[`how`](https://gavinsimpson.github.io/permute/reference/how.html)
+defining a permutation scheme or a permutation matrix.
 
 `howHead` formats the permutation scheme of
-[`how`](https://rdrr.io/pkg/permute/man/how.html) for display. The
-formatting is more compact than the one used in `print` in the permute
-package, and shows only non-default choices. This output is normally
-used when printing the results of vegan permutations.
+[`how`](https://gavinsimpson.github.io/permute/reference/how.html) for
+display. The formatting is more compact than the one used in `print` in
+the permute package, and shows only non-default choices. This output is
+normally used when printing the results of vegan permutations.
 
 `pasteCall` prints the function call so that it is nicely wrapped in
 [`Sweave`](https://rdrr.io/r/utils/Sweave.html) output.

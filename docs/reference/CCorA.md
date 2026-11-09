@@ -36,9 +36,10 @@ biplot(x, plot.type="ov", xlabs, plot.axes = 1:2, int=0.5,
 - permutations:
 
   a list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html), or the
-  number of permutations required, or a permutation matrix where each
-  row gives the permuted indices.
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html), or
+  the number of permutations required, or a permutation matrix where
+  each row gives the permuted indices.
 
 - x:
 
@@ -189,7 +190,8 @@ Function `CCorA` returns a list containing the following elements:
 - control:
 
   A list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html).
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html).
 
 - call :
 

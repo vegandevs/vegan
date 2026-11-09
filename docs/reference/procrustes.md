@@ -118,9 +118,10 @@ protest(X, Y, scores = "sites", permutations = how(nperm = 999), ...)
 - permutations:
 
   a list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html), or the
-  number of permutations required, or a permutation matrix where each
-  row gives the permuted indices.
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html), or
+  the number of permutations required, or a permutation matrix where
+  each row gives the permuted indices.
 
 - ar.col:
 
@@ -273,7 +274,8 @@ with some new items:
 - control:
 
   A list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html).
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html).
 
 - control:
 
@@ -304,8 +306,8 @@ implementation is still after Mardia *et al.* (1979).
 obtaining objects for `procrustes`, and
 [`mantel`](https://vegandevs.github.io/vegan/reference/mantel.md) for an
 alternative to `protest` without need of dimension reduction. See
-[`how`](https://rdrr.io/pkg/permute/man/how.html) for details on
-specifying the type of permutation required.
+[`how`](https://gavinsimpson.github.io/permute/reference/how.html) for
+details on specifying the type of permutation required.
 
 ## Examples
 

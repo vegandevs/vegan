@@ -85,7 +85,7 @@
 
   <dt id="arg-permutations">permutations<a class="anchor" aria-label="anchor" href="#arg-permutations"></a></dt>
 <dd><p>a list of control values for the permutations
-    as returned by the function <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>, or the
+    as returned by the function <code><a href="https://gavinsimpson.github.io/permute/reference/how.html" class="external-link">how</a></code>, or the
     number of permutations required, or a permutation matrix where each
     row gives the permuted indices.</p></dd>
 
@@ -120,7 +120,7 @@
 <dd><p>An integer vector or factor specifying the strata for
     permutation. If supplied, observations are permuted only within
     the specified strata. It is an error to use this when
-    <code>permutations</code> is a matrix, or a <code><a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a></code>
+    <code>permutations</code> is a matrix, or a <code><a href="https://gavinsimpson.github.io/permute/reference/how.html" class="external-link">how</a></code>
     defines <code>blocks</code>. This is a legacy argument: it is better to
     use <code>permutations = how(..., blocks)</code> instead.</p></dd>
 
@@ -290,7 +290,7 @@
     <p>The function <code>anova.cca</code> calls <code>permutest.cca</code> and fills an
   <code><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></code> table. Additional attributes are
   <code>Random.seed</code> (the random seeds used),
-  <code>control</code> (the permutation design, see <a href="https://rdrr.io/pkg/permute/man/how.html" class="external-link">how</a>) and
+  <code>control</code> (the permutation design, see <a href="https://gavinsimpson.github.io/permute/reference/how.html" class="external-link">how</a>) and
   <code>F.perm</code> (the permuted test statistics). For modified tests the
   result also records <code>permustat</code>, <code>groups</code>, group sizes and
   observed dispersions, the modified denominator, its effective degrees

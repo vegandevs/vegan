@@ -37,8 +37,9 @@ persp(x, theta = 220, phi = 15, col = heat.colors(100), zlim, ...)
 
   Usually an integer giving the number permutations, but can also be a
   list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html), or a
-  permutation matrix where each row gives the permuted indices.
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html), or
+  a permutation matrix where each row gives the permuted indices.
 
 - raw:
 

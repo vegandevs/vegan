@@ -58,9 +58,10 @@ factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 - permutations:
 
   a list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html), or the
-  number of permutations required, or a permutation matrix where each
-  row gives the permuted indices. Set `permutations = 0` to skip
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html), or
+  the number of permutations required, or a permutation matrix where
+  each row gives the permuted indices. Set `permutations = 0` to skip
   permutations.
 
 - formula, data:
@@ -295,7 +296,8 @@ object have the following items:
 - control:
 
   A list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html).
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html).
 
 - pvals:
 

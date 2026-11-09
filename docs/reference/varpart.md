@@ -95,9 +95,9 @@ showvarparts(parts, labels, bg = NULL, alpha = 0.25, Xnames,
   If `chisquare = TRUE`, the adjusted \\R^2\\ is estimated by
   permutations, and this parameter can be a list of control values for
   the permutations as returned by the function
-  [`how`](https://rdrr.io/pkg/permute/man/how.html), or the number of
-  permutations required, or a permutation matrix where each row gives
-  the permuted indices.
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html), or
+  the number of permutations required, or a permutation matrix where
+  each row gives the permuted indices.
 
 - parts:
 

@@ -87,10 +87,10 @@
 
   <dt id="arg-indx">indx<a class="anchor" aria-label="anchor" href="#arg-indx"></a></dt>
 <dd><p>Index of residuals added to the fitted values, such as
-    produced by <code><a href="https://rdrr.io/pkg/permute/man/shuffleSet.html" class="external-link">shuffleSet</a></code> or
+    produced by <code><a href="https://gavinsimpson.github.io/permute/reference/shuffleSet.html" class="external-link">shuffleSet</a></code> or
     <code><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></code>.  The index can have duplicate entries so
     that bootstrapping is allowed. If <code>nsim</code> \(&gt;1\), the output
-    should be compliant with <code><a href="https://rdrr.io/pkg/permute/man/shuffleSet.html" class="external-link">shuffleSet</a></code> with
+    should be compliant with <code><a href="https://gavinsimpson.github.io/permute/reference/shuffleSet.html" class="external-link">shuffleSet</a></code> with
     one line for each simulation.  If <code>nsim</code> is missing, the
     number of rows of <code>indx</code> is used to define the number of
     simulations, but if <code>nsim</code> is given, it should match number
@@ -187,7 +187,7 @@
 <span class="r-in"><span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="fu"><a href="procrustes.html">procrustes</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="https://rdrr.io/r/stats/update.html" class="external-link">update</a></span><span class="op">(</span><span class="va">mod</span>, <span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">mod</span><span class="op">)</span> <span class="op">~</span> <span class="va">.</span><span class="op">)</span><span class="op">)</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="simulate.rda-1.png" alt="" width="700" height="1133"></span>
 <span class="r-in"><span><span class="co">## Simulate a set of null communities with permutation of residuals</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">mod</span>, indx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/permute/man/shuffleSet.html" class="external-link">shuffleSet</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, <span class="fl">99</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/simulate.html" class="external-link">simulate</a></span><span class="op">(</span><span class="va">mod</span>, indx <span class="op">=</span> <span class="fu"><a href="https://gavinsimpson.github.io/permute/reference/shuffleSet.html" class="external-link">shuffleSet</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">dune</span><span class="op">)</span>, <span class="fl">99</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class “simulate.rda” </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ‘simulate index’ method (abundance, non-sequential)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20 x 30 matrix</span>

@@ -35,9 +35,10 @@ plot(x, kind = c("dendrogram", "histogram"),  cluster = "average",
 - permutations:
 
   a list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html), or the
-  number of permutations required, or a permutation matrix where each
-  row gives the permuted indices. These are used to assess the
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html), or
+  the number of permutations required, or a permutation matrix where
+  each row gives the permuted indices. These are used to assess the
   significance of the MRPP statistic, \\delta\\.
 
 - distance:
@@ -235,7 +236,8 @@ The function returns a list of class mrpp with following items:
 - control:
 
   A list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html).
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html).
 
 ## References
 

@@ -45,9 +45,10 @@ permutest(x, permutations = how(nperm = 99),
 - permutations:
 
   a list of control values for the permutations as returned by the
-  function [`how`](https://rdrr.io/pkg/permute/man/how.html), or the
-  number of permutations required, or a permutation matrix where each
-  row gives the permuted indices.
+  function
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html), or
+  the number of permutations required, or a permutation matrix where
+  each row gives the permuted indices.
 
 - by:
 
@@ -77,8 +78,8 @@ permutest(x, permutations = how(nperm = 99),
   An integer vector or factor specifying the strata for permutation. If
   supplied, observations are permuted only within the specified strata.
   It is an error to use this when `permutations` is a matrix, or a
-  [`how`](https://rdrr.io/pkg/permute/man/how.html) defines `blocks`.
-  This is a legacy argument: it is better to use
+  [`how`](https://gavinsimpson.github.io/permute/reference/how.html)
+  defines `blocks`. This is a legacy argument: it is better to use
   `permutations = how(..., blocks)` instead.
 
 - cutoff:
@@ -252,9 +253,10 @@ can be compared with `onewaytests::bf.test()`, described by Dag et al.
 The function `anova.cca` calls `permutest.cca` and fills an
 [`anova`](https://rdrr.io/r/stats/anova.html) table. Additional
 attributes are `Random.seed` (the random seeds used), `control` (the
-permutation design, see [how](https://rdrr.io/pkg/permute/man/how.html))
-and `F.perm` (the permuted test statistics). For modified tests the
-result also records `permustat`, `groups`, group sizes and observed
+permutation design, see
+[how](https://gavinsimpson.github.io/permute/reference/how.html)) and
+`F.perm` (the permuted test statistics). For modified tests the result
+also records `permustat`, `groups`, group sizes and observed
 dispersions, the modified denominator, its effective degrees of freedom,
 and the permuted modified pseudo-\\F\\ values.
 

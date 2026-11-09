@@ -45,14 +45,14 @@ simulate(object, nsim = 1, seed = NULL, indx = NULL,
 - indx:
 
   Index of residuals added to the fitted values, such as produced by
-  [`shuffleSet`](https://rdrr.io/pkg/permute/man/shuffleSet.html) or
-  [`sample`](https://rdrr.io/r/base/sample.html). The index can have
+  [`shuffleSet`](https://gavinsimpson.github.io/permute/reference/shuffleSet.html)
+  or [`sample`](https://rdrr.io/r/base/sample.html). The index can have
   duplicate entries so that bootstrapping is allowed. If `nsim` \\\>1\\,
   the output should be compliant with
-  [`shuffleSet`](https://rdrr.io/pkg/permute/man/shuffleSet.html) with
-  one line for each simulation. If `nsim` is missing, the number of rows
-  of `indx` is used to define the number of simulations, but if `nsim`
-  is given, it should match number of rows in `indx`. If null,
+  [`shuffleSet`](https://gavinsimpson.github.io/permute/reference/shuffleSet.html)
+  with one line for each simulation. If `nsim` is missing, the number of
+  rows of `indx` is used to define the number of simulations, but if
+  `nsim` is given, it should match number of rows in `indx`. If null,
   parametric simulation is used and Gaussian error is added to the
   fitted values.
 

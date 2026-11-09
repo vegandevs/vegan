@@ -138,9 +138,9 @@ results in addition to
 The permutation functions were moved to the permute package, and they
 are documented there. The permute package replaces `permuted.index` and
 `permuted.index2` with
-[`shuffle`](https://rdrr.io/pkg/permute/man/shuffle.html) and
-`getNumObs` with its specific
-[`nobs-methods`](https://rdrr.io/pkg/permute/man/nobs.html).
+[`shuffle`](https://gavinsimpson.github.io/permute/reference/shuffle.html)
+and `getNumObs` with its specific
+[`nobs-methods`](https://gavinsimpson.github.io/permute/reference/nobs.html).
 
 ## See also
 

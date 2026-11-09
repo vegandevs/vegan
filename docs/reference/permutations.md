@@ -31,13 +31,14 @@ in the presence of covariables.
 These capabilities are provided by functions from the permute package.
 The user can request a particular type of permutation by supplying the
 `permutations` argument of a function with an object returned by
-[`how`](https://rdrr.io/pkg/permute/man/how.html), which defines how
-samples should be permuted. Alternatively, the user can simply specify
-the required number of permutations and a simple randomisation procedure
-will be performed. Finally, the user can supply a matrix of permutations
-(with number of rows equal to the number of permutations and number of
-columns equal to the number of observations in the data) and vegan will
-use these permutations instead of generating new permutations.
+[`how`](https://gavinsimpson.github.io/permute/reference/how.html),
+which defines how samples should be permuted. Alternatively, the user
+can simply specify the required number of permutations and a simple
+randomisation procedure will be performed. Finally, the user can supply
+a matrix of permutations (with number of rows equal to the number of
+permutations and number of columns equal to the number of observations
+in the data) and vegan will use these permutations instead of generating
+new permutations.
 
 The majority of functions in vegan allow for the full range of
 possibilities outlined above. Exceptions include
@@ -156,14 +157,15 @@ as you might desire to reach the required level of significance.
 It is currently the responsibility of the user to determine the total
 number of possible permutations for their *DATA*. The number of possible
 permutations allowed under the specified design can be calculated using
-[`numPerms`](https://rdrr.io/pkg/permute/man/numPerms.html) from the
-permute package. Heuristics employed within the
-[`shuffleSet`](https://rdrr.io/pkg/permute/man/shuffleSet.html) function
-used by vegan can be triggered to generate the entire set of
+[`numPerms`](https://gavinsimpson.github.io/permute/reference/numPerms.html)
+from the permute package. Heuristics employed within the
+[`shuffleSet`](https://gavinsimpson.github.io/permute/reference/shuffleSet.html)
+function used by vegan can be triggered to generate the entire set of
 permutations instead of a random set. The settings controlling the
 triggering of the complete enumeration step are contained within a
 permutation design created using `link[permute]{how}` and can be set by
-the user. See [`how`](https://rdrr.io/pkg/permute/man/how.html) for
+the user. See
+[`how`](https://gavinsimpson.github.io/permute/reference/how.html) for
 details.
 
 Limits on the total number of permutations of *DATA* are more severe in
@@ -178,9 +180,9 @@ permutations becomes important and achievable computationally.
 Above, we have provided only a brief overview of the capabilities of
 vegan and permute. To get the best out of the new functionality and for
 details on how to set up permutation designs using
-[`how`](https://rdrr.io/pkg/permute/man/how.html), consult the vignette
-*Restricted permutations; using the permute package* supplied with
-permute and accessible via
+[`how`](https://gavinsimpson.github.io/permute/reference/how.html),
+consult the vignette *Restricted permutations; using the permute
+package* supplied with permute and accessible via
 `vignette("permutations", package = "permute").`
 
 ## Random Number Generation
@@ -197,13 +199,13 @@ generator to a previous version with
 
 [`permutest`](https://vegandevs.github.io/vegan/reference/anova.cca.md)
 for the main interface in vegan. See also
-[`how`](https://rdrr.io/pkg/permute/man/how.html) for details on
-permutation design specification,
-[`shuffleSet`](https://rdrr.io/pkg/permute/man/shuffleSet.html) for the
-code used to generate a set of permutations,
-[`numPerms`](https://rdrr.io/pkg/permute/man/numPerms.html) for a
-function to return the size of the set of possible permutations under
-the current design.
+[`how`](https://gavinsimpson.github.io/permute/reference/how.html) for
+details on permutation design specification,
+[`shuffleSet`](https://gavinsimpson.github.io/permute/reference/shuffleSet.html)
+for the code used to generate a set of permutations,
+[`numPerms`](https://gavinsimpson.github.io/permute/reference/numPerms.html)
+for a function to return the size of the set of possible permutations
+under the current design.
 
 ## References
 
