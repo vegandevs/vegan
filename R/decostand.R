@@ -229,8 +229,10 @@
    if (impute != "none" && anyNA(xx)) {
      M <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
                    verbose = verbose)$M
-     if (impute == "zero") # impute original zeros that now are NA
+     if (impute == "zero") { # impute original zeros that now are NA
          xx[is.na(xx)] <- M[is.na(xx)]
+         attr(xx, "ropt") <- attr(M, "ropt")
+     }
      else # impute complete matrix
          xx <- M
      ## Centring is common operation supporting output visualization
