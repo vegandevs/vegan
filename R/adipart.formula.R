@@ -1,5 +1,6 @@
 `adipart.formula` <-
-    function(formula, data, index=c("richness", "shannon", "simpson"),
+    function(formula, data, index=c("richness", "shannon", "simpson",
+             "invsimpson", "hill1", "hill2"),
              weights=c("unif", "prop"), relative = FALSE, nsimul=99,
              method = "r2dtable", ...)
 {
