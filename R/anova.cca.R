@@ -9,6 +9,21 @@
     model <- match.arg(model)
     test <- match.arg(test)
     permustat <- match.arg(permustat)
+    if (!is.null(by)) {
+        by <- match.arg(by, c("terms", "margin", "axis", "onedf",
+                              "contrast"))
+        if (by == "contrast") {
+            if (permustat != "pseudo-F")
+                stop("contrast comparisons require 'permustat = \"pseudo-F\"'")
+            if (model != "reduced")
+                stop("comparison tests require 'model = \"reduced\"'")
+            if (test != "permutation")
+                stop("comparison tests require 'test = \"permutation\"'")
+            cmp <- ordicomparisons(object, ..., permutations = permutations,
+                               strata = strata, parallel = parallel)
+            return(.comparisonsAnova(cmp, object))
+        }
+    }
     if (test == "parametric") {
         if (permustat == "modified-F")
             stop("'permustat = \"modified-F\"' requires a permutation test")
@@ -54,7 +69,6 @@
     }
     ## by cases
     if (!is.null(by)) {
-        by <- match.arg(by, c("terms", "margin", "axis", "onedf"))
         if (permustat == "modified-F")
             stop("'by' must be NULL with 'permustat = \"modified-F\"'")
         if (by %in% c("terms", "margin") && is.null(object$terms))

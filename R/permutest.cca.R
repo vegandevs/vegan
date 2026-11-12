@@ -46,6 +46,7 @@ permutest.default <- function(x, ...)
     isCCA <- !is.null(w)
     isPartial <- !is.null(x$pCCA) && x$pCCA$rank > 0   # handle conditions
     isDB <- inherits(x, c("dbrda")) # only dbrda is distance-based
+    isComparison <- isTRUE(x$comparison)
     if (permustat == "modified-F") {
         if (!is.null(by))
             stop("'by' must be NULL with 'permustat = \"modified-F\"'")
@@ -127,7 +128,7 @@ permutest.default <- function(x, ...)
         if (!is.matrix(indx))
             indx <- matrix(indx, nrow = 1)
         out <- .Call(do_getF, indx, E, Q, QZ, effects, w, first, isPartial,
-                     isCCA, isDB, PACKAGE = "vegan")
+                     isCCA, isDB, isComparison, PACKAGE = "vegan")
         p <- length(effects)
         if (!isPartial && !first)
             out[, p + 1] <- Chi.tot - rowSums(out[,seq_len(p), drop=FALSE])
@@ -215,7 +216,7 @@ permutest.default <- function(x, ...)
     ## Set up
     Chi.xz <- x$CA$tot.chi
     names(Chi.xz) <- "Residual"
-    r <- nobs(x) - Q$rank - 1
+    r <- nrow(Q$qr) - Q$rank - 1
     if (model == "full")
         Chi.tot <- Chi.xz
     else Chi.tot <- Chi.z + Chi.xz

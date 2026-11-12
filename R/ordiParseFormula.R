@@ -50,6 +50,10 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         else
             model.frame(formula, data, na.action = na.pass, xlev = xlev)
     }
+    ## Save prediction calls before rebuilding the combined model frame.
+    ## model.frame() records fitted polynomial, spline and scaling constants
+    ## in 'predvars', before subset and missing-data handling below.
+    constraint.terms <- if (!is.null(ymf)) ordiPredictTerms(ymf, data) else NULL
     ## Combine condition an constrain data frames
     if (!is.null(zmf)) {
         ncond <- NCOL(zmf)
@@ -106,18 +110,114 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         Y <- model.matrix(formula, mf)
         ## save assign attribute
         assign <- attr(Y, "assign")
+        contrasts <- attr(Y, "contrasts")
         assign <- assign[assign > 0]
         if (any(colnames(Y) == "(Intercept)"))
             Y <- Y[, -which(colnames(Y) == "(Intercept)"), drop = FALSE]
         if (NCOL(Y) == 0)
             Y <- NULL
-        else
+        else {
             attr(Y, "assign") <- assign
+            attr(Y, "contrasts") <- contrasts
+        }
     }
     X <- as.matrix(X) # if X was dist
     rownames(X) <- rownames(X, do.NULL = FALSE, prefix = "") # if X was matrix
     colnames(X) <- colnames(X, do.NULL = FALSE, prefix = "spe")
     list(X = X, Y = Y, Z = Z, terms = terms(fla, width.cutoff = 500),
          terms.expand = terms(flapart, width.cutoff = 500), modelframe = mf,
+         constraint.terms = constraint.terms,
          subset = subset, na.action = nas, excluded = excluded)
+}
+
+#' Retain fitted calls for transformed constraint terms
+#'
+#' Keep the prediction calls supplied by `model.frame()` and also preserve
+#' fitted transformations nested within calls such as `I()`. This is done
+#' before selecting rows so that the constants match the fitted model matrix.
+#'
+#' @param mf The original constraint model frame.
+#' @param data The data used to evaluate the model frame.
+#'
+#' @return A terms object with fitted prediction calls.
+#' @seealso ordiPredictCall, ordiTerminfo
+#' @keywords internal
+ordiPredictTerms <- function(mf, data)
+{
+    Terms <- attr(mf, "terms")
+    vars <- attr(Terms, "predvars")
+    if (!is.null(vars))
+        attr(Terms, "predvars") <- ordiPredictCall(vars, data,
+                                                  environment(Terms))
+    Terms
+}
+
+#' Preserve standard fitted transformations within an expression
+#'
+#' Retain scaling constants, polynomial coefficients and spline knots using
+#' the values used when fitting. Fixed transformations remain unchanged.
+#' Existing prediction calls for other transformations are kept as supplied
+#' by their `makepredictcall()` methods.
+#'
+#' @param expr A prediction expression from a fitted terms object.
+#' @param data The original model data, before row selection.
+#' @param env The formula environment.
+#'
+#' @return The expression with fitted transformation settings included.
+#' @seealso ordiPredictTerms, stats::makepredictcall
+#' @keywords internal
+ordiPredictCall <- function(expr, data, env)
+{
+    if (missing(expr))
+        return(quote(expr = ))
+    if (!is.call(expr))
+        return(expr)
+    for (i in seq_along(expr)[-1L])
+        expr[i] <- list(ordiPredictCall(expr[[i]], data, env))
+    head <- expr[[1L]]
+    name <- if (is.symbol(head)) as.character(head)
+            else if (is.call(head) &&
+                     as.character(head[[1L]]) %in% c("::", ":::"))
+                as.character(head[[3L]]) else ""
+    if (!name %in% c("scale", "scale.default", "poly", "ns", "bs"))
+        return(expr)
+    ## Function lookup skips non-function data columns with the same name.
+    fun <- if (is.symbol(head))
+        eval(substitute(base::get(NAME, mode = "function"), list(NAME = name)),
+             envir = data, enclos = env)
+    else eval(head, envir = data, enclos = env)
+    is.scale <- identical(fun, base::scale) || identical(fun, base::scale.default)
+    is.poly <- identical(fun, stats::poly)
+    is.spline <- name %in% c("ns", "bs") &&
+                 identical(environmentName(environment(fun)), "splines")
+    if (!is.scale && !is.poly && !is.spline)
+        return(expr)
+    ## Keep fitted calls already supplied by model.frame(). Only their
+    ## nested arguments may still need fitted settings of their own.
+    if (is.poly && "coefs" %in% names(expr)) {
+        ## poly() treats a one-column matrix as a vector when fitting, but
+        ## sends its saved vector coefficients to polym() when predicting.
+        ## Keep the vector interpretation for calls such as poly(scale(x), 2).
+        coefs <- eval(expr$coefs, envir = data, enclos = env)
+        if (is.list(coefs) && all(c("alpha", "norm2") %in% names(coefs))) {
+            matched <- match.call(stats::poly, expr)
+            x <- eval(matched$x, envir = data, enclos = env)
+            if (is.matrix(x) && ncol(x) == 1L) {
+                matched$x <- call("as.numeric", matched$x)
+                return(matched)
+            }
+        }
+        return(expr)
+    }
+    if (is.spline && all(c("knots", "Boundary.knots") %in% names(expr)))
+        return(expr)
+    value <- eval(expr, envir = data, enclos = env)
+    if (is.scale) {
+        if (!is.null(center <- attr(value, "scaled:center")))
+            expr$center <- center
+        if (!is.null(scale <- attr(value, "scaled:scale")))
+            expr$scale <- scale
+        return(expr)
+    }
+    stats::makepredictcall(value, expr)
 }

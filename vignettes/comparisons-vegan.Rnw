@@ -1,0 +1,831 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{Comparisons in constrained ordination}
+\documentclass[nojss]{jss}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{Sweave}
+
+\title{Comparisons in constrained ordination}
+\author{Vegan development team}
+\Plainauthor{Vegan development team}
+\Plaintitle{Comparisons in constrained ordination}
+\Shorttitle{Comparisons in constrained ordination}
+\Keywords{constrained ordination, contrasts, permutation tests,
+  pseudo-$F$, vegan}
+\Plainkeywords{constrained ordination, contrasts, permutation tests,
+  pseudo-F, vegan}
+\Address{Vegan development team\\
+  URL: \url{https://vegandevs.github.io/vegan/}}
+
+\Abstract{
+  Function \code{ordicomparisons()} specifies and tests focused comparisons
+  after fitting a constrained ordination model. Function
+  \code{ordicontrasts()} optionally displays the adjusted factor-level
+  profiles used to define custom contrasts.
+  The interface provides common sets of comparisons, user-written
+  comparisons, comparisons within interactions, joint tests,
+  adjustments for multiple testing, and control over the population to which
+  a comparison applies. Each question is tested using additional
+  constrained inertia and vegan's permutation pseudo-$F$ statistic.
+  This document introduces the interface without assuming knowledge of
+  contrast algebra. A technical description of the implementation is
+  given in the appendix.
+}
+
+\begin{document}
+
+\SweaveOpts{strip.white=true}
+<<echo=false>>=
+options(width = 72, digits = 4)
+options("prompt" = "> ", "continue" = "  ")
+@
+
+\begin{center}
+\footnotesize processed with vegan
+\Sexpr{packageDescription("vegan", field="Version")}
+in \Sexpr{R.version.string} on \today
+\end{center}
+
+\section{Comparing factor levels after fitting an ordination model}
+
+Consider the following RDA model fitted to the Dutch dune meadow data:
+
+<<zero-model>>=
+library("vegan")
+data(dune)
+data(dune.env)
+
+mod <- rda(dune ~ Management + A1, data = dune.env)
+@
+
+A permutation test of the \code{Management} term can tell us whether
+the factor is associated with variation in multivariate composition.
+It does not answer more focused questions such as ``does management
+type HF differ from BF?''. More generally, the marginal or term-wise
+tests previously available in vegan could not directly answer questions
+like ``does each treatment differ from the control?'' or ``does the
+treatment difference change between habitats?''
+
+This vignette describes the new function \code{ordicomparisons()}, which
+asks these questions after a model has been fitted with \code{rda()},
+\code{cca()}, or \code{dbrda()}.
+
+The function changes the focal factor to the levels named in a
+comparison while retaining the rest of the fitted model. This matters
+when a model contains covariates, interactions, or transformed terms.
+The comparison is then tested with the same kind of permutation
+pseudo-$F$ statistic used elsewhere in vegan. It is not a test of an
+individual model \emph{coefficient}, and its result does not depend on the
+contrast coding used to fit the factor.
+
+The returned inertia, $R^2$, and pseudo-$F$ measure the magnitude of a
+difference, but not its direction. Consequently, reversing a
+comparison gives the same test. Inspect the community data, fitted
+values, or ordination scores when the ecological direction of a
+difference is also needed.
+
+All the examples contained here use just 99 permutations to keep the vignette quick to
+build. More permutations should normally be used in an analysis. With
+99 permutations, the smallest attainable permutation $p$-value is
+0.01.
+
+\section{Pairwise comparisons of management types}
+
+We begin by returning to the model above: a redundancy analysis in which
+plant community composition is related to management type and the
+numeric variable \code{A1}.
+
+<<first-model>>=
+mod <- rda(dune ~ Management + A1, data = dune.env)
+
+# save a set of permutation indices for use throughout
+set.seed(2718)
+perm <- shuffleSet(nrow(dune), nset = 99)
+@
+
+The main interface is \code{ordicomparisons()}. The \code{variable}
+argument names the factor whose levels we want to compare. By default,
+the function tests every pair of levels, accounting for the other model
+terms.
+
+<<first-pairwise>>=
+pw <- ordicomparisons(mod, "Management", permutations = perm)
+pw
+@
+
+For custom questions, we can optionally inspect the adjusted profiles
+underlying the contrasts with \code{ordicontrasts()}. There is one row for
+each level of \code{Management}. These rows identify quantities that can
+be combined in a contrast; an individual row is not itself a zero-sum
+contrast.
+
+<<first-profiles>>=
+sc <- ordicontrasts(mod, "Management")
+sc
+@
+
+The labels \code{b1}, \code{b2}, and so on give stable, short names to
+these rows. \code{Averaged over: A1} says that each management profile
+is averaged over the observed values of \code{A1}. Each row represents
+a factor level with the other variables averaged or held fixed. Since
+the response contains several species, there is no single response
+estimate to display for each row. \code{N.reference} is the number of reference
+rows used in the average, not a new sample size, and
+\code{Extrapolated} warns if supplied numeric values fall outside the
+fitted data range.
+
+In the \code{pw} results, each row is a separate test. The columns have
+the following meanings:
+
+\begin{itemize}
+  \item \code{Comparison} identifies the factor levels being compared.
+  \item \code{Df} is the number of independent dimensions in the
+    comparison. An ordinary pairwise comparison has one degree of
+    freedom.
+  \item \code{Inertia} is the variation attributed to this comparison,
+    after accounting for the other differences allowed under the null
+    hypothesis.
+  \item \code{R2} is that inertia as a proportion of the total inertia
+    in the response.
+  \item \code{F} is the observed pseudo-$F$ statistic.
+  \item \code{N.Perm} and \code{Pr(>F)} give the number of permutations
+    and the permutation $p$-value.
+\end{itemize}
+
+The tests share the supplied permutation matrix, which makes an analysis
+reproducible. Each has its own null model, which allows the other fitted
+effects while assuming the requested difference is zero. They should
+therefore be regarded as separate tests.
+
+\section{Pairwise, reference, and other built-in comparisons}
+
+The \code{comparison} argument to \code{ordicomparisons()} selects a
+ready-made set of comparisons. Table \ref{tab:recipes} summarises the
+available choices. The order of factor
+levels is important for consecutive, reference, Helmert, and polynomial
+comparisons; inspect it with \code{levels()} before using those choices.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{ll}
+\toprule
+Value & Question represented \\
+\midrule
+\code{"pairwise"} & Every pair of levels \\
+\code{"sequential"}, \code{"consecutive"} & Each level versus the preceding level \\
+\code{"reference"} & Every other level versus a reference \\
+\code{"trt.vs.ctrl"} & Every treatment versus the control level \\
+\code{"deviation"}, \code{"effect"} & Each level versus the equal-weight level mean \\
+\code{"helmert"} & Successive Helmert comparisons \\
+\code{"poly"} & Linear and higher polynomial patterns across levels \\
+\bottomrule
+\end{tabular}
+\caption{Built-in comparisons. Names on the same row are equivalent.}
+\label{tab:recipes}
+\end{table}
+
+There are no reverse variants of these built-in comparisons. Reversing a comparison
+does not change its inertia, pseudo-$F$, or permutation $p$-value. When
+the displayed direction is important, write the desired character
+comparison explicitly.
+
+For example, all management types can be compared with BF:
+
+<<reference>>=
+ordicomparisons(mod, "Management", comparison = "reference",
+            reference = "BF", permutations = perm)
+@
+
+If the wording of the study identifies a control, \code{"trt.vs.ctrl"}
+expresses the same family of questions. By default, the first fitted
+factor level is the control. Use \code{relevel()} before fitting to change
+the factor's reference level, or supply \code{reference} to override it
+for this call. BF is already the first level of \code{Management}, so no
+override is needed here.
+
+<<control>>=
+ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
+            permutations = perm)
+@
+
+Consecutive comparisons are useful when levels have a meaningful
+ordering.
+
+<<consecutive>>=
+ordicomparisons(mod, "Management", comparison = "sequential",
+            permutations = perm)
+@
+
+Helmert and polynomial comparisons use the definitions in base R. Polynomial
+comparisons are usually meaningful only when the factor levels really
+describe an ordered progression. They operate on equally spaced level
+positions; they do not infer numerical spacing from level labels.
+
+\section{Specifying comparisons with equations or numeric weights}
+
+Specific scientific questions can be written directly as character
+strings. Factor-level names stand for their adjusted profiles. The
+right-hand side of each equation must currently be zero.
+
+<<specific>>=
+specific <- ordicomparisons(
+    mod, "Management",
+    comparison = c(
+        "HF - BF = 0",
+        "(NM + SF) / 2 - BF = 0"
+    ),
+    permutations = perm)
+specific
+@
+
+The second row compares BF with the average of NM and SF. Parentheses,
+addition, subtraction, unary signs, and multiplication or division by
+numeric constants are supported. A level name containing spaces or
+operator characters must be enclosed in backticks. Expressions are
+checked to allow only these linear combinations; they cannot call R
+functions.
+
+Names can make the output easier to read.
+
+<<named-specific>>=
+ordicomparisons(
+    mod, "Management",
+    comparison = c(
+        HF_vs_BF = "HF - BF = 0",
+        managed_mean_vs_BF = "(NM + SF) / 2 - BF = 0"
+    ),
+    permutations = perm)
+@
+
+You can instead supply numeric weights. A named numeric vector
+defines one comparison and a matrix defines one comparison per row.
+Supply one finite weight for every fitted factor level. The weights
+in each row must sum to zero. Multiplying all weights in a row by the
+same nonzero constant leaves the test unchanged.
+
+<<numeric-comparisons>>=
+cmat <- rbind(
+    HF_vs_BF = c(BF = -1, HF = 1, NM = 0, SF = 0),
+    managed_mean_vs_BF = c(BF = -1, HF = 0, NM = 0.5, SF = 0.5)
+)
+ordicomparisons(mod, "Management", comparison = cmat,
+            permutations = perm)
+@
+
+A named list may mix individual character and numeric specifications.
+This can be convenient when a program constructs the comparisons one at
+a time.
+
+<<list-comparisons>>=
+clist <- list(
+    HF_vs_BF = "HF - BF = 0",
+    SF_vs_NM = c(BF = 0, HF = 0, NM = -1, SF = 1)
+)
+ordicomparisons(mod, "Management", comparison = clist,
+            permutations = perm)
+@
+
+\section{Comparing rows of the contrast table}
+
+The \code{Profile} column gives each row a short name: \code{b1},
+\code{b2}, and so on always refer to rows of that table. In \code{sc},
+the first two rows are BF and HF, so the following is the same question
+as \code{"HF - BF = 0"}:
+
+<<profile-pair>>=
+ordicomparisons(sc, comparison = "b2 - b1 = 0",
+            permutations = perm)
+@
+
+The notation is especially helpful for more involved questions. This
+compares BF with the average of the third and fourth displayed
+profiles:
+
+<<profile-average>>=
+ordicomparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
+            permutations = perm)
+@
+
+These identifiers do not refer to model coefficients, previously
+calculated comparisons, inertia values, or pseudo-$F$ statistics. The
+expression defines a difference between the profiles, and the function
+then tests that difference with a pseudo-$F$ statistic.
+
+\subsection{Testing comparisons together and adjusting p-values}
+
+Several comparison rows can be tested together with \code{joint = TRUE}.
+The result is one test of the whole set, with degrees of freedom
+determined by the number of independent comparisons.
+
+<<joint>>=
+ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
+            reference = "BF", joint = TRUE,
+            permutations = perm)
+@
+
+A joint test asks whether any of the specified differences is present.
+It does not identify which comparison is responsible. Comparisons that
+can be obtained by combining the others do not add degrees of freedom.
+For example, C--B can be obtained by subtracting B--A from C--A, so
+the three pairwise comparisons among A, B, and C give a joint test with
+two degrees of freedom. The function determines this number automatically.
+
+When separate tests are retained, their $p$-values can be adjusted with
+any method accepted by \code{p.adjust()}. For example:
+
+<<adjust>>=
+ordicomparisons(mod, "Management", comparison = "pairwise",
+            adjust = "holm", permutations = perm)
+@
+
+The adjustment accounts for testing several questions together. It does
+not change the individual pseudo-$F$ statistics or the unadjusted
+$p$-values. Adjustments based on the largest statistic across tests are
+not provided because the separate comparisons generally have different
+null models.
+
+\section{Comparisons in models with interactions}
+
+When the model contains an interaction, a difference between treatment
+levels may depend on the interacting variable. We use a small unbalanced
+example with three treatments in two habitats. The response has six
+species, and blocks will later be used to restrict permutations.
+
+<<interaction-data>>=
+set.seed(42)
+idat <- expand.grid(
+    block = factor(seq_len(8)),
+    habitat = factor(c("grass", "heath")),
+    treatment = factor(c("control", "low", "high"),
+                       levels = c("control", "low", "high"))
+)
+idat <- subset(idat, !(block %in% c("7", "8") & habitat == "heath"))
+iY <- matrix(rpois(nrow(idat) * 6, lambda = 5), ncol = 6)
+iY[, 1] <- iY[, 1] + 3 * (idat$treatment == "high")
+iY[, 2] <- iY[, 2] + 3 * (idat$habitat == "heath")
+iY[, 3] <- iY[, 3] +
+    4 * (idat$treatment == "high" & idat$habitat == "heath")
+imod <- rda(iY ~ treatment * habitat, data = idat)
+
+set.seed(314)
+iper <- shuffleSet(nrow(idat), nset = 99,
+                   control = how(blocks = idat$block))
+@
+
+By default, \code{newdata = NULL} asks what the fitted response would be
+if every observation had received each treatment in turn, while its
+other variables kept their observed values. It then averages over
+those observations. The
+following result is therefore an average treatment comparison over the
+observed habitats:
+
+<<interaction-average>>=
+ordicomparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+            reference = "control", permutations = iper)
+@
+
+The \code{by} argument instead constructs treatment profiles within
+each habitat. These rows make the simple effects and their ordering
+visible before a test is specified.
+
+<<interaction-by>>=
+isc <- ordicontrasts(imod, "treatment", by = "habitat")
+isc
+@
+
+Here \code{Averaged over: none} is expected. Habitat is displayed as a
+grouping column, so it is held at the value in each row rather than
+averaged over. The built-in comparisons are applied separately within each
+habitat:
+
+<<interaction-by-comparisons>>=
+ordicomparisons(isc, comparison = "trt.vs.ctrl",
+            permutations = iper)
+@
+
+More than one variable may be named in \code{by}; each observed
+combination becomes a group. Other model variables that vary within
+those groups are still listed under \code{Averaged over}.
+
+An explicit \code{newdata} data frame asks about a chosen population or
+setting. Here treatment comparisons are evaluated only in \code{heath}. The
+factor is created with the levels used in the fitted model.
+
+<<interaction-newdata>>=
+heath <- data.frame(
+    habitat = factor("heath", levels = levels(idat$habitat))
+)
+heath.sc <- ordicontrasts(imod, "treatment", newdata = heath)
+heath.sc
+ordicomparisons(heath.sc, comparison = "trt.vs.ctrl",
+            permutations = iper)
+@
+
+Supplying several rows in \code{newdata} averages over those rows; it
+does not automatically produce a separate result for each row. Use
+\code{by} when separate results are wanted.
+
+The profile identifiers can select simple effects directly. From the
+printed table, high--control is \code{b3 - b1} in grass and
+\code{b6 - b4} in heath:
+
+<<two-simple-effects>>=
+ordicomparisons(isc,
+            comparison = c(grass = "b3 - b1 = 0",
+                           heath = "b6 - b4 = 0"),
+            permutations = iper)
+@
+
+They can also be combined into a difference-in-differences test:
+
+<<difference-in-differences>>=
+ordicomparisons(isc,
+            comparison = "(b6 - b4) - (b3 - b1) = 0",
+            permutations = iper)
+@
+
+The \code{b} indices cover all profile rows in their printed order.
+Always inspect that table before writing an expression that crosses
+groups.
+
+The same approach extends to interactions among three or more variables:
+use \code{by} or \code{newdata} to specify the combinations of the other
+variables at which treatment levels should be compared, then compare
+the resulting simple effects.
+
+\section{Choosing values for the other model variables}
+
+The meaning of a comparison in a model with other predictors depends on
+the values over which those predictors are averaged. The available
+choices are summarised below.
+
+\begin{center}
+\small
+\begin{tabular}{p{0.23\textwidth}p{0.29\textwidth}p{0.37\textwidth}}
+\toprule
+Option & Categorical variables & Numeric variables \\
+\midrule
+\code{NULL} & Retain their observed values and frequencies &
+  Retain their observed values \\
+\code{"balanced"} & Use every level combination with equal weight &
+  Fix at their arithmetic means \\
+\code{"mean"} & Fix at their most frequent levels (modes) &
+  Fix at their arithmetic means \\
+\code{data.frame(...)} & Use the values and frequencies supplied by the user &
+  Use the values supplied by the user \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Thus, \code{NULL} averages over the observed sample, replacing only the
+factor being compared. The \code{"balanced"} option gives equal weight
+to every combination of the other factor levels, with numeric variables
+held at their means. An explicit data
+frame describes a chosen population or setting and must contain the
+variables needed to reconstruct the fitted model terms, apart from the
+focal factor, which \code{ordicomparisons()} supplies in turn.
+
+Because grass is more frequent than heath in this example,
+\code{newdata = "mean"} asks for treatment comparisons at the modal
+habitat, grass. Numeric predictors, if present, would be fixed at their
+means. This is a comparison for one typical profile, not an average over
+habitats:
+
+<<mean-grid>>=
+mean.sc <- ordicontrasts(imod, "treatment", newdata = "mean")
+mean.sc
+ordicomparisons(mean.sc, comparison = "b3 - b1 = 0",
+            permutations = iper)
+@
+
+With \code{by}, means and modes are calculated separately within
+each group. If factor levels are tied for the mode, the first tied level
+in the fitted factor-level order is used.
+
+The balanced grid instead gives grass and heath equal weight.
+Printing the profiles shows the population used:
+
+<<balanced-grid>>=
+balanced.sc <- ordicontrasts(imod, "treatment", newdata = "balanced")
+balanced.sc
+ordicomparisons(balanced.sc, comparison = "b3 - b1 = 0",
+            permutations = iper)
+@
+
+\medskip
+
+Use \code{wts} when rows should contribute unequally. Supply finite,
+non-negative numbers or name a numeric column in \code{newdata}.
+Weights are normalised within each \code{by} group, and each group
+needs at least one positive weight. In this artificial
+example, heath observations receive twice the averaging weight of grass
+observations:
+
+<<weighted>>=
+ipop <- idat[!duplicated(idat[c("block", "habitat")]),
+             c("block", "habitat")]
+ipop$sampling_weight <- ifelse(ipop$habitat == "heath", 2, 1)
+weighted.sc <- ordicontrasts(imod, "treatment", newdata = ipop,
+                               wts = "sampling_weight")
+weighted.sc
+ordicomparisons(weighted.sc, comparison = "b3 - b1 = 0",
+            permutations = iper)
+@
+
+The weights control only averaging of fitted profiles. They are not
+observation weights in the fitted ordination model.
+
+An explicit numeric value lets us compare factor levels while holding
+that variable fixed. The observed range of \code{A1} is 2.8 to 11.5, so
+\code{A1 = 5} is within the fitted data range. It is shown under
+\code{Fixed at}, and \code{Extrapolated} is false:
+
+<<numeric-setting>>=
+xmod <- rda(dune ~ Management * A1, data = dune.env)
+range(dune.env$A1)
+within.sc <- ordicontrasts(xmod, "Management",
+                             newdata = data.frame(A1 = 5))
+within.sc
+@
+
+Values outside that range are allowed, but are flagged. Here
+\code{A1 = 12.5} lies above the observed maximum, so every displayed
+profile has \code{Extrapolated = TRUE}:
+
+<<extrapolation>>=
+outside.sc <- ordicontrasts(xmod, "Management",
+                              newdata = data.frame(A1 = 12.5))
+outside.sc
+@
+
+These results rely on extending the fitted relationship beyond the
+observed data, so they should be interpreted cautiously.
+
+Transformations retain the settings used in the fitted model. For
+example, a polynomial fitted with \code{poly()} keeps the same basis
+when comparisons are made at the mean of \code{A1}:
+
+<<fitted-transformations>>=
+pmod <- rda(dune ~ Management + poly(A1, 2), data = dune.env)
+ordicomparisons(pmod, "Management", comparison = "HF - BF = 0",
+               newdata = "mean", permutations = perm)
+@
+
+Similarly, \code{scale()} reuses its fitted centre and scale. Fixed
+expressions such as \code{I(A1\textasciicircum{}2)} are evaluated as written. These
+settings are kept even when a subset of the data was used for fitting.
+
+\section{Accounting for other variables and restricting permutations}
+
+Original \code{Condition()} terms are retained in every comparison test.
+Here moisture is partialled out before management comparisons are
+tested in correspondence analysis:
+
+<<cca-condition>>=
+cmod <- cca(dune ~ Management + Condition(Moisture), data = dune.env)
+ordicomparisons(cmod, "Management", comparison = "reference",
+            reference = "BF", permutations = perm)
+@
+
+Permutation restrictions can be supplied in any form accepted by
+vegan's permutation tests. A predefined permutation matrix,
+as used throughout this vignette, is particularly useful because it is
+reused for all rows. Alternatively, \code{strata} restricts
+permutations to blocks:
+
+<<strata-example,eval=false>>=
+ordicomparisons(imod, "treatment", comparison = "trt.vs.ctrl",
+            reference = "control", permutations = 99,
+            strata = idat$block)
+@
+
+The \code{parallel} argument is passed to \code{permutest.cca()}. At
+present, comparisons are processed one after another. If parallel
+processing is requested, it applies to the permutations within each
+test. An integer gives the number of workers; an existing socket
+cluster may also be supplied. Tests run serially by default, unless
+the user has changed the \code{mc.cores} option.
+
+\section{Comparisons for CCA, distance-based RDA, and PERMANOVA}
+
+The user interface is shared by RDA, CCA, and distance-based RDA. The
+meaning of inertia follows the fitted method: variance for RDA,
+chi-square inertia for CCA, and squared-distance inertia for dbRDA. CCA
+also uses its weighted chi-square geometry in constructing the
+comparison test.
+
+<<dbrda>>=
+dmod <- dbrda(dune ~ Management + A1, data = dune.env,
+              distance = "bray")
+ordicomparisons(dmod, "Management", comparison = "reference",
+            reference = "BF", permutations = perm)
+@
+
+For PERMANOVA, the default return value of \code{adonis2()} remains its
+ANOVA table. Request \code{return = "model"} when fitting if comparisons
+will be needed afterwards:
+
+<<adonis-model>>=
+afit <- adonis2(dune ~ Management + A1, data = dune.env,
+                method = "bray", return = "model")
+ordicomparisons(afit, "Management", comparison = "trt.vs.ctrl",
+            reference = "BF", permutations = perm)
+@
+
+Retaining the model requires more memory than returning the usual
+\code{adonis2()} table, so it must be requested explicitly. With
+non-Euclidean dissimilarities, the tests use the same treatment of
+negative eigenvalues as \code{dbrda()}. Their results describe differences
+in the fitted dissimilarity representation; they do not estimate changes
+in the abundance of individual species.
+
+\section{Requesting comparisons through ANOVA}
+
+You can also request these comparisons through \code{anova()} using
+\code{by = "contrast"}. This uses the same calculations as
+\code{ordicomparisons()} and returns the results in an ANOVA table:
+
+<<anova-bridge>>=
+anova(mod, by = "contrast", variable = "Management",
+      comparison = "reference", reference = "BF",
+      permutations = perm)
+@
+
+The result uses the familiar \code{anova.cca()} layout. The full
+\code{ordicomparisons()} interface is preferable
+when reference populations, grouped or cross-group comparisons, or
+adjustments for multiple testing are needed. Use \code{ordicontrasts()}
+to inspect profiles before writing custom expressions. Existing \code{by = "onedf"}
+tests have a different
+purpose: they are sequential tests of the columns produced by the
+factor coding. Their meaning can therefore change with the chosen
+factor coding.
+
+\section{Current limitations and result attributes}
+
+These comparisons use the ordinary pseudo-$F$ statistic. The modified-$F$
+option available in \code{adonis2()} and \code{anova.cca()} supports
+overall group tests; it does not yet support these contrast-specific tests.
+
+The following restrictions currently apply:
+
+\begin{itemize}
+  \item exactly one focal factor is named in \code{variable};
+  \item the model must have been fitted with the formula interface and
+    must not contain redundant explanatory variables (an aliased
+    constraint matrix);
+  \item character expressions must be linear and have zero on the
+    right-hand side;
+  \item ratios between fitted levels, nonlinear functions,
+    inequalities, equivalence regions, and non-zero null values are not
+    supported;
+  \item factor levels and interaction cells needed for a comparison
+    must be represented well enough in the data to estimate the requested
+    differences;
+  \item separate tests use separate contrast-specific null models, even
+    though they share a permutation matrix.
+\end{itemize}
+
+The returned object retains information useful for checking an
+analysis. For example:
+
+<<attributes>>=
+names(attributes(pw))
+attr(pw, "control")
+attr(pw, "extrapolation")
+attr(pw, "contrasts")
+@
+
+The \code{contrasts} attribute contains the \code{ordicontrasts()} object
+used to define the comparisons, including its reference profiles and
+averaging settings. Its \code{Profile} column identifies the displayed
+rows, and its \code{profile.matrix} attribute retains their model-matrix
+representation. The \code{comparison.matrices} attribute of the test
+result contains these rows under \code{profiles} and the rows defining
+the tested differences under \code{comparisons}. This information can
+help check an analysis or develop new methods. Most users can specify
+their comparisons through the function arguments without editing these
+matrices.
+
+\appendix
+\section{How the comparison tests are calculated}
+
+This appendix describes why the tests are invariant to the coding of a
+factor and how the requested differences define a restricted model.
+The coefficients below describe the fitted model mathematically;
+individual coefficients are not reported or tested.
+
+\subsection{Defining the hypothesis to be tested}
+
+For RDA, write the fitted model as $Y=XB+Z\Gamma+E$, where $X$ contains
+the constraints, $Z$ contains any original conditioning variables, and
+$E$ contains the errors. The intercept is handled separately.
+
+For each factor level $\ell$, \code{ordicontrasts()} builds model-matrix
+rows at that level, keeping the other variables at their reference
+values $v_i$. Its averaged row is
+\[
+  r_\ell^\mathsf{T}=\sum_i w_i x(\ell,v_i)^\mathsf{T},
+  \qquad \sum_i w_i=1.
+\]
+Weights are normalised within each \code{by} group. Model-matrix rows
+are constructed before averaging, so this need not equal evaluating
+the model at the means of the original variables. Fitted settings for
+supported transformations, such as \code{poly()} and \code{scale()},
+are reused rather than recalculated from the reference data.
+
+Put these rows into $R$. A matrix $A$ specifies comparisons between
+them, giving
+\[
+  L=AR, \qquad H_0:LB=0.
+\]
+For example, \code{"b2 - b1 = 0"} supplies weights $(-1,1,0,\ldots)$
+to a row of $A$. Each row sums to zero, so the intercept and common
+centring constants cancel. Reference rows define the hypothesis; the
+test still uses the original fitted observations and response.
+
+For a change of coding represented by an invertible matrix $T$,
+$X^\ast=XT$, $R^\ast=RT$,
+$L^\ast=LT$, and $B^\ast=T^{-1}B$. Hence $L^\ast B^\ast=LB$:
+the hypothesis is unchanged. Intercept shifts introduced by recoding
+also cancel because the comparison weights sum to zero.
+
+\subsection{Separating the requested difference from other model effects}
+
+The fitted QR decomposition gives $X_\perp=Q_X S$ for the centred
+constraints after removing the original conditions. Here $Q_X$ has
+orthonormal columns and $S$ is triangular. Columns of $L$ are placed in
+the same order as the constraints in the decomposition. Writing
+$C=SB$ gives $X_\perp B=Q_X C$, so the hypothesis is
+$(LS^{-1})C=0$. The code computes $S^{-\mathsf{T}}L^\mathsf{T}$ with
+a triangular solve.
+
+A second QR decomposition separates these coordinates into tested
+directions $M$ and null directions $N$. The columns of $N$ satisfy
+$LS^{-1}N=0$. The test conditions on $Z$ and $Q_X N$, and uses
+$Q_X M$ as the tested directions. These two spaces are orthogonal in
+observation space. The tested space is therefore the same under
+equivalent codings, including when its columns are passed to the
+permutation test.
+
+Together the spaces span the full fitted design. The residual inertia
+and degrees of freedom therefore remain those of the full model.
+Let $q$ be the number of tested directions and $df_E$ the residual
+degrees of freedom.
+If $I_{E,0}$ and $I_{E,1}$ are the restricted- and full-model residual
+inertias, the contrast inertia and statistic are
+
+\[
+  I_L=I_{E,0}-I_{E,1}, \qquad
+  F=\frac{I_L/q}{I_{E,1}/df_E}.
+\]
+For one-response RDA, this is the usual partial $F$ statistic, although
+its permutation $p$-value need not equal the parametric $p$-value.
+
+The code projects the transformed response from \code{ordiYbar()}
+directly onto the tested and residual spaces to calculate their inertias.
+The degrees of freedom come from the design. A contrast with zero
+inertia can be tested if the model has residual inertia.
+CCA uses row masses (row totals divided by the
+overall total) to define the projections and uses chi-square inertia.
+These masses are distinct from the averaging weights above. For dbRDA,
+inertia is the trace of the relevant fitted or residual part of
+$G=-\tfrac12 HD^{(2)}H$, where $H$ centres the rows and columns and
+$D^{(2)}$ contains the squared dissimilarities used in fitting. Contributions from negative
+eigenvalues are retained.
+
+\subsection{Calculating the permutation p-value}
+
+The test passes the design and inertia to \code{permutest.cca()} with
+\code{model = "reduced"}.
+This uses vegan's existing procedure for permuting residuals after
+accounting for the conditioning variables. A tested direction that lies
+in the permuted conditioning space contributes zero inertia to that
+permutation. The numerator and denominator are recalculated for each
+permutation. With $K$ permutations,
+\[
+  p=\frac{1+\#\{F^{(b)}\geq F_{obs}\}}{1+K}.
+\]
+The permutation scheme must reflect the sampling or experimental
+design: null-model errors must be exchangeable under the permitted
+permutations, for example within specified blocks. Estimating the other
+model effects means that residual-permutation tests are not automatically
+exact for every design \citep{Winkler2014}.
+
+Separate comparisons reuse one permutation matrix but have their own
+restricted models. With \code{joint = TRUE}, their $L$ rows are combined
+and tested once using their joint rank. Expressions combine these rows
+before testing; they never combine calculated inertias or statistics.
+Only linear comparisons with a zero null are currently supported,
+because these define the restricted linear model used here.
+
+\begin{thebibliography}{1}
+\bibitem[Winkler et al.(2014)]{Winkler2014}
+Winkler AM, Ridgway GR, Webster MA, Smith SM, Nichols TE (2014).
+``Permutation inference for the general linear model.''
+\emph{NeuroImage}, \textbf{92}, 381--397.
+\url{https://doi.org/10.1016/j.neuroimage.2014.01.060}.
+\end{thebibliography}
+
+\end{document}
