@@ -735,7 +735,7 @@ sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 #> Run 0 stress 0.1067169 
 #> Run 1 stress 0.1067169 
 #> ... New best solution
-#> ... Procrustes: rmse 3.595007e-06  max resid 8.848495e-06 
+#> ... Procrustes: rmse 3.595008e-06  max resid 8.848495e-06 
 #> ... Similar to previous best
 #> Run 2 stress 0.107471 
 #> Run 3 stress 0.1067169 
@@ -787,9 +787,11 @@ sol
 #> Species: expanded scores based on ‘dune’ 
 #> 
 ## IGNORE_RDIFF_END
-## Wrap package smacof function mds as engine (you need smacof package)
+## Wrap package smacof function mds as engine: you need to load smacof
+## package first or write smacof::mds instead of plain smacof (but R check
+## does not allow writing so in help pages).
 smacof <- function(dist, y, k, ...) {
-   m <- smacof::mds(delta = dist, init = y, ndim = k, ...)
+   m <- mds(delta = dist, init = y, ndim = k, ...)
    m$points <- m$conf
    m
 }

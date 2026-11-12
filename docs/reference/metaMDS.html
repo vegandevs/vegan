@@ -760,7 +760,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 0 stress 0.1067169 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 1 stress 0.1067169 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... New best solution</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 3.595007e-06  max resid 8.848495e-06 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ... Procrustes: rmse 3.595008e-06  max resid 8.848495e-06 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ... Similar to previous best</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 2 stress 0.107471 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Run 3 stress 0.1067169 </span>
@@ -812,9 +812,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species: expanded scores based on ‘dune’ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
-<span class="r-in"><span><span class="co">## Wrap package smacof function mds as engine (you need smacof package)</span></span></span>
+<span class="r-in"><span><span class="co">## Wrap package smacof function mds as engine: you need to load smacof</span></span></span>
+<span class="r-in"><span><span class="co">## package first or write smacof::mds instead of plain smacof (but R check</span></span></span>
+<span class="r-in"><span><span class="co">## does not allow writing so in help pages).</span></span></span>
 <span class="r-in"><span><span class="va">smacof</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>, <span class="va">y</span>, <span class="va">k</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>   <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">smacof</span><span class="fu">::</span><span class="fu">mds</span><span class="op">(</span>delta <span class="op">=</span> <span class="va">dist</span>, init <span class="op">=</span> <span class="va">y</span>, ndim <span class="op">=</span> <span class="va">k</span>, <span class="va">...</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">mds</span><span class="op">(</span>delta <span class="op">=</span> <span class="va">dist</span>, init <span class="op">=</span> <span class="va">y</span>, ndim <span class="op">=</span> <span class="va">k</span>, <span class="va">...</span><span class="op">)</span></span></span>
 <span class="r-in"><span>   <span class="va">m</span><span class="op">$</span><span class="va">points</span> <span class="op">&lt;-</span> <span class="va">m</span><span class="op">$</span><span class="va">conf</span></span></span>
 <span class="r-in"><span>   <span class="va">m</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
