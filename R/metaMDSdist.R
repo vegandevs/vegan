@@ -1,6 +1,6 @@
 `metaMDSdist` <-
     function (comm, distance = "bray", autotransform = TRUE,
-              noshare = TRUE, trace = 1, commname,
+              noshare = FALSE, trace = 1, commname,
               zerodist = "ignore", distfun = vegdist, ...)
 {
     ## metaMDSdist should get a raw data matrix, but if it gets a
