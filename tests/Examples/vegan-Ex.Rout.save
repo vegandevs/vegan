@@ -867,6 +867,25 @@ Residual      12   1.8004 0.41878
 Total         19   4.2990 1.00000                  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> ## Published omnibus test allowing heterogeneous dispersions
+> data("norwegianShelf")
+> take23 <- norwegianShelf$area %in% c("2", "3")
+> shelf23 <- 1L * (norwegianShelf$comm[take23, , drop = FALSE] > 0L)
+> area23 <- droplevels(norwegianShelf$area[take23])
+> shelf.perms <- rbind(rev(seq_len(nrow(shelf23))),
++                      c(2:nrow(shelf23), 1))
+> adonis2(shelf23 ~ area23, method = "jaccard", binary = TRUE,
++         permutations = shelf.perms, permustat = "modified-F")
+Permutation test for adonis under reduced model
+Modified pseudo-F allowing heterogeneous dispersions
+Permutation: supplied matrix
+Number of permutations: 2
+
+adonis2(formula = shelf23 ~ area23, permutations = shelf.perms, method = "jaccard", binary = TRUE, permustat = "modified-F")
+             Df SumOfSqs      R2      F Pr(>F)
+Model     1.000   1.7613 0.12919 6.8388 0.3333
+Residual 43.659  11.8717 0.87081              
+Total    45.000  13.6330 1.00000              
 > 
 > ### Example of use with strata, for nested (e.g., block) designs.
 > dat <- expand.grid(rep=gl(2,1), NO3=factor(c(0,10)),field=gl(3,1) )
@@ -1095,6 +1114,20 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > qqnorm(permustats(ano), x = qf(ppoints(999), 6*adj, 13*adj, lower.tail=FALSE),
 +   observed = FALSE)
 > abline(0, 1, col = 2) # line of equality
+> 
+> ## omnibus RDA test allowing heterogeneous dispersions
+> rmod <- rda(dune ~ Management, dune.env)
+> anova(rmod, permutations = rbind(20:1, c(2:20, 1)),
++       groups = dune.env$Management, permustat = "modified-F")
+Permutation test for rda under reduced model
+Modified pseudo-F allowing heterogeneous dispersions
+Permutation: supplied matrix
+Number of permutations: 2
+
+Model: rda(formula = dune ~ Management, data = dune.env)
+             Df Variance     F Pr(>F)
+Model     3.000   29.231 2.958 0.3333
+Residual 14.216   54.893             
 > 
 > 
 > 
@@ -3696,11 +3729,11 @@ Manure^4     -0.41603287  0.01661279
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: goodness.metaMDS
+> ### Name: goodness.monoMDS
 > ### Title: Goodness of Fit and Shepard Plot for Nonmetric Multidimensional
 > ###   Scaling
-> ### Aliases: goodness.metaMDS goodness.monoMDS stressplot
-> ###   stressplot.default stressplot.monoMDS
+> ### Aliases: goodness.isoMDS goodness.monoMDS stressplot stressplot.isoMDS
+> ###   stressplot.monoMDS
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -4648,9 +4681,9 @@ Scaling: centring, PC rotation, halfchange scaling
 Species: expanded scores based on ‘dune’ 
 
 > ## IGNORE_RDIFF_END
-> ## Wrap package smacof function mds as engine (you must load smacof first)
+> ## Wrap package smacof function mds as engine (you need smacof package)
 > smacof <- function(dist, y, k, ...) {
-+    m <- mds(delta = dist, init = y, ndim = k, ...)
++    m <- smacof::mds(delta = dist, init = y, ndim = k, ...)
 +    m$points <- m$conf
 +    m
 + }
@@ -5085,6 +5118,29 @@ C-score (species mean): 2.258776
 C.score    2.2588 -27.712 9.2068 8.6902 9.2367 9.6964     0.01 **
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+> 
+> 
+> 
+> cleanEx()
+> nameEx("norwegianShelf")
+> ### * norwegianShelf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norwegianShelf
+> ### Title: Norwegian Continental Shelf Macrofauna Data
+> ### Aliases: norwegianShelf
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data("norwegianShelf")
+> str(norwegianShelf, max.level = 1)
+List of 3
+ $ comm: int [1:101, 1:809] 1 0 0 1 0 0 0 0 0 0 ...
+  ..- attr(*, "dimnames")=List of 2
+ $ area: Factor w/ 5 levels "1","2","3","4",..: 1 1 1 1 1 1 1 1 1 1 ...
+ $ site: int [1:101] 1 2 3 4 5 6 7 8 9 10 ...
 > 
 > 
 > 
@@ -9317,7 +9373,7 @@ Call:
 procrustes(X = ord, Y = ca, choices = 1:19, scaling = "sites") 
 
 Procrustes sum of squares:
--1.421e-14 
+    0 
 
 > ## IGNORE_RDIFF_END
 > 
@@ -9339,7 +9395,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.041 0.294 9.354 0 0 
+Time elapsed:  9.02 0.304 9.343 0 0 
 > grDevices::dev.off()
 null device 
           1 
