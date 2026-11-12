@@ -229,8 +229,10 @@ install.packages('vegan',
   [`alias(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.cca.md)
   : Diagnostic Tools for \[Constrained\] Ordination (CCA, RDA, DCA, CA,
   PCA)
-- [`goodness(`*`<metaMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
-  [`stressplot(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
+- [`goodness(`*`<monoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
+  [`goodness(`*`<isoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
+  [`stressplot(`*`<monoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
+  [`stressplot(`*`<isoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
   : Goodness of Fit and Shepard Plot for Nonmetric Multidimensional
   Scaling
 - [`indpower()`](https://vegandevs.github.io/vegan/reference/indpower.md)

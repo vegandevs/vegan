@@ -39,6 +39,9 @@
   `smacof::mds`. The default engine is still
   [`vegan::monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md),
   and the user experience with this default choice is unchanged.
+  `isoMDS` engine no longer has special handling in `metaMDS`, but
+  support functions `goodness` and `stressplot` still have special
+  methods for `isoMDS` when it is used as a `metaMDS` engine.
 
 - `adonis2` can have `Condition` in formula allowing similar analysis of
   partial models as in `dbrda`.

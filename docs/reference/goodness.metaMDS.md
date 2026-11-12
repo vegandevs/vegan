@@ -1,15 +1,23 @@
 # Goodness of Fit and Shepard Plot for Nonmetric Multidimensional Scaling
 
-Function `goodness.metaMDS` find goodness of fit measure for points in
+Function `goodness` finds goodness of fit measure for points in
 nonmetric multidimensional scaling, and function `stressplot` makes a
-[`Shepard`](https://rdrr.io/pkg/MASS/man/isoMDS.html) diagram.
+[`Shepard`](https://rdrr.io/pkg/MASS/man/isoMDS.html) diagram. The
+functions can be applied for
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) and
+for [`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md)
+when the analytic engine is `monoMDS` or `isoMDS`.
 
 ## Usage
 
 ``` r
-# S3 method for class 'metaMDS'
+# S3 method for class 'monoMDS'
+goodness(object, ...)
+# S3 method for class 'isoMDS'
 goodness(object, dis, ...)
-# Default S3 method
+# S3 method for class 'monoMDS'
+stressplot(object, pch, p.col = "blue", l.col = "red", lwd, ...) 
+# S3 method for class 'isoMDS'
 stressplot(object, dis, pch, p.col = "blue", l.col = "red", 
     lwd = 2, ...)
 ```
@@ -53,9 +61,9 @@ stressplot(object, dis, pch, p.col = "blue", l.col = "red",
 
 ## Details
 
-Function `goodness.metaMDS` finds a goodness of fit statistic for
-observations (points). This is defined so that sum of squared values is
-equal to squared stress. Large values indicate poor fit.
+Function `goodness` finds a goodness of fit statistic for observations
+(points). This is defined so that sum of squared values is equal to
+squared stress. Large values indicate poor fit.
 
 Function `stressplot` draws a Shepard diagram which is a plot of
 ordination distances and monotone or linear fit line against original
@@ -67,19 +75,20 @@ distances. For
 [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md), the
 “linear fit” and \\R^2\\ from “stress type 2” are equal.
 
-Both functions can be used with
-[`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md),
-[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) and
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html). The original
-dissimilarities should not be given for
+The functions can be used with
+[`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md) when
+the `engine` is
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) or
+[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html), and for
+independent
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md). The
+original dissimilarities need not be given for
 [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) or
 [`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md)
 results, but they must given if the result object has no information to
-reconstruct dissmilarities. The functions checks that dissimilarities
-are consistent with current ordination, and refuses to analyse
-inconsistent dissimilarities. Function `goodness.metaMDS` is generic in
-vegan, but you must spell its name completely if the result has no
-`class`.
+reconstruct dissmilarities which may be the case with `isoMDS`. The
+functions checks that dissimilarities are consistent with current
+ordination, and refuses to analyse inconsistent dissimilarities.
 
 ## Value
 
