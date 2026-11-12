@@ -231,7 +231,7 @@ S3method(fitted, radfit.frame)
 S3method(fitted, rda)
 # goodness: vegan
 S3method(goodness, cca)
-S3method(goodness, metaMDS)
+S3method(goodness, isoMDS)
 S3method(goodness, monoMDS)
 # hatvalues: stats
 S3method(hatvalues, cca)
@@ -512,7 +512,7 @@ S3method(SSD, cca)
 # str: utils
 S3method(str, nullmodel)
 # stressplot: vegan
-S3method(stressplot, default)
+S3method(stressplot, isoMDS)
 S3method(stressplot, monoMDS)
 S3method(stressplot, wcmdscale)
 S3method(stressplot, capscale)

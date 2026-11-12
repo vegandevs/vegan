@@ -1,19 +1,25 @@
-\name{goodness.metaMDS}
-\alias{goodness.metaMDS}
+\name{goodness.monoMDS}
+\alias{goodness.isoMDS}
 \alias{goodness.monoMDS}
 \alias{stressplot}
-\alias{stressplot.default}
+\alias{stressplot.isoMDS}
 \alias{stressplot.monoMDS}
 
 \title{Goodness of Fit and Shepard Plot for Nonmetric Multidimensional Scaling }
+
 \description{
-  Function \code{goodness.metaMDS} find goodness of fit measure for
-  points in nonmetric multidimensional scaling, and function
-  \code{stressplot} makes a \code{\link[MASS]{Shepard}} diagram.
+  Function \code{goodness} finds goodness of fit measure for points in
+  nonmetric multidimensional scaling, and function \code{stressplot}
+  makes a \code{\link[MASS]{Shepard}} diagram.  The functions can be
+  applied for \code{\link{monoMDS}} and for \code{\link{metaMDS}} when
+  the analytic engine is \code{monoMDS} or \code{isoMDS}.
 }
+
 \usage{
-\method{goodness}{metaMDS}(object, dis, ...)
-\method{stressplot}{default}(object, dis, pch, p.col = "blue", l.col = "red", 
+\method{goodness}{monoMDS}(object, ...)
+\method{goodness}{isoMDS}(object, dis, ...)
+\method{stressplot}{monoMDS}(object, pch, p.col = "blue", l.col = "red", lwd, ...) 
+\method{stressplot}{isoMDS}(object, dis, pch, p.col = "blue", l.col = "red", 
     lwd = 2, ...) 
 }
 
@@ -32,7 +38,7 @@
   \item{\dots}{Other parameters to functions, e.g. graphical parameters.}
 }
 \details{
-  Function \code{goodness.metaMDS} finds a goodness of fit statistic
+  Function \code{goodness} finds a goodness of fit statistic
   for observations (points).  This is defined so that sum of squared
   values is equal to squared stress.  Large values indicate poor fit.
  
@@ -46,15 +52,16 @@
   \code{\link{monoMDS}}, the \dQuote{linear fit} and \eqn{R^2}{R2}
   from \dQuote{stress type 2} are equal.
 
-  Both functions can be used with \code{\link{metaMDS}},
-  \code{\link{monoMDS}} and \code{\link[MASS]{isoMDS}}.  The original
-  dissimilarities should not be given for \code{\link{monoMDS}} or
+  The functions can be used with \code{\link{metaMDS}} when the
+  \code{engine} is \code{\link{monoMDS}} or \code{\link[MASS]{isoMDS}},
+  and for independent \code{\link{monoMDS}}.  The original
+  dissimilarities need not be given for \code{\link{monoMDS}} or
   \code{\link{metaMDS}} results, but they must given if the result
-  object has no information to reconstruct dissmilarities.  The
+  object has no information to reconstruct dissmilarities which may be
+  the case with \code{isoMDS}.  The
   functions checks that dissimilarities are consistent with current
   ordination, and refuses to analyse inconsistent dissimilarities.
-  Function \code{goodness.metaMDS} is generic in \pkg{vegan}, but you
-  must spell its name completely if the result has no \code{class}.  }
+}
 
 \value{ Function \code{goodness} returns a vector of values. Function
   \code{stressplot} returns invisibly an object with items for
