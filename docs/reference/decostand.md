@@ -111,14 +111,17 @@ data:
   reduces data skewness and compositionality bias. The transformation
   assumes positive values, pseudocounts can be added with the argument
   `pseudocount`. One of the rows/columns is a reference that can be
-  given by `reference` (name of index). The first row/column is used by
-  default (`reference = 1`). Note that this transformation drops one row
-  or column from the transformed output data. The `alr` transformation
-  is defined formally as follows: \$\$alr = \[log\frac{x_1}{x_D}, ...,
+  given by `reference` (name or index). The first row/column is used by
+  default (`reference = 1`). Note that this transformation keeps given
+  `MARGIN` but drops one row/column of the other `MARGIN` from the
+  transformed output data. The `alr` transformation is defined formally
+  as follows: \$\$alr = \[log\frac{x_1}{x_D}, ...,
   log\frac{x\_{D-1}}{x_D}\]\$\$ where the denominator sample \\x_D\\ can
   be chosen arbitrarily. This transformation is often used with pH and
   other chemistry measurements. It is also commonly used as multinomial
-  logistic regression. Default `MARGIN = 1` uses row as the `reference`.
+  logistic regression. Default `MARGIN = 1` returns all rows and uses
+  one column as the `reference` and drops that column from transformed
+  data.
 
 - `clr`: centered log ratio ("clr") transformation proposed by
   Aitchison (1986) and it is used to reduce data skewness and
@@ -148,13 +151,15 @@ data:
   transformation of the zero entries in the original input data. See
   [optspace](https://vegandevs.github.io/vegan/reference/optspace.md)
   for more details. The following parameters can be passed to optspace
-  through decostand: "ropt" NA to guess the rank, or a positive integer
-  as a pre-defined rank (default: 3); "niter" maximum number of
-  iterations allowed (default: 5); "tol" stopping criterion for
-  reconstruction in Frobenius norm (default: 1e-5); "verbose" a logical
+  through decostand: `ropt` NA to guess the rank, or a positive integer
+  as a pre-defined rank (default: 3); `niter` maximum number of
+  iterations allowed (default: 5); `tol` stopping criterion for
+  reconstruction in Frobenius norm (default: 1e-5); `verbose` a logical
   value; TRUE to show progress, FALSE otherwise (default: FALSE);
-  "impute" to switch on/off the matrix completion (default:
-  impute=TRUE).
+  `impute` to select imputation: `"all"` (default) will replace complete
+  matrix with imputed values, `"zero"` will replace only original zeros
+  (and `NA`) with imputed values, and `"none"` will skip imputation
+  leaving original zeros `NA`.
 
 Standardization, as contrasted to transformation, means that the entries
 are transformed relative to other entries.

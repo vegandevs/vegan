@@ -134,18 +134,21 @@ methods for community ecologists.</p>
      bias. The transformation assumes positive values, pseudocounts can
      be added with the argument <code>pseudocount</code>. One of the
      rows/columns is a reference that can be given by <code>reference</code>
-     (name of index). The first row/column is used by default
-     (<code>reference = 1</code>).  Note that this transformation drops one
-     row or column from the transformed output data. The <code>alr</code>
+     (name or index). The first row/column is used by default
+     (<code>reference = 1</code>).  Note that this transformation keeps given
+     <code>MARGIN</code> but drops one row/column of the other <code>MARGIN</code>
+     from the transformed output data. The <code>alr</code>
      transformation is defined formally as follows:
      $$alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]$$
      where the denominator sample \(x_D\) can be chosen
      arbitrarily. This transformation is often used with pH and other
      chemistry measurements. It is also commonly used as multinomial
-     logistic regression. Default <code>MARGIN = 1</code> uses row as the
-     <code>reference</code>.</p></li>
+     logistic regression. Default <code>MARGIN = 1</code> returns all rows and
+     uses one column as the <code>reference</code> and drops that column from
+     transformed data.</p></li>
 <li><p><code>clr</code>: centered log ratio ("clr") transformation proposed by
-     Aitchison (1986) and it is used to reduce data skewness and compositionality bias.
+     Aitchison (1986) and it is used to reduce data skewness and
+     compositionality bias.
      This transformation has frequent applications in microbial ecology
      (see e.g. Gloor et al., 2017). The clr transformation is defined as:
      $$clr = log\frac{x}{g(x)} = log x - log g(x)$$
@@ -174,13 +177,16 @@ methods for community ecologists.</p>
      that result from log transformation of the zero entries in the
      original input data. See <a href="optspace.html">optspace</a> for more details.
      The following parameters can be passed to optspace
-     through decostand: "ropt" NA to guess the rank, or a positive
-     integer as a pre-defined rank (default: 3); "niter" maximum
-     number of iterations allowed (default: 5); "tol" stopping
+     through decostand: <code>ropt</code> NA to guess the rank, or a positive
+     integer as a pre-defined rank (default: 3); <code>niter</code> maximum
+     number of iterations allowed (default: 5); <code>tol</code> stopping
      criterion for reconstruction in Frobenius norm (default: 1e-5);
-     "verbose" a logical value; TRUE to show progress, FALSE otherwise
-     (default: FALSE); "impute" to switch on/off the matrix completion
-     (default: impute=TRUE).</p></li>
+     <code>verbose</code> a logical value; TRUE to show progress, FALSE otherwise
+     (default: FALSE); <code>impute</code> to select imputation: <code>"all"</code>
+     (default) will replace complete matrix with imputed values,
+     <code>"zero"</code> will replace only original zeros (and <code>NA</code>) with
+     imputed values,  and <code>"none"</code> will skip imputation leaving
+     original zeros <code>NA</code>.</p></li>
 </ul><p>Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.</p>
 <p>All methods have a default margin. <code>MARGIN=1</code> means rows (sites
