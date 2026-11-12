@@ -470,9 +470,9 @@ sol2
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 sol
 ## IGNORE_RDIFF_END
-## Wrap package smacof function mds as engine (you must load smacof first)
+## Wrap package smacof function mds as engine (you need smacof package)
 smacof <- function(dist, y, k, ...) {
-   m <- mds(delta = dist, init = y, ndim = k, ...)
+   m <- smacof::mds(delta = dist, init = y, ndim = k, ...)
    m$points <- m$conf
    m
 }
