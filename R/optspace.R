@@ -44,7 +44,7 @@
   eps <- nnz_e / sqrt(m * n)
 
   ## Preprocessing : ropt  : implied rank
-  if (ropt) {
+  if (!is.na(ropt) && ropt) {
     r <- round(ropt)
     if (!is.numeric(ropt) || (!is.numeric(r)) || (r < 1) || (r > m) || (r > n)) {
       stop("value of argument 'ropt' should be integer
@@ -145,6 +145,7 @@
   M <- X %*% S %*% t(Y)
 
   dimnames(M) <- dimnames(x)
+  attr(M, "ropt") <- r
   # Add imputed matrix to the output
   out$M <- M
 
