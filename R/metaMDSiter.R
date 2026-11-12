@@ -170,7 +170,7 @@
     out$engine <- engine
     ## isoMDS has no class (and there may be other engines with no
     ## class): get class from maker to allow methods for this engine
-    if (length(class(out)) == 1 && class(out) == "list") {
+    if (length(class(out)) == 1 && inherits(out, "list")) {
         cls <- strsplit(maker, ":")[[1]] # for pkg::maker
         if(length(cls) > 1)
             cls <- cls[length(cls)]
