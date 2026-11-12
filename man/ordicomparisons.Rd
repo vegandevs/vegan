@@ -47,8 +47,9 @@ by \code{\link[permute]{how}}.}
 \item{parallel}{Number of parallel workers or a predefined socket cluster.}
 \item{adjust}{A multiple-testing method accepted by
 \code{\link[stats]{p.adjust}}.}
-\item{wts}{Optional non-negative profile-averaging weights, or the name of
-a weight column in \code{newdata}.}
+\item{wts}{Optional finite, non-negative profile-averaging weights, or the
+name of a numeric weight column in \code{newdata}. At least one weight in
+each group must be positive.}
 \item{x}{A result returned by \code{ordicomparisons}.}
 \item{\dots}{Arguments passed to methods or to \code{print.data.frame}.}
 }
@@ -86,6 +87,9 @@ and use their displayed row identifiers, such as \code{"b2 - b1 = 0"}.
 The latter syntax also permits cross-group questions such as a
 difference-in-differences. Names containing special characters must be
 backticked. Only linear comparisons with a zero null are supported.
+Numeric contrast weights must be finite and each row must sum to zero.
+Multiplying all weights in a comparison by the same nonzero constant
+leaves the test unchanged.
 
 When \code{by} is present, built-in recipes and factor-level equations are
 repeated within every group. An expression containing profile identifiers
@@ -103,9 +107,13 @@ permutations within a test may run in parallel.
 
 Internally, the fitted-model space allowed under the comparison null is added
 to original \code{Condition} terms, and the complementary tested space is
-passed to vegan's reduced-model permutation machinery. Inertia and
-pseudo-\eqn{F} use the geometry of the fitted method. Coefficients are only an
-internal coordinate system and are neither reported nor tested individually.
+chosen orthogonal to it in the geometry of the fitted method. This keeps
+the observed and permutation statistics independent of equivalent factor
+codings. Degrees of freedom come from the fitted design, and inertia is
+calculated directly from the response projections. A comparison can be
+tested when it explains no inertia, provided the model has nonzero
+residual inertia. Distance-based tests retain signed inertia.
+Coefficients are neither reported nor tested individually.
 
 The permutation design must allow the observations to be exchanged under
 the comparison null hypothesis. Restrictions on permutations should reflect
@@ -125,6 +133,8 @@ when requested. The \code{contrasts} attribute retains the
 its \code{profile.matrix} attribute contains the averaged model-matrix rows.
 The result's \code{comparison.matrices} attribute contains those rows in
 \code{profiles} and the tested comparison matrices in \code{comparisons}.
+The latter use weights scaled to a maximum absolute value of one per
+nonzero comparison.
 Other attributes retain the model, permutation metadata, and diagnostics.
 }
 \examples{

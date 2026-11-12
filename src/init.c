@@ -21,7 +21,8 @@ extern SEXP do_greedyqswap(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_chaoterms(SEXP);
 extern SEXP do_curveball(SEXP, SEXP, SEXP);
 extern SEXP do_decorana(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP do_getF(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP do_getF(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP,
+                    SEXP);
 extern SEXP do_goffactor(SEXP, SEXP, SEXP, SEXP);
 extern SEXP do_backtrack(SEXP, SEXP, SEXP);
 extern SEXP do_minterms(SEXP);
@@ -53,7 +54,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"do_chaoterms", (DL_FUNC) &do_chaoterms, 1},
     {"do_curveball", (DL_FUNC) &do_curveball, 3},
     {"do_decorana",  (DL_FUNC) &do_decorana,  7},
-    {"do_getF",      (DL_FUNC) &do_getF,     10},
+    {"do_getF",      (DL_FUNC) &do_getF,     11},
     {"do_goffactor", (DL_FUNC) &do_goffactor, 4},
     {"do_greedyqswap",(DL_FUNC) &do_greedyqswap, 4},
     {"do_backtrack", (DL_FUNC) &do_backtrack, 3},

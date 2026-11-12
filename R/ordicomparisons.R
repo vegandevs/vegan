@@ -53,8 +53,8 @@ ordicomparisons.default <- function(object, ...)
 #'   explicit population.
 #' @param by Optional model variables defining groups within which profiles
 #'   are averaged.
-#' @param wts Optional non-negative averaging weights or the name of a weight
-#'   column in `newdata`.
+#' @param wts Optional finite, non-negative averaging weights or the name of
+#'   a numeric weight column in `newdata`. Each group needs a positive weight.
 #' @param ... Arguments passed to methods.
 #'
 #' @return A data frame of class `vegan_contrasts` with a `Profile` column
@@ -117,18 +117,20 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
             stop("the focal variable cannot also be a 'by' variable")
     }
 
-    Xs <- model.matrix(object)
-    if (is.list(Xs)) {
-        Z <- Xs$Conditions
-        X <- Xs$Constraints
-    } else {
-        Z <- NULL
-        X <- Xs
-    }
-    if (is.null(X) || !ncol(X))
+    Q <- object$CCA$QR
+    p <- length(object$terminfo$assign)
+    if (is.null(Q) || !p)
         stop("model has no constraints")
-    if (object$CCA$qrank < ncol(X))
+    if (object$CCA$qrank < p)
         stop("comparison profiles are not available for aliased constraint matrices")
+    ## The fitted QR includes conditions before constraints, even when
+    ## no ordination axes or conditioning inertia were retained.
+    design <- qr.X(Q, ncol = length(Q$pivot))
+    if (!is.null(object$rowsum))
+        design <- design / sqrt(object$rowsum)
+    nz <- ncol(design) - p
+    Z <- if (nz) design[, seq_len(nz), drop = FALSE] else NULL
+    X <- design[, nz + seq_len(p), drop = FALSE]
 
     base <- .comparisonNewdata(object, dat, variable, by, newdata)
     meta <- .profileMetadata(object, dat, base, variable, by, newdata, wts)
@@ -265,8 +267,6 @@ ordicomparisons.vegan_contrasts <-
         stop("'joint' must be TRUE or FALSE")
 
     fit <- attr(object, "model")
-    X <- attr(object, "constraints")
-    Z <- attr(object, "conditions")
     R <- attr(object, "profile.matrix")
     ids <- object$Profile
     lev <- attr(object, "levels")
@@ -276,12 +276,19 @@ ordicomparisons.vegan_contrasts <-
         !identical(rownames(R), ids) || length(groups) != nrow(object))
         stop("profile rows no longer match their retained model matrix; ",
              "reconstruct them with 'ordicontrasts()'")
-    perm <- getPermuteMatrix(permutations, nobs(fit), strata = strata)
+    Q <- fit$CCA$QR
+    p <- ncol(R)
+    nz <- length(Q$pivot) - p
+    tested <- Q$rank - p + seq_len(p)
+    pivot <- Q$pivot[tested] - nz
+    triangular <- qr.R(Q)[tested, tested, drop = FALSE]
+    basis <- qr.qy(Q, diag(nrow = nrow(Q$qr), ncol = Q$rank))
+    perm <- getPermuteMatrix(permutations, nrow(basis), strata = strata)
 
     global <- .comparisonUsesProfileRows(comparison, ids, length(lev))
     if (global) {
         A <- .comparisonContrasts(comparison, ids, reference = NULL)
-        L <- A %*% R
+        L <- .comparisonMatrix(A, R)
         specs <- lapply(seq_len(nrow(A)), function(i)
             list(label = rownames(A)[i], L = L[i, , drop = FALSE],
                  group = NULL))
@@ -289,7 +296,7 @@ ordicomparisons.vegan_contrasts <-
         specs <- unlist(lapply(unique(groups), function(g) {
             take <- which(groups == g)
             A <- .comparisonContrasts(comparison, lev, reference)
-            L <- A %*% R[take, , drop = FALSE]
+            L <- .comparisonMatrix(A, R[take, , drop = FALSE])
             group <- if (length(by)) object[take[1L], by, drop = FALSE]
                      else NULL
             lapply(seq_len(nrow(A)), function(i)
@@ -305,7 +312,8 @@ ordicomparisons.vegan_contrasts <-
     }
 
     ans <- lapply(specs, function(spec) {
-        z <- .comparisonTest(fit, X, Z, spec$L, perm, parallel)
+        z <- .comparisonTest(fit, basis, triangular, pivot, spec$L, perm,
+                             parallel)
         tab <- data.frame(Comparison = spec$label, Df = z$df,
                           Inertia = z$inertia,
                           R2 = z$inertia / fit$tot.chi,
@@ -372,7 +380,7 @@ print.vegan_comparisons <- function(x, ...)
     call <- object$call
     if (is.null(call$data))
         stop("no sufficient information to reconstruct model data")
-    dat <- eval(call$data, environment(call$formula), .GlobalEnv)
+    dat <- eval(call$data, environment(object$terms), .GlobalEnv)
     if (inherits(dat, "environment"))
         dat <- as.data.frame(as.list(dat))
     else
@@ -381,7 +389,7 @@ print.vegan_comparisons <- function(x, ...)
         dat <- dat[object$subset, , drop = FALSE]
     if (!is.null(object$na.action))
         dat <- dat[-as.integer(object$na.action), , drop = FALSE]
-    if (nrow(dat) != nobs(object))
+    if (nrow(dat) != nrow(ordiYbar(object, "initial")))
         stop("could not align reconstructed model data with fitted ",
              "observations")
     xlev <- object$terminfo$xlev
@@ -623,9 +631,10 @@ print.vegan_comparisons <- function(x, ...)
         w <- wts
     else
         stop("'wts' must be a numeric vector or a column in 'newdata'")
-    if (anyNA(w) || any(w < 0) || !sum(w) > 0)
+    if (!is.numeric(w) || any(!is.finite(w)) || any(w < 0) || !any(w > 0))
         stop("comparison weights must be non-negative, finite, and sum ",
              "above zero")
+    w <- w / max(w)
     w / sum(w)
 }
 
@@ -640,10 +649,11 @@ print.vegan_comparisons <- function(x, ...)
 #' @keywords internal
 .comparisonFormula <- function(object)
 {
-    labs <- attr(terms(object), "term.labels")
+    Terms <- terms(object)
+    labs <- attr(Terms, "term.labels")
     labs <- labs[!grepl("^Condition\\(", labs)]
-    reformulate(labs, intercept = attr(terms(object), "intercept"),
-                env = environment(formula(object)))
+    reformulate(labs, intercept = attr(Terms, "intercept"),
+                env = environment(Terms))
 }
 
 #' Construct averaged model-matrix rows
@@ -741,12 +751,10 @@ print.vegan_comparisons <- function(x, ...)
 #' @param comparison Comparison specification.
 #' @param keys Names of the quantities being compared.
 #' @param reference Optional reference quantity.
-#' @param zero Require weights to sum to zero.
 #'
 #' @return A named contrast matrix.
 #' @keywords internal
-.comparisonContrasts <- function(comparison, keys, reference = NULL,
-                                 zero = TRUE)
+.comparisonContrasts <- function(comparison, keys, reference = NULL)
 {
     k <- length(keys)
     recipe <- length(comparison) == 1L && is.character(comparison) &&
@@ -789,7 +797,7 @@ print.vegan_comparisons <- function(x, ...)
                       else comparison
     } else if (is.list(comparison)) {
         A <- do.call(rbind, lapply(comparison, function(z)
-            .comparisonContrasts(z, keys, reference, zero)))
+            .comparisonContrasts(z, keys, reference)))
         if (!is.null(names(comparison)) && all(nzchar(names(comparison))))
             rownames(A) <- names(comparison)
     } else if (is.numeric(comparison)) {
@@ -811,9 +819,49 @@ print.vegan_comparisons <- function(x, ...)
         stop("unsupported 'comparison' specification")
     }
     colnames(A) <- keys
-    if (zero && any(abs(rowSums(A)) > sqrt(.Machine$double.eps)))
-        stop("comparison weights must sum to zero")
     A
+}
+
+#' Compile differences between fitted profiles
+#'
+#' Normalise each row of weights and apply it to differences from a
+#' common profile. A shared offset in the profiles then cancels before
+#' multiplication. Changing the overall weight scale leaves the null
+#' hypothesis unchanged.
+#'
+#' @param A Comparison weights with one column per profile.
+#' @param R Matrix of averaged model-matrix rows.
+#'
+#' @return A matrix with one row per comparison.
+#' @seealso .comparisonContrasts, .comparisonTest
+#' @keywords internal
+.comparisonMatrix <- function(A, R)
+{
+    if (!length(A) || any(!is.finite(A)))
+        stop("comparison weights must be finite and non-empty")
+    L <- matrix(0, nrow(A), ncol(R), dimnames = list(rownames(A), colnames(R)))
+    for (i in seq_len(nrow(A))) {
+        a <- A[i, ]
+        take <- which(a != 0)
+        if (!length(take))
+            next
+        a <- a[take]
+        anchor <- which.max(abs(a))
+        a <- a / abs(a[anchor])
+        if (abs(sum(a)) > 8 * .Machine$double.eps * sum(abs(a)))
+            stop("comparison weights must sum to zero")
+        diffs <- sweep(R[take, , drop = FALSE], 2L, R[take[anchor], ], "-")
+        if (any(!is.finite(diffs)))
+            stop("comparison produced non-finite model-matrix differences")
+        x <- drop(crossprod(a, diffs))
+        if (any(!is.finite(x)))
+            stop("comparison produced non-finite model-matrix differences")
+        ## Ignore cancellation at the rounding precision of the product.
+        bound <- drop(crossprod(8 * .Machine$double.eps * abs(a), abs(diffs)))
+        x[abs(x) <= bound] <- 0
+        L[i, ] <- x
+    }
+    L
 }
 
 #' Parse a safe linear comparison expression
@@ -858,6 +906,8 @@ print.vegan_comparisons <- function(x, ...)
         if (length(e) != 3L) stop("invalid linear comparison expression")
         a <- walk(e[[2L]])
         b <- walk(e[[3L]])
+        if (any(!is.finite(c(a$coef, a$constant, b$coef, b$constant))))
+            stop("comparison expressions must have finite weights and constants")
         if (op %in% c("+", "-", "=")) {
             s <- if (op == "+") 1 else -1
             return(list(coef = a$coef + s * b$coef,
@@ -878,7 +928,9 @@ print.vegan_comparisons <- function(x, ...)
              constant = a$constant / b$constant)
     }
     z <- walk(expr)
-    if (abs(z$constant) > sqrt(.Machine$double.eps))
+    if (any(!is.finite(c(z$coef, z$constant))))
+        stop("comparison expressions must have finite weights and constants")
+    if (z$constant != 0)
         stop("only comparisons with a zero right-hand side are supported")
     unname(z$coef)
 }
@@ -904,46 +956,80 @@ print.vegan_comparisons <- function(x, ...)
 
 #' Test one compiled comparison
 #'
-#' Construct null and tested bases, fit a temporary partial constrained model,
-#' and obtain its reduced-model permutation pseudo-F statistic.
+#' Separate the null and tested spaces in the fitted design's orthonormal
+#' coordinates. Use QR projections to calculate inertia before passing the
+#' test to the reduced-model permutation machinery.
 #'
 #' @param object Original constrained ordination model.
-#' @param X Constraint matrix.
-#' @param Z Original condition matrix.
+#' @param basis Orthonormal basis of the fitted design, with conditions first.
+#' @param triangular Constraint block of the fitted triangular QR factor.
+#' @param pivot Order of the constraint columns in `triangular`.
 #' @param L Compiled comparison matrix.
 #' @param permutations Shared permutation matrix.
 #' @param parallel Parallel-processing specification.
 #'
 #' @return A list of test statistics.
+#' @seealso .comparisonMatrix, permutest.cca
 #' @keywords internal
-.comparisonTest <- function(object, X, Z, L, permutations, parallel)
+.comparisonTest <- function(object, basis, triangular, pivot, L, permutations,
+                            parallel)
 {
-    tol <- sqrt(.Machine$double.eps)
-    if (!nrow(L) || max(abs(L)) <= tol)
+    if (!any(L != 0))
         stop("comparison has rank zero")
-    ql <- qr(t(L), tol = tol)
-    rank <- ql$rank
-    Q <- qr.Q(ql, complete = TRUE)
-    M <- Q[, seq_len(rank), drop = FALSE]
-    N <- if (rank < ncol(X)) Q[, (rank + 1L):ncol(X), drop = FALSE]
-         else matrix(numeric(), nrow = ncol(X), ncol = 0L)
-    X1 <- X %*% M
-    X0 <- if (ncol(N)) X %*% N else NULL
-    Z0 <- if (is.null(Z)) X0 else if (is.null(X0)) Z else cbind(Z, X0)
-    fit <- suppressMessages(ordConstrained(ordiYbar(object, "initial"),
-                                           X = X1, Z = Z0, method = "pass"))
-    if (is.null(fit$CCA) || fit$CCA$qrank != rank)
-        stop("comparison is not estimable in the fitted model")
-    if (is.null(fit$CA) || fit$CA$rank == 0)
+    if (nrow(basis) - ncol(basis) - 1L < 1L)
         stop("comparison test has no residual degrees of freedom")
-    fit$call <- object$call
-    fit$adjust <- object$adjust
+
+    ## If the residualised constraints are Qx R, the hypothesis in Qx
+    ## coordinates is L R^-1. Use a triangular solve, respecting pivoting.
+    U <- backsolve(triangular, t(L[, pivot, drop = FALSE]), transpose = TRUE)
+    if (any(!is.finite(U)))
+        stop("comparison is not estimable at the scale of the fitted design")
+    size <- apply(abs(U), 2L, max)
+    nonzero <- size > 0
+    if (!any(nonzero))
+        stop("comparison has rank zero")
+    U <- sweep(U[, nonzero, drop = FALSE], 2L, size[nonzero], "/")
+    rotation <- qr(U, tol = sqrt(.Machine$double.eps))
+    rank <- rotation$rank
+    constraints <- ncol(basis) - nrow(triangular) + seq_len(nrow(triangular))
+    rotated <- basis[, constraints, drop = FALSE] %*%
+        qr.Q(rotation, complete = TRUE)
+    tested <- seq_len(rank)
+    Z0 <- cbind(basis[, -constraints, drop = FALSE],
+                rotated[, -tested, drop = FALSE])
+    Q <- qr(cbind(Z0, rotated[, tested, drop = FALSE]))
+    QZ <- if (ncol(Z0)) qr(Z0) else NULL
+
+    Y <- ordiYbar(object, "initial")
+    qty <- qr.qty(Q, Y)
+    tol <- nrow(Y) * .Machine$double.eps
+    if (inherits(object, "dbrda")) {
+        inertia <- diag(qr.qty(Q, t(qty)))
+        min.residual <- tol * norm(Y, "F")
+    } else {
+        inertia <- rowSums(qty^2)
+        min.residual <- tol^2 * sum(inertia)
+    }
+    contrast <- sum(inertia[ncol(Z0) + tested])
+    residual <- sum(inertia[seq.int(Q$rank + 1L, nrow(Y))])
+    ## A perfectly fitted response can leave a round-off-sized residual.
+    if (!is.finite(residual) || abs(residual) <= min.residual)
+        stop("comparison test has zero or non-finite residual inertia")
+
+    ## Only the design QR and inertia are needed by permutest.cca().
+    ## The ranks describe design spaces regardless of the response inertia.
+    fit <- list(Ybar = Y, call = object$call, method = object$method,
+                inertia = object$inertia, comparison = TRUE,
+                CCA = list(rank = rank, qrank = rank, QR = Q, tot.chi = contrast),
+                CA = list(tot.chi = residual))
+    if (!is.null(QZ))
+        fit$pCCA <- list(rank = QZ$rank, QR = QZ)
+    class(fit) <- class(object)
     tst <- permutest.cca(fit, permutations = permutations,
                          model = "reduced", parallel = parallel)
     eps <- sqrt(.Machine$double.eps)
     p <- (sum(tst$F.perm >= tst$F.0 - eps) + 1) / (tst$nperm + 1)
-    list(df = rank, inertia = fit$CCA$tot.chi,
-         F = unname(tst$F.0), p = p)
+    list(df = rank, inertia = contrast, F = unname(tst$F.0), p = p)
 }
 
 #' Convert comparisons to an ANOVA table

@@ -488,3 +488,150 @@ expect_error(ordicomparisons(mod, "Management",
 expect_error(ordicomparisons(mod, "Management", comparison = "HF - BF = 1",
                          permutations = per),
              info = "nonzero null is rejected")
+
+### Predictor units do not change the fitted space of a comparison
+set.seed(71)
+units.dat <- data.frame(g = factor(rep(LETTERS[1:3], each = 8)),
+                        x = rnorm(24), z = rnorm(24))
+units.y <- with(units.dat, rnorm(24) + as.integer(g) + x + 2*z + (g == "B")*z)
+units.per <- shuffleSet(nrow(units.dat), 19)
+units.mod <- rda(units.y ~ g * (x + z), data = units.dat)
+units.large <- transform(units.dat, x = 1e8*x, z = 1e8*z)
+units.large.mod <- rda(units.y ~ g * (x + z), data = units.large)
+units.cmp <- ordicomparisons(units.mod, "g", comparison = "B - A = 0",
+                             permutations = units.per)
+units.large.cmp <- ordicomparisons(units.large.mod, "g",
+                                   comparison = "B - A = 0",
+                                   permutations = units.per)
+units.lm <- lm(units.y ~ g * (x + z), data = units.dat)
+units.profiles <- model.matrix(delete.response(terms(units.lm)),
+    data.frame(g = factor(c("A", "B"), levels = levels(units.dat$g)),
+               x = mean(units.dat$x), z = mean(units.dat$z)))
+units.L <- units.profiles[2L, ] - units.profiles[1L, ]
+units.Q <- qr(units.lm)
+units.U <- backsolve(qr.R(units.Q), units.L[units.Q$pivot], transpose = TRUE)
+units.F <- drop(units.L %*% coef(units.lm))^2 /
+    (sum(units.U^2) * sigma(units.lm)^2)
+expect_equal(units.large.cmp$F, units.F, tolerance = 1e-8)
+expect_equal(units.large.cmp$Inertia, units.cmp$Inertia, tolerance = 1e-8)
+expect_equal(units.large.cmp[["Pr(>F)"]], units.cmp[["Pr(>F)"]])
+
+### The same permutations give the same result under equivalent coding
+set.seed(71)
+coding.per <- shuffleSet(nrow(dune), 199)
+coding.cmp <- ordicomparisons(mod, "Management", permutations = coding.per)
+for (coding in c("contr.sum", "contr.helmert")) {
+    old <- options(contrasts = c(coding, "contr.poly"))
+    coding.mod <- rda(dune ~ Management, data = dune.env)
+    options(old)
+    coding.alt <- ordicomparisons(coding.mod, "Management",
+                                   permutations = coding.per)
+    expect_equal(coding.alt$F, coding.cmp$F, tolerance = 1e-8)
+    expect_equal(coding.alt[["Pr(>F)"]], coding.cmp[["Pr(>F)"]])
+}
+expect_equal(cca.sum.cmp[["Pr(>F)"]], ccacmp[["Pr(>F)"]],
+             info = "partial CCA p-values are invariant to coding")
+
+### Swapping whole habitats can put the tested direction in the permuted null
+set.seed(9)
+swap.dat <- expand.grid(replicate = seq_len(5), g = factor(c("A", "B")),
+                        habitat = factor(1:2))
+swap.y <- rnorm(nrow(swap.dat)) + with(swap.dat, 0.3*(g == "B" & habitat == 1))
+swap.per <- rbind(c(11:20, 1:10), c(11:20, 10:1), c(12:20, 11, 1:10))
+swap.mod <- rda(swap.y ~ g * habitat, data = swap.dat)
+swap.cmp <- ordicomparisons(swap.mod, "g", by = "habitat",
+                            permutations = swap.per)
+expect_true(all(swap.cmp$F > 0))
+expect_equal(swap.cmp[["Pr(>F)"]], rep(1/4, 2),
+             info = "fully conditioned permutations contribute zero inertia")
+
+### Degrees of freedom describe the design even when axes are filtered
+zero.dat <- data.frame(g = factor(rep(LETTERS[1:3], each = 4)))
+zero.y <- rep(c(-2, -1, 1, 2), 3) + rep(c(0, 0, 5), each = 4)
+zero.per <- shuffleSet(nrow(zero.dat), 19)
+zero.mod <- rda(zero.y ~ g, data = zero.dat)
+zero.cmp <- ordicomparisons(zero.mod, "g", comparison = "B - A = 0",
+                            permutations = zero.per)
+expect_equal(zero.cmp$Df, 1)
+expect_equal(zero.cmp$F, 0, tolerance = 1e-12)
+expect_equal(zero.cmp[["Pr(>F)"]], 1)
+exact.y <- rep(c(-2, 1, 3), each = 4)
+exact.mod <- suppressMessages(rda(exact.y ~ g, data = zero.dat))
+expect_error(ordicomparisons(exact.mod, "g", permutations = zero.per),
+             pattern = "zero or non-finite residual inertia")
+small.y <- 1e-8 * units.y
+small.mod <- suppressMessages(rda(small.y ~ g * (x + z), data = units.dat))
+small.cmp <- ordicomparisons(small.mod, "g", comparison = "B - A = 0",
+                             permutations = units.per)
+expect_equal(small.cmp$F, units.cmp$F, tolerance = 1e-8)
+expect_equal(small.cmp[["Pr(>F)"]], units.cmp[["Pr(>F)"]])
+
+### Negative conditioning inertia still requires a partial permutation test
+set.seed(26)
+signed.dat <- data.frame(g = factor(rep(c("A", "B"), each = 6)),
+                         x = rep(c(-1, 1), 6))
+signed.n <- nrow(signed.dat)
+signed.g <- as.numeric(signed.dat$g) - 1.5
+signed.x <- signed.dat$x
+signed.G <- diag(signed.n) - 1/signed.n -
+    1.25 * tcrossprod(signed.x) / drop(crossprod(signed.x)) +
+    0.2 * tcrossprod(signed.g) / drop(crossprod(signed.g))
+signed.D <- as.dist(sqrt(outer(diag(signed.G), diag(signed.G), "+") -
+                         2*signed.G))
+signed.per <- shuffleSet(signed.n, 99)
+signed.mod <- dbrda(signed.D ~ g + x, data = signed.dat)
+signed.partial <- dbrda(signed.D ~ g + Condition(x), data = signed.dat)
+signed.retained <- adonis2(signed.D ~ g + Condition(x), data = signed.dat,
+                           return = "model")
+signed.res <- function(Q, G) qr.resid(Q, t(qr.resid(Q, G)))
+signed.E <- signed.res(qr(matrix(signed.x)), signed.G)
+signed.F <- apply(signed.per, 1L, function(i) {
+    x <- qr.resid(qr(matrix(signed.x[i])), signed.g)
+    E <- signed.E[i, i]
+    if (sum(x^2) < .Machine$double.eps)
+        return(0)
+    Q <- qr(matrix(x))
+    inertia <- sum(diag(qr.fitted(Q, E)))
+    residual <- sum(diag(signed.res(Q, E)))
+    (signed.n - 3) * inertia / residual
+})
+signed.p <- (1 + sum(signed.F >= 1.2 - sqrt(.Machine$double.eps))) /
+    (1 + nrow(signed.per))
+for (signed.fit in list(signed.mod, signed.partial, signed.retained)) {
+    signed.cmp <- ordicomparisons(signed.fit, "g", permutations = signed.per)
+    expect_equal(signed.cmp$F, 1.2, tolerance = 1e-8)
+    expect_equal(signed.cmp[["Pr(>F)"]], signed.p)
+}
+
+### Equivalent weight scales, finite weights and a strictly zero null
+for (weight.scale in c(1e-12, 1e250)) {
+    weight.cmp <- ordicomparisons(units.mod, "g",
+        comparison = weight.scale * c(-1, 1, 0), permutations = units.per)
+    expect_equal(weight.cmp$F, units.cmp$F, tolerance = 1e-8)
+    expect_equal(weight.cmp[["Pr(>F)"]], units.cmp[["Pr(>F)"]])
+}
+expect_error(ordicomparisons(units.mod, "g", comparison = c(-Inf, Inf, 0),
+                             permutations = units.per), pattern = "finite")
+expect_error(ordicomparisons(units.mod, "g", comparison = "B - A = 1e-10",
+                             permutations = units.per), pattern = "zero")
+expect_error(ordicomparisons(units.mod, "g", comparison = c(0, 1e-12, 0),
+                             permutations = units.per), pattern = "sum to zero")
+weight.sc <- ordicontrasts(units.mod, "g")
+heavy.sc <- ordicontrasts(units.mod, "g", wts = rep(1e308, nrow(units.dat)))
+expect_equal(attr(heavy.sc, "profile.matrix"), attr(weight.sc, "profile.matrix"))
+expect_error(ordicontrasts(units.mod, "g", wts = c(Inf, rep(1, 23))),
+             pattern = "finite")
+
+### Shared covariate offsets cancel before applying comparison weights
+set.seed(19)
+offset.dat <- transform(units.dat, x = sample(-12:11))
+offset.y <- with(offset.dat, 2*as.integer(g) + 0.1*x + rnorm(nrow(offset.dat)))
+offset.mod <- rda(offset.y ~ g + x, data = offset.dat)
+offset.large <- transform(offset.dat, x = x + 1e15)
+offset.large.mod <- rda(offset.y ~ g + x, data = offset.large)
+offset.cmp <- ordicomparisons(offset.mod, "g", comparison = "deviation",
+                              permutations = units.per)
+offset.large.cmp <- ordicomparisons(offset.large.mod, "g",
+    comparison = "deviation", permutations = units.per)
+expect_equal(offset.large.cmp$F, offset.cmp$F, tolerance = 1e-8)
+expect_equal(offset.large.cmp[["Pr(>F)"]], offset.cmp[["Pr(>F)"]])

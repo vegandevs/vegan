@@ -259,9 +259,10 @@ ordicomparisons(
 @
 
 You can instead supply numeric weights. A named numeric vector
-defines one comparison; a matrix defines one comparison per row. There
-must be one weight for every fitted factor level, and the weights in
-each row must sum to zero.
+defines one comparison and a matrix defines one comparison per row.
+Supply one finite weight for every fitted factor level. The weights
+in each row must sum to zero. Multiplying all weights in a row by the
+same nonzero constant leaves the test unchanged.
 
 <<numeric-comparisons>>=
 cmat <- rbind(
@@ -514,9 +515,10 @@ ordicomparisons(balanced.sc, comparison = "b3 - b1 = 0",
 
 \medskip
 
-Use \code{wts} when rows should contribute unequally. It can be a
-non-negative numeric vector or the name of a column in \code{newdata}.
-Weights are normalised within each \code{by} group. In this artificial
+Use \code{wts} when rows should contribute unequally. Supply finite,
+non-negative numbers or name a numeric column in \code{newdata}.
+Weights are normalised within each \code{by} group, and each group
+needs at least one positive weight. In this artificial
 example, heath observations receive twice the averaging weight of grass
 observations:
 
@@ -751,28 +753,28 @@ also cancel because the comparison weights sum to zero.
 
 \subsection{Separating the requested difference from other model effects}
 
-For a comparison that can be estimated, let $\operatorname{rank}(L)=q$.
-A complete QR decomposition of $L^\mathsf{T}$ gives $Q=[M\;N]$, an
-orthonormal basis in coefficient coordinates. The first $q$ columns
-form $M$ and the remaining columns form $N$. The columns of $N$
-span the null space of $L$, so
-\[
-  LN=0, \qquad LB=0 \Longleftrightarrow B=N\Theta
-\]
-for some $\Theta$. Thus $XN$ represents every constraint effect allowed
-under the null hypothesis. The temporary ordination uses $XM$ as its
-constraints and conditions on $[Z,XN]$. Although $M$ and $N$ are
-orthogonal, $XM$ and $XN$ need not be; the contribution of $XM$ is
-assessed after accounting for the conditioning variables.
+The fitted QR decomposition gives $X_\perp=Q_X S$ for the centred
+constraints after removing the original conditions. Here $Q_X$ has
+orthonormal columns and $S$ is triangular. Columns of $L$ are placed in
+the same order as the constraints in the decomposition. Writing
+$C=SB$ gives $X_\perp B=Q_X C$, so the hypothesis is
+$(LS^{-1})C=0$. The code computes $S^{-\mathsf{T}}L^\mathsf{T}$ with
+a triangular solve.
 
-The full fitted model is recovered because
-\[
-  \operatorname{col}([Z,XN,XM])=\operatorname{col}([Z,X]),
-\]
-where $\operatorname{col}$ denotes the space spanned by the columns.
-The residual inertia and degrees of freedom therefore remain those
-of the full model. If $I_{E,0}$ and $I_{E,1}$ are the restricted- and
-full-model residual inertias, the contrast inertia and statistic are
+A second QR decomposition separates these coordinates into tested
+directions $M$ and null directions $N$. The columns of $N$ satisfy
+$LS^{-1}N=0$. The test conditions on $Z$ and $Q_X N$, and uses
+$Q_X M$ as the tested directions. These two spaces are orthogonal in
+observation space. The tested space is therefore the same under
+equivalent codings, including when its columns are passed to the
+permutation test.
+
+Together the spaces span the full fitted design. The residual inertia
+and degrees of freedom therefore remain those of the full model.
+Let $q$ be the number of tested directions and $df_E$ the residual
+degrees of freedom.
+If $I_{E,0}$ and $I_{E,1}$ are the restricted- and full-model residual
+inertias, the contrast inertia and statistic are
 
 \[
   I_L=I_{E,0}-I_{E,1}, \qquad
@@ -781,23 +783,27 @@ full-model residual inertias, the contrast inertia and statistic are
 For one-response RDA, this is the usual partial $F$ statistic, although
 its permutation $p$-value need not equal the parametric $p$-value.
 
-The temporary fit reuses the already transformed response through
-\code{ordiYbar()} and \code{ordConstrained()} with \code{method = "pass"}.
-The transformation and inertia calculation match the fitted method.
-CCA uses row masses (row totals
-divided by the overall total) and chi-square inertia; these masses are
-distinct from the averaging weights above. For dbRDA, inertia is the
-trace of the relevant fitted or residual part of
+The code projects the transformed response from \code{ordiYbar()}
+directly onto the tested and residual spaces to calculate their inertias.
+The degrees of freedom come from the design. A contrast with zero
+inertia can be tested if the model has residual inertia.
+CCA uses row masses (row totals divided by the
+overall total) to define the projections and uses chi-square inertia.
+These masses are distinct from the averaging weights above. For dbRDA,
+inertia is the trace of the relevant fitted or residual part of
 $G=-\tfrac12 HD^{(2)}H$, where $H$ centres the rows and columns and
 $D^{(2)}$ contains the squared dissimilarities used in fitting. Contributions from negative
 eigenvalues are retained.
 
 \subsection{Calculating the permutation p-value}
 
-The fit is passed to \code{permutest.cca()} with \code{model = "reduced"}.
+The test passes the design and inertia to \code{permutest.cca()} with
+\code{model = "reduced"}.
 This uses vegan's existing procedure for permuting residuals after
-accounting for the conditioning variables. The numerator and denominator
-are recalculated for each permutation. With $K$ permutations,
+accounting for the conditioning variables. A tested direction that lies
+in the permuted conditioning space contributes zero inertia to that
+permutation. The numerator and denominator are recalculated for each
+permutation. With $K$ permutations,
 \[
   p=\frac{1+\#\{F^{(b)}\geq F_{obs}\}}{1+K}.
 \]

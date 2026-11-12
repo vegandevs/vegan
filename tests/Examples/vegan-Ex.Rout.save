@@ -948,8 +948,8 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
   Comparison Df   Inertia         R2         F N.Perm Pr(>F)
-1    HF - BF  1 0.1617135 0.03761634 0.9141421     99   0.52
-2    NM - BF  1 0.5662456 0.13171500 3.2009023     99   0.06
+1    HF - BF  1 0.1617135 0.03761634 0.9141421     99   0.48
+2    NM - BF  1 0.5662456 0.13171500 3.2009023     99   0.02
 3    SF - BF  1 0.4016624 0.09343111 2.2705377     99   0.06
 > 
 > 
@@ -5610,11 +5610,11 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
   Comparison Df   Inertia         R2        F N.Perm Pr(>F)
-1    HF - BF  1  3.811531 0.04530866 1.131558     99   0.29
-2    NM - BF  1  7.802778 0.09275364 2.316469     99   0.04
-3    SF - BF  1  7.926396 0.09422312 2.353168     99   0.03
+1    HF - BF  1  3.811531 0.04530866 1.131558     99   0.30
+2    NM - BF  1  7.802778 0.09275364 2.316469     99   0.01
+3    SF - BF  1  7.926396 0.09422312 2.353168     99   0.02
 4    NM - HF  1 10.405557 0.12369354 3.089175     99   0.01
-5    SF - HF  1  7.140615 0.08488234 2.119887     99   0.03
+5    SF - HF  1  7.140615 0.08488234 2.119887     99   0.02
 6    SF - NM  1 12.484793 0.14840996 3.706453     99   0.01
 > ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
 +             permutations = 99)
@@ -5622,9 +5622,9 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
   Comparison Df  Inertia         R2        F N.Perm Pr(>F)
-1    HF - BF  1 3.811531 0.04530866 1.131558     99   0.30
+1    HF - BF  1 3.811531 0.04530866 1.131558     99   0.26
 2    NM - BF  1 7.802778 0.09275364 2.316469     99   0.02
-3    SF - BF  1 7.926396 0.09422312 2.353168     99   0.04
+3    SF - BF  1 7.926396 0.09422312 2.353168     99   0.02
 > ordicomparisons(mod, "Management",
 +             comparison = c("HF - BF = 0", "(NM + SF) / 2 - BF = 0"),
 +             permutations = 99)
@@ -5632,8 +5632,8 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
               Comparison Df  Inertia         R2        F N.Perm Pr(>F)
-1            HF - BF = 0  1 3.811531 0.04530866 1.131558     99   0.29
-2 (NM + SF) / 2 - BF = 0  1 6.988174 0.08307023 2.074631     99   0.03
+1            HF - BF = 0  1 3.811531 0.04530866 1.131558     99   0.30
+2 (NM + SF) / 2 - BF = 0  1 6.988174 0.08307023 2.074631     99   0.05
 > 
 > sc <- ordicontrasts(mod, "Management")
 > sc
@@ -5654,14 +5654,14 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
    Comparison Df  Inertia         R2        F N.Perm Pr(>F)
-1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99   0.28
+1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99   0.33
 > ordicomparisons(sc, comparison = "(b3 + b4) / 2 - b1 = 0",
 +             permutations = 99)
 Permutation comparisons for constrained ordination
 Variable: Management 
 
               Comparison Df  Inertia         R2        F N.Perm Pr(>F)
-1 (b3 + b4) / 2 - b1 = 0  1 6.988174 0.08307023 2.074631     99   0.06
+1 (b3 + b4) / 2 - b1 = 0  1 6.988174 0.08307023 2.074631     99   0.04
 > 
 > set.seed(42)
 > idat <- expand.grid(treatment = factor(c("control", "low", "high"),
@@ -5692,11 +5692,11 @@ Variable: treatment
 
   habitat     Comparison Df    Inertia         R2          F N.Perm Pr(>F)
 1   grass  low - control  1 2.67647059 0.10924370 1.73150106     99   0.17
-2   grass high - control  1 1.35294118 0.05522209 0.87526427     99   0.39
-3   grass     high - low  1 0.34313725 0.01400560 0.22198732     99   0.86
-4   heath  low - control  1 0.06862745 0.00280112 0.04439746     99   0.99
-5   heath high - control  1 1.15686275 0.04721889 0.74841438     99   0.49
-6   heath     high - low  1 1.12745098 0.04601841 0.72938689     99   0.52
+2   grass high - control  1 1.35294118 0.05522209 0.87526427     99   0.52
+3   grass     high - low  1 0.34313725 0.01400560 0.22198732     99   0.91
+4   heath  low - control  1 0.06862745 0.00280112 0.04439746     99   1.00
+5   heath high - control  1 1.15686275 0.04721889 0.74841438     99   0.52
+6   heath     high - low  1 1.12745098 0.04601841 0.72938689     99   0.56
 > 
 > 
 > 
@@ -5737,7 +5737,7 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
    Comparison Df  Inertia         R2        F N.Perm Pr(>F)
-1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99   0.29
+1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99    0.3
 > 
 > ## Compare management types at the mean observed value of A1
 > mean.sc <- ordicontrasts(mod, "Management", newdata = "mean")
@@ -5760,7 +5760,7 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
    Comparison Df  Inertia         R2        F N.Perm Pr(>F)
-1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99    0.3
+1 b2 - b1 = 0  1 3.811531 0.04530866 1.131558     99   0.26
 > 
 > ## Keep the fitted polynomial basis when comparing at the mean of A1
 > pmod <- rda(dune ~ Management + poly(A1, 2), data = dune.env)
@@ -5770,7 +5770,7 @@ Permutation comparisons for constrained ordination
 Variable: Management 
 
    Comparison Df  Inertia         R2       F N.Perm Pr(>F)
-1 HF - BF = 0  1 3.457631 0.04110176 1.01739     99   0.39
+1 HF - BF = 0  1 3.457631 0.04110176 1.01739     99   0.34
 > 
 > set.seed(42)
 > idat <- expand.grid(treatment = factor(c("control", "low", "high"),
@@ -5801,11 +5801,11 @@ Variable: treatment
 
   habitat     Comparison Df    Inertia         R2          F N.Perm Pr(>F)
 1   grass  low - control  1 2.67647059 0.10924370 1.73150106     99   0.17
-2   grass high - control  1 1.35294118 0.05522209 0.87526427     99   0.39
-3   grass     high - low  1 0.34313725 0.01400560 0.22198732     99   0.86
-4   heath  low - control  1 0.06862745 0.00280112 0.04439746     99   0.99
-5   heath high - control  1 1.15686275 0.04721889 0.74841438     99   0.49
-6   heath     high - low  1 1.12745098 0.04601841 0.72938689     99   0.52
+2   grass high - control  1 1.35294118 0.05522209 0.87526427     99   0.52
+3   grass     high - low  1 0.34313725 0.01400560 0.22198732     99   0.91
+4   heath  low - control  1 0.06862745 0.00280112 0.04439746     99   1.00
+5   heath high - control  1 1.15686275 0.04721889 0.74841438     99   0.52
+6   heath     high - low  1 1.12745098 0.04601841 0.72938689     99   0.56
 > 
 > fixed <- ordicontrasts(imod, "treatment", newdata = data.frame(
 +     habitat = factor("heath", levels = levels(idat$habitat))))

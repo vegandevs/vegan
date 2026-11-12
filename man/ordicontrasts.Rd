@@ -29,8 +29,9 @@ reference profile, and a data frame supplies an explicit population or
 setting.}
 \item{by}{Optional model variables defining groups within which profiles
 are averaged.}
-\item{wts}{Optional non-negative averaging weights, or the name of a weight
-column in \code{newdata}.}
+\item{wts}{Optional finite, non-negative averaging weights, or the name of
+a numeric weight column in \code{newdata}. At least one weight in each
+group must be positive.}
 \item{x}{A \code{"vegan_contrasts"} object.}
 \item{\dots}{Arguments passed to methods or to \code{print.data.frame}.}
 }
