@@ -96,6 +96,19 @@ expect_false(any(within.sc$Extrapolated))
 expect_true(all(outside.sc$Extrapolated))
 expect_identical(unname(attr(within.sc, "extrapolation")), FALSE)
 expect_identical(unname(attr(outside.sc, "extrapolation")), TRUE)
+
+### Extrapolation only concerns fitted numeric predictors
+extra.dat <- transform(dune.env, unused = NA_real_, weight = 1)
+extra.fit <- rda(dune ~ Management * A1, data = extra.dat)
+expect_silent(extra.sc <- ordicontrasts(extra.fit, "Management"))
+expect_identical(attr(extra.sc, "extrapolation"), c(A1 = FALSE))
+extra.grid <- data.frame(A1 = c(5, 12.5),
+                         Moisture = factor(c("1", "4")),
+                         unused = c(100, 200), weight = c(2, 3))
+expect_silent(extra.by <- ordicontrasts(extra.fit, "Management",
+                 by = "Moisture", newdata = extra.grid, wts = "weight"))
+expect_identical(extra.by$Extrapolated, rep(c(FALSE, TRUE), each = 4L))
+expect_identical(attr(extra.by, "extrapolation"), c(A1 = TRUE))
 expect_true(all(mean.sc$N.reference == 1L))
 expect_identical(attr(mean.sc, "averaged"), character())
 expect_match(attr(mean.sc, "population"), "mean-or-mode reference profile")
@@ -327,9 +340,10 @@ for (transformation in c("poly", "scale", "square")) {
 
 ### Wrappers and qualified calls keep the fitted transformation parameters
 wrapped.formulas <- list(
-    scale = tY ~ trt * I(scale(x)) + season,
+    scale = tY ~ trt * I(scale(x, TRUE, TRUE)) + season,
     poly = tY ~ trt * I(poly(x, 2)[, 1]) + season,
-    qualified = tY ~ trt * base::scale(x) + season)
+    qualified = tY ~ trt * base::scale(x, TRUE, TRUE) + season,
+    positional = tY ~ trt * scale(x, TRUE, TRUE) + season)
 for (transformation in names(wrapped.formulas)) {
     if (transformation == "poly") {
         tbasis <- poly(tdata$x, 2)
@@ -354,6 +368,24 @@ for (transformation in names(wrapped.formulas)) {
     expect_equal(actual$F, expected$F, tolerance = 1e-8)
     expect_equal(actual[["Pr(>F)"]], expected[["Pr(>F)"]])
 }
+
+### Reuse the evaluated model-frame column for top-level scaling
+scale.count <- 0L
+count.scale.input <- function(x) {
+    scale.count <<- scale.count + 1L
+    x
+}
+counted.fit <- rda(tY ~ trt * scale(count.scale.input(x), FALSE, TRUE) +
+                       season, data = tdata)
+expect_identical(scale.count, 1L)
+uncentred.fit <- rda(tY ~ trt * scale(x, center = FALSE, scale = TRUE) +
+                         season, data = tdata)
+counted.cmp <- ordicomparisons(counted.fit, "trt", newdata = tgrid,
+                               permutations = tper)
+uncentred.cmp <- ordicomparisons(uncentred.fit, "trt", newdata = tgrid,
+                                 permutations = tper)
+expect_equal(counted.cmp$F, uncentred.cmp$F, tolerance = 1e-8)
+expect_equal(counted.cmp[["Pr(>F)"]], uncentred.cmp[["Pr(>F)"]])
 
 ### A data column named scale does not hide the transformation function
 named.data <- tdata
@@ -412,6 +444,19 @@ expect_error(ordicomparisons(old.transformed, "trt", newdata = "mean",
              info = "older transformed fits must be refitted to retain their basis")
 
 ### Conditions and CCA use weighted chi-square geometry
+### Aliased conditioning columns can move behind the constraints in the QR
+pivot.fit <- suppressMessages(rda(dune ~ Management +
+    Condition(A1 + I(2 * A1)), data = dune.env))
+pivot.ref <- rda(dune ~ Management + Condition(A1), data = dune.env)
+pivot.sc <- ordicontrasts(pivot.fit, "Management")
+pivot.ref.sc <- ordicontrasts(pivot.ref, "Management")
+expect_identical(attr(pivot.sc, "profile.matrix"),
+                 attr(pivot.ref.sc, "profile.matrix"))
+pivot.cmp <- ordicomparisons(pivot.sc, permutations = per)
+pivot.ref.cmp <- ordicomparisons(pivot.ref.sc, permutations = per)
+expect_equal(pivot.cmp$F, pivot.ref.cmp$F, tolerance = 1e-8)
+expect_equal(pivot.cmp[["Pr(>F)"]], pivot.ref.cmp[["Pr(>F)"]])
+
 ccamod <- cca(dune ~ Management + Condition(Moisture), data = dune.env)
 ccacmp <- ordicomparisons(ccamod, "Management", permutations = per)
 expect_equal(nrow(ccacmp), 6L)

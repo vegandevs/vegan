@@ -92,6 +92,8 @@ supply fitted prediction information, usually through a
 
 Attributes retain these averaged design rows, the fitted
 model, reference data, weights, grouping, and extrapolation diagnostics.
+The extrapolation flag checks numeric predictors against their ranges in
+the fitted data.
 Because the displayed rows and retained design rows form one object, do not
 edit or subset a profile table before passing it to \code{ordicomparisons};
 reconstruct the desired profiles instead.

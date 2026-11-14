@@ -107,7 +107,8 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
                       variable))
     if (!is.factor(dat[[variable]]))
         stop(gettextf("variable '%s' must be a factor", variable))
-    if (!variable %in% all.vars(.comparisonFormula(object)))
+    predictors <- all.vars(.comparisonFormula(object))
+    if (!variable %in% predictors)
         stop(gettextf("variable '%s' is not a constraint in the model",
                       variable))
     if (!is.null(by)) {
@@ -123,17 +124,16 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
         stop("model has no constraints")
     if (object$CCA$qrank < p)
         stop("comparison profiles are not available for aliased constraint matrices")
-    ## The fitted QR includes conditions before constraints, even when
-    ## no ordination axes or conditioning inertia were retained.
-    design <- qr.X(Q, ncol = length(Q$pivot))
-    if (!is.null(object$rowsum))
-        design <- design / sqrt(object$rowsum)
-    nz <- ncol(design) - p
-    Z <- if (nz) design[, seq_len(nz), drop = FALSE] else NULL
-    X <- design[, nz + seq_len(p), drop = FALSE]
+    ## Undo pivoting to recover the original constraint column names.
+    nz <- length(Q$pivot) - p
+    columns <- colnames(Q$qr)[order(Q$pivot)][nz + seq_len(p)]
 
-    base <- .comparisonNewdata(object, dat, variable, by, newdata)
-    meta <- .profileMetadata(object, dat, base, variable, by, newdata, wts)
+    base <- .comparisonNewdata(predictors, dat, variable, by, newdata)
+    meta <- .profileMetadata(predictors, dat, base, variable, by, newdata, wts)
+    covariates <- intersect(intersect(names(base), names(dat)), predictors)
+    covariates <- Filter(function(x) is.numeric(x) && any(!is.na(x)),
+                         dat[covariates])
+    ranges <- lapply(covariates, range, na.rm = TRUE)
     base$..vegan_rowid <- seq_len(nrow(base))
     split <- .comparisonSplit(base, by)
     lev <- levels(dat[[variable]])
@@ -141,9 +141,9 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     refs <- lapply(seq_along(split), function(g) {
         gd <- split[[g]]
         gw <- .comparisonWeights(gd, wts, nrow(base))
-        R <- .comparisonRows(object, gd, variable, lev, gw, colnames(X))
+        R <- .comparisonRows(object, gd, variable, lev, gw, columns)
         group <- if (length(by)) gd[1L, by, drop = FALSE] else NULL
-        extra <- .comparisonExtrapolation(gd, dat, variable)
+        extra <- .comparisonExtrapolation(gd, ranges)
         list(reference.rows = R, group = group, weights = gw,
              n.reference = nrow(gd), extrapolated = any(extra),
              extrapolation = extra)
@@ -173,8 +173,6 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     attr(out, "reference.data") <- base[, names(base) != "..vegan_rowid",
                                          drop = FALSE]
     attr(out, "model") <- object
-    attr(out, "constraints") <- X
-    attr(out, "conditions") <- Z
     attr(out, "variable") <- variable
     attr(out, "levels") <- lev
     attr(out, "by") <- by
@@ -184,8 +182,7 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     attr(out, "averaged") <- meta$averaged
     attr(out, "fixed") <- meta$fixed
     attr(out, "weight.label") <- meta$weights
-    attr(out, "extrapolation") <- .comparisonExtrapolation(base, dat,
-                                                             variable)
+    attr(out, "extrapolation") <- .comparisonExtrapolation(base, ranges)
     class(out) <- c("vegan_contrasts", "data.frame")
     out
 }
@@ -404,7 +401,7 @@ print.vegan_comparisons <- function(x, ...)
 #' Select the observed population, build a balanced or mean-or-mode reference
 #' grid, or validate explicit new data.
 #'
-#' @param object A fitted constrained ordination model.
+#' @param predictors Names of the predictors in the constraint formula.
 #' @param dat Analysis data.
 #' @param variable Focal factor name.
 #' @param by Optional grouping variables.
@@ -412,7 +409,7 @@ print.vegan_comparisons <- function(x, ...)
 #'
 #' @return A data frame used to construct counterfactual model matrices.
 #' @keywords internal
-.comparisonNewdata <- function(object, dat, variable, by, newdata)
+.comparisonNewdata <- function(predictors, dat, variable, by, newdata)
 {
     if (is.null(newdata))
         return(dat)
@@ -420,8 +417,7 @@ print.vegan_comparisons <- function(x, ...)
         choices <- c("balanced", "mean")
         if (length(newdata) != 1L || !newdata %in% choices)
             stop("character 'newdata' must be \"balanced\" or \"mean\"")
-        vars <- unique(c(setdiff(all.vars(.comparisonFormula(object)),
-                                 variable), by))
+        vars <- unique(c(setdiff(predictors, variable), by))
         if (newdata == "mean")
             return(.comparisonMeanData(dat, vars, by))
         vals <- lapply(vars, function(v) {
@@ -505,7 +501,7 @@ print.vegan_comparisons <- function(x, ...)
 #' user-supplied values, and weights used to construct comparison profiles. The
 #' metadata is printed with the profile table and retained for diagnostics.
 #'
-#' @param object A fitted constrained ordination model.
+#' @param predictors Names of the predictors in the constraint formula.
 #' @param dat Analysis data.
 #' @param base Reference data used for profile construction.
 #' @param variable Focal factor name.
@@ -515,9 +511,9 @@ print.vegan_comparisons <- function(x, ...)
 #'
 #' @return A list of printable metadata.
 #' @keywords internal
-.profileMetadata <- function(object, dat, base, variable, by, newdata, wts)
+.profileMetadata <- function(predictors, dat, base, variable, by, newdata, wts)
 {
-    vars <- setdiff(all.vars(.comparisonFormula(object)), c(variable, by))
+    vars <- setdiff(predictors, c(variable, by))
     fixed <- character()
     if (is.null(newdata)) {
         population <- paste0("fitted analysis data (", nrow(base), " rows)")
@@ -582,19 +578,16 @@ print.vegan_comparisons <- function(x, ...)
 #' levels are validated later by `model.matrix()` and its fitted `xlev`.
 #'
 #' @param newdata Comparison population.
-#' @param dat Analysis data.
-#' @param variable Focal factor name.
+#' @param ranges Named list of observed ranges for numeric predictors.
 #'
 #' @return A named logical vector for numeric model variables.
 #' @keywords internal
-.comparisonExtrapolation <- function(newdata, dat, variable)
+.comparisonExtrapolation <- function(newdata, ranges)
 {
-    vars <- intersect(setdiff(names(newdata), variable), names(dat))
-    vars <- vars[vapply(dat[vars], is.numeric, logical(1))]
-    setNames(vapply(vars, function(v) {
-        r <- range(dat[[v]], na.rm = TRUE)
+    vapply(names(ranges), function(v) {
+        r <- ranges[[v]]
         any(newdata[[v]] < r[1L] | newdata[[v]] > r[2L], na.rm = TRUE)
-    }, logical(1)), vars)
+    }, logical(1))
 }
 
 #' Split a comparison population by moderators

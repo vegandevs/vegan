@@ -132,8 +132,8 @@ a factor level with the other variables averaged or held fixed. Since
 the response contains several species, there is no single response
 estimate to display for each row. \code{N.reference} is the number of reference
 rows used in the average, not a new sample size, and
-\code{Extrapolated} warns if supplied numeric values fall outside the
-fitted data range.
+\code{Extrapolated} flags values of numeric predictors outside their
+ranges in the fitted data.
 
 In the \code{pw} results, each row is a separate test. The columns have
 the following meanings:

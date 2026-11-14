@@ -146,9 +146,16 @@ ordiPredictTerms <- function(mf, data)
 {
     Terms <- attr(mf, "terms")
     vars <- attr(Terms, "predvars")
-    if (!is.null(vars))
-        attr(Terms, "predvars") <- ordiPredictCall(vars, data,
-                                                  environment(Terms))
+    if (!is.null(vars)) {
+        original <- attr(Terms, "variables")
+        for (i in seq_along(mf)) {
+            j <- i + 1L
+            vars[j] <- list(ordiPredictCall(vars[[j]], data, environment(Terms),
+                                            value = mf[[i]],
+                                            original = original[[j]]))
+        }
+        attr(Terms, "predvars") <- vars
+    }
     Terms
 }
 
@@ -162,34 +169,43 @@ ordiPredictTerms <- function(mf, data)
 #' @param expr A prediction expression from a fitted terms object.
 #' @param data The original model data, before row selection.
 #' @param env The formula environment.
+#' @param value The fitted model-frame column, when available.
+#' @param original The original call, before `makepredictcall()` rewrites it.
 #'
 #' @return The expression with fitted transformation settings included.
 #' @seealso ordiPredictTerms, stats::makepredictcall
 #' @keywords internal
-ordiPredictCall <- function(expr, data, env)
+ordiPredictCall <- function(expr, data, env, value = NULL, original = expr)
 {
     if (missing(expr))
         return(quote(expr = ))
     if (!is.call(expr))
         return(expr)
-    for (i in seq_along(expr)[-1L])
-        expr[i] <- list(ordiPredictCall(expr[[i]], data, env))
     head <- expr[[1L]]
     name <- if (is.symbol(head)) as.character(head)
             else if (is.call(head) &&
+                     is.symbol(head[[1L]]) &&
                      as.character(head[[1L]]) %in% c("::", ":::"))
                 as.character(head[[3L]]) else ""
-    if (!name %in% c("scale", "scale.default", "poly", "ns", "bs"))
-        return(expr)
-    ## Function lookup skips non-function data columns with the same name.
-    fun <- if (is.symbol(head))
-        eval(substitute(base::get(NAME, mode = "function"), list(NAME = name)),
-             envir = data, enclos = env)
-    else eval(head, envir = data, enclos = env)
+    fun <- NULL
+    if (name %in% c("scale", "scale.default", "poly", "ns", "bs")) {
+        ## Function lookup skips non-function data columns with the same name.
+        fun <- if (is.symbol(head))
+            eval(substitute(base::get(NAME, mode = "function"), list(NAME = name)),
+                 envir = data, enclos = env)
+        else eval(head, envir = data, enclos = env)
+    }
     is.scale <- identical(fun, base::scale) || identical(fun, base::scale.default)
     is.poly <- identical(fun, stats::poly)
-    is.spline <- name %in% c("ns", "bs") &&
+    is.spline <- !is.null(fun) && name %in% c("ns", "bs") &&
                  identical(environmentName(environment(fun)), "splines")
+    if (is.scale) {
+        ## makepredictcall() can append named settings to positional arguments.
+        ## Start with the original call so matching does not use them twice.
+        expr <- match.call(fun, if (is.null(value)) expr else original)
+    }
+    for (i in seq_along(expr)[-1L])
+        expr[i] <- list(ordiPredictCall(expr[[i]], data, env))
     if (!is.scale && !is.poly && !is.spline)
         return(expr)
     ## Keep fitted calls already supplied by model.frame(). Only their
@@ -211,7 +227,8 @@ ordiPredictCall <- function(expr, data, env)
     }
     if (is.spline && all(c("knots", "Boundary.knots") %in% names(expr)))
         return(expr)
-    value <- eval(expr, envir = data, enclos = env)
+    if (is.null(value))
+        value <- eval(expr, envir = data, enclos = env)
     if (is.scale) {
         if (!is.null(center <- attr(value, "scaled:center")))
             expr$center <- center
