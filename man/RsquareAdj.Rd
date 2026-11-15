@@ -15,6 +15,7 @@ Adjusted R-square
   The functions finds the adjusted R-square.
 }
 \usage{
+RsquareAdj(x, ...)
 \method{RsquareAdj}{default}(x, n, m, ...)
 \method{RsquareAdj}{rda}(x, ...)
 \method{RsquareAdj}{cca}(x, permutations = 1000, ...)

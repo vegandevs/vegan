@@ -17,8 +17,9 @@
 }
 
 \usage{
-\method{scores}{default}(x, choices,
-    display=c("sites", "species", "both"), tidy = FALSE, ...)
+scores(x, ...)
+\method{scores}{default}(x, choices, display=c("sites", "species", "both"),
+  tidy = FALSE, ...)
 }
 
 \arguments{

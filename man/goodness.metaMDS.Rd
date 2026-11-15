@@ -18,6 +18,8 @@
 \usage{
 \method{goodness}{monoMDS}(object, ...)
 \method{goodness}{isoMDS}(object, dis, ...)
+
+stressplot(object, ...)
 \method{stressplot}{monoMDS}(object, pch, p.col = "blue", l.col = "red", lwd, ...) 
 \method{stressplot}{isoMDS}(object, dis, pch, p.col = "blue", l.col = "red", 
     lwd = 2, ...) 
