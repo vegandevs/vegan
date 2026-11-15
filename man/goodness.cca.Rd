@@ -19,6 +19,7 @@
 
 }
 \usage{
+goodness(object, ...)
 \method{goodness}{cca}(object, choices, display = c("species", "sites"),
     model = c("CCA", "CA"), summarize = FALSE, addprevious = FALSE, ...)
 inertcomp(object, display = c("species", "sites"),

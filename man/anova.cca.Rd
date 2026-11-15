@@ -24,6 +24,8 @@
      by = NULL, model = c("reduced", "direct", "full"),
      parallel = getOption("mc.cores"), strata = NULL,
      cutoff = 1, scope = NULL)
+
+permutest(x, ...)
 \method{permutest}{cca}(x, permutations = how(nperm = 99),
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
      strata = NULL, parallel = getOption("mc.cores"), ...)

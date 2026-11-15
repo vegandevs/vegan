@@ -28,10 +28,14 @@
 
 \usage{
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
-   batchsize = NA, parallel = getOption("mc.cores"), ...)
+  statistic = "statistic", alternative = c("two.sided", "less", "greater"),
+  batchsize = NA, parallel = getOption("mc.cores"), ...)
+
 \method{summary}{oecosimu}(object, ...)
+
 \method{as.ts}{oecosimu}(x, ...)
+
+toCoda(x)
 \method{toCoda}{oecosimu}(x)
 }
 

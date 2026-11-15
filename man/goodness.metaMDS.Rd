@@ -13,6 +13,8 @@
 }
 \usage{
 \method{goodness}{metaMDS}(object, dis, ...)
+
+stressplot(object, ...)
 \method{stressplot}{default}(object, dis, pch, p.col = "blue", l.col = "red", 
     lwd = 2, ...) 
 }

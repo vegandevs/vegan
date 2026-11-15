@@ -19,13 +19,16 @@
   These are all very popular ordination techniques in community ecology.
 }
 \usage{
+cca(...)
 \method{cca}{formula}(formula, data, na.action = na.fail, subset = NULL,
   ...)
+\method{cca}{default}(X, Y, Z, ...)
+ca(X, ...)
+
+rda(...)
 \method{rda}{formula}(formula, data, scale=FALSE, na.action = na.fail,
   subset = NULL, ...)
-\method{cca}{default}(X, Y, Z, ...)
 \method{rda}{default}(X, Y, Z, scale=FALSE, ...)
-ca(X, ...)
 pca(X, scale=FALSE, ...)
 }
 

@@ -26,9 +26,11 @@
 }
 
 \usage{
+envfit(...)
 \method{envfit}{default}(ord, env, permutations = 999, strata = NULL, 
    choices=c(1,2),  display = "sites", w, na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
+
 \method{plot}{envfit}(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
    axis = FALSE, p.max = NULL, col = "blue", bg, add = TRUE, ...)
 \method{scores}{envfit}(x, display, choices, arrow.mul=1, tidy = FALSE, ...)

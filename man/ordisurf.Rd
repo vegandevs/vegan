@@ -11,6 +11,7 @@
   plots the result on ordination diagram.
 }
 \usage{
+ordisurf(...)
 \method{ordisurf}{default}(x, y, choices = c(1, 2), knots = 10,
          family = "gaussian", col = "red", isotropic = TRUE,
          thinplate = TRUE, bs = "tp", fx = FALSE, add = FALSE,

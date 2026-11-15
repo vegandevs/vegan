@@ -26,6 +26,7 @@ Add or Replace Species Scores in Distance-Based Ordination
 }
 
 \usage{
+sppscores(object)
 sppscores(object) <- value
 }
 
@@ -80,7 +81,8 @@ sppscores(object) <- value
 \value{
 
   Replacement function adds the species scores or replaces the old
-  scores in the ordination object.
+  scores in the ordination object. Accessor function \code{sppscores}
+  is not implemented (yet).
 
 }
 

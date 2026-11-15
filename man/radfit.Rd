@@ -39,12 +39,15 @@
   Zipf and Zipf-Mandelbrot models of species abundance.
 }
 \usage{
+radfit(x, ...)
 \method{radfit}{default}(x, ...)
+
 rad.null(x, family=poisson, ...)
 rad.preempt(x, family = poisson, ...)
 rad.lognormal(x, family = poisson, ...)
 rad.zipf(x, family = poisson, ...)
 rad.zipfbrot(x, family = poisson, ...)
+
 \method{predict}{radline}(object, newdata, total, ...)
 \method{plot}{radfit}(x, BIC = FALSE, legend = TRUE, ...)
 \method{plot}{radfit.frame}(x, order.by, BIC = FALSE, model, legend = TRUE,
@@ -53,6 +56,7 @@ rad.zipfbrot(x, family = poisson, ...)
 radlattice(x, BIC = FALSE, ...)
 \method{lines}{radfit}(x, ...)
 \method{points}{radfit}(x, ...)
+
 as.rad(x)
 \method{plot}{rad}(x, xlab = "Rank", ylab = "Abundance", log = "y", ...)
 }
