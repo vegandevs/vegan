@@ -11,21 +11,20 @@
   plots the result on ordination diagram.
 }
 \usage{
-\method{ordisurf}{default}(x, y, choices = c(1, 2),
-    what = c("contour", "surface"), knots = 10,
-         family = "gaussian", col = "red", isotropic = TRUE,
-         bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
-         nlevels = 10, levels, npoints = 51, labcex = 0.6,
-         bubble = FALSE, cex = 1, select = TRUE, method = "REML",
-         gamma = 1, plot = TRUE, lwd.cl = par("lwd"), ...)
-
+ordisurf(...)
+\method{ordisurf}{default}(x, y, choices = c(1, 2), what = c("contour", "surface"),
+  knots = 10, family = "gaussian", col = "red", isotropic = TRUE,
+  bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
+  nlevels = 10, levels, npoints = 51, labcex = 0.6, bubble = FALSE,
+  cex = 1, select = TRUE, method = "REML", gamma = 1, plot = TRUE,
+  lwd.cl = par("lwd"), ...)
 \method{ordisurf}{formula}(formula, data, ...)
 
 \method{calibrate}{ordisurf}(object, newdata, ...)
 
-\method{plot}{ordisurf}(x, what = c("contour","surface", "persp","gam"),
-     add = FALSE, bubble = FALSE, col = "red", alpha = 1, cex = 1,
-     nlevels = 10, levels, labcex = 0.6, lwd.cl = par("lwd"), \dots)
+\method{plot}{ordisurf}(x, what = c("contour", "surface", "persp", "gam"),
+  add = FALSE, bubble = FALSE, col = "red", alpha = 1, cex = 1,
+  nlevels = 10, levels, labcex = 0.6, lwd.cl = par("lwd"), \dots)
 }
 
 \arguments{

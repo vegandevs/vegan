@@ -27,15 +27,18 @@
 }
 
 \usage{
+envfit(...)
 \method{envfit}{default}(ord, env, permutations = 999, strata = NULL, 
    choices=c(1,2),  display = "sites", w, na.rm = FALSE, ...)
 \method{envfit}{formula}(formula, data, ...)
+
 \method{plot}{envfit}(x, choices = c(1,2), labels, arrow.mul, at = c(0,0), 
    axis = FALSE, p.max = NULL, r2.min = NULL, col = "blue", bg,
    optimize = FALSE, cex = 1, add = TRUE, ...)
 \method{scores}{envfit}(x, display = c("vectors", "factors"), choices,
    arrow.mul=1, tidy = FALSE, ...)
 \method{names}{envfit}(x) <- value
+
 vectorfit(X, P, permutations = 0, strata = NULL, w, ...)
 factorfit(X, P, permutations = 0, strata = NULL, w, ...)
 }
