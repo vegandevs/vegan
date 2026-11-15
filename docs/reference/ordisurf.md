@@ -6,15 +6,14 @@ the result on ordination diagram.
 ## Usage
 
 ``` r
+ordisurf(...)
 # Default S3 method
-ordisurf(x, y, choices = c(1, 2),
-    what = c("contour", "surface"), knots = 10,
-         family = "gaussian", col = "red", isotropic = TRUE,
-         bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
-         nlevels = 10, levels, npoints = 51, labcex = 0.6,
-         bubble = FALSE, cex = 1, select = TRUE, method = "REML",
-         gamma = 1, plot = TRUE, lwd.cl = par("lwd"), ...)
-
+ordisurf(x, y, choices = c(1, 2), what = c("contour", "surface"),
+  knots = 10, family = "gaussian", col = "red", isotropic = TRUE,
+  bs = "tp", fx = FALSE, add = FALSE, display = "sites", w, main,
+  nlevels = 10, levels, npoints = 51, labcex = 0.6, bubble = FALSE,
+  cex = 1, select = TRUE, method = "REML", gamma = 1, plot = TRUE,
+  lwd.cl = par("lwd"), ...)
 # S3 method for class 'formula'
 ordisurf(formula, data, ...)
 
@@ -22,9 +21,9 @@ ordisurf(formula, data, ...)
 calibrate(object, newdata, ...)
 
 # S3 method for class 'ordisurf'
-plot(x, what = c("contour","surface", "persp","gam"),
-     add = FALSE, bubble = FALSE, col = "red", alpha = 1, cex = 1,
-     nlevels = 10, levels, labcex = 0.6, lwd.cl = par("lwd"), ...)
+plot(x, what = c("contour", "surface", "persp", "gam"),
+  add = FALSE, bubble = FALSE, col = "red", alpha = 1, cex = 1,
+  nlevels = 10, levels, labcex = 0.6, lwd.cl = par("lwd"), ...)
 ```
 
 ## Arguments

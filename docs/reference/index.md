@@ -19,9 +19,7 @@
   [`profile(`*`<MOStest>`*`)`](https://vegandevs.github.io/vegan/reference/MOStest.md)
   [`confint(`*`<MOStest>`*`)`](https://vegandevs.github.io/vegan/reference/MOStest.md)
   : Mitchell-Olds and Shaw Test for the Location of Quadratic Extreme
-- [`RsquareAdj(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/RsquareAdj.md)
-  [`RsquareAdj(`*`<rda>`*`)`](https://vegandevs.github.io/vegan/reference/RsquareAdj.md)
-  [`RsquareAdj(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/RsquareAdj.md)
+- [`RsquareAdj()`](https://vegandevs.github.io/vegan/reference/RsquareAdj.md)
   : Adjusted R-square
 - [`SSarrhenius()`](https://vegandevs.github.io/vegan/reference/SSarrhenius.md)
   [`SSgleason()`](https://vegandevs.github.io/vegan/reference/SSarrhenius.md)
@@ -40,7 +38,7 @@
 - [`anosim()`](https://vegandevs.github.io/vegan/reference/anosim.md) :
   Analysis of Similarities
 - [`anova(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/anova.cca.md)
-  [`permutest(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/anova.cca.md)
+  [`permutest()`](https://vegandevs.github.io/vegan/reference/anova.cca.md)
   : Permutation Test for Constrained Correspondence Analysis, Redundancy
   Analysis and Constrained Analysis of Principal Coordinates
 - [`avgdist()`](https://vegandevs.github.io/vegan/reference/avgdist.md)
@@ -64,8 +62,7 @@
   : Indices of beta Diversity
 - [`bgdispersal()`](https://vegandevs.github.io/vegan/reference/bgdispersal.md)
   : Coefficients of Biogeographical Dispersal Direction
-- [`bioenv(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/bioenv.md)
-  [`bioenv(`*`<formula>`*`)`](https://vegandevs.github.io/vegan/reference/bioenv.md)
+- [`bioenv()`](https://vegandevs.github.io/vegan/reference/bioenv.md)
   [`bioenvdist()`](https://vegandevs.github.io/vegan/reference/bioenv.md)
   : Best Subset of Environmental Variables with Maximum (Rank)
   Correlation with Community Dissimilarities
@@ -75,11 +72,9 @@
   [`cIndexKM()`](https://vegandevs.github.io/vegan/reference/cascadeKM.md)
   [`plot(`*`<cascadeKM>`*`)`](https://vegandevs.github.io/vegan/reference/cascadeKM.md)
   : K-means partitioning using a range of values of K
-- [`cca(`*`<formula>`*`)`](https://vegandevs.github.io/vegan/reference/cca.md)
-  [`rda(`*`<formula>`*`)`](https://vegandevs.github.io/vegan/reference/cca.md)
-  [`cca(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/cca.md)
-  [`rda(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/cca.md)
+- [`cca()`](https://vegandevs.github.io/vegan/reference/cca.md)
   [`ca()`](https://vegandevs.github.io/vegan/reference/cca.md)
+  [`rda()`](https://vegandevs.github.io/vegan/reference/cca.md)
   [`pca()`](https://vegandevs.github.io/vegan/reference/cca.md) :
   \[Partial\] \[Constrained\] Correspondence Analysis and Redundancy
   Analysis
@@ -146,8 +141,7 @@
 - [`eigenvals()`](https://vegandevs.github.io/vegan/reference/eigenvals.md)
   [`summary(`*`<eigenvals>`*`)`](https://vegandevs.github.io/vegan/reference/eigenvals.md)
   : Extract Eigenvalues from an Ordination Object
-- [`envfit(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
-  [`envfit(`*`<formula>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
+- [`envfit()`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`plot(`*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`scores(`*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
   [`` `names<-`( ``*`<envfit>`*`)`](https://vegandevs.github.io/vegan/reference/envfit.md)
@@ -169,7 +163,7 @@
   [`lines(`*`<preston>`*`)`](https://vegandevs.github.io/vegan/reference/fisherfit.md)
   : Fit Fisher's Logseries and Preston's Lognormal Model to Abundance
   Data
-- [`goodness(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.cca.md)
+- [`goodness()`](https://vegandevs.github.io/vegan/reference/goodness.cca.md)
   [`inertcomp()`](https://vegandevs.github.io/vegan/reference/goodness.cca.md)
   [`spenvcor()`](https://vegandevs.github.io/vegan/reference/goodness.cca.md)
   [`intersetcor()`](https://vegandevs.github.io/vegan/reference/goodness.cca.md)
@@ -179,8 +173,7 @@
   PCA)
 - [`goodness(`*`<monoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
   [`goodness(`*`<isoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
-  [`stressplot(`*`<monoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
-  [`stressplot(`*`<isoMDS>`*`)`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
+  [`stressplot()`](https://vegandevs.github.io/vegan/reference/goodness.metaMDS.md)
   : Goodness of Fit and Shepard Plot for Nonmetric Multidimensional
   Scaling
 - [`indpower()`](https://vegandevs.github.io/vegan/reference/indpower.md)
@@ -277,7 +270,7 @@
 - [`oecosimu()`](https://vegandevs.github.io/vegan/reference/oecosimu.md)
   [`summary(`*`<oecosimu>`*`)`](https://vegandevs.github.io/vegan/reference/oecosimu.md)
   [`as.ts(`*`<oecosimu>`*`)`](https://vegandevs.github.io/vegan/reference/oecosimu.md)
-  [`toCoda(`*`<oecosimu>`*`)`](https://vegandevs.github.io/vegan/reference/oecosimu.md)
+  [`toCoda()`](https://vegandevs.github.io/vegan/reference/oecosimu.md)
   : Evaluate Statistics with Null Models of Biological Communities
 - [`optspace()`](https://vegandevs.github.io/vegan/reference/optspace.md)
   : optspace: algorithm for matrix reconstruction from a partially
@@ -312,8 +305,7 @@
 - [`ordistep()`](https://vegandevs.github.io/vegan/reference/ordistep.md)
   [`ordiR2step()`](https://vegandevs.github.io/vegan/reference/ordistep.md)
   : Choose a Model by Permutation Tests in Constrained Ordination
-- [`ordisurf(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/ordisurf.md)
-  [`ordisurf(`*`<formula>`*`)`](https://vegandevs.github.io/vegan/reference/ordisurf.md)
+- [`ordisurf()`](https://vegandevs.github.io/vegan/reference/ordisurf.md)
   [`calibrate(`*`<ordisurf>`*`)`](https://vegandevs.github.io/vegan/reference/ordisurf.md)
   [`plot(`*`<ordisurf>`*`)`](https://vegandevs.github.io/vegan/reference/ordisurf.md)
   : Fit and Plot Smooth Surfaces of Variables on Ordination.
@@ -362,9 +354,9 @@
   [`predict(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
   [`predict(`*`<rda>`*`)`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
   [`predict(`*`<dbrda>`*`)`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
-  [`calibrate(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
-  [`coef(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
   [`predict(`*`<decorana>`*`)`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
+  [`calibrate()`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
+  [`coef(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/predict.cca.md)
   : Prediction Tools for \[Constrained\] Ordination (CCA, RDA, DCA, CA,
   PCA)
 - [`procrustes()`](https://vegandevs.github.io/vegan/reference/procrustes.md)
@@ -380,7 +372,7 @@
   : Procrustes Rotation of Two Configurations and PROTEST
 - [`pyrifos`](https://vegandevs.github.io/vegan/reference/pyrifos.md) :
   Response of Aquatic Invertebrates to Insecticide Treatment
-- [`radfit(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/radfit.md)
+- [`radfit()`](https://vegandevs.github.io/vegan/reference/radfit.md)
   [`rad.null()`](https://vegandevs.github.io/vegan/reference/radfit.md)
   [`rad.preempt()`](https://vegandevs.github.io/vegan/reference/radfit.md)
   [`rad.lognormal()`](https://vegandevs.github.io/vegan/reference/radfit.md)
@@ -420,8 +412,8 @@
   [`scores(`*`<hclust>`*`)`](https://vegandevs.github.io/vegan/reference/reorder.hclust.md)
   [`cutreeord()`](https://vegandevs.github.io/vegan/reference/reorder.hclust.md)
   : Reorder a Hierarchical Clustering Tree
-- [`scores(`*`<default>`*`)`](https://vegandevs.github.io/vegan/reference/scores.md)
-  : Get Species or Site Scores from an Ordination
+- [`scores()`](https://vegandevs.github.io/vegan/reference/scores.md) :
+  Get Species or Site Scores from an Ordination
 - [`screeplot(`*`<cca>`*`)`](https://vegandevs.github.io/vegan/reference/screeplot.cca.md)
   [`screeplot(`*`<decorana>`*`)`](https://vegandevs.github.io/vegan/reference/screeplot.cca.md)
   [`screeplot(`*`<prcomp>`*`)`](https://vegandevs.github.io/vegan/reference/screeplot.cca.md)
@@ -461,7 +453,8 @@
   [`summary(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
   [`plot(`*`<poolaccum>`*`)`](https://vegandevs.github.io/vegan/reference/specpool.md)
   : Extrapolated Species Richness in a Species Pool
-- [`` `sppscores<-`() ``](https://vegandevs.github.io/vegan/reference/sppscores.md)
+- [`sppscores()`](https://vegandevs.github.io/vegan/reference/sppscores.md)
+  [`` `sppscores<-`() ``](https://vegandevs.github.io/vegan/reference/sppscores.md)
   : Add or Replace Species Scores in Distance-Based Ordination
 - [`stepacross()`](https://vegandevs.github.io/vegan/reference/stepacross.md)
   : Stepacross as Flexible Shortest Paths or Extended Dissimilarities

@@ -18,6 +18,8 @@ anova(object, ..., permutations = how(nperm=999),
      parallel = getOption("mc.cores"), strata = NULL,
      cutoff = 1, scope = NULL, test = c("permutation", "parametric"),
      permustat = c("pseudo-F", "modified-F"), groups = NULL)
+
+permutest(x, ...)
 # S3 method for class 'cca'
 permutest(x, permutations = how(nperm = 99),
      model = c("reduced", "direct", "full"), by = NULL, first = FALSE,

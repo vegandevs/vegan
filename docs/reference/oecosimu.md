@@ -23,12 +23,16 @@ NODF).
 
 ``` r
 oecosimu(comm, nestfun, method, nsimul = 99, burnin = 0, thin = 1,
-   statistic = "statistic", alternative = c("two.sided", "less", "greater"), 
-   batchsize = NA, parallel = getOption("mc.cores"), ...)
+  statistic = "statistic", alternative = c("two.sided", "less", "greater"),
+  batchsize = NA, parallel = getOption("mc.cores"), ...)
+
 # S3 method for class 'oecosimu'
 summary(object, ...)
+
 # S3 method for class 'oecosimu'
 as.ts(x, ...)
+
+toCoda(x)
 # S3 method for class 'oecosimu'
 toCoda(x)
 ```

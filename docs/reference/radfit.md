@@ -7,13 +7,16 @@ Zipf-Mandelbrot models of species abundance.
 ## Usage
 
 ``` r
+radfit(x, ...)
 # Default S3 method
 radfit(x, ...)
+
 rad.null(x, family=poisson, ...)
 rad.preempt(x, family = poisson, ...)
 rad.lognormal(x, family = poisson, ...)
 rad.zipf(x, family = poisson, ...)
 rad.zipfbrot(x, family = poisson, ...)
+
 # S3 method for class 'radline'
 predict(object, newdata, total, ...)
 # S3 method for class 'radfit'
@@ -27,6 +30,7 @@ radlattice(x, BIC = FALSE, ...)
 lines(x, ...)
 # S3 method for class 'radfit'
 points(x, ...)
+
 as.rad(x)
 # S3 method for class 'rad'
 plot(x, xlab = "Rank", ylab = "Abundance", log = "y", ...)

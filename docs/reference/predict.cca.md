@@ -14,8 +14,10 @@ fitted(object, model = c("CCA", "CA", "pCCA"),
 # S3 method for class 'capscale'
 fitted(object, model = c("CCA", "CA", "pCCA", "Imaginary"),
     type = c("response", "working"), ...)
+
 # S3 method for class 'cca'
 residuals(object, ...)
+
 # S3 method for class 'cca'
 predict(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
         rank = "full", model = c("CCA", "CA"), scaling = "none",
@@ -27,13 +29,16 @@ predict(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
 # S3 method for class 'dbrda'
 predict(object, newdata, type = c("response", "lc", "wa", "working"),
         rank = "full", model = c("CCA", "CA"), scaling = "none", const, ...)
-# S3 method for class 'cca'
-calibrate(object, newdata, rank = "full", ...)
-# S3 method for class 'cca'
-coef(object, norm = FALSE, ...)
 # S3 method for class 'decorana'
 predict(object, newdata, type = c("response", "sites", "species"),
     rank = 4, ...)
+
+calibrate(object, ...)
+# S3 method for class 'cca'
+calibrate(object, newdata, rank = "full", ...)
+
+# S3 method for class 'cca'
+coef(object, norm = FALSE, ...)
 ```
 
 ## Arguments

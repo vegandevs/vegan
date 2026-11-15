@@ -487,14 +487,15 @@
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Function <code>metaMDS</code> returns an object of class
-  <code>metaMDS</code> which inherits from the class of <code>engine</code>. The
-  final site ordination is stored in the item <code>points</code>, and
-  species ordination in the item <code>species</code>, and the stress in
-  item <code>stress</code> (NB, the scaling of the stress depends on the
-  <code>engine</code>: <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> uses percents,
-  <code><a href="monoMDS.html">monoMDS</a></code> and most other functions use proportions
-  \(0 \ldots 1\)). The other items store the information on the
-  steps taken and the items returned by the <code>engine</code>
+  <code>metaMDS</code> which inherits from the class of <code>engine</code>, and
+  if there is no specific class, the name of <code>engine</code> is used as
+  a class. The final site ordination is stored in the item
+  <code>points</code>, and species ordination in the item <code>species</code>,
+  and the stress in item <code>stress</code> (NB, the scaling of the stress
+  depends on the <code>engine</code>: <code><a href="https://rdrr.io/pkg/MASS/man/isoMDS.html" class="external-link">isoMDS</a></code> uses
+  percents, <code><a href="monoMDS.html">monoMDS</a></code> and most other functions use
+  proportions \(0 \ldots 1\)). The other items store the information
+  on the steps taken and the items returned by the <code>engine</code>
   function. The object has <code>print</code>, <code>plot</code>, <code>points</code>
   and <code>text</code> methods.  Functions <code>metaMDSdist</code> and
   <code>metaMDSredist</code> return <code><a href="vegdist.html">vegdist</a></code> objects.  Function
@@ -812,14 +813,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> Species: expanded scores based on ‘dune’ </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">## IGNORE_RDIFF_END</span></span></span>
-<span class="r-in"><span><span class="co">## Wrap package smacof function mds as engine: you need to load smacof</span></span></span>
-<span class="r-in"><span><span class="co">## package first or write smacof::mds instead of plain smacof (but R check</span></span></span>
-<span class="r-in"><span><span class="co">## does not allow writing so in help pages).</span></span></span>
-<span class="r-in"><span><span class="va">smacof</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">dist</span>, <span class="va">y</span>, <span class="va">k</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>   <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">mds</span><span class="op">(</span>delta <span class="op">=</span> <span class="va">dist</span>, init <span class="op">=</span> <span class="va">y</span>, ndim <span class="op">=</span> <span class="va">k</span>, <span class="va">...</span><span class="op">)</span></span></span>
-<span class="r-in"><span>   <span class="va">m</span><span class="op">$</span><span class="va">points</span> <span class="op">&lt;-</span> <span class="va">m</span><span class="op">$</span><span class="va">conf</span></span></span>
-<span class="r-in"><span>   <span class="va">m</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span><span class="co">## Wrap package smacof function mds as engine:</span></span></span>
+<span class="r-in"><span><span class="co">## smacof &lt;- function(dist, y, k, ...) {</span></span></span>
+<span class="r-in"><span><span class="co">##    m &lt;- smacof::mds(delta = dist, init = y, ndim = k, ...)</span></span></span>
+<span class="r-in"><span><span class="co">##    m$points &lt;- m$conf</span></span></span>
+<span class="r-in"><span><span class="co">##    m</span></span></span>
+<span class="r-in"><span><span class="co">## }</span></span></span>
 <span class="r-in"><span><span class="co">## use this as metaMDS(..., engine = smacof, type = "ordinal")</span></span></span>
 </code></pre></div>
     </div>

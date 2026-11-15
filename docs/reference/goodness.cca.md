@@ -9,6 +9,7 @@ and conditions. In addition, there are some other diagnostic tools (see
 ## Usage
 
 ``` r
+goodness(object, ...)
 # S3 method for class 'cca'
 goodness(object, choices, display = c("species", "sites"),
     model = c("CCA", "CA"), summarize = FALSE, addprevious = FALSE, ...)

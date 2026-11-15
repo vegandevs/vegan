@@ -452,8 +452,9 @@ monotone regression.
 ## Value
 
 Function `metaMDS` returns an object of class `metaMDS` which inherits
-from the class of `engine`. The final site ordination is stored in the
-item `points`, and species ordination in the item `species`, and the
+from the class of `engine`, and if there is no specific class, the name
+of `engine` is used as a class. The final site ordination is stored in
+the item `points`, and species ordination in the item `species`, and the
 stress in item `stress` (NB, the scaling of the stress depends on the
 `engine`: [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) uses
 percents,
@@ -787,13 +788,11 @@ sol
 #> Species: expanded scores based on ‘dune’ 
 #> 
 ## IGNORE_RDIFF_END
-## Wrap package smacof function mds as engine: you need to load smacof
-## package first or write smacof::mds instead of plain smacof (but R check
-## does not allow writing so in help pages).
-smacof <- function(dist, y, k, ...) {
-   m <- mds(delta = dist, init = y, ndim = k, ...)
-   m$points <- m$conf
-   m
-}
+## Wrap package smacof function mds as engine:
+## smacof <- function(dist, y, k, ...) {
+##    m <- smacof::mds(delta = dist, init = y, ndim = k, ...)
+##    m$points <- m$conf
+##    m
+## }
 ## use this as metaMDS(..., engine = smacof, type = "ordinal")
 ```

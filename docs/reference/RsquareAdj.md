@@ -5,6 +5,7 @@ The functions finds the adjusted R-square.
 ## Usage
 
 ``` r
+RsquareAdj(x, ...)
 # Default S3 method
 RsquareAdj(x, n, m, ...)
 # S3 method for class 'rda'

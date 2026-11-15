@@ -10,17 +10,20 @@ community ecology.
 ## Usage
 
 ``` r
+cca(...)
 # S3 method for class 'formula'
 cca(formula, data, na.action = na.fail, subset = NULL,
   ...)
+# Default S3 method
+cca(X, Y, Z, ...)
+ca(X, ...)
+
+rda(...)
 # S3 method for class 'formula'
 rda(formula, data, scale=FALSE, na.action = na.fail,
   subset = NULL, ...)
 # Default S3 method
-cca(X, Y, Z, ...)
-# Default S3 method
 rda(X, Y, Z, scale=FALSE, ...)
-ca(X, ...)
 pca(X, scale=FALSE, ...)
 ```
 

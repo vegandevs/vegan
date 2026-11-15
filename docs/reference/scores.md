@@ -13,9 +13,10 @@ for non-vegan ordination objects.
 ## Usage
 
 ``` r
+scores(x, ...)
 # Default S3 method
-scores(x, choices,
-    display=c("sites", "species", "both"), tidy = FALSE, ...)
+scores(x, choices, display=c("sites", "species", "both"),
+  tidy = FALSE, ...)
 ```
 
 ## Arguments

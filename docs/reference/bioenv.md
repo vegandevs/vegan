@@ -7,13 +7,15 @@ Euclidean distances of scaled environmental variables have the maximum
 ## Usage
 
 ``` r
+bioenv(...)
 # Default S3 method
 bioenv(comm, env, method = "spearman", index = "bray",
-       upto = ncol(env), trace = FALSE, partial = NULL, 
-       metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
-       parallel = getOption("mc.cores"), ...)
+  upto = ncol(env), trace = FALSE, partial = NULL, 
+  metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
+  parallel = getOption("mc.cores"), ...)
 # S3 method for class 'formula'
 bioenv(formula, data, ...)
+
 bioenvdist(x, which = "best")
 ```
 

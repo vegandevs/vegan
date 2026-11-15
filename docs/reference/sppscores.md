@@ -18,6 +18,7 @@ scores in distance-based methods.
 ## Usage
 
 ``` r
+sppscores(object)
 sppscores(object) <- value
 ```
 
@@ -84,7 +85,8 @@ dissimilarities and in species scores.
 ## Value
 
 Replacement function adds the species scores or replaces the old scores
-in the ordination object.
+in the ordination object. Accessor function `sppscores` is not
+implemented (yet).
 
 ## Author
 

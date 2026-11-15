@@ -15,6 +15,8 @@ when the analytic engine is `monoMDS` or `isoMDS`.
 goodness(object, ...)
 # S3 method for class 'isoMDS'
 goodness(object, dis, ...)
+
+stressplot(object, ...)
 # S3 method for class 'monoMDS'
 stressplot(object, pch, p.col = "blue", l.col = "red", lwd, ...) 
 # S3 method for class 'isoMDS'
