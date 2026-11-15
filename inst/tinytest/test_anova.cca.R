@@ -118,7 +118,7 @@ expect_equal(permustats(ano)$permutations, permustats(anow)$permutations,
              info = "cca is weighted rda")
 }
 
-if (packageVersion("vegan") > "2.8") { # parametric anova
+if (packageVersion("vegan") >= "2.8") { # parametric anova
 ### rda: parametric anova
 data(varespec, varechem)
 mod <- rda(varespec ~ Al + P + N, varechem)
