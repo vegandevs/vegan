@@ -96,6 +96,7 @@ expect_equal(permustats(anoterm)$permutations,
              info = "anova by 'term' and 'onedf' match")
 
 ### cca as a weigthed RDA of Chi-square standardized data
+if (packageVersion("vegan") >= "2.8") { # export ordConstrained
 mod <- cca(dune ~ Moisture + Management, dune.env)
 perm <- shuffleSet(nrow(dune), 49)
 ## see help(ordConstrained)
@@ -115,7 +116,9 @@ ano <- anova(mod, permutations = perm)
 anow <- anova(modw, permutations = perm)
 expect_equal(permustats(ano)$permutations, permustats(anow)$permutations,
              info = "cca is weighted rda")
+}
 
+if (packageVersion("vegan") > "2.8") { # parametric anova
 ### rda: parametric anova
 data(varespec, varechem)
 mod <- rda(varespec ~ Al + P + N, varechem)
@@ -161,3 +164,4 @@ expect_error(ordistep(interface.null, scope = formula(interface.full),
                       test = "F", trace = FALSE))
 expect_error(ordiR2step(interface.null, scope = formula(interface.full),
                         test = "F", trace = FALSE))
+}
