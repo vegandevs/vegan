@@ -9,7 +9,7 @@
 ## New Features
 
 * `anova.cca`: when analysing differencens of several models, function
-  will no order the models so that they are nested.
+  will now order the models so that they are nested.
 
 * `decorana` uses stricter convergence and is now similar to other
   ordination methods in **vegan**. For instance, orthogonal
@@ -19,9 +19,9 @@
 * `decostand` Aitchison or log-ratio methods were updated. The
   documentation and code were made more consistent. Robust centred log
   ratio (`"rclr"`) can now use imputation for complete matrix or only
-  for orignal zeros, and the optional estimation of rank of imputation
+  for original zeros, and the optional estimation of rank of imputation
   was fixed. The imputation function `optspace` no longer
-  double-centres its result matrix allowing more general use outside
+  double-centres result matrix allowing more general use outside
   `decostand`, but double-centring is done within `decostand` keeping
   the behaviour unchanged in `decostand` and
   `vegdist(..., method = "robust.aitchison")`.
@@ -68,9 +68,6 @@
   statistic were given as a vector instead of a one-column matrix. Now
   all `permustats` methods return permuted values as a matrix. Issue
   [#803](https://github.com/vegandevs/vegan/issues/803).
-
-* `anova.prc` failed when variables had non-standard names. Issue
-  [#797](https://github.com/vegandevs/vegan/issues/797).
 
 * `metaMDSredist` failed (but it is not needed with the modern
   `monoMDS` engine).
