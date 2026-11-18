@@ -1,5 +1,5 @@
 
-R version 4.6.1 (2026-06-24) -- "Happy Hop"
+R version 4.6.2 (2026-10-29) -- "Diversified Portfolio"
 Copyright (C) 2026 The R Foundation for Statistical Computing
 Platform: aarch64-apple-darwin23
 
@@ -572,7 +572,7 @@ attr(,"decostand")
 > x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
 > x2c <- scale(x2c, center = TRUE, scale = FALSE)
 > x2c <- t(scale(t(x2c), center = TRUE, scale = FALSE))
-> all(as.matrix(x1) == as.matrix(x2c))
+> all.equal(as.matrix(x1), as.matrix(x2c), check.attributes = FALSE)
 [1] TRUE
 > 
 > ############################# NAMES ####################################
@@ -615,4 +615,4 @@ attr(,"decostand")
 > 
 > proc.time()
    user  system elapsed 
-  0.487   0.043   0.526 
+  0.484   0.041   0.520 

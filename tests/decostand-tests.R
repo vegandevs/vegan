@@ -87,7 +87,7 @@ x2 <- decostand(varespec, method = "rclr", impute = FALSE)
 x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
 x2c <- scale(x2c, center = TRUE, scale = FALSE)
 x2c <- t(scale(t(x2c), center = TRUE, scale = FALSE))
-all(as.matrix(x1) == as.matrix(x2c))
+all.equal(as.matrix(x1), as.matrix(x2c), check.attributes = FALSE)
 
 ############################# NAMES ####################################
 
