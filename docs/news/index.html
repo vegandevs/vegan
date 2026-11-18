@@ -62,19 +62,11 @@
 <li><p><code>ordipointlabel</code> is faster. This was achieved using tighter bounding box which reduced the number of potentially overlapping labels. The used bounding box is shown with argument <code>bg  = &lt;colour&gt;</code>. The function is also invoked from <code>plot</code> and <code>text</code> functions for ordination results with argument <code>optimize = TRUE</code>.</p></li>
 <li><p><code>varpart</code> labels the sources of variation by the full definition of the term in plots, but switches to <code>X1</code> <em>etc</em> if the full name does not fit the graph. Tilde is stripped from the term name.</p></li>
 <li><p><code>adipart</code> can use Hill numbers 1 and 2 in additive diversity partitioning per wish of <a href="https://github.com/vegandevs/vegan/issues/752" class="external-link">#752</a>. Earlier it was possible to use these only <em>via</em> <code>hiersimu</code>.</p></li>
-<li><p><code>decorana</code> uses stricter convergence criteria similarly as most other <strong>vegan</strong> functions. Usually effects can be seen only in the last decimals.</p></li>
-<li><p><code>qqnorm.permustats</code> gained argument <code>which</code> to select the displayed statistic. Earlier it refused to handle <code>permustats</code> results with several statistics. The function also gained argument <code>x</code> for user supplied theoretical quantiles. With this it can show permutation values against other reference distributions than standard Normal.</p></li>
-<li><p><code>SSD.cca</code> and <code>vcov.cca</code> can return <code>type = "response"</code>. Earlier they only knew <code>type = "canoco"</code>. Added <code>estVar.cca</code>.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bug-fixes-2-8-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-8-0"></a></h3>
-<ul><li><p><code>procrustes</code> guards against negative residual sums of squares caused by rounding in perfect fits, preventing warnings and <code>NaN</code> root mean squared errors in <code>summary</code>.</p></li>
-<li><p>User-supplied permutation matrices now carry a complete permutation control object, retaining compatibility with both released and development versions of <strong>permute</strong>.</p></li>
-<li><p><code>anova</code> for <code>prc</code> result failed with <code>by</code> argument if <code>prc</code> was called with expressions instead of plain names, for instance with <code>prc(t(spe), md$treatment, md$time)</code>. Issue <a href="https://github.com/vegandevs/vegan/issues/797" class="external-link">#797</a>, PR <a href="https://github.com/vegandevs/vegan/pull/798" class="external-link">#798</a>.</p></li>
-<li><p><code>anova.cca</code> and <code>permutest.cca</code> failed in several cases with <code>permutations = 0</code>.</p></li>
-<li><p><code>anova.cca(..., by = "axis")</code> inflated <em>F</em>-values after first axis. Similar inflation was used both in the test statistic and permutation, and <em>P</em>-values are unchanged.</p></li>
+<ul><li><p>User-supplied permutation matrices now carry a complete permutation control object, retaining compatibility with both released and development versions of <strong>permute</strong>.</p></li>
 <li><p><code>anova.cca(&lt;list of models&gt;)</code> output table did not adopt headers to <code>rda</code> or distance-based methods. Issue <a href="https://github.com/vegandevs/vegan/issues/801" class="external-link">#801</a>.</p></li>
-<li><p><code>adonis2</code> did not apply correctly Lingoes and Caillez adjustments of input dissimilarities.</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="deprecated-defunct-and-resurrected-2-8-0">Deprecated, Defunct and Resurrected<a class="anchor" aria-label="anchor" href="#deprecated-defunct-and-resurrected-2-8-0"></a></h3>
@@ -82,6 +74,32 @@
 <li><p><strong>lattice</strong> functions <code>ordixyplot</code>, and <code>permulattice</code> (with <code>densityplot</code> and <code>qqmath</code> functions for <code>permustats</code>) are defunct. CRAN package <strong>ggvegan</strong> provides <code>autoplot</code> for these defunct functions. The functions were deprecated in CRAN release 2.7-3.</p></li>
 <li><p>Argument <code>thinplate</code> is finally defunct in <code>ordisurf</code>: use <code>isotropic</code>. The argument was deprecated in 2013 (CRAN release 2.0-8).</p></li>
 <li><p>Several base <code>plot</code> functions internally using <strong>lattice</strong> were marked as deprecated in CRAN release 2.7-3. Now these are resurrected as plain base functions. These include <code>plot</code> for <code>poolaccum</code> (also handling <code>estaccumR</code>), <code>renyi</code> (also handling <code>tsallis</code>), and <code>renyiaccum</code> (also handling <code>tsallisaccum</code>). The base <code>plot</code> functions are simpler, but the original <strong>lattice</strong> implementations can be reproduced with functions in the CRAN package <strong>ggvegan</strong>.</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.7-8" id="vegan-27-8">vegan 2.7-8<a class="anchor" aria-label="anchor" href="#vegan-27-8"></a></h2>
+<div class="section level3">
+<h3 id="maintenance-2-7-8">Maintenance<a class="anchor" aria-label="anchor" href="#maintenance-2-7-8"></a></h3>
+<ul><li>Fixes issues in CRAN checks: PR <a href="https://github.com/vegandevs/vegan/pull/796" class="external-link">#796</a> and issue <a href="https://github.com/vegandevs/vegan/issues/808" class="external-link">#808</a>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-2-7-8">New Features<a class="anchor" aria-label="anchor" href="#new-features-2-7-8"></a></h3>
+<ul><li><p><code>anova.cca</code>: when analysing differencens of several models, function will now order the models so that they are nested.</p></li>
+<li><p><code>decorana</code> uses stricter convergence and is now similar to other ordination methods in <strong>vegan</strong>. For instance, orthogonal correspondence analysis (reciprocal averaging) results are similar as with <code>ca</code> and <code>cca</code>.</p></li>
+<li><p><code>decostand</code> Aitchison or log-ratio methods were updated. The documentation and code were made more consistent. Robust centred log ratio (<code>"rclr"</code>) can now use imputation for complete matrix or only for original zeros, and the optional estimation of rank of imputation was fixed. The imputation function <code>optspace</code> no longer double-centres result matrix allowing more general use outside <code>decostand</code>, but double-centring is done within <code>decostand</code> keeping the behaviour unchanged in <code>decostand</code> and <code>vegdist(..., method = "robust.aitchison")</code>. Back-transformation (<code>decobackstand</code>) was enabled for additive log-ratio (<code>"alr"</code>). Issue <a href="https://github.com/vegandevs/vegan/issues/806" class="external-link">#806</a>.</p></li>
+<li><p><code>CCoRA</code>: the right matrix <code>X</code> can be a data frame with factors.</p></li>
+<li><p><code>qqnorm</code> and <code>density</code> functions for <code>permustats</code> results gained argument <code>which</code> to select the displayed statistic. Earlier they refused to handle results with several statistics. <code>qqnorm</code> function also gained argument <code>x</code> for user supplied theoretical quantiles. With this it can show permutation values against other reference distributions than standard Normal.</p></li>
+<li><p><code>SSD.cca</code> and <code>vcov.cca</code> can return <code>type = "response"</code>. Earlier they only knew <code>type = "canoco"</code>. Added <code>estVar.cca</code>.</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-7-8">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-7-8"></a></h3>
+<ul><li><p><code>adonis2</code>: additive constant (Lingoes or Cailliez) was wrongly implemented.</p></li>
+<li><p><code>procrustes</code> guards against negative residual sums of squares caused by rounding in perfect fits, preventing warnings and <code>NaN</code> root mean squared errors in <code>summary</code>.</p></li>
+<li><p><code>anova</code> for <code>prc</code> result failed with <code>by</code> argument if <code>prc</code> was called with expressions instead of plain names, for instance with <code>prc(t(spe), md$treatment, md$time)</code>. Issue <a href="https://github.com/vegandevs/vegan/issues/797" class="external-link">#797</a>, PR <a href="https://github.com/vegandevs/vegan/pull/798" class="external-link">#798</a>.</p></li>
+<li><p><code>anova.cca</code> and <code>permutest.cca</code> failed in several cases with <code>permutations = 0</code>.</p></li>
+<li><p><code>anova.cca(..., by = "axis")</code> inflated <em>F</em>-values after first axis. Similar inflation was used both in the test statistic and permutation, and <em>P</em>-values are unchanged.</p></li>
+<li><p><code>permustats</code> support methods <code>c</code>, <code>boxplot(..., scale=TRUE)</code>, <code>density</code> and <code>qqnorm</code> failed when permuted values of the single statistic were given as a vector instead of a one-column matrix. Now all <code>permustats</code> methods return permuted values as a matrix. Issue <a href="https://github.com/vegandevs/vegan/issues/803" class="external-link">#803</a>.</p></li>
+<li><p><code>metaMDSredist</code> failed (but it is not needed with the modern <code>monoMDS</code> engine).</p></li>
 </ul></div>
 </div>
     <div class="section level2">
