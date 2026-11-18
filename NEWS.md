@@ -1,4 +1,4 @@
-# vegan 2.7-7
+# vegan 2.7-8
 
 ## Maintenance
 
