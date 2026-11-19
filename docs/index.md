@@ -16,6 +16,7 @@ Vignettes are available on
   vegan](https://vegandevs.r-universe.dev/vegan/doc/diversity-vegan.pdf)
 - [Design decisions and
   implementation](https://vegandevs.r-universe.dev/vegan/doc/decision-vegan.pdf)
+- [vegan FAQ](https://vegandevs.github.io/vegan/articles/FAQ-vegan.html)
 
 # Installation
 

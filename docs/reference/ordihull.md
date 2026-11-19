@@ -12,11 +12,11 @@ or
 
 ``` r
 ordihull(ord, groups, display = "sites", draw = c("lines","polygon", "none"),
-         col = NULL, alpha = 127, show.groups, label = FALSE,
+         col = NULL, alpha = 0.5, show.groups, label = FALSE,
          border = NULL, lty = NULL, lwd = NULL, ...)
 ordiellipse(ord, groups, display="sites", kind = c("sd","se", "ehull"),
          conf, draw = c("lines","polygon", "none"),
-   w, col = NULL, alpha = 127, show.groups, label = FALSE,
+   w, col = NULL, alpha = 0.5, show.groups, label = FALSE,
          border = NULL, lty = NULL, lwd=NULL, ...)
 ordibar(ord, groups, display = "sites", kind = c("sd", "se"), conf,
          w, col = 1, show.groups, label = FALSE, lwd = NULL, length = 0,  ...)
@@ -82,8 +82,7 @@ summary(object, ...)
   Transparency of the fill `col`our with `draw = "polygon"` in
   `ordihull` and `ordiellipse`. The argument takes precedence over
   possible transparency definitions of the colour. The value must be in
-  range \\0...255\\, and low values are more transparent. Transparency
-  is not available in all graphics devices or file formats.
+  range \[0, 1\], and low values are more transparent.
 
 - show.groups:
 

@@ -1,17 +1,25 @@
 # Goodness of Fit and Shepard Plot for Nonmetric Multidimensional Scaling
 
-Function `goodness.metaMDS` find goodness of fit measure for points in
+Function `goodness` finds goodness of fit measure for points in
 nonmetric multidimensional scaling, and function `stressplot` makes a
-[`Shepard`](https://rdrr.io/pkg/MASS/man/isoMDS.html) diagram.
+[`Shepard`](https://rdrr.io/pkg/MASS/man/isoMDS.html) diagram. The
+functions can be applied for
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) and
+for [`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md)
+when the analytic engine is `monoMDS` or `isoMDS`.
 
 ## Usage
 
 ``` r
-# S3 method for class 'metaMDS'
+# S3 method for class 'monoMDS'
+goodness(object, ...)
+# S3 method for class 'isoMDS'
 goodness(object, dis, ...)
 
 stressplot(object, ...)
-# Default S3 method
+# S3 method for class 'monoMDS'
+stressplot(object, pch, p.col = "blue", l.col = "red", lwd, ...) 
+# S3 method for class 'isoMDS'
 stressplot(object, dis, pch, p.col = "blue", l.col = "red", 
     lwd = 2, ...)
 ```
@@ -30,8 +38,8 @@ stressplot(object, dis, pch, p.col = "blue", l.col = "red",
   Dissimilarities. This should not be used with
   [`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md) or
   [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md),
-  but must be used with
-  [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html).
+  but must be used with when the dissimilarities cannot be reconstructed
+  from the result object.
 
 - pch:
 
@@ -55,15 +63,9 @@ stressplot(object, dis, pch, p.col = "blue", l.col = "red",
 
 ## Details
 
-Function `goodness.metaMDS` finds a goodness of fit statistic for
-observations (points). This is defined so that sum of squared values is
-equal to squared stress. Large values indicate poor fit. The absolute
-values of the goodness statistic depend on the definition of the stress:
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) expresses stress in
-percents, and therefore its goodness values are 100 times higher than
-those of
-[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md)
-which expresses the stress as a proportion.
+Function `goodness` finds a goodness of fit statistic for observations
+(points). This is defined so that sum of squared values is equal to
+squared stress. Large values indicate poor fit.
 
 Function `stressplot` draws a Shepard diagram which is a plot of
 ordination distances and monotone or linear fit line against original
@@ -75,22 +77,20 @@ distances. For
 [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md), the
 “linear fit” and \\R^2\\ from “stress type 2” are equal.
 
-Both functions can be used with
-[`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md),
-[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) and
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html). The original
-dissimilarities should not be given for
+The functions can be used with
+[`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md) when
+the `engine` is
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) or
+[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html), and for
+independent
+[`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md). The
+original dissimilarities need not be given for
 [`monoMDS`](https://vegandevs.github.io/vegan/reference/monoMDS.md) or
 [`metaMDS`](https://vegandevs.github.io/vegan/reference/metaMDS.md)
-results (the latter tries to reconstruct the dissimilarities using
-[`metaMDSredist`](https://vegandevs.github.io/vegan/reference/metaMDS.md)
-if [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) was used as its
-engine). With [`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) the
-dissimilarities must be given. In either case, the functions inspect
-that dissimilarities are consistent with current ordination, and refuse
-to analyse inconsistent dissimilarities. Function `goodness.metaMDS` is
-generic in vegan, but you must spell its name completely with
-[`isoMDS`](https://rdrr.io/pkg/MASS/man/isoMDS.html) which has no class.
+results, but they must given if the result object has no information to
+reconstruct dissmilarities which may be the case with `isoMDS`. The
+functions checks that dissimilarities are consistent with current
+ordination, and refuses to analyse inconsistent dissimilarities.
 
 ## Value
 
@@ -120,44 +120,42 @@ mod <- metaMDS(varespec)
 #> Square root transformation
 #> Wisconsin double standardization
 #> Run 0 stress 0.1843196 
-#> Run 1 stress 0.1955836 
-#> Run 2 stress 0.1843196 
+#> Run 1 stress 0.2265716 
+#> Run 2 stress 0.2085949 
+#> Run 3 stress 0.1974408 
+#> Run 4 stress 0.1948413 
+#> Run 5 stress 0.2169269 
+#> Run 6 stress 0.18584 
+#> Run 7 stress 0.1993238 
+#> Run 8 stress 0.2109617 
+#> Run 9 stress 0.2095882 
+#> Run 10 stress 0.2467729 
+#> Run 11 stress 0.1869637 
+#> Run 12 stress 0.2136761 
+#> Run 13 stress 0.1955837 
+#> Run 14 stress 0.2120074 
+#> Run 15 stress 0.1955836 
+#> Run 16 stress 0.2223246 
+#> Run 17 stress 0.1843196 
 #> ... New best solution
-#> ... Procrustes: rmse 7.107169e-06  max resid 2.214758e-05 
+#> ... Procrustes: rmse 2.174326e-05  max resid 8.703356e-05 
 #> ... Similar to previous best
-#> Run 3 stress 0.236479 
-#> Run 4 stress 0.233173 
-#> Run 5 stress 0.2380741 
-#> Run 6 stress 0.2028828 
-#> Run 7 stress 0.2079057 
-#> Run 8 stress 0.1985583 
-#> Run 9 stress 0.1845801 
-#> ... Procrustes: rmse 0.04933527  max resid 0.1574168 
-#> Run 10 stress 0.2048307 
-#> Run 11 stress 0.1974406 
-#> Run 12 stress 0.18584 
-#> Run 13 stress 0.1955836 
-#> Run 14 stress 0.2005511 
-#> Run 15 stress 0.2097525 
-#> Run 16 stress 0.2066172 
-#> Run 17 stress 0.18458 
-#> ... Procrustes: rmse 0.04934437  max resid 0.1574665 
-#> Run 18 stress 0.2028828 
-#> Run 19 stress 0.207032 
-#> Run 20 stress 0.1825658 
+#> Run 18 stress 0.1825658 
 #> ... New best solution
-#> ... Procrustes: rmse 0.04161707  max resid 0.1517602 
+#> ... Procrustes: rmse 0.04160835  max resid 0.1517228 
+#> Run 19 stress 0.1948413 
+#> Run 20 stress 0.2467725 
 #> *** Best solution was not repeated -- monoMDS stopping criteria:
-#>     18: stress ratio > sratmax
-#>      2: scale factor of the gradient < sfgrmin
+#>     17: stress ratio > sratmax
+#>      3: scale factor of the gradient < sfgrmin
 stressplot(mod)
 
 gof <- goodness(mod)
 gof
-#>  [1] 0.02984493 0.03513717 0.04189403 0.04598138 0.04003132 0.03441393
-#>  [7] 0.03294968 0.03050088 0.03060814 0.02994098 0.03526199 0.02621444
-#> [13] 0.03831044 0.02980902 0.03369407 0.02225920 0.03561632 0.03505253
-#> [19] 0.06577463 0.03268362 0.03503005 0.02956645 0.05168185 0.04601906
+#>  [1] 0.02984504 0.03513702 0.04189246 0.04598225 0.04003107 0.03441430
+#>  [7] 0.03294944 0.03050109 0.03060787 0.02994079 0.03526289 0.02621421
+#> [13] 0.03831039 0.02980915 0.03369525 0.02225912 0.03561578 0.03505285
+#> [19] 0.06577445 0.03268360 0.03503085 0.02956629 0.05168079 0.04601964
 plot(mod, display = "sites", type = "n")
 points(mod, display = "sites", cex = 2*gof/mean(gof))
 ```
