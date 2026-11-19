@@ -63,6 +63,10 @@
   axis. Similar inflation was used both in the test statistic and
   permutation, and _P_-values are unchanged.
 
+* `anova.cca(<list of models>)` output table did not adopt headers to
+  `rda` or distance-based methods. Issue
+  [#801](https://github.com/vegandevs/vegan/issues/801).
+
 * `permustats` support methods `c`, `boxplot(..., scale=TRUE)`,
   `density` and `qqnorm` failed when permuted values of the single
   statistic were given as a vector instead of a one-column matrix. Now
