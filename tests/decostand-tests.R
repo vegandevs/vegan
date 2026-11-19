@@ -4,7 +4,7 @@ suppressPackageStartupMessages(require(vegan))
 ############################### CLR ####################################
 # Calculates clr-transformation. Should be equal.
 
-# Test data
+## Test data
 data(varespec)
 set.seed(42)
 testdata <- matrix(round(runif(1000, 0, 100)), nrow = 20)
@@ -13,61 +13,79 @@ testdata[testdata < 0] <- 0
 rownames(testdata) <- paste0("row", seq_len(nrow(testdata)))
 colnames(testdata) <- paste0("col", seq_len(ncol(testdata)))
 testdata.with.pseudo <- testdata + 1
+## tolerance
+TOL <- sqrt(.Machine$double.eps)
 
-# Calculates relative abundance table
+## Calculates relative abundance table
 relative <- decostand(testdata, "total")
 relative.with.pseudo <- decostand(testdata + 1, "total")
 
-# CLR data
+## CLR data
 x.clr  <- decostand(testdata + 1, method = "clr")
 x.rclr <- decostand(testdata, method = "rclr")
 x.clr.pseudo <- decostand(testdata, method = "clr", pseudocount = 1)
 
-max(abs(x.clr - x.clr.pseudo)) < 1e-6
-max(abs(decostand(testdata + 1, method = "clr", pseudocount = 0) - x.clr.pseudo)) < 1e-6
+stopifnot(all.equal(x.clr, x.clr.pseudo, check.attributes=FALSE))
+stopifnot(all.equal(decostand(testdata + 1, method = "clr", pseudocount = 0),
+                    x.clr.pseudo, check.attributes=FALSE))
 
-# Tests clr
-alt.clr <- t(apply(as.matrix(relative.with.pseudo), 1, FUN = function(x){log(x) - mean(log(x))}))
-max(abs(x.clr - alt.clr)) < 1e-6
+## Tests clr
+alt.clr <- t(apply(as.matrix(relative.with.pseudo), 1,
+                   FUN = function(x){log(x) - mean(log(x))}))
+stopifnot(all.equal(x.clr, alt.clr, check.attributes=FALSE))
 
-# Test that NAs are handled as expected in CLR
+## Test that NAs are handled as expected in CLR
 x <- testdata
 set.seed(24)
 x[sample(prod(dim(x)), 50)] <- NA # insert some NAs in the data
-# NAs in the original data remain NAs in the returned data
-all(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[is.na(x)])) == TRUE # NAs
-# For the other (non-NA) values, we get non-NA values back
-any(is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
-any(is.na(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[!is.na(x)])) == FALSE
-# Results match for the non-NA values always (with tolerance 1e-6)
+## NAs in the original data remain NAs in the returned data
+stopifnot(all(
+    is.na(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[is.na(x)]))) # NAs
+## For the other (non-NA) values, we get non-NA values back
+stopifnot(!anyNA(decostand(x, "clr", na.rm = FALSE,
+                           pseudocount = 1)[!is.na(x)]))
+stopifnot(!anyNA(decostand(x, "clr", MARGIN = 2, na.rm = FALSE,
+                           pseudocount = 1)[!is.na(x)]))
+## Results match for the non-NA values always (with tolerance)
 inds <- !is.na(x) # Non-NA values
-max(abs(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[inds] -
-        decostand(x, "clr", na.rm = TRUE, pseudocount = 1)[inds])) < 1e-6
-# For the other (non-NA) values, we get non-NA values back
-any(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[!is.na(x[, -1] - x[, 1])])) == FALSE
-any(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1, reference=3)[!is.na(x[, -3] - x[, 3])])) == FALSE
-# Works correctly also with other MARGIN
+stopifnot(all.equal(decostand(x, "clr", na.rm = FALSE, pseudocount = 1)[inds],
+                    decostand(x, "clr", na.rm = TRUE, pseudocount = 1)[inds],
+                    check.attributes=FALSE))
+## For the other (non-NA) values, we get non-NA values back
+stopifnot(!anyNA(decostand(x, "alr", na.rm = FALSE,
+                           pseudocount = 1)[!is.na(x[, -1] - x[, 1])]))
+stopifnot(!anyNA(decostand(x, "alr", na.rm = FALSE, pseudocount = 1,
+                           reference=3)[!is.na(x[, -3] - x[, 3])]))
+## Works correctly also with other MARGIN
 inds <- !is.na(x) # Non-NA values
-max(abs(decostand(x, "clr", MARGIN = 2, na.rm = FALSE, pseudocount = 1)[inds] -
-        decostand(x, "clr", MARGIN = 2, na.rm = TRUE, pseudocount = 1)[inds])) < 1e-6
-# Results match for the non-NA values always (with tolerance 1e-6)
+stopifnot(all.equal(decostand(x, "clr", MARGIN = 2, na.rm = FALSE,
+                              pseudocount = 1)[inds],
+                    decostand(x, "clr", MARGIN = 2, na.rm = TRUE,
+                              pseudocount = 1)[inds],
+                    check.attributes=FALSE))
+## Results match for the non-NA values always (with tolerance)
 inds <- !is.na(x) # Non-NA values
-max(abs(na.omit(decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[inds] -
-                decostand(x, "alr", na.rm = TRUE, pseudocount = 1)[inds]))) < 1e-6
-
-# Test that NAs are handled as expected in ALR
+stopifnot(abs(na.omit(
+    decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[inds] -
+    decostand(x, "alr", na.rm = FALSE, pseudocount = 1)[inds])) < TOL)
+## Test that NAs are handled as expected in ALR
 set.seed(4354353)
 x <- testdata
 x[sample(prod(dim(x)), 50)] <- NA
 x[4, c(2, 10)] <- NA  # insert some NAs in the data
-# NAs in the output share NAs with the reference vector
-all(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1, reference = 4))[which(is.na(x[,4])),])
-# Output vector has same NAs than the original vector and reference vector
-all(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1, reference = 4)[,2]) == (is.na(x[,4]) | is.na(x[,2])))
-# No NAs after removing them
-!any(is.na(decostand(x, "alr", na.rm = TRUE, pseudocount = 1, reference = 4)))
-# All NAs are replaced by zero
-all((rowMeans(decostand(x, "alr", na.rm = TRUE, pseudocount = 1, reference = 4) == 0) == 1) == is.na(x[,4]))
+## NAs in the output share NAs with the reference vector
+stopifnot(all(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1,
+                              reference = 4))[which(is.na(x[,4])),]))
+## Output vector has same NAs than the original vector and reference vector
+stopifnot(all(is.na(decostand(x, "alr", na.rm = FALSE, pseudocount = 1,
+                              reference = 4)[,2]) ==
+              (is.na(x[,4]) | is.na(x[,2]))))
+## No NAs after removing them
+stopifnot(!anyNA(decostand(x, "alr", na.rm = TRUE, pseudocount = 1,
+                           reference = 4)))
+## All NAs are replaced by zero
+stopifnot(all((rowMeans(decostand(x, "alr", na.rm = TRUE, pseudocount = 1,
+                        reference = 4) == 0) == 1) == is.na(x[,4])))
 
 # Expect that error does not occur
 decostand(testdata, method = "rclr")
@@ -87,15 +105,19 @@ x2 <- decostand(varespec, method = "rclr", impute = FALSE)
 x2c <- optspace(x2, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE)$M
 x2c <- scale(x2c, center = TRUE, scale = FALSE)
 x2c <- t(scale(t(x2c), center = TRUE, scale = FALSE))
-all.equal(as.matrix(x1), as.matrix(x2c), check.attributes = FALSE)
+stopifnot(all.equal(as.matrix(x1), as.matrix(x2c), check.attributes = FALSE))
 
 ############################# NAMES ####################################
 
 # Tests that dimensions have correct names
-all(rownames(decostand(testdata + 1, method = "clr")) == rownames(testdata))
-all(colnames(decostand(testdata, method = "clr", pseudocount = 1)) == colnames(testdata))
-all(rownames(decostand(testdata, method = "rclr")) == rownames(testdata))
-all(colnames(decostand(testdata, method = "rclr")) == colnames(testdata))
+stopifnot(all(rownames(decostand(testdata + 1, method = "clr")) ==
+              rownames(testdata)))
+stopifnot(all(colnames(decostand(testdata, method = "clr", pseudocount = 1))
+              == colnames(testdata)))
+stopifnot(all(rownames(decostand(testdata, method = "rclr")) ==
+              rownames(testdata)))
+stopifnot(all(colnames(decostand(testdata, method = "rclr")) ==
+              colnames(testdata)))
 
 ########################################################################
 
@@ -104,17 +126,18 @@ all(colnames(decostand(testdata, method = "rclr")) == colnames(testdata))
 # CLR is identical with count and relative data
 a1 <- decostand(testdata.with.pseudo, method = "clr")
 a2 <- decostand(relative.with.pseudo, method = "clr")
-max(abs(a1 - a2)) < 1e-6 # Tolerance
+stopifnot(all.equal(a1, a2, check.attributes=FALSE))
 
 # rCLR is identical with count and relative data
 a1 <- decostand(testdata.with.pseudo, method = "rclr")
 a2 <- decostand(relative.with.pseudo, method = "rclr")
-max(abs(a1 - a2)) < 1e-6 # Tolerance
+stopifnot(all.equal(a1, a2, check.attributes=FALSE))
 
 # ALR is identical with count and relative data
 a1 <- decostand(testdata.with.pseudo, method = "alr")
 a2 <- decostand(relative.with.pseudo, method = "alr")
-max(abs(a1 - a2)) < 1e-6 # Tolerance
+stopifnot(all.equal(a1, a2, check.attributes=FALSE))
 
 ####### # ALR transformation drops one feature ################
-ncol(decostand(testdata.with.pseudo, "alr")) == ncol(testdata.with.pseudo) - 1
+stopifnot(ncol(decostand(testdata.with.pseudo, "alr")) ==
+          ncol(testdata.with.pseudo) - 1)
