@@ -91,10 +91,6 @@
   control object, retaining compatibility with both released and
   development versions of **permute**.
 
-* `anova.cca(<list of models>)` output table did not adopt headers to
-  `rda` or distance-based methods. Issue
-  [#801](https://github.com/vegandevs/vegan/issues/801).
-
 ## Deprecated, Defunct and Resurrected
 
 * Lattice functions `ordicloud`, `ordiresids`and `ordisplom` are
@@ -186,6 +182,10 @@
 * `anova.cca(..., by = "axis")` inflated _F_-values after first
   axis. Similar inflation was used both in the test statistic and
   permutation, and _P_-values are unchanged.
+
+* `anova.cca(<list of models>)` output table did not adopt headers to
+  `rda` or distance-based methods. Issue
+  [#801](https://github.com/vegandevs/vegan/issues/801).
 
 * `permustats` support methods `c`, `boxplot(..., scale=TRUE)`,
   `density` and `qqnorm` failed when permuted values of the single
