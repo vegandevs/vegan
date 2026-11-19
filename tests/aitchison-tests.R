@@ -17,43 +17,49 @@ relative <- decostand(testdata, "total")
 testdata.with.pseudo <- testdata + 1
 relative.with.pseudo <- decostand(testdata + 1, "total")
 
-# NAs correctly assigned
+## NAs correctly assigned. (Note by JO:) These tests obviosly pre-date
+## implementation of imputation (default) which will replace all
+## NA. In current code na.rm=TRUE has no effect when impute =
+## FALSE/"none", but NA will be returned (this could be fixed
+## though?). So the first test was FALSE in aitchison-test.Rout.save
+## which probably was not the original intention. Added 'impute' arg
+## to mimic the old code.
 a1 <- testdata
-a2 <- decostand(a1, "rclr", na.rm = FALSE)
-a3 <- decostand(a1, "rclr", na.rm = TRUE)
-all(is.na(a2[a1 == 0]))
-all(!is.na(a3[a1 == 0]))
+a2 <- decostand(a1, "rclr", na.rm = FALSE, impute = FALSE)
+a3 <- decostand(a1, "rclr", na.rm = TRUE, impute = "zero")
+stopifnot(all(is.na(a2[a1 == 0])))
+stopifnot(!is.na(a3[a1 == 0]))
 
 # aitchison equals to CLR + Euclid (pseudocount is necessary with clr)
 a1 <- vegdist(testdata + 1, method = "aitchison", na.rm = TRUE)
 a2 <- vegdist(decostand(testdata + 1, "clr"), method = "euclidean", na.rm = TRUE)
-max(abs(a1-a2)) < 1e-6 # Tolerance
+stopifnot(all.equal(a1, a2, check.attributes=FALSE))
 
 # Robust aitchison equals to rCLR + Euclid when na.rm = TRUE (matrix completion applied)
 # and works without pseudocount
 a1 <- vegdist(testdata, method = "robust.aitchison", na.rm = TRUE)
 a2 <- vegdist(decostand(testdata, "rclr"), method = "euclidean", na.rm = TRUE)
-max(abs(a1-a2)) < 1e-6 # Tolerance
+stopifnot(all.equal(a1, a2, check.attributes=FALSE))
 
 # Robust aitchison and aitchison are equal when there are no zeroes
 a1 <- vegdist(testdata.with.pseudo, method = "robust.aitchison")
 a2 <- vegdist(testdata.with.pseudo, method = "aitchison")
-max(abs(a1 - a2)) < 1e-6 # Tolerance
+stopifnot(all.equal(a1, a2, check.attributes=FALSE))
 
 # It is possible to pass pseudocount as a function argument to decostand
 a1 <- vegdist(testdata, method = "aitchison", pseudocount = 1)
 a2 <- vegdist(testdata + 1, method = "aitchison")
-max(abs(a1 - a2)) < 1e-6 # Tolerance
+stopifnot(all.equal(a1, a2, check.attributes=FALSE))
 
 # Robust rclr+Euclid should give same result than robust.aitchison
 d1 <- vegdist(decostand(testdata, "rclr"), "euclidean", na.rm = TRUE)
 d2 <- vegdist(testdata, "robust.aitchison", na.rm = TRUE)
-max(abs(d1 - d2)) < 1e-6 # Tolerance
+stopifnot(all.equal(d1, d2, check.attributes=FALSE))
 
 # Robust rclr+Euclid should give same result than robust.aitchison
 d1 <- vegdist(decostand(testdata + 1, "rclr"), "euclidean", na.rm = FALSE)
 d2 <- vegdist(testdata + 1, "robust.aitchison", na.rm = FALSE)
-max(abs(d1 - d2)) < 1e-6 # Tolerance
+stopifnot(all.equal(d1, d2, check.attributes=FALSE))
 
 # Compare the outcomes with an external package that also provides compositional transformations
 # Adding these would demand adding Suggested packages in DESCRIPTION
