@@ -11,7 +11,7 @@
         cat("Number of permutations: 0\n")
     writeLines(strwrap(pasteCall(x$testcall, prefix = "Model:")))
     if (x$nperm > 0)
-        Pval <- (colSums(sweep(x$F.perm, 2, x$F.0 - EPS, ">=")) + 1)/(x$nperm + 1)
+        Pval <- (colSums(sweep(x$F.perm, 2, x$F.0 - EPS, ">=")) + !isTRUE(x$observed))/(x$nperm + !isTRUE(x$observed))
     else
         Pval <- rep(NA, length(x$F.0))
     cat("Permutation test for ")

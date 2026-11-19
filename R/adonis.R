@@ -3,8 +3,9 @@
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
              strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
-             groups = NULL)
+             groups = NULL, model = c("reduced", "direct", "full", "constraints"))
 {
+    model <- match.arg(model)
     permustat <- match.arg(permustat)
     group.expr <- substitute(groups)
     ## Do not force 'groups' here: like formula variables, it may exist only
@@ -80,11 +81,15 @@
     }
     sol <- adonis0(lhs, d$Y, d$Z)
     sol$formula <- match.call()
+    sol$call <- match.call()
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, data)
+    if (!is.null(d$na.action)) sol$na.action <- d$na.action
+    if (model == "constraints")
+        permutations <- constraintPermutationDesign(sol, permutations)
     ## handle permutations
-    perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
-    out <- anova(sol, permutations = perm, by = by,
+    perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata, model = model)
+    out <- anova(sol, permutations = perm, by = by, model = model,
                  parallel = parallel, permustat = permustat, groups = groups)
     ## attributes will be lost when adding a new column
     att <- attributes(out)

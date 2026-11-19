@@ -31,7 +31,12 @@
     }
     ## the fine level (within plots if any)
     type <- getType(x, which = "within")
-    head <- paste0(head, "Permutation: ", type)
+    if (!is.null(getPlots(x)$variables)) {
+        head <- paste0(head, "Variables: ", paste(names(getPlots(x)$variables), collapse = ", "),
+                       "\nPermutation: joint constraint rows among plots")
+    } else {
+        head <- paste0(head, "Permutation: ", type)
+    }
     if (type %in% c("series", "grid")) {
         if(getMirror(x, which = "within"))
             head <- paste(head, "mirrored")

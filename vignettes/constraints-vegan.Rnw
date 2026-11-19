@@ -1,0 +1,87 @@
+%\VignetteIndexEntry{Permutation of constraints and unequal whole plots}
+\documentclass[a4paper,10pt]{article}
+\usepackage{vegan}
+\title{Permutation of constraints and unequal whole plots}
+\author{vegan development version}
+\begin{document}
+\maketitle
+\SweaveOpts{strip.white=true}
+<<setup,echo=FALSE>>=
+library("vegan")
+options(width=70)
+set.seed(42)
+@
+\section{Stored constraint matrices}
+The option \verb|model = "constraints"| jointly permutes rows of the fitted
+constraint matrix. It works with \verb|anova()| for RDA, CCA, dbRDA and
+\verb|capscale()|, and directly with \verb|adonis2()|. Factor coding,
+interactions and fitted transformation columns move together. The response
+working matrix is fixed. Each draw recomputes centering, CCA row weights,
+the constraint QR decomposition and the pseudo-$F$ statistic. The original
+formula data are unnecessary for this calculation.
+
+\section{Unequal whole plots}
+The accompanying permute design supplies plot identifiers and one or more
+plot-level variables at the original sample-row level. All selected variables
+must be constant within plots. Complete variable rows define the distinct
+arrangements through ordered set partitions, preserving treatment-combination
+counts in plots while allowing sample counts to change.
+<<unequal>>=
+sizes <- c(2, 5, 3, 4)
+dat <- data.frame(
+    plot = rep(LETTERS[1:4], sizes),
+    treatment = factor(rep(c("T", "C", "T", "C"), sizes))
+)
+Y <- matrix(rexp(nrow(dat) * 5), nrow(dat), 5)
+h <- how(
+    plots = Plots(~ plot, type = "free", variables = ~ treatment),
+    data = dat
+)
+numPerms(nrow(dat), h)
+draws <- allPerms(nrow(dat), update(h, observed = TRUE))
+sort(rowSums(permutedVariables(draws) == "T"))
+fit <- rda(Y ~ treatment, data = dat)
+anova(fit, model = "constraints", permutations = h)
+D <- vegdist(Y, method = "bray")
+adonis2(D ~ treatment, data = dat,
+        model = "constraints", permutations = h)
+@
+The same call to \verb|anova()| works with models fitted by \verb|cca()|,
+\verb|dbrda()| or \verb|capscale()|. Ordinary observation-index matrices and
+existing \verb|how()| designs also work with this model option.
+
+\section{Joint factor combinations}
+For a factorial whole-plot design, list all variables needed to distinguish
+the constraint rows. For example, use \verb|variables = ~ A + B| with a fitted
+\verb|Y ~ A * B| model. Two plots per combination in a two-by-two design give
+$8!/(2!)^4=2520$ distinct arrangements, including the observed one. Balanced
+and unbalanced sample replication use the same design.
+
+These permutations give an overall test. Separate main-effect tests,
+interaction tests, contrast tests and nested-model comparisons need
+appropriate null-specific procedures. The current implementation supports
+\verb|by = NULL| and the ordinary pseudo-$F$ statistic. A variable-based
+whole-plot design requires \verb|Within(type = "none")|. Ordinary row designs
+can use within-plot shuffling where their exchangeability assumptions hold.
+
+\section{Conditioning variables and interpretation}
+\verb|Condition(Z)| leaves the conditioning matrix fixed. The implementation
+reports an informational message that nuisance adjustment alone does not justify exchangeability of the
+constraint rows. A randomized experiment can use fixed baseline covariates
+when the permutations reproduce its actual randomization, including
+blocking. Free constraint shuffling generally fails for observational
+predictors associated with the conditioning variables. The exact
+randomization argument concerns a sharp null of no treatment effect.
+
+\section{Enumeration and retained observations}
+Designs supplied through \verb|how()| are aligned with the observations retained
+by a fitted model before permutations are generated. Precomputed permutations
+must already match that layout. Set partitions omit rearrangements of
+identical complete variable rows. The selected variables must distinguish
+all distinct constraint rows in the fit.
+
+Enumeration excludes the observed arrangement by default, giving the usual
+plus-one p-value. When the supplied complete enumeration explicitly includes
+the observed arrangement, it is counted directly. Tied statistics are included
+in both cases.
+\end{document}

@@ -31,7 +31,7 @@ ordiNApredict(omit, x)
 ordiArgAbsorber(..., shrink, origin, scaling, triangular,
                 display, choices, const, truemean, optimize, arrows, FUN)
 centroids.cca(x, mf, wt)
-getPermuteMatrix(perm, N, strata = NULL)
+getPermuteMatrix(perm, N, strata = NULL, model = NULL)
 howHead(x, ...)
 pasteCall(call, prefix = "Call:")
 veganCovEllipse(cov, center = c(0, 0), scale = 1, npoints = 100)

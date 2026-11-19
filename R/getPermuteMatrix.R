@@ -7,10 +7,19 @@
 ### modify case (1). The number of shuffled items must be given in 'N'.
 
 `getPermuteMatrix` <-
-    function(perm, N,  strata = NULL)
+    function(perm, N, strata = NULL, model = NULL)
 {
     ## 'perm' is either a single number, a how() structure or a
     ## permutation matrix
+    if (inherits(perm, "plotPermutations")) {
+        if (!identical(model, "constraints"))
+            stop('plot variable permutations require model = "constraints"')
+        if (ncol(perm) != N) stop("plot permutations do not match the fitted observations")
+        return(perm)
+    }
+    if (inherits(perm, "how") && !is.null(getPlots(perm)$variables) &&
+        !identical(model, "constraints"))
+        stop('plot variable permutations require model = "constraints"')
     if (length(perm) == 1) {
         perm <- how(nperm = perm)
     }
