@@ -184,7 +184,7 @@ betadistances(x, ...)
 
   numeric; for the `print` method, sets the number of digits to use (as
   per [`print.default`](https://rdrr.io/r/base/print.default.html)) and
-  the maximum number of axes to display eigenvalues for, respectively.
+  the maximum number of axes to display eigenvalues for, repsectively.
 
 - ...:
 
@@ -425,7 +425,7 @@ permutest(mod, pairwise = TRUE, permutations = 99)
 #> 
 #> Response: Distances
 #>           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-#> Groups     1 0.07931 0.079306 4.6156     99   0.09 .
+#> Groups     1 0.07931 0.079306 4.6156     99   0.07 .
 #> Residuals 22 0.37801 0.017182                       
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -573,7 +573,7 @@ permutest(mod3B, permutations = 99)
 #> 
 #> Response: Distances
 #>           Df  Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-#> Groups     1 0.07193 0.071927 3.7826     99   0.06 .
+#> Groups     1 0.07193 0.071927 3.7826     99   0.05 *
 #> Residuals 22 0.41834 0.019015                       
 #> ---
 #> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
@@ -650,7 +650,7 @@ permutest(mod2, permutations = 99)
 #> 
 #> Response: Distances
 #>           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
-#> Groups     1 0.039979 0.039979 2.4237     99   0.18
+#> Groups     1 0.039979 0.039979 2.4237     99   0.16
 #> Residuals 18 0.296910 0.016495                     
 anova(mod2)
 #> Analysis of Variance Table
@@ -695,11 +695,9 @@ permutest(mod3, permutations = 99)
 #> Number of permutations: 99
 #> 
 #> Response: Distances
-#>           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)  
-#> Groups     1 0.033468 0.033468 3.1749     99   0.09 .
-#> Residuals 18 0.189749 0.010542                       
-#> ---
-#> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#>           Df   Sum Sq  Mean Sq      F N.Perm Pr(>F)
+#> Groups     1 0.033468 0.033468 3.1749     99   0.12
+#> Residuals 18 0.189749 0.010542                     
 anova(mod3)
 #> Analysis of Variance Table
 #> 

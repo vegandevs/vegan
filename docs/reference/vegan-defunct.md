@@ -6,35 +6,11 @@ they are no longer needed.
 ## Usage
 
 ``` r
-## defunct in vegan 2.8-0
-ordicloud(x, data = NULL, formula, display = "sites", choices = 1:3,
-    panel = "panel.ordi3d", prepanel = "prepanel.ordi3d", ...)
-ordisplom(x, data = NULL, formula = NULL, display = "sites", choices = 1:3, 
-    panel = "panel.ordi", type = "p", ...)
-ordiresids(x, kind = c("residuals", "scale", "qqmath"),
-    residuals = "working", type = c("p", "smooth", "g"),
-    formula, ...)
-ordixyplot(x, data = NULL, formula, display = "sites", choices = 1:3,
-    panel = "panel.ordi", aspect = "iso", envfit, type = c("p", "biplot"),
-    ...)
-permulattice(x, plot = c("densityplot", "qqmath"), observed = TRUE,
-    axislab = "Permutations", ...)  
-# S3 method for class 'permustats'
-densityplot(x, data, observed = TRUE, sd.scale = FALSE,
-             ylab = "Permutations", ...)
-# S3 method for class 'permustats'
-qqmath(x, data, observed = TRUE, sd.scale = FALSE,
-             ylab = "Permutations", ...)
-
 ## defunct in vegan 2.7-0
 adonis(formula, data, permutations = 999, method = "bray",
     strata = NULL, contr.unordered = "contr.sum",
     contr.ordered = "contr.poly", parallel = getOption("mc.cores"), ...)
 orditkplot(...)
-
-## defunct in vegan 2.6-6
-as.mcmc.oecosimu(x)
-as.mcmc.permat(x)
 
 ## defunct in vegan 2.6-0
 as.mlm(x)
@@ -64,24 +40,6 @@ permuted.index2(n, control = permControl())
 
 ## Details
 
-Lattice function `ordicloud` was moved to
-[vegan3d](https://CRAN.R-project.org/package=vegan3d) as
-`ordilattice3d`. To substitute `ordiresids`, use
-[`influence.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md)
-to extract data that you can use to design your own graphics.
-`ordisplom` was unsatisfactory and there is no replacement, but you can
-try to configure your own graphs with
-[ggvegan](https://CRAN.R-project.org/package=ggvegan) (function
-`ordiggplot`).
-
-CRAN package [ggvegan](https://CRAN.R-project.org/package=ggvegan)
-provides `autoplot` for directly making graphs, `fortify` and `tidy` to
-extract scores for graphs for defunct lattice functions `ordixyplot` and
-to substitute lattice graphics for `renyi`, `renyiaccum` and `poolaccum`
-result objects, and for
-[`permustats`](https://vegandevs.github.io/vegan/reference/permustats.md)
-results.
-
 [`adonis2`](https://vegandevs.github.io/vegan/reference/adonis.md)
 replaces `adonis` with extended functionality and completely new
 internal design. The shared arguments of `adonis` are similar as in
@@ -93,12 +51,13 @@ within `adonis`.
 [vegan3d](https://CRAN.R-project.org/package=vegan3d) version 1.3-0.
 Install vegan3d and use the function in the old way.
 
-`as.mcmc` functions are replaced with
-[`toCoda`](https://vegandevs.github.io/vegan/reference/oecosimu.md).
-
 `as.mlm` function is replaced with a set functions that can find the
 same statistics directly from the ordination result object: see
-[`influence.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md).
+[`hatvalues.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
+[`rstandard.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
+[`rstudent.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
+[`cooks.distance.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md),
+[`vcov.cca`](https://vegandevs.github.io/vegan/reference/influence.cca.md).
 
 Function `humpfit` was transferred to the natto package and is still
 available from <https://github.com/jarioksa/natto/>.
@@ -126,7 +85,7 @@ offers more powerful analysis tools for permutations, including
 giving \\z\\ values (a.k.a. standardized effect sizes, SES), and Q-Q
 plots
 ([`qqnorm.permustats`](https://vegandevs.github.io/vegan/reference/permustats.md),
-`qqmath.permustats`).
+[`qqmath.permustats`](https://vegandevs.github.io/vegan/reference/vegan-deprecated-lattice.md)).
 
 Function `metaMDSrotate` is replaced with
 [`MDSrotate`](https://vegandevs.github.io/vegan/reference/MDSrotate.md)

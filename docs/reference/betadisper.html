@@ -31,7 +31,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 
     <a class="navbar-brand me-2" href="../index.html">vegan</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.8-0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.7-8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -222,7 +222,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
   <dt id="arg-digits-neigen">digits, neigen<a class="anchor" aria-label="anchor" href="#arg-digits-neigen"></a></dt>
 <dd><p>numeric; for the <code>print</code> method, sets the
   number of digits to use (as per <code><a href="https://rdrr.io/r/base/print.default.html" class="external-link">print.default</a></code>) and the
-  maximum number of axes to display eigenvalues for, respectively.</p></dd>
+  maximum number of axes to display eigenvalues for, repsectively.</p></dd>
 
   <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>arguments, including graphical parameters (for
@@ -438,7 +438,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.09 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07931 0.079306 4.6156     99   0.07 .</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.37801 0.017182                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -586,7 +586,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df  Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99   0.06 .</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.07193 0.071927 3.7826     99   0.05 *</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 22 0.41834 0.019015                       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
@@ -663,7 +663,7 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.039979 0.039979 2.4237     99   0.16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.296910 0.016495                     </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
@@ -708,11 +708,9 @@ TukeyHSD.betadisper creates a set of confidence intervals on
 <span class="r-out co"><span class="r-pr">#&gt;</span> Number of permutations: 99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Response: Distances</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.033468 0.033468 3.1749     99   0.09 .</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.189749 0.010542                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           Df   Sum Sq  Mean Sq      F N.Perm Pr(&gt;F)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups     1 0.033468 0.033468 3.1749     99   0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Residuals 18 0.189749 0.010542                     </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html" class="external-link">anova</a></span><span class="op">(</span><span class="va">mod3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Analysis of Variance Table</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
