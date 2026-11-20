@@ -54,7 +54,7 @@
 
     ## Set up before the loop
     Z <- qr.X(QZ) # weighted Z
-    X <- .Call(test_qrXw, QR, w, ncol(Z)) # unweighted [X]
+    X <- .Call(vegan:::test_qrXw, QR, w, ncol(Z)) # unweighted [X]
 
     for (iter in seq_len(niter)) {
         ## permute Y & w
@@ -65,7 +65,7 @@
         QZ <- qr(Zperm)
         Yperm <- qr.resid(QZ, Yperm)
         ## Constrained
-        Xrew <- .Call(do_wcentre, X, wperm)
+        Xrew <- .Call(vegan:::do_wcentre, X, wperm)
         Xrew <- qr.resid(QZ, Xrew) # "residualized predictor" X
         QR <- qr(Xrew)
         Yfit <- qr.fitted(QR, Yperm)
@@ -91,13 +91,13 @@
     ss <- numeric(niter)
 
     ## Setting up before the loop
-    X <- .Call(test_qrXw, QR, w, m$pCCA$rank)
+    X <- .Call(vegan:::test_qrXw, QR, w, m$pCCA$rank)
 
     for (iter in seq_len(niter)) {
         ## permute X: order() makes X-permutation equal to
         ## Y-permutation, and order(order(i)) == i
         Xperm <- X[order(p[iter,]),]
-        Xrew <- .Call(do_wcentre, Xperm, w)
+        Xrew <- .Call(vegan:::do_wcentre, Xperm, w)
         Xrew <- qr.resid(QZ, Xrew)
         QR <- qr(Xrew)
         Yfit <- qr.fitted(QR, Y)
