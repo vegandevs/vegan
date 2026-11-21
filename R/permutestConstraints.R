@@ -18,16 +18,19 @@ constraintPermutationDesign <- function(x, permutations) {
     update(permutations, plots = plots, blocks = blocks, all.perms = NULL)
 }
 
-## Use the same eigenvalue cutoff as ordConstrained().
-constraintInertia <- function(Y, isDB)
+## Use the same eigenvalue cutoff as ordConstrained(). adonis0() uses
+## the raw trace instead.
+constraintInertia <- function(Y, isDB, isAdonis)
 {
+    if (isAdonis)
+        return(sum(diag(Y)))
     eig <- if (isDB) eigen(Y, symmetric = TRUE, only.values = TRUE)$values else
         svd(Y, nu = 0L, nv = 0L)$d^2
     zero <- sqrt(.Machine$double.eps)
     sum(eig[abs(eig) >= max(zero, zero * eig[1L])])
 }
 
-constraintStatistic <- function(Y, X, Z, w, isDB)
+constraintStatistic <- function(Y, X, Z, w, isDB, isAdonis)
 {
     if (is.null(w)) {
         X <- scale(X, scale = FALSE)
@@ -54,8 +57,8 @@ constraintStatistic <- function(Y, X, Z, w, isDB)
         fitted <- Y[fit, , drop = FALSE]
         residual <- Y[res, , drop = FALSE]
     }
-    num <- if (q > 0L) constraintInertia(fitted, isDB) else 0
-    den <- constraintInertia(residual, isDB)
+    num <- if (q > 0L) constraintInertia(fitted, isDB, isAdonis) else 0
+    den <- constraintInertia(residual, isDB, isAdonis)
     F <- if (q > 0L) (num / q) / (den / r) else 0
     c(F = F, num = num, den = den)
 }
@@ -113,6 +116,7 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
                 "Condition() alone does not establish exchangeability.")
     }
     isDB <- inherits(x, "dbrda")
+    isAdonis <- inherits(x, "adonis2")
     if (ncond > 0L && QZ$rank > 0L) {
         response <- qr.resid(QZ, response)
         if (isDB)
@@ -127,7 +131,7 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     F.0 <- (num / q) / (den / r)
     evaluate <- function(i) {
         constraintStatistic(response, X[indices[i, ], , drop = FALSE],
-                            Z, w, isDB)
+                            Z, w, isDB, isAdonis)
     }
     nperm <- nrow(indices)
     if (is.null(parallel)) parallel <- 1L

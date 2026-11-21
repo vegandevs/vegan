@@ -172,3 +172,10 @@ result <- suppressMessages(permutest(fit, permutations = draw, model = "constrai
 expect_equal(fit$pCCA$rank, 0)
 expect_equal(result$df, c(1, 5))
 expect_equal(result$F.perm[1, 1], stat_constraints(refit))
+
+## PERMANOVA uses raw sums of squares, even for very small dissimilarities.
+smallD <- dist(response * 1e-5)
+result <- adonis2(smallD ~ constraint, permutations = draw, model = "constraints")
+refit <- adonis2(smallD ~ I(constraint[take]), permutations = 0)
+expect_equal(result$F[1], adonis2(smallD ~ constraint, permutations = 0)$F[1])
+expect_equal(attr(result, "F.perm")[1, 1], stat_constraints(refit))
