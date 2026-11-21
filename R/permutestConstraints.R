@@ -110,6 +110,10 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
         design <- attr(permutations, "control")
         strata <- getStrata(design, which = "plots")
         variables <- getPlots(design)$variables
+        target <- rownames(Q$qr)
+        if (!is.null(target) && .row_names_info(variables, 1L) > 0L &&
+            !identical(rownames(variables), target))
+            stop("plot permutations must use the fitted order of observations")
         first <- which(!duplicated(strata))
         membership <- match(strata, strata[first])
         if (!isTRUE(all.equal(unname(X), unname(X[first[membership], , drop = FALSE]),

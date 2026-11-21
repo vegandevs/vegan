@@ -139,6 +139,15 @@ expect_identical(rownames(getPlots(attr(result4, "control"))$variables),
                  rownames(dat3)[-c(2L, 7L)])
 expect_equal(attr(result4, "F.perm"), attr(result3, "F.perm"))
 
+## A precomputed whole-plot design must have the fitted row order.
+fit <- rda(Y ~ A, data = dat)
+rev.dat <- dat[rev(seq_len(nrow(dat))), ]
+rev.h <- how(plots = Plots(~plot, type = "free", variables = ~A),
+             data = rev.dat, complete = TRUE)
+rev.draws <- allPerms(nrow(rev.dat), rev.h)
+expect_error(anova(fit, model = "constraints", permutations = rev.draws),
+             pattern = "fitted order")
+
 ## Identical groups yield ties and a p-value of one.
 two <- data.frame(plot=rep(c('a','b'),c(2,5)),A=rep(c(0,1),c(2,5)))
 Ytwo <- matrix(seq_len(7),7)
