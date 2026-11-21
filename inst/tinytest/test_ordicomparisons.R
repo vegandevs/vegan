@@ -229,6 +229,15 @@ expect_equal(nrow(ibal), 3L)
 expect_equal(nrow(iwgt), 6L)
 expect_identical(attr(fixed, "fixed"), "season = spring")
 
+## A user column can have the name formerly used for internal indices.
+idat.weights <- transform(idat, ..vegan_rowid = rev(seq_len(nrow(idat))))
+wts.column <- ordicontrasts(imod, "trt", by = "season",
+                          newdata = idat.weights, wts = "..vegan_rowid")
+wts.numeric <- ordicontrasts(imod, "trt", by = "season",
+                           newdata = idat.weights, wts = idat.weights$..vegan_rowid)
+expect_identical(attr(wts.column, "reference.data"), idat.weights)
+expect_equal(attr(wts.column, "reference"), attr(wts.numeric, "reference"))
+
 ## xlev names the fitted factor expression rather than its raw variable.
 idat.term <- transform(idat, habitat = as.character(season))
 imod.term <- rda(Y ~ trt * factor(habitat), data = idat.term)

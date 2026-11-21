@@ -131,7 +131,6 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     columns <- colnames(Q$qr)[order(Q$pivot)][nz + seq_len(p)]
 
     base <- .comparisonNewdata(predictors, dat, variable, by, newdata)
-    base$..vegan_rowid <- seq_len(nrow(base))
     split <- .comparisonSplit(base, by)
     meta <- .profileMetadata(predictors, dat, base, variable, by, newdata, wts)
     covariates <- intersect(intersect(names(base), names(dat)), predictors)
@@ -141,8 +140,9 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     lev <- levels(dat[[variable]])
     ordered <- is.ordered(dat[[variable]])
     refs <- lapply(seq_along(split), function(g) {
-        gd <- split[[g]]
-        gw <- .comparisonWeights(gd, wts, nrow(base))
+        take <- split[[g]]
+        gd <- base[take, , drop = FALSE]
+        gw <- .comparisonWeights(gd, wts, take, nrow(base))
         R <- .comparisonRows(object, gd, variable, lev, ordered, gw, columns)
         group <- if (length(by)) gd[1L, by, drop = FALSE] else NULL
         extra <- .comparisonExtrapolation(gd, ranges)
@@ -172,8 +172,7 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     attr(out, "profile.matrix") <- R
     attr(out, "group.index") <- group.index
     attr(out, "reference") <- refs
-    attr(out, "reference.data") <- base[, names(base) != "..vegan_rowid",
-                                         drop = FALSE]
+    attr(out, "reference.data") <- base
     attr(out, "model") <- object
     attr(out, "variable") <- variable
     attr(out, "levels") <- lev
@@ -483,8 +482,9 @@ print.vegan_comparisons <- function(x, ...)
 {
     if (!length(vars))
         return(dat[1L, vars, drop = FALSE])
-    groups <- if (length(by)) .comparisonSplit(dat, by) else list(dat)
-    rows <- lapply(groups, function(gd) {
+    groups <- .comparisonSplit(dat, by)
+    rows <- lapply(groups, function(take) {
+        gd <- dat[take, , drop = FALSE]
         values <- lapply(vars, function(v) {
             if (v %in% by) gd[[v]][1L]
             else .comparisonTypicalValue(gd[[v]])
@@ -597,39 +597,40 @@ print.vegan_comparisons <- function(x, ...)
 #' @param dat Comparison population.
 #' @param by Optional grouping variables.
 #'
-#' @return A named list of data frames.
+#' @return A list of row indices by group.
 #' @keywords internal
 .comparisonSplit <- function(dat, by)
 {
     if (!nrow(dat))
         stop("'newdata' must contain at least one row")
     if (!length(by))
-        return(list(dat))
+        return(list(seq_len(nrow(dat))))
     if (any(!by %in% names(dat)))
         stop("the reference population must contain all 'by' variables")
     if (anyNA(dat[by], recursive = TRUE))
         stop("'by' variables must not contain missing values")
     ## Integer codes keep different groups with the same pasted label apart.
     group <- lapply(dat[by], function(x) as.integer(as.factor(x)))
-    split(dat, interaction(group, drop = TRUE, lex.order = TRUE))
+    split(seq_len(nrow(dat)), interaction(group, drop = TRUE, lex.order = TRUE))
 }
 
 #' Resolve comparison averaging weights
 #'
 #' @param dat Comparison population.
 #' @param wts `NULL`, a numeric vector, or a weight-column name.
+#' @param take Row indices of the current group.
 #' @param n Total rows before optional `by` splitting.
 #'
 #' @return A normalised numeric vector.
 #' @keywords internal
-.comparisonWeights <- function(dat, wts, n)
+.comparisonWeights <- function(dat, wts, take, n)
 {
     if (is.null(wts))
         w <- rep.int(1, nrow(dat))
     else if (is.character(wts) && length(wts) == 1L && wts %in% names(dat))
         w <- dat[[wts]]
     else if (is.numeric(wts) && length(wts) == n)
-        w <- wts[dat$..vegan_rowid]
+        w <- wts[take]
     else if (is.numeric(wts) && length(wts) == nrow(dat))
         w <- wts
     else
