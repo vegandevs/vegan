@@ -179,6 +179,10 @@ imod <- rda(Y ~ trt * season, data = idat)
 iper <- shuffleSet(nrow(idat), 49)
 iavg <- ordicomparisons(imod, "trt", permutations = iper)
 isc <- ordicontrasts(imod, "trt", by = "season")
+wrapped.factor <- rda(Y ~ factor(trt) * season, data = idat)
+expect_equal(ordicomparisons(wrapped.factor, "trt", permutations = iper)$F,
+             iavg$F)
+
 imean.by <- ordicontrasts(imod, "trt", by = "season",
                                  newdata = "mean")
 iat <- ordicomparisons(imod, "trt", newdata = data.frame(
@@ -210,6 +214,14 @@ fixed <- ordicontrasts(imod, "trt", newdata = data.frame(
 expect_equal(nrow(ibal), 3L)
 expect_equal(nrow(iwgt), 6L)
 expect_identical(attr(fixed, "fixed"), "season = spring")
+
+## xlev names the fitted factor expression rather than its raw variable.
+idat.term <- transform(idat, habitat = as.character(season))
+imod.term <- rda(Y ~ trt * factor(habitat), data = idat.term)
+term.cmp <- ordicomparisons(imod.term, "trt",
+                          newdata = data.frame(habitat = "spring"),
+                          permutations = iper)
+expect_equal(term.cmp$F, iby$F[iby$season == "spring"])
 
 ### A mean-or-mode profile uses the modal non-focal factor level
 midx <- c(seq_len(nrow(idat)), which(idat$season == "spring")[1:3])

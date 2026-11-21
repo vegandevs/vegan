@@ -139,11 +139,11 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     base$..vegan_rowid <- seq_len(nrow(base))
     split <- .comparisonSplit(base, by)
     lev <- levels(dat[[variable]])
-    ordered <- isTRUE(object$terminfo$ordered[[variable]])
+    ordered <- is.ordered(dat[[variable]])
     refs <- lapply(seq_along(split), function(g) {
         gd <- split[[g]]
         gw <- .comparisonWeights(gd, wts, nrow(base))
-        R <- .comparisonRows(object, gd, variable, lev, gw, columns)
+        R <- .comparisonRows(object, gd, variable, lev, ordered, gw, columns)
         group <- if (length(by)) gd[1L, by, drop = FALSE] else NULL
         extra <- .comparisonExtrapolation(gd, ranges)
         list(reference.rows = R, group = group, weights = gw,
@@ -667,7 +667,7 @@ print.vegan_comparisons <- function(x, ...)
 #'
 #' @return A levels-by-coefficients reference-row matrix.
 #' @keywords internal
-.comparisonRows <- function(object, dat, variable, levels, w, columns)
+.comparisonRows <- function(object, dat, variable, levels, ordered, w, columns)
 {
     Terms <- object$terminfo$constraint.terms
     if (is.null(Terms)) {
@@ -679,8 +679,10 @@ print.vegan_comparisons <- function(x, ...)
     }
     ctr <- object$terminfo$contrasts
     xlev <- object$terminfo$xlev
-    xlev <- xlev[names(xlev) %in% all.vars(Terms)]
-    ordered <- isTRUE(object$terminfo$ordered[[variable]])
+    variables <- names(attr(Terms, "dataClasses"))
+    if (is.null(variables))
+        variables <- all.vars(Terms)
+    xlev <- xlev[names(xlev) %in% variables]
     rows <- lapply(levels, function(lev) {
         nd <- dat
         nd[[variable]] <- factor(lev, levels = levels,
