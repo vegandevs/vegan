@@ -609,7 +609,9 @@ print.vegan_comparisons <- function(x, ...)
         stop("the reference population must contain all 'by' variables")
     if (anyNA(dat[by], recursive = TRUE))
         stop("'by' variables must not contain missing values")
-    split(dat, interaction(dat[by], drop = TRUE, lex.order = TRUE))
+    ## Integer codes keep different groups with the same pasted label apart.
+    group <- lapply(dat[by], function(x) as.integer(as.factor(x)))
+    split(dat, interaction(group, drop = TRUE, lex.order = TRUE))
 }
 
 #' Resolve comparison averaging weights

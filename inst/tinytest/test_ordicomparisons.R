@@ -212,6 +212,14 @@ expect_error(ordicontrasts(imod, "trt", by = "season",
                            newdata = data.frame(season = c("spring", NA))),
              pattern = "'by' variables must not contain missing values")
 
+## Distinct groups can produce the same label when pasted with dots.
+idat.groups <- transform(idat,
+    a = ifelse(season == "spring", "x", "x.y"),
+    b = ifelse(season == "spring", "y.z", "z"))
+imod.groups <- rda(Y ~ trt * season, data = idat.groups)
+isc.groups <- ordicontrasts(imod.groups, "trt", by = c("a", "b"))
+expect_equal(nrow(isc.groups), 6L)
+
 ibal <- ordicomparisons(imod, "trt", newdata = "balanced", permutations = iper)
 iwgt <- ordicomparisons(imod, "trt", by = "season", wts = seq_len(nrow(idat)),
                     permutations = iper)
