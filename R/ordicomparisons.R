@@ -1,99 +1,17 @@
-#' Comparisons for constrained ordination models
-#'
-#' Construct scientifically meaningful comparisons of factor levels and test
-#' them with contrast-specific permutation pseudo-F statistics.
-#'
-#' @param object A fitted constrained ordination model or a profile table
-#'   returned by `ordicontrasts()`.
-#' @param variable The name of one focal factor in the model.
-#' @param comparison A built-in comparison name, character equations, or a
-#'   numeric contrast vector or matrix.
-#' @param reference Optional reference or control level. The first fitted
-#'   factor level is used when this is omitted.
-#' @param joint Test all resulting comparisons jointly.
-#' @param permutations A permutation count, matrix, or `permute::how()` object.
-#' @param strata Optional permutation strata.
-#' @param parallel Number of parallel workers or a socket cluster.
-#' @param adjust A method accepted by `stats::p.adjust()`.
-#' @param ... Arguments passed to methods.
-#'
-#' @return A data frame of class `vegan_comparisons`. The `contrasts`
-#'   attribute retains the `vegan_contrasts` object used to define the tests.
-#' @export
 ordicomparisons <- function(object, ...)
     UseMethod("ordicomparisons")
 
-#' Default comparisons method
-#'
-#' Report that no comparisons method is available for an object.
-#'
-#' @param object An unsupported object.
-#' @param ... Unused arguments.
-#'
-#' @return This method always throws an error.
-#' @keywords internal
 ordicomparisons.default <- function(object, ...)
     stop("no 'ordicomparisons' method for objects of class ",
          paste(class(object), collapse = "/"))
 
-#' Construct reference profiles for ordination contrasts
-#'
-#' Construct adjusted factor-level profiles from which ordination contrasts
-#' are formed, optionally within groups. Each displayed row retains its
-#' averaged model-matrix representation for use by `ordicomparisons()`.
-#' The rows identify the quantities to combine in contrasts; they are not
-#' individually zero-sum contrasts. Use `ordicomparisons()` directly for
-#' routine comparisons and this constructor to inspect or name profile rows.
-#'
-#' @param object A fitted constrained ordination model.
-#' @param variable The name of one focal factor in the model.
-#' @param newdata The population over which profiles are averaged. `NULL`
-#'   uses the analysis data, `"balanced"` uses a balanced reference grid,
-#'   `"mean"` uses one mean-or-mode profile, and a data frame supplies an
-#'   explicit population.
-#' @param by Optional model variables defining groups within which profiles
-#'   are averaged.
-#' @param wts Optional finite, non-negative averaging weights or the name of
-#'   a numeric weight column in `newdata`. Each group needs a positive weight.
-#' @param ... Arguments passed to methods.
-#'
-#' @return A data frame of class `vegan_contrasts` with a `Profile` column
-#'   identifying its rows. The `profile.matrix` attribute retains the averaged
-#'   design rows; other attributes retain the model, grouping, reference
-#'   population, weights, and extrapolation diagnostics.
-#' @export
 ordicontrasts <- function(object, ...)
     UseMethod("ordicontrasts")
 
-#' Default comparison-profiles method
-#'
-#' Report that comparison profiles are unavailable for an object.
-#'
-#' @param object An unsupported object.
-#' @param ... Unused arguments.
-#'
-#' @return This method always throws an error.
-#' @keywords internal
 ordicontrasts.default <- function(object, ...)
     stop("no 'ordicontrasts' method for objects of class ",
          paste(class(object), collapse = "/"))
 
-#' Comparison profiles for constrained ordination
-#'
-#' Rebuild the fitted model matrix under every level of one factor and average
-#' it over an observed, balanced, mean-or-mode, or user-supplied reference
-#' population. This method is inherited by `rda`, `cca`, `dbrda`, and retained
-#' `adonis2` fits.
-#' Each profile represents a factor level with the other variables averaged
-#' or held fixed. `ordicomparisons()` tests differences between their design
-#' rows using the fitted model's multivariate geometry.
-#'
-#' @inheritParams ordicontrasts
-#'
-#' @return A `vegan_contrasts` data frame with stable `b1`, `b2`, ... row
-#'   identifiers, focal and grouping values, reference-row counts, and
-#'   extrapolation flags.
-#' @export
 ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
                                 wts = NULL, ...)
 {
@@ -173,6 +91,7 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     rownames(R) <- out$Profile
     group.index <- rep(seq_along(refs), each = length(lev))
 
+    ## Profile identifiers link the displayed rows to the fitted design rows.
     attr(out, "profile.matrix") <- R
     attr(out, "group.index") <- group.index
     attr(out, "reference") <- refs
@@ -192,17 +111,6 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     out
 }
 
-#' Print comparison profiles
-#'
-#' Print profile rows together with the reference population, averaging,
-#' fixed-value, grouping, and weight choices that define them. Identifiers
-#' `b1`, `b2`, ... can be used in `ordicomparisons()` expressions.
-#'
-#' @param x A `vegan_contrasts` object.
-#' @param ... Arguments passed to `print.data.frame()`.
-#'
-#' @return `x`, invisibly.
-#' @export
 print.vegan_contrasts <- function(x, ...)
 {
     none <- function(z) if (length(z)) paste(z, collapse = ", ") else "none"
@@ -220,18 +128,6 @@ print.vegan_contrasts <- function(x, ...)
     invisible(x)
 }
 
-#' Comparisons for constrained ordination
-#'
-#' Construct comparison profiles and pass them to the profile comparison method.
-#' This is the one-call interface inherited by `rda`, `cca`, `dbrda`, and
-#' retained `adonis2` fits.
-#'
-#' @inheritParams ordicontrasts
-#' @inheritParams ordicomparisons
-#'
-#' @return A data frame of class `vegan_comparisons` with the comparison
-#'   degrees of freedom, inertia, pseudo-F statistic, and permutation p-value.
-#' @export
 ordicomparisons.cca <-
     function(object, variable, comparison = "pairwise", reference = NULL,
              newdata = NULL, by = NULL, joint = FALSE,
@@ -246,19 +142,6 @@ ordicomparisons.cca <-
                 parallel = parallel, adjust = adjust, ...)
 }
 
-#' Compare fitted profiles
-#'
-#' Translate recipes or linear expressions into differences between rows of a
-#' `vegan_contrasts` table, then test their additional constrained inertia
-#' using contrast-specific reduced-model permutation pseudo-F tests. Profile
-#' identifiers such as `b2 - b1 = 0` refer directly to the displayed rows, not
-#' to previously calculated comparisons or test statistics.
-#'
-#' @param object A `vegan_contrasts` object.
-#' @inheritParams ordicomparisons
-#'
-#' @return A data frame of class `vegan_comparisons`.
-#' @export
 ordicomparisons.vegan_contrasts <-
     function(object, comparison = "pairwise", reference = NULL,
              joint = FALSE, permutations = how(nperm = 999), strata = NULL,
@@ -357,15 +240,6 @@ ordicomparisons.vegan_contrasts <-
     out
 }
 
-#' Print constrained-ordination comparisons
-#'
-#' Print the comparison table with a short description of the fitted method.
-#'
-#' @param x A `vegan_comparisons` object.
-#' @param ... Arguments passed to `print.data.frame()`.
-#'
-#' @return `x`, invisibly.
-#' @export
 print.vegan_comparisons <- function(x, ...)
 {
     cat("Permutation comparisons for constrained ordination\n")
@@ -374,16 +248,6 @@ print.vegan_comparisons <- function(x, ...)
     invisible(x)
 }
 
-#' Recover analysis data for comparisons
-#'
-#' Evaluate the original data call and apply the fitted subset and missing-data
-#' action. Restore the fitted factor levels after row selection. Raw data are
-#' needed so transformed terms can be rebuilt faithfully.
-#'
-#' @param object A fitted constrained ordination model.
-#'
-#' @return A data frame aligned with the observations in `object`.
-#' @keywords internal
 .comparisonData <- function(object)
 {
     call <- object$call
@@ -408,19 +272,6 @@ print.vegan_comparisons <- function(x, ...)
     dat
 }
 
-#' Construct the comparison population
-#'
-#' Select the observed population, build a balanced or mean-or-mode reference
-#' grid, or validate explicit new data.
-#'
-#' @param predictors Names of the predictors in the constraint formula.
-#' @param dat Analysis data.
-#' @param variable Focal factor name.
-#' @param by Optional grouping variables.
-#' @param newdata Requested comparison population.
-#'
-#' @return A data frame used to construct counterfactual model matrices.
-#' @keywords internal
 .comparisonNewdata <- function(predictors, dat, variable, by, newdata)
 {
     if (is.null(newdata))
@@ -449,17 +300,6 @@ print.vegan_comparisons <- function(x, ...)
     newdata
 }
 
-#' Select a typical value
-#'
-#' Return the arithmetic mean of a numeric variable or the mode of another
-#' variable. Factor ties are resolved by fitted level order; other ties are
-#' resolved by order of first appearance.
-#'
-#' @param x A model variable.
-#'
-#' @return A length-one value retaining the class and levels of `x` where
-#'   applicable.
-#' @keywords internal
 .comparisonTypicalValue <- function(x)
 {
     ok <- !is.na(x)
@@ -477,18 +317,6 @@ print.vegan_comparisons <- function(x, ...)
     values[which.max(tabulate(match(observed, values)))]
 }
 
-#' Construct mean-or-mode reference profiles
-#'
-#' Construct one typical reference row globally, or one within every observed
-#' combination of `by` variables. Numeric variables are represented by their
-#' means and other non-grouping variables by their modes.
-#'
-#' @param dat Analysis data.
-#' @param vars Model variables required in the reference data.
-#' @param by Optional grouping variables.
-#'
-#' @return A data frame containing one mean-or-mode profile per group.
-#' @keywords internal
 .comparisonMeanData <- function(dat, vars, by)
 {
     if (!length(vars))
@@ -508,22 +336,6 @@ print.vegan_comparisons <- function(x, ...)
     out
 }
 
-#' Describe profile averaging
-#'
-#' Summarize the reference population, averaged variables, fixed numeric or
-#' user-supplied values, and weights used to construct comparison profiles. The
-#' metadata is printed with the profile table and retained for diagnostics.
-#'
-#' @param predictors Names of the predictors in the constraint formula.
-#' @param dat Analysis data.
-#' @param base Reference data used for profile construction.
-#' @param variable Focal factor name.
-#' @param by Optional grouping variables.
-#' @param newdata Original `newdata` specification.
-#' @param wts Original averaging-weight specification.
-#'
-#' @return A list of printable metadata.
-#' @keywords internal
 .profileMetadata <- function(predictors, dat, base, variable, by, newdata, wts)
 {
     vars <- setdiff(predictors, c(variable, by))
@@ -585,16 +397,6 @@ print.vegan_comparisons <- function(x, ...)
          weights = weights)
 }
 
-#' Diagnose extrapolation in comparison data
-#'
-#' Identify numeric values outside the range used to fit the model. Factor
-#' levels are validated later by `model.matrix()` and its fitted `xlev`.
-#'
-#' @param newdata Comparison population.
-#' @param ranges Named list of observed ranges for numeric predictors.
-#'
-#' @return A named logical vector for numeric model variables.
-#' @keywords internal
 .comparisonExtrapolation <- function(newdata, ranges)
 {
     vapply(names(ranges), function(v) {
@@ -603,13 +405,6 @@ print.vegan_comparisons <- function(x, ...)
     }, logical(1))
 }
 
-#' Split a comparison population by moderators
-#'
-#' @param dat Comparison population.
-#' @param by Optional grouping variables.
-#'
-#' @return A list of row indices by group.
-#' @keywords internal
 .comparisonSplit <- function(dat, by)
 {
     if (!nrow(dat))
@@ -625,15 +420,6 @@ print.vegan_comparisons <- function(x, ...)
     split(seq_len(nrow(dat)), interaction(group, drop = TRUE, lex.order = TRUE))
 }
 
-#' Resolve comparison averaging weights
-#'
-#' @param dat Comparison population.
-#' @param wts `NULL`, a numeric vector, or a weight-column name.
-#' @param take Row indices of the current group.
-#' @param n Total rows before optional `by` splitting.
-#'
-#' @return A normalised numeric vector.
-#' @keywords internal
 .comparisonWeights <- function(dat, wts, take, n)
 {
     if (is.null(wts))
@@ -653,15 +439,6 @@ print.vegan_comparisons <- function(x, ...)
     w / sum(w)
 }
 
-#' Construct the constraint formula
-#'
-#' Remove `Condition()` terms while preserving ordinary main effects,
-#' interactions, and transformations.
-#'
-#' @param object A fitted constrained ordination model.
-#'
-#' @return A one-sided formula for the constraint model matrix.
-#' @keywords internal
 .comparisonFormula <- function(object)
 {
     Terms <- terms(object)
@@ -671,22 +448,6 @@ print.vegan_comparisons <- function(x, ...)
                 env = environment(Terms))
 }
 
-#' Construct averaged model-matrix rows
-#'
-#' Set the focal factor to each fitted level, reconstruct the complete model
-#' matrix, and average over the selected population. The fitted terms retain
-#' prediction calls supplied by `makepredictcall()`, including the original
-#' polynomial coefficients, spline knots and scaling constants.
-#'
-#' @param object A fitted constrained ordination model.
-#' @param dat Comparison population.
-#' @param variable Focal factor name.
-#' @param levels Fitted factor levels.
-#' @param w Normalized averaging weights.
-#' @param columns Constraint-matrix column names.
-#'
-#' @return A levels-by-coefficients reference-row matrix.
-#' @keywords internal
 .comparisonRows <- function(object, dat, variable, levels, ordered, w, columns)
 {
     Terms <- object$terminfo$constraint.terms
@@ -724,18 +485,8 @@ print.vegan_comparisons <- function(x, ...)
     out
 }
 
-#' Detect comparisons written against profile rows
-#'
-#' Distinguish global expressions or numeric weights over displayed `b` rows
-#' from recipes and factor-level templates that should be repeated within each
-#' `by` group.
-#'
-#' @param comparison Comparison specification.
-#' @param ids Profile identifiers.
-#' @param nlevels Number of focal-factor levels per group.
-#'
-#' @return A single logical value.
-#' @keywords internal
+## Explicit profile identifiers can cross groups. Factor-level recipes and
+## equations are evaluated separately within each group.
 .comparisonUsesProfileRows <- function(comparison, ids, nlevels)
 {
     recipes <- c("pairwise", "sequential", "consecutive", "reference",
@@ -762,17 +513,6 @@ print.vegan_comparisons <- function(x, ...)
     FALSE
 }
 
-#' Generate comparison weights
-#'
-#' Translate built-in recipes, equations, lists, vectors, and matrices into
-#' weights on factor-level reference rows.
-#'
-#' @param comparison Comparison specification.
-#' @param keys Names of the quantities being compared.
-#' @param reference Optional reference quantity.
-#'
-#' @return A named contrast matrix.
-#' @keywords internal
 .comparisonContrasts <- function(comparison, keys, reference = NULL)
 {
     k <- length(keys)
@@ -849,19 +589,6 @@ print.vegan_comparisons <- function(x, ...)
     A
 }
 
-#' Compile differences between fitted profiles
-#'
-#' Normalise each row of weights and apply it to differences from a
-#' common profile. A shared offset in the profiles then cancels before
-#' multiplication. Changing the overall weight scale leaves the null
-#' hypothesis unchanged.
-#'
-#' @param A Comparison weights with one column per profile.
-#' @param R Matrix of averaged model-matrix rows.
-#'
-#' @return A matrix with one row per comparison.
-#' @seealso .comparisonContrasts, .comparisonTest
-#' @keywords internal
 .comparisonMatrix <- function(A, R)
 {
     if (!length(A) || any(!is.finite(A)))
@@ -877,6 +604,8 @@ print.vegan_comparisons <- function(x, ...)
         a <- a / abs(a[anchor])
         if (abs(sum(a)) > 8 * .Machine$double.eps * sum(abs(a)))
             stop("comparison weights must sum to zero")
+        ## Subtract a common profile before multiplication so a large
+        ## shared offset cannot swamp a small difference.
         diffs <- sweep(R[take, , drop = FALSE], 2L, R[take[anchor], ], "-")
         if (any(!is.finite(diffs)))
             stop("comparison produced non-finite model-matrix differences")
@@ -891,13 +620,6 @@ print.vegan_comparisons <- function(x, ...)
     L
 }
 
-#' Parse a safe linear comparison expression
-#'
-#' @param expression A character equation.
-#' @param keys Names allowed in the equation.
-#'
-#' @return A numeric vector of linear weights.
-#' @keywords internal
 .comparisonExpression <- function(expression, keys)
 {
     if (length(expression) != 1L)
@@ -962,13 +684,6 @@ print.vegan_comparisons <- function(x, ...)
     unname(z$coef)
 }
 
-#' Label comparison rows
-#'
-#' @param A Comparison matrix.
-#' @param keys Quantity names.
-#'
-#' @return Character labels describing non-zero weights.
-#' @keywords internal
 .comparisonLabels <- function(A, keys)
 {
     apply(A, 1L, function(a) {
@@ -981,23 +696,6 @@ print.vegan_comparisons <- function(x, ...)
     })
 }
 
-#' Test one compiled comparison
-#'
-#' Separate the null and tested spaces in the fitted design's orthonormal
-#' coordinates. Use QR projections to calculate inertia before passing the
-#' test to the reduced-model permutation machinery.
-#'
-#' @param object Original constrained ordination model.
-#' @param basis Orthonormal basis of the fitted design, with conditions first.
-#' @param triangular Constraint block of the fitted triangular QR factor.
-#' @param pivot Order of the constraint columns in `triangular`.
-#' @param L Compiled comparison matrix.
-#' @param permutations Shared permutation matrix.
-#' @param parallel Parallel-processing specification.
-#'
-#' @return A list of test statistics.
-#' @seealso .comparisonMatrix, permutest.cca
-#' @keywords internal
 .comparisonTest <- function(object, basis, triangular, pivot, L, permutations,
                             parallel)
 {
@@ -1059,13 +757,6 @@ print.vegan_comparisons <- function(x, ...)
     list(df = rank, inertia = contrast, F = unname(tst$F.0), p = p)
 }
 
-#' Convert comparisons to an ANOVA table
-#'
-#' @param x A `vegan_comparisons` result.
-#' @param object Original constrained ordination model.
-#'
-#' @return An `anova.cca` data frame.
-#' @keywords internal
 .comparisonsAnova <- function(x, object)
 {
     columns <- c("Df", "Inertia", "F", "Pr(>F)")
