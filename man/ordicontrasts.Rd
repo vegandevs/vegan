@@ -20,7 +20,8 @@ ordicontrasts(object, ...)
 }
 \arguments{
 \item{object}{A constrained ordination object fitted by the formula
-interface, such as a result from \code{rda}, \code{cca}, or \code{dbrda}.}
+interface with a \code{data} argument, such as a result from \code{rda},
+\code{cca}, or \code{dbrda}. The original predictor data must be available.}
 \item{variable}{The name of one focal factor in the fitted model.}
 \item{newdata}{The reference population used to construct profiles.
 The default uses the fitted analysis data. Character value \code{"balanced"}
