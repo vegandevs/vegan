@@ -9,12 +9,12 @@
 `getPermuteMatrix` <-
     function(perm, N, strata = NULL, model = NULL)
 {
-    ## 'perm' is either a single number, a how() structure or a
-    ## permutation matrix
+    ## Expanded plot assignments can repeat source row indices.
     if (inherits(perm, "plotPermutations")) {
         if (!identical(model, "constraints"))
             stop('plot variable permutations require model = "constraints"')
-        if (ncol(perm) != N) stop("plot permutations do not match the fitted observations")
+        if (!isTRUE(ncol(perm) == N))
+            stop("plot permutations do not match the fitted observations")
         return(perm)
     }
     if (inherits(perm, "how") && !is.null(getPlots(perm)$variables) &&

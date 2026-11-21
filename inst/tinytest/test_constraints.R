@@ -95,6 +95,11 @@ missing_index[1L] <- NA_real_
 expect_error(permutest(fit, model = "constraints", permutations = missing_index),
              pattern = "must be strictly integers")
 
+## Whole-plot permutation tests expect a set, even for a single draw.
+one_plot_shuffle <- shuffle(nrow(dat), control = h)
+expect_error(permutest(fit, model = "constraints", permutations = one_plot_shuffle),
+             pattern = "plot permutations do not match the fitted observations")
+
 ## Two-factor whole-plot design, preserving complete factor/numeric profiles.
 sizes2 <- c(1,2,2,3,3,4,4,5)
 dat2 <- data.frame(plot=rep(letters[1:8],sizes2),
