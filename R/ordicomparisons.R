@@ -793,7 +793,8 @@ print.vegan_comparisons <- function(x, ...)
         } else if (comparison %in% c("reference", "trt.vs.ctrl")) {
             if (is.null(reference)) reference <- keys[[1L]]
             ref <- match(reference, keys)
-            if (is.na(ref)) stop("'reference' is not one of the quantities")
+            if (length(ref) != 1L || is.na(ref))
+                stop("'reference' must name one of the quantities")
             take <- setdiff(seq_len(k), ref)
             A <- matrix(0, nrow = length(take), ncol = k)
             for (i in seq_along(take)) A[i, c(ref, take[i])] <- c(-1, 1)
