@@ -3,7 +3,8 @@
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
              strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
-             groups = NULL, model = c("reduced", "direct", "full", "constraints"))
+             groups = NULL,
+             model = c("reduced", "direct", "full", "constraints"))
 {
     model <- match.arg(model)
     permustat <- match.arg(permustat)
@@ -84,12 +85,10 @@
     sol$call <- match.call()
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, data)
-    if (!is.null(d$na.action)) sol$na.action <- d$na.action
-    if (model == "constraints")
-        permutations <- constraintPermutationDesign(sol, permutations)
-    ## handle permutations
-    perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata, model = model)
-    out <- anova(sol, permutations = perm, by = by, model = model,
+    if (!is.null(d$na.action))
+        sol$na.action <- d$na.action
+    out <- anova(sol, permutations = permutations, by = by, model = model,
+                 strata = strata,
                  parallel = parallel, permustat = permustat, groups = groups)
     ## attributes will be lost when adding a new column
     att <- attributes(out)

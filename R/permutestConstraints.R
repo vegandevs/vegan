@@ -79,7 +79,8 @@ constraintStatistic <- function(Y, X, Z, w, isDB, isAdonis)
     c(F = F, num = num, den = den)
 }
 
-permutestConstraints <- function(x, permutations, strata, parallel, permustat, groups) {
+permutestConstraints <- function(x, permutations, strata, parallel, permustat)
+{
     if (permustat != "pseudo-F")
         stop('model = "constraints" currently supports permustat = "pseudo-F"')
     if (is.null(x$CCA) || x$CCA$qrank < 1L)
@@ -87,7 +88,8 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     permutations <- constraintPermutationDesign(x, permutations)
     response <- ordiYbar(x, "initial")
     N <- nrow(response)
-    permutations <- getPermuteMatrix(permutations, N, strata = strata, model = "constraints")
+    permutations <- getPermuteMatrix(permutations, N, strata = strata,
+                                     model = "constraints")
     typed <- inherits(permutations, "plotPermutations")
     indices <- if (typed) permute::permutationIndices(permutations) else as.matrix(permutations)
     if (ncol(indices) != N || anyNA(indices) || any(indices < 1L | indices > N))

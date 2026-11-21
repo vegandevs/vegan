@@ -6,7 +6,8 @@ permutest.default <- function(x, ...)
 
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
-              model = c("reduced", "direct", "full", "constraints"), by = NULL, first = FALSE,
+              model = c("reduced", "direct", "full", "constraints"),
+              by = NULL, first = FALSE,
               strata = NULL, parallel = getOption("mc.cores"), ...,
               permustat = c("pseudo-F", "modified-F"), groups = NULL)
 {
@@ -14,8 +15,9 @@ permutest.default <- function(x, ...)
     permustat <- match.arg(permustat)
     if (model == "constraints") {
         if (!is.null(by) || first)
-            stop("constraint permutations currently support overall tests (by = NULL, first = FALSE)")
-        return(permutestConstraints(x, permutations, strata, parallel, permustat, groups))
+            stop("constraint permutations support overall tests ",
+                 "(by = NULL, first = FALSE)")
+        return(permutestConstraints(x, permutations, strata, parallel, permustat))
     }
     if (inherits(permutations, "plotPermutations") ||
         (inherits(permutations, "how") && !is.null(getPlots(permutations)$variables)))

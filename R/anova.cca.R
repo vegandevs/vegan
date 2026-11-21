@@ -9,20 +9,20 @@
     model <- match.arg(model)
     test <- match.arg(test)
     if (model == "constraints" && (test != "permutation" || !is.null(by)))
-        stop("constraint permutations currently support overall permutation tests (by = NULL)")
-    if (model == "constraints")
-        permutations <- constraintPermutationDesign(object, permutations)
+        stop("constraint permutations support overall permutation tests (by = NULL)")
     permustat <- match.arg(permustat)
     if (test == "parametric") {
         if (permustat == "modified-F")
             stop("'permustat = \"modified-F\"' requires a permutation test")
         permutations <- 0
     }
-    ## permutation matrix
-    N <- nrow(object$CA$u)
-    permutations <- getPermuteMatrix(permutations, N, strata = strata, model = model)
-    seed <- attr(permutations, "seed")
-    control <- attr(permutations, "control")
+    ## Constraint tests align and generate their permutations in permutest.
+    if (model != "constraints") {
+        permutations <- getPermuteMatrix(permutations, nrow(object$CA$u),
+                                         strata = strata)
+        seed <- attr(permutations, "seed")
+        control <- attr(permutations, "control")
+    }
     ## see if this was a list of ordination objects
     dotargs <- list(...)
     ## we do not want to give dotargs to anovaCCAlist, but we
@@ -87,11 +87,11 @@
             sol <- anovaCCAparametric(object, sol)
         return(sol)
     }
-    ## basic overall test: pass other arguments except 'strata'
-    ## because 'permutations' already is a permutationMatrix
     tst <- permutest.cca(object, permutations = permutations,
-                         model = model, parallel = parallel, ...,
+                         model = model, strata = strata, parallel = parallel, ...,
                          permustat = permustat, groups = groups)
+    seed <- tst$Random.seed
+    control <- tst$control
     Fval <- c(tst$F.0, NA)
     observed <- as.integer(!isTRUE(tst$observed))
     Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + observed)/(tst$nperm + observed)
