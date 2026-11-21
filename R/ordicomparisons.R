@@ -111,6 +111,8 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     if (!variable %in% predictors)
         stop(gettextf("variable '%s' is not a constraint in the model",
                       variable))
+    ## Formula symbols can also name settings such as a polynomial degree.
+    predictors <- intersect(predictors, names(dat))
     if (!is.null(by)) {
         if (!is.character(by) || any(!by %in% names(dat)))
             stop("'by' must name variables in the model data")

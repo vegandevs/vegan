@@ -404,6 +404,17 @@ expect_equal(attr(named.profiles, "profile.matrix"),
              attr(plain.profiles, "profile.matrix"), tolerance = 1e-8,
              info = "data columns do not hide fitted transformation functions")
 
+### Formula settings are looked up in the formula environment
+degree <- 2
+degree.fit <- rda(tY ~ trt * poly(x, degree) + season, data = tdata)
+literal.fit <- rda(tY ~ trt * poly(x, 2) + season, data = tdata)
+for (population in c("mean", "balanced")) {
+    actual <- ordicontrasts(degree.fit, "trt", newdata = population)
+    expected <- ordicontrasts(literal.fit, "trt", newdata = population)
+    expect_equal(unname(attr(actual, "profile.matrix")),
+                 unname(attr(expected, "profile.matrix")))
+}
+
 ### A polynomial of a scaled variable retains both fitted transformations
 scaled.x <- scale(tdata$x)
 nested.basis <- poly(as.numeric(scaled.x), 2)
