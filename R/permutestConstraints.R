@@ -1,20 +1,36 @@
-## Subset an unevaluated design to the model's retained rows before generation.
-constraintPermutationDesign <- function(x, permutations) {
-    if (!inherits(permutations, "how") || is.null(getPlots(permutations)$variables))
+## Align the design to the fitted predictors before generating assignments.
+constraintPermutationDesign <- function(x, permutations)
+{
+    if (!inherits(permutations, "how"))
         return(permutations)
     plots <- getPlots(permutations)
     data <- plots$variables
-    target <- rownames(ordiYbar(x, "initial"))
-    if (identical(rownames(data), target)) return(permutations)
-    take <- match(target, rownames(data))
-    if (anyNA(take)) {
-        if (nrow(data) == length(target)) return(permutations)
-        stop("plot variables cannot be aligned with the fitted observations")
+    if (is.null(data))
+        return(permutations)
+    qr <- x$CCA$QR$qr
+    target <- rownames(qr)
+    if (!is.null(target) && .row_names_info(data, 1L) > 0L) {
+        ## The response can have different row names from its predictor data.
+        take <- match(target, rownames(data))
+    } else {
+        take <- seq_len(nrow(data))
+        if (length(take) != nrow(qr)) {
+            if (!is.null(x$subset))
+                take <- take[x$subset]
+            if (!is.null(x$na.action))
+                take <- take[-x$na.action]
+        }
     }
+    if (length(take) != nrow(qr) || anyNA(take))
+        stop("plot variables cannot be aligned with the fitted observations")
+    if (identical(take, seq_len(nrow(data))))
+        return(permutations)
     plots <- update(plots, strata = getStrata(plots)[take],
                     variables = data[take, , drop = FALSE])
     blocks <- getBlocks(permutations)
-    if (!is.null(blocks)) blocks <- blocks[take]
+    if (!is.null(blocks))
+        blocks <- blocks[take]
+    ## A cached enumeration was generated for the original set of rows.
     update(permutations, plots = plots, blocks = blocks, all.perms = NULL)
 }
 

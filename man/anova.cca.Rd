@@ -250,8 +250,9 @@ selected variable must be constant within a plot, and the variables must
 distinguish every distinct constraint row. Identical complete variable rows
 are handled through set partitions. The resulting expanded source indices
 can repeat. \code{Within(type = "none")} is required for this whole-plot design.
-Designs supplied as \code{how()} are aligned to the observations retained by
-the model before generation; precomputed sets must already have that layout.
+Whole-plot variable designs supplied as \code{how()} are aligned to the
+observations retained by the model before generation. Precomputed sets
+must already have that layout.
 
 The prototype supports overall tests with \code{by = NULL},
 \code{first = FALSE}, and \code{permustat = "pseudo-F"}. Term-wise tests,

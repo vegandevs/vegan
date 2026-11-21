@@ -130,6 +130,15 @@ h3 <- how(plots=Plots(~plot,type='free',variables=~A),data=dat3)
 result3 <- suppressMessages(anova(fit3,model='constraints',permutations=h3))
 expect_equal(nrow(getPlots(attr(result3,'control'))$variables),12L)
 
+## Predictors and responses can have different row names.
+rownames(Y) <- paste0("response", seq_len(nrow(Y)))
+fit4 <- rda(Y ~ A, data = dat3, na.action = na.exclude,
+            subset = seq_len(nrow(dat3)) != 7L)
+result4 <- anova(fit4, model = "constraints", permutations = h3)
+expect_identical(rownames(getPlots(attr(result4, "control"))$variables),
+                 rownames(dat3)[-c(2L, 7L)])
+expect_equal(attr(result4, "F.perm"), attr(result3, "F.perm"))
+
 ## Identical groups yield ties and a p-value of one.
 two <- data.frame(plot=rep(c('a','b'),c(2,5)),A=rep(c(0,1),c(2,5)))
 Ytwo <- matrix(seq_len(7),7)
