@@ -484,6 +484,13 @@ expect_equal(ccacmp$Inertia, cca.sum.cmp$Inertia, tolerance = 1e-8,
 expect_equal(ccacmp$F, cca.sum.cmp$F, tolerance = 1e-8,
              info = "partial CCA comparison F is coding invariant")
 
+### adonis2 forwards positional distance arguments
+adonis.positional <- adonis2(dune ~ Management, dune.env, per, "bray",
+                            FALSE, FALSE, NULL, 1L, na.fail, NULL, TRUE)
+adonis.named <- adonis2(dune ~ Management, dune.env, permutations = per,
+                       binary = TRUE)
+expect_equal(adonis.positional$R2, adonis.named$R2)
+
 ### Euclidean dbRDA and retained adonis2 fits agree with RDA
 dbmod <- dbrda(dune ~ Management, data = dune.env, distance = "euclidean")
 dbcmp <- ordicomparisons(dbmod, "Management", comparison = "HF - BF = 0",

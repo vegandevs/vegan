@@ -2,9 +2,8 @@
     function(formula, data, permutations = 999, method = "bray",
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
-             strata = NULL, return = c("anova", "model"), ...,
-             permustat = c("pseudo-F", "modified-F"),
-             groups = NULL)
+             strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
+             groups = NULL, return = c("anova", "model"))
 {
     permustat <- match.arg(permustat)
     return <- match.arg(return)
