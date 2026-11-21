@@ -94,6 +94,38 @@ expect_equal(permustats(an0)$permutations, permustats(ado)$permutations,
 expect_equal(permustats(an0)$permutations, permustats(ano)$permutations,
              info="dbrda and capscale match w/ add='cailliez'")
 
+### Wide, rank-deficient QR decompositions (#814)
+dune6 <- dune[1:6, ]
+d6 <- dist(dune6)
+group <- rep(0:1, each = 3)
+trend <- rep(-1:1, 2)
+wide <- outer(trend, seq_len(8L))
+perm6 <- rbind(c(2L, 4L, 1L, 6L, 3L, 5L),
+               c(4L, 2L, 6L, 1L, 5L, 3L),
+               c(6L, 5L, 3L, 4L, 2L, 1L),
+               c(3L, 1L, 5L, 2L, 6L, 4L))
+
+## Use one matrix-valued term so dropping it removes all its columns.
+for (by in list(NULL, "terms", "margin", "onedf")) {
+    ado <- adonis2(d6 ~ group + wide, permutations = perm6, by = by)
+    ref <- adonis2(d6 ~ group + trend, permutations = perm6, by = by)
+    expect_equal(unname(as.matrix(ado)), unname(as.matrix(ref)))
+    expect_equal(unname(permustats(ado)$permutations),
+                 unname(permustats(ref)$permutations))
+}
+
+## Both the conditions and the combined model have wide QR matrices.
+ado <- adonis2(d6 ~ group + Condition(wide), permutations = perm6)
+ref <- adonis2(d6 ~ group + Condition(trend), permutations = perm6)
+expect_equal(as.matrix(ado), as.matrix(ref))
+expect_equal(permustats(ado)$permutations, permustats(ref)$permutations)
+
+mod <- suppressMessages(cca(dune6 ~ group + Condition(wide)))
+ano <- anova(mod, permutations = perm6)
+ref <- anova(cca(dune6 ~ group + Condition(trend)), permutations = perm6)
+expect_equal(as.matrix(ano), as.matrix(ref))
+expect_equal(permustats(ano)$permutations, permustats(ref)$permutations)
+
 ### 'by' special cases
 m0 <- cca(dune ~ 1, dune.env)
 m1 <- cca(dune ~ Management, dune.env)

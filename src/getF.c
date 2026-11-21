@@ -181,11 +181,11 @@ static void qrXw(double *qr, int rank, double *qraux, int *pivot, double *X,
     int i, j, ij, len = nr*nc, info = 0, qrkind;
     double dummy[1] = {0.0}, wsqrt;
     double *xwork = (double *) R_alloc(len, sizeof(double));
-    /* Extract  R from qr into upper triangle of X */
+    /* Extract the upper trapezoidal R factor from qr */
     for(i = 0; i < len; i++)
 	xwork[i] = 0;
     for(j = 0; j < nc; j++)
-	for(i = 0; i <= j; i++) {
+	for(i = 0; i < nr && i <= j; i++) {
 	    ij = i + nr*j;
 	    xwork[ij] = qr[ij];
 	}
