@@ -92,20 +92,23 @@ decobackstand(x, zap = TRUE)
      bias. The transformation assumes positive values, pseudocounts can
      be added with the argument \code{pseudocount}. One of the
      rows/columns is a reference that can be given by \code{reference}
-     (name of index). The first row/column is used by default
-     (\code{reference = 1}).  Note that this transformation drops one
-     row or column from the transformed output data. The \code{alr}
+     (name or index). The first row/column is used by default
+     (\code{reference = 1}).  Note that this transformation keeps given
+     \code{MARGIN} but drops one row/column of the other \code{MARGIN}
+     from the transformed output data. The \code{alr}
      transformation is defined formally as follows:
      \deqn{alr = [log\frac{x_1}{x_D}, ..., log\frac{x_{D-1}}{x_D}]}{%
        alr = [log(x_i/x_D), ..., log(x_{-D}/x_D)]}
      where the denominator sample \eqn{x_D} can be chosen
      arbitrarily. This transformation is often used with pH and other
      chemistry measurements. It is also commonly used as multinomial
-     logistic regression. Default \code{MARGIN = 1} uses row as the
-     \code{reference}.
+     logistic regression. Default \code{MARGIN = 1} returns all rows and
+     uses one column as the \code{reference} and drops that column from
+     transformed data.
 
     \item \code{clr}: centered log ratio ("clr") transformation proposed by
-     Aitchison (1986) and it is used to reduce data skewness and compositionality bias.
+     Aitchison (1986) and it is used to reduce data skewness and
+     compositionality bias.
      This transformation has frequent applications in microbial ecology
      (see e.g. Gloor et al., 2017). The clr transformation is defined as:
      \deqn{clr = log\frac{x}{g(x)} = log x - log g(x)}{%
@@ -137,14 +140,17 @@ decobackstand(x, zap = TRUE)
      that result from log transformation of the zero entries in the
      original input data. See \link[vegan]{optspace} for more details.
      The following parameters can be passed to optspace
-     through decostand: "ropt" NA to guess the rank, or a positive
-     integer as a pre-defined rank (default: 3); "niter" maximum
-     number of iterations allowed (default: 5); "tol" stopping
+     through decostand: \code{ropt} NA to guess the rank, or a positive
+     integer as a pre-defined rank (default: 3); \code{niter} maximum
+     number of iterations allowed (default: 5); \code{tol} stopping
      criterion for reconstruction in Frobenius norm (default: 1e-5);
-     "verbose" a logical value; TRUE to show progress, FALSE otherwise
-     (default: FALSE); "impute" to switch on/off the matrix completion
-     (default: impute=TRUE).
-  }
+     \code{verbose} a logical value; TRUE to show progress, FALSE otherwise
+     (default: FALSE); \code{impute} to select imputation: \code{"all"}
+     (default) will replace complete matrix with imputed values,
+     \code{"zero"} will replace only original zeros (and \code{NA}) with
+     imputed values,  and \code{"none"} will skip imputation leaving
+     original zeros \code{NA}.
+   }
 
   Standardization, as contrasted to transformation, means that the
   entries are transformed relative to other entries.

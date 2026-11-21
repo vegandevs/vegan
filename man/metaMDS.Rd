@@ -37,7 +37,7 @@ metaMDS(comm, distance = "bray", k = 2, try = 20, trymax = 20,
 \method{scores}{metaMDS}(x, display = c("sites", "species"), shrink = FALSE, 
     choices, tidy = FALSE, ...)
 metaMDSdist(comm, distance = "bray", autotransform = TRUE, 
-    noshare = TRUE, trace = 1, commname, zerodist = "ignore", 
+    noshare = FALSE, trace = 1, commname, zerodist = "ignore",
     distfun = vegdist, ...)
 metaMDSiter(dist, k = 2, try = 20, trymax = 20, trace = 1, plot = FALSE, 
     previous.best, engine = monoMDS, maker, parallel = getOption("mc.cores"),
@@ -382,14 +382,15 @@ metaMDSredist(object, ...)
 }
 
 \value{ Function \code{metaMDS} returns an object of class
-  \code{metaMDS} which inherits from the class of \code{engine}. The
-  final site ordination is stored in the item \code{points}, and
-  species ordination in the item \code{species}, and the stress in
-  item \code{stress} (NB, the scaling of the stress depends on the
-  \code{engine}: \code{\link[MASS]{isoMDS}} uses percents,
-  \code{\link{monoMDS}} and most other functions use proportions
-  \eqn{0 \ldots 1}). The other items store the information on the
-  steps taken and the items returned by the \code{engine}
+  \code{metaMDS} which inherits from the class of \code{engine}, and
+  if there is no specific class, the name of \code{engine} is used as
+  a class. The final site ordination is stored in the item
+  \code{points}, and species ordination in the item \code{species},
+  and the stress in item \code{stress} (NB, the scaling of the stress
+  depends on the \code{engine}: \code{\link[MASS]{isoMDS}} uses
+  percents, \code{\link{monoMDS}} and most other functions use
+  proportions \eqn{0 \ldots 1}). The other items store the information
+  on the steps taken and the items returned by the \code{engine}
   function. The object has \code{print}, \code{plot}, \code{points}
   and \code{text} methods.  Functions \code{metaMDSdist} and
   \code{metaMDSredist} return \code{\link{vegdist}} objects.  Function
@@ -470,12 +471,12 @@ sol2
 sol <- metaMDS(dune, distfun = betadiver, distance = "z")
 sol
 ## IGNORE_RDIFF_END
-## Wrap package smacof function mds as engine (you must load smacof first)
-smacof <- function(dist, y, k, ...) {
-   m <- mds(delta = dist, init = y, ndim = k, ...)
-   m$points <- m$conf
-   m
-}
+## Wrap package smacof function mds as engine:
+## smacof <- function(dist, y, k, ...) {
+##    m <- smacof::mds(delta = dist, init = y, ndim = k, ...)
+##    m$points <- m$conf
+##    m
+## }
 ## use this as metaMDS(..., engine = smacof, type = "ordinal")
 }
 \keyword{ multivariate }

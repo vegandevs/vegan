@@ -142,6 +142,7 @@
         attr <- attr(x, "parameters")
         if (!is.null(attr)) # no transformation parameters with imputed matrix
             attr$margin <- MARGIN
+        attr$ropt <- attr(x, "ropt")
     })
     if (any(is.nan(x)))
         warning("result contains NaN, perhaps due to impossible mathematical
@@ -162,9 +163,8 @@
     x <- x + pseudocount
     # Error with negative values (note: at this step we always use na.rm = TRUE)
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("'method = \"clr\"' cannot be used with non-positive data:
-              use pseudocount '> -min(x, na.rm = TRUE) + pseudocount'",
-	      call. = FALSE)
+        stop("'method = \"clr\"' cannot be used with non-positive data: use pseudocount > ", -min(x, na.rm = TRUE),
+             call. = FALSE)
     }
 
     # In every sample, calculate the log of individual entries.
@@ -193,8 +193,16 @@
 
 # Modified from the original version in mia R package
 .calc_rclr <-
-    function(x, na.rm, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE, impute = TRUE, ...)
+    function(x, na.rm, ropt = 3, niter = 5, tol = 1e-5, verbose = FALSE,
+             impute = "all", ...)
 {
+    ## impute uses now three alternatives (character), but to maintain
+    ## complatibility with old code, accept also TRUE and FALSE for
+    ## two of these
+    if (is.logical(impute))
+        impute <- if (impute) "all" else "none"
+    else
+        impute <- match.arg(impute, c("all", "none", "zero"))
     # Error with negative values
     if (any(x < 0, na.rm = na.rm)) {
         stop("the 'method = \"rclr\"' cannot be used with negative data",
@@ -218,9 +226,15 @@
 
    # Impute NAs if impute=TRUE
    # Otherwise return the transformation with NAs
-   if (impute && anyNA(xx)) {
-     xx <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
-                    verbose = verbose)$M
+   if (impute != "none" && anyNA(xx)) {
+     M <- optspace(xx, ropt = ropt, niter = niter, tol = tol,
+                   verbose = verbose)$M
+     if (impute == "zero") { # impute original zeros that now are NA
+         xx[is.na(xx)] <- M[is.na(xx)]
+         attr(xx, "ropt") <- attr(M, "ropt")
+     }
+     else # impute complete matrix
+         xx <- M
      ## Centring is common operation supporting output visualization
      ## Centre cols to 0
      xx <- as.matrix(scale(xx, center = TRUE, scale = FALSE))
@@ -239,9 +253,9 @@
     # If there is negative values, gives an error.
     # Always na.rm = TRUE at this step
     if (any(x <= 0, na.rm = TRUE)) {
-        stop("the 'method = \"alr\"' cannot be used with non-positive data: ",
-              "use pseudocount '> -min(x, na.rm = na.rm) + pseudocount'",
-	      call. = FALSE)
+        stop("'method = \"alr\"' cannot be used with non-positive data: ",
+             "use pseudocount > ", -min(x, na.rm = TRUE),
+             call. = FALSE)
     }
     ## name must be changed to numeric index for [-reference,] to work
     if (is.character(reference)) {
@@ -299,8 +313,19 @@
                               x * para$minpos},
                 "clr" = exp(sweep(x, para$margin, para$means, "+")) -
                     para$pseudocount,
-                "rclr" = { x[is.na(x)] <- -Inf # no imputation: 0 |-> NA
-                           exp(sweep(x, para$margin, para$means, "+"))},
+                "rclr" = { if (!is.null(para$ropt))
+                               stop("no backtransformation for ",
+                                    sQuote(method),
+                                    " with imputation")
+                           x[is.na(x)] <- -Inf # no imputation: 0 |-> NA
+                               exp(sweep(x, para$margin, para$means, "+"))},
+                "alr" = {if (para$margin == 2) x <- t(x) # casts to matrix
+                         if (para$index == 1) x <- cbind(0, x)
+                         else x <- cbind(x[,seq_len(para$index-1)], 0,
+                                         x[,-seq_len(para$index-1)])
+                         x <- para$reference + x
+                         if (para$margin == 2) x <- t(x)
+                         exp(x) - para$pseudocount},
                 "wisconsin" = { x <- sweep(x, 1, para$total, "*")
                                 sweep(x, 2, para$max, "*") },
                 stop("no backtransformation available for method ",

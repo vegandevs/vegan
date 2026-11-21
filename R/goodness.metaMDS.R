@@ -1,8 +1,11 @@
-`goodness.metaMDS` <-
+### in vegan pre-2.8 only alternatives monoMDS and isoMDS were allowed
+### in metaMDS. Now we have free choice of engine, but still provide
+### goodness for both old alternatives to maintain backward
+### compatibility.
+
+`goodness.isoMDS` <-
     function(object, dis, ...)
 {
-    if (inherits(object, "monoMDS"))
-        return(NextMethod("goodness"))
     if (missing(dis))
         dis <- metaMDSredist(object)
     if(attr(dis, "Size") != nrow(object$points))

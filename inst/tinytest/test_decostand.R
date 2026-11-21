@@ -110,13 +110,22 @@ expect_warning(x <- decostand(varespec, "log"), "non-integer data")
 expect_true(keepzeros(x, varespec))
 expect_equal(decobackstand(x), varespec)
 
-## Following clr, rclr (and alr) are more completely tested in
+## Following alr, clr & rclr are more completely tested in
 ## tests/decostand-tests.R and tests/aitchison-tests.R. Here only
 ## similar simple tests as for other decostand methods.
 
+## alr: does not keep zeros nor ranks
+expect_error(decostand(dune, "alr"), "non-positive data")
+expect_silent(x <- decostand(dune, "alr", pseudocount=1, reference="Trifrepe"))
+expect_equivalent(decobackstand(x), dune)
+expect_silent(x <- decostand(dune, "alr", pseudocount=1, MARGIN=2))
+## decobackstand of MARGIN=2 casts data.frame to matrix: FIXME in code
+expect_equivalent(decobackstand(x), as.matrix(dune))
+
 ## clr: needs pseudocount, will replace input zeros with negative
 ## constant for each row
-expect_silent(x <- decostand(dune, "clr", pseudocount = 0.1))
+expect_error(decostand(dune, "non-positive data"))
+expect_silent(x <- decostand(dune, "clr", pseudocount = 1))
 expect_true(keepranks(x, dune, 1)) ## keeps ranks by row
 expect_true(all((x < 0) == (dune == 0))) ## replace 0 with negative value
 expect_equal(decobackstand(x), dune)
@@ -128,9 +137,13 @@ expect_equal(decobackstand(x), dune)
 ## data can be reconstructed.
 expect_silent(x <- decostand(dune, "rclr", impute = FALSE))
 expect_equal(decobackstand(x), dune)
-
-### alr: does not keep ranks, zeros and cannot be reconstructed - not
-### tested here either.
+expect_silent(x <- decostand(dune, "rclr"))
+## ropt=NA fixed in 2.8-0
+expect_silent(x <- decostand(dune, "rclr", ropt=NA))
+expect_silent(x <- decostand(dune, "rclr", impute = "zero"))
+expect_error(decobackstand(x), "no backtransformation")
+## .calc_rclr adds double centring after imputation and therefore even
+## non-imputed entries are not equal among impute alternatives.
 
 ## wisconsin, not in decostand, but a wrapper of two decostand
 ## transformations. Does not (except rarely) maintain rank order of

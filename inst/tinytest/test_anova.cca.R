@@ -1,8 +1,25 @@
 ### verification tests for anova.cca cases (incl. adonis2)
 
 data(dune, dune.env)
-perm <- shuffleSet(nrow(dune), 49)
+data(mite, mite.env) # more variable marginal totals to see cca re-weighting
 
+## Crosscheck anova/permutest implementation. getFcore was the R
+## prototype used to write C code (getF.c) for CCA re-weighting, and
+## current compiled code was written after this prototype. XgetFcore
+## is an alternative implementation permuting constraints. It should
+## give the same result as getFcore. I considered switching getF.c to
+## use this algorithm, but have not done so yet: it could be faster
+## for cca, but slower for unweighted methods (rda, dbrda, adonis2).
+source("R/getFcore.R")
+perm <- shuffleSet(nrow(mite), 19)
+mod <- cca(mite ~ Condition(Topo + Shrub) + WatrCont + SubsDens, mite.env)
+expect_silent(ano <- anova(mod, permutations = perm))
+proto <- getFcore(mod, perm) # returns F-values
+expect_equal(drop(permustats(ano)$permutations), proto)
+xproto <- XgetFcore(mod, perm)
+expect_equal(drop(permustats(ano)$permutations), xproto)
+
+perm <- shuffleSet(nrow(dune), 49)
 ### All anova methods run smoothly
 mod0 <- rda(dune ~ Management + Moisture, dune.env)
 expect_silent(anova(mod0, permutations = 49))
@@ -95,7 +112,19 @@ expect_equal(permustats(anoterm)$permutations,
              permustats(ano1df)$permutations,
              info = "anova by 'term' and 'onedf' match")
 
+## anova.ccanull:
+## unconstrained model
+mod <- ca(dune)
+mat <- matrix(c(0, mod$CA$rank, 0, mod$tot.chi, 0, NA, NA, NA), nrow=2, ncol=4)
+expect_equal(unname(as.matrix(anova(mod))), mat)
+## overfitted model
+expect_message(mod <- cca(dune ~ (.)^2, dune.env), "model is overfitted")
+mat <- matrix(c(mod$CCA$rank, 0, mod$tot.chi, 0, NA, NA, NA, NA),
+              nrow=2, ncol=4)
+expect_equal(unname(as.matrix(anova(mod))), mat)
+
 ### cca as a weigthed RDA of Chi-square standardized data
+if (packageVersion("vegan") >= "2.8") { # export ordConstrained
 mod <- cca(dune ~ Moisture + Management, dune.env)
 perm <- shuffleSet(nrow(dune), 49)
 ## see help(ordConstrained)
@@ -115,7 +144,9 @@ ano <- anova(mod, permutations = perm)
 anow <- anova(modw, permutations = perm)
 expect_equal(permustats(ano)$permutations, permustats(anow)$permutations,
              info = "cca is weighted rda")
+}
 
+if (packageVersion("vegan") >= "2.8") { # parametric anova
 ### rda: parametric anova
 data(varespec, varechem)
 mod <- rda(varespec ~ Al + P + N, varechem)
@@ -161,3 +192,4 @@ expect_error(ordistep(interface.null, scope = formula(interface.full),
                       test = "F", trace = FALSE))
 expect_error(ordiR2step(interface.null, scope = formula(interface.full),
                         test = "F", trace = FALSE))
+}

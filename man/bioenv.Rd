@@ -13,11 +13,13 @@
   maximum (rank) correlation with community dissimilarities.  
 }
 \usage{
+bioenv(...)
 \method{bioenv}{default}(comm, env, method = "spearman", index = "bray",
-       upto = ncol(env), trace = FALSE, partial = NULL, 
-       metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
-       parallel = getOption("mc.cores"), ...)
+  upto = ncol(env), trace = FALSE, partial = NULL, 
+  metric = c("euclidean", "mahalanobis", "manhattan", "gower"),
+  parallel = getOption("mc.cores"), ...)
 \method{bioenv}{formula}(formula, data, ...)
+
 bioenvdist(x, which = "best")
 }
 

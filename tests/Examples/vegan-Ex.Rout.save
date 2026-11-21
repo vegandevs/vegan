@@ -3741,11 +3741,11 @@ Manure^4     -0.41603287  0.01661279
 > 
 > flush(stderr()); flush(stdout())
 > 
-> ### Name: goodness.metaMDS
+> ### Name: goodness.monoMDS
 > ### Title: Goodness of Fit and Shepard Plot for Nonmetric Multidimensional
 > ###   Scaling
-> ### Aliases: goodness.metaMDS goodness.monoMDS stressplot
-> ###   stressplot.default stressplot.monoMDS
+> ### Aliases: goodness.isoMDS goodness.monoMDS stressplot stressplot.isoMDS
+> ###   stressplot.monoMDS
 > ### Keywords: multivariate
 > 
 > ### ** Examples
@@ -4693,9 +4693,9 @@ Scaling: centring, PC rotation, halfchange scaling
 Species: expanded scores based on ‘dune’ 
 
 > ## IGNORE_RDIFF_END
-> ## Wrap package smacof function mds as engine (you must load smacof first)
+> ## Wrap package smacof function mds as engine (you need smacof package)
 > smacof <- function(dist, y, k, ...) {
-+    m <- mds(delta = dist, init = y, ndim = k, ...)
++    m <- smacof::mds(delta = dist, init = y, ndim = k, ...)
 +    m$points <- m$conf
 +    m
 + }
@@ -9645,7 +9645,7 @@ Procrustes sum of squares:
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  10.592 0.345 10.969 0 0 
+Time elapsed:  9.02 0.304 9.343 0 0 
 > grDevices::dev.off()
 null device 
           1 

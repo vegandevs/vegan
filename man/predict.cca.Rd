@@ -27,7 +27,9 @@
     type =  c("response", "working"), ...)
 \method{fitted}{capscale}(object, model = c("CCA", "CA", "pCCA", "Imaginary"),
     type = c("response", "working"), ...)
+
 \method{residuals}{cca}(object, ...)
+
 \method{predict}{cca}(object, newdata, type = c("response", "wa", "sp", "lc", "working"),
         rank = "full", model = c("CCA", "CA"), scaling = "none",
         hill = FALSE, ...)
@@ -36,10 +38,14 @@
         correlation = FALSE, const, ...)
 \method{predict}{dbrda}(object, newdata, type = c("response", "lc", "wa", "working"),
         rank = "full", model = c("CCA", "CA"), scaling = "none", const, ...)
-\method{calibrate}{cca}(object, newdata, rank = "full", ...)
-\method{coef}{cca}(object, norm = FALSE, ...)
 \method{predict}{decorana}(object, newdata, type = c("response", "sites", "species"),
     rank = 4, ...)
+
+calibrate(object, ...)
+\method{calibrate}{cca}(object, newdata, rank = "full", ...)
+
+\method{coef}{cca}(object, norm = FALSE, ...)
+
 }
 
 \arguments{
