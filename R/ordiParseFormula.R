@@ -50,11 +50,10 @@ function (formula, data, xlev = NULL, na.action = na.fail,
         else
             model.frame(formula, data, na.action = na.pass, xlev = xlev)
     }
-    ## Save prediction calls before rebuilding the combined model frame.
-    ## model.frame() records fitted polynomial, spline and scaling constants
-    ## in 'predvars', before subset and missing-data handling below.
+    ## Record prediction calls before subsetting so their transformation
+    ## settings come from the same data as the fitted model matrix.
     constraint.terms <- if (!is.null(ymf)) ordiPredictTerms(ymf, data) else NULL
-    ## Combine condition an constrain data frames
+    ## Combine the condition and constraint model frames
     if (!is.null(zmf)) {
         ncond <- NCOL(zmf)
         if (!is.null(ymf))
@@ -130,18 +129,8 @@ function (formula, data, xlev = NULL, na.action = na.fail,
          subset = subset, na.action = nas, excluded = excluded)
 }
 
-#' Retain fitted calls for transformed constraint terms
-#'
-#' Keep the prediction calls supplied by `model.frame()` and also preserve
-#' fitted transformations nested within calls such as `I()`. This is done
-#' before selecting rows so that the constants match the fitted model matrix.
-#'
-#' @param mf The original constraint model frame.
-#' @param data The data used to evaluate the model frame.
-#'
-#' @return A terms object with fitted prediction calls.
-#' @seealso ordiPredictCall, ordiTerminfo
-#' @keywords internal
+## model.frame records top-level makepredictcall results in predvars.
+## Extend these to fitted transformations inside standard wrappers.
 ordiPredictTerms <- function(mf, data)
 {
     Terms <- attr(mf, "terms")
@@ -159,22 +148,6 @@ ordiPredictTerms <- function(mf, data)
     Terms
 }
 
-#' Preserve standard fitted transformations within an expression
-#'
-#' Retain scaling constants, polynomial coefficients and spline knots using
-#' the values used when fitting. Fixed transformations remain unchanged.
-#' Existing prediction calls for other transformations are kept as supplied
-#' by their `makepredictcall()` methods.
-#'
-#' @param expr A prediction expression from a fitted terms object.
-#' @param data The original model data, before row selection.
-#' @param env The formula environment.
-#' @param value The fitted model-frame column, when available.
-#' @param original The original call, before `makepredictcall()` rewrites it.
-#'
-#' @return The expression with fitted transformation settings included.
-#' @seealso ordiPredictTerms, stats::makepredictcall
-#' @keywords internal
 ordiPredictCall <- function(expr, data, env, value = NULL, original = expr)
 {
     if (missing(expr))
@@ -187,41 +160,50 @@ ordiPredictCall <- function(expr, data, env, value = NULL, original = expr)
                      is.symbol(head[[1L]]) &&
                      as.character(head[[1L]]) %in% c("::", ":::"))
                 as.character(head[[3L]]) else ""
-    fun <- NULL
-    if (name %in% c("scale", "scale.default", "poly", "ns", "bs")) {
-        ## Function lookup skips non-function data columns with the same name.
-        fun <- if (is.symbol(head))
-            eval(substitute(base::get(NAME, mode = "function"), list(NAME = name)),
-                 envir = data, enclos = env)
-        else eval(head, envir = data, enclos = env)
-    }
+    wrappers <- c("I", "[", "(", "+", "-", "*", "/", "^")
+    if (!name %in% c(wrappers, "scale", "scale.default", "poly", "ns", "bs"))
+        return(expr)
+    ## Look up the function as R did while fitting, skipping data columns
+    ## with the same name. Leave arbitrary calls to makepredictcall methods:
+    ## their arguments may be quoted or evaluated in another environment.
+    fun <- if (is.symbol(head))
+        eval(substitute(base::get(NAME, mode = "function"), list(NAME = name)),
+             envir = data, enclos = env)
+    else eval(head, envir = data, enclos = env)
     is.scale <- identical(fun, base::scale) || identical(fun, base::scale.default)
     is.poly <- identical(fun, stats::poly)
     is.spline <- !is.null(fun) && name %in% c("ns", "bs") &&
                  identical(environmentName(environment(fun)), "splines")
+    if (!is.scale && !is.poly && !is.spline &&
+        !(name %in% wrappers && identical(fun, get(name, baseenv()))))
+        return(expr)
     if (is.scale) {
         ## makepredictcall() can append named settings to positional arguments.
         ## Start with the original call so matching does not use them twice.
         expr <- match.call(fun, if (is.null(value)) expr else original)
     }
-    for (i in seq_along(expr)[-1L])
-        expr[i] <- list(ordiPredictCall(expr[[i]], data, env))
+    for (i in seq_along(expr)[-1L]) {
+        ## I() wraps its result without changing the transformation attributes.
+        inner <- if (identical(fun, base::I)) value else NULL
+        expr[i] <- list(ordiPredictCall(expr[[i]], data, env, value = inner))
+    }
     if (!is.scale && !is.poly && !is.spline)
         return(expr)
     ## Keep fitted calls already supplied by model.frame(). Only their
     ## nested arguments may still need fitted settings of their own.
-    if (is.poly && "coefs" %in% names(expr)) {
-        ## poly() treats a one-column matrix as a vector when fitting, but
-        ## sends its saved vector coefficients to polym() when predicting.
-        ## Keep the vector interpretation for calls such as poly(scale(x), 2).
-        coefs <- eval(expr$coefs, envir = data, enclos = env)
+    if (is.poly) {
+        if (is.null(value) && !"coefs" %in% names(expr))
+            value <- eval(expr, envir = data, enclos = env)
+        if (!is.null(coefs <- attr(value, "coefs")))
+            expr$coefs <- coefs
+        else if ("coefs" %in% names(expr))
+            coefs <- eval(expr$coefs, envir = data, enclos = env)
+        ## Univariate coefficients can also come from a one-column matrix,
+        ## e.g. poly(scale(x), 2). Use the vector prediction path without
+        ## evaluating the input again to inspect its dimensions.
         if (is.list(coefs) && all(c("alpha", "norm2") %in% names(coefs))) {
-            matched <- match.call(stats::poly, expr)
-            x <- eval(matched$x, envir = data, enclos = env)
-            if (is.matrix(x) && ncol(x) == 1L) {
-                matched$x <- call("as.numeric", matched$x)
-                return(matched)
-            }
+            expr <- match.call(stats::poly, expr)
+            expr$x <- as.call(list(quote(base::as.numeric), expr$x))
         }
         return(expr)
     }

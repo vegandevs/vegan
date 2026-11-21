@@ -387,6 +387,12 @@ uncentred.cmp <- ordicomparisons(uncentred.fit, "trt", newdata = tgrid,
 expect_equal(counted.cmp$F, uncentred.cmp$F, tolerance = 1e-8)
 expect_equal(counted.cmp[["Pr(>F)"]], uncentred.cmp[["Pr(>F)"]])
 
+### Capturing fitted transformations must respect unevaluated arguments
+ignored <- function(expr) tdata$x
+nse.fit <- rda(tY ~ trt * ignored(scale(not.in.data)) + season, data = tdata)
+plain.fit <- rda(tY ~ trt * x + season, data = tdata)
+expect_equal(eigenvals(nse.fit), eigenvals(plain.fit))
+
 ### A data column named scale does not hide the transformation function
 named.data <- tdata
 named.data$scale <- seq_len(nrow(named.data))
