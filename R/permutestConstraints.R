@@ -91,11 +91,11 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat)
     permutations <- getPermuteMatrix(permutations, N, strata = strata,
                                      model = "constraints")
     typed <- inherits(permutations, "plotPermutations")
-    indices <- if (typed) permute::permutationIndices(permutations) else as.matrix(permutations)
-    if (ncol(indices) != N || anyNA(indices) || any(indices < 1L | indices > N))
+    indices <- if (typed) permute::permutationIndices(permutations) else permutations
+    if (!is.matrix(indices) || ncol(indices) != N || anyNA(indices) ||
+        any(indices < 1L | indices > N))
         stop("constraint permutation indices must refer to fitted data rows")
-    if (!typed && any(apply(indices, 1L, function(i)
-        !identical(sort(as.integer(i)), seq_len(N)))))
+    if (!typed && any(apply(indices, 1L, anyDuplicated) > 0L))
         stop("ordinary constraint permutations must contain each row index once")
     ## The joint QR stores the centred conditions before the constraints,
     ## even when the conditions explain zero inertia.

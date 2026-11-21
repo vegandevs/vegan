@@ -20,9 +20,8 @@
     if (inherits(perm, "how") && !is.null(getPlots(perm)$variables) &&
         !identical(model, "constraints"))
         stop('plot variable permutations require model = "constraints"')
-    if (length(perm) == 1) {
+    if (length(perm) == 1L && is.null(dim(perm)))
         perm <- how(nperm = perm)
-    }
     ## apply 'strata', but only if possible: ignore silently other cases
     if (!missing(strata) && !is.null(strata)) {
         if (inherits(perm, "how") && is.null(getBlocks(perm)))
@@ -31,9 +30,12 @@
     ## now 'perm' is either a how() or a matrix
     if (inherits(perm, "how"))
         perm <- shuffleSet(N, control = perm)
-    else { # matrix: check that it *strictly* integer
-        if(!is.integer(perm) && !all(perm == round(perm)))
-           stop("permutation matrix must be strictly integers: use round()")
+    else {
+        ## The matrix may store integers as doubles.
+        if (!is.integer(perm) &&
+            (!is.numeric(perm) || is.complex(perm) || anyNA(perm) ||
+             any(perm != round(perm))))
+            stop("permutation matrix must be strictly integers: use round()")
     }
     ## now 'perm' is a matrix (or always was). If it is a plain
     ## matrix, set minimal attributes for printing. This is a dirty

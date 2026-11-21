@@ -89,6 +89,12 @@ worker_result <- anova(fit,model='constraints',permutations=p,parallel=cluster)
 parallel::stopCluster(cluster)
 expect_equal(worker_result$`Pr(>F)`,result$`Pr(>F)`)
 
+## Malformed numeric matrices should give an informative input error.
+missing_index <- matrix(as.double(seq_len(nrow(dat))), nrow = 1L)
+missing_index[1L] <- NA_real_
+expect_error(permutest(fit, model = "constraints", permutations = missing_index),
+             pattern = "must be strictly integers")
+
 ## Two-factor whole-plot design, preserving complete factor/numeric profiles.
 sizes2 <- c(1,2,2,3,3,4,4,5)
 dat2 <- data.frame(plot=rep(letters[1:8],sizes2),
