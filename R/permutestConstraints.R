@@ -156,21 +156,20 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     values <- if (nperm > 0L) do.call(rbind, values) else
         matrix(numeric(), nrow = 0L, ncol = 3L,
                dimnames = list(NULL, c("F", "num", "den")))
-    sol <- list(call = match.call(), testcall = x$call, model = "constraints",
-                F.0 = c(Model = F.0),
-                F.perm = matrix(values[, 'F'], ncol = 1L),
-                chi = c(Model = num, Residual = den),
-                num = values[, 'num'], den = values[, 'den'],
-                df = c(q, r), nperm = nperm,
-                method = x$method, inertia = x$inertia, first = FALSE,
-                termlabels = "Model", Random.seed = attr(permutations, "seed"),
-                control = attr(permutations, "control"))
-    ## An enumeration containing the observed arrangement already counts it.
-    sol$observed <- isTRUE(attr(permutations, "observed"))
     control <- attr(permutations, "control")
-    if (!is.null(control) && getObserved(control) &&
+    ## An enumeration containing the observed arrangement already counts it.
+    observed <- isTRUE(attr(permutations, "observed"))
+    if (!observed && inherits(control, "how") && getObserved(control) &&
         !is.null(getAllperms(control)) && nperm == numPerms(N, control))
-        sol$observed <- TRUE
+        observed <- TRUE
+    sol <- list(call = match.call(), testcall = x$call, model = "constraints",
+                F.0 = c(Model = F.0), F.perm = matrix(values[, "F"], ncol = 1L),
+                chi = c(Model = num, Residual = den),
+                num = values[, "num"], den = values[, "den"],
+                df = c(q, r), nperm = nperm, method = x$method,
+                inertia = x$inertia, first = FALSE, termlabels = "Model",
+                Random.seed = attr(permutations, "seed"), control = control,
+                observed = observed)
     class(sol) <- "permutest.cca"
     sol
 }
