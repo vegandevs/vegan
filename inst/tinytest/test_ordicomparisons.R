@@ -158,6 +158,9 @@ named <- ordicomparisons(mod, "Management",
                                     two = "NM - BF = 0"),
                      permutations = per)
 expect_equal(nrow(named), 2L)
+expect_error(ordicomparisons(mod, "Management",
+    comparison = c(BF = -1, HF = 1, NM = 0, SF = 0, typo = 1),
+    permutations = per), pattern = "match the quantities exactly")
 profile.custom <- ordicomparisons(ordicontrasts(mod, "Management"),
                                comparison = c("b2 - b1 = 0",
                                    "(b3 + b4) / 2 - b1 = 0"),

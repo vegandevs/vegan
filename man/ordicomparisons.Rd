@@ -88,6 +88,7 @@ The latter syntax also permits cross-group questions such as a
 difference-in-differences. Names containing special characters must be
 backticked. Only linear comparisons with a zero null are supported.
 Numeric contrast weights must be finite and each row must sum to zero.
+If weights are named, the names must match the quantities being compared.
 Multiplying all weights in a comparison by the same nonzero constant
 leaves the test unchanged.
 

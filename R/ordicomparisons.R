@@ -827,8 +827,9 @@ print.vegan_comparisons <- function(x, ...)
                         dimnames = list(NULL, names(comparison)))
         }
         if (!is.null(colnames(A))) {
-            if (!all(keys %in% colnames(A)))
-                stop("contrast matrix columns must contain all quantities")
+            if (ncol(A) != k || anyDuplicated(colnames(A)) ||
+                !setequal(colnames(A), keys))
+                stop("named contrast columns must match the quantities exactly")
             A <- A[, keys, drop = FALSE]
         } else if (ncol(A) != k) {
             stop("numeric comparisons must have one column per quantity")
