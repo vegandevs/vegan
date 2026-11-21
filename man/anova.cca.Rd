@@ -238,8 +238,10 @@ permutest(x, ...)
 With \code{model = "constraints"}, rows of the fitted constraint matrix are
 permuted jointly while the response working matrix and conditioning variables
 are held fixed. This is available for \code{rda}, \code{cca}, \code{dbrda},
-\code{capscale}, and \code{adonis2}. Each draw recomputes centering, CCA
-weights, the QR decomposition, model rank and the pseudo-F statistic. The
+\code{capscale}, and \code{adonis2}. Each draw re-centres the constraint
+matrix and recomputes the QR decomposition, model rank and pseudo-F
+statistic. CCA uses the fixed response row weights to centre and weight
+the permuted constraint matrix. The
 original formula data are not required. Factor contrasts, interactions and
 fitted transformations move together as stored matrix rows.
 
@@ -254,7 +256,7 @@ Whole-plot variable designs supplied as \code{how()} are aligned to the
 observations retained by the model before generation. Precomputed sets
 must already have that layout.
 
-The prototype supports overall tests with \code{by = NULL},
+Constraint permutations support overall tests with \code{by = NULL},
 \code{first = FALSE}, and \code{permustat = "pseudo-F"}. Term-wise tests,
 contrast tests and multiple-model comparisons require null-specific
 permutation procedures. Their residual-permutation interfaces retain their
