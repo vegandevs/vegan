@@ -87,6 +87,8 @@ and use their displayed row identifiers, such as \code{"b2 - b1 = 0"}.
 The latter syntax also permits cross-group questions such as a
 difference-in-differences. Names containing special characters must be
 backticked. Only linear comparisons with a zero null are supported.
+Inspect the profile table for the generated identifiers when a fitted factor
+level has a name such as \code{b1}.
 Numeric contrast weights must be finite and each row must sum to zero.
 If weights are named, the names must match the quantities being compared.
 Multiplying all weights in a comparison by the same nonzero constant

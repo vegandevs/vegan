@@ -86,7 +86,13 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     })
     out <- do.call(rbind, tabs)
     rownames(out) <- NULL
-    out$Profile <- paste0("b", seq_len(nrow(out)))
+    ids <- paste0("b", seq_len(nrow(out)))
+    clash <- ids %in% lev
+    if (any(clash)) {
+        ids[clash] <- paste0(".", ids[clash])
+        ids <- make.unique(c(lev, ids))[length(lev) + seq_along(ids)]
+    }
+    out$Profile <- ids
     R <- do.call(rbind, lapply(refs, `[[`, "reference.rows"))
     rownames(R) <- out$Profile
     group.index <- rep(seq_along(refs), each = length(lev))

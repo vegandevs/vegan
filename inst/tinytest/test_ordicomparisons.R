@@ -788,3 +788,19 @@ expect_identical(model.frame(partial.afit), model.frame(partial.dbfit))
 expect_equal(partial.afit$pCCA$tot.chi, partial.dbfit$pCCA$tot.chi)
 expect_equal(partial.afit$tot.chi, partial.afit$pCCA$tot.chi +
              partial.afit$CCA$tot.chi + partial.afit$CA$tot.chi)
+
+### Distinguish level names from profile identifiers
+id.dat <- dune.env
+levels(id.dat$Management) <- c("b3", "HF", "b1", ".b1")
+id.fit <- rda(dune ~ Management, data = id.dat)
+id.profiles <- ordicontrasts(id.fit, "Management")
+expect_identical(id.profiles$Profile, c(".b1.1", "b2", ".b3", "b4"))
+id.levels <- ordicomparisons(id.fit, "Management", "HF - b3 = 0",
+                             permutations = per)
+id.rows <- ordicomparisons(id.profiles, "b2 - .b1.1 = 0", permutations = per)
+expect_equal(id.levels$F, cmp$F)
+expect_equal(id.rows$F, id.levels$F)
+expect_equal(ordicomparisons(id.profiles, ".b1 - b1 = 0",
+                              permutations = per)$F,
+             ordicomparisons(id.profiles, "b4 - .b3 = 0",
+                              permutations = per)$F)

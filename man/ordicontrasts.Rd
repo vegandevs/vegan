@@ -75,8 +75,9 @@ construct a profile, not a sample size for a separate fitted model.
 The stable \code{Profile} identifiers make otherwise cumbersome questions
 easy to state. For example, \code{"b2 - b1 = 0"} compares two displayed rows,
 and \code{"(b6 - b4) - (b3 - b1) = 0"} compares two simple effects across
-groups. Because the identifiers depend on the displayed order, inspect the
-profile table before writing a cross-group expression.
+groups. Identifiers that coincide with a fitted level of the focal factor
+receive a leading dot and, if needed, a numeric suffix. Inspect the profile
+table before writing a cross-group expression.
 
 The method reconstructs the complete fitted model matrix, including
 interactions and transformations, with the original factor levels and
