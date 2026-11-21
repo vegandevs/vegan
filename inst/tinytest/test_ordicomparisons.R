@@ -158,6 +158,12 @@ named <- ordicomparisons(mod, "Management",
                                     two = "NM - BF = 0"),
                      permutations = per)
 expect_equal(nrow(named), 2L)
+named.list <- ordicomparisons(mod, "Management",
+    comparison = list(planned = "sequential", other = "SF - BF"),
+    permutations = per)
+expect_equal(nrow(named.list), 4L)
+expect_true(all(startsWith(named.list$Comparison[1:3], "planned: ")))
+expect_identical(named.list$Comparison[4L], "other")
 expect_error(ordicomparisons(mod, "Management",
     comparison = c(BF = -1, HF = 1, NM = 0, SF = 0, typo = 1),
     permutations = per), pattern = "match the quantities exactly")

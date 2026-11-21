@@ -816,10 +816,16 @@ print.vegan_comparisons <- function(x, ...)
                            all(nzchar(names(comparison)))) names(comparison)
                       else comparison
     } else if (is.list(comparison)) {
-        A <- do.call(rbind, lapply(comparison, function(z)
-            .comparisonContrasts(z, keys, reference)))
-        if (!is.null(names(comparison)) && all(nzchar(names(comparison))))
-            rownames(A) <- names(comparison)
+        matrices <- lapply(comparison, .comparisonContrasts, keys = keys,
+                           reference = reference)
+        labels <- names(matrices)
+        for (i in which(!is.na(labels) & nzchar(labels))) {
+            mat <- matrices[[i]]
+            rownames(mat) <- if (nrow(mat) == 1L) labels[i]
+                             else paste(labels[i], rownames(mat), sep = ": ")
+            matrices[[i]] <- mat
+        }
+        A <- do.call(rbind, unname(matrices))
     } else if (is.numeric(comparison)) {
         if (is.matrix(comparison)) {
             A <- comparison
