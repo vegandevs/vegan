@@ -1,6 +1,6 @@
 `anova.cca` <-
     function(object, ..., permutations = how(nperm=999), by = NULL,
-             model = c("reduced", "direct", "full"),
+             model = c("reduced", "direct", "full", "constraints"),
              parallel = getOption("mc.cores"), strata = NULL,
              cutoff = 1, scope = NULL, test = c("permutation", "parametric"),
              permustat = c("pseudo-F", "modified-F"), groups = NULL)
@@ -8,17 +8,21 @@
     EPS <- sqrt(.Machine$double.eps) # for permutation P-values
     model <- match.arg(model)
     test <- match.arg(test)
+    if (model == "constraints" && (test != "permutation" || !is.null(by)))
+        stop("constraint permutations support overall permutation tests (by = NULL)")
     permustat <- match.arg(permustat)
     if (test == "parametric") {
         if (permustat == "modified-F")
             stop("'permustat = \"modified-F\"' requires a permutation test")
         permutations <- 0
     }
-    ## permutation matrix
-    N <- nrow(object$CA$u)
-    permutations <- getPermuteMatrix(permutations, N, strata = strata)
-    seed <- attr(permutations, "seed")
-    control <- attr(permutations, "control")
+    ## Constraint tests align and generate their permutations in permutest.
+    if (model != "constraints") {
+        permutations <- getPermuteMatrix(permutations, nrow(object$CA$u),
+                                         strata = strata)
+        seed <- attr(permutations, "seed")
+        control <- attr(permutations, "control")
+    }
     ## see if this was a list of ordination objects
     dotargs <- list(...)
     ## we do not want to give dotargs to anovaCCAlist, but we
@@ -26,6 +30,8 @@
     if (length(dotargs)) {
         isCCA <- sapply(dotargs, function(z) inherits(z, "cca"))
         if (any(isCCA)) {
+            if (model == "constraints")
+                stop("constraint permutations require a single fitted model")
             if (permustat == "modified-F")
                 stop("'permustat = \"modified-F\"' cannot compare multiple models")
             dotargs <- dotargs[isCCA]
@@ -81,13 +87,14 @@
             sol <- anovaCCAparametric(object, sol)
         return(sol)
     }
-    ## basic overall test: pass other arguments except 'strata'
-    ## because 'permutations' already is a permutationMatrix
     tst <- permutest.cca(object, permutations = permutations,
-                         model = model, parallel = parallel, ...,
+                         model = model, strata = strata, parallel = parallel, ...,
                          permustat = permustat, groups = groups)
+    seed <- tst$Random.seed
+    control <- tst$control
     Fval <- c(tst$F.0, NA)
-    Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + 1)/(tst$nperm + 1)
+    add <- !isTRUE(tst$observed)
+    Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + add)/(tst$nperm + add)
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
     if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)

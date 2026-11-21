@@ -15,10 +15,11 @@ adonis2(formula, data, permutations = 999, method = "bray",
     sqrt.dist = FALSE, add = FALSE, by = NULL,
     parallel = getOption("mc.cores"), na.action = na.fail,
     strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
-    groups = NULL)
+    groups = NULL, model = c("reduced", "direct", "full", "constraints"))
 }
 
 \arguments{
+  \item{model}{Permutation model. See \code{\link{anova.cca}} for details.}
 
   \item{formula}{Model formula. The function can be called only with the
     formula interface. Most usual features of \code{\link{formula}}

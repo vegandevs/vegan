@@ -21,14 +21,14 @@
 
 \usage{
 \method{anova}{cca}(object, ..., permutations = how(nperm=999),
-     by = NULL, model = c("reduced", "direct", "full"),
+     by = NULL, model = c("reduced", "direct", "full", "constraints"),
      parallel = getOption("mc.cores"), strata = NULL,
      cutoff = 1, scope = NULL, test = c("permutation", "parametric"),
      permustat = c("pseudo-F", "modified-F"), groups = NULL)
 
 permutest(x, ...)
 \method{permutest}{cca}(x, permutations = how(nperm = 99),
-     model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
+     model = c("reduced", "direct", "full", "constraints"), by = NULL, first = FALSE,
      strata = NULL, parallel = getOption("mc.cores"), ...,
      permustat = c("pseudo-F", "modified-F"), groups = NULL)
 }
@@ -64,7 +64,8 @@ permutest(x, ...)
     community data, \code{model="reduced"} permutes residuals
     of the community data after Conditions (partial model),
     \code{model = "full"} permutes residuals after Conditions and
-    Constraints.}
+    Constraints, and \code{model = "constraints"} jointly permutes rows
+    of the constraint matrix. See \dQuote{Constraint permutations} below.}
 
   \item{parallel}{Use parallel processing with the given number of
     cores.}
@@ -230,6 +231,48 @@ permutest(x, ...)
   freedom can be compared with \code{onewaytests::bf.test()}, described by
   Dag et al. (2018).
 
+}
+
+
+\section{Constraint permutations}{
+With \code{model = "constraints"}, rows of the fitted constraint matrix are
+permuted jointly while the response working matrix and conditioning variables
+are held fixed. This is available for \code{rda}, \code{cca}, \code{dbrda},
+\code{capscale}, and \code{adonis2}. Each draw re-centres the constraint
+matrix and recomputes the QR decomposition, model rank and pseudo-F
+statistic. CCA uses the fixed response row weights to centre and weight
+the permuted constraint matrix. The
+original formula data are not required. Factor contrasts, interactions and
+fitted transformations move together as stored matrix rows.
+
+Ordinary permutation matrices or \code{how()} designs permute observation-level
+constraint rows. For unequal whole plots, use the accompanying permute design
+\code{Plots(strata = plot_id, type = "free", variables = ~ A + B)}. Each
+selected variable must be constant within a plot, and the variables must
+distinguish every distinct constraint row. Identical complete variable rows
+are handled through set partitions. The resulting expanded source indices
+can repeat. \code{Within(type = "none")} is required for this whole-plot design.
+Whole-plot variable designs supplied as \code{how()} are aligned to the
+observations retained by the model before generation. Precomputed sets
+must already have that layout.
+
+Constraint permutations support overall tests with \code{by = NULL},
+\code{first = FALSE}, and \code{permustat = "pseudo-F"}. Term-wise tests,
+contrast tests and multiple-model comparisons require null-specific
+permutation procedures. Their residual-permutation interfaces retain their
+existing interpretation.
+
+Constraint permutation requires a justified assignment mechanism or
+exchangeability assumption. \code{Condition()} emits an informational message because
+partialling out nuisance variables does not establish exchangeability of the
+constraints. Randomized experiments can use fixed baseline covariates when
+the permutation scheme reproduces the actual randomization, including any
+blocking restrictions. Free shuffling is generally unsuitable for
+observational constraints associated with the conditioning variables.
+
+An exhaustive set including the observed arrangement is counted directly.
+Other sets use the usual plus-one permutation p-value calculation. Ties are
+included. Complete enumeration excludes the observed arrangement by default.
 }
 
 \value{
