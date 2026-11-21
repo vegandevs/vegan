@@ -18,15 +18,46 @@ constraintPermutationDesign <- function(x, permutations) {
     update(permutations, plots = plots, blocks = blocks, all.perms = NULL)
 }
 
-constraintStatistic <- function(response, X, Z) {
-    fit <- ordConstrained(response, X, Z, method = "pass")
-    q <- if (is.null(fit$CCA)) 0L else fit$CCA$qrank
-    r <- nrow(response) - max(fit$CCA$QR$rank, fit$pCCA$QR$rank, 0) - 1L
-    num <- if (is.null(fit$CCA)) 0 else fit$CCA$tot.chi
-    den <- fit$CA$tot.chi
-    if (r < 1L) stop("a constraint permutation leaves no residual degrees of freedom")
-    F <- if (q > 0 && r > 0) (num / q) / (den / r) else 0
-    c(F = F, num = num, den = den, q = q, r = r)
+## Use the same eigenvalue cutoff as ordConstrained().
+constraintInertia <- function(Y, isDB)
+{
+    eig <- if (isDB) eigen(Y, symmetric = TRUE, only.values = TRUE)$values else
+        svd(Y, nu = 0L, nv = 0L)$d^2
+    zero <- sqrt(.Machine$double.eps)
+    sum(eig[abs(eig) >= max(zero, zero * eig[1L])])
+}
+
+constraintStatistic <- function(Y, X, Z, w, isDB)
+{
+    if (is.null(w)) {
+        X <- scale(X, scale = FALSE)
+    } else {
+        centre <- apply(X, 2, weighted.mean, w = w)
+        X <- sqrt(w) * scale(X, center = centre, scale = FALSE)
+    }
+    Q <- qr(cbind(Z, X))
+    kept <- seq_len(Q$rank)
+    r <- nrow(Y) - Q$rank - 1L
+    if (r < 1L)
+        stop("a constraint permutation leaves no residual degrees of freedom")
+    fit <- kept[Q$pivot[kept] > ncol(Z)]
+    res <- seq.int(Q$rank + 1L, nrow(Y))
+    q <- length(fit)
+    ## In QR coordinates, constraints and residuals occupy disjoint
+    ## rows (and columns for Gower-centred dissimilarities).
+    Y <- qr.qty(Q, Y)
+    if (isDB) {
+        Y <- qr.qty(Q, t(Y))
+        fitted <- Y[fit, fit, drop = FALSE]
+        residual <- Y[res, res, drop = FALSE]
+    } else {
+        fitted <- Y[fit, , drop = FALSE]
+        residual <- Y[res, , drop = FALSE]
+    }
+    num <- if (q > 0L) constraintInertia(fitted, isDB) else 0
+    den <- constraintInertia(residual, isDB)
+    F <- if (q > 0L) (num / q) / (den / r) else 0
+    c(F = F, num = num, den = den)
 }
 
 permutestConstraints <- function(x, permutations, strata, parallel, permustat, groups) {
@@ -54,10 +85,8 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     Z <- X[, seq_len(ncond), drop = FALSE]
     X <- X[, seq.int(ncond + 1L, ncol(X)), drop = FALSE]
     w <- attr(response, "RW")
-    if (!is.null(w)) {
+    if (!is.null(w))
         X <- X / sqrt(w)
-        Z <- Z / sqrt(w)
-    }
     if (typed) {
         design <- attr(permutations, "control")
         strata <- getStrata(design, which = "plots")
@@ -83,6 +112,12 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
                 "scheme is justified conditional on those variables. ",
                 "Condition() alone does not establish exchangeability.")
     }
+    isDB <- inherits(x, "dbrda")
+    if (ncond > 0L && QZ$rank > 0L) {
+        response <- qr.resid(QZ, response)
+        if (isDB)
+            response <- qr.resid(QZ, t(response))
+    }
     q <- x$CCA$qrank
     r <- N - Q$rank - 1L
     if (r < 1L)
@@ -91,7 +126,8 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     den <- x$CA$tot.chi
     F.0 <- (num / q) / (den / r)
     evaluate <- function(i) {
-        constraintStatistic(response, X[indices[i, ], , drop = FALSE], Z)
+        constraintStatistic(response, X[indices[i, ], , drop = FALSE],
+                            Z, w, isDB)
     }
     nperm <- nrow(indices)
     if (is.null(parallel)) parallel <- 1L
@@ -107,9 +143,9 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     } else {
         values <- lapply(seq_len(nperm), evaluate)
     }
-    values <- if (length(values)) do.call(rbind, values) else
-        matrix(numeric(), nrow = 0L, ncol = 5L,
-               dimnames = list(NULL, c("F", "num", "den", "q", "r")))
+    values <- if (nperm > 0L) do.call(rbind, values) else
+        matrix(numeric(), nrow = 0L, ncol = 3L,
+               dimnames = list(NULL, c("F", "num", "den")))
     sol <- list(call = match.call(), testcall = x$call, model = "constraints",
                 F.0 = c(Model = F.0),
                 F.perm = matrix(values[, 'F'], ncol = 1L),
