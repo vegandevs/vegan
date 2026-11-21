@@ -119,11 +119,11 @@
     if (!is.null(Z) && ncol(Z)) {
         Z <- scale(Z, scale = FALSE)
         QZ <- qr(Z)
+        pCCA <- list(rank = QZ$rank,
+                     tot.chi = sum(diag(qr.fitted(QZ, G))),
+                     QR = QZ)
         G <- qr.resid(QZ, G)
         G <- qr.resid(QZ, t(G))
-        pCCA <- list(rank = QZ$rank,
-                     tot.chi = rowSums(qr.fitted(QZ, G)),
-                     QR = QZ)
     } else {
         pCCA <- NULL
     }
