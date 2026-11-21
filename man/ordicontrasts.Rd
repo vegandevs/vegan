@@ -84,8 +84,8 @@ used by \code{poly()} and the centre and scale used by \code{scale()},
 are retained when the model is fitted and reused for the reference data.
 They are not recalculated from the reference population. Settings are
 retained before subset selection and missing-data removal, matching the
-original fit. Older fitted objects without this information must be refitted
-before making comparisons involving transformed terms.
+original fit. Refit older objects that lack this information or the
+original factor contrast coding.
 User-defined transformations that learn settings from the data need to
 supply fitted prediction information, usually through a
 \code{makepredictcall()} method, when used as model terms.

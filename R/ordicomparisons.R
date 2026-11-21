@@ -683,6 +683,8 @@ print.vegan_comparisons <- function(x, ...)
     if (is.null(variables))
         variables <- all.vars(Terms)
     xlev <- xlev[names(xlev) %in% variables]
+    if (length(xlev) && is.null(ctr))
+        stop("refit the model to retain its factor contrast coding for comparisons")
     rows <- lapply(levels, function(lev) {
         nd <- dat
         nd[[variable]] <- factor(lev, levels = levels,

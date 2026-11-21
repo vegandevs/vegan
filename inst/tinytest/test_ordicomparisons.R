@@ -464,7 +464,10 @@ old.simple.cmp <- ordicomparisons(old.simple, "Management",
                      comparison = "HF - BF = 0", permutations = per)
 expect_equal(old.simple.cmp$Inertia, named.bcmp$Inertia, tolerance = 1e-8)
 expect_equal(old.simple.cmp$F, named.bcmp$F, tolerance = 1e-8,
-             info = "older fits without transformations remain usable")
+             info = "untransformed fits can use retained factor coding alone")
+old.simple$terminfo$contrasts <- NULL
+expect_error(ordicomparisons(old.simple, "Management", permutations = per),
+             pattern = "refit the model to retain its factor contrast coding")
 old.transformed <- wrapped.fit
 old.transformed$terminfo$constraint.terms <- NULL
 expect_error(ordicomparisons(old.transformed, "trt", newdata = "mean",
