@@ -93,8 +93,8 @@
     seed <- tst$Random.seed
     control <- tst$control
     Fval <- c(tst$F.0, NA)
-    observed <- as.integer(!isTRUE(tst$observed))
-    Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + observed)/(tst$nperm + observed)
+    add <- !isTRUE(tst$observed)
+    Pval <- (sum(tst$F.perm >= tst$F.0 - EPS) + add)/(tst$nperm + add)
     Pval <- c(Pval, NA)
     table <- data.frame(tst$df, tst$chi, Fval, Pval)
     if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
