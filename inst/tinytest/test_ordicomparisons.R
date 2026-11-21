@@ -586,6 +586,11 @@ atab <- anova(mod, by = "contrast", variable = "Management",
               permutations = per)
 expect_inherits(atab, "anova.cca")
 expect_equal(nrow(atab), 3L)
+atab.adj <- anova(mod, by = "contrast", variable = "Management", adjust = "holm",
+                  permutations = per)
+expect_equal(atab.adj[["Pr(>F).adj"]], pw[["Pr(>F).adj"]])
+expect_match(paste(capture.output(print(atab.adj)), collapse = "\n"), "Pr(>F).adj",
+             fixed = TRUE)
 expect_error(anova(mod, by = "contrast", variable = "Management",
                    test = "parametric"),
              info = "contrast bridge rejects parametric F test")

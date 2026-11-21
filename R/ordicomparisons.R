@@ -1068,7 +1068,10 @@ print.vegan_comparisons <- function(x, ...)
 #' @keywords internal
 .comparisonsAnova <- function(x, object)
 {
-    keep <- x[, c("Df", "Inertia", "F", "Pr(>F)"), drop = FALSE]
+    columns <- c("Df", "Inertia", "F", "Pr(>F)")
+    if ("Pr(>F).adj" %in% names(x))
+        columns <- c(columns, "Pr(>F).adj")
+    keep <- x[, columns, drop = FALSE]
     varname <- if (inherits(object, c("capscale", "dbrda")) &&
                    object$adjust == 1)
         "SumOfSqs" else if (inherits(object, "rda")) "Variance" else "ChiSquare"
