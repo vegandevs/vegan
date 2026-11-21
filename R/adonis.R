@@ -82,8 +82,23 @@
     sol$formula <- match.call()
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, data)
-    ## handle permutations
-    perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
+    ## Handle untestable models before generating permutations.
+    if (sol$CA$rank < 0L)
+        stop("The centered model matrix leaves negative residual degrees of freedom",
+             call. = FALSE)
+    if (sol$CA$rank == 0L || is.null(sol$CCA)) {
+        if (permustat == "pseudo-F") {
+            if (sol$CA$rank == 0L)
+                warning("No residual degrees of freedom for the pseudo-F test",
+                        call. = FALSE)
+            else
+                warning("No estimable constraints for the pseudo-F test",
+                        call. = FALSE)
+        }
+        perm <- matrix(integer(), nrow = 0L, ncol = NROW(lhs))
+    } else {
+        perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
+    }
     out <- anova(sol, permutations = perm, by = by,
                  parallel = parallel, permustat = permustat, groups = groups)
     ## attributes will be lost when adding a new column
@@ -127,6 +142,14 @@
         X <- cbind(Z, X)
     X <- scale(X, scale = FALSE)
     qrhs <- qr(X)
+    if (qrhs$rank < ncol(X)) {
+        alias <- colnames(X)[qrhs$pivot[seq_len(ncol(X)) > qrhs$rank]]
+        msg <- paste("Some constraints or conditions were aliased because they were redundant.",
+                     "This can happen if terms are constant or linearly dependent (collinear).",
+                     paste(sQuote(alias), collapse = ", "))
+        message(strwrap(msg, prefix = "\n", initial = "\n",
+                        width = 0.95 * getOption("width")))
+    }
     Gfit <- qr.fitted(qrhs, G)
     Gfit <- qr.fitted(qrhs, t(Gfit))
     Gres <- qr.resid(qrhs, G)

@@ -6,12 +6,15 @@
 {
     table <- matrix(0, nrow = 2, ncol = 4)
     if (object$CA$rank == 0) {
-        table[1,] <- c(object$CCA$qrank, object$CCA$tot.chi, NA, NA)
+        table[1,] <- c(0,0,NA,NA)
+        if (!is.null(object$CCA) && object$CCA$rank > 0)
+            table[1, 1:2] <- c(object$CCA$qrank, object$CCA$tot.chi)
         table[2,] <- c(0,0,NA,NA)
     }
     else {
         table[1,] <- c(0,0,0,NA)
-        table[2,] <- c(nrow(object$CA$u) - 1, object$CA$tot.chi, NA, NA)
+        df <- nrow(object$CA$u) - max(object$pCCA$QR$rank, 0L) - 1L
+        table[2,] <- c(df, object$CA$tot.chi, NA, NA)
     }
     rownames(table) <- c("Model", "Residual")
     if (inherits(object, c("capscale", "dbrda")) && object$adjust == 1)
