@@ -151,13 +151,17 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
              extrapolation = extra)
     })
 
+    labels <- make.unique(c("Profile", "N.reference", "Extrapolated",
+                            variable, by))
     tabs <- lapply(refs, function(z) {
         tab <- data.frame(Profile = rep.int("", length(lev)),
                           stringsAsFactors = FALSE)
-        tab[[variable]] <- factor(lev, levels = lev, ordered = ordered)
-        if (!is.null(z$group))
-            tab <- cbind(tab, z$group[rep.int(1L, length(lev)), , drop = FALSE],
-                         row.names = NULL)
+        tab[[labels[4L]]] <- factor(lev, levels = lev, ordered = ordered)
+        if (!is.null(z$group)) {
+            group <- z$group[rep.int(1L, length(lev)), , drop = FALSE]
+            names(group) <- labels[-seq_len(4L)]
+            tab <- cbind(tab, group, row.names = NULL)
+        }
         tab$N.reference <- rep.int(z$n.reference, length(lev))
         tab$Extrapolated <- rep.int(z$extrapolated, length(lev))
         tab
@@ -295,8 +299,7 @@ ordicomparisons.vegan_contrasts <-
             take <- which(groups == g)
             A <- .comparisonContrasts(comparison, lev, reference)
             L <- .comparisonMatrix(A, R[take, , drop = FALSE])
-            group <- if (length(by)) object[take[1L], by, drop = FALSE]
-                     else NULL
+            group <- attr(object, "reference")[[g]]$group
             lapply(seq_len(nrow(A)), function(i)
                 list(label = rownames(A)[i],
                      L = L[i, , drop = FALSE], group = group))
@@ -318,8 +321,9 @@ ordicomparisons.vegan_contrasts <-
                           F = z$F, N.Perm = nrow(perm),
                           check.names = FALSE)
         tab[["Pr(>F)"]] <- z$p
-        if (!is.null(spec$group)) {
-            tab <- cbind(spec$group, tab, row.names = NULL)
+        if (!is.null(group <- spec$group)) {
+            names(group) <- make.unique(c(names(tab), names(group)))[-seq_along(tab)]
+            tab <- cbind(group, tab, row.names = NULL)
         }
         tab
     })

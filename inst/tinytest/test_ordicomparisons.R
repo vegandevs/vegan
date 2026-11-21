@@ -220,6 +220,15 @@ imod.groups <- rda(Y ~ trt * season, data = idat.groups)
 isc.groups <- ordicontrasts(imod.groups, "trt", by = c("a", "b"))
 expect_equal(nrow(isc.groups), 6L)
 
+## Model names can also occur in output columns.
+idat.names <- transform(idat, Profile = trt, Df = season)
+imod.names <- rda(Y ~ Profile * Df, data = idat.names)
+isc.names <- ordicontrasts(imod.names, "Profile", by = "Df")
+expect_identical(as.character(isc.names$Profile.1), rep(levels(idat$trt), 2L))
+iby.names <- ordicomparisons(imod.names, "Profile", by = "Df", permutations = iper)
+expect_equal(iby.names$F, iby$F)
+expect_identical(iby.names$Df.1, iby$season)
+
 ibal <- ordicomparisons(imod, "trt", newdata = "balanced", permutations = iper)
 iwgt <- ordicomparisons(imod, "trt", by = "season", wts = seq_len(nrow(idat)),
                     permutations = iper)
