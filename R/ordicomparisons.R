@@ -114,7 +114,7 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     ## Formula symbols can also name settings such as a polynomial degree.
     predictors <- intersect(predictors, names(dat))
     if (!is.null(by)) {
-        if (!is.character(by) || any(!by %in% names(dat)))
+        if (!is.character(by) || any(!by %in% names(dat)) || anyDuplicated(by))
             stop("'by' must name variables in the model data")
         if (variable %in% by)
             stop("the focal variable cannot also be a 'by' variable")
@@ -131,13 +131,13 @@ ordicontrasts.cca <- function(object, variable, newdata = NULL, by = NULL,
     columns <- colnames(Q$qr)[order(Q$pivot)][nz + seq_len(p)]
 
     base <- .comparisonNewdata(predictors, dat, variable, by, newdata)
+    base$..vegan_rowid <- seq_len(nrow(base))
+    split <- .comparisonSplit(base, by)
     meta <- .profileMetadata(predictors, dat, base, variable, by, newdata, wts)
     covariates <- intersect(intersect(names(base), names(dat)), predictors)
     covariates <- Filter(function(x) is.numeric(x) && any(!is.na(x)),
                          dat[covariates])
     ranges <- lapply(covariates, range, na.rm = TRUE)
-    base$..vegan_rowid <- seq_len(nrow(base))
-    split <- .comparisonSplit(base, by)
     lev <- levels(dat[[variable]])
     ordered <- is.ordered(dat[[variable]])
     refs <- lapply(seq_along(split), function(g) {
@@ -601,8 +601,14 @@ print.vegan_comparisons <- function(x, ...)
 #' @keywords internal
 .comparisonSplit <- function(dat, by)
 {
+    if (!nrow(dat))
+        stop("'newdata' must contain at least one row")
     if (!length(by))
         return(list(dat))
+    if (any(!by %in% names(dat)))
+        stop("the reference population must contain all 'by' variables")
+    if (anyNA(dat[by], recursive = TRUE))
+        stop("'by' variables must not contain missing values")
     split(dat, interaction(dat[by], drop = TRUE, lex.order = TRUE))
 }
 

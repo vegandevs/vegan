@@ -206,6 +206,12 @@ expect_equal(nrow(imean.by), 6L)
 expect_true(all(imean.by$N.reference == 1L))
 expect_equal(nrow(attr(imean.by, "reference.data")), 2L)
 
+expect_error(ordicontrasts(imod, "trt", by = "season", newdata = data.frame(rep = 1)),
+             pattern = "contain all 'by' variables")
+expect_error(ordicontrasts(imod, "trt", by = "season",
+                           newdata = data.frame(season = c("spring", NA))),
+             pattern = "'by' variables must not contain missing values")
+
 ibal <- ordicomparisons(imod, "trt", newdata = "balanced", permutations = iper)
 iwgt <- ordicomparisons(imod, "trt", by = "season", wts = seq_len(nrow(idat)),
                     permutations = iper)
