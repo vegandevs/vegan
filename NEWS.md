@@ -2,6 +2,20 @@
 
 ## New Functions
 
+* `ordicontrasts` constructs and displays the fitted factor-level profiles
+  underlying comparisons, including their reference population, averaging,
+  fixed values, grouping, and extrapolation status. Stable `b1`, `b2`, ...
+  identifiers allow comparisons to refer directly to displayed rows.
+  Reference populations may use the fitted observations, a balanced grid, a
+  mean-or-mode profile, or explicitly supplied data.
+  `ordicomparisons` tests linear differences among these profiles with
+  contrast-specific permutation pseudo-$F$ statistics. It supports
+  interactions, fitted polynomial and scaling transformations, built-in
+  pairwise and reference comparisons, custom linear
+  equations, joint comparisons and multiple-testing adjustments for `rda`,
+  `cca` and `dbrda` models. See `vignette("comparisons-vegan")` for a
+  practical guide and technical description.
+
 * `influence.cca`: a new wrapper function to return `hatvalues`,
   `rstandard`, `rstudent` and `cooks.distance`. The result can be
   amended with working fitted values, and returned in `tidy` format
@@ -25,6 +39,10 @@
   require separately specified error terms and permutation schemes. The
   compressed `norwegianShelf` data reproduce the paper's Norwegian
   continental-shelf example and provide a published numerical benchmark.
+
+* `anova.cca` accepts `by = "contrast"` as an ANOVA-style interface to
+  `ordicomparisons`. `adonis2(return = "model")` retains its fitted distance
+  model so that comparisons can be performed after fitting.
 
 * `metaMDS` can use any MDS function as an `engine` if the function
   takes as input dissimilarities, initial configuration and number of

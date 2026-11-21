@@ -9,5 +9,7 @@
     xlev <- .getXlevels(Terms, mf)
     ordered <- sapply(mf, is.ordered)
     assign <- attr(d$Y, "assign")
-    list(terms = Terms, assign = assign, xlev = xlev, ordered = ordered)
+    contrasts <- attr(d$Y, "contrasts")
+    list(terms = Terms, assign = assign, xlev = xlev, ordered = ordered,
+         contrasts = contrasts, constraint.terms = d$constraint.terms)
 }

@@ -3,9 +3,10 @@
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
              strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
-             groups = NULL)
+             groups = NULL, return = c("anova", "model"))
 {
     permustat <- match.arg(permustat)
+    return <- match.arg(return)
     group.expr <- substitute(groups)
     ## Do not force 'groups' here: like formula variables, it may exist only
     ## in 'data' and must be evaluated in that environment below.
@@ -80,8 +81,16 @@
     }
     sol <- adonis0(lhs, d$Y, d$Z)
     sol$formula <- match.call()
+    sol$call <- match.call()
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, data)
+    if (!is.null(d$na.action))
+        sol$na.action <- d$na.action
+    if (return == "model") {
+        sol$call$formula <- formula(d$terms, width.cutoff = 500)
+        class(sol) <- c("adonis2_fit", "dbrda", "rda", "cca")
+        return(sol)
+    }
     ## handle permutations
     perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
     out <- anova(sol, permutations = perm, by = by,
@@ -99,6 +108,14 @@
     out
 }
 
+`print.adonis2_fit` <-
+    function(x, ...)
+{
+    cat("\nRetained adonis2 model\n\n")
+    writeLines(strwrap(pasteCall(x$call), width = getOption("width")))
+    invisible(x)
+}
+
 ## adonis0 does the same as ordConstrained, except ordination
 `adonis0` <-
     function(lhs, X, Z)
@@ -114,11 +131,11 @@
     if (!is.null(Z) && ncol(Z)) {
         Z <- scale(Z, scale = FALSE)
         QZ <- qr(Z)
+        pCCA <- list(rank = QZ$rank,
+                     tot.chi = sum(diag(qr.fitted(QZ, G))),
+                     QR = QZ)
         G <- qr.resid(QZ, G)
         G <- qr.resid(QZ, t(G))
-        pCCA <- list(rank = QZ$rank,
-                     tot.chi = rowSums(qr.fitted(QZ, G)),
-                     QR = QZ)
     } else {
         pCCA <- NULL
     }

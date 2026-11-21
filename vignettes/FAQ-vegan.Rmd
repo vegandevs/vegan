@@ -73,6 +73,8 @@ command. The documents included in the **vegan** package are
 -   Discussion on design decisions in **vegan** (`decision-vegan`).
 -   Description of variance partition procedures in function `varpart`
     (`partitioning`).
+-   User guide to focused comparisons in constrained ordination
+    (`comparisons-vegan`).
 
 Web documents outside the package include:
 
@@ -589,5 +591,4 @@ TWINSPAN for R is available in
 [github](https://github.com/jarioksa/twinspan).
 
 ------------------------------------------------------------------------
-
 

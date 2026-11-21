@@ -288,7 +288,8 @@ SEXP do_QR(SEXP x)
  * function, and is called directly the R function */
 
 SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
-             SEXP w, SEXP first, SEXP isPartial, SEXP isCCA, SEXP isDB)
+             SEXP w, SEXP first, SEXP isPartial, SEXP isCCA, SEXP isDB,
+             SEXP isComparison)
 {
     int i, j, k, ki, p, nterms = length(effects),
 	nperm = nrows(perms), nr = nrows(E), nc = ncols(E),
@@ -334,7 +335,7 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
     /* work array and variables for QR decomposition */
     double *qty = (double *) R_alloc(nr, sizeof(double));
     double dummy[1] = {0.0};
-    int info, qrkind;
+    int info, qrkind, one = 1, COMPARISON = asLogical(isComparison);
     /* Weighted methods currently need re-evaluation of QR
        decomposition (probably changed in the future, but now for the
        compatibility with the current code). For this we need to
@@ -437,15 +438,30 @@ SEXP do_getF(SEXP perms, SEXP E, SEXP QR, SEXP QZ,  SEXP effects,
 		wcentre(Xorig, qr, wperm, &nr, &nx);
 	    if (PARTIAL) {
 		qrkind = RESID;
-	        for (i = 0; i < nx; i++)
+	        for (i = 0; i < nx; i++) {
+		    double *xcol = qr + i*nr;
+		    double xnorm = COMPARISON ?
+			F77_CALL(dnrm2)(&nr, xcol, &one) : 0;
 		    F77_CALL(dqrsl)(Zqr, &nr, &nr, &Zqrank, Zqraux,
-	                qr + i*nr, dummy, qty, dummy, qr + i*nr,
+		                xcol, dummy, qty, dummy, xcol,
 	                dummy, &qrkind, &info);
+		    /* A comparison can lie entirely in the permuted
+		     * conditioning space. Compare its residual norm to
+		     * the original norm before testing the remaining rank. */
+		    if (COMPARISON &&
+			F77_CALL(dnrm2)(&nr, xcol, &one) <= qrtol * xnorm)
+			memset(xcol, 0, nr * sizeof(double));
+		}
 	    }
 	    for(i = 0; i < nx; i++)
 	        pivot[i] = i + 1;
 	    F77_CALL(dqrdc2)(qr, &nr, &nr, &nx, &qrtol, &qrank,
 	       qraux, pivot, qrwork);
+	}
+	if (COMPARISON && qrank == 0) {
+	    if (PARTIAL)
+		rans[k + nterms * nperm] = getEV(rY, nr, nc, DISTBASED);
+	    continue;
 	}
 
 	/* qr.fitted(QR, Y) + qr.resid(QR, Y) with LINPACK */
