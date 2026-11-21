@@ -148,6 +148,13 @@ rev.draws <- allPerms(nrow(rev.dat), rev.h)
 expect_error(anova(fit, model = "constraints", permutations = rev.draws),
              pattern = "fitted order")
 
+## Check within-plot constancy on the scale of each constraint column.
+mixed <- transform(dat, large = 1e14 * as.integer(A),
+                   small = as.integer(seq_len(nrow(dat)) == 2L))
+fit <- rda(Y ~ large + small, data = mixed)
+expect_error(anova(fit, model = "constraints", permutations = draws),
+             pattern = "constant within each whole plot")
+
 ## Identical groups yield ties and a p-value of one.
 two <- data.frame(plot=rep(c('a','b'),c(2,5)),A=rep(c(0,1),c(2,5)))
 Ytwo <- matrix(seq_len(7),7)

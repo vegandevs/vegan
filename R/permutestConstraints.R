@@ -108,27 +108,27 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
         X <- X / sqrt(w)
     if (typed) {
         design <- attr(permutations, "control")
-        strata <- getStrata(design, which = "plots")
+        plot <- getStrata(design, which = "plots")
         variables <- getPlots(design)$variables
         target <- rownames(Q$qr)
         if (!is.null(target) && .row_names_info(variables, 1L) > 0L &&
             !identical(rownames(variables), target))
             stop("plot permutations must use the fitted order of observations")
-        first <- which(!duplicated(strata))
-        membership <- match(strata, strata[first])
-        if (!isTRUE(all.equal(unname(X), unname(X[first[membership], , drop = FALSE]),
-                              tolerance = 1e-10, check.attributes = FALSE)))
+        first <- which(!duplicated(plot))
+        membership <- match(plot, plot[first])
+        ## Allow QR reconstruction error on the scale of each column.
+        tol <- 1e-10 * apply(abs(X), 2L, max)
+        delta <- X - X[first[membership], , drop = FALSE]
+        if (any(sweep(abs(delta), 2L, tol, ">")))
             stop("all constraints must be constant within each whole plot")
-        profiles <- variables[first, , drop = FALSE]
-        codes <- lapply(profiles, function(z) factor(match(z, unique(z))))
-        groups <- do.call(interaction, c(codes, list(drop = TRUE)))
-        for (group in levels(groups)) {
-            take <- first[groups == group]
-            expected <- X[rep(take[1L], length(take)), , drop = FALSE]
-            if (!isTRUE(all.equal(unname(X[take, , drop = FALSE]), unname(expected),
-                                  tolerance = 1e-10, check.attributes = FALSE)))
-                stop("Plots(variables) must distinguish all distinct constraint rows")
-        }
+        ## Plots with the same assignment profile must be interchangeable.
+        codes <- lapply(variables[first, , drop = FALSE],
+                        function(z) match(z, unique(z)))
+        profile <- interaction(codes, drop = TRUE)
+        delta <- X[first, , drop = FALSE] -
+            X[first[match(profile, profile)], , drop = FALSE]
+        if (any(sweep(abs(delta), 2L, tol, ">")))
+            stop("Plots(variables) must distinguish all distinct constraint rows")
     }
     if (!is.null(x$pCCA)) {
         message("With conditioning variables, verify that the constraint permutation ",
