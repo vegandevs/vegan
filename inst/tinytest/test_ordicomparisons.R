@@ -701,3 +701,6 @@ partial.dbfit <- dbrda(dune ~ Management + Condition(A1), data = dune.env,
                        distance = "bray")
 expect_true(any(grepl("Retained adonis2 model", capture.output(partial.afit))))
 expect_identical(model.frame(partial.afit), model.frame(partial.dbfit))
+expect_equal(partial.afit$pCCA$tot.chi, partial.dbfit$pCCA$tot.chi)
+expect_equal(partial.afit$tot.chi, partial.afit$pCCA$tot.chi +
+             partial.afit$CCA$tot.chi + partial.afit$CA$tot.chi)
