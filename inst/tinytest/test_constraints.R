@@ -179,3 +179,17 @@ result <- adonis2(smallD ~ constraint, permutations = draw, model = "constraints
 refit <- adonis2(smallD ~ I(constraint[take]), permutations = 0)
 expect_equal(result$F[1], adonis2(smallD ~ constraint, permutations = 0)$F[1])
 expect_equal(attr(result, "F.perm")[1, 1], stat_constraints(refit))
+
+## Losing all residual degrees of freedom gives the same error in workers.
+response <- cbind(c(3, 7, 1, 5), c(1, 2, 8, 0))
+condition <- c(1, 2, 4, 8)
+constraint <- c(2, 7, 5, 3)
+fit <- suppressMessages(rda(response ~ condition + constraint + Condition(condition)))
+draw <- rbind(1:4, c(2, 1, 4, 3))
+expect_error(suppressMessages(permutest(fit, permutations = draw, model = "constraints")),
+             pattern = "no residual degrees of freedom")
+if (.Platform$OS.type == "unix") {
+    expect_error(suppressMessages(permutest(fit, permutations = draw,
+                                           model = "constraints", parallel = 2)),
+                 pattern = "no residual degrees of freedom")
+}

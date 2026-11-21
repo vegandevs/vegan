@@ -139,7 +139,13 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     if (cluster) {
         values <- parLapply(parallel, seq_len(nperm), evaluate)
     } else if (parallel > 1L && .Platform$OS.type == "unix") {
-        values <- mclapply(seq_len(nperm), evaluate, mc.cores = parallel)
+        evaluateFork <- function(i) tryCatch(evaluate(i), error = identity)
+        values <- mclapply(seq_len(nperm), evaluateFork, mc.cores = parallel)
+        failed <- which(vapply(values, inherits, logical(1), "error"))
+        if (length(failed))
+            stop(values[[failed[1L]]])
+        if (any(vapply(values, is.null, logical(1))))
+            stop("a constraint permutation worker returned no result")
     } else if (parallel > 1L) {
         workers <- makeCluster(parallel)
         on.exit(stopCluster(workers))
