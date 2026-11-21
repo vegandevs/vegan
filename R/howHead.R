@@ -2,7 +2,7 @@
 ### permute:::print.how, but only displays non-default choices in how().
 `howHead` <- function(x, ...)
 {
-    ## print nothing is this not 'how'
+    ## Only how() objects describe a permutation design.
     if (is.null(x) || !inherits(x, "how"))
         return()
     ## collect header
@@ -30,13 +30,13 @@
         head <- paste0(head, "\n")
     }
     ## the fine level (within plots if any)
+    variables <- getPlots(x)$variables
+    if (!is.null(variables))
+        return(paste0(head, "Variables: ", paste(names(variables), collapse = ", "),
+                      "\nPermutation: joint constraint rows among plots",
+                      "\nNumber of permutations: ", getNperm(x), "\n"))
     type <- getType(x, which = "within")
-    if (!is.null(getPlots(x)$variables)) {
-        head <- paste0(head, "Variables: ", paste(names(getPlots(x)$variables), collapse = ", "),
-                       "\nPermutation: joint constraint rows among plots")
-    } else {
-        head <- paste0(head, "Permutation: ", type)
-    }
+    head <- paste0(head, "Permutation: ", type)
     if (type %in% c("series", "grid")) {
         if(getMirror(x, which = "within"))
             head <- paste(head, "mirrored")
