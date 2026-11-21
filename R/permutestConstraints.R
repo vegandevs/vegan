@@ -83,9 +83,13 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
                 "scheme is justified conditional on those variables. ",
                 "Condition() alone does not establish exchangeability.")
     }
-    observed <- constraintStatistic(response, X, Z)
-    if (!isTRUE(all.equal(unname(observed['num']), x$CCA$tot.chi, tolerance = 1e-7)))
-        stop("cannot reconstruct this model's original constraint statistic")
+    q <- x$CCA$qrank
+    r <- N - Q$rank - 1L
+    if (r < 1L)
+        stop("the fitted model has no residual degrees of freedom")
+    num <- x$CCA$tot.chi
+    den <- x$CA$tot.chi
+    F.0 <- (num / q) / (den / r)
     evaluate <- function(i) {
         constraintStatistic(response, X[indices[i, ], , drop = FALSE], Z)
     }
@@ -107,11 +111,11 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
         matrix(numeric(), nrow = 0L, ncol = 5L,
                dimnames = list(NULL, c("F", "num", "den", "q", "r")))
     sol <- list(call = match.call(), testcall = x$call, model = "constraints",
-                F.0 = c(Model = unname(observed['F'])),
+                F.0 = c(Model = F.0),
                 F.perm = matrix(values[, 'F'], ncol = 1L),
-                chi = c(Model = x$CCA$tot.chi, Residual = x$CA$tot.chi),
+                chi = c(Model = num, Residual = den),
                 num = values[, 'num'], den = values[, 'den'],
-                df = unname(observed[c('q', 'r')]), nperm = nperm,
+                df = c(q, r), nperm = nperm,
                 method = x$method, inertia = x$inertia, first = FALSE,
                 termlabels = "Model", Random.seed = attr(permutations, "seed"),
                 control = attr(permutations, "control"))
