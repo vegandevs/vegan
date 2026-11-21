@@ -8951,6 +8951,10 @@ REML score: 3.00623
 > ### Example 3: analysis of dissimilarites a.k.a. non-parametric
 > ### permutational anova
 > adonis2(dune ~ ., dune.env, by = "margin")
+
+Some constraints or conditions were aliased because they were redundant.
+This can happen if terms are constant or linearly dependent (collinear).
+‘Manure^4’
 Permutation test for adonis under reduced model
 Marginal effects of terms
 Permutation: free

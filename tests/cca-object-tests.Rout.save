@@ -1185,7 +1185,7 @@ No constrained component
 Model: cca(formula = dune ~ Condition(Management) + Management, data = dune.env)
          Df ChiSquare  F Pr(>F)
 Model     0      0.00  0       
-Residual 19      1.51          
+Residual 16      1.51
 > 
 > anova(mcca, permutations = per, by="term")
 Permutation test for cca under reduced model
@@ -1697,7 +1697,7 @@ No constrained component
 Model: cca(formula = dune ~ Condition(Management) + Management, data = dune.env)
          Df ChiSquare  F Pr(>F)
 Model     0      0.00  0       
-Residual 19      1.51          
+Residual 16      1.51
 > 
 > anova(mcca,   permutations = per, by = "term", parallel = clust)
 Permutation test for cca under reduced model

@@ -107,7 +107,8 @@ perm6 <- rbind(c(2L, 4L, 1L, 6L, 3L, 5L),
 
 ## Use one matrix-valued term so dropping it removes all its columns.
 for (by in list(NULL, "terms", "margin", "onedf")) {
-    ado <- adonis2(d6 ~ group + wide, permutations = perm6, by = by)
+    expect_message(ado <- adonis2(d6 ~ group + wide, permutations = perm6, by = by),
+                   "Some constraints or conditions were aliased")
     ref <- adonis2(d6 ~ group + trend, permutations = perm6, by = by)
     expect_equal(unname(as.matrix(ado)), unname(as.matrix(ref)))
     expect_equal(unname(permustats(ado)$permutations),
@@ -115,7 +116,8 @@ for (by in list(NULL, "terms", "margin", "onedf")) {
 }
 
 ## Both the conditions and the combined model have wide QR matrices.
-ado <- adonis2(d6 ~ group + Condition(wide), permutations = perm6)
+expect_message(ado <- adonis2(d6 ~ group + Condition(wide), permutations = perm6),
+               "Some constraints or conditions were aliased")
 ref <- adonis2(d6 ~ group + Condition(trend), permutations = perm6)
 expect_equal(as.matrix(ado), as.matrix(ref))
 expect_equal(permustats(ado)$permutations, permustats(ref)$permutations)
@@ -125,6 +127,47 @@ ano <- anova(mod, permutations = perm6)
 ref <- anova(cca(dune6 ~ group + Condition(trend)), permutations = perm6)
 expect_equal(as.matrix(ano), as.matrix(ref))
 expect_equal(permustats(ano)$permutations, permustats(ref)$permutations)
+
+## Undefined overall tests leave the permutation argument unevaluated.
+observation <- factor(seq_len(nrow(dune6)))
+expect_warning(ado <- adonis2(d6 ~ observation,
+                             permutations = stop("unexpected permutation request")),
+               "No residual degrees of freedom")
+expect_equal(ado$Df, c(5, 0, 5))
+expect_true(all(is.na(ado$F) & is.na(ado$`Pr(>F)`)))
+expect_null(attr(ado, "F.perm"))
+
+expect_warning(ado <- adonis2(d6 ~ trend + Condition(trend),
+                             permutations = stop("unexpected permutation request")),
+               "No estimable constraints")
+expect_equal(ado$Df, c(0, 4, 5))
+expect_true(all(is.na(ado$`Pr(>F)`)))
+expect_null(attr(ado, "F.perm"))
+
+expect_warning(ado <- adonis2(d6 ~ observation + Condition(observation),
+                             permutations = perm6),
+               "No residual degrees of freedom")
+expect_equal(ado$Df, c(0, 0, 5))
+
+## Duplicated terms have zero marginal df and the other test is unchanged.
+duplicate <- trend
+for (p in list(perm6, perm6[1, , drop = FALSE])) {
+    expect_warning(ado <- adonis2(d6 ~ trend + duplicate + group,
+                                 permutations = p, by = "margin"),
+                   "Marginal tests have zero degrees of freedom for .*trend.*duplicate")
+    expect_equal(ado$Df[1:2], c(0, 0))
+    expect_true(all(is.na(ado$F[1:2]) & is.na(ado$`Pr(>F)`[1:2])))
+    ref <- adonis2(d6 ~ trend + group, permutations = p, by = "margin")
+    expect_equal(as.matrix(ado["group", ]), as.matrix(ref["group", ]))
+    expect_equal(permustats(ado)$statistic, permustats(ref)$statistic["group"])
+    expect_equal(permustats(ado)$permutations,
+                 permustats(ref)$permutations[, 2, drop = FALSE])
+}
+expect_warning(ado <- adonis2(d6 ~ trend + duplicate,
+                             permutations = perm6, by = "margin"),
+               "Marginal tests have zero degrees of freedom")
+expect_true(all(is.na(ado$F) & is.na(ado$`Pr(>F)`)))
+expect_null(attr(ado, "F.perm"))
 
 ### 'by' special cases
 m0 <- cca(dune ~ 1, dune.env)

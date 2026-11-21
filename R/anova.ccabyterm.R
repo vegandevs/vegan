@@ -97,30 +97,38 @@
             permutest(ordConstrained(Y, X[, ass != i, drop = FALSE], Z, "pass"),
                 permutations, ...), ...)
     )
-    ## Chande in df
+    ## Change in residual degrees of freedom
     Df <- sapply(mods, function(x) x$df[2]) - dfbig
+    zero.df <- Df == 0
+    if (any(zero.df))
+        warning("Marginal tests have zero degrees of freedom for ",
+                paste(sQuote(trmlab[zero.df]), collapse = ", "),
+                call. = FALSE)
+    test.df <- replace(Df, zero.df, NA_real_)
     ## F of change
     Chisq <- sapply(mods, function(x) x$chi[2]) - chibig
-    Fstat <- (Chisq/Df)/(chibig/dfbig)
+    Fstat <- (Chisq/test.df)/(chibig/dfbig)
     ## Simulated F-values
-    if (nperm > 0) {
-        Fval <- sapply(mods, function(x){
+    tested <- which(!is.na(Fstat))
+    Pval <- rep(NA_real_, length(Fstat))
+    Fval <- if (length(tested)) NA else NULL
+    if (nperm > 0 && length(tested)) {
+        Fval <- do.call(cbind, lapply(mods[tested], function(x) {
             ## Get the permutation test results for a certain variable
             temp <- x$num
             ## If this variable did not explain any variance, no permutation test
             ## was applied. In that case, give vector with zeroes.
-            if( x$nperm == 0 ) temp <- rep(0, nperm)
+            if (x$nperm == 0)
+                temp <- rep(0, nperm)
             return(temp)
-        })
+        }))
         ## Calculate explained variance
         Fval <- sweep(-Fval, 1, big$num, "+")
-        Fval <- sweep(Fval, 2, Df, "/")
+        Fval <- sweep(Fval, 2, test.df[tested], "/")
         Fval <- sweep(Fval, 1, scale, "/")
         ## Simulated P-values
-        Pval <- (colSums(sweep(Fval, 2, Fstat - EPS, ">=")) + 1)/(nperm + 1)
-    } else {
-        Fval <- NA
-        Pval <- rep(NA, length(Fstat))
+        Pval[tested] <- (colSums(sweep(Fval, 2, Fstat[tested] - EPS, ">=")) + 1) /
+            (nperm + 1)
     }
     ## Collect results to anova data.frame
     out <- data.frame(c(Df, dfbig), c(Chisq, chibig),
