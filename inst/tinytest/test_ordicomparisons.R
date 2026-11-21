@@ -591,6 +591,10 @@ atab.adj <- anova(mod, by = "contrast", variable = "Management", adjust = "holm"
 expect_equal(atab.adj[["Pr(>F).adj"]], pw[["Pr(>F).adj"]])
 expect_match(paste(capture.output(print(atab.adj)), collapse = "\n"), "Pr(>F).adj",
              fixed = TRUE)
+atab.grouped <- anova(imod, "trt", "pairwise", NULL, NULL, "season",
+                     by = "contrast", permutations = iper)
+expect_equal(atab.grouped$F, iby$F)
+expect_true(all(endsWith(rownames(atab.grouped), paste0("(season = ", iby$season, ")"))))
 expect_error(anova(mod, by = "contrast", variable = "Management",
                    test = "parametric"),
              info = "contrast bridge rejects parametric F test")

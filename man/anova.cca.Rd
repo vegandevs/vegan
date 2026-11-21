@@ -58,8 +58,9 @@
     \code{"margin"} can be used only with models fitted with
     formula. In \code{anova}, \code{by = "contrast"} calls
     \code{\link{ordicomparisons}} using arguments supplied through \code{\dots}
-    and returns an ANOVA table with adjusted p-values when requested.
-    This option requires a reduced-model permutation test with \code{permustat = "pseudo-F"}.
+    and returns an ANOVA table. Grouping values appear in the row labels,
+    and adjusted p-values are included when requested. This option requires
+    a reduced-model permutation test with \code{permustat = "pseudo-F"}.
     \code{by} cannot be used together with
     \code{first = TRUE}.}
 

@@ -1076,7 +1076,15 @@ print.vegan_comparisons <- function(x, ...)
                    object$adjust == 1)
         "SumOfSqs" else if (inherits(object, "rda")) "Variance" else "ChiSquare"
     names(keep)[2L] <- varname
-    rownames(keep) <- make.unique(x$Comparison)
+    labels <- x$Comparison
+    group <- seq_len(match("Comparison", names(x)) - 1L)
+    if (length(group)) {
+        values <- Map(function(nm, value) paste(nm, value, sep = " = "),
+                      attr(x, "by"), x[group])
+        labels <- paste0(labels, " (",
+                         do.call(paste, c(unname(values), sep = ", ")), ")")
+    }
+    rownames(keep) <- make.unique(labels)
     attr(keep, "heading") <- c("Permutation test for specified comparisons\n",
                                paste("Model:", c(object$call)))
     attr(keep, "Random.seed") <- attr(x, "Random.seed")
