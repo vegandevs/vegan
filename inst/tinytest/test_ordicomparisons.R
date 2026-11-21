@@ -693,3 +693,11 @@ offset.large.cmp <- ordicomparisons(offset.large.mod, "g",
     comparison = "deviation", permutations = units.per)
 expect_equal(offset.large.cmp$F, offset.cmp$F, tolerance = 1e-8)
 expect_equal(offset.large.cmp[["Pr(>F)"]], offset.cmp[["Pr(>F)"]])
+
+### Retained partial adonis2 fits support printing and model frame recovery
+partial.afit <- adonis2(dune ~ Management + Condition(A1), data = dune.env,
+                         return = "model")
+partial.dbfit <- dbrda(dune ~ Management + Condition(A1), data = dune.env,
+                       distance = "bray")
+expect_true(any(grepl("Retained adonis2 model", capture.output(partial.afit))))
+expect_identical(model.frame(partial.afit), model.frame(partial.dbfit))

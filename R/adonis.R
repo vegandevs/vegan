@@ -87,6 +87,7 @@
     if (!is.null(d$na.action))
         sol$na.action <- d$na.action
     if (return == "model") {
+        sol$call$formula <- formula(d$terms, width.cutoff = 500)
         class(sol) <- c("adonis2_fit", "dbrda", "rda", "cca")
         return(sol)
     }
@@ -105,6 +106,14 @@
     att$row.names <- rownames(out)
     attributes(out) <- att
     out
+}
+
+`print.adonis2_fit` <-
+    function(x, ...)
+{
+    cat("\nRetained adonis2 model\n\n")
+    writeLines(strwrap(pasteCall(x$call), width = getOption("width")))
+    invisible(x)
 }
 
 ## adonis0 does the same as ordConstrained, except ordination

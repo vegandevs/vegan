@@ -182,7 +182,8 @@ in the \pkg{ade4} package) for both crossed and nested factors.
   1. With \code{return = "model"}, the function returns an object of
   class \code{"adonis2_fit"} that inherits from \code{"dbrda"},
   \code{"rda"}, and \code{"cca"}. The retained fit can be passed to
-  \code{ordicomparisons}; no permutation test is run until requested.
+  \code{ordicomparisons}. The fit is stored without calculating ordination
+  scores. Permutation tests are run when requested after fitting.
 
 }
 

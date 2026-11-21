@@ -396,6 +396,7 @@ S3method(predict, specaccum)
 # print: base
 S3method(print, CCorA)
 S3method(print, MOStest)
+S3method(print, adonis2_fit)
 S3method(print, anosim)
 S3method(print, rad)
 S3method(print, betadisper)
