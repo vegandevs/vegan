@@ -285,7 +285,14 @@ ordicomparisons.vegan_contrasts <-
     pivot <- Q$pivot[tested] - nz
     triangular <- qr.R(Q)[tested, tested, drop = FALSE]
     basis <- qr.qy(Q, diag(nrow = nrow(Q$qr), ncol = Q$rank))
-    perm <- getPermuteMatrix(permutations, nrow(basis), strata = strata)
+    n <- nrow(basis)
+    if (is.matrix(permutations) &&
+        (!is.numeric(permutations) || is.complex(permutations) ||
+         ncol(permutations) != n ||
+         anyNA(permutations) || any(permutations < 1L | permutations > n) ||
+         any(apply(permutations, 1L, anyDuplicated) > 0L)))
+        stop("each row of 'permutations' must contain each observation once")
+    perm <- getPermuteMatrix(permutations, n, strata = strata)
 
     global <- .comparisonUsesProfileRows(comparison, ids, length(lev))
     if (global) {

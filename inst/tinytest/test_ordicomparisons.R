@@ -125,6 +125,11 @@ pw <- ordicomparisons(mod, "Management", permutations = per, adjust = "holm")
 expect_equal(nrow(pw), choose(nlevels(dune.env$Management), 2))
 expect_true("Pr(>F).adj" %in% names(pw))
 expect_true(all(pw$N.Perm == nrow(per)))
+### Supplied permutations must contain each observation exactly once
+bad.per <- per
+bad.per[1L, 1L] <- bad.per[1L, 2L]
+expect_error(ordicomparisons(mod, "Management", permutations = bad.per),
+             "must contain each observation once")
 expect_inherits(attr(pw, "model"), "rda")
 
 ctrl <- ordicomparisons(mod, "Management", comparison = "trt.vs.ctrl",
