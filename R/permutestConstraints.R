@@ -45,9 +45,19 @@ permutestConstraints <- function(x, permutations, strata, parallel, permustat, g
     if (!typed && any(apply(indices, 1L, function(i)
         !identical(sort(as.integer(i)), seq_len(N)))))
         stop("ordinary constraint permutations must contain each row index once")
-    matrices <- model.matrix(x)
-    Z <- if (is.list(matrices)) matrices$Conditions else NULL
-    X <- if (is.list(matrices)) matrices$Constraints else matrices
+    ## The joint QR stores the centred conditions before the constraints,
+    ## even when the conditions explain zero inertia.
+    Q <- x$CCA$QR
+    QZ <- x$pCCA$QR
+    ncond <- length(QZ$pivot)
+    X <- qr.X(Q, ncol = length(Q$pivot))
+    Z <- X[, seq_len(ncond), drop = FALSE]
+    X <- X[, seq.int(ncond + 1L, ncol(X)), drop = FALSE]
+    w <- attr(response, "RW")
+    if (!is.null(w)) {
+        X <- X / sqrt(w)
+        Z <- Z / sqrt(w)
+    }
     if (typed) {
         design <- attr(permutations, "control")
         strata <- getStrata(design, which = "plots")

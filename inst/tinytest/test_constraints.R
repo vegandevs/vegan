@@ -158,3 +158,17 @@ explicit <- anova(smallfit, model = "constraints", permutations = allrows)
 generated <- suppressMessages(anova(smallfit, model = "constraints",
     permutations = how(observed = TRUE, complete = TRUE)))
 expect_equal(generated$`Pr(>F)`, explicit$`Pr(>F)`)
+
+## A condition can use degrees of freedom while explaining zero inertia.
+condition <- rep(c(-1, 1), each = 4)
+constraint <- c(1, 4, 6, 2, 3, 8, 9, 5)
+response <- cbind(c(-3, -1, 1, 3, -3, -1, 1, 3),
+                  c(5, 3, -3, -5, 1, -1, -3, 3))
+fit <- rda(response ~ constraint + Condition(condition))
+take <- c(8, 3, 6, 7, 1, 4, 2, 5)
+draw <- matrix(take, nrow = 1)
+refit <- rda(response ~ I(constraint[take]) + Condition(condition))
+result <- suppressMessages(permutest(fit, permutations = draw, model = "constraints"))
+expect_equal(fit$pCCA$rank, 0)
+expect_equal(result$df, c(1, 5))
+expect_equal(result$F.perm[1, 1], stat_constraints(refit))
