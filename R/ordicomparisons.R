@@ -183,23 +183,27 @@ ordicomparisons.vegan_contrasts <-
         stop("each row of 'permutations' must contain each observation once")
     perm <- getPermuteMatrix(permutations, n, strata = strata)
 
-    global <- .comparisonUsesProfileRows(comparison, ids, length(lev))
-    if (global) {
-        A <- .comparisonContrasts(comparison, ids, reference = NULL)
+    weights <- .comparisonContrastSets(comparison, ids, lev, reference)
+    contrasts <- lapply(split(weights, names(weights)), function(z)
+        do.call(rbind, unname(z)))
+    make.specs <- function(A, R, group) {
         L <- .comparisonMatrix(A, R)
-        specs <- lapply(seq_len(nrow(A)), function(i)
+        lapply(seq_len(nrow(A)), function(i)
             list(label = rownames(A)[i], L = L[i, , drop = FALSE],
-                 group = NULL))
-    } else {
-        specs <- unlist(lapply(unique(groups), function(g) {
-            take <- which(groups == g)
-            A <- .comparisonContrasts(comparison, lev, reference)
-            L <- .comparisonMatrix(A, R[take, , drop = FALSE])
-            group <- attr(object, "reference")[[g]]$group
-            lapply(seq_len(nrow(A)), function(i)
-                list(label = rownames(A)[i],
-                     L = L[i, , drop = FALSE], group = group))
-        }), recursive = FALSE)
+                 group = group))
+    }
+    specs <- list()
+    if (!is.null(contrasts$level)) {
+        refs <- attr(object, "reference")
+        specs <- unlist(lapply(unique(groups), function(g)
+            make.specs(contrasts$level, R[groups == g, , drop = FALSE],
+                       refs[[g]]$group)), recursive = FALSE)
+    }
+    if (!is.null(contrasts$profile)) {
+        ## Explicit profile comparisons have no single group in a mixed table.
+        group <- if (length(by) && length(specs))
+            specs[[1L]]$group[NA_integer_, , drop = FALSE] else NULL
+        specs <- c(specs, make.specs(contrasts$profile, R, group))
     }
     if (joint && length(specs) > 1L) {
         L <- do.call(rbind, lapply(specs, `[[`, "L"))
@@ -505,9 +509,6 @@ print.vegan_comparisons <- function(x, ...)
             !inherits(expr, "try-error") && any(all.vars(expr) %in% ids)
         }, logical(1))))
     }
-    if (is.list(comparison))
-        return(any(vapply(comparison, .comparisonUsesProfileRows, logical(1),
-                          ids = ids, nlevels = nlevels)))
     if (is.numeric(comparison)) {
         n <- if (is.matrix(comparison)) ncol(comparison) else length(comparison)
         keys <- if (is.matrix(comparison)) colnames(comparison)
@@ -517,6 +518,30 @@ print.vegan_comparisons <- function(x, ...)
         return(length(ids) != nlevels && n == length(ids))
     }
     FALSE
+}
+
+.comparisonContrastSets <- function(comparison, ids, levels, reference)
+{
+    if (!length(comparison))
+        stop("'comparison' must contain at least one specification")
+    if (!is.list(comparison)) {
+        if (.comparisonUsesProfileRows(comparison, ids, length(levels)))
+            return(list(profile = .comparisonContrasts(comparison, ids)))
+        return(list(level = .comparisonContrasts(comparison, levels, reference)))
+    }
+
+    sets <- lapply(comparison, .comparisonContrastSets, ids = ids,
+                   levels = levels, reference = reference)
+    labels <- names(sets)
+    for (i in which(!is.na(labels) & nzchar(labels))) {
+        one <- sum(vapply(sets[[i]], nrow, integer(1))) == 1L
+        sets[[i]] <- lapply(sets[[i]], function(A) {
+            rownames(A) <- if (one) labels[i] else
+                paste(labels[i], rownames(A), sep = ": ")
+            A
+        })
+    }
+    do.call(c, unname(sets))
 }
 
 .comparisonContrasts <- function(comparison, keys, reference = NULL)
@@ -561,17 +586,6 @@ print.vegan_comparisons <- function(x, ...)
         rownames(A) <- if (!is.null(names(comparison)) &&
                            all(nzchar(names(comparison)))) names(comparison)
                       else comparison
-    } else if (is.list(comparison)) {
-        matrices <- lapply(comparison, .comparisonContrasts, keys = keys,
-                           reference = reference)
-        labels <- names(matrices)
-        for (i in which(!is.na(labels) & nzchar(labels))) {
-            mat <- matrices[[i]]
-            rownames(mat) <- if (nrow(mat) == 1L) labels[i]
-                             else paste(labels[i], rownames(mat), sep = ": ")
-            matrices[[i]] <- mat
-        }
-        A <- do.call(rbind, unname(matrices))
     } else if (is.numeric(comparison)) {
         if (is.matrix(comparison)) {
             A <- comparison
@@ -776,10 +790,11 @@ print.vegan_comparisons <- function(x, ...)
     labels <- x$Comparison
     group <- seq_len(match("Comparison", names(x)) - 1L)
     if (length(group)) {
+        grouped <- !is.na(x[[group[1L]]])
         values <- Map(function(nm, value) paste(nm, value, sep = " = "),
-                      attr(x, "by"), x[group])
-        labels <- paste0(labels, " (",
-                         do.call(paste, c(unname(values), sep = ", ")), ")")
+                      attr(x, "by"), x[grouped, group, drop = FALSE])
+        labels[grouped] <- paste0(labels[grouped], " (",
+                                  do.call(paste, c(unname(values), sep = ", ")), ")")
     }
     rownames(keep) <- make.unique(labels)
     attr(keep, "heading") <- c("Permutation test for specified comparisons\n",

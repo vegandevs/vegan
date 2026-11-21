@@ -100,6 +100,9 @@ instead addresses exactly those rows, even when they belong to different
 groups. The identifiers refer to profile rows, never to encoded model
 coefficients, previously computed comparisons, inertias, or pseudo-\eqn{F}
 statistics.
+List entries are resolved individually, so a single list can contain both
+within-group and explicit profile-row comparisons. The within-group results
+appear first. The profile-row results have missing values in grouping columns.
 
 Each requested comparison is tested separately by default. With
 \code{joint = TRUE}, their compiled design-space rows are stacked, reduced to

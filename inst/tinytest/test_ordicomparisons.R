@@ -216,6 +216,29 @@ expect_true("season" %in% names(iby))
 expect_equal(nrow(idiff), 1L)
 expect_equal(iby$F, iby.sc$F, tolerance = 1e-8,
              info = "grouped model and profile interfaces agree")
+between <- ordicomparisons(isc, "b4 - b1 = 0", permutations = iper)
+mixed.spec <- list(within = "pairwise", between = "b4 - b1 = 0")
+mixed <- ordicomparisons(isc, mixed.spec, permutations = iper, adjust = "holm")
+expect_equal(mixed$F, c(iby.sc$F, between$F))
+expect_identical(mixed$season, iby.sc$season[c(seq_len(nrow(iby.sc)), NA_integer_)])
+expect_identical(mixed$Comparison,
+                 c(paste("within", iby.sc$Comparison, sep = ": "), "between"))
+expect_equal(mixed[["Pr(>F).adj"]],
+             p.adjust(c(iby.sc[["Pr(>F)"]], between[["Pr(>F)"]]), method = "holm"))
+mixed.joint <- ordicomparisons(isc, mixed.spec, permutations = iper, joint = TRUE)
+omnibus <- anova(imod, permutations = iper)
+expect_equal(mixed.joint$Df, omnibus$Df[1L])
+expect_equal(mixed.joint$F, omnibus$F[1L])
+mixed.tab <- anova(imod, "trt", mixed.spec, NULL, NULL, "season",
+                   by = "contrast", permutations = iper)
+expect_equal(mixed.tab$F, mixed$F)
+expect_identical(tail(rownames(mixed.tab), 1L), "between")
+mixed.nested <- ordicomparisons(isc,
+    list(plan = list(within = "pairwise",
+                     between = c(b1 = -1, b2 = 0, b3 = 0, b4 = 1, b5 = 0, b6 = 0))),
+    permutations = iper)
+expect_equal(mixed.nested$F, mixed$F)
+expect_identical(mixed.nested$Comparison, paste("plan", mixed$Comparison, sep = ": "))
 expect_equal(nrow(isc), 6L)
 expect_true(all(isc$N.reference == 12L))
 expect_identical(attr(isc, "averaged"), character())
