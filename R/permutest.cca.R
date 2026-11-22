@@ -6,11 +6,22 @@ permutest.default <- function(x, ...)
 
 `permutest.cca` <-
     function (x, permutations = how(nperm=99),
-              model = c("reduced", "direct", "full"), by = NULL, first = FALSE,
+              model = c("reduced", "direct", "full", "constraints"),
+              by = NULL, first = FALSE,
               strata = NULL, parallel = getOption("mc.cores"), ...,
               permustat = c("pseudo-F", "modified-F"), groups = NULL)
 {
+    model <- match.arg(model)
     permustat <- match.arg(permustat)
+    if (model == "constraints") {
+        if (!is.null(by) || first)
+            stop("constraint permutations support overall tests ",
+                 "(by = NULL, first = FALSE)")
+        return(permutestConstraints(x, permutations, strata, parallel, permustat))
+    }
+    if (inherits(permutations, "plotPermutations") ||
+        (inherits(permutations, "how") && !is.null(getPlots(permutations)$variables)))
+        stop('plot variable permutations require model = "constraints"')
     if (permustat == "modified-F") {
         if (inherits(x, "capscale"))
             stop("'permustat = \"modified-F\"' is not available for capscale")
@@ -40,7 +51,6 @@ permutest.default <- function(x, ...)
         if (by == "terms" && is.null(x$terminfo))
             stop("by='terms' needs a model fitted with a formula")
     }
-    model <- match.arg(model)
     ## special cases
     w <- attr(ordiYbar(x, "initial"), "RW")
     isCCA <- !is.null(w)

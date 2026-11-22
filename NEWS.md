@@ -16,6 +16,14 @@
 
 ## New Features
 
+* `anova.cca`, `permutest.cca` and `adonis2` gain `model = "constraints"`
+  for joint permutation of fitted constraint matrix rows in `rda`, `cca`,
+  `dbrda`, `capscale` and PERMANOVA. The mode supports ordinary row
+  permutations and expanded whole-plot variable permutations supplied by
+  permute, including unequal replication and joint factor combinations.
+  The implementation uses stored matrix information and emits a message about
+  exchangeability assumptions when conditioning variables are present.
+
 * `adonis2`, `anova.cca` and `permutest.cca` can use the modified
   pseudo-*F* statistic of Anderson et al. (2017) for omnibus tests that
   allow heterogeneous within-group dispersions, selected with

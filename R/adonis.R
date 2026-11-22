@@ -3,8 +3,10 @@
              sqrt.dist = FALSE, add = FALSE, by = NULL,
              parallel = getOption("mc.cores"), na.action = na.fail,
              strata = NULL, ..., permustat = c("pseudo-F", "modified-F"),
-             groups = NULL)
+             groups = NULL,
+             model = c("reduced", "direct", "full", "constraints"))
 {
+    model <- match.arg(model)
     permustat <- match.arg(permustat)
     group.expr <- substitute(groups)
     ## Do not force 'groups' here: like formula variables, it may exist only
@@ -80,11 +82,13 @@
     }
     sol <- adonis0(lhs, d$Y, d$Z)
     sol$formula <- match.call()
+    sol$call <- match.call()
     sol$terms <- d$terms
     sol$terminfo <- ordiTerminfo(d, data)
-    ## handle permutations
-    perm <- getPermuteMatrix(permutations, NROW(lhs), strata = strata)
-    out <- anova(sol, permutations = perm, by = by,
+    if (!is.null(d$na.action))
+        sol$na.action <- d$na.action
+    out <- anova(sol, permutations = permutations, by = by, model = model,
+                 strata = strata,
                  parallel = parallel, permustat = permustat, groups = groups)
     ## attributes will be lost when adding a new column
     att <- attributes(out)
@@ -114,11 +118,11 @@
     if (!is.null(Z) && ncol(Z)) {
         Z <- scale(Z, scale = FALSE)
         QZ <- qr(Z)
+        pCCA <- list(rank = QZ$rank,
+                     tot.chi = sum(diag(qr.fitted(QZ, G))),
+                     QR = QZ)
         G <- qr.resid(QZ, G)
         G <- qr.resid(QZ, t(G))
-        pCCA <- list(rank = QZ$rank,
-                     tot.chi = rowSums(qr.fitted(QZ, G)),
-                     QR = QZ)
     } else {
         pCCA <- NULL
     }
