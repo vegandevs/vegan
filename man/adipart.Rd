@@ -16,11 +16,12 @@ according to a nested hierarchical sampling design (\code{hiersimu}).
 }
 \usage{
 adipart(...)
-\method{adipart}{default}(y, x, index, weights=c("unif", "prop"),
+\method{adipart}{default}(y, x, index=c("richness", "shannon", "simpson",
+    "invsimpson", "hill1", "hill2"), weights=c("unif", "prop"),
     relative = FALSE, nsimul=99, method = "r2dtable", ...)
-\method{adipart}{formula}(formula, data, index=c("richness", "shannon", "simpson"),
-    weights=c("unif", "prop"), relative = FALSE, nsimul=99,
-    method = "r2dtable", ...)
+\method{adipart}{formula}(formula, data, index=c("richness", "shannon", "simpson",
+    "invsimpson", "hill1", "hill2"), weights=c("unif", "prop"),
+    relative = FALSE, nsimul=99, method = "r2dtable", ...)
 
 hiersimu(...)
 \method{hiersimu}{default}(y, x, FUN, location = c("mean", "median"),

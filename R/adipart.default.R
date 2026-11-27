@@ -1,9 +1,10 @@
 `adipart.default` <-
-    function(y, x, index, weights=c("unif", "prop"), relative = FALSE,
+    function(y, x, index=c("richness", "shannon", "simpson",
+             "invsimpson", "hill1", "hill2"),
+             weights=c("unif", "prop"), relative = FALSE,
              nsimul=99, method = "r2dtable", ...)
 {
-    index <- match.arg(index, c("richness", "shannon", "simpson",
-                                "invsimpson", "hill1", "hill2"))
+    index <- match.arg(index)
     ## evaluate formula
     lhs <- as.matrix(y)
     if (missing(x))
